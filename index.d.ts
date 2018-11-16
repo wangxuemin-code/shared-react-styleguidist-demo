@@ -1,13 +1,13 @@
-import * as React from 'react';
+export * from './src';
 
-export interface HelloWorldProps extends React.Props<HelloWorld> {
-  color: string;
-}
+// export interface HelloWorldProps extends React.Props<HelloWorld> {
+//   color: string;
+// }
 
-declare class HelloWorld extends React.Component<HelloWorldProps, any> {}
+// declare class HelloWorld extends React.Component<HelloWorldProps, any> {}
 
-declare module 'hello-world' {
+// declare module 'hello-world' {
 
-}
+// }
 
-export default HelloWorld;
+// export default HelloWorld;
