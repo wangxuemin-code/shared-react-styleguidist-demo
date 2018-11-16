@@ -1,0 +1,22 @@
+.container {
+  background: #dedede;
+  border: 2px solid #b3b3b3;
+  border-radius: 3px;
+  color: #909090;
+}
+
+.deadline {
+  padding: 2px;
+  text-align: center;
+  position: relative;
+  border-right: 1px solid #c7c4c4;
+}
+
+.deadline:last-of-type {
+  border-right: none;
+}
+
+.deadline.active {
+  background: #1e998c;
+  color: rgb(234, 234, 234);
+}
