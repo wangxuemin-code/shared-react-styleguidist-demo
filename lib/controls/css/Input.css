@@ -1,0 +1,19 @@
+.input {
+  font-size: 12px;
+  height: 30px;
+  border-radius: 2px;
+}
+
+.input-append {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  font-size: 12px;
+  color: #6f6f6f;
+  position: absolute;
+  line-height: 31px;
+  background-color: #cccccc;
+  padding: 0px 15px;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+}

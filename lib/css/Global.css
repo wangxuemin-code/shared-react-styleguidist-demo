@@ -1,0 +1,79 @@
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #f9f9f9;
+}
+
+html {
+  height: 100%;
+}
+
+.header {
+  position: fixed;
+  height: 67px; /* must be same value with body pad top */
+  min-width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.full-width {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.responsive {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.normal-text {
+  font-weight: normal;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.light-bold {
+  font-weight: 500;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/** to set vertical align of inline block object center vertically */
+.vertical-align-sub {
+  vertical-align: sub;
+}
+
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
