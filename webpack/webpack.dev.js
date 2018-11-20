@@ -6,6 +6,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8200;
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
@@ -56,7 +57,13 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
 
     // do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'istox.css'
+    })
   ],
   module: {
     // loaders -> rules in webpack 2
@@ -121,6 +128,10 @@ module.exports = {
         use: [
           {
             loader: 'style-loader'
+          },
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {}
           },
           {
             loader: 'typings-for-css-modules-loader',

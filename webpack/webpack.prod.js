@@ -6,10 +6,23 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: {
     'istox-shared': './src/index-prod.ts'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true // set to true if you want JS source maps
+      }),
+      new OptimizeCSSAssetsPlugin({})
+    ]
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -21,7 +34,13 @@ module.exports = {
     new webpack.IgnorePlugin(/test\.ts$/),
 
     // do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'istox.css'
+    })
   ],
   module: {
     // loaders -> rules in webpack 2
@@ -79,6 +98,10 @@ module.exports = {
         use: [
           {
             loader: 'style-loader'
+          },
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {}
           },
           {
             loader: 'typings-for-css-modules-loader',
