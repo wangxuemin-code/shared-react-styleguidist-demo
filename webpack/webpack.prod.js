@@ -72,7 +72,10 @@ module.exports = {
         include: commonPaths.srcPath,
         use: [
           {
-            loader: ['babel-loader', 'awesome-typescript-loader'],
+            loader: 'babel-loader'
+          },
+          {
+            loader: 'awesome-typescript-loader',
             options: {
               happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
             }
