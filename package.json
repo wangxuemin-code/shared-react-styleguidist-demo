@@ -5,8 +5,9 @@
   "main": "build/index.js",
   "typings": "build/index-prod.d.ts",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env=prod",
-    "start": "./node_modules/.bin/webpack-dev-server --mode development --open --config ./webpack/webpack.config.js --env.env=dev",
+    "build-theme": "./node_modules/.bin/tsc --target 'ES5' --declaration ./src/css/theme/theme.ts",
+    "build": "npm run build-theme && ./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env=prod",
+    "start": "npm run build-theme && ./node_modules/.bin/webpack-dev-server --mode development --open --config ./webpack/webpack.config.js --env.env=dev",
     "postinstall": "npm run build"
   },
   "author": "",
@@ -27,6 +28,7 @@
     "mini-css-extract-plugin": "^0.4.4",
     "moment": "^2.22.2",
     "node-sass": "^4.10.0",
+    "node-sass-utils": "^1.1.2",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-custom-properties": "^8.0.9",
     "postcss-import": "^12.0.1",

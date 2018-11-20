@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BorderStyleProperty, BorderColorProperty } from 'csstype';
-import * as styles from '../css/Global.scss';
+import * as styles from '../css/main.scss';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 interface IDirectionShort {
@@ -190,8 +190,8 @@ export class Container extends React.Component<IContainer, any> {
     if (this.props.tooltip) {
       return (
         <OverlayTrigger
-          overlay={<Tooltip id="tooltip">{this.props.tooltip}</Tooltip>}
-          placement="top"
+          overlay={<Tooltip id='tooltip'>{this.props.tooltip}</Tooltip>}
+          placement='top'
           delayShow={10}
           delayHide={10}
         >

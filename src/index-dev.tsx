@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Container } from './controls';
 import * as ReactDOM from 'react-dom';
-import * as styles from './css/Global.scss';
+import * as styles from './css/main.scss';
 
 const render = () => {
   ReactDOM.render(
