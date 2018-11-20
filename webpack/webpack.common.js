@@ -15,27 +15,21 @@ const envKeys = Object.keys(process.env).reduce((prev, next) => {
 
 const config = {
   target: 'web',
-  entry: {
-    bundle: './src/index.tsx'
-  },
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
     extensions: ['.ts', '.tsx', '.js']
   },
   output: {
-    filename: 'static/js/[name].[hash].js',
+    filename: 'index.js',
     path: commonPaths.outputPath,
 
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].chunk.js',
+    // chunkFilename: '[name].chunk.js',
 
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: './'
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
+    publicPath: './',
+    library: 'ISTOX',
+    libraryTarget: 'umd'
   },
   plugins: [
     new webpack.DefinePlugin(envKeys),

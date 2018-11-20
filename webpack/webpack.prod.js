@@ -7,37 +7,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
 
-const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8200;
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-const host = process.env.HOST || '0.0.0.0';
-
 module.exports = {
   entry: {
-    'istox-shared': './src/index-dev.tsx'
-  },
-  // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
-  devtool: 'inline-source-map',
-  output: {
-    // Add /* filename */ comments to generated require()s in the output.
-    pathinfo: true
-  },
-  devServer: {
-    // All options here: https://webpack.js.org/configuration/dev-server/
-
-    hot: true, // enable HMR on the server
-    contentBase: commonPaths.contentBasePath, // match the output path
-    publicPath: '/', // match the output `publicPath`
-    host,
-    https: protocol === 'https',
-    port: DEFAULT_PORT,
-    disableHostCheck: true,
-    historyApiFallback: true,
-    // All the stats options here: https://webpack.js.org/configuration/stats/
-    stats: {
-      colors: true, // color is life
-      chunks: false, // this reduces the amount of stuff I see in my terminal; configure to your needs
-      'errors-only': true
-    }
+    'istox-shared': './src/index-prod.ts'
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -46,14 +18,7 @@ module.exports = {
       template: `${commonPaths.contentBasePath}/index.html`
     }),
 
-    // ignore *.css.d.ts which cause problems integrated with HMR
-    new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
-
-    // // enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
-
-    // // prints more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
+    new webpack.IgnorePlugin(/test\.ts$/),
 
     // do not emit compiled assets that include errors
     new webpack.NoEmitOnErrorsPlugin()
