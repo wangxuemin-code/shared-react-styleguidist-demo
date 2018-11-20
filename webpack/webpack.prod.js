@@ -68,24 +68,14 @@ module.exports = {
       },
       {
         test: /\.ts(x?)$/,
-        exclude: /node_modules/,
-        include: commonPaths.srcPath,
         use: [
           {
-            loader: 'babel-loader'
-          },
-          {
-            loader: 'awesome-typescript-loader',
-            options: {
-              happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
-            }
+            loader: 'awesome-typescript-loader'
           }
         ]
       },
       {
         test: /\.(css|scss)$/i,
-        exclude: [/node_modules/],
-        include: commonPaths.srcPath,
         use: [
           {
             loader: 'style-loader'
