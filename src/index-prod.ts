@@ -1,5 +1,5 @@
-import * as controls from './controls';
-import * as theme from './css/theme';
-import * as styles from './css/main.scss';
+import * as Controls from './controls';
+import * as Theme from './css/theme';
+import * as Styles from './css/main.scss';
 
-export { controls, theme, styles };
+export { Controls, Theme, Styles };
