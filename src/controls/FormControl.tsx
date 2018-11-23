@@ -1,0 +1,191 @@
+import * as React from 'react';
+import * as styles from '../css/main.scss';
+import { Container, IContainer } from './Container';
+import { Message } from './Message';
+import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import Formatter from '../helpers/Formatter';
+
+interface IState {
+  displayValue?: string;
+  value?: string | number;
+  error?: string;
+}
+
+interface IProps extends IContainer {
+  fullWidth?: boolean;
+  defaultValue?: string | number;
+  placeholder?: string;
+  type?: 'text' | 'number' | 'money' | 'static';
+  name?: string;
+  disabled?: boolean;
+  onInputChanged?: (value: string | number) => void;
+  append?: any;
+  label?: string;
+  required?: boolean;
+  validateReturnError?: (value: string | number | undefined) => string | undefined;
+}
+
+interface IProcessResult {
+  displayValue: string;
+  value: string | number;
+}
+
+export class FormControl extends React.Component<IProps, IState> {
+  public static defaultProps: IProps = {
+    type: 'text',
+    name: ''
+  };
+
+  constructor(props: IProps) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+    this.defaultValueChanged(true);
+  }
+
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.defaultValue !== this.props.defaultValue) {
+      this.defaultValueChanged(false);
+    }
+  }
+
+  public render() {
+    const classes: string[] = [styles.formControlsWrapper];
+    if (this.state.error) {
+      classes.push('error');
+    }
+
+    return (
+      <div className={styles.mainFormControlsWrapper}>
+        <Container {...this.props} className={classes.join(' ')}>
+          <label>
+            {this.props.label}
+            {this.props.required && <span className={styles.required}>*</span>}
+          </label>
+
+          <Container position={'relative'}>
+            {this.getControlDesign()}
+            {this.getInputAppendDesign(this.props.append)}
+            <input type='hidden' name={this.props.name} value={this.state.value} />
+          </Container>
+        </Container>
+        <Container {...this.props} className={styles.formControlsWrapper}>
+          <span />
+
+          <Message error={this.state.error} />
+        </Container>
+      </div>
+    );
+  }
+
+  public getValue(): string {
+    if (!this.state.value) {
+      return '';
+    } else {
+      if (typeof this.state.value === 'number') {
+        return String(this.state.value);
+      } else {
+        return this.state.value;
+      }
+    }
+  }
+
+  public getName(): string {
+    if (this.props.name) return this.props.name;
+    return '';
+  }
+
+  public validate(): boolean {
+    if (this.props.required) {
+      if (!this.state.value) {
+        this.setState({ error: 'Cannot be empty.' });
+        return false;
+      }
+    }
+
+    if (this.props.validateReturnError) {
+      const error = this.props.validateReturnError(this.state.value);
+      if (error) {
+        this.setState({ error });
+        return false;
+      }
+    }
+
+    this.setState({ error: '' });
+    return true;
+  }
+
+  private getControlDesign() {
+    if (this.props.type === 'static') {
+      return <Container>{this.props.defaultValue}</Container>;
+    } else {
+      return (
+        <BootstrapFormControl
+          autoComplete={'off'}
+          autoCorrect={'off'}
+          type={'text'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue}
+          onChange={this.onChange}
+          disabled={this.props.disabled}
+        />
+      );
+    }
+  }
+
+  private onChange(event: React.FormEvent<BootstrapFormControl>) {
+    const { value } = event.target as HTMLInputElement;
+    const result = this.processValue(value);
+    this.setState({ displayValue: result.displayValue, value: result.value });
+    if (this.props.onInputChanged) {
+      this.props.onInputChanged(result.value);
+    }
+  }
+
+  private processValue(value: string): IProcessResult {
+    if (this.props.type === 'text') {
+      return { displayValue: value, value };
+    } else {
+      const originalValue = Formatter.stripSymbol(value);
+      if (originalValue) {
+        if (this.props.type === 'money') {
+          return {
+            displayValue: isNaN(parseInt(originalValue, 10))
+              ? ''
+              : Formatter.money(parseInt(originalValue, 10)),
+            value: isNaN(parseInt(originalValue, 10)) ? '' : originalValue
+          };
+        } else if (this.props.type === 'number') {
+          return {
+            displayValue: isNaN(parseInt(originalValue, 10))
+              ? ''
+              : Formatter.number(parseInt(originalValue, 10)),
+            value: isNaN(parseInt(originalValue, 10)) ? '' : originalValue
+          };
+        }
+      }
+    }
+    return { displayValue: '', value: '' };
+  }
+
+  private defaultValueChanged(firstCall: boolean) {
+    let result: IProcessResult = { displayValue: '', value: '' };
+    if (this.props.defaultValue) {
+      result = this.processValue(String(this.props.defaultValue));
+    }
+    if (firstCall) {
+      this.state = {
+        displayValue: result.displayValue,
+        value: result.value
+      };
+    } else {
+      this.setState({ displayValue: result.displayValue, value: result.value });
+    }
+  }
+
+  private getInputAppendDesign(append?: any) {
+    if (!append) {
+      return null;
+    }
+    return <Container className={styles.inputAppend}>{append}</Container>;
+  }
+}

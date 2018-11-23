@@ -1,0 +1,63 @@
+.istox-form input {
+  font-size: 0.9rem;
+  border-radius: $borderRadius;
+  height: 42px;
+  border: 1px solid map-get($colors, primary);
+}
+
+.istox-form.form-horizontal .main-form-controls-wrapper {
+  margin-bottom: 2rem;
+}
+
+.istox-form.form-horizontal .form-controls-wrapper {
+  display: grid;
+  grid-template-columns: 10rem auto;
+}
+
+.istox-form label {
+  margin-bottom: 0px;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
+}
+
+.istox-form.form-horizontal .form-controls-wrapper label {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  margin-bottom: 0px;
+}
+
+.istox-form .form-controls-wrapper.error input {
+  border: 1px solid map-get($colors, danger);
+}
+
+.istox-form label .required {
+  color: map-get($colors, danger);
+  display: inline-block;
+  margin-left: 0.2em;
+}
+
+.istox-form .input-append {
+  font-size: 0.8rem;
+  color: #ffffff;
+  position: absolute;
+  background-color: map-get($colors, secondary);
+  padding: 0px 15px;
+  border-radius: $borderRadius;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 20px;
+}
+
+.istox-form .form-controls-wrapper.error .input-append {
+  background-color: map-get($colors, danger);
+}
+
+.istox-form .istox-message {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}

@@ -7,7 +7,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const sass = require('node-sass');
 const sassUtils = require('node-sass-utils')(sass);
@@ -70,13 +69,7 @@ module.exports = {
     new webpack.IgnorePlugin(/test\.ts$/),
 
     // do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin(),
-
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: 'istox.css'
-    })
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     // loaders -> rules in webpack 2
@@ -134,10 +127,6 @@ module.exports = {
         use: [
           {
             loader: 'style-loader'
-          },
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {}
           },
           {
             loader: 'typings-for-css-modules-loader',

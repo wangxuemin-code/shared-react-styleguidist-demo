@@ -1,0 +1,40 @@
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-heavy.ttf), url(/fonts/avenir-heavy.woff);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-heavy-oblique.ttf), url(/fonts/avenir-heavy-oblique.woff);
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-light.ttf), url(/fonts/avenir-light.woff);
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-light-oblique.ttf), url(/fonts/avenir-light-oblique.woff);
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-medium.ttf), url(/fonts/avenir-medium.woff);
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Avenir;
+  src: url(/fonts/avenir-medium-oblique.ttf), url(/fonts/avenir-medium-oblique.woff);
+  font-weight: normal;
+  font-style: italic;
+}
+
+$font: Avenir, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;

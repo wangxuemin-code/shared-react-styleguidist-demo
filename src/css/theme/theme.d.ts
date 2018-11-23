@@ -1,6 +1,7 @@
 export declare const stylings: {
     base: string;
     spacing: string;
+    borderRadius: string;
     breakpoints: {
         xs: string;
         sm: string;
@@ -15,9 +16,8 @@ export declare const stylings: {
     colors: {
         primary: string;
         secondary: string;
-        warning: string;
+        primaryGrey: string;
         success: string;
         danger: string;
-        error: string;
     };
 };

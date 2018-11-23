@@ -2,18 +2,8 @@ import * as React from 'react';
 import { BorderStyleProperty, BorderColorProperty } from 'csstype';
 import * as styles from '../css/main.scss';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-
-interface IDirectionShort {
-  topBottom?: number;
-  leftRight?: number;
-}
-
-interface IDirection {
-  top?: number;
-  left?: number;
-  bottom?: number;
-  right?: number;
-}
+import ControlsHelper from './common/ControlsHelper';
+import { IDirection, IDirectionShort, IAllDirection } from './common/interfaces';
 
 interface IBorder {
   borderRadius?: number;
@@ -23,16 +13,14 @@ interface IBorder {
 }
 
 export interface IContainer {
-  margin?: IDirection & IDirectionShort;
-  padding?: IDirection & IDirectionShort;
+  margin?: IDirection & IDirectionShort & IAllDirection;
+  padding?: IDirection & IDirectionShort & IAllDirection;
   positionPoints?: IDirection; // will only be used when position absolute
   border?: IBorder;
   children?: any;
   textAlign?: 'left' | 'right' | 'center';
   className?: string;
   lineHeight?: number;
-  floatRight?: boolean;
-  floatLeft?: boolean;
   clearFix?: boolean;
   widthPercent?: number;
   height?: number;
@@ -43,6 +31,13 @@ export interface IContainer {
   tooltip?: string | undefined | null;
   verticalAlign?: 'center';
   zIndex?: number;
+  fontStyle?: 'normal' | 'italic';
+  fontColor?: string;
+  float?: 'left' | 'right' | 'none';
+  textVerticalAlign?: 'sub' | 'top' | 'middle';
+  letterSpacing?: number;
+  fontSizePx?: number;
+  fontSizeRem?: number;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -60,65 +55,19 @@ export class Container extends React.Component<IContainer, any> {
       classes.push(styles.textRight);
     }
 
-    if (this.props.floatRight) {
+    if (this.props.float === 'right') {
       classes.push(styles.right);
     }
 
-    if (this.props.floatLeft) {
+    if (this.props.float === 'left') {
       classes.push(styles.left);
     }
 
-    const style: React.CSSProperties = {};
+    let style: React.CSSProperties = {};
 
-    if (this.props.lineHeight) {
-      style.lineHeight = this.props.lineHeight + 'px';
-    }
+    style = { ...style, ...ControlsHelper.processMargin(this.props.margin) };
 
-    if (this.props.margin) {
-      if (this.props.margin.topBottom) {
-        style.marginTop = this.props.margin.topBottom;
-        style.marginBottom = this.props.margin.topBottom;
-      }
-      if (this.props.margin.leftRight) {
-        style.marginLeft = this.props.margin.leftRight;
-        style.marginRight = this.props.margin.leftRight;
-      }
-      if (this.props.margin.top) {
-        style.marginTop = this.props.margin.top;
-      }
-      if (this.props.margin.left) {
-        style.marginLeft = this.props.margin.left;
-      }
-      if (this.props.margin.right) {
-        style.marginRight = this.props.margin.right;
-      }
-      if (this.props.margin.bottom) {
-        style.marginBottom = this.props.margin.bottom;
-      }
-    }
-
-    if (this.props.padding) {
-      if (this.props.padding.topBottom) {
-        style.paddingTop = this.props.padding.topBottom;
-        style.paddingBottom = this.props.padding.topBottom;
-      }
-      if (this.props.padding.leftRight) {
-        style.paddingLeft = this.props.padding.leftRight;
-        style.paddingRight = this.props.padding.leftRight;
-      }
-      if (this.props.padding.top) {
-        style.paddingTop = this.props.padding.top;
-      }
-      if (this.props.padding.left) {
-        style.paddingLeft = this.props.padding.left;
-      }
-      if (this.props.padding.right) {
-        style.paddingRight = this.props.padding.right;
-      }
-      if (this.props.padding.bottom) {
-        style.paddingBottom = this.props.padding.bottom;
-      }
-    }
+    style = { ...style, ...ControlsHelper.processPadding(this.props.padding) };
 
     if (this.props.border) {
       if (this.props.border.borderColor) {
@@ -155,12 +104,28 @@ export class Container extends React.Component<IContainer, any> {
       style.position = this.props.position;
       if (this.props.position === 'absolute') {
         if (this.props.positionPoints) {
-          style.top = this.props.positionPoints.top;
-          style.bottom = this.props.positionPoints.bottom;
-          style.left = this.props.positionPoints.left;
-          style.right = this.props.positionPoints.right;
+          style.top = this.props.positionPoints.topPx;
+          style.bottom = this.props.positionPoints.bottomPx;
+          style.left = this.props.positionPoints.leftPx;
+          style.right = this.props.positionPoints.rightPx;
         }
       }
+    }
+
+    if (this.props.fontSizePx) {
+      style.fontSize = this.props.fontSizePx;
+    }
+
+    if (this.props.fontSizeRem) {
+      style.fontSize = this.props.fontSizeRem + 'rem';
+    }
+
+    if (this.props.fontStyle) {
+      style.fontStyle = this.props.fontStyle;
+    }
+
+    if (this.props.fontColor) {
+      style.color = this.props.fontColor;
     }
 
     if (this.props.verticalAlign) {
@@ -171,12 +136,24 @@ export class Container extends React.Component<IContainer, any> {
       }
     }
 
+    if (this.props.textVerticalAlign) {
+      if (this.props.textVerticalAlign === 'sub') {
+        classes.push(styles.verticalAlignSub);
+      } else if (this.props.textVerticalAlign === 'middle') {
+        classes.push(styles.verticalAlignMiddle);
+      }
+    }
+
     if (this.props.height) {
       style.height = this.props.height;
     }
 
     if (this.props.zIndex) {
       style.zIndex = this.props.zIndex;
+    }
+
+    if (this.props.letterSpacing) {
+      style.letterSpacing = this.props.letterSpacing;
     }
 
     return (

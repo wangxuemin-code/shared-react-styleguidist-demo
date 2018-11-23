@@ -166,10 +166,6 @@ module.exports = {
             loader: 'style-loader'
           },
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {}
-          },
-          {
             loader: 'typings-for-css-modules-loader',
             options: {
               sourceMap: true,

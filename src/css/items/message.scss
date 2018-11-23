@@ -1,0 +1,17 @@
+.istox-message {
+  display: flex;
+  align-items: center;
+}
+
+.istox-message.success {
+  color: map-get($colors, success);
+}
+
+.istox-message.error {
+  color: map-get($colors, danger);
+}
+
+.istox-message .icon {
+  margin-right: 0.9rem;
+  font-size: 1.3rem;
+}
