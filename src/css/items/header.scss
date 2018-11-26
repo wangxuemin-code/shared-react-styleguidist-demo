@@ -8,9 +8,62 @@
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: max-content auto max-content;
+}
+
+.istox-header .icon {
+  // width: 145px;
 }
 
 .istox-header .icon > img {
   height: 45px;
+}
+
+.istox-header ul.links {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.istox-header ul.links > li {
+  float: left;
+  font-size: 1.05rem;
+  margin-right: 15px;
+  margin-left: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.istox-header ul.links > li .underline {
+  display: none;
+}
+
+.istox-header ul.links > li.selected .underline {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: map-get($colors, secondary);
+  bottom: -8px;
+  left: 0px;
+}
+
+.istox-header .user-action {
+  border: 2px solid map-get($colors, secondary);
+  border-radius: $borderRadius;
+  font-size: 1.1rem;
+  transition: 0.25s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 30px;
+}
+.istox-header .user-action:hover {
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
 }

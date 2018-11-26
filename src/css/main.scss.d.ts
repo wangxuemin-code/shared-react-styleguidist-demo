@@ -35,3 +35,7 @@ export const alert: string;
 export const icon: string;
 export const success: string;
 export const istoxHeader: string;
+export const links: string;
+export const underline: string;
+export const selected: string;
+export const userAction: string;

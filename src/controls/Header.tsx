@@ -12,7 +12,23 @@ export class Header extends React.Component<IHeader, any> {
     return (
       <Container {...this.props} className={styles.istoxHeader}>
         <Image src='images/icon.png' className={styles.icon} />
+        <ul className={styles.links}>
+          {this.getLinkDesign('Trade')}
+          {this.getLinkDesign('Fundraise')}
+          {this.getLinkDesign('Company')}
+        </ul>
+        <Container className={styles.userAction}>Login/Register</Container>
+        <Container />
       </Container>
+    );
+  }
+
+  private getLinkDesign(title: string) {
+    return (
+      <li>
+        {title}
+        <div className={styles.underline} />
+      </li>
     );
   }
 }
