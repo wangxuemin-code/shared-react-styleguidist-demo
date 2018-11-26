@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-export default class Formatter {
+export class Formatter {
   public static money(input: number | string | undefined): string {
     if (!input) {
       input = 0;

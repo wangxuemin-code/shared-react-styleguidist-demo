@@ -1,7 +1,7 @@
 import * as moment from 'moment';
-import Formatter from './Formatter';
+import { Formatter } from './Formatter';
 
-export default class DateTime {
+export class DateTime {
   public static getDateDifferenceString(startDate?: Date, endDate?: Date): string {
     const endMoment = moment(endDate);
     const startMoment = moment(startDate);

@@ -3,7 +3,7 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Message } from './Message';
 import { FormControl as BootstrapFormControl } from 'react-bootstrap';
-import Formatter from '../helpers/Formatter';
+import { Formatter } from '../helpers/Formatter';
 
 interface IState {
   displayValue?: string;

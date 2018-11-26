@@ -10,6 +10,7 @@ import {
   Form,
   Header
 } from './controls';
+import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 
@@ -65,3 +66,6 @@ const render = () => {
 };
 
 render();
+
+const mqtt = new Mqtt();
+mqtt.start();
