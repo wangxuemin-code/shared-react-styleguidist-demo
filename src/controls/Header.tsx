@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Image } from './Image';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { Icon } from './Icon';
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
@@ -17,8 +19,7 @@ export class Header extends React.Component<IHeader, any> {
           {this.getLinkDesign('Fundraise')}
           {this.getLinkDesign('Company')}
         </ul>
-        <Container className={styles.userAction}>Login/Register</Container>
-        <Container />
+        {this.getUserActionDesign()}
       </Container>
     );
   }
@@ -29,6 +30,16 @@ export class Header extends React.Component<IHeader, any> {
         {title}
         <div className={styles.underline} />
       </li>
+    );
+  }
+
+  private getUserActionDesign() {
+    return (
+      // <Container className={styles.userAction}>Login / Register</Container>
+      <Container className={[styles.userAction, styles.afterLogin].join(' ')}>
+        <Icon icon={faUserCircle} padding={{ topPx: 2 }} />
+        <Container className={styles.text}>Joseph</Container>
+      </Container>
     );
   }
 }

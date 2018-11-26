@@ -39,3 +39,5 @@ export const links: string;
 export const underline: string;
 export const selected: string;
 export const userAction: string;
+export const afterLogin: string;
+export const text: string;

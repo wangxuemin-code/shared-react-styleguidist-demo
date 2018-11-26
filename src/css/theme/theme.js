@@ -18,6 +18,7 @@ exports.stylings = {
     colors: {
         primary: '#2c97e2',
         secondary: '#76A1C3',
+        primaryDark: '#153657',
         primaryGrey: '#D8D8D8',
         success: '#5bd800',
         danger: '#D0021B'

@@ -11,10 +11,6 @@
   grid-template-columns: max-content auto max-content;
 }
 
-.istox-header .icon {
-  // width: 145px;
-}
-
 .istox-header .icon > img {
   height: 45px;
 }
@@ -32,14 +28,18 @@
 .istox-header ul.links > li {
   float: left;
   font-size: 1.05rem;
-  margin-right: 15px;
-  margin-left: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
   cursor: pointer;
   position: relative;
 }
 
 .istox-header ul.links > li .underline {
   display: none;
+}
+
+.istox-header ul.links > li.selected {
+  font-weight: bold;
 }
 
 .istox-header ul.links > li.selected .underline {
@@ -65,5 +65,20 @@
 .istox-header .user-action:hover {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.65);
+  color: map-get($colors, primaryDark);
   text-decoration: none;
+}
+
+.istox-header .user-action.after-login {
+  padding: 0px 0px 0px 5px;
+  font-size: 28px;
+}
+
+.istox-header .user-action.after-login .text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 25px;
+  font-size: 1rem;
+  font-weight: lighter;
 }

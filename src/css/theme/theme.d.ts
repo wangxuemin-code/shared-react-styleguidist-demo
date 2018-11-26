@@ -16,6 +16,7 @@ export declare const stylings: {
     colors: {
         primary: string;
         secondary: string;
+        primaryDark: string;
         primaryGrey: string;
         success: string;
         danger: string;
