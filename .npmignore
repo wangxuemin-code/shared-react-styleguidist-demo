@@ -2,3 +2,4 @@ src
 webpack
 node_modules
 tsconfig.json
+.sass-cache
