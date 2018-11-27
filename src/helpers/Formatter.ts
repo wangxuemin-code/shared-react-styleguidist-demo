@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 export class Formatter {
-  public static money(input: number | string | undefined): string {
+  public static money(input: number | string | undefined, symbol: string = '$ '): string {
     if (!input) {
       input = 0;
     }
@@ -10,7 +10,7 @@ export class Formatter {
       input = parseFloat(input);
     }
 
-    return `$${input.toLocaleString()}`;
+    return `${symbol}${input.toLocaleString()}`;
   }
 
   public static number(input: number | string | undefined): string {
