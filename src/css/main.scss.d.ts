@@ -42,3 +42,4 @@ export const mainFormControlsWrapper: string;
 export const formControlsWrapper: string;
 export const required: string;
 export const inputAppend: string;
+export const errorPage: string;

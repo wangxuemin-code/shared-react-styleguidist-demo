@@ -4,7 +4,7 @@ export * from './Card';
 export * from './Loading';
 export * from './Icon';
 export * from './Image';
-export * from './ErrorView';
+export * from './ErrorPage';
 export * from './MyComponent';
 export * from './Sticky';
 export * from './Divider';

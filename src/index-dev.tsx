@@ -9,7 +9,8 @@ import {
   Message,
   Form,
   Header,
-  RootContainer
+  RootContainer,
+  ErrorPage
 } from './controls';
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -19,8 +20,8 @@ const render = () => {
   ReactDOM.render(
     <RootContainer>
       <Header />
-
-      <Button disabled>Hello</Button>
+      <ErrorPage type='500' />
+      {/* <Button disabled>Hello</Button>
       <Button margin={{ topRem: 1 }} size={'large'} fontStyle={'italic'}>
         Hello
       </Button>
@@ -60,7 +61,7 @@ const render = () => {
           Submit
         </Button>
       </Form>
-      <Message error='Hello i am sucesss!' />
+      <Message error='Hello i am sucesss!' /> */}
     </RootContainer>,
     document.getElementById('reactContainer')
   );

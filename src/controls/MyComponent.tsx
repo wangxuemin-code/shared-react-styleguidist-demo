@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Loading, ErrorView, Container } from '.';
+import { Loading } from '.';
+import { ErrorPage } from './ErrorPage';
 
 interface IProps {
   loading?: boolean;
@@ -51,17 +52,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
     if (this.props.loading) {
       return <Loading backDrop={false} loading={this.props.loading} />;
     } else if (this.props.error) {
-      if (this.props.error === '404' || this.props.error === '500') {
-        return (
-          <Container
-            position={'absolute'}
-            positionPoints={{ topPx: 0, bottomPx: 0, leftPx: 0, rightPx: 0 }}
-            verticalAlign={'center'}
-          >
-            <ErrorView type={this.props.error} />
-          </Container>
-        );
-      }
+      return <ErrorPage type={'500'} />;
     }
 
     return component;
