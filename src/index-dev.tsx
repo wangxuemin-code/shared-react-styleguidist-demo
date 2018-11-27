@@ -16,7 +16,7 @@ import * as styles from './css/main.scss';
 
 const render = () => {
   ReactDOM.render(
-    <Container padding={{ allRem: 2 }}>
+    <Container>
       <Header />
 
       <Button disabled>Hello</Button>
