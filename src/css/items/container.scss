@@ -1,0 +1,19 @@
+.istox-root {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+@mixin root($screenMinWidth, $rootWidth) {
+  // write the css here
+  @media (min-width: $screenMinWidth) {
+    .istox-root {
+      max-width: $rootWidth;
+    }
+  }
+}
+
+@include root(576px, 540px);
+@include root(768px, 720px);
+@include root(992px, 960px);
+@include root(1200px, 1140px);

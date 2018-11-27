@@ -15,3 +15,4 @@ export * from './Alert';
 export * from './Message';
 export * from './Form';
 export * from './Header';
+export * from './RootContainer';

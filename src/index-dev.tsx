@@ -8,7 +8,8 @@ import {
   Modal,
   Message,
   Form,
-  Header
+  Header,
+  RootContainer
 } from './controls';
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -16,7 +17,7 @@ import * as styles from './css/main.scss';
 
 const render = () => {
   ReactDOM.render(
-    <Container>
+    <RootContainer>
       <Header />
 
       <Button disabled>Hello</Button>
@@ -60,7 +61,7 @@ const render = () => {
         </Button>
       </Form>
       <Message error='Hello i am sucesss!' />
-    </Container>,
+    </RootContainer>,
     document.getElementById('reactContainer')
   );
 };

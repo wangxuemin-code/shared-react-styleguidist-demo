@@ -11,6 +11,7 @@ export const textCenter: string;
 export const textRight: string;
 export const right: string;
 export const left: string;
+export const istoxRoot: string;
 export const button: string;
 export const active: string;
 export const buttonLg: string;
