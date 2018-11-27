@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BorderStyleProperty, BorderColorProperty } from 'csstype';
+import { BorderStyleProperty, BorderColorProperty, FontWeightProperty } from 'csstype';
 import * as styles from '../css/main.scss';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ControlsHelper from './common/ControlsHelper';
@@ -33,6 +33,7 @@ export interface IContainer {
   zIndex?: number;
   fontStyle?: 'normal' | 'italic';
   fontColor?: string;
+  fontWeight?: FontWeightProperty;
   float?: 'left' | 'right' | 'none';
   textVerticalAlign?: 'sub' | 'top' | 'middle';
   letterSpacing?: number;
@@ -126,6 +127,10 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.fontColor) {
       style.color = this.props.fontColor;
+    }
+
+    if (this.props.fontWeight) {
+      style.fontWeight = this.props.fontWeight;
     }
 
     if (this.props.verticalAlign) {

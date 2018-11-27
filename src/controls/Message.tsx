@@ -3,7 +3,6 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from '.';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { stylings } from '../css/theme';
 
 interface IProps extends IContainer {
   error?: string | 'icon-only';
