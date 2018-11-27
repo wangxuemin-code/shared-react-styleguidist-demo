@@ -45,7 +45,7 @@ h4,
 h5,
 h6 {
   font-weight: bold;
-  color: map-get($colors, primary);
+  color: map-get($colors, primaryDark);
 }
 
 .header {

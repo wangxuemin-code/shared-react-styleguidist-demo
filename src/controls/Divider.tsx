@@ -28,7 +28,7 @@ export class Divider extends React.Component<IDivider, any> {
 
     return (
       <Container {...this.props}>
-        <div style={style} />
+        <hr style={style} />
       </Container>
     );
   }
