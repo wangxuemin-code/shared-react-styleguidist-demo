@@ -20,7 +20,7 @@ interface IProps extends IContainer {
   disabled?: boolean;
   onInputChanged?: (value: string | number) => void;
   append?: any;
-  label?: string;
+  label?: any;
   required?: boolean;
   validateReturnError?: (value: string | number | undefined) => string | undefined;
 }
@@ -186,6 +186,13 @@ export class FormControl extends React.Component<IProps, IState> {
     if (!append) {
       return null;
     }
-    return <Container className={styles.inputAppend}>{append}</Container>;
+
+    const classes = [styles.inputAppend];
+
+    if (!(append instanceof String) && typeof append !== 'string') {
+      classes.push(styles.custom);
+    }
+
+    return <Container className={classes.join(' ')}>{append}</Container>;
   }
 }

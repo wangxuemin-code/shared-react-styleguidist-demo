@@ -41,8 +41,17 @@ const render = () => {
         />
         <FormControl
           required
-          label={'Address:'}
-          append={'WHAT'}
+          label={
+            <span>
+              <b>dasdsa</b>
+              <span>sdas</span>{' '}
+            </span>
+          }
+          append={
+            <Button textAlign={'center'} type={'submit'}>
+              Submit
+            </Button>
+          }
           type={'money'}
           defaultValue={'hello'}
         />

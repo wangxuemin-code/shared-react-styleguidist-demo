@@ -42,15 +42,19 @@
   color: #ffffff;
   position: absolute;
   background-color: map-get($colors, primaryLight);
-  padding: 0px 15px;
   border-radius: $borderRadius;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 0;
-  right: 0;
-  bottom: 0;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
   padding: 0 20px;
+}
+
+.istox-form .input-append.custom {
+  padding: 0px;
+  background-color: none;
 }
 
 .istox-form .form-controls-wrapper.error .input-append {
@@ -60,4 +64,10 @@
 .istox-form .istox-message {
   margin-left: 0.5rem;
   margin-top: 0.5rem;
+}
+
+.istox-form .input-append button {
+  height: 40px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
