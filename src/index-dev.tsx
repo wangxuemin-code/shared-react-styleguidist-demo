@@ -20,8 +20,10 @@ const render = () => {
   ReactDOM.render(
     <RootContainer>
       <Header />
-      <ErrorPage type='500' />
-      {/* <Button disabled>Hello</Button>
+
+      <Button disabled href='abc'>
+        Hello
+      </Button>
       <Button margin={{ topRem: 1 }} size={'large'} fontStyle={'italic'}>
         Hello
       </Button>
@@ -50,7 +52,7 @@ const render = () => {
           append={'WHAT'}
           type={'money'}
           defaultValue={'hello'}
-          validateReturnError={value => {
+          validateReturnError={(value) => {
             const val = value as number;
             if (val > 0) {
               return 'cannot be more than zero';
@@ -61,7 +63,7 @@ const render = () => {
           Submit
         </Button>
       </Form>
-      <Message error='Hello i am sucesss!' /> */}
+      <Message error='Hello i am sucesss!' />
     </RootContainer>,
     document.getElementById('reactContainer')
   );

@@ -2,11 +2,13 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import ControlsHelper from './common/ControlsHelper';
+import { Link } from './Link';
 
 interface IButton extends IContainer {
   buttonStyle?: 'normal' | 'invert' | 'none';
   type?: 'button' | 'submit';
   onPress?: () => void;
+  href?: string;
   disabled?: boolean;
   innerClasses?: string;
   size?: 'medium' | 'large';
@@ -45,16 +47,25 @@ export class Button extends React.Component<IButton, any> {
 
     return (
       <Container {...filteredProps}>
-        <button
-          type={this.props.type}
-          style={style}
-          className={classes.join(' ')}
-          onClick={this.props.onPress}
-          disabled={this.props.disabled}
-        >
-          {this.props.children}
-        </button>
+        {this.props.href && !this.props.disabled && (
+          <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>
+        )}
+        {(!this.props.href || this.props.disabled) && this.getButtonDesign(style, classes)}
       </Container>
+    );
+  }
+
+  private getButtonDesign(style: React.CSSProperties, classes: string[]) {
+    return (
+      <button
+        type={this.props.type}
+        style={style}
+        className={classes.join(' ')}
+        onClick={this.props.onPress}
+        disabled={this.props.disabled}
+      >
+        {this.props.children}
+      </button>
     );
   }
 }
