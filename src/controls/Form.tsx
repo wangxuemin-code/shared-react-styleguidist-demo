@@ -5,8 +5,10 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import { Container, IContainer } from './Container';
 import { FormControl } from './FormControl';
 import { IAlert, Alert } from './Alert';
+import { Loading } from './Loading';
 
 interface IProps extends IContainer, IAlert {
+  loading?: boolean;
   onSubmit?: (e: React.FormEvent<Form>) => void;
   horizontal?: boolean;
 }
@@ -31,6 +33,7 @@ export class Form extends React.Component<IProps> {
 
     return (
       <Container {...this.props}>
+        <Loading loading={this.props.loading} />
         <Alert success={this.props.success} info={this.props.info} error={this.props.error} />
         <BootstrapForm
           horizontal={this.props.horizontal}

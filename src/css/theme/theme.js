@@ -20,6 +20,7 @@ exports.stylings = {
         primaryLight: '#76A1C3',
         primaryDark: '#153657',
         primaryGrey: '#D8D8D8',
+        primaryGreyLight: '#f1f1f1',
         success: '#5bd800',
         danger: '#D0021B'
     }

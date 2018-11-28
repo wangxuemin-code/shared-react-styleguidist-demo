@@ -31,7 +31,7 @@ const render = () => {
       <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
         www.google.com
       </Link>
-      <Form horizontal success={'This is a problem!'}>
+      <Form horizontal success={'This is a problem!'} loading={true}>
         <FormControl
           required
           label={'Address:'}
