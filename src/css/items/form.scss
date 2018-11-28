@@ -9,6 +9,10 @@
   margin-bottom: 2rem;
 }
 
+.istox-form.form-horizontal .main-form-controls-wrapper:last-child {
+  margin-bottom: 0px;
+}
+
 .istox-form.form-horizontal .form-controls-wrapper {
   display: grid;
   grid-template-columns: 10rem auto;
