@@ -177,7 +177,7 @@ export class Container extends React.Component<IContainer, any> {
           delayShow={10}
           delayHide={10}
         >
-          {children}
+          <span>{children}</span>
         </OverlayTrigger>
       );
     } else {

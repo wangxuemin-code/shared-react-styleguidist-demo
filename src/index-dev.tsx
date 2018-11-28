@@ -15,6 +15,7 @@ import {
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
+import { Controls } from './index-prod';
 
 const render = () => {
   ReactDOM.render(
@@ -27,7 +28,7 @@ const render = () => {
       <Button margin={{ topRem: 1 }} size={'large'} fontStyle={'italic'}>
         Hello
       </Button>
-      <Icon icon={'plus'} tooltip={'hello'} />
+      <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
       <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
         www.google.com
       </Link>
@@ -71,6 +72,9 @@ const render = () => {
         <Button textAlign={'center'} margin={{ topRem: 1.2 }} type={'submit'}>
           Submit
         </Button>
+        <Controls.Container tooltip={'tooltip!'} display='inline-block'>
+          <Link href='/wqe'>dasd</Link>
+        </Controls.Container>
       </Form>
       <Message error='Hello i am sucesss!' />
     </RootContainer>,
