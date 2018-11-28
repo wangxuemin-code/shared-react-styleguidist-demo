@@ -56,13 +56,13 @@
   position: absolute;
   width: 100%;
   height: 4px;
-  background-color: map-get($colors, secondary);
+  background-color: map-get($colors, primaryLight);
   bottom: -8px;
   left: 0px;
 }
 
 .istox-header .user-action {
-  border: 2px solid map-get($colors, secondary);
+  border: 2px solid map-get($colors, primaryLight);
   border-radius: $borderRadius;
   font-size: 1.1rem;
   transition: 0.25s;

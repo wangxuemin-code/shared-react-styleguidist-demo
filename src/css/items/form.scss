@@ -41,7 +41,7 @@
   font-size: 0.8rem;
   color: #ffffff;
   position: absolute;
-  background-color: map-get($colors, secondary);
+  background-color: map-get($colors, primaryLight);
   padding: 0px 15px;
   border-radius: $borderRadius;
   display: flex;
