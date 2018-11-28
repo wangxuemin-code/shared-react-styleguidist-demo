@@ -22,6 +22,13 @@ export class Form extends React.Component<IProps> {
   }
 
   public render() {
+    let children: DetailedReactHTMLElement<any, any>[] = [];
+    if (this.props.children instanceof Array) {
+      children = children.concat(this.props.children);
+    } else {
+      children.push(this.props.children);
+    }
+
     return (
       <Container {...this.props}>
         <Alert success={this.props.success} info={this.props.info} error={this.props.error} />
@@ -30,7 +37,7 @@ export class Form extends React.Component<IProps> {
           className={styles.istoxForm}
           onSubmit={this.onSubmit}
         >
-          {this.props.children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
+          {children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
             return React.cloneElement(child, {
               key: i,
               ref: (ele: any) => {
