@@ -1,7 +1,7 @@
 import * as React from 'react';
+import * as ReactTooltip from 'react-tooltip';
 import { BorderStyleProperty, BorderColorProperty, FontWeightProperty } from 'csstype';
 import * as styles from '../css/main.scss';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import ControlsHelper from './common/ControlsHelper';
 import { IDirection, IDirectionShort, IAllDirection } from './common/interfaces';
 
@@ -170,15 +170,16 @@ export class Container extends React.Component<IContainer, any> {
 
   private wrapWithTooltipIfNeeded(children: any) {
     if (this.props.tooltip) {
+      const randomId = String(Math.random() * 1000);
       return (
-        <OverlayTrigger
-          overlay={<Tooltip id='tooltip'>{this.props.tooltip}</Tooltip>}
-          placement='top'
-          delayShow={10}
-          delayHide={10}
-        >
-          <span>{children}</span>
-        </OverlayTrigger>
+        <span>
+          <span data-tip data-for={randomId}>
+            {children}
+          </span>
+          <ReactTooltip id={randomId} effect='solid'>
+            <span>{this.props.tooltip}</span>
+          </ReactTooltip>
+        </span>
       );
     } else {
       return children;
