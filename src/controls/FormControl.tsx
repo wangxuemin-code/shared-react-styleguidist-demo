@@ -19,7 +19,7 @@ interface IProps extends IContainer {
   type?: 'text' | 'number' | 'money' | 'static';
   name?: string;
   disabled?: boolean;
-  onInputChanged?: (value: string | number) => void;
+  onInputChanged?: (value: string | number, name: string) => void;
   append?: any;
   label?: any;
   required?: boolean;
@@ -148,7 +148,7 @@ export class FormControl extends React.Component<IProps, IState> {
     const result = this.processValue(value);
     this.setState({ displayValue: result.displayValue, value: result.value });
     if (this.props.onInputChanged) {
-      this.props.onInputChanged(result.value);
+      this.props.onInputChanged(result.value, this.props.name || '');
     }
   }
 
