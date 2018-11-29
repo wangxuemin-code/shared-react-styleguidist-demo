@@ -3,7 +3,6 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Form as BootstrapForm } from 'react-bootstrap';
 import { Container, IContainer } from './Container';
-import { FormControl } from './FormControl';
 import { IAlert, Alert } from './Alert';
 import { Loading } from './Loading';
 
@@ -20,10 +19,11 @@ export class Form extends React.Component<IProps> {
     super(props);
 
     this._onSubmit = this._onSubmit.bind(this);
-    this.formControls = [];
   }
 
   public render() {
+    this.formControls = [];
+
     let children: DetailedReactHTMLElement<any, any>[] = [];
     if (this.props.children instanceof Array) {
       children = children.concat(this.props.children);
