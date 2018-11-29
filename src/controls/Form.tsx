@@ -56,12 +56,13 @@ export class Form extends React.Component<IProps> {
   }
 
   public getInputValue(name: string): string {
+    let value = '';
     this.formControls.forEach((formControl: FormControl) => {
       if (formControl.getName() === name) {
-        return formControl.getValue();
+        value = formControl.getValue();
       }
     });
-    return '';
+    return value.trim();
   }
 
   private _onSubmit(e: React.FormEvent<Form>) {

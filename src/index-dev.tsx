@@ -34,7 +34,11 @@ const render = () => {
       <Form
         horizontal
         success={'This is a problem!'}
+        ref={(ref) => {
+          this.form = ref;
+        }}
         onSubmit={() => {
+          console.log(this.form.getInputValue('hi'));
           console.log('FORM SUBMITTED');
         }}
       >
@@ -50,6 +54,7 @@ const render = () => {
               Submit
             </Button>
           }
+          name='hi'
           type={'money'}
           defaultValue={'hello'}
         />
