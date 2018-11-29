@@ -9,7 +9,7 @@ import { Loading } from './Loading';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
-  onSubmit?: (e: React.FormEvent<Form>) => void;
+  onSubmit?: () => void;
   horizontal?: boolean;
 }
 
@@ -19,7 +19,7 @@ export class Form extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props);
 
-    this.onSubmit = this.onSubmit.bind(this);
+    this._onSubmit = this._onSubmit.bind(this);
     this.formControls = [];
   }
 
@@ -38,7 +38,7 @@ export class Form extends React.Component<IProps> {
         <BootstrapForm
           horizontal={this.props.horizontal}
           className={styles.istoxForm}
-          onSubmit={this.onSubmit}
+          onSubmit={this._onSubmit}
         >
           {children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
             return React.cloneElement(child, {
@@ -64,10 +64,18 @@ export class Form extends React.Component<IProps> {
     return '';
   }
 
-  private onSubmit(e: React.FormEvent<Form>) {
+  private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
+    let validated = true;
     this.formControls.forEach((formControl: FormControl) => {
-      formControl.validate();
+      const isValid = formControl.validate();
+      if (validated) {
+        validated = isValid;
+      }
     });
+
+    if (validated && this.props.onSubmit) {
+      this.props.onSubmit();
+    }
   }
 }

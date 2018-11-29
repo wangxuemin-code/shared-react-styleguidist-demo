@@ -31,14 +31,13 @@ const render = () => {
       <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
         www.google.com
       </Link>
-      <Form horizontal success={'This is a problem!'}>
-        <FormControl
-          required
-          label={'Address:'}
-          append={'WHAT'}
-          type={'money'}
-          defaultValue={'hello'}
-        />
+      <Form
+        horizontal
+        success={'This is a problem!'}
+        onSubmit={() => {
+          console.log('FORM SUBMITTED');
+        }}
+      >
         <FormControl
           required
           label={
@@ -54,22 +53,7 @@ const render = () => {
           type={'money'}
           defaultValue={'hello'}
         />
-        <FormControl
-          required
-          label={'Address:'}
-          append={'WHAT'}
-          type={'money'}
-          defaultValue={'hello'}
-          validateReturnError={(value) => {
-            const val = value as number;
-            if (val > 0) {
-              return 'cannot be more than zero';
-            }
-          }}
-        />
-        <Button textAlign={'center'} margin={{ topRem: 1.2 }} type={'submit'}>
-          Submit
-        </Button>
+
         <Container tooltip={'tooltip!'} display='inline-block'>
           <Link href='/wqe'>dasd</Link>
         </Container>
