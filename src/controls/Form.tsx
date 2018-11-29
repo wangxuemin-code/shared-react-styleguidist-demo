@@ -14,7 +14,7 @@ interface IProps extends IContainer, IAlert {
 }
 
 export class Form extends React.Component<IProps> {
-  formControls: FormControl[];
+  formControls: any[];
 
   constructor(props: IProps) {
     super(props);
@@ -44,9 +44,7 @@ export class Form extends React.Component<IProps> {
             return React.cloneElement(child, {
               key: i,
               ref: (ele: any) => {
-                if (ele.constructor.name === 'FormControl') {
-                  this.formControls.push(ele);
-                }
+                this.formControls.push(ele);
               }
             });
           })}
@@ -57,9 +55,11 @@ export class Form extends React.Component<IProps> {
 
   public getInputValue(name: string): string {
     let value = '';
-    this.formControls.forEach((formControl: FormControl) => {
-      if (formControl.getName() === name) {
-        value = formControl.getValue();
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue) {
+        if (formControl.getName() === name) {
+          value = formControl.getValue();
+        }
       }
     });
     return value.trim();
@@ -68,10 +68,12 @@ export class Form extends React.Component<IProps> {
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
     let validated = true;
-    this.formControls.forEach((formControl: FormControl) => {
-      const isValid = formControl.validate();
-      if (validated) {
-        validated = isValid;
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.validate) {
+        const isValid = formControl.validate();
+        if (validated) {
+          validated = isValid;
+        }
       }
     });
 

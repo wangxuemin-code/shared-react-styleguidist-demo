@@ -145,7 +145,7 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.type === 'text') {
       return { displayValue: value, value };
     } else {
-      const originalValue = Formatter.stripSymbol(value);
+      const originalValue = Formatter.stripSymbol(value).trim();
       if (originalValue) {
         if (this.props.type === 'money') {
           return {

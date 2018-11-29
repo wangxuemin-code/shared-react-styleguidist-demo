@@ -15,6 +15,7 @@ import {
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
+import { Controls } from './index-prod';
 
 const render = () => {
   ReactDOM.render(
@@ -42,7 +43,7 @@ const render = () => {
           console.log('FORM SUBMITTED');
         }}
       >
-        <FormControl
+        <Controls.FormControl
           required
           label={
             <span>
