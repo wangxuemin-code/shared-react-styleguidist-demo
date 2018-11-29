@@ -44,7 +44,7 @@ export class Form extends React.Component<IProps> {
             return React.cloneElement(child, {
               key: i,
               ref: (ele: any) => {
-                this.formControls.push(ele);
+                if (ele) this.formControls.push(ele);
               }
             });
           })}
