@@ -14,6 +14,7 @@ interface IState {
 interface IProps extends IContainer {
   fullWidth?: boolean;
   defaultValue?: string | number;
+  value?: string | number;
   placeholder?: string;
   type?: 'text' | 'number' | 'money' | 'static';
   name?: string;
@@ -39,12 +40,15 @@ export class FormControl extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
-    this.defaultValueChanged(true);
+    this.onValueChanged(
+      true,
+      String(this.props.value ? this.props.value : this.props.defaultValue)
+    );
   }
 
   public componentDidUpdate(prevProps: IProps) {
-    if (prevProps.defaultValue !== this.props.defaultValue) {
-      this.defaultValueChanged(false);
+    if (prevProps.value !== this.props.value) {
+      this.onValueChanged(false, String(this.props.value));
     }
   }
 
@@ -114,9 +118,16 @@ export class FormControl extends React.Component<IProps, IState> {
     return true;
   }
 
+  public reset() {
+    this.onValueChanged(
+      false,
+      String(this.props.value ? this.props.value : this.props.defaultValue)
+    );
+  }
+
   private getControlDesign() {
     if (this.props.type === 'static') {
-      return <Container>{this.props.defaultValue}</Container>;
+      return <Container>{this.props.value}</Container>;
     } else {
       return (
         <BootstrapFormControl
@@ -167,11 +178,10 @@ export class FormControl extends React.Component<IProps, IState> {
     return { displayValue: '', value: '' };
   }
 
-  private defaultValueChanged(firstCall: boolean) {
+  private onValueChanged(firstCall: boolean, newValue: string) {
     let result: IProcessResult = { displayValue: '', value: '' };
-    if (this.props.defaultValue) {
-      result = this.processValue(String(this.props.defaultValue));
-    }
+    result = this.processValue(String(newValue));
+
     if (firstCall) {
       this.state = {
         displayValue: result.displayValue,

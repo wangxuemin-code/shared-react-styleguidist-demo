@@ -39,7 +39,7 @@ const render = () => {
           this.form = ref;
         }}
         onSubmit={() => {
-          console.log(this.form.getInputValue('hi'));
+          console.log(this.form.reset());
           console.log('FORM SUBMITTED');
         }}
       >
@@ -57,7 +57,7 @@ const render = () => {
           }
           name='hi'
           type={'money'}
-          defaultValue={'hello'}
+          defaultValue={'100'}
         />
 
         <Container tooltip={'tooltip!'} display='inline-block'>

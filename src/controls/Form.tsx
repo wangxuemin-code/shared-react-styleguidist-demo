@@ -65,6 +65,14 @@ export class Form extends React.Component<IProps> {
     return value.trim();
   }
 
+  public reset() {
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.reset) {
+        formControl.reset();
+      }
+    });
+  }
+
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
     let validated = true;
