@@ -58,7 +58,7 @@ export class FormControl extends React.Component<IProps, IState> {
       <div className={styles.mainFormControlsWrapper}>
         <Container {...this.props} className={classes.join(' ')}>
           <label>
-            {this.props.label}
+            <span key='1'>{this.props.label}</span>
             {this.props.required && <span className={styles.required}>*</span>}
           </label>
 

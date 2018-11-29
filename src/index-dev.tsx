@@ -43,8 +43,7 @@ const render = () => {
           required
           label={
             <span>
-              <b>dasdsa</b>
-              <span>sdas</span>{' '}
+              Amount in <b>USD</b>
             </span>
           }
           append={
