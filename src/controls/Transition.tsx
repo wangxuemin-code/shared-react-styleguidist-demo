@@ -11,7 +11,7 @@ interface IProps extends IContainer {
 export class Transition extends React.Component<IProps, any> {
   public static defaultProps: IProps = {
     type: 'fade',
-    in: false,
+    in: true,
     duration: 300
   };
 
