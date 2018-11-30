@@ -4,7 +4,7 @@ import Animate from 'react-move/Animate';
 
 interface IProps extends IContainer {
   type?: 'fade';
-  in: boolean;
+  in?: boolean;
   duration?: number;
 }
 
