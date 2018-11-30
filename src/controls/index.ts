@@ -16,3 +16,4 @@ export * from './Message';
 export * from './Form';
 export * from './Header';
 export * from './RootContainer';
+export * from './Transition';
