@@ -47,6 +47,7 @@
     "react": "^16.6.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
+    "react-move": "^2.8.0",
     "react-spinners": "^0.4.7",
     "react-tooltip": "^3.9.0",
     "sass-loader": "^7.1.0",

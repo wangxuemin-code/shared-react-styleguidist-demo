@@ -5,6 +5,7 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import { Container, IContainer } from './Container';
 import { IAlert, Alert } from './Alert';
 import { Loading } from './Loading';
+import { Transition } from './Transition';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;

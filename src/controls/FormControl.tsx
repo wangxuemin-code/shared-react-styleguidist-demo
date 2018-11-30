@@ -4,11 +4,13 @@ import { Container, IContainer } from './Container';
 import { Message } from './Message';
 import { FormControl as BootstrapFormControl } from 'react-bootstrap';
 import { Formatter } from '../helpers/Formatter';
+import { Transition } from './Transition';
 
 interface IState {
   displayValue?: string;
   value?: string | number;
   error?: string;
+  showError?: boolean;
 }
 
 interface IProps extends IContainer {
@@ -54,7 +56,7 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public render() {
     const classes: string[] = [styles.formControlsWrapper];
-    if (this.state.error) {
+    if (this.state.showError) {
       classes.push('error');
     }
 
@@ -74,8 +76,9 @@ export class FormControl extends React.Component<IProps, IState> {
         </Container>
         <Container {...this.props} className={styles.formControlsWrapper}>
           <span />
-
-          <Message error={this.state.error} />
+          <Transition in={this.state.showError}>
+            <Message error={this.state.error} />
+          </Transition>
         </Container>
       </div>
     );
@@ -101,7 +104,7 @@ export class FormControl extends React.Component<IProps, IState> {
   public validate(): boolean {
     if (this.props.required) {
       if (!this.state.value) {
-        this.setState({ error: 'Cannot be empty.' });
+        this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
       }
     }
@@ -109,12 +112,12 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.validateReturnError) {
       const error = this.props.validateReturnError(this.state.value);
       if (error) {
-        this.setState({ error });
+        this.setState({ error, showError: true });
         return false;
       }
     }
 
-    this.setState({ error: '' });
+    this.setState({ showError: false });
     return true;
   }
 
