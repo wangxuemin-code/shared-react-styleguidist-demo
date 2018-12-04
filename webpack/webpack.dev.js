@@ -36,7 +36,8 @@ const convertStringToSassDimension = function(result) {
     'in',
     'pt',
     'pc',
-    'ch'
+    'ch',
+    'ms'
   ];
   const parts = result.match(/[a-zA-Z]+|[0-9]+/g);
   const value = parts[0];

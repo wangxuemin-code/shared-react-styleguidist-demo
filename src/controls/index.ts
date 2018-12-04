@@ -17,3 +17,4 @@ export * from './Form';
 export * from './Header';
 export * from './RootContainer';
 export * from './Transition';
+export * from './Table';

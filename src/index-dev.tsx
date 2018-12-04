@@ -10,13 +10,16 @@ import {
   Form,
   Header,
   RootContainer,
-  ErrorPage
+  ErrorPage,
+  Table,
+  Card
 } from './controls';
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
+import { faAddressBook, faAdjust } from '@fortawesome/free-solid-svg-icons';
 
 class Main extends React.Component<
   any,
@@ -44,6 +47,9 @@ class Main extends React.Component<
         </Button>
         <Button margin={{ topRem: 1 }} size={'large'} fontStyle={'italic'}>
           Hello
+        </Button>
+        <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
+          Hello2
         </Button>
         <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
         <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
@@ -93,6 +99,32 @@ class Main extends React.Component<
         <Transition>
           <Message error='Hello i am sucesss!' />
         </Transition>
+        <Card padding={{ allPx: 10 }}>
+          <Table
+            headers={[{ title: 'Header1' }, { title: 'Header2' }]}
+            rows={[
+              {
+                rowContents: ['Super Admin', 'This is another not very long content.'],
+                rowActions: [
+                  {
+                    icon: faAddressBook,
+                    callback: () => {
+                      console.log('heeelop');
+                    }
+                  },
+                  {
+                    icon: faAdjust,
+                    callback: () => {
+                      console.log('heeelop');
+                    }
+                  }
+                ]
+              },
+              { rowContents: ['Super Admin', 'This is another not very long content.'] },
+              { rowContents: ['Super Admin', 'This is another not very long content.'] }
+            ]}
+          />
+        </Card>
       </RootContainer>
     );
   }

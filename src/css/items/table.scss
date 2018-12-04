@@ -1,0 +1,50 @@
+.istox-table {
+  border: 1px solid map-get($colors, primaryGreyLight);
+}
+
+.istox-table table {
+  width: 100%;
+}
+
+.istox-table th {
+  font-size: 0.8rem;
+  padding: 10px;
+  color: map-get($colors, primaryGreyDark);
+}
+
+.istox-table td {
+  padding: 20px 10px;
+  font-size: 0.85rem;
+  color: map-get($colors, primaryGreyDark);
+  font-weight: lighter;
+  border-top: 1px solid map-get($colors, primaryGreyLight);
+}
+
+.istox-table tbody tr {
+  transition: background-color $transitionLinear;
+}
+
+.istox-table tbody tr:hover {
+  background-color: map-get($colors, primary);
+}
+
+.istox-table tbody tr:hover td {
+  color: white;
+}
+
+.istox-table .action-container {
+  text-align: right;
+}
+
+.istox-table .action {
+  border: 1px solid map-get($colors, primaryGreyLight);
+  border-radius: $borderRadius;
+  padding: 5px 20px;
+  transition: color $transitionLinear, background-color $transitionLinear;
+  margin-left: 10px;
+}
+
+.istox-table tbody tr .action:hover {
+  background-color: white;
+  color: map-get($colors, primary);
+}

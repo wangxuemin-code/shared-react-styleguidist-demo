@@ -43,3 +43,8 @@
   background-color: #979797;
   background-image: none;
 }
+
+.button.button-info {
+  background-color: map-get($colors, primary);
+  background-image: none;
+}

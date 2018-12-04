@@ -13,12 +13,14 @@ export const stylings = {
     text: '1rem',
     title: '2rem'
   },
+  transitionDuration: '150ms',
   colors: {
     primary: '#2c97e2',
     primaryLight: '#76A1C3',
     primaryDark: '#153657',
     primaryGrey: '#D8D8D8',
     primaryGreyLight: '#f1f1f1',
+    primaryGreyDark: '#737b7e',
     success: '#5bd800',
     danger: '#D0021B'
   }

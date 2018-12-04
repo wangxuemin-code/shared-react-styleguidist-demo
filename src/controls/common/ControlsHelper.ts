@@ -24,10 +24,10 @@ export default class ControlsHelper {
         style.paddingRight = padding.leftRightRem + 'rem';
       }
       if (padding.allPx) {
-        style.paddingLeft = padding.allPx + 'rem';
-        style.paddingRight = padding.allPx + 'rem';
-        style.paddingTop = padding.allPx + 'rem';
-        style.paddingBottom = padding.allPx + 'rem';
+        style.paddingLeft = padding.allPx;
+        style.paddingRight = padding.allPx;
+        style.paddingTop = padding.allPx;
+        style.paddingBottom = padding.allPx;
       }
       if (padding.allRem) {
         style.paddingLeft = padding.allRem + 'rem';
@@ -88,10 +88,10 @@ export default class ControlsHelper {
         style.marginRight = margin.leftRightRem + 'rem';
       }
       if (margin.allPx) {
-        style.marginLeft = margin.allPx + 'rem';
-        style.marginRight = margin.allPx + 'rem';
-        style.marginTop = margin.allPx + 'rem';
-        style.marginBottom = margin.allPx + 'rem';
+        style.marginLeft = margin.allPx;
+        style.marginRight = margin.allPx;
+        style.marginTop = margin.allPx;
+        style.marginBottom = margin.allPx;
       }
       if (margin.allRem) {
         style.marginLeft = margin.allRem + 'rem';

@@ -20,6 +20,7 @@ export interface IContainer {
   children?: any;
   textAlign?: 'left' | 'right' | 'center';
   className?: string;
+  classNames?: string[];
   lineHeight?: number;
   clearFix?: boolean;
   widthPercent?: number;
@@ -47,7 +48,12 @@ export class Container extends React.Component<IContainer, any> {
       return null;
     }
 
-    const classes: string[] = [this.props.className ? this.props.className : ''];
+    let classes: string[] = [this.props.className ? this.props.className : ''];
+
+    if (this.props.classNames) {
+      classes = classes.concat(this.props.classNames);
+    }
+
     if (this.props.textAlign === 'center') {
       classes.push(styles.textCenter);
     } else if (this.props.textAlign === 'left') {
