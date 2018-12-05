@@ -15,6 +15,7 @@ exports.stylings = {
         text: '1rem',
         title: '2rem'
     },
+    headerHeight: '66px',
     transitionDuration: '150ms',
     colors: {
         primary: '#2c97e2',

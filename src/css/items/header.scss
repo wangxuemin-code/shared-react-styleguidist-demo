@@ -1,6 +1,6 @@
 .istox-header {
   background-image: linear-gradient(225deg, #3c77a0 0%, #1c4267 100%);
-  padding: 0.7rem 15rem;
+  padding: 0 15rem;
   color: #d8d8d8;
   width: 100%;
   z-index: 999;
@@ -9,10 +9,7 @@
   left: 0;
   display: grid;
   grid-template-columns: max-content auto max-content;
-}
-
-.istox-header + * {
-  margin-top: 100px;
+  height: $headerHeight;
 }
 
 .istox-header .icon {
@@ -70,6 +67,7 @@
   justify-content: center;
   align-items: center;
   padding: 0px 30px;
+  margin: 0.7rem 0;
 }
 .istox-header .user-action:hover {
   cursor: pointer;

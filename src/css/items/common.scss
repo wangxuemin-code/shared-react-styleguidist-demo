@@ -10,6 +10,11 @@ body {
   font-size: 1rem;
 }
 
+#reactContainer {
+  height: 100vh;
+  padding-top: $headerHeight;
+}
+
 html {
   height: 100%;
   font-size: 16px;

@@ -1,3 +1,4 @@
+export const reactContainer: string;
 export const header: string;
 export const inlineBlock: string;
 export const normalText: string;

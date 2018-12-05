@@ -13,6 +13,7 @@ export declare const stylings: {
         text: string;
         title: string;
     };
+    headerHeight: string;
     transitionDuration: string;
     colors: {
         primary: string;
