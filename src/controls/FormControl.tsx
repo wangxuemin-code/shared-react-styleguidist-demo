@@ -5,6 +5,8 @@ import { Message } from './Message';
 import { FormControl as BootstrapFormControl } from 'react-bootstrap';
 import { Formatter } from '../helpers/Formatter';
 import { Transition } from './Transition';
+import Toggle from 'react-toggle';
+import { SyntheticEvent } from 'react';
 
 interface IState {
   displayValue?: string;
@@ -18,7 +20,7 @@ interface IProps extends IContainer {
   defaultValue?: string | number;
   value?: string | number;
   placeholder?: string;
-  type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select';
+  type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select' | 'switch';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -43,6 +45,7 @@ export class FormControl extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
@@ -69,7 +72,7 @@ export class FormControl extends React.Component<IProps, IState> {
             {this.props.required && <span className={styles.required}>*</span>}
           </label>
 
-          <Container position={'relative'}>
+          <Container position={'relative'} className={styles.formControlsInner}>
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
             <input type='hidden' name={this.props.name} value={this.state.value} />
@@ -172,6 +175,15 @@ export class FormControl extends React.Component<IProps, IState> {
           </option>
         </BootstrapFormControl>
       );
+    } else if (this.props.type === 'switch') {
+      // debugger;
+      return (
+        <Toggle
+          onChange={this.onSwitchChanged}
+          disabled={this.props.disabled}
+          checked={this.state.displayValue === '1'}
+        />
+      );
     } else {
       return (
         <BootstrapFormControl
@@ -196,12 +208,21 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
+  private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
+    const result = this.processValue((e.target as any).checked ? '1' : '0');
+    this.setState({ displayValue: result.displayValue, value: result.value });
+    if (this.props.onInputChanged) {
+      this.props.onInputChanged(result.value, this.props.name || '');
+    }
+  }
+
   private processValue(value: string): IProcessResult {
     if (
       this.props.type === 'text' ||
       this.props.type === 'email' ||
       this.props.type === 'password' ||
-      this.props.type === 'select'
+      this.props.type === 'select' ||
+      this.props.type === 'switch'
     ) {
       return { displayValue: value || '', value };
     } else {
