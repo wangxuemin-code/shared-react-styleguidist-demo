@@ -51,6 +51,9 @@ class Main extends React.Component<
         <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
           Hello2
         </Button>
+        <Button margin={{ topRem: 1 }} size={'small'} buttonStyle='info' fontStyle={'italic'}>
+          Hello2
+        </Button>
         <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
         <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
           www.google.com

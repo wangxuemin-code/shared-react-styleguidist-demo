@@ -11,7 +11,7 @@ interface IButton extends IContainer {
   href?: string;
   disabled?: boolean;
   innerClasses?: string;
-  size?: 'medium' | 'large';
+  size?: 'medium' | 'large' | 'small';
 }
 
 export class Button extends React.Component<IButton, any> {
@@ -25,6 +25,7 @@ export class Button extends React.Component<IButton, any> {
     let classes: string[] = [
       styles.button,
       this.props.size === 'large' ? styles.buttonLg : '',
+      this.props.size === 'small' ? styles.buttonSm : '',
       this.props.innerClasses || ''
     ];
 

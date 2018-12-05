@@ -16,6 +16,7 @@ export const istoxRoot: string;
 export const button: string;
 export const active: string;
 export const buttonLg: string;
+export const buttonSm: string;
 export const buttonNone: string;
 export const disabled: string;
 export const buttonInfo: string;

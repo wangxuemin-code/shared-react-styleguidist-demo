@@ -29,6 +29,12 @@
   padding: 13px 55px;
 }
 
+.button.button-sm {
+  font-size: 0.8rem;
+  border-radius: $borderRadius;
+  padding: 5px 40px;
+}
+
 .button.button-none {
   background: none;
   color: inherit;
