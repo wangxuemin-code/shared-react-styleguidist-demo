@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
+import { Transition } from './Transition';
 
 export interface TableHeaderModel {
   title: string;
@@ -54,13 +55,19 @@ export class Table extends React.Component<IProps, any> {
     return (
       <tr>
         {tableRowModel.rowContents.map((content) => {
-          return <td>{content}</td>;
+          return (
+            <td>
+              <Transition>{content}</Transition>
+            </td>
+          );
         })}
         <td className={styles.actionContainer}>
-          {tableRowModel.rowActions &&
-            tableRowModel.rowActions.map((tableActionsModel) => {
-              return this.getActionDesign(tableActionsModel);
-            })}
+          <Transition>
+            {tableRowModel.rowActions &&
+              tableRowModel.rowActions.map((tableActionsModel) => {
+                return this.getActionDesign(tableActionsModel);
+              })}
+          </Transition>
         </td>
       </tr>
     );
