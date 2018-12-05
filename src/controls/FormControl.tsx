@@ -44,13 +44,13 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onChange = this.onChange.bind(this);
     this.onValueChanged(
       true,
-      String(this.props.value ? this.props.value : this.props.defaultValue)
+      String(this.props.value ? this.props.value : this.props.defaultValue || '')
     );
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
-      this.onValueChanged(false, String(this.props.value));
+      this.onValueChanged(false, String(this.props.value || ''));
     }
   }
 
@@ -157,7 +157,7 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private processValue(value: string): IProcessResult {
     if (this.props.type === 'text') {
-      return { displayValue: value, value };
+      return { displayValue: value || '', value };
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
       if (originalValue) {
@@ -183,7 +183,7 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onValueChanged(firstCall: boolean, newValue: string) {
     let result: IProcessResult = { displayValue: '', value: '' };
-    result = this.processValue(String(newValue));
+    result = this.processValue(String(newValue || ''));
 
     if (firstCall) {
       this.state = {

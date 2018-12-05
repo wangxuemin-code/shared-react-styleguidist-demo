@@ -29,17 +29,19 @@ export class Table extends React.Component<IProps, any> {
     return (
       <Container {...this.props} className={styles.istoxTable}>
         <table>
-          <tr>
-            {this.props.headers &&
-              this.props.headers.map((tableHeaderModel) => {
-                return this.getHeaderDesign(tableHeaderModel);
-              })}
-            <th />
-          </tr>
+          <thead>
+            <tr>
+              {this.props.headers &&
+                this.props.headers.map((tableHeaderModel, i) => {
+                  return this.getHeaderDesign(tableHeaderModel, i);
+                })}
+              <th />
+            </tr>
+          </thead>
           <tbody>
             {this.props.rows &&
-              this.props.rows.map((tableRowModel) => {
-                return this.getRowDesign(tableRowModel);
+              this.props.rows.map((tableRowModel, i) => {
+                return this.getRowDesign(tableRowModel, i);
               })}
           </tbody>
         </table>
@@ -47,25 +49,25 @@ export class Table extends React.Component<IProps, any> {
     );
   }
 
-  private getHeaderDesign(tableHeaderModel: TableHeaderModel) {
-    return <th>{tableHeaderModel.title}</th>;
+  private getHeaderDesign(tableHeaderModel: TableHeaderModel, index: number) {
+    return <th key={index}>{tableHeaderModel.title}</th>;
   }
 
-  private getRowDesign(tableRowModel: TableRowModel) {
+  private getRowDesign(tableRowModel: TableRowModel, index: number) {
     return (
-      <tr>
-        {tableRowModel.rowContents.map((content) => {
+      <tr key={index}>
+        {tableRowModel.rowContents.map((content, i) => {
           return (
-            <td>
+            <td key={i}>
               <Transition>{content}</Transition>
             </td>
           );
         })}
-        <td className={styles.actionContainer}>
+        <td className={styles.actionContainer} key='action'>
           <Transition>
             {tableRowModel.rowActions &&
-              tableRowModel.rowActions.map((tableActionsModel) => {
-                return this.getActionDesign(tableActionsModel);
+              tableRowModel.rowActions.map((tableActionsModel, i) => {
+                return this.getActionDesign(tableActionsModel, i);
               })}
           </Transition>
         </td>
@@ -73,9 +75,10 @@ export class Table extends React.Component<IProps, any> {
     );
   }
 
-  private getActionDesign(tableActionsModel: TableActionsModel) {
+  private getActionDesign(tableActionsModel: TableActionsModel, index: number) {
     return (
       <Icon
+        key={index}
         icon={tableActionsModel.icon}
         classNames={[styles.action]}
         tooltip={tableActionsModel.tooltip}

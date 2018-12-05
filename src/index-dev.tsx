@@ -51,7 +51,13 @@ class Main extends React.Component<
         <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
           Hello2
         </Button>
-        <Button margin={{ topRem: 1 }} size={'small'} buttonStyle='info' fontStyle={'italic'}>
+        <Button
+          margin={{ topRem: 1 }}
+          size={'small'}
+          buttonStyle='info'
+          fontStyle={'italic'}
+          onPress={() => console.log('www')}
+        >
           Hello2
         </Button>
         <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
@@ -92,7 +98,6 @@ class Main extends React.Component<
             }
             name='hi'
             type={'money'}
-            defaultValue={'100'}
           />
 
           <Container tooltip={'tooltip!'} display='inline-block'>

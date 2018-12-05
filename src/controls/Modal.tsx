@@ -10,6 +10,7 @@ interface IState {
 interface IProps {
   children?: any;
   visible: boolean;
+  onModalHide: () => void;
 }
 
 export class Modal extends React.Component<IProps, IState> {
@@ -49,5 +50,6 @@ export class Modal extends React.Component<IProps, IState> {
 
   private onModalHide() {
     this.setState({ visible: false });
+    if (this.props.onModalHide) this.props.onModalHide();
   }
 }
