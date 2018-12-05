@@ -55,6 +55,11 @@
   background-image: none;
 }
 
+.button.button-negative {
+  background-color: map-get($colors, primaryGreyDark);
+  background-image: none;
+}
+
 .btn-loading {
   border-radius: $borderRadius;
   background-color: rgba(0, 0, 0, 0.35);

@@ -18,3 +18,4 @@ export * from './Header';
 export * from './RootContainer';
 export * from './Transition';
 export * from './Table';
+export * from './Confirm';

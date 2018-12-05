@@ -18,7 +18,7 @@ interface IProps extends IContainer {
   defaultValue?: string | number;
   value?: string | number;
   placeholder?: string;
-  type?: 'text' | 'number' | 'money' | 'static';
+  type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -26,6 +26,7 @@ interface IProps extends IContainer {
   label?: any;
   required?: boolean;
   validateReturnError?: (value: string | number | undefined) => string | undefined;
+  selectOptions?: { label: string; value: string }[];
 }
 
 interface IProcessResult {
@@ -109,6 +110,26 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     }
 
+    if (this.props.type === 'email') {
+      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      if (!re.test(String(this.state.value).toLowerCase())) {
+        this.setState({ error: 'Email address is not valid.', showError: true });
+        return false;
+      }
+    }
+
+    if (this.props.type === 'password') {
+      const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+      if (!re.test(String(this.state.value))) {
+        this.setState({
+          error:
+            'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+          showError: true
+        });
+        return false;
+      }
+    }
+
     if (this.props.validateReturnError) {
       const error = this.props.validateReturnError(this.state.value);
       if (error) {
@@ -131,12 +152,32 @@ export class FormControl extends React.Component<IProps, IState> {
   private getControlDesign() {
     if (this.props.type === 'static') {
       return <Container>{this.props.value}</Container>;
+    } else if (this.props.type === 'select') {
+      return (
+        <BootstrapFormControl
+          componentClass='select'
+          value={this.props.placeholder && !this.state.value ? 'PLACEHOLDER' : this.state.value}
+          onChange={this.onChange}
+        >
+          {this.props.selectOptions &&
+            this.props.selectOptions.map((option, i) => {
+              return (
+                <option key={i} value={option.value}>
+                  {option.label}
+                </option>
+              );
+            })}
+          <option disabled value={'PLACEHOLDER'} key={-1} style={{ display: 'none' }}>
+            {this.props.placeholder}
+          </option>
+        </BootstrapFormControl>
+      );
     } else {
       return (
         <BootstrapFormControl
           autoComplete={'off'}
           autoCorrect={'off'}
-          type={'text'}
+          type={this.props.type === 'password' ? 'password' : 'text'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue}
           onChange={this.onChange}
@@ -156,7 +197,12 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private processValue(value: string): IProcessResult {
-    if (this.props.type === 'text') {
+    if (
+      this.props.type === 'text' ||
+      this.props.type === 'email' ||
+      this.props.type === 'password' ||
+      this.props.type === 'select'
+    ) {
       return { displayValue: value || '', value };
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();

@@ -1,0 +1,21 @@
+.confirm-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.confirm-container .icon-container {
+  font-size: 6rem;
+  color: map-get($colors, primary);
+}
+
+.confirm-container .content-container {
+  font-size: 1.3rem;
+  font-weight: lighter;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.confirm-container .buttonsContainer {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}

@@ -11,6 +11,7 @@ interface IProps {
   children?: any;
   visible: boolean;
   onModalHide?: () => void;
+  onExited?: () => void;
 }
 
 export class Modal extends React.Component<IProps, IState> {
@@ -28,12 +29,12 @@ export class Modal extends React.Component<IProps, IState> {
   }
 
   public render() {
-    debugger;
     return (
       <BootstrapModal
         show={this.state.visible && this.props.visible}
         onHide={this.onModalHide}
         className={styles.myModal}
+        onExited={this.props.onExited}
       >
         <Icon
           icon={'remove'}

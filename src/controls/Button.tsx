@@ -6,7 +6,7 @@ import { Link } from './Link';
 import { Loading } from '.';
 
 interface IButton extends IContainer {
-  buttonStyle?: 'normal' | 'info' | 'invert' | 'none';
+  buttonStyle?: 'normal' | 'info' | 'invert' | 'none' | 'negative';
   type?: 'button' | 'submit';
   onPress?: () => void;
   href?: string;
@@ -35,6 +35,8 @@ export class Button extends React.Component<IButton, any> {
       classes.push(styles.buttonNone);
     } else if (this.props.buttonStyle === 'info') {
       classes.push(styles.buttonInfo);
+    } else if (this.props.buttonStyle === 'negative') {
+      classes.push(styles.buttonNegative);
     }
 
     if (this.props.disabled) {

@@ -20,6 +20,7 @@ import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
 import { faAddressBook, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import { Confirm } from './controls/Confirm';
 
 class Main extends React.Component<
   any,
@@ -50,6 +51,22 @@ class Main extends React.Component<
         </Button>
         <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
           Hello2
+        </Button>
+
+        <Button
+          margin={{ topRem: 1 }}
+          buttonStyle='negative'
+          onPress={() => {
+            Confirm.show({
+              type: 'yesno',
+              message: 'hello',
+              onResult: (result) => {
+                console.log(result);
+              }
+            });
+          }}
+        >
+          Negative Button
         </Button>
         <Button
           margin={{ topRem: 1 }}
@@ -99,6 +116,26 @@ class Main extends React.Component<
             }
             name='hi'
             type={'money'}
+          />
+
+          <Controls.FormControl required label={'Email'} name='email' type={'email'} />
+          <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
+          <Controls.FormControl
+            required
+            label={'Type'}
+            name='Type'
+            type={'select'}
+            placeholder={'What is this'}
+            selectOptions={[
+              {
+                label: 'helo',
+                value: 'hei!'
+              },
+              {
+                label: 'Option2',
+                value: 'abcl'
+              }
+            ]}
           />
 
           <Container tooltip={'tooltip!'} display='inline-block'>
