@@ -3,6 +3,7 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import ControlsHelper from './common/ControlsHelper';
 import { Link } from './Link';
+import { Loading } from '.';
 
 interface IButton extends IContainer {
   buttonStyle?: 'normal' | 'info' | 'invert' | 'none';
@@ -12,6 +13,7 @@ interface IButton extends IContainer {
   disabled?: boolean;
   innerClasses?: string;
   size?: 'medium' | 'large' | 'small';
+  loading?: boolean;
 }
 
 export class Button extends React.Component<IButton, any> {
@@ -61,7 +63,13 @@ export class Button extends React.Component<IButton, any> {
     let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
 
     return (
-      <Container {...filteredProps}>
+      <Container {...filteredProps} display='inline-block' position='relative'>
+        {this.props.loading && (
+          <div className={styles.btnLoading}>
+            <Loading backDrop={false} loading={this.props.loading} />
+          </div>
+        )}
+
         <button
           type={this.props.type}
           style={style}

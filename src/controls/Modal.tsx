@@ -10,7 +10,7 @@ interface IState {
 interface IProps {
   children?: any;
   visible: boolean;
-  onModalHide: () => void;
+  onModalHide?: () => void;
 }
 
 export class Modal extends React.Component<IProps, IState> {

@@ -20,6 +20,7 @@ export const buttonSm: string;
 export const buttonNone: string;
 export const disabled: string;
 export const buttonInfo: string;
+export const btnLoading: string;
 export const imageResponsive: string;
 export const loadingContainer: string;
 export const card: string;

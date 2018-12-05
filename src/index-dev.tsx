@@ -56,7 +56,13 @@ class Main extends React.Component<
           size={'small'}
           buttonStyle='info'
           fontStyle={'italic'}
-          onPress={() => console.log('www')}
+          loading={this.state.loading}
+          onPress={() => {
+            console.log('pressed');
+            this.setState({
+              loading: true
+            });
+          }}
         >
           Hello2
         </Button>
@@ -67,7 +73,6 @@ class Main extends React.Component<
         <Form
           horizontal
           error={this.state.error}
-          loading={this.state.loading}
           ref={(ref) => {
             this.form = ref;
           }}
@@ -78,10 +83,6 @@ class Main extends React.Component<
               success: '',
               error: ''
             });
-
-            setTimeout(() => {
-              this.setState({ loading: true });
-            }, 900);
           }}
         >
           <Controls.FormControl
