@@ -131,8 +131,8 @@ class Main extends React.Component<
             required
             label={'Type'}
             name='Type'
+            placeholder='aCb'
             type={'select'}
-            placeholder={'What is this'}
             selectOptions={[
               {
                 label: 'helo',

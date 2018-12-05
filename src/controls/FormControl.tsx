@@ -159,7 +159,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <BootstrapFormControl
           componentClass='select'
-          value={this.props.placeholder && !this.state.value ? 'PLACEHOLDER' : this.state.value}
+          value={!this.state.value ? 'PLACEHOLDER' : this.state.value}
           onChange={this.onChange}
         >
           {this.props.selectOptions &&
