@@ -104,13 +104,22 @@ class Main extends React.Component<
         >
           <Controls.FormControl
             required
+            ref={(ref) => {
+              this.form = ref;
+            }}
             label={
               <span>
                 Amount in <b>USD</b>
               </span>
             }
             append={
-              <Button textAlign={'center'} type={'submit'}>
+              <Button
+                textAlign={'center'}
+                type={'submit'}
+                onPress={() => {
+                  console.log(this.form.getFormData());
+                }}
+              >
                 Submit
               </Button>
             }

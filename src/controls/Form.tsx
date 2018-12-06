@@ -66,6 +66,16 @@ export class Form extends React.Component<IProps> {
     return value.trim();
   }
 
+  public getFormData(): FormData {
+    const formData = new FormData();
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue) {
+        formData.append(formControl.getName(), formControl.getValue());
+      }
+    });
+    return formData;
+  }
+
   public reset() {
     this.formControls.forEach((formControl: any) => {
       if (formControl.reset) {
