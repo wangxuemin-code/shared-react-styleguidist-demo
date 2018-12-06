@@ -1,7 +1,7 @@
 import { plainToClassFromExist } from 'class-transformer';
 
 interface IApiOptions {
-  type: 'get' | 'post';
+  type: 'get' | 'post' | 'put' | 'patch' | 'delete';
   postData: FormData;
 }
 
@@ -14,12 +14,19 @@ export class ApiHelper {
     this.otherUrlPrefix = POSTPrefix;
   }
 
-  public get(path: string) {
-    const url = `${this.getUrlPrefix}/${path}`;
-    console.log('Sending get request to url: ' + url);
+  public start(path: string, methodType: string, data?: FormData) {
+    let url;
+    if (methodType === 'get') {
+      url = `${this.getUrlPrefix}/${path}`;
+    } else {
+      url = `${this.otherUrlPrefix}/${path}`;
+    }
+
+    console.log('Sending ' + methodType + ' request to url: ' + url);
     const request = new Request(url, {
-      method: 'GET',
-      credentials: 'include'
+      method: methodType.toUpperCase(),
+      credentials: 'include',
+      body: data
     });
     return fetch(request)
       .then((response) => {
@@ -34,33 +41,6 @@ export class ApiHelper {
       .then((data) => {
         console.log(data);
         return data;
-      })
-      .catch((error) => {
-        console.error(error);
-        return Promise.reject(error.message);
-      });
-  }
-
-  public post(path: string, data: FormData) {
-    const url = `${this.otherUrlPrefix}/${path}`;
-    console.log('Sending post request to url: ' + url);
-    const request = new Request(url, {
-      method: 'POST',
-      credentials: 'include',
-      body: data
-    });
-
-    return fetch(request)
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data.errors) {
-          return Promise.reject(data.errors);
-        } else {
-          console.log(data);
-          return data;
-        }
       })
       .catch((error) => {
         console.error(error);
@@ -113,7 +93,7 @@ export class ApiHelper {
     options: IApiOptions = { type: 'get', postData: new FormData() }
   ): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      const apiPromise = options.type === 'get' ? this.get(url) : this.post(url, options.postData);
+      const apiPromise = this.start(url, options.type, options.postData);
 
       apiPromise
         .then((json) => {
