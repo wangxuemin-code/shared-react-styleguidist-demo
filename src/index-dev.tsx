@@ -89,7 +89,7 @@ class Main extends React.Component<
         </Link>
         <Form
           horizontal
-          error={this.state.error}
+          error={String(404)}
           ref={(ref) => {
             this.form = ref;
           }}

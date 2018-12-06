@@ -31,9 +31,9 @@ export class ApiHelper {
     return fetch(request)
       .then((response) => {
         if (response.status === 404) {
-          return Promise.reject(404);
+          return Promise.reject('404 not found.');
         } else if (response.status === 500) {
-          return Promise.reject(500);
+          return Promise.reject('500 internal error.');
         }
 
         return response.json();
