@@ -2,7 +2,7 @@ import { plainToClassFromExist } from 'class-transformer';
 
 interface IApiOptions {
   type: 'get' | 'post' | 'put' | 'patch' | 'delete';
-  postData: FormData;
+  postData?: FormData;
 }
 
 export class ApiHelper {
