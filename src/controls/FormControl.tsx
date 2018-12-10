@@ -146,10 +146,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public reset() {
-    this.onValueChanged(
-      false,
-      String(this.props.value ? this.props.value : this.props.defaultValue)
-    );
+    this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
   }
 
   private getControlDesign() {
