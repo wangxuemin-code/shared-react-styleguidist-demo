@@ -91,7 +91,10 @@ class Main extends React.Component<
           horizontal
           error={String(404)}
           ref={(ref) => {
-            this.form = ref;
+            if (ref) {
+              this.form = ref;
+              this.form.reset();
+            }
           }}
           onSubmit={() => {
             console.log(this.form.reset());
@@ -127,7 +130,7 @@ class Main extends React.Component<
             type={'money'}
           />
 
-          <Controls.FormControl required label={'Email'} name='email' type={'email'} />
+          <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
           <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
           <Controls.FormControl
             required

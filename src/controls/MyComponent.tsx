@@ -48,10 +48,10 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
     };
   }
 
-  protected shouldRender(component: any): any {
-    if (this.props.loading) {
+  protected shouldRender(component: any, loading?: boolean, error?: '404' | '500'): any {
+    if (this.props.loading || loading) {
       return <Loading backDrop={false} loading={this.props.loading} />;
-    } else if (this.props.error) {
+    } else if (this.props.error || error) {
       return <ErrorPage type={'500'} />;
     }
 
