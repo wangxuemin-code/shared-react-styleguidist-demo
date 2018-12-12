@@ -203,5 +203,30 @@ const render = () => {
 
 render();
 
-const mqtt = new Mqtt();
-mqtt.start();
+const mqtt = new Mqtt({
+  host: 'localhost',
+  port: 35675,
+  onConnected: () => {}
+});
+
+mqtt.subscribe({
+  queueName: 'test',
+  topic: '123',
+  callback: () => {
+    console.log('waow');
+  }
+});
+
+mqtt
+  .waitForMessage({
+    queueName: 'abc',
+    topic: 'jom',
+    filter: {
+      id: '1',
+      type: 'HELLO'
+    }
+  })
+  .then((message) => {
+    console.log('aha');
+    console.log(message);
+  });
