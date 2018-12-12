@@ -84,7 +84,7 @@ class Main extends React.Component<
           Hello2
         </Button>
         <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
-        <Link margin={{ topRem: 1 }} display='block' href='www.google.com'>
+        <Link margin={{ topRem: 1 }} display='block' href='www.google.com' useNormalAnchor>
           www.google.com
         </Link>
         <Form
@@ -158,7 +158,9 @@ class Main extends React.Component<
           />
 
           <Container tooltip={'tooltip!'} display='inline-block'>
-            <Link href='/wqe'>dasd</Link>
+            <Link href='/wqe' useNormalAnchor>
+              dasd
+            </Link>
           </Container>
         </Form>
         <Transition>
