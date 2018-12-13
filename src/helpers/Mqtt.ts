@@ -1,6 +1,6 @@
 import { Client, Message, MQTTError } from 'paho-mqtt';
 
-interface IFilterTypes {
+export interface IFilterTypes {
   type?: string;
   statusCode?: number;
   id?: string;

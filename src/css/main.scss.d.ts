@@ -66,3 +66,6 @@ export const confirmContainer: string;
 export const iconContainer: string;
 export const contentContainer: string;
 export const buttonsContainer: string;
+export const blockchainTransactionContainer: string;
+export const slideIn: string;
+export const slideOut: string;

@@ -25,6 +25,7 @@ export interface IContainer {
   clearFix?: boolean;
   widthPercent?: number;
   height?: number;
+  width?: number;
   backgroundColor?: string;
   display?: 'block' | 'inline-block' | 'inline';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
@@ -157,6 +158,10 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.height) {
       style.height = this.props.height;
+    }
+
+    if (this.props.width) {
+      style.width = this.props.width;
     }
 
     if (this.props.zIndex) {

@@ -21,6 +21,37 @@ import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
 import { faAddressBook, faAdjust } from '@fortawesome/free-solid-svg-icons';
 import { Confirm } from './controls/Confirm';
+import { BlockchainTransaction } from './controls/BlockchainTransaction';
+
+const mqtt = new Mqtt({
+  host: 'localhost',
+  port: 35675,
+  onConnected: () => {
+    console.log('connected!');
+  }
+});
+
+// mqtt.subscribe({
+//   queueName: 'test',
+//   topic: '123',
+//   callback: () => {
+//     console.log('waow');
+//   }
+// });
+
+// mqtt
+//   .waitForMessage({
+//     queueName: 'abc',
+//     topic: 'jom',
+//     filter: {
+//       id: '1',
+//       type: 'HELLO'
+//     }
+//   })
+//   .then((message) => {
+//     console.log('aha');
+//     console.log(message);
+//   });
 
 class Main extends React.Component<
   any,
@@ -83,7 +114,18 @@ class Main extends React.Component<
         >
           Hello2
         </Button>
-        <Icon onClick={() => {}} icon={'plus'} tooltip={'hello'} />
+        <Icon
+          onClick={() => {
+            BlockchainTransaction.show({
+              mqttClient: mqtt,
+              waitOptions: {
+                queueName: 'test'
+              }
+            });
+          }}
+          icon={'plus'}
+          tooltip={'hello'}
+        />
         <Link margin={{ topRem: 1 }} display='block' href='www.google.com' useNormalAnchor>
           www.google.com
         </Link>
@@ -202,31 +244,3 @@ const render = () => {
 };
 
 render();
-
-const mqtt = new Mqtt({
-  host: 'localhost',
-  port: 35675,
-  onConnected: () => {}
-});
-
-mqtt.subscribe({
-  queueName: 'test',
-  topic: '123',
-  callback: () => {
-    console.log('waow');
-  }
-});
-
-mqtt
-  .waitForMessage({
-    queueName: 'abc',
-    topic: 'jom',
-    filter: {
-      id: '1',
-      type: 'HELLO'
-    }
-  })
-  .then((message) => {
-    console.log('aha');
-    console.log(message);
-  });
