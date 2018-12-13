@@ -19,3 +19,4 @@ export * from './RootContainer';
 export * from './Transition';
 export * from './Table';
 export * from './Confirm';
+export * from './BlockchainTransaction';
