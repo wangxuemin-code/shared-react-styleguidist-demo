@@ -1,11 +1,11 @@
-import { DetailedReactHTMLElement } from 'react';
 import * as React from 'react';
+import { DetailedReactHTMLElement } from 'react';
+import { Form as BootstrapForm } from 'react-bootstrap';
 import * as styles from '../css/main.scss';
-import { Form as BootstrapForm, FormControl } from 'react-bootstrap';
+import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
-import { IAlert, Alert } from './Alert';
 import { Loading } from './Loading';
-import { Transition } from './Transition';
+import { FormControl } from './FormControl';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
