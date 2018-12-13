@@ -55,6 +55,10 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
       return <ErrorPage type={'500'} />;
     }
 
-    return component;
+    if (typeof component === 'function') {
+      return component();
+    } else {
+      return component;
+    }
   }
 }
