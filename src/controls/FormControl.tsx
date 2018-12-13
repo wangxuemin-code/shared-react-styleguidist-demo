@@ -155,6 +155,20 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
   }
 
+  public setValue(value: string | number, notify: boolean = true) {
+    const result = this.processValue(String(value));
+    this.setState({ displayValue: result.displayValue, value: result.value });
+    if (notify) {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    }
+  }
+
+  public toggle(notify: boolean = true) {
+    this.setValue(this.state.value === '0' ? '1' : '0', notify);
+  }
+
   private getControlDesign() {
     if (this.props.type === 'static') {
       return <Container>{this.props.value}</Container>;

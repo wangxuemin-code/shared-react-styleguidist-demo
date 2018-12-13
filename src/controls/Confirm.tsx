@@ -2,13 +2,17 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Modal, Icon, Button } from '.';
-import { faQuestionCircle, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faQuestionCircle,
+  faCheckCircle,
+  faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons';
 import { render, unmountComponentAtNode } from 'react-dom';
 
 interface IProps extends IContainer {
   title?: string;
   message: string;
-  type: 'yesno' | 'confirm' | 'okonly';
+  type: 'yesno' | 'confirm' | 'okonly' | 'error';
   onResult?: (positive: boolean) => void;
 }
 
@@ -27,11 +31,20 @@ export class Confirm extends React.Component<IProps, IState> {
   }
 
   public render() {
+    let defaultMessage = '';
+    if (this.props.type === 'yesno' || this.props.type === 'confirm') {
+      defaultMessage = 'Are you sure?';
+    } else if (this.props.type === 'error') {
+      defaultMessage = 'Request failed.';
+    } else if (this.props.type === 'okonly') {
+      defaultMessage = '';
+    }
+
     return (
       <Modal visible={this.state.show} onModalHide={this.onModalHide} onExited={this.onExited}>
         <Container className={styles.confirmContainer}>
           <Icon display='block' icon={this.getIcon()} classNames={[styles.iconContainer]} />
-          <h2>{this.props.title || 'Are you sure?'}</h2>
+          <h2>{this.props.title || defaultMessage}</h2>
           <Container className={styles.contentContainer}>{this.props.message}</Container>
           <Container className={styles.buttonsContainer}>
             {this.props.type === 'confirm' && (
@@ -80,6 +93,8 @@ export class Confirm extends React.Component<IProps, IState> {
       return faQuestionCircle;
     } else if (this.props.type === 'okonly') {
       return faCheckCircle;
+    } else if (this.props.type === 'error') {
+      return faExclamationCircle;
     }
   }
 

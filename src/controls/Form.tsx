@@ -1,7 +1,7 @@
 import { DetailedReactHTMLElement } from 'react';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Form as BootstrapForm } from 'react-bootstrap';
+import { Form as BootstrapForm, FormControl } from 'react-bootstrap';
 import { Container, IContainer } from './Container';
 import { IAlert, Alert } from './Alert';
 import { Loading } from './Loading';
@@ -64,6 +64,18 @@ export class Form extends React.Component<IProps> {
       }
     });
     return value.trim();
+  }
+
+  public getFormControl(name: string): FormControl {
+    let result: any = null;
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue) {
+        if (formControl.getName() === name) {
+          result = formControl;
+        }
+      }
+    });
+    return result;
   }
 
   public getFormData(): FormData {

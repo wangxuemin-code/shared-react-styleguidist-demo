@@ -110,6 +110,10 @@ class Main extends React.Component<
             this.setState({
               loading: true
             });
+
+            if (this.form) {
+              this.form.getFormControl('notify').setValue('1');
+            }
           }}
         >
           Hello2
@@ -136,7 +140,7 @@ class Main extends React.Component<
           ref={(ref) => {
             if (ref) {
               this.form = ref;
-              this.form.reset();
+              // this.form.reset();
             }
           }}
           onSubmit={() => {
