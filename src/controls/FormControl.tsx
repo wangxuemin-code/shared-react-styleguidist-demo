@@ -124,22 +124,26 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (this.props.type === 'email') {
-      const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      if (!re.test(String(this.state.value).toLowerCase())) {
-        this.setState({ error: 'Email address is not valid.', showError: true });
-        return false;
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!re.test(String(this.state.value).toLowerCase())) {
+          this.setState({ error: 'Email address is not valid.', showError: true });
+          return false;
+        }
       }
     }
 
     if (this.props.type === 'password') {
-      const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-      if (!re.test(String(this.state.value))) {
-        this.setState({
-          error:
-            'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
-          showError: true
-        });
-        return false;
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        if (!re.test(String(this.state.value))) {
+          this.setState({
+            error:
+              'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+            showError: true
+          });
+          return false;
+        }
       }
     }
 
