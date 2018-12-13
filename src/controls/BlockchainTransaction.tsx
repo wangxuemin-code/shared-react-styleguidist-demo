@@ -13,7 +13,7 @@ interface IProps {
     topicName?: string;
     filter?: IFilterTypes;
   };
-  onResult?: (messagePayload: string, message: Message) => {};
+  onResult?: (messagePayload: string, message: Message) => void;
 }
 
 interface IState {
