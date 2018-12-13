@@ -27,7 +27,7 @@ export interface IContainer {
   height?: number;
   width?: number;
   backgroundColor?: string;
-  display?: 'block' | 'inline-block' | 'inline';
+  display?: 'block' | 'inline-block' | 'inline' | 'flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   hidden?: boolean;
   tooltip?: string | undefined | null;

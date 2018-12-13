@@ -55,6 +55,7 @@ export const formHorizontal: string;
 export const mainFormControlsWrapper: string;
 export const formControlsWrapper: string;
 export const formControlsInner: string;
+export const loadingContainerWrapper: string;
 export const required: string;
 export const inputAppend: string;
 export const custom: string;

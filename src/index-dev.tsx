@@ -120,7 +120,8 @@ class Main extends React.Component<
               mqttClient: mqtt,
               waitOptions: {
                 queueName: 'test'
-              }
+              },
+              onResult: () => {}
             });
           }}
           icon={'plus'}

@@ -7,6 +7,7 @@ import { Formatter } from '../helpers/Formatter';
 import { Transition } from './Transition';
 import Toggle from 'react-toggle';
 import { SyntheticEvent } from 'react';
+import { Loading } from './Loading';
 
 interface IState {
   displayValue?: string;
@@ -16,6 +17,7 @@ interface IState {
 }
 
 interface IProps extends IContainer {
+  loading?: boolean;
   fullWidth?: boolean;
   defaultValue?: string | number;
   value?: string | number;
@@ -106,6 +108,14 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public validate(): boolean {
+    if (this.props.validateReturnError) {
+      const error = this.props.validateReturnError(this.state.value);
+      if (error) {
+        this.setState({ error, showError: true });
+        return false;
+      }
+    }
+
     if (this.props.required) {
       if (!this.state.value) {
         this.setState({ error: 'Cannot be empty.', showError: true });
@@ -129,14 +139,6 @@ export class FormControl extends React.Component<IProps, IState> {
             'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
           showError: true
         });
-        return false;
-      }
-    }
-
-    if (this.props.validateReturnError) {
-      const error = this.props.validateReturnError(this.state.value);
-      if (error) {
-        this.setState({ error, showError: true });
         return false;
       }
     }
@@ -173,13 +175,15 @@ export class FormControl extends React.Component<IProps, IState> {
         </BootstrapFormControl>
       );
     } else if (this.props.type === 'switch') {
-      // debugger;
       return (
-        <Toggle
-          onChange={this.onSwitchChanged}
-          disabled={this.props.disabled}
-          checked={this.state.displayValue === '1'}
-        />
+        <Container className={styles.loadingContainerWrapper}>
+          <Loading loading={this.props.loading} />
+          <Toggle
+            onChange={this.onSwitchChanged}
+            disabled={this.props.disabled}
+            checked={this.state.displayValue === '1'}
+          />
+        </Container>
       );
     } else {
       return (

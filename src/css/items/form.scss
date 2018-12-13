@@ -47,6 +47,15 @@
   align-items: center;
 }
 
+.istox-form .form-controls-inner .loading-container-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.istox-form .form-controls-inner .loading-container {
+  border-radius: $borderRadius;
+}
+
 .istox-form .form-controls-wrapper.error input,
 .istox-form .form-controls-wrapper.error select {
   border: 1px solid map-get($colors, danger);
