@@ -8,7 +8,7 @@ import { Container, IContainer } from './Container';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { Transition } from './Transition';
-import { FormContext } from './Form';
+import { FormContext } from '../contexts/FormContext';
 
 interface IState {
   displayValue?: string;

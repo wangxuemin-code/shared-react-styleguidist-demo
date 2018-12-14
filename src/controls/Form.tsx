@@ -6,14 +6,13 @@ import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
 import { Loading } from './Loading';
 import { FormControl } from './FormControl';
+import { FormContext } from '../contexts/FormContext';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
   onSubmit?: () => void;
   horizontal?: boolean;
 }
-
-export const FormContext = React.createContext({});
 
 export class Form extends React.Component<IProps> {
   formControls: any[];
