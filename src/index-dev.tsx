@@ -19,7 +19,7 @@ import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
-import { faAddressBook, faAdjust } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faAdjust, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Confirm } from './controls/Confirm';
 import { BlockchainTransaction } from './controls/BlockchainTransaction';
 
@@ -165,6 +165,11 @@ class Main extends React.Component<
                 Amount in <b>USD</b>
               </span>
             }
+            extraControls={
+              <Link>
+                <Icon icon={faPlus} text={'What'} />
+              </Link>
+            }
             append={
               <Button
                 textAlign={'center'}
@@ -183,17 +188,22 @@ class Main extends React.Component<
           <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
           <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
           <Controls.FormControl label={'Password'} name='Password' type={'password'} />
-          <div>
-            <div>
-              <Controls.FormControl
-                required
-                label={'Notify me'}
-                name='notify'
-                type={'switch'}
-                defaultValue='0'
-              />
-            </div>
-          </div>
+          {() => {
+            return (
+              <div>
+                <div>
+                  <Controls.FormControl
+                    required
+                    label={'Notify me'}
+                    name='notify'
+                    type={'switch'}
+                    defaultValue='0'
+                  />
+                </div>
+              </div>
+            );
+          }}
+
           <Controls.FormControl
             required
             label={'Type'}

@@ -31,6 +31,7 @@ interface IProps extends IContainer {
   required?: boolean;
   validateReturnError?: (value: string | number | undefined) => string | undefined;
   selectOptions?: { label: string; value: string }[];
+  extraControls?: any;
 }
 
 interface IProcessResult {
@@ -78,9 +79,18 @@ export class FormControl extends React.Component<IProps, IState> {
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
             <input type='hidden' name={this.props.name} value={this.state.value} />
+
+            <div />
           </Container>
         </Container>
-        <Container {...this.props} className={styles.formControlsWrapper}>
+        {this.props.extraControls && (
+          <Container className={styles.formControlsWrapper}>
+            <span />
+            <Container display='block'>{this.props.extraControls}</Container>
+          </Container>
+        )}
+
+        <Container className={styles.formControlsWrapper}>
           <span />
           <Transition in={this.state.showError}>
             <Message error={this.state.error} />

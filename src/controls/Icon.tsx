@@ -13,6 +13,7 @@ interface IProps extends IContainer {
    */
   icon: any;
   onClick?: () => void;
+  text?: string;
 }
 
 export class Icon extends React.Component<IProps, any> {
@@ -40,13 +41,13 @@ export class Icon extends React.Component<IProps, any> {
           buttonStyle={'none'}
           display={'inline-block'}
         >
-          {this.getIconDesign()}
+          {this.getIconDesign()} {this.props.text}
         </Button>
       );
     } else {
       return (
         <Container {...this.props} display={'inline-block'}>
-          {this.getIconDesign()}
+          {this.getIconDesign()} {this.props.text}
         </Container>
       );
     }
@@ -54,9 +55,11 @@ export class Icon extends React.Component<IProps, any> {
 
   private getIconDesign() {
     if (this.checkIconType() === 'glyphicon') {
-      return <Glyphicon glyph={`${this.props.icon}`} />;
+      return <Glyphicon glyph={`${this.props.icon}`} style={{ marginRight: 3 }} />;
     } else if (this.checkIconType() === 'fontawesome') {
-      return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+      return (
+        <FontAwesomeIcon icon={this.props.icon as IconDefinition} style={{ marginRight: 3 }} />
+      );
     }
   }
 

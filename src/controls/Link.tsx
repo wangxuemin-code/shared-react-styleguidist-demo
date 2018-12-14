@@ -24,7 +24,7 @@ export class Link extends React.Component<ILink, any> {
           </ReactRouterLink>
         );
       }
-    } else if (this.props.onClick) {
+    } else {
       return (
         <a onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
           <Container {...this.props} display={this.props.display || 'inline-block'} />
