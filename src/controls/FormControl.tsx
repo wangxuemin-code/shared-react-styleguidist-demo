@@ -1,13 +1,13 @@
 import * as React from 'react';
-import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Message } from './Message';
-import { FormControl as BootstrapFormControl } from 'react-bootstrap';
-import { Formatter } from '../helpers/Formatter';
-import { Transition } from './Transition';
-import Toggle from 'react-toggle';
 import { SyntheticEvent } from 'react';
+import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import Toggle from 'react-toggle';
+import * as styles from '../css/main.scss';
+import { Formatter } from '../helpers/Formatter';
+import { Container, IContainer } from './Container';
 import { Loading } from './Loading';
+import { Message } from './Message';
+import { Transition } from './Transition';
 import { FormContext } from './Form';
 
 interface IState {
@@ -40,8 +40,6 @@ interface IProcessResult {
 }
 
 export class FormControl extends React.Component<IProps, IState> {
-  static contextType = FormContext;
-
   public static defaultProps: IProps = {
     type: 'text',
     name: ''
@@ -63,7 +61,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
-  public componentWillMount() {
+  public componentDidMount() {
     this.context.onRef(this);
   }
 
@@ -302,3 +300,5 @@ export class FormControl extends React.Component<IProps, IState> {
     return <Container className={classes.join(' ')}>{append}</Container>;
   }
 }
+
+FormControl.contextType = FormContext;
