@@ -82,6 +82,8 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
   private static createElementReconfirm(props: IProps) {
     let divTarget: HTMLElement = document.createElement('div');
     divTarget.id = props.waitOptions.queueName + props.waitOptions.topicName;
+    divTarget.style.position = 'relative';
+    divTarget.style.zIndex = '10000';
     document.body.appendChild(divTarget);
     render(<BlockchainTransaction {...props} />, divTarget);
   }
