@@ -88,6 +88,9 @@ class Main extends React.Component<
           margin={{ topRem: 1 }}
           buttonStyle='negative'
           onPress={() => {
+            this.setState({
+              loading: true
+            });
             Confirm.show({
               type: 'yesno',
               message: 'hello',
@@ -144,7 +147,7 @@ class Main extends React.Component<
             }
           }}
           onSubmit={() => {
-            console.log(this.form.reset());
+            // console.log(this.form.reset());
             console.log('FORM SUBMITTED');
             this.setState({
               success: '',

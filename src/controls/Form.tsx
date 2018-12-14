@@ -13,6 +13,8 @@ interface IProps extends IContainer, IAlert {
   horizontal?: boolean;
 }
 
+export const FormContext = React.createContext({});
+
 export class Form extends React.Component<IProps> {
   formControls: any[];
 
@@ -20,11 +22,12 @@ export class Form extends React.Component<IProps> {
     super(props);
 
     this._onSubmit = this._onSubmit.bind(this);
+    this.onChildRef = this.onChildRef.bind(this);
+
+    this.formControls = [];
   }
 
   public render() {
-    this.formControls = [];
-
     let children: DetailedReactHTMLElement<any, any>[] = [];
     if (this.props.children instanceof Array) {
       children = children.concat(this.props.children);
@@ -41,17 +44,26 @@ export class Form extends React.Component<IProps> {
           className={styles.istoxForm}
           onSubmit={this._onSubmit}
         >
-          {children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
+          <FormContext.Provider value={{ onRef: this.onChildRef }}>
+            {this.props.children}
+          </FormContext.Provider>
+          {/* {children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
             return React.cloneElement(child, {
               key: i,
               ref: (ele: any) => {
                 if (ele) this.formControls.push(ele);
               }
             });
-          })}
+          })} */}
         </BootstrapForm>
       </Container>
     );
+  }
+
+  private onChildRef(ref: any) {
+    if (ref) {
+      this.formControls.push(ref);
+    }
   }
 
   public getInputValue(name: string): string {

@@ -8,6 +8,7 @@ import { Transition } from './Transition';
 import Toggle from 'react-toggle';
 import { SyntheticEvent } from 'react';
 import { Loading } from './Loading';
+import { FormContext } from './Form';
 
 interface IState {
   displayValue?: string;
@@ -39,6 +40,8 @@ interface IProcessResult {
 }
 
 export class FormControl extends React.Component<IProps, IState> {
+  static contextType = FormContext;
+
   public static defaultProps: IProps = {
     type: 'text',
     name: ''
@@ -58,6 +61,10 @@ export class FormControl extends React.Component<IProps, IState> {
     if (prevProps.value !== this.props.value) {
       this.onValueChanged(false, String(this.props.value || ''));
     }
+  }
+
+  public componentWillMount() {
+    this.context.onRef(this);
   }
 
   public render() {
