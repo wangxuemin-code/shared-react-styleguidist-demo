@@ -8,7 +8,6 @@ import { Container, IContainer } from './Container';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { Transition } from './Transition';
-import { FormContext } from '../contexts/FormContext';
 
 interface IState {
   displayValue?: string;
@@ -59,10 +58,6 @@ export class FormControl extends React.Component<IProps, IState> {
     if (prevProps.value !== this.props.value) {
       this.onValueChanged(false, String(this.props.value || ''));
     }
-  }
-
-  public componentDidMount() {
-    this.context.onRef(this);
   }
 
   public render() {
@@ -300,5 +295,3 @@ export class FormControl extends React.Component<IProps, IState> {
     return <Container className={classes.join(' ')}>{append}</Container>;
   }
 }
-
-FormControl.contextType = FormContext;

@@ -4,9 +4,8 @@ import { Form as BootstrapForm } from 'react-bootstrap';
 import * as styles from '../css/main.scss';
 import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
-import { Loading } from './Loading';
 import { FormControl } from './FormControl';
-import { FormContext } from '../contexts/FormContext';
+import { Loading } from './Loading';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
@@ -21,12 +20,10 @@ export class Form extends React.Component<IProps> {
     super(props);
 
     this._onSubmit = this._onSubmit.bind(this);
-    this.onChildRef = this.onChildRef.bind(this);
-
-    this.formControls = [];
   }
 
   public render() {
+    this.formControls = [];
     let children: DetailedReactHTMLElement<any, any>[] = [];
     if (this.props.children instanceof Array) {
       children = children.concat(this.props.children);
@@ -43,26 +40,23 @@ export class Form extends React.Component<IProps> {
           className={styles.istoxForm}
           onSubmit={this._onSubmit}
         >
-          <FormContext.Provider value={{ onRef: this.onChildRef }}>
-            {this.props.children}
-          </FormContext.Provider>
-          {/* {children.map((child: DetailedReactHTMLElement<any, any>, i: number) => {
-            return React.cloneElement(child, {
-              key: i,
-              ref: (ele: any) => {
-                if (ele) this.formControls.push(ele);
-              }
-            });
-          })} */}
+          {this.recursiveCloneChildren(this.props.children)}
         </BootstrapForm>
       </Container>
     );
   }
 
-  private onChildRef(ref: any) {
-    if (ref) {
-      this.formControls.push(ref);
-    }
+  private recursiveCloneChildren(children: any) {
+    return React.Children.map(children, (child) => {
+      if (!React.isValidElement(child)) return child;
+      var childProps: any = {
+        ref: (ele: any) => {
+          if (ele) this.formControls.push(ele);
+        }
+      };
+      childProps.children = this.recursiveCloneChildren((child.props as any).children);
+      return React.cloneElement(child, childProps);
+    });
   }
 
   public getInputValue(name: string): string {

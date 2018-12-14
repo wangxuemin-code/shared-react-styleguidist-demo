@@ -183,13 +183,17 @@ class Main extends React.Component<
           <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
           <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
           <Controls.FormControl label={'Password'} name='Password' type={'password'} />
-          <Controls.FormControl
-            required
-            label={'Notify me'}
-            name='notify'
-            type={'switch'}
-            defaultValue='0'
-          />
+          <div>
+            <div>
+              <Controls.FormControl
+                required
+                label={'Notify me'}
+                name='notify'
+                type={'switch'}
+                defaultValue='0'
+              />
+            </div>
+          </div>
           <Controls.FormControl
             required
             label={'Type'}
