@@ -4,6 +4,7 @@ export interface IFilterTypes {
   type?: string;
   statusCode?: number;
   id?: string;
+  data?: {};
 }
 
 export interface IMqttStartOptions {
