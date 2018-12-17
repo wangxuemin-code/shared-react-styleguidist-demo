@@ -5,6 +5,7 @@ import { IFilterTypes, Mqtt } from '../helpers';
 import { Container } from './Container';
 import * as styles from '../css/main.scss';
 import { Image } from './Image';
+import { RabbitMQMessage } from '../models/RabbitMQMessage';
 
 interface IProps {
   mqttClient: Mqtt;
@@ -13,7 +14,7 @@ interface IProps {
     topicName?: string;
     filter?: IFilterTypes;
   };
-  onResult?: (messagePayload: string, message: Message) => void;
+  onResult?: (rabbitMqMessage: RabbitMQMessage, message: Message) => void;
 }
 
 interface IState {
@@ -37,7 +38,8 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
       })
       .then((message) => {
         this.startExit();
-        if (this.props.onResult) this.props.onResult(message.payloadString, message);
+        if (this.props.onResult)
+          this.props.onResult(new RabbitMQMessage(message.payloadString), message);
       });
   }
 
