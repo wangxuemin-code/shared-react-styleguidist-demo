@@ -11,4 +11,24 @@ export class RabbitMQMessage {
     this.error = obj.error;
     this.data = obj.data;
   }
+
+  public getData() {
+    return this.data;
+  }
+
+  public getType() {
+    return this.type;
+  }
+
+  public getStatusCode() {
+    return this.statusCode;
+  }
+
+  public getError() {
+    return this.error;
+  }
+
+  public hasError(): boolean {
+    return this.statusCode !== 0;
+  }
 }
