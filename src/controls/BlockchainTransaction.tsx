@@ -14,7 +14,8 @@ interface IProps {
     topicName?: string;
     filter?: IFilterTypes;
   };
-  onResult?: (rabbitMqMessage: RabbitMQMessage, message: Message) => void;
+  onSucess?: (rabbitMqMessage: RabbitMQMessage, message: Message) => void;
+  onError?: (error: string, rabbitMqMessage: RabbitMQMessage, message: Message) => void;
 }
 
 interface IState {
@@ -38,8 +39,17 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
       })
       .then((message) => {
         this.startExit();
-        if (this.props.onResult)
-          this.props.onResult(new RabbitMQMessage(message.payloadString), message);
+        const rabbitMqMessage = new RabbitMQMessage(message.payloadString);
+        if (rabbitMqMessage.hasError()) {
+          if (this.props.onError)
+            this.props.onError(
+              rabbitMqMessage.getError() || 'Unknown error.',
+              rabbitMqMessage,
+              message
+            );
+        } else {
+          if (this.props.onSucess) this.props.onSucess(rabbitMqMessage, message);
+        }
       });
   }
 
