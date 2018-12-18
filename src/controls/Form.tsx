@@ -18,8 +18,6 @@ export class Form extends React.Component<IProps> {
 
   constructor(props: IProps) {
     super(props);
-
-    this._onSubmit = this._onSubmit.bind(this);
   }
 
   public render() {
@@ -38,7 +36,7 @@ export class Form extends React.Component<IProps> {
         <BootstrapForm
           horizontal={this.props.horizontal}
           className={styles.istoxForm}
-          onSubmit={this._onSubmit}
+          onSubmit={this._onSubmit.bind(this)}
         >
           {this.recursiveCloneChildren(this.props.children)}
         </BootstrapForm>

@@ -128,7 +128,7 @@ class Main extends React.Component<
               waitOptions: {
                 queueName: 'test'
               },
-              onResult: () => {}
+              onSucess: () => {}
             });
           }}
           icon={'plus'}

@@ -31,4 +31,12 @@ export class RabbitMQMessage {
   public hasError(): boolean {
     return this.statusCode !== 0;
   }
+
+  public getTxId() {
+    if (this.data && this.data.txid) {
+      return this.data.txid;
+    }
+
+    return undefined;
+  }
 }

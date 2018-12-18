@@ -6,6 +6,9 @@ import { Container } from './Container';
 import * as styles from '../css/main.scss';
 import { Image } from './Image';
 import { RabbitMQMessage } from '../models/RabbitMQMessage';
+import { Icon } from './Icon';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { Link } from './Link';
 
 interface IProps {
   mqttClient: Mqtt;
@@ -21,12 +24,16 @@ interface IProps {
 interface IState {
   hiding: boolean;
   showing: boolean;
+  succeed: boolean;
+  txId?: string;
 }
 
 export class BlockchainTransaction extends React.Component<IProps, IState> {
+  private timeout: any;
+
   public constructor(props: IProps) {
     super(props);
-    this.state = { showing: false, hiding: false };
+    this.state = { showing: false, hiding: false, succeed: false, txId: '' };
     this.onExited = this.onExited.bind(this);
   }
 
@@ -38,7 +45,6 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
         filter: this.props.waitOptions.filter
       })
       .then((message) => {
-        this.startExit();
         const rabbitMqMessage = new RabbitMQMessage(message.payloadString);
         if (rabbitMqMessage.hasError()) {
           if (this.props.onError)
@@ -47,10 +53,19 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
               rabbitMqMessage,
               message
             );
+          this.startExit();
         } else {
           if (this.props.onSucess) this.props.onSucess(rabbitMqMessage, message);
+
+          this.setState({ succeed: true, txId: rabbitMqMessage.getTxId() });
         }
       });
+  }
+
+  public componentDidUpdate(_: IProps, prevState: IState) {
+    if (this.state.succeed && prevState.succeed !== this.state.succeed) {
+      this.startExitCountdown();
+    }
   }
 
   public componentDidMount() {
@@ -67,11 +82,53 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
           this.state.showing ? styles.slideIn : '',
           this.state.hiding ? styles.slideOut : ''
         ]}
+        onMouseEnter={this.onMouseEnter.bind(this)}
+        onMouseLeave={this.onMouseLeave.bind(this)}
       >
-        <Image src={'images/mining.gif'} width={40} margin={{ rightPx: 10 }} />
-        Interacting with blockchain...
+        <Container classNames={[styles.content, this.state.succeed ? styles.invi : '']}>
+          <Image
+            src={'images/mining.gif'}
+            width={40}
+            margin={{ rightPx: 10 }}
+            display='inline-block'
+          />
+          Interacting with blockchain...
+        </Container>
+
+        <Container classNames={[styles.content, !this.state.succeed ? styles.invi : '']}>
+          <Icon icon={faCheck} margin={{ rightPx: 20 }} />
+          {this.state.succeed && this.state.txId && (
+            <React.Fragment>
+              <span>Transaction {this.state.txId} executed successfully</span>
+              <Link margin={{ leftPx: 20 }}>Show</Link>
+            </React.Fragment>
+          )}
+          {this.state.succeed && !this.state.txId && (
+            <span>Blockchain transaction is executed successfully</span>
+          )}
+        </Container>
       </Container>
     );
+  }
+
+  private onMouseEnter() {
+    this.cancelExitCountdown();
+  }
+
+  private onMouseLeave() {
+    this.startExitCountdown();
+  }
+
+  private startExitCountdown() {
+    this.timeout = setTimeout(() => {
+      this.startExit();
+    }, 3000);
+  }
+
+  private cancelExitCountdown() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
   }
 
   private startExit() {

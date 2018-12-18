@@ -70,3 +70,5 @@ export const buttonsContainer: string;
 export const blockchainTransactionContainer: string;
 export const slideIn: string;
 export const slideOut: string;
+export const content: string;
+export const invi: string;

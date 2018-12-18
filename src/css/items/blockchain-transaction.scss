@@ -20,3 +20,25 @@
 .blockchain-transaction-container.slide-out {
   transform: translateY(60px);
 }
+
+.blockchain-transaction-container .content {
+  transition: opacity 200ms ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.blockchain-transaction-container .content.invi {
+  opacity: 0;
+}
+
+.blockchain-transaction-container .content a div {
+  color: white;
+  text-decoration: underline;
+}

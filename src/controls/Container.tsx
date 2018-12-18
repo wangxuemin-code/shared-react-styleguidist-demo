@@ -4,6 +4,7 @@ import { BorderStyleProperty, BorderColorProperty, FontWeightProperty } from 'cs
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IDirection, IDirectionShort, IAllDirection } from './common/interfaces';
+import { MouseEventHandler } from 'react';
 
 interface IBorder {
   borderRadius?: number;
@@ -41,6 +42,8 @@ export interface IContainer {
   letterSpacing?: number;
   fontSizePx?: number;
   fontSizeRem?: number;
+  onMouseEnter?: MouseEventHandler;
+  onMouseLeave?: MouseEventHandler;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -173,7 +176,12 @@ export class Container extends React.Component<IContainer, any> {
     }
 
     return (
-      <div style={style} className={classes.join(' ')}>
+      <div
+        style={style}
+        className={classes.join(' ')}
+        onMouseEnter={this.props.onMouseEnter}
+        onMouseLeave={this.props.onMouseLeave}
+      >
         {this.wrapWithTooltipIfNeeded(this.props.children)}
       </div>
     );
