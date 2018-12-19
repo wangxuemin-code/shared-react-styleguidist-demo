@@ -1,6 +1,3 @@
-import { ApolloError } from 'apollo-boost';
-import { GraphQLError } from 'graphql';
-
 interface IError {
   message: string;
   type: 'Empty' | 'Unknown' | 'NotAuthorizedOrNetworkIssue' | 'NoPrivilege';
@@ -9,7 +6,8 @@ interface IError {
 export class ErrorHandle {
   public static formatError(error?: any): IError {
     if (error) {
-      if (error instanceof ApolloError) {
+      // mean is apollo error
+      if (error.graphQLErrors) {
         return this.formatApolloError(error);
       } else {
         return this.formatOtherError(error);
@@ -18,11 +16,11 @@ export class ErrorHandle {
     return { message: '', type: 'Empty' };
   }
 
-  private static formatApolloError(error?: ApolloError): IError {
+  private static formatApolloError(error?: any): IError {
     if (error) {
       if (error.graphQLErrors.length > 0) {
         return {
-          message: error.graphQLErrors.map((err: GraphQLError) => err.message).join('\n'),
+          message: error.graphQLErrors.map((err: any) => err.message).join('\n'),
           type: 'Unknown'
         };
       } else {
