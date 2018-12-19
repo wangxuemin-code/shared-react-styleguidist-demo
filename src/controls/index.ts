@@ -20,3 +20,4 @@ export * from './Transition';
 export * from './Table';
 export * from './Confirm';
 export * from './BlockchainTransaction';
+export * from './LineChart';
