@@ -22,6 +22,8 @@ import { Transition } from './controls/Transition';
 import { faAddressBook, faAdjust, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Confirm } from './controls/Confirm';
 import { BlockchainTransaction } from './controls/BlockchainTransaction';
+import { CandleStickChart } from './controls/CandleStickChart';
+import { LineChart } from './controls/LineChart';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -73,6 +75,25 @@ class Main extends React.Component<
     return (
       <RootContainer>
         <Header />
+
+        {/* <CandleStickChart /> */}
+        <LineChart
+          title={'Sample Chart'}
+          yTitle={'Sample y title'}
+          xTitle={'X title'}
+          margin={{ topPx: 50 }}
+          xLabels={['1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1', '2', '3', '1']}
+          series={[
+            {
+              name: 'Hello',
+              data: [NaN, NaN, NaN, NaN, NaN, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+            },
+            {
+              name: 'Beby',
+              data: [NaN, NaN, NaN, NaN, NaN, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+            }
+          ]}
+        />
 
         <Button disabled href='abc'>
           Hello

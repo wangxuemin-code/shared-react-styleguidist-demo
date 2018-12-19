@@ -10,7 +10,8 @@
     "declaration": true,
     "sourceMap": true,
     "jsx": "react",
-    "typeRoots": ["index.d.ts", "node_modules/@types"]
+    "typeRoots": ["index.d.ts", "node_modules/@types"],
+    "resolveJsonModule": true
   },
   "include": ["./src/**/*.tsx", "./src/**/*.ts"],
   "exclude": ["node_modules", "typings"]
