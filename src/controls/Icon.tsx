@@ -55,11 +55,9 @@ export class Icon extends React.Component<IProps, any> {
 
   private getIconDesign() {
     if (this.checkIconType() === 'glyphicon') {
-      return <Glyphicon glyph={`${this.props.icon}`} style={{ marginRight: 3 }} />;
+      return <Glyphicon glyph={`${this.props.icon}`} />;
     } else if (this.checkIconType() === 'fontawesome') {
-      return (
-        <FontAwesomeIcon icon={this.props.icon as IconDefinition} style={{ marginRight: 3 }} />
-      );
+      return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
     }
   }
 

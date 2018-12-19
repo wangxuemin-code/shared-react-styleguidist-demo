@@ -12,14 +12,21 @@ import {
   RootContainer,
   ErrorPage,
   Table,
-  Card
+  Card,
+  Image
 } from './controls';
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
-import { faAddressBook, faAdjust, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAddressBook,
+  faAdjust,
+  faPlus,
+  faQuestion,
+  faExclamationTriangle
+} from '@fortawesome/free-solid-svg-icons';
 import { Confirm } from './controls/Confirm';
 import { BlockchainTransaction } from './controls/BlockchainTransaction';
 import { CandleStickChart } from './controls/CandleStickChart';
@@ -282,6 +289,8 @@ class Main extends React.Component<
         <Container width={1000} height={1000}>
           <ErrorPage type={'500'} message={'omgggg'} />
         </Container>
+
+        <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} />
       </RootContainer>
     );
   }
