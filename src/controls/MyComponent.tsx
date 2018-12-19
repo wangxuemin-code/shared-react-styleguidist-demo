@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Loading } from '.';
 import { ErrorPage } from './ErrorPage';
+import { ErrorHandle } from '../helpers';
 
 interface IProps {
   loading?: boolean;
-  error?: '404' | '500';
+  error?: any;
 }
 
 export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> {
@@ -48,11 +49,11 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
     };
   }
 
-  protected shouldRender(component: any, loading?: boolean, error?: '404' | '500'): any {
+  protected shouldRender(component: any, loading?: boolean, error?: any): any {
     if (this.props.loading || loading) {
       return <Loading backDrop={false} loading={true} />;
     } else if (this.props.error || error) {
-      return <ErrorPage type={'500'} />;
+      return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
     }
 
     if (typeof component === 'function') {

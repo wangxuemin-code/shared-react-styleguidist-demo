@@ -60,6 +60,7 @@ export const required: string;
 export const inputAppend: string;
 export const custom: string;
 export const errorPage: string;
+export const message: string;
 export const istoxTable: string;
 export const actionContainer: string;
 export const action: string;

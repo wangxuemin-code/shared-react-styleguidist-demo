@@ -278,6 +278,10 @@ class Main extends React.Component<
             ]}
           />
         </Card>
+
+        <Container width={1000} height={1000}>
+          <ErrorPage type={'500'} message={'omgggg'} />
+        </Container>
       </RootContainer>
     );
   }
