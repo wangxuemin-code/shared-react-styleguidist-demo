@@ -74,6 +74,7 @@ export const slideIn: string;
 export const slideOut: string;
 export const content: string;
 export const invi: string;
+export const istoxTabsContainer: string;
 export const istoxTabs: string;
 export const navTabs: string;
 export const tabContent: string;

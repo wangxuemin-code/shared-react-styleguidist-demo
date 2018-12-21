@@ -30,7 +30,7 @@ export class Tabs extends React.Component<IProps, IState> {
 
   public render() {
     return (
-      <Container {...this.props}>
+      <Container {...this.props} className={styles.istoxTabsContainer}>
         <BootstrapTabs className={styles.istoxTabs} defaultActiveKey={this.state.selectedIndex}>
           {this.props.tabs.map((tab, i) => (
             <BootstrapTab eventKey={i} title={tab.title}>
