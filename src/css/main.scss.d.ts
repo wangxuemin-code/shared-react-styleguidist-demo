@@ -50,6 +50,7 @@ export const selected: string;
 export const userAction: string;
 export const afterLogin: string;
 export const text: string;
+export const subMenu: string;
 export const istoxForm: string;
 export const formHorizontal: string;
 export const mainFormControlsWrapper: string;

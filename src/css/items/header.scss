@@ -1,3 +1,5 @@
+$userActionHeight: 44px;
+
 .istox-header {
   background-image: linear-gradient(225deg, #3c77a0 0%, #1c4267 100%);
   padding: 0 15rem;
@@ -68,6 +70,8 @@
   align-items: center;
   padding: 0px 30px;
   margin: 0.7rem 0;
+  position: relative;
+  height: $userActionHeight;
 }
 .istox-header .user-action:hover {
   cursor: pointer;
@@ -88,4 +92,37 @@
   padding: 0px 25px;
   font-size: 1rem;
   font-weight: lighter;
+  text-transform: capitalize;
+  max-width: 200px;
+}
+
+.istox-header .user-action.after-login .text span {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.istox-header .user-action .sub-menu {
+  position: absolute;
+  left: 0px;
+  top: $userActionHeight - 4;
+  width: 150px;
+  background-color: white;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+}
+
+.istox-header .user-action .sub-menu a {
+  color: map-get($colors, primaryGreyDark);
+  font-size: 0.9rem;
+  display: block;
+  padding: 10px;
+  font-weight: bold;
+}
+
+.istox-header .user-action .sub-menu a:hover {
+  background-image: linear-gradient(45deg, #388ac4 0%, #1c4267 100%);
+  color: white;
 }
