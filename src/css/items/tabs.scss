@@ -1,0 +1,57 @@
+.istox-tabs {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+}
+
+.istox-tabs .nav-tabs {
+  border-bottom: 0px;
+}
+
+.istox-tabs [role='presentation'] {
+  background-color: white;
+  border-left: 1px solid map-get($colors, primaryGrey);
+  border-top: 1px solid map-get($colors, primaryGrey);
+  border-bottom: 1px solid map-get($colors, primaryGrey);
+  margin-bottom: -1px;
+}
+
+.istox-tabs [role='presentation']:last-of-type {
+  border-right: 1px solid map-get($colors, primaryGrey);
+}
+
+.istox-tabs [role='presentation'].active {
+  border-bottom: 1px solid transparent;
+}
+
+.istox-tabs [role='presentation'].active a {
+  font-weight: bold;
+}
+
+.istox-tabs .nav-tabs a {
+  border-radius: 0px;
+  color: map-get($colors, primaryGreyDark);
+  padding: 6px 50px;
+}
+
+.istox-tabs .nav-tabs a:hover {
+  border-bottom: 1px solid transparent !important;
+}
+
+.istox-tabs .nav-tabs > li.active > a,
+.istox-tabs .nav-tabs > li.active > a:focus,
+.istox-tabs .nav-tabs > li.active > a:hover {
+  border: 1px solid transparent;
+}
+
+.istox-tabs .nav-tabs > li > a {
+  margin-right: 0px;
+  font-weight: lighter;
+}
+
+.istox-tabs .tab-content {
+  background-color: white;
+  border: 1px solid map-get($colors, primaryGrey);
+  flex: 1;
+}

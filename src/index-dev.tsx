@@ -13,7 +13,8 @@ import {
   ErrorPage,
   Table,
   Card,
-  Image
+  Image,
+  Tabs
 } from './controls';
 import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -84,6 +85,9 @@ class Main extends React.Component<
         <Header />
 
         {/* <CandleStickChart /> */}
+
+        <Tabs margin={{ topPx: 20 }} tabs={[{ title: 'Hello', contents: 'ABCD' }]} />
+
         <LineChart
           title={'Sample Chart'}
           yTitle={'Sample y title'}
@@ -185,6 +189,7 @@ class Main extends React.Component<
         >
           <Controls.FormControl
             required
+            disabled={true}
             ref={(ref) => {
               this.form = ref;
             }}
