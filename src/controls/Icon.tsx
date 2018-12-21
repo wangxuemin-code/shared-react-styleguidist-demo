@@ -24,7 +24,7 @@ export class Icon extends React.Component<IProps, any> {
   constructor(props: IProps) {
     super(props);
     if (this.checkIconType() === 'fontawesome') {
-      library.add(this.props.icon as IconDefinition);
+      library.add(this.props.icon as any);
     }
   }
 

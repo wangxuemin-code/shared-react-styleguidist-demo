@@ -1,7 +1,7 @@
 $userActionHeight: 44px;
 
 .istox-header {
-  background-image: linear-gradient(225deg, #3c77a0 0%, #1c4267 100%);
+  background-image: $headerBackground;
   padding: 0 15rem;
   color: #d8d8d8;
   width: 100%;

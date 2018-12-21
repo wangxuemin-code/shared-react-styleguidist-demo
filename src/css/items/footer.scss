@@ -1,0 +1,40 @@
+$footerHeight: 205px;
+
+.istox-footer-container {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -$footerHeight; /* the bottom margin is the negative value of the footer's height */
+}
+
+.istox-footer {
+  background-image: $headerBackground;
+  padding: 0 15rem;
+  color: #d8d8d8;
+  height: $footerHeight;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.istox-footer .icon-container {
+  font-size: 2.5rem;
+}
+
+.istox-footer .icon-container > div {
+  margin-right: 30px;
+}
+
+.istox-footer .icon-container > div:last-child {
+  margin-right: 0px;
+}
+
+.istox-footer .contact-container {
+  margin-top: 10px;
+}
+
+.istox-footer .copyright-container {
+  margin-top: 10px;
+  font-size: 0.8rem;
+}
