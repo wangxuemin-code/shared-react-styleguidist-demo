@@ -29,7 +29,7 @@ export class RabbitMQMessage {
   }
 
   public hasError(): boolean {
-    return this.statusCode !== 0;
+    return this.statusCode !== 200;
   }
 
   public getTxId() {
