@@ -25,6 +25,7 @@ interface IState {
   hiding: boolean;
   showing: boolean;
   succeed: boolean;
+  completed: boolean;
   txId?: string;
 }
 
@@ -33,7 +34,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
 
   public constructor(props: IProps) {
     super(props);
-    this.state = { showing: false, hiding: false, succeed: false, txId: '' };
+    this.state = { showing: false, hiding: false, succeed: false, txId: '', completed: false };
     this.onExited = this.onExited.bind(this);
   }
 
@@ -45,6 +46,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
         filter: this.props.waitOptions.filter
       })
       .then((message) => {
+        this.setState({ completed: true });
         const rabbitMqMessage = new RabbitMQMessage(message.payloadString);
         if (rabbitMqMessage.hasError()) {
           if (this.props.onError)
@@ -116,7 +118,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
   }
 
   private onMouseLeave() {
-    this.startExitCountdown();
+    if (this.state.completed) this.startExitCountdown();
   }
 
   private startExitCountdown() {
