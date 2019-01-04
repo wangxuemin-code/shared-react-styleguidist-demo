@@ -11,7 +11,7 @@ import { Transition } from './Transition';
 
 interface IState {
   displayValue?: string;
-  value?: string | number;
+  value?: string | number | null;
   error?: string;
   showError?: boolean;
 }
@@ -20,7 +20,7 @@ interface IProps extends IContainer {
   loading?: boolean;
   fullWidth?: boolean;
   defaultValue?: string | number;
-  value?: string | number;
+  value?: string | number | null;
   placeholder?: string;
   type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select' | 'switch';
   name?: string;
@@ -29,7 +29,7 @@ interface IProps extends IContainer {
   append?: any;
   label?: any;
   required?: boolean;
-  validateReturnError?: (value: string | number | undefined) => string | undefined;
+  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: string; value: string }[];
   extraControls?: any;
 }
@@ -78,7 +78,7 @@ export class FormControl extends React.Component<IProps, IState> {
           <Container position={'relative'} className={styles.formControlsInner}>
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
-            <input type='hidden' name={this.props.name} value={this.state.value} />
+            <input type='hidden' name={this.props.name} value={this.state.value || undefined} />
 
             <div />
           </Container>
