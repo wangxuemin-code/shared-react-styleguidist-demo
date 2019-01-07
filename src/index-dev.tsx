@@ -305,7 +305,10 @@ class Main extends React.Component<
                   ]
                 },
                 { rowContents: ['Super Admin', 'This is another not very long content.'] },
-                { rowContents: ['Super Admin', 'This is another not very long content.'] }
+                {
+                  rowContents: ['Super Admin', 'This is another not very long content.'],
+                  rowActions: [{ loading: true }]
+                }
               ]}
             />
           </Card>

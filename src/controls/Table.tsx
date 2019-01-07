@@ -3,6 +3,7 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Transition } from './Transition';
+import { Loading } from './Loading';
 
 export interface TableHeaderModel {
   title: string;
@@ -17,6 +18,7 @@ export interface TableActionsModel {
   icon?: any;
   tooltip?: string;
   callback?: () => void;
+  loading?: boolean;
 }
 
 interface IProps extends IContainer {
@@ -76,14 +78,18 @@ export class Table extends React.Component<IProps, any> {
   }
 
   private getActionDesign(tableActionsModel: TableActionsModel, index: number) {
-    return (
-      <Icon
-        key={index}
-        icon={tableActionsModel.icon}
-        classNames={[styles.action]}
-        tooltip={tableActionsModel.tooltip}
-        onClick={tableActionsModel.callback}
-      />
-    );
+    if (tableActionsModel.loading) {
+      return <Loading loading={true} backDrop={false} />;
+    } else {
+      return (
+        <Icon
+          key={index}
+          icon={tableActionsModel.icon}
+          classNames={[styles.action]}
+          tooltip={tableActionsModel.tooltip}
+          onClick={tableActionsModel.callback}
+        />
+      );
+    }
   }
 }

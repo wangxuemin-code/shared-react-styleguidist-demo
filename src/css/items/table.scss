@@ -32,8 +32,13 @@
   color: white;
 }
 
+.istox-table tbody tr:hover .action-container > div > .loading-container > div > div {
+  background-color: white;
+}
+
 .istox-table .action-container {
   text-align: right;
+  position: relative;
 }
 
 .istox-table .action {
@@ -47,4 +52,10 @@
 .istox-table tbody tr .action:hover {
   background-color: white;
   color: map-get($colors, primary);
+}
+
+.istox-table .action-container > div > .loading-container {
+  width: 30px;
+  right: 10px;
+  left: auto;
 }
