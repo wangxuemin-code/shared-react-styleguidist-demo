@@ -78,7 +78,7 @@ export class FormControl extends React.Component<IProps, IState> {
           <Container position={'relative'} className={styles.formControlsInner}>
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
-            <input type='hidden' name={this.props.name} value={this.state.value || undefined} />
+            <input type='hidden' name={this.props.name} value={this.state.value || ''} />
 
             <div />
           </Container>
@@ -220,7 +220,7 @@ export class FormControl extends React.Component<IProps, IState> {
           autoCorrect={'off'}
           type={this.props.type === 'password' ? 'password' : 'text'}
           placeholder={this.props.placeholder}
-          value={this.state.displayValue}
+          value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
         />
