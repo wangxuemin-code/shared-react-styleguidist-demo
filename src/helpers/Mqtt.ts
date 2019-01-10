@@ -199,7 +199,7 @@ export class Mqtt {
   }
 
   private getQueueName(options: IOptions) {
-    return `${options.queueName}.${options.topic ? `.${options.topic}` : ''}`;
+    return `${options.queueName}${options.topic ? `.${options.topic}` : ''}`;
   }
 
   private appendOrAddNewItem(
