@@ -17,7 +17,6 @@ export interface IMqttStartOptions {
 
 export interface IOptions {
   queueName: string;
-  queueNameAppend?: string;
   topic?: string;
   callback?: (message: string, rawMessage: Message) => void;
   filter?: IFilterTypes;
@@ -200,9 +199,7 @@ export class Mqtt {
   }
 
   private getQueueName(options: IOptions) {
-    return `${options.queueName}.${options.queueNameAppend || 'frontend'}${
-      options.topic ? `.${options.topic}` : ''
-    }`;
+    return `${options.queueName}.${options.topic ? `.${options.topic}` : ''}`;
   }
 
   private appendOrAddNewItem(
