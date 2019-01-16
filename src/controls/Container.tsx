@@ -30,6 +30,7 @@ export interface IContainer {
   backgroundColor?: string;
   display?: 'block' | 'inline-block' | 'inline' | 'flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
+  visibility?: 'hidden' | 'visible';
   hidden?: boolean;
   tooltip?: string | undefined | null;
   verticalAlign?: 'center';
@@ -44,6 +45,7 @@ export interface IContainer {
   fontSizeRem?: number;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
+  style?: React.CSSProperties;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -74,7 +76,7 @@ export class Container extends React.Component<IContainer, any> {
       classes.push(styles.left);
     }
 
-    let style: React.CSSProperties = {};
+    let style: React.CSSProperties = this.props.style || {};
 
     style = { ...style, ...ControlsHelper.processMargin(this.props.margin) };
 
@@ -93,6 +95,10 @@ export class Container extends React.Component<IContainer, any> {
       if (this.props.border.borderStyle) {
         style.borderStyle = this.props.border.borderStyle;
       }
+    }
+
+    if (this.props.visibility) {
+      style.visibility = this.props.visibility;
     }
 
     if (this.props.clearFix) {
