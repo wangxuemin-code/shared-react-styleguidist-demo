@@ -60,6 +60,16 @@
   background-image: none;
 }
 
+.button.button-success {
+  background-color: map-get($colors, primaryGreenDark);
+  background-image: none;
+}
+
+.button.button-fail {
+  background-color: map-get($colors, primaryRedDark);
+  background-image: none;
+}
+
 .btn-loading {
   border-radius: $borderRadius;
   background-color: rgba(0, 0, 0, 0.35);

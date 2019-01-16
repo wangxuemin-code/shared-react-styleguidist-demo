@@ -22,6 +22,8 @@ export const stylings = {
     primaryGrey: '#D8D8D8',
     primaryGreyLight: '#f1f1f1',
     primaryGreyDark: '#737b7e',
+    primaryRedDark: '#8e0000',
+    primaryGreenDark: '#1e4403',
     success: '#5bd800',
     danger: '#D0021B'
   }

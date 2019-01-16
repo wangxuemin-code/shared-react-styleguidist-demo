@@ -134,6 +134,12 @@ class Main extends React.Component<
           <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
             Hello2
           </Button>
+          <Button margin={{ topRem: 1 }} buttonStyle='success' fontStyle={'italic'}>
+            Test
+          </Button>
+          <Button margin={{ topRem: 1 }} buttonStyle='fail' fontStyle={'italic'}>
+            Fail
+          </Button>
 
           <Button
             margin={{ topRem: 1 }}

@@ -30,6 +30,8 @@ export const buttonNone: string;
 export const disabled: string;
 export const buttonInfo: string;
 export const buttonNegative: string;
+export const buttonSuccess: string;
+export const buttonFail: string;
 export const btnLoading: string;
 export const imageResponsive: string;
 export const loadingContainer: string;

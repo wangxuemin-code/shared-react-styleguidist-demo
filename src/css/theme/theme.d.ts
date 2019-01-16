@@ -22,6 +22,8 @@ export declare const stylings: {
         primaryGrey: string;
         primaryGreyLight: string;
         primaryGreyDark: string;
+        primaryRedDark: string;
+        primaryGreenDark: string;
         success: string;
         danger: string;
     };
