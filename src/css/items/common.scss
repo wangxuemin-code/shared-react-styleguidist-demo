@@ -1,23 +1,46 @@
 // sample to use map-get
 // background: map-get($colors, primary);
 
-body {
+body,
+#reactContainer {
   margin: 0;
   min-height: 100%;
   background: #f9f9f9;
   font-family: $font;
   line-height: normal;
   font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body,
+#reactContainer {
+  height: 100%;
+}
+
+#reactContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.istox-root {
+  flex: 1 0 auto;
+  padding-top: $headerHeight;
 }
 
 *:focus {
   outline: none !important;
 }
 
-#reactContainer {
-  height: 100vh;
-  padding-top: $headerHeight;
+.istox-footer-container {
+  flex-shrink: 0;
 }
+
+// #reactContainer {
+//   height: 100vh;
+//   padding-top: $headerHeight;
+// }
 
 html {
   height: 100%;

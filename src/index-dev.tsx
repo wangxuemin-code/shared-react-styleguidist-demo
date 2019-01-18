@@ -82,7 +82,7 @@ class Main extends React.Component<
 
   public render() {
     return (
-      <div>
+      <React.Fragment>
         <RootContainer>
           <Header />
 
@@ -327,7 +327,7 @@ class Main extends React.Component<
           <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} />
         </RootContainer>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
