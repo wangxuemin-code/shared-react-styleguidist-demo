@@ -45,6 +45,10 @@
   outline: inherit;
 }
 
+.button.button-none.active {
+  box-shadow: none;
+}
+
 .button.disabled {
   background-color: #979797;
   background-image: none;

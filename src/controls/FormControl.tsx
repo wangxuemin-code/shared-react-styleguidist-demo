@@ -68,8 +68,8 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     return (
-      <div className={styles.mainFormControlsWrapper}>
-        <Container {...this.props} className={classes.join(' ')}>
+      <Container {...this.props} className={styles.mainFormControlsWrapper}>
+        <Container className={classes.join(' ')}>
           <label>
             <span key='1'>{this.props.label}</span>
             {this.props.required && <span className={styles.required}>*</span>}
@@ -96,7 +96,7 @@ export class FormControl extends React.Component<IProps, IState> {
             <Message error={this.state.error} />
           </Transition>
         </Container>
-      </div>
+      </Container>
     );
   }
 
