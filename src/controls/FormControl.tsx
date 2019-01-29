@@ -287,20 +287,28 @@ export class FormControl extends React.Component<IProps, IState> {
       return { displayValue: value || '', value };
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
+      let appendDot: string = '';
+      var dotsCount = (originalValue.match(/\./g) || []).length;
+      if (originalValue.length > 0 && dotsCount === 1) {
+        if (originalValue[originalValue.length - 1] === '.') {
+          appendDot = '.';
+        }
+      }
+
       if (originalValue) {
         if (this.props.type === 'money') {
           return {
-            displayValue: isNaN(parseInt(originalValue, 10))
+            displayValue: isNaN(parseFloat(originalValue))
               ? ''
-              : Formatter.money(parseInt(originalValue, 10)),
-            value: isNaN(parseInt(originalValue, 10)) ? '' : originalValue
+              : Formatter.money(parseFloat(originalValue)) + appendDot,
+            value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
           return {
-            displayValue: isNaN(parseInt(originalValue, 10))
+            displayValue: isNaN(parseFloat(originalValue))
               ? ''
-              : Formatter.number(parseInt(originalValue, 10)),
-            value: isNaN(parseInt(originalValue, 10)) ? '' : originalValue
+              : Formatter.number(parseFloat(originalValue)) + appendDot,
+            value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         }
       }

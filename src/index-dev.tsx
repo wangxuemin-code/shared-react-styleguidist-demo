@@ -249,6 +249,8 @@ class Main extends React.Component<
             <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
             <Controls.FormControl label={'Password'} name='Password' type={'password'} />
             <Controls.FormControl label={'Description'} name='description' type={'longtext'} />
+            <Controls.FormControl label={'Number'} name='number' type={'number'} />
+            <Controls.FormControl label={'$$$'} name='money' type={'money'} />
             {() => {
               return (
                 <div>
