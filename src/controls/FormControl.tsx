@@ -9,6 +9,7 @@ import { Loading } from './Loading';
 import { Message } from './Message';
 import { Transition } from './Transition';
 import TextareaAutosize from 'react-textarea-autosize';
+import { DateTimePicker, IDateOption } from './DateTimePicker';
 
 interface IState {
   displayValue?: string;
@@ -32,7 +33,8 @@ interface IProps extends IContainer {
     | 'password'
     | 'select'
     | 'switch'
-    | 'longtext';
+    | 'longtext'
+    | 'datetime';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -42,10 +44,7 @@ interface IProps extends IContainer {
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: string; value: string }[];
   extraControls?: any;
-  longTextOptions?: {
-    lineNumber?: number;
-    autoResize?: boolean;
-  };
+  dateOptions?: IDateOption;
 }
 
 interface IProcessResult {
@@ -56,16 +55,13 @@ interface IProcessResult {
 export class FormControl extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     type: 'text',
-    name: '',
-    longTextOptions: {
-      lineNumber: 2,
-      autoResize: true
-    }
+    name: ''
   };
 
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onDateTimeChange = this.onDateTimeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onValueChanged(
       true,
@@ -243,6 +239,15 @@ export class FormControl extends React.Component<IProps, IState> {
           disabled={this.props.disabled}
         />
       );
+    } else if (this.props.type === 'datetime') {
+      return (
+        <DateTimePicker
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateTimeChange}
+          options={this.props.dateOptions}
+        />
+      );
     } else {
       return (
         <BootstrapFormControl
@@ -265,6 +270,10 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.onInputChanged) {
       this.props.onInputChanged(result.value, this.props.name || '');
     }
+  }
+
+  private onDateTimeChange(newUnixTimestamp: number) {
+    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
   }
 
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {

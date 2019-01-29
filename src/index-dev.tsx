@@ -251,6 +251,14 @@ class Main extends React.Component<
             <Controls.FormControl label={'Description'} name='description' type={'longtext'} />
             <Controls.FormControl label={'Number'} name='number' type={'number'} />
             <Controls.FormControl label={'$$$'} name='money' type={'money'} />
+            <Controls.FormControl
+              required
+              label={'Date'}
+              name='datetime'
+              type={'datetime'}
+              placeholder={'test'}
+              dateOptions={{ startDate: new Date() }}
+            />
             {() => {
               return (
                 <div>

@@ -45,6 +45,17 @@ export class Formatter {
     return moment(input).toDate();
   }
 
+  public static dateToUnixTimestamp(input: Date): number {
+    return Math.floor(input.getTime() / 1000);
+  }
+
+  public static unixTimestampToDate(input?: number): Date | undefined {
+    if (!input) {
+      return undefined;
+    }
+    return new Date(input * 1000);
+  }
+
   public static pluralize(input: number, unit: string): string {
     if (input <= 1) {
       return input + ' ' + unit;

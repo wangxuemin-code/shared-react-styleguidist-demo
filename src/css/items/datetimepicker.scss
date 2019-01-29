@@ -1,0 +1,27 @@
+:global(.react-datepicker) {
+  font-family: inherit;
+  font-size: 0.75rem;
+}
+
+:global(.react-datepicker__time-list-item) {
+  height: 23px !important;
+  padding: 5px 1px !important;
+  font-size: 0.65rem;
+  font-weight: bold;
+}
+
+:global(.react-datepicker-wrapper),
+:global(.react-datepicker__input-container),
+:global(.react-datepicker__input-container) > input {
+  width: 100%;
+}
+
+:global(.react-datepicker__input-container) > input {
+  padding: 6px 27px 6px 12px;
+}
+
+.datepicker-calender-container {
+  position: absolute;
+  right: 15px;
+  pointer-events: none;
+}
