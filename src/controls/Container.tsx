@@ -1,10 +1,10 @@
+import { BorderColorProperty, BorderStyleProperty, FontWeightProperty } from 'csstype';
 import * as React from 'react';
+import { MouseEventHandler } from 'react';
 import * as ReactTooltip from 'react-tooltip';
-import { BorderStyleProperty, BorderColorProperty, FontWeightProperty } from 'csstype';
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
-import { IDirection, IDirectionShort, IAllDirection } from './common/interfaces';
-import { MouseEventHandler } from 'react';
+import { IAllDirection, IDirection, IDirectionShort } from './common/interfaces';
 
 interface IBorder {
   borderRadius?: number;
@@ -188,26 +188,30 @@ export class Container extends React.Component<IContainer, any> {
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
       >
-        {this.wrapWithTooltipIfNeeded(this.props.children)}
+        {this.getContent(this.props.children)}
       </div>
     );
   }
 
-  private wrapWithTooltipIfNeeded(children: any) {
+  private getContent(children: any) {
     if (this.props.tooltip) {
-      const randomId = String(Math.random() * 1000);
-      return (
-        <span>
-          <span data-tip data-for={randomId}>
-            {children}
-          </span>
-          <ReactTooltip id={randomId} effect='solid'>
-            <span>{this.props.tooltip}</span>
-          </ReactTooltip>
-        </span>
-      );
+      return this.wrapWithTooltip(children);
     } else {
       return children;
     }
+  }
+
+  private wrapWithTooltip(children: any) {
+    const randomId = String(Math.random() * 1000);
+    return (
+      <span>
+        <span data-tip data-for={randomId}>
+          {children}
+        </span>
+        <ReactTooltip id={randomId} effect='solid'>
+          <span>{this.props.tooltip}</span>
+        </ReactTooltip>
+      </span>
+    );
   }
 }
