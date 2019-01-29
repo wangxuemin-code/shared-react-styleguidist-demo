@@ -235,6 +235,7 @@ class Main extends React.Component<
                   type={'submit'}
                   onPress={() => {
                     console.log(this.form.getFormData());
+                    console.log(this.form.getInputValue('description'));
                   }}
                 >
                   Submit
@@ -247,6 +248,7 @@ class Main extends React.Component<
             <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
             <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
             <Controls.FormControl label={'Password'} name='Password' type={'password'} />
+            <Controls.FormControl label={'Description'} name='description' type={'longtext'} />
             {() => {
               return (
                 <div>

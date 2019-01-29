@@ -9,11 +9,17 @@
 }
 
 .istox-form input,
-.istox-form select {
+.istox-form select,
+.istox-form textarea {
   font-size: 0.9rem;
   border-radius: $borderRadius;
-  height: 42px;
+  min-height: 42px;
   border: 1px solid map-get($colors, primary);
+}
+
+.istox-form textarea {
+  padding: 10px 12px;
+  resize: none;
 }
 
 .istox-form.form-horizontal .main-form-controls-wrapper {

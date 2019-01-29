@@ -8,6 +8,7 @@ import { Container, IContainer } from './Container';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { Transition } from './Transition';
+import TextareaAutosize from 'react-textarea-autosize';
 
 interface IState {
   displayValue?: string;
@@ -22,7 +23,16 @@ interface IProps extends IContainer {
   defaultValue?: string | number;
   value?: string | number | null;
   placeholder?: string;
-  type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select' | 'switch';
+  type?:
+    | 'text'
+    | 'number'
+    | 'money'
+    | 'static'
+    | 'email'
+    | 'password'
+    | 'select'
+    | 'switch'
+    | 'longtext';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -32,6 +42,10 @@ interface IProps extends IContainer {
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: string; value: string }[];
   extraControls?: any;
+  longTextOptions?: {
+    lineNumber?: number;
+    autoResize?: boolean;
+  };
 }
 
 interface IProcessResult {
@@ -42,7 +56,11 @@ interface IProcessResult {
 export class FormControl extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     type: 'text',
-    name: ''
+    name: '',
+    longTextOptions: {
+      lineNumber: 2,
+      autoResize: true
+    }
   };
 
   constructor(props: IProps) {
@@ -213,6 +231,18 @@ export class FormControl extends React.Component<IProps, IState> {
           />
         </Container>
       );
+    } else if (this.props.type === 'longtext') {
+      return (
+        <TextareaAutosize
+          className={'form-control'}
+          autoComplete={'off'}
+          autoCorrect={'off'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || ''}
+          onChange={this.onChange}
+          disabled={this.props.disabled}
+        />
+      );
     } else {
       return (
         <BootstrapFormControl
@@ -228,7 +258,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
-  private onChange(event: React.FormEvent<BootstrapFormControl>) {
+  private onChange(event: React.FormEvent<any>) {
     const { value } = event.target as HTMLInputElement;
     const result = this.processValue(value);
     this.setState({ displayValue: result.displayValue, value: result.value });
@@ -248,6 +278,7 @@ export class FormControl extends React.Component<IProps, IState> {
   private processValue(value: string): IProcessResult {
     if (
       this.props.type === 'text' ||
+      this.props.type === 'longtext' ||
       this.props.type === 'email' ||
       this.props.type === 'password' ||
       this.props.type === 'select' ||
