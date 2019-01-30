@@ -63,7 +63,8 @@
 }
 
 .istox-form .form-controls-wrapper.error input,
-.istox-form .form-controls-wrapper.error select {
+.istox-form .form-controls-wrapper.error select,
+.istox-form .form-controls-wrapper.error textarea {
   border: 1px solid map-get($colors, danger);
 }
 

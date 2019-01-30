@@ -32,7 +32,7 @@ export interface IContainer {
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
-  tooltip?: string | undefined | null;
+  tooltip?: any;
   verticalAlign?: 'center';
   zIndex?: number;
   fontStyle?: 'normal' | 'italic';
