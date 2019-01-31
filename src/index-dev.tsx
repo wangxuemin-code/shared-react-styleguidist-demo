@@ -248,7 +248,12 @@ class Main extends React.Component<
             <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
             <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
             <Controls.FormControl label={'Password'} name='Password' type={'password'} />
-            <Controls.FormControl label={'Description'} name='description' type={'longtext'} />
+            <Controls.FormControl
+              label={'Description'}
+              name='description'
+              type={'longtext'}
+              alwaysCapitalize={true}
+            />
             <Controls.FormControl label={'Number'} name='number' type={'number'} />
             <Controls.FormControl label={'$$$'} name='money' type={'money'} />
             <Controls.FormControl

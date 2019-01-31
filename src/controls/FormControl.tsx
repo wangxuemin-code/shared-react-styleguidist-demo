@@ -45,6 +45,7 @@ interface IProps extends IContainer {
   selectOptions?: { label: string; value: string }[];
   extraControls?: any;
   dateOptions?: IDateOption;
+  alwaysCapitalize?: boolean;
 }
 
 interface IProcessResult {
@@ -285,6 +286,10 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private processValue(value: string): IProcessResult {
+    if (this.props.alwaysCapitalize) {
+      value = value.toUpperCase();
+    }
+
     if (
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
