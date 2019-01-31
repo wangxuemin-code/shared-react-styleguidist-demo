@@ -17,7 +17,7 @@ import {
   Tabs,
   Footer
 } from './controls';
-import { Mqtt } from './helpers';
+import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
@@ -257,7 +257,7 @@ class Main extends React.Component<
               name='datetime'
               type={'datetime'}
               placeholder={'test'}
-              dateOptions={{ startDate: new Date() }}
+              defaultValue={Formatter.dateToUnixTimestamp(new Date())}
             />
             {() => {
               return (

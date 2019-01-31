@@ -291,7 +291,8 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'email' ||
       this.props.type === 'password' ||
       this.props.type === 'select' ||
-      this.props.type === 'switch'
+      this.props.type === 'switch' ||
+      this.props.type === 'datetime'
     ) {
       return { displayValue: value || '', value };
     } else {
