@@ -65,7 +65,7 @@ export class Transition extends React.Component<IProps> {
         return (
           <div
             style={{
-              visibility: 'hidden',
+              display: 'none',
               position: 'absolute'
             }}
           >
