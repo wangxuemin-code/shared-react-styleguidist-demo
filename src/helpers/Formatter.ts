@@ -1,7 +1,10 @@
 import * as moment from 'moment';
 
 export class Formatter {
-  public static money(input: number | string | undefined, symbol: string = '$ '): string {
+  public static money(
+    input: number | string | undefined,
+    options: { decimalPlace?: number; symbol?: string } = {}
+  ): string {
     if (!input) {
       input = 0;
     }
@@ -10,10 +13,17 @@ export class Formatter {
       input = parseFloat(input);
     }
 
-    return `${symbol}${input.toLocaleString()}`;
+    input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
+
+    return `${options.symbol || '$ '}${input.toLocaleString(undefined, {
+      maximumFractionDigits: 4
+    })}`;
   }
 
-  public static number(input: number | string | undefined): string {
+  public static number(
+    input: number | string | undefined,
+    options: { decimalPlace?: number } = {}
+  ): string {
     if (!input) {
       input = 0;
     }
@@ -22,7 +32,9 @@ export class Formatter {
       input = parseFloat(input);
     }
 
-    return `${input.toLocaleString()}`;
+    input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
+
+    return `${input.toLocaleString(undefined, { maximumFractionDigits: 4 })}`;
   }
 
   public static stripSymbol(input: string): string {
@@ -62,5 +74,23 @@ export class Formatter {
     } else {
       return input + ' ' + unit + 's';
     }
+  }
+
+  public static toFixedTrunc(value: number, n: number): number {
+    if (Formatter.countDecimals(value) <= n) {
+      return value;
+    }
+
+    const v = value.toString().split('.');
+    if (n <= 0) return parseFloat(v[0]);
+    let f = v[1] || '';
+    if (f.length > n) return parseFloat(`${v[0]}.${f.substr(0, n)}`);
+    while (f.length < n) f += '0';
+    return parseFloat(`${v[0]}.${f}`);
+  }
+
+  public static countDecimals(value: number) {
+    if (Math.floor(value.valueOf()) === value.valueOf()) return 0;
+    return value.toString().split('.')[1].length || 0;
   }
 }

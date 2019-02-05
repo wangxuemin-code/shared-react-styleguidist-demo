@@ -310,6 +310,16 @@ export class FormControl extends React.Component<IProps, IState> {
         }
       }
 
+      var dotZeroCount = (originalValue.match(/\.0/g) || []).length;
+      if (originalValue.length > 0 && dotZeroCount === 1) {
+        if (
+          originalValue[originalValue.length - 2] === '.' &&
+          originalValue[originalValue.length - 1] === '0'
+        ) {
+          appendDot = '.0';
+        }
+      }
+
       if (originalValue) {
         if (this.props.type === 'money') {
           return {
