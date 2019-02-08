@@ -13,6 +13,10 @@ export class Formatter {
       input = parseFloat(input);
     }
 
+    if (input < 0.000001) {
+      input = 0;
+    }
+
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
 
     return `${options.symbol || '$ '}${input.toLocaleString(undefined, {
@@ -30,6 +34,10 @@ export class Formatter {
 
     if (typeof input === 'string') {
       input = parseFloat(input);
+    }
+
+    if (input < 0.000001) {
+      input = 0;
     }
 
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
