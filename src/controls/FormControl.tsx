@@ -182,12 +182,13 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public setValue(value: string | number, notify: boolean = true) {
     const result = this.processValue(String(value));
-    this.setState({ displayValue: result.displayValue, value: result.value });
-    if (notify) {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (notify) {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
-    }
+    });
   }
 
   public toggle(notify: boolean = true) {
@@ -267,10 +268,11 @@ export class FormControl extends React.Component<IProps, IState> {
   private onChange(event: React.FormEvent<any>) {
     const { value } = event.target as HTMLInputElement;
     const result = this.processValue(value);
-    this.setState({ displayValue: result.displayValue, value: result.value });
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(result.value, this.props.name || '');
-    }
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private onDateTimeChange(newUnixTimestamp: number) {
@@ -279,10 +281,11 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
     const result = this.processValue((e.target as any).checked ? '1' : '0');
-    this.setState({ displayValue: result.displayValue, value: result.value });
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(result.value, this.props.name || '');
-    }
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private processValue(value: string): IProcessResult {

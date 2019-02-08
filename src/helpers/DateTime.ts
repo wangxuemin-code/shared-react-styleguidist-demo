@@ -22,4 +22,18 @@ export class DateTime {
       .toDate();
     return date;
   }
+
+  public static getDateTimeFriendlyString(startDateTimeString: string, endDateTimeString: string) {
+    const startMoment = moment(startDateTimeString);
+    const endMoment = moment(endDateTimeString);
+    const currentMoment = moment();
+
+    if (currentMoment.isAfter(endMoment)) {
+      return 'Ended';
+    } else if (currentMoment.isAfter(startMoment)) {
+      return 'Ends ' + moment(endMoment).fromNow();
+    } else {
+      return 'Starts ' + moment(startMoment).fromNow();
+    }
+  }
 }
