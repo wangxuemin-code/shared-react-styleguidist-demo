@@ -303,20 +303,21 @@ export class FormControl extends React.Component<IProps, IState> {
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
       let appendDot: string = '';
-      var dotsCount = (originalValue.match(/\./g) || []).length;
-      if (originalValue.length > 0 && dotsCount === 1) {
+      var dotsCount = (originalValue.match(/[\.]+/g) || []).length;
+
+      if (originalValue.length > 0 && dotsCount >= 1) {
         if (originalValue[originalValue.length - 1] === '.') {
-          appendDot = '.';
+          appendDot = originalValue.match(/[\.]+/g)![0];
+          appendDot = appendDot.replace('..', '.');
         }
       }
 
-      var dotZeroCount = (originalValue.match(/\.0/g) || []).length;
-      if (originalValue.length > 0 && dotZeroCount === 1) {
-        if (
-          originalValue[originalValue.length - 2] === '.' &&
-          originalValue[originalValue.length - 1] === '0'
-        ) {
-          appendDot = '.0';
+      var dotZeroCount = (originalValue.match(/\.[0]+/g) || []).length;
+      if (originalValue.length > 1 && dotZeroCount === 1) {
+        const matched = originalValue.match(/\.[0]+/g)![0];
+        if (originalValue.indexOf(matched) + matched.length === originalValue.length) {
+          appendDot = originalValue.match(/\.[0]+/g)![0];
+          appendDot = appendDot.replace('.0000', '.000');
         }
       }
 
