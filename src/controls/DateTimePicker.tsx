@@ -5,6 +5,7 @@ import * as styles from '../css/main.scss';
 import { Controls } from '../index-prod';
 import { IContainer } from './Container';
 import { Formatter } from '../helpers';
+import moment = require('moment');
 
 export interface IDateOption {
   endDate?: Date;
@@ -46,9 +47,10 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         <DatePicker
           selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
           onChange={this.handleChange.bind(this)}
+          onChangeRaw={this.handleChangeRaw.bind(this)}
           showTimeSelect
-          dateFormat='dd-MM-yy hh:mm aa'
-          timeFormat='hh:mm aa'
+          dateFormat='dd-MM-YY hh:mm aa'
+          // timeFormat='hh:mm A'
           placeholderText={this.props.placeholder}
           minDate={this.props.options.startDate}
           maxDate={this.props.options.endDate}
@@ -58,6 +60,13 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         </Controls.Container>
       </React.Fragment>
     );
+  }
+
+  private handleChangeRaw(event: React.FocusEvent<HTMLInputElement>) {
+    const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
+    if (newMoment.isValid()) {
+      this.handleChange(newMoment.toDate());
+    }
   }
 
   private handleChange(date: Date) {

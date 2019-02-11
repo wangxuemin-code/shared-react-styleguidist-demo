@@ -213,7 +213,7 @@ class Main extends React.Component<
               });
             }}
           >
-            {/* <Controls.FormControl
+            <Controls.FormControl
               required
               disabled={true}
               ref={(ref) => {
@@ -253,9 +253,9 @@ class Main extends React.Component<
               name='description'
               type={'longtext'}
               alwaysCapitalize={true}
-            /> */}
+            />
             <Controls.FormControl label={'Number'} name='number' type={'number'} />
-            {/* <Controls.FormControl label={'$$$'} name='money' type={'money'} />
+            <Controls.FormControl label={'$$$'} name='money' type={'money'} />
             <Controls.FormControl
               required
               label={'Date'}
@@ -296,7 +296,7 @@ class Main extends React.Component<
                   value: 'abcl'
                 }
               ]}
-            /> */}
+            />
 
             <Container tooltip={'tooltip!'} display='inline-block'>
               <Link href='/wqe' useNormalAnchor>
