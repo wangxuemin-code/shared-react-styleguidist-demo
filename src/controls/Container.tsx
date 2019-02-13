@@ -1,5 +1,6 @@
 import { BorderColorProperty, BorderStyleProperty, FontWeightProperty } from 'csstype';
 import * as React from 'react';
+import Dotdotdot from 'react-dotdotdot';
 import { MouseEventHandler } from 'react';
 import * as ReactTooltip from 'react-tooltip';
 import * as styles from '../css/main.scss';
@@ -46,6 +47,7 @@ export interface IContainer {
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
   style?: React.CSSProperties;
+  clamp?: number;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -195,10 +197,18 @@ export class Container extends React.Component<IContainer, any> {
 
   private getContent(children: any) {
     if (this.props.tooltip) {
-      return this.wrapWithTooltip(children);
+      return this.wrapWithTooltip(this.wrapWithDotDotIfNeeded(children));
     } else {
-      return children;
+      return this.wrapWithDotDotIfNeeded(children);
     }
+  }
+
+  private wrapWithDotDotIfNeeded(children: any) {
+    // if (this.props.clamp) {
+    //   return <Dotdotdot clamp={this.props.clamp}>{children}</Dotdotdot>;
+    // } else {
+    return children;
+    // }
   }
 
   private wrapWithTooltip(children: any) {

@@ -1,4 +1,4 @@
-import { Client, Message, MQTTError } from 'paho-mqtt';
+import { Client, Message, MQTTError, ConnectionOptions } from 'paho-mqtt';
 
 export interface IFilterTypes {
   type?: string;
@@ -10,6 +10,8 @@ export interface IFilterTypes {
 export interface IMqttStartOptions {
   host: string;
   port?: number;
+  username?: string;
+  password?: string;
   clientId?: string;
   onConnected?: () => void;
   onDisonnected?: (responseObject: MQTTError) => void;
@@ -121,7 +123,7 @@ export class Mqtt {
   }
 
   private _connect() {
-    this.client.connect({
+    const connectionOptions: ConnectionOptions = {
       onSuccess: () => {
         this.connected = true;
         if (this.options.onConnected) {
@@ -145,7 +147,17 @@ export class Mqtt {
       },
       keepAliveInterval: 60,
       reconnect: true
-    });
+    };
+
+    if (this.options.username) {
+      connectionOptions.userName = this.options.username;
+    }
+
+    if (this.options.password) {
+      connectionOptions.password = this.options.password;
+    }
+
+    this.client.connect(connectionOptions);
   }
 
   public subscribe(options: IOptions): ISubscription {
