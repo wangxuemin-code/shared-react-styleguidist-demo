@@ -70,7 +70,7 @@ const mqtt = new Mqtt({
 
 class Main extends React.Component<
   any,
-  { success: string[] | string; error: string; loading: boolean }
+  { success: string[] | string; error: string; loading: boolean; showModal: boolean }
 > {
   form: any;
   formControls: any[];
@@ -80,7 +80,8 @@ class Main extends React.Component<
     this.state = {
       success: ['What'],
       error: '',
-      loading: false
+      loading: false,
+      showModal: false
     };
   }
 
@@ -155,9 +156,20 @@ class Main extends React.Component<
           <Button margin={{ topRem: 1 }} buttonStyle='success' fontStyle={'italic'}>
             Test
           </Button>
-          <Button margin={{ topRem: 1 }} buttonStyle='fail' fontStyle={'italic'}>
+          <Button
+            margin={{ topRem: 1 }}
+            buttonStyle='fail'
+            fontStyle={'italic'}
+            onPress={() => {
+              this.setState({ showModal: true });
+            }}
+          >
             Fail
           </Button>
+
+          <Modal className={'abc'} visible={this.state.showModal}>
+            Hello!
+          </Modal>
 
           <Button
             margin={{ topRem: 1 }}

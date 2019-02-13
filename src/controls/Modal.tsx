@@ -12,6 +12,7 @@ interface IProps {
   visible: boolean;
   onModalHide?: () => void;
   onExited?: () => void;
+  className?: string;
 }
 
 export class Modal extends React.Component<IProps, IState> {
@@ -33,7 +34,7 @@ export class Modal extends React.Component<IProps, IState> {
       <BootstrapModal
         show={this.state.visible && this.props.visible}
         onHide={this.onModalHide}
-        className={styles.myModal}
+        className={[styles.myModal, this.props.className || ''].join(' ')}
         onExited={this.props.onExited}
       >
         <Icon
