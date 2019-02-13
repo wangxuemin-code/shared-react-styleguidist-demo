@@ -1,11 +1,11 @@
 import { BorderColorProperty, BorderStyleProperty, FontWeightProperty } from 'csstype';
 import * as React from 'react';
-import Dotdotdot from 'react-dotdotdot';
 import { MouseEventHandler } from 'react';
 import * as ReactTooltip from 'react-tooltip';
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IAllDirection, IDirection, IDirectionShort } from './common/interfaces';
+import Truncate from 'react-truncate';
 
 interface IBorder {
   borderRadius?: number;
@@ -204,11 +204,11 @@ export class Container extends React.Component<IContainer, any> {
   }
 
   private wrapWithDotDotIfNeeded(children: any) {
-    // if (this.props.clamp) {
-    //   return <Dotdotdot clamp={this.props.clamp}>{children}</Dotdotdot>;
-    // } else {
-    return children;
-    // }
+    if (this.props.clamp) {
+      return <Truncate lines={this.props.clamp}>{children}</Truncate>;
+    } else {
+      return children;
+    }
   }
 
   private wrapWithTooltip(children: any) {

@@ -33,6 +33,7 @@ import { Confirm } from './controls/Confirm';
 import { BlockchainTransaction } from './controls/BlockchainTransaction';
 import { CandleStickChart } from './controls/CandleStickChart';
 import { LineChart } from './controls/LineChart';
+import Truncate from 'react-truncate';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -127,15 +128,17 @@ class Main extends React.Component<
             ]}
           />
 
-          <Controls.Container clamp={3}>
-            Test Clamping, Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
-            release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-            desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          <Controls.Container>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industry's standard dummy text ever since the 1500s, when an unknown
+            printer took a galley of type and scrambled it to make a type specimen book. It has
+            survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
           </Controls.Container>
+
+          <br />
 
           <Button disabled href='abc'>
             Hello
