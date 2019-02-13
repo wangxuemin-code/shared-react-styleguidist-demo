@@ -160,3 +160,6 @@ export const istoxTabs: string;
 export const navTabs: string;
 export const tabContent: string;
 export const datepickerCalenderContainer: string;
+export const istoxProgress: string;
+export const progress: string;
+export const progressBar: string;

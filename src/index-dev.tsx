@@ -34,6 +34,7 @@ import { BlockchainTransaction } from './controls/BlockchainTransaction';
 import { CandleStickChart } from './controls/CandleStickChart';
 import { LineChart } from './controls/LineChart';
 import Truncate from 'react-truncate';
+import { ProgressBar } from './controls/ProgressBar';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -92,6 +93,8 @@ class Main extends React.Component<
           {/* <CandleStickChart /> */}
 
           <Tabs margin={{ topPx: 20 }} tabs={[{ title: 'Hello', contents: 'ABCD' }]} />
+
+          <ProgressBar margin={{ topPx: 20 }} value={20} />
 
           <LineChart
             title={'Sample Chart'}
