@@ -9,7 +9,7 @@ import { Link } from './Link';
 import { Transition } from './Transition';
 import { Controls } from '../index-prod';
 
-type Paths = 'wallet' | 'trade' | 'project';
+type Paths = 'user_wallet' | 'user_trade' | 'user_project';
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
@@ -35,9 +35,9 @@ export class Header extends React.Component<IHeader, IState> {
       <Container {...this.props} className={styles.istoxHeader}>
         <Image src='images/icon.png' className={styles.icon} />
         <ul className={styles.links}>
-          {this.getLinkDesign('Wallet', 'wallet')}
-          {this.getLinkDesign('Trade', 'trade')}
-          {this.getLinkDesign('Sto', 'project')}
+          {this.getLinkDesign('Wallet', 'user_wallet')}
+          {this.getLinkDesign('Trade', 'user_trade')}
+          {this.getLinkDesign('Sto', 'user_project')}
         </ul>
         {this.getUserActionDesign()}
       </Container>
