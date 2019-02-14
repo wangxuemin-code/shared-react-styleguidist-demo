@@ -1,16 +1,20 @@
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import * as Cookies from 'js-cookie';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
-import { Image } from './Image';
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from './Icon';
-import * as Cookies from 'js-cookie';
-import { Transition } from './Transition';
+import { Image } from './Image';
 import { Link } from './Link';
+import { Transition } from './Transition';
+import { Controls } from '../index-prod';
+
+type Paths = 'wallet' | 'trade' | 'project';
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
-  currentPath?: string;
+  selectedPath?: Paths;
+  useAnchorTag?: boolean;
 }
 
 interface IState {
@@ -31,20 +35,31 @@ export class Header extends React.Component<IHeader, IState> {
       <Container {...this.props} className={styles.istoxHeader}>
         <Image src='images/icon.png' className={styles.icon} />
         <ul className={styles.links}>
-          {this.getLinkDesign('Wallet')}
-          {this.getLinkDesign('Trade')}
-          {this.getLinkDesign('STO')}
+          {this.getLinkDesign('Wallet', 'wallet')}
+          {this.getLinkDesign('Trade', 'trade')}
+          {this.getLinkDesign('Sto', 'project')}
         </ul>
         {this.getUserActionDesign()}
       </Container>
     );
   }
 
-  private getLinkDesign(title: string) {
+  private getLinkDesign(title: string, href: Paths) {
     return (
-      <li>
-        {title}
-        <div className={styles.underline} />
+      <li className={href === this.props.selectedPath ? 'selected' : ''}>
+        {this.props.useAnchorTag && (
+          <a href={href}>
+            {title}
+            <div className={styles.underline} />
+          </a>
+        )}
+
+        {!this.props.useAnchorTag && (
+          <Controls.Link href={href}>
+            {title}
+            <div className={styles.underline} />
+          </Controls.Link>
+        )}
       </li>
     );
   }

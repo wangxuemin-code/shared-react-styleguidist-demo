@@ -30,7 +30,14 @@ $userActionHeight: 44px;
   align-items: center;
   margin: 0;
   padding: 0;
-  color: white;
+
+  a {
+    color: white;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 .istox-header ul.links > li {

@@ -35,6 +35,8 @@ import { CandleStickChart } from './controls/CandleStickChart';
 import { LineChart } from './controls/LineChart';
 import Truncate from 'react-truncate';
 import { ProgressBar } from './controls/ProgressBar';
+import { Router, Route } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -89,7 +91,7 @@ class Main extends React.Component<
     return (
       <React.Fragment>
         <RootContainer>
-          <Header />
+          <Header useAnchorTag={true} selectedPath={'wallet'} />
 
           {/* <CandleStickChart /> */}
 
