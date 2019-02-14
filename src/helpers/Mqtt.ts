@@ -12,6 +12,7 @@ export interface IMqttStartOptions {
   port?: number;
   username?: string;
   password?: string;
+  useSSL?: boolean;
   clientId?: string;
   onConnected?: () => void;
   onDisonnected?: (responseObject: MQTTError) => void;
@@ -155,6 +156,10 @@ export class Mqtt {
 
     if (this.options.password) {
       connectionOptions.password = this.options.password;
+    }
+
+    if (this.options.useSSL) {
+      connectionOptions.useSSL = this.options.useSSL;
     }
 
     this.client.connect(connectionOptions);
