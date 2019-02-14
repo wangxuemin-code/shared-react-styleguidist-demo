@@ -91,7 +91,10 @@ class Main extends React.Component<
     return (
       <React.Fragment>
         <RootContainer>
-          <Header useAnchorTag={true} selectedPath={'user_wallet'} />
+          <Header
+            useAnchorTag={true}
+            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false }]}
+          />
 
           {/* <CandleStickChart /> */}
 

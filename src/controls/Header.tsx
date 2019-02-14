@@ -9,12 +9,16 @@ import { Link } from './Link';
 import { Transition } from './Transition';
 import { Controls } from '../index-prod';
 
-type Paths = 'user_wallet' | 'user_trade' | 'user_project';
+interface IMainLink {
+  title: string;
+  path: string;
+  selected?: boolean;
+}
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
-  selectedPath?: Paths;
   useAnchorTag?: boolean;
+  mainLinks?: IMainLink[];
 }
 
 interface IState {
@@ -22,6 +26,10 @@ interface IState {
 }
 
 export class Header extends React.Component<IHeader, IState> {
+  public static defaultProps = {
+    mainLinks: []
+  };
+
   constructor(props: IHeader) {
     super(props);
 
@@ -35,18 +43,18 @@ export class Header extends React.Component<IHeader, IState> {
       <Container {...this.props} className={styles.istoxHeader}>
         <Image src='images/icon.png' className={styles.icon} />
         <ul className={styles.links}>
-          {this.getLinkDesign('Wallet', 'user_wallet')}
-          {this.getLinkDesign('Trade', 'user_trade')}
-          {this.getLinkDesign('Sto', 'user_project')}
+          {this.props.mainLinks!.map((link) => {
+            return this.getLinkDesign(link.title, link.path, link.selected);
+          })}
         </ul>
         {this.getUserActionDesign()}
       </Container>
     );
   }
 
-  private getLinkDesign(title: string, href: Paths) {
+  private getLinkDesign(title: string, href: string, selected?: boolean) {
     return (
-      <li className={href === this.props.selectedPath ? 'selected' : ''}>
+      <li key={href} className={selected ? 'selected' : ''}>
         {this.props.useAnchorTag && (
           <a href={href}>
             {title}
@@ -107,7 +115,7 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Transition>
         <Container className={styles.subMenu}>
-          {this.isAdmin() && (
+          {/* {this.isAdmin() && (
             <Link useNormalAnchor href='admin'>
               Admin Panel
             </Link>
@@ -117,7 +125,7 @@ export class Header extends React.Component<IHeader, IState> {
           </Link>
           <Link useNormalAnchor href=''>
             Settings
-          </Link>
+          </Link> */}
           <Link useNormalAnchor href='logout'>
             Logout
           </Link>
