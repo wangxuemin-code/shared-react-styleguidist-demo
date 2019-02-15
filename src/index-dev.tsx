@@ -40,21 +40,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 const mqtt = new Mqtt({
   host: 'localhost',
-  username: 'abc',
-  password: 'cc',
   port: 35675,
   onConnected: () => {
     console.log('connected!');
   }
 });
-
-// mqtt.subscribe({
-//   queueName: 'test',
-//   topic: '123',
-//   callback: () => {
-//     console.log('waow');
-//   }
-// });
 
 // mqtt
 //   .waitForMessage({

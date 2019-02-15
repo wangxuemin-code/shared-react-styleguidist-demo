@@ -14,6 +14,7 @@ export interface IMqttStartOptions {
   password?: string;
   useSSL?: boolean;
   clientId?: string;
+  path?: string;
   onConnected?: () => void;
   onDisonnected?: (responseObject: MQTTError) => void;
 }
@@ -66,7 +67,7 @@ export class Mqtt {
     this.client = new Client(
       this.options.host,
       this.options.port || 15675,
-      '/ws',
+      this.options.path || '/ws',
       this.options.clientId || 'clientId' + Math.random() * 1000
     );
 
@@ -145,6 +146,9 @@ export class Mqtt {
         this.subscribeQueues.forEach((queueName) => {
           this.client.subscribe(queueName);
         });
+      },
+      onFailure: (e) => {
+        console.log(e);
       },
       keepAliveInterval: 60,
       reconnect: true
