@@ -1,0 +1,64 @@
+.istox-toast {
+  min-height: auto !important;
+  background-color: map-get($colors, primary) !important;
+  padding: 15px !important;
+}
+
+.istox-toast button {
+  display: none !important;
+}
+
+.istox-toast-body {
+  font-size: 0.9rem;
+  margin: auto !important;
+}
+
+.istox-toast-progress {
+  font-size: 0.9rem;
+  background: map-get($colors, primaryDark) !important;
+}
+
+.istox-toast {
+  .block-transaction-receipt {
+    color: white !important;
+  }
+
+  .main-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .item {
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
+    margin-bottom: 10px;
+
+    .title {
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    .value {
+      font-weight: lighter;
+      font-size: 0.85rem;
+    }
+  }
+
+  .view-more {
+    font-size: 0.8rem;
+    margin-top: 20px;
+    text-align: center;
+    font-style: italic;
+  }
+}
+
+.istox-toast a,
+.istox-toast a:hover,
+.istox-toast a:active {
+  text-decoration: none !important;
+}
+
+.istox-toast .item:last-of-type {
+  margin-bottom: 0px;
+}

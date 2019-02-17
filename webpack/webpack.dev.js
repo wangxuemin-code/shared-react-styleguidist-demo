@@ -159,6 +159,24 @@ module.exports = {
         ]
       },
       {
+        test: /(\.bootstrap\.css$|bootstrap-theme.css|bootstrap.css|istox.css|ReactToastify.css)/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              minimize:
+                true ||
+                {
+                  /* CSSNano Options */
+                }
+            }
+          }
+        ]
+      },
+      {
         test: /\.(css|scss)$/i,
         exclude: [/node_modules/],
         include: commonPaths.srcPath,

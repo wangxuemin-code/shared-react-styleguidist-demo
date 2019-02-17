@@ -15,7 +15,8 @@ import {
   Card,
   Image,
   Tabs,
-  Footer
+  Footer,
+  Toast
 } from './controls';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -29,6 +30,7 @@ import {
   faQuestion,
   faExclamationTriangle
 } from '@fortawesome/free-solid-svg-icons';
+import 'react-toastify/dist/ReactToastify.css';
 import { Confirm } from './controls/Confirm';
 import { BlockchainTransaction } from './controls/BlockchainTransaction';
 import { CandleStickChart } from './controls/CandleStickChart';
@@ -37,6 +39,7 @@ import Truncate from 'react-truncate';
 import { ProgressBar } from './controls/ProgressBar';
 import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -45,6 +48,16 @@ const mqtt = new Mqtt({
     console.log('connected!');
   }
 });
+
+// const mqtt = new Mqtt({
+//   host: 'diligent-goat.rmq.cloudamqp.com',
+//   username: 'jxlsbgfq:jxlsbgfq',
+//   password: 'vFnE4Qqza6oNiu_o_oVynVj_E5GF3Yjf',
+//   port: 443,
+//   onConnected: () => {
+//     console.log('connected!');
+//   }
+// });
 
 // mqtt
 //   .waitForMessage({
@@ -85,6 +98,8 @@ class Main extends React.Component<
             useAnchorTag={true}
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false }]}
           />
+
+          <Toast />
 
           {/* <CandleStickChart /> */}
 
@@ -142,8 +157,21 @@ class Main extends React.Component<
           <Button disabled href='abc'>
             Hello
           </Button>
-          <Button margin={{ topRem: 1 }} size={'large'} fontStyle={'italic'}>
-            Hello
+          <Button
+            margin={{ topRem: 1 }}
+            size={'large'}
+            fontStyle={'italic'}
+            onPress={() => {
+              Toast.show({
+                type: 'transaction_status_ok',
+                blockchainTransactionOptions: {
+                  purpose: 'Hello',
+                  txHash: 'Hei!'
+                }
+              });
+            }}
+          >
+            Show Toast
           </Button>
           <Button margin={{ topRem: 1 }} buttonStyle='info' fontStyle={'italic'}>
             Hello2
