@@ -10,6 +10,7 @@ import { Message } from './Message';
 import { Transition } from './Transition';
 import TextareaAutosize from 'react-textarea-autosize';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
+import FileUploader, { IAwsSettings } from './FileUploader';
 
 interface IState {
   displayValue?: string;
@@ -34,7 +35,8 @@ interface IProps extends IContainer {
     | 'select'
     | 'switch'
     | 'longtext'
-    | 'datetime';
+    | 'datetime'
+    | 'uploader';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -46,6 +48,7 @@ interface IProps extends IContainer {
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
+  s3Settings?: IAwsSettings;
 }
 
 interface IProcessResult {
@@ -64,6 +67,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onChange = this.onChange.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
+    this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
@@ -250,6 +254,17 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.dateOptions}
         />
       );
+    } else if (this.props.type === 'uploader') {
+      return (
+        <FileUploader
+          bucketName={this.props.s3Settings!.bucketName}
+          region={this.props.s3Settings!.region}
+          accessKeyId={this.props.s3Settings!.accessKeyId}
+          secretAccessKey={this.props.s3Settings!.secretAccessKey}
+          value={this.state.displayValue || undefined}
+          onChange={this.onUploaderChanged}
+        />
+      );
     } else {
       return (
         <BootstrapFormControl
@@ -279,6 +294,10 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
   }
 
+  private onUploaderChanged(newUrl: string) {
+    this.setState({ displayValue: newUrl, value: newUrl });
+  }
+
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
     const result = this.processValue((e.target as any).checked ? '1' : '0');
     this.setState({ displayValue: result.displayValue, value: result.value }, () => {
@@ -300,7 +319,8 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'password' ||
       this.props.type === 'select' ||
       this.props.type === 'switch' ||
-      this.props.type === 'datetime'
+      this.props.type === 'datetime' ||
+      this.props.type === 'uploader'
     ) {
       return { displayValue: value || '', value };
     } else {

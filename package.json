@@ -40,6 +40,7 @@
     "@types/react-truncate": "^2.3.3",
     "autoprefixer": "^9.3.1",
     "awesome-typescript-loader": "^5.2.1",
+    "aws-s3": "^2.0.2",
     "class-transformer": "^0.2.0",
     "css-loader": "^1.0.1",
     "fork-ts-checker-webpack-plugin": "^0.4.15",

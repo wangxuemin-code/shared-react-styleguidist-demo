@@ -40,6 +40,7 @@ import { ProgressBar } from './controls/ProgressBar';
 import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import FileUploader from './controls/FileUploader';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -298,6 +299,19 @@ class Main extends React.Component<
               type={'money'}
             />
 
+            <Controls.FormControl
+              required
+              label='Image'
+              name='image'
+              type='uploader'
+              s3Settings={{
+                bucketName: 'istox-stos-test',
+                region: 'ap-southeast-1',
+                accessKeyId: 'secret',
+                secretAccessKey: 'secret'
+              }}
+              value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
+            />
             <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
             <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
             <Controls.FormControl label={'Password'} name='Password' type={'password'} />

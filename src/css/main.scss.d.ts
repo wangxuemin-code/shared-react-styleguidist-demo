@@ -173,3 +173,4 @@ export const value: string;
 export const hash: string;
 export const item: string;
 export const viewMore: string;
+export const uploader: string;
