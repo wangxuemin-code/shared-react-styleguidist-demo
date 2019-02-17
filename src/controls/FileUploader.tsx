@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { Icon, Loading } from '.';
+import { Icon, Loading, Container } from '.';
 import * as S3 from 'aws-s3';
 
 interface IState {
@@ -56,20 +56,21 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
     let labelClass = `uploader ${state.loaded && 'loaded'}`;
 
     return (
-      <label
-        className={labelClass}
-        onDragEnter={this.onDragEnter}
-        onDragLeave={this.onDragLeave}
-        onDragOver={this.onDragOver}
-        onDrop={this.onDrop}
-      >
-        <Loading loading={this.state.loading} />
-        <img src={state.imageSrc} />
-        {!state.loaded && <Icon icon={faUpload} classNames={[styles.icon]} />}
+      <Container>
+        <label
+          className={labelClass}
+          onDragEnter={this.onDragEnter}
+          onDragLeave={this.onDragLeave}
+          onDragOver={this.onDragOver}
+          onDrop={this.onDrop}
+        >
+          <Loading loading={this.state.loading} />
+          <img src={state.imageSrc} />
+          {!state.loaded && <Icon icon={faUpload} classNames={[styles.icon]} />}
 
-        <i className='icon icon-upload' />
-        <input type='file' accept='image/*' onChange={this.onFileChange} ref='input' />
-      </label>
+          <input type='file' accept='image/*' onChange={this.onFileChange} />
+        </label>
+      </Container>
     );
   }
 
