@@ -166,7 +166,7 @@ class Main extends React.Component<
                 type: 'transaction_status_ok',
                 blockchainTransactionOptions: {
                   purpose: 'Hello',
-                  txHash: 'Hei!'
+                  txHash: '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
                 }
               });
             }}

@@ -33,8 +33,13 @@ export class Toast extends React.Component {
       blockchainTransactionOptions = props.blockchainTransactionOptions;
     }
 
+    let hashes = blockchainTransactionOptions.txHash.split(',');
+    hashes = hashes.map((hash) => {
+      return hash.trim();
+    });
+
     return (
-      <a href={`block_transaction/${blockchainTransactionOptions.txHash}`} target='_blank'>
+      <a href={`block_transaction/${hashes[0]}`} target='_blank'>
         <div className='block-transaction-receipt'>
           <div className='main-title'>
             <Icon icon={faCheck} /> Blockchain transaction completed
@@ -43,9 +48,15 @@ export class Toast extends React.Component {
             <span className='title'>Purpose</span>
             <span className='value'>{blockchainTransactionOptions.purpose}</span>
           </div>
-          <div className='item'>
-            <span className='title'>Tx hash</span>
-            <span className='value'>{blockchainTransactionOptions.txHash}</span>
+          <div className='single-row'>
+            <div className='title'>Tx hash</div>
+            {hashes.map((hash) => {
+              return (
+                <div className='hash' key={hash}>
+                  {hash}
+                </div>
+              );
+            })}
           </div>
           <div className='view-more'>Click to view details</div>
         </div>
@@ -61,7 +72,8 @@ export class Toast extends React.Component {
       progressClassName: 'istox-toast-progress',
       hideProgressBar: false,
       closeOnClick: true,
-      autoClose: 3500
+      autoClose: 5000,
+      draggable: false
     });
   }
 }

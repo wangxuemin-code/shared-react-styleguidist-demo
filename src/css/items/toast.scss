@@ -11,6 +11,7 @@
 .istox-toast-body {
   font-size: 0.9rem;
   margin: auto !important;
+  width: 100%;
 }
 
 .istox-toast-progress {
@@ -29,20 +30,28 @@
     margin-bottom: 20px;
   }
 
+  .title {
+    font-weight: bold;
+    font-size: 0.85rem;
+  }
+
+  .value {
+    font-weight: lighter;
+    font-size: 0.85rem;
+  }
+
+  .hash {
+    font-weight: lighter;
+    font-size: 0.85rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+
   .item {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     margin-bottom: 10px;
-
-    .title {
-      font-weight: bold;
-      font-size: 0.85rem;
-    }
-
-    .value {
-      font-weight: lighter;
-      font-size: 0.85rem;
-    }
   }
 
   .view-more {
