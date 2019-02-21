@@ -29,16 +29,13 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
 
-    let value;
-    if (typeof this.props.value === 'string') {
-      value = parseInt(this.props.value, 10);
-    } else {
-      value = this.props.value;
-    }
+    this.updateStateWithProps();
+  }
 
-    this.state = {
-      selectedUnixTimestamp: value
-    };
+  public componentDidUpdate(prevProps: IProps) {
+    if (this.props.value !== prevProps.value) {
+      this.updateStateWithProps();
+    }
   }
 
   public render() {
@@ -60,6 +57,19 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         </Controls.Container>
       </React.Fragment>
     );
+  }
+
+  private updateStateWithProps() {
+    let value;
+    if (typeof this.props.value === 'string') {
+      value = parseInt(this.props.value, 10);
+    } else {
+      value = this.props.value;
+    }
+
+    this.state = {
+      selectedUnixTimestamp: value
+    };
   }
 
   private handleChangeRaw(event: React.FocusEvent<HTMLInputElement>) {
