@@ -26,7 +26,7 @@ interface IFileUploader extends IAwsSettings {
 export default class FileUploader extends React.Component<IFileUploader, IState> {
   private S3Client: any;
 
-  constructor(props: any) {
+  constructor(props: IFileUploader) {
     super(props);
 
     this.state = {
@@ -49,6 +49,14 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
     };
 
     this.S3Client = new S3(config);
+  }
+
+  public componentDidUpdate(prevProps: IFileUploader) {
+    if (prevProps.value !== this.props.value) {
+      this.setState({
+        imageSrc: this.props.value || ''
+      });
+    }
   }
 
   public render() {
