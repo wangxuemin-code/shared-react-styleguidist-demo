@@ -12,6 +12,10 @@ $userActionHeight: 44px;
   display: grid;
   grid-template-columns: max-content auto max-content;
   height: $headerHeight;
+
+  a.logo-anchor {
+    display: flex;
+  }
 }
 
 .istox-header .icon {

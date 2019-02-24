@@ -121,6 +121,7 @@ export const istoxMessage: string;
 export const success: string;
 export const error: string;
 export const istoxHeader: string;
+export const logoAnchor: string;
 export const links: string;
 export const underline: string;
 export const selected: string;
