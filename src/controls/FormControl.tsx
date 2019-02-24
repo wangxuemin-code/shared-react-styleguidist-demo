@@ -60,7 +60,8 @@ interface IProcessResult {
 export class FormControl extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     type: 'text',
-    name: ''
+    name: '',
+    decimalPlace: 4
   };
 
   constructor(props: IProps) {
@@ -313,6 +314,13 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private validateValueCanChanged(value: string): boolean {
     if (this.props.type === 'money' || this.props.type === 'number') {
+      const temp = value.split('.');
+      if (temp.length === 2) {
+        if (temp[1].length > this.props.decimalPlace!) {
+          return false;
+        }
+      }
+
       const realValue = parseFloat(Formatter.stripSymbol(value).trim());
       if (realValue > 999999999999) {
         return false;
