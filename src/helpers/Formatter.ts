@@ -20,7 +20,7 @@ export class Formatter {
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
 
     return `${options.symbol || '$ '}${input.toLocaleString(undefined, {
-      maximumFractionDigits: 4
+      maximumFractionDigits: options.decimalPlace || 4
     })}`;
   }
 
@@ -42,7 +42,9 @@ export class Formatter {
 
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
 
-    return `${input.toLocaleString(undefined, { maximumFractionDigits: 4 })}`;
+    return `${input.toLocaleString(undefined, {
+      maximumFractionDigits: options.decimalPlace || 4
+    })}`;
   }
 
   public static stripSymbol(input: string): string {

@@ -49,6 +49,7 @@ interface IProps extends IContainer {
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
   s3Settings?: IAwsSettings;
+  decimalPlace?: number;
 }
 
 interface IProcessResult {
@@ -282,12 +283,15 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onChange(event: React.FormEvent<any>) {
     const { value } = event.target as HTMLInputElement;
-    const result = this.processValue(value);
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
-      }
-    });
+
+    if (this.validateValueCanChanged(value)) {
+      const result = this.processValue(value);
+      this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
+      });
+    }
   }
 
   private onDateTimeChange(newUnixTimestamp: number) {
@@ -305,6 +309,16 @@ export class FormControl extends React.Component<IProps, IState> {
         this.props.onInputChanged(result.value, this.props.name || '');
       }
     });
+  }
+
+  private validateValueCanChanged(value: string): boolean {
+    if (this.props.type === 'money' || this.props.type === 'number') {
+      const realValue = parseFloat(Formatter.stripSymbol(value).trim());
+      if (realValue > 999999999999) {
+        return false;
+      }
+    }
+    return true;
   }
 
   private processValue(value: string): IProcessResult {
@@ -349,14 +363,18 @@ export class FormControl extends React.Component<IProps, IState> {
           return {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
-              : Formatter.money(parseFloat(originalValue)) + appendDot,
+              : Formatter.money(parseFloat(originalValue), {
+                  decimalPlace: this.props.decimalPlace
+                }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
           return {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
-              : Formatter.number(parseFloat(originalValue)) + appendDot,
+              : Formatter.number(parseFloat(originalValue), {
+                  decimalPlace: this.props.decimalPlace
+                }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         }

@@ -15,10 +15,16 @@ interface IMainLink {
   selected?: boolean;
 }
 
+interface ISubLink {
+  title: string;
+  path: string;
+}
+
 interface IHeader extends IContainer {
   fullWidth?: boolean;
   useAnchorTag?: boolean;
   mainLinks?: IMainLink[];
+  subLinks?: ISubLink[];
 }
 
 interface IState {
@@ -27,7 +33,8 @@ interface IState {
 
 export class Header extends React.Component<IHeader, IState> {
   public static defaultProps = {
-    mainLinks: []
+    mainLinks: [],
+    subLinks: []
   };
 
   constructor(props: IHeader) {
@@ -98,11 +105,6 @@ export class Header extends React.Component<IHeader, IState> {
     }
   }
 
-  private isAdmin() {
-    const isAdmin = Cookies.get('isAdmin');
-    return isAdmin;
-  }
-
   private showSubMenu() {
     this.setState({ showSubMenu: true });
   }
@@ -115,17 +117,12 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Transition>
         <Container className={styles.subMenu}>
-          {/* {this.isAdmin() && (
-            <Link useNormalAnchor href='admin'>
-              Admin Panel
-            </Link>
-          )}
-          <Link useNormalAnchor href=''>
-            Manage Account
-          </Link>
-          <Link useNormalAnchor href=''>
-            Settings
-          </Link> */}
+          {this.props.subLinks &&
+            this.props.subLinks.map((sublink) => (
+              <Link useNormalAnchor href={sublink.path}>
+                {sublink.title}
+              </Link>
+            ))}
           <Link useNormalAnchor href='logout'>
             Logout
           </Link>

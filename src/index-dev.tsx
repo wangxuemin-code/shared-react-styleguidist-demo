@@ -98,6 +98,7 @@ class Main extends React.Component<
           <Header
             useAnchorTag={true}
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions' }]}
           />
 
           <Toast />
@@ -297,6 +298,7 @@ class Main extends React.Component<
               }
               name='hi'
               type={'money'}
+              decimalPlace={2}
             />
 
             <Controls.FormControl
@@ -322,7 +324,7 @@ class Main extends React.Component<
               alwaysCapitalize={true}
             />
             <Controls.FormControl label={'Number'} name='number' type={'number'} />
-            <Controls.FormControl label={'$$$'} name='money' type={'money'} />
+            <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
             <Controls.FormControl
               required
               label={'Date'}
