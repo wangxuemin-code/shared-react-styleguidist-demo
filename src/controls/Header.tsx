@@ -121,7 +121,7 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.subMenu}>
           {this.props.subLinks &&
             this.props.subLinks.map((sublink) => (
-              <Link useNormalAnchor href={sublink.path}>
+              <Link useNormalAnchor={this.props.useAnchorTag} href={sublink.path}>
                 {sublink.title}
               </Link>
             ))}
