@@ -39,7 +39,7 @@ export class Toast extends React.Component {
     });
 
     return (
-      <a href={`block_transaction/${hashes[0]}`} target='_blank'>
+      <a href={`tx/${hashes[0]}`} target='_blank'>
         <div className='block-transaction-receipt'>
           <div className='main-title'>
             <Icon icon={faCheck} /> Blockchain transaction completed
