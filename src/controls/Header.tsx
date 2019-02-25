@@ -125,7 +125,7 @@ export class Header extends React.Component<IHeader, IState> {
                 {sublink.title}
               </Link>
             ))}
-          <Link useNormalAnchor href='logout'>
+          <Link useNormalAnchor href='/logout'>
             Logout
           </Link>
         </Container>
