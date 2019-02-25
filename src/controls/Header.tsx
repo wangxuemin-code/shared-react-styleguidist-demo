@@ -49,7 +49,7 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container {...this.props} className={styles.istoxHeader}>
         <a href='/' className={styles.logoAnchor}>
-          <Image src='images/icon.png' className={styles.icon} />
+          <Image src='/images/icon.png' className={styles.icon} />
         </a>
         <ul className={styles.links}>
           {this.props.mainLinks!.map((link) => {
