@@ -13,16 +13,17 @@ interface IMainLink {
   title: string;
   path: string;
   selected?: boolean;
+  useAnchorTag?: boolean;
 }
 
 interface ISubLink {
   title: string;
   path: string;
+  useAnchorTag?: boolean;
 }
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
-  useAnchorTag?: boolean;
   mainLinks?: IMainLink[];
   subLinks?: ISubLink[];
 }
@@ -53,7 +54,7 @@ export class Header extends React.Component<IHeader, IState> {
         </a>
         <ul className={styles.links}>
           {this.props.mainLinks!.map((link) => {
-            return this.getLinkDesign(link.title, link.path, link.selected);
+            return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
           })}
         </ul>
         {this.getUserActionDesign()}
@@ -61,17 +62,17 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private getLinkDesign(title: string, href: string, selected?: boolean) {
+  private getLinkDesign(title: string, href: string, selected?: boolean, useAnchorTag?: boolean) {
     return (
       <li key={href} className={selected ? 'selected' : ''}>
-        {this.props.useAnchorTag && (
+        {useAnchorTag && (
           <a href={href}>
             {title}
             <div className={styles.underline} />
           </a>
         )}
 
-        {!this.props.useAnchorTag && (
+        {!useAnchorTag && (
           <Controls.Link href={href}>
             {title}
             <div className={styles.underline} />
@@ -121,7 +122,7 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.subMenu}>
           {this.props.subLinks &&
             this.props.subLinks.map((sublink) => (
-              <Link useNormalAnchor={this.props.useAnchorTag} href={sublink.path}>
+              <Link useNormalAnchor={sublink.useAnchorTag} href={sublink.path}>
                 {sublink.title}
               </Link>
             ))}

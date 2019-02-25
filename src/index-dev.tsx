@@ -96,9 +96,8 @@ class Main extends React.Component<
       <React.Fragment>
         <RootContainer>
           <Header
-            useAnchorTag={true}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false }]}
-            subLinks={[{ title: 'Transactions', path: 'transactions' }]}
+            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
           />
 
           <Toast />
