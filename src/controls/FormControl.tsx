@@ -297,6 +297,10 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onDateTimeChange(newUnixTimestamp: number) {
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
+
+    if (this.props.onInputChanged) {
+      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
+    }
   }
 
   private onUploaderChanged(newUrl: string) {

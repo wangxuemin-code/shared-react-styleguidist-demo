@@ -331,6 +331,9 @@ class Main extends React.Component<
               type={'datetime'}
               placeholder={'test'}
               defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+              onInputChanged={(value) => {
+                console.log(value);
+              }}
             />
             {() => {
               return (
