@@ -6,7 +6,17 @@ import { Link } from './Link';
 import { Loading } from '.';
 
 interface IButton extends IContainer {
-  buttonStyle?: 'normal' | 'info' | 'invert' | 'none' | 'negative' | 'success' | 'fail';
+  buttonStyle?:
+    | 'default'
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'invert'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'none';
+  outline?: boolean;
   type?: 'button' | 'submit';
   onPress?: () => void;
   href?: string;
@@ -18,7 +28,7 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    buttonStyle: 'normal',
+    buttonStyle: 'default',
     type: 'button',
     size: 'medium'
   };
@@ -35,12 +45,20 @@ export class Button extends React.Component<IButton, any> {
       classes.push(styles.buttonNone);
     } else if (this.props.buttonStyle === 'info') {
       classes.push(styles.buttonInfo);
-    } else if (this.props.buttonStyle === 'negative') {
-      classes.push(styles.buttonNegative);
+    } else if (this.props.buttonStyle === 'primary') {
+      classes.push(styles.buttonPrimary);
+    } else if (this.props.buttonStyle === 'secondary') {
+      classes.push(styles.buttonSecondary);
     } else if (this.props.buttonStyle === 'success') {
       classes.push(styles.buttonSuccess);
-    } else if (this.props.buttonStyle === 'fail') {
-      classes.push(styles.buttonFail);
+    } else if (this.props.buttonStyle === 'warning') {
+      classes.push(styles.buttonWarning);
+    } else if (this.props.buttonStyle === 'danger') {
+      classes.push(styles.buttonDanger);
+    }
+
+    if (this.props.outline) {
+      classes.push('outline');
     }
 
     if (this.props.disabled) {

@@ -50,7 +50,7 @@ export class Confirm extends React.Component<IProps, IState> {
             {this.props.type === 'confirm' && (
               <div>
                 <Button
-                  buttonStyle={'negative'}
+                  buttonStyle={'danger'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
                 >
@@ -64,7 +64,7 @@ export class Confirm extends React.Component<IProps, IState> {
             {this.props.type === 'yesno' && (
               <div>
                 <Button
-                  buttonStyle={'negative'}
+                  buttonStyle={'danger'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
                 >

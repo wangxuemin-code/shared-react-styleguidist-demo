@@ -4,8 +4,10 @@ import { Container, IContainer } from './Container';
 import { Tabs as BootstrapTabs, Tab as BootstrapTab } from 'react-bootstrap';
 
 interface ITab {
-  title: string;
+  title: any;
   contents?: any;
+  className?: string;
+  icon?: string;
 }
 
 interface IProps extends IContainer {
@@ -29,10 +31,16 @@ export class Tabs extends React.Component<IProps, IState> {
   }
 
   public render() {
+    let classes: string[] = [this.props.className ? this.props.className : ''];
+
+    if (this.props.classNames) {
+      classes = classes.concat(this.props.classNames);
+    }
     return (
       <Container {...this.props} className={styles.istoxTabsContainer}>
         <BootstrapTabs
-          className={styles.istoxTabs}
+          //className={styles.istoxTabs}
+          className={classes.join(' ')}
           defaultActiveKey={this.state.selectedIndex}
           id='istox-tab'
         >

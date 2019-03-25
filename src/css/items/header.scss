@@ -1,9 +1,7 @@
-$userActionHeight: 44px;
-
 .istox-header {
-  background-image: $headerBackground;
-  padding: 0 15rem;
-  color: #d8d8d8;
+  background-color: map-get($colors, primary);
+  padding: 0 10rem;
+  color: map-get($colors, primaryAlt);
   width: 100%;
   z-index: 999;
   position: fixed;
@@ -13,8 +11,37 @@ $userActionHeight: 44px;
   grid-template-columns: max-content auto max-content;
   height: $headerHeight;
 
+  &.alt {
+    background-color: map-get($colors, primaryAlt);
+    color: map-get($colors, primary);
+
+    ul.links {
+      a {
+        color: map-get($colors, primaryAlt);
+      }
+    }
+  }
+
   a.logo-anchor {
+    padding: 0 0.5rem;
     display: flex;
+  }
+
+  ul.links {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: map-get($colors, primary);
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
   }
 }
 
@@ -25,23 +52,6 @@ $userActionHeight: 44px;
 
 .istox-header .icon > img {
   height: 30px;
-}
-
-.istox-header ul.links {
-  list-style-type: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-
-  a {
-    color: white;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
 }
 
 .istox-header ul.links > li {
@@ -72,17 +82,14 @@ $userActionHeight: 44px;
 }
 
 .istox-header .user-action {
-  border: 2px solid map-get($colors, primaryLight);
-  border-radius: $borderRadius;
   font-size: 1.1rem;
   transition: 0.25s;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0px 30px;
-  margin: 0.7rem 0;
   position: relative;
-  height: $userActionHeight;
+  height: $headerHeight;
 }
 .istox-header .user-action:hover {
   cursor: pointer;
@@ -92,7 +99,7 @@ $userActionHeight: 44px;
 }
 
 .istox-header .user-action.after-login {
-  padding: 0px 0px 0px 5px;
+  padding: 0px 1rem;
   font-size: 28px;
 }
 
@@ -100,7 +107,7 @@ $userActionHeight: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0px 25px;
+  padding: 0 0.5rem;
   font-size: 1rem;
   font-weight: lighter;
   text-transform: capitalize;
@@ -116,7 +123,7 @@ $userActionHeight: 44px;
 .istox-header .user-action .sub-menu {
   position: absolute;
   left: 0px;
-  top: $userActionHeight - 4;
+  top: $headerHeight;
   width: 150px;
   background-color: white;
   text-align: center;

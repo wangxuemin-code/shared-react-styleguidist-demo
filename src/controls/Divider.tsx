@@ -25,7 +25,6 @@ export class Divider extends React.Component<IDivider, any> {
       style.width = '100%';
     }
     style.background = this.props.color;
-
     return (
       <Container {...this.props}>
         <hr style={style} />

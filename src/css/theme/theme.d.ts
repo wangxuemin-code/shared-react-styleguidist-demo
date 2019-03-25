@@ -2,6 +2,7 @@ export declare const stylings: {
     base: string;
     spacing: string;
     borderRadius: string;
+    boxShadow: string;
     breakpoints: {
         xs: string;
         sm: string;
@@ -17,14 +18,15 @@ export declare const stylings: {
     transitionDuration: string;
     colors: {
         primary: string;
+        primaryAlt: string;
         primaryLight: string;
         primaryDark: string;
+        primartGreyDark: string;
         primaryGrey: string;
         primaryGreyLight: string;
-        primaryGreyDark: string;
-        primaryRedDark: string;
-        primaryGreenDark: string;
+        info: string;
         success: string;
         danger: string;
+        warning: string;
     };
 };

@@ -16,6 +16,7 @@
   "license": "ISC",
   "peerDependencies": {},
   "devDependencies": {
+    "@fortawesome/fontawesome-pro": "^5.8.1",
     "ignore-loader": "^0.1.2",
     "sass": "^1.15.1"
   },

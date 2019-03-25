@@ -11,10 +11,9 @@
 .istox-form input,
 .istox-form select,
 .istox-form textarea {
-  font-size: 0.9rem;
-  border-radius: $borderRadius;
-  min-height: 42px;
-  border: 1px solid map-get($colors, primary);
+  font-size: 1rem;
+  min-height: 50px;
+  background-color: map-get($colors, primaryGreyLight);
 }
 
 .istox-form textarea {

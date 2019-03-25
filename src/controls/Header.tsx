@@ -1,4 +1,4 @@
-import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import * as Cookies from 'js-cookie';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
@@ -26,6 +26,7 @@ interface IHeader extends IContainer {
   fullWidth?: boolean;
   mainLinks?: IMainLink[];
   subLinks?: ISubLink[];
+  className?: string;
 }
 
 interface IState {
@@ -43,14 +44,18 @@ export class Header extends React.Component<IHeader, IState> {
 
     this.state = { showSubMenu: false };
     this.showSubMenu = this.showSubMenu.bind(this);
-    this.hideSubMenu = this.hideSubMenu.bind(this);
+  }
+
+  toggleClass() {
+    const currentState = this.state.showSubMenu;
+    this.setState({ showSubMenu: !currentState });
   }
 
   public render() {
     return (
-      <Container {...this.props} className={styles.istoxHeader}>
+      <Container {...this.props}>
         <a href='/' className={styles.logoAnchor}>
-          <Image src='/images/icon.png' className={styles.icon} />
+          <Image src='/images/ISTOX_Logo.png' className={styles.icon} />
         </a>
         <ul className={styles.links}>
           {this.props.mainLinks!.map((link) => {
@@ -85,14 +90,15 @@ export class Header extends React.Component<IHeader, IState> {
   private getUserActionDesign() {
     return (
       // <Container className={styles.userAction}>Login / Register</Container>
-      <Container
-        className={[styles.userAction, styles.afterLogin].join(' ')}
-        onMouseEnter={this.showSubMenu}
-        onMouseLeave={this.hideSubMenu}
-      >
+      <Container className={[styles.userAction, styles.afterLogin].join(' ')}>
         <Icon icon={faUserCircle} padding={{ topPx: 2 }} />
         <Container className={styles.text}>
           <span>{this.getUsername()}</span>
+          <Icon
+            onClick={() => this.toggleClass()}
+            icon={faChevronDown}
+            padding={{ topPx: 2, leftPx: 15 }}
+          />
         </Container>
         {this.state.showSubMenu && this.getSubMenuDesign()}
       </Container>

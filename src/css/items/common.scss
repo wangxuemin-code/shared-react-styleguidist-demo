@@ -80,6 +80,12 @@ h6 {
   color: map-get($colors, primaryDark);
 }
 
+hr {
+  &.hidden {
+    visibility: none;
+  }
+}
+
 .header {
   position: fixed;
   height: 67px; /* must be same value with body pad top */
@@ -136,4 +142,12 @@ h6 {
 
 .left {
   float: left;
+}
+
+.flex-50 {
+  flex: 50%;
+}
+
+.width-50 {
+  width: 50%;
 }

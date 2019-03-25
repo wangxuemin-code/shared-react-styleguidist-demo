@@ -10,7 +10,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('node-sass');
 const sassUtils = require('node-sass-utils')(sass);
 
-const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8200;
+const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8201;
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
 
@@ -217,7 +217,8 @@ module.exports = {
               functions: {
                 'get($keys)': function(keys) {
                   keys = keys.getValue().split('.');
-                  var result = require(commonPaths.srcPath + '/css/theme/theme.js').stylings;
+                  var result = require(commonPaths.srcPath +
+                    '/css/theme/theme.js').stylings;
                   var i;
                   for (i = 0; i < keys.length; i++) {
                     result = result[keys[i]];
