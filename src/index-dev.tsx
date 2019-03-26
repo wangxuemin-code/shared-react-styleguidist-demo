@@ -350,7 +350,7 @@ class Main extends React.Component<
           <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
           <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
           <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-          <ProgressBar margin={{ topPx: 20 }} value={20} animated variant={'danger'} />
+          <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
           <Divider />
           <h4>Table</h4>
           <Card padding={{ allPx: 10 }}>

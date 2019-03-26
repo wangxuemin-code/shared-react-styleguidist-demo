@@ -5,6 +5,27 @@
   .progress {
     height: 15px;
     margin-bottom: 0px;
+
+    &.success {
+      .progress-bar {
+        background-color: map-get($colors, success);
+      }
+    }
+    &.info {
+      .progress-bar {
+        background-color: map-get($colors, info);
+      }
+    }
+    &.warning {
+      .progress-bar {
+        background-color: map-get($colors, warning);
+      }
+    }
+    &.danger {
+      .progress-bar {
+        background-color: map-get($colors, danger);
+      }
+    }
   }
 
   .progress-bar {

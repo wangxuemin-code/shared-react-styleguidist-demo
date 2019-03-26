@@ -39,6 +39,8 @@ export class ProgressBar extends React.Component<IProgressBar, IState> {
         <ReactProgressBar
           now={this.state.value}
           label={this.props.label ? `${this.state.value}%` : ''}
+          striped={this.props.striped}
+          className={this.props.variant}
         />
       </Container>
     );
