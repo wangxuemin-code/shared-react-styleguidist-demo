@@ -21,7 +21,7 @@ export declare const stylings: {
         primaryAlt: string;
         primaryLight: string;
         primaryDark: string;
-        primartGreyDark: string;
+        primaryGreyDark: string;
         primaryGrey: string;
         primaryGreyLight: string;
         info: string;

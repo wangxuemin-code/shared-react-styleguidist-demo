@@ -23,7 +23,7 @@ exports.stylings = {
         primaryAlt: '#FFF',
         primaryLight: '#1C4267',
         primaryDark: '#333333',
-        primartGreyDark: '#7D7D7D',
+        primaryGreyDark: '#7D7D7D',
         primaryGrey: '#E9E9E9',
         primaryGreyLight: '#F8F8F8',
         info: '#17a2b8',

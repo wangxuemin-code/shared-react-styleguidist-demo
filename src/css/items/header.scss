@@ -10,6 +10,7 @@
   display: grid;
   grid-template-columns: max-content auto max-content;
   height: $headerHeight;
+  box-shadow: $boxShadow;
 
   &.alt {
     background-color: map-get($colors, primaryAlt);
@@ -91,6 +92,7 @@
   position: relative;
   height: $headerHeight;
 }
+
 .istox-header .user-action:hover {
   cursor: pointer;
   background: rgba(255, 255, 255, 0.65);
@@ -141,6 +143,7 @@
 }
 
 .istox-header .user-action .sub-menu a:hover {
-  background-image: linear-gradient(45deg, #388ac4 0%, #1c4267 100%);
+  // background-image: linear-gradient(45deg, #388ac4 0%, #1c4267 100%);
+  background-color: map-get($colors, primaryLight);
   color: white;
 }

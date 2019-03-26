@@ -11,6 +11,7 @@ import { Transition } from './Transition';
 import TextareaAutosize from 'react-textarea-autosize';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
 import FileUploader, { IAwsSettings } from './FileUploader';
+import Select from 'react-select';
 
 interface IState {
   displayValue?: string;
@@ -36,6 +37,7 @@ interface IProps extends IContainer {
     | 'switch'
     | 'longtext'
     | 'datetime'
+    | 'daterange'
     | 'uploader';
   name?: string;
   disabled?: boolean;
@@ -206,23 +208,14 @@ export class FormControl extends React.Component<IProps, IState> {
       return <Container>{this.props.value}</Container>;
     } else if (this.props.type === 'select') {
       return (
-        <BootstrapFormControl
-          componentClass='select'
-          value={!this.state.value ? 'PLACEHOLDER' : this.state.value}
-          onChange={this.onChange}
-        >
-          {this.props.selectOptions &&
-            this.props.selectOptions.map((option, i) => {
-              return (
-                <option key={i} value={option.value}>
-                  {option.label}
-                </option>
-              );
-            })}
-          <option disabled value={'PLACEHOLDER'} key={-1} style={{ display: 'none' }}>
-            {this.props.placeholder}
-          </option>
-        </BootstrapFormControl>
+        <Select
+          // componentClass='select'
+          className={'select'}
+          value={this.state.displayValue}
+          placeholder={this.props.placeholder}
+          onChange={this.onSetOption}
+          options={this.props.selectOptions}
+        />
       );
     } else if (this.props.type === 'switch') {
       return (
@@ -256,6 +249,8 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.dateOptions}
         />
       );
+    } else if (this.props.type === 'daterange') {
+      return <></>;
     } else if (this.props.type === 'uploader') {
       return (
         <FileUploader
@@ -294,6 +289,10 @@ export class FormControl extends React.Component<IProps, IState> {
       });
     }
   }
+
+  onSetOption = (selectedOption: any) => {
+    this.setState({ displayValue: selectedOption, value: selectedOption.value });
+  };
 
   private onDateTimeChange(newUnixTimestamp: number) {
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });

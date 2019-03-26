@@ -45,6 +45,7 @@ import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUploader from './controls/FileUploader';
+import DatePicker from 'react-datepicker';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -80,7 +81,14 @@ const mqtt = new Mqtt({
 
 class Main extends React.Component<
   any,
-  { success: string[] | string; error: string; loading: boolean; showModal: boolean }
+  {
+    success: string[] | string;
+    error: string;
+    loading: boolean;
+    showModal: boolean;
+    startDate: any;
+    endDate: any;
+  }
 > {
   form: any;
   formControls: any[];
@@ -88,11 +96,20 @@ class Main extends React.Component<
   public constructor(props: any) {
     super(props);
     this.state = {
-      success: ['What'],
+      success: ['Success'],
       error: '',
       loading: false,
-      showModal: false
+      showModal: false,
+      startDate: new Date(),
+      endDate: new Date()
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(date: any) {
+    this.setState({
+      startDate: date
+    });
   }
 
   public render() {
@@ -104,28 +121,34 @@ class Main extends React.Component<
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
           />
-          <h4>Typography</h4>
-          <Container display={'flex'}>
-            <Container padding={{ leftPx: 15 }} className={'flex-50'}>
-              <h1>H1</h1>
-              <h2>H2</h2>
-              <h3>H3</h3>
-              <h4>H4</h4>
-              <h5>H5</h5>
-              <h6>H6</h6>
-            </Container>
-            <Divider direction={'vertical'} />
-            <Container padding={{ leftPx: 15 }} className={'flex-50'}>
-              <p>Paragraph</p>
-              <b>Bold</b>
-              <br />
-              <i>Italic</i>
-              <br />
-              <Link href='/' useNormalAnchor>
-                Links
-              </Link>
-              <br />
-              <u>Underline</u>
+          <Container
+            margin={{ topPx: 15 }}
+            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
+            backgroundColor={'#FFF'}
+          >
+            <h4>Typography</h4>
+            <Container display={'flex'}>
+              <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                <h1>H1</h1>
+                <h2>H2</h2>
+                <h3>H3</h3>
+                <h4>H4</h4>
+                <h5>H5</h5>
+                <h6>H6</h6>
+              </Container>
+              <Divider direction={'vertical'} />
+              <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                <p>Paragraph</p>
+                <b>Bold</b>
+                <br />
+                <i>Italic</i>
+                <br />
+                <Link href='/' useNormalAnchor>
+                  Links
+                </Link>
+                <br />
+                <u>Underline</u>
+              </Container>
             </Container>
           </Container>
           <Divider />
@@ -368,128 +391,157 @@ class Main extends React.Component<
             />
           </Card>
           <Divider />
-          <h4>Form Elements</h4>
-          <Form
-            display={'flex'}
-            horizontal
-            error={String(404)}
-            ref={(ref) => {
-              if (ref) {
-                this.form = ref;
-                // this.form.reset();
-              }
-            }}
-            onSubmit={() => {
-              // console.log(this.form.reset());
-              console.log('FORM SUBMITTED');
-              this.setState({
-                success: '',
-                error: ''
-              });
-            }}
+          <Container
+            margin={{ topPx: 15 }}
+            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
+            backgroundColor={'#FFF'}
           >
-            <Controls.FormControl
-              required
-              disabled={true}
+            <h4>Form Elements</h4>
+            <Form
+              display={'grid'}
+              horizontal
+              error={String(404)}
               ref={(ref) => {
-                this.form = ref;
-              }}
-              label={
-                <span>
-                  Amount in <b>USD</b>
-                </span>
-              }
-              extraControls={
-                <Link>
-                  <Icon icon={faPlus} text={'What'} />
-                </Link>
-              }
-              append={
-                <Button
-                  textAlign={'center'}
-                  type={'submit'}
-                  onPress={() => {
-                    console.log(this.form.getFormData());
-                    console.log(this.form.getInputValue('description'));
-                  }}
-                >
-                  Submit
-                </Button>
-              }
-              name='hi'
-              type={'money'}
-              decimalPlace={2}
-            />
-
-            <Controls.FormControl
-              required
-              label='Image'
-              name='image'
-              type='uploader'
-              s3Settings={{
-                bucketName: 'istox-stos-test',
-                region: 'ap-southeast-1',
-                accessKeyId: 'secret',
-                secretAccessKey: 'secret'
-              }}
-              value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
-            />
-            <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
-            <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
-            <Controls.FormControl label={'Password'} name='Password' type={'password'} />
-            <Controls.FormControl
-              label={'Description'}
-              name='description'
-              type={'longtext'}
-              alwaysCapitalize={true}
-            />
-            <Controls.FormControl label={'Number'} name='number' type={'number'} />
-            <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
-            <Controls.FormControl
-              required
-              label={'Date'}
-              name='datetime'
-              type={'datetime'}
-              placeholder={'test'}
-              defaultValue={Formatter.dateToUnixTimestamp(new Date())}
-              onInputChanged={(value) => {
-                console.log(value);
-              }}
-            />
-            {() => {
-              return (
-                <div>
-                  <div>
-                    <Controls.FormControl
-                      required
-                      label={'Notify me'}
-                      name='notify'
-                      type={'switch'}
-                      defaultValue='0'
-                    />
-                  </div>
-                </div>
-              );
-            }}
-
-            <Controls.FormControl
-              required
-              label={'Type'}
-              name='Type'
-              placeholder='aCb'
-              type={'select'}
-              selectOptions={[
-                {
-                  label: 'helo',
-                  value: 'hei!'
-                },
-                {
-                  label: 'Option2',
-                  value: 'abcl'
+                if (ref) {
+                  this.form = ref;
+                  // this.form.reset();
                 }
-              ]}
-            />
-          </Form>
+              }}
+              onSubmit={() => {
+                // console.log(this.form.reset());
+                console.log('FORM SUBMITTED');
+                this.setState({
+                  success: '',
+                  error: ''
+                });
+              }}
+            >
+              <Controls.FormControl
+                required
+                disabled={true}
+                ref={(ref) => {
+                  this.form = ref;
+                }}
+                label={
+                  <span>
+                    Amount in <b>USD</b>
+                  </span>
+                }
+                extraControls={
+                  <Link>
+                    <Icon icon={faPlus} text={'Extra control'} />
+                  </Link>
+                }
+                append={
+                  <Button
+                    textAlign={'center'}
+                    type={'submit'}
+                    onPress={() => {
+                      console.log(this.form.getFormData());
+                      console.log(this.form.getInputValue('description'));
+                    }}
+                  >
+                    Submit
+                  </Button>
+                }
+                name='hi'
+                type={'money'}
+                decimalPlace={2}
+              />
+              <Controls.FormControl
+                required
+                label='Image'
+                name='image'
+                type='uploader'
+                s3Settings={{
+                  bucketName: 'istox-stos-test',
+                  region: 'ap-southeast-1',
+                  accessKeyId: 'secret',
+                  secretAccessKey: 'secret'
+                }}
+                value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
+              />
+              <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
+              <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
+              <Controls.FormControl label={'Password'} name='Password' type={'password'} />
+              <Controls.FormControl
+                label={'Description'}
+                name='description'
+                type={'longtext'}
+                alwaysCapitalize={true}
+              />
+              <Controls.FormControl label={'Number'} name='number' type={'number'} />
+              <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+              <DatePicker
+                selected={this.state.startDate}
+                selectsStart
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChange}
+              />
+              <DatePicker
+                selected={this.state.endDate}
+                selectsEnd
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChange}
+              />
+              <Controls.FormControl
+                required
+                label={'Date'}
+                name='datetime'
+                type={'datetime'}
+                placeholder={'test'}
+                defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                onInputChanged={(value) => {
+                  console.log(value);
+                }}
+              />
+              {() => {
+                return (
+                  <div>
+                    <div>
+                      <Controls.FormControl
+                        required
+                        label={'Notify me'}
+                        name='notify'
+                        type={'switch'}
+                        defaultValue='0'
+                      />
+                    </div>
+                  </div>
+                );
+              }}
+              <Controls.FormControl
+                required
+                label={'Date'}
+                name='daterange'
+                type={'daterange'}
+                placeholder={'test'}
+                defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                onInputChanged={(value) => {
+                  console.log(value);
+                }}
+              />
+              <Controls.FormControl
+                required
+                label={'Type'}
+                name='Type'
+                placeholder='Country'
+                type={'select'}
+                selectOptions={[
+                  {
+                    label: 'Option1',
+                    value: 'hei!'
+                  },
+                  {
+                    label: 'Option2',
+                    value: 'abcl'
+                  }
+                ]}
+              />
+            </Form>
+          </Container>
 
           <Divider />
           {/* <CandleStickChart /> */}

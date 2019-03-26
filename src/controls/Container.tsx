@@ -29,7 +29,7 @@ export interface IContainer {
   height?: number;
   width?: number;
   backgroundColor?: string;
-  display?: 'block' | 'inline-block' | 'inline' | 'flex';
+  display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
