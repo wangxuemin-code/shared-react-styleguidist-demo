@@ -45,7 +45,6 @@ import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUploader from './controls/FileUploader';
-import DatePicker from 'react-datepicker';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -86,8 +85,6 @@ class Main extends React.Component<
     error: string;
     loading: boolean;
     showModal: boolean;
-    startDate: any;
-    endDate: any;
   }
 > {
   form: any;
@@ -99,17 +96,8 @@ class Main extends React.Component<
       success: ['Success'],
       error: '',
       loading: false,
-      showModal: false,
-      startDate: new Date(),
-      endDate: new Date()
+      showModal: false
     };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(date: any) {
-    this.setState({
-      startDate: date
-    });
   }
 
   public render() {
@@ -117,7 +105,8 @@ class Main extends React.Component<
       <React.Fragment>
         <RootContainer>
           <Header
-            className={'istox-header alt'}
+            logo={'/images/icon.png'}
+            className={'istox-header'}
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
           />
@@ -125,6 +114,12 @@ class Main extends React.Component<
             margin={{ topPx: 15 }}
             padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
             backgroundColor={'#FFF'}
+            border={{
+              borderSize: 1,
+              borderRadius: 10,
+              borderColor: '#E9E9E9',
+              borderStyle: 'solid'
+            }}
           >
             <h4>Typography</h4>
             <Container display={'flex'}>
@@ -243,7 +238,7 @@ class Main extends React.Component<
             ]}
           />
           <Divider />
-          <h4>Buttons</h4>
+          <h4>Button</h4>
           <Button size={'small'} buttonStyle='primary'>
             Small
           </Button>
@@ -258,23 +253,7 @@ class Main extends React.Component<
           </Button>
           <Divider visibility={'hidden'} />
           <Button buttonStyle='primary'>Primary / Default</Button>
-          <Button
-            buttonStyle='secondary'
-            onPress={() => {
-              this.setState({
-                loading: true
-              });
-              Confirm.show({
-                type: 'yesno',
-                message: 'hello',
-                onResult: (result) => {
-                  console.log(result);
-                }
-              });
-            }}
-          >
-            Secondary
-          </Button>
+          <Button buttonStyle='secondary'>Secondary</Button>
           <Button disabled href='abc'>
             Disabled
           </Button>
@@ -286,22 +265,7 @@ class Main extends React.Component<
           <Button outline buttonStyle='primary'>
             Primary / Default
           </Button>
-          <Button
-            outline
-            buttonStyle='secondary'
-            onPress={() => {
-              this.setState({
-                loading: true
-              });
-              Confirm.show({
-                type: 'yesno',
-                message: 'hello',
-                onResult: (result) => {
-                  console.log(result);
-                }
-              });
-            }}
-          >
+          <Button outline buttonStyle='secondary'>
             Secondary
           </Button>
           <Button outline disabled href='abc'>
@@ -316,13 +280,7 @@ class Main extends React.Component<
           <Button outline buttonStyle='warning'>
             Warning
           </Button>
-          <Button
-            outline
-            buttonStyle='danger'
-            onPress={() => {
-              this.setState({ showModal: true });
-            }}
-          >
+          <Button outline buttonStyle='danger'>
             Danger
           </Button>
           <Divider />
@@ -345,6 +303,23 @@ class Main extends React.Component<
             Modal
           </Modal>
           <Button
+            buttonStyle='danger'
+            onPress={() => {
+              this.setState({
+                loading: true
+              });
+              Confirm.show({
+                type: 'yesno',
+                message: 'hello',
+                onResult: (result) => {
+                  console.log(result);
+                }
+              });
+            }}
+          >
+            Confirmation
+          </Button>
+          <Button
             buttonStyle='info'
             loading={this.state.loading}
             onPress={() => {
@@ -353,12 +328,29 @@ class Main extends React.Component<
           >
             Modal
           </Button>
-          <Button tooltip={'tooltip!'} display='inline-block'>
+          <Button outline buttonStyle='primary' tooltip={'tooltip!'} display='inline-block'>
             ToolTip
+          </Button>
+          <Button
+            buttonStyle='success'
+            onPress={() => {
+              BlockchainTransaction.show({
+                mqttClient: mqtt,
+                waitOptions: {
+                  queueName: 'test'
+                },
+                onSucess: () => {}
+              });
+            }}
+          >
+            Bottom Toast
           </Button>
           <Divider />
           <h4>Progress</h4>
-          <ProgressBar margin={{ topPx: 20 }} value={20} />
+          <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+          <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+          <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+          <ProgressBar margin={{ topPx: 20 }} value={20} animated variant={'danger'} />
           <Divider />
           <h4>Table</h4>
           <Card padding={{ allPx: 10 }}>
@@ -472,20 +464,6 @@ class Main extends React.Component<
               />
               <Controls.FormControl label={'Number'} name='number' type={'number'} />
               <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
-              <DatePicker
-                selected={this.state.startDate}
-                selectsStart
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onChange={this.handleChange}
-              />
-              <DatePicker
-                selected={this.state.endDate}
-                selectsEnd
-                startDate={this.state.startDate}
-                endDate={this.state.endDate}
-                onChange={this.handleChange}
-              />
               <Controls.FormControl
                 required
                 label={'Date'}
@@ -514,10 +492,10 @@ class Main extends React.Component<
               }}
               <Controls.FormControl
                 required
-                label={'Date'}
+                label={'DateRange'}
                 name='daterange'
                 type={'daterange'}
-                placeholder={'test'}
+                placeholder={''}
                 defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                 onInputChanged={(value) => {
                   console.log(value);
@@ -542,79 +520,27 @@ class Main extends React.Component<
               />
             </Form>
           </Container>
-
           <Divider />
-          {/* <CandleStickChart /> */}
-          <LineChart
-            title={'Sample Chart'}
-            yTitle={'Sample y title'}
-            xTitle={'X title'}
-            margin={{ topPx: 50 }}
-            xLabels={[
-              '1',
-              '2',
-              '3',
-              '1',
-              '2',
-              '3',
-              '1',
-              '2',
-              '3',
-              '1',
-              '2',
-              '3',
-              '1',
-              '2',
-              '3',
-              '1'
-            ]}
-            series={[
-              {
-                name: 'Hello',
-                data: [NaN, NaN, NaN, NaN, NaN, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-              },
-              {
-                name: 'Beby',
-                data: [NaN, NaN, NaN, NaN, NaN, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-              }
-            ]}
-          />
-
-          <Controls.Container>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-            has been the industry's standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a type specimen book. It has
-            survived not only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s with the release of
-            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-          </Controls.Container>
-
-          <br />
-          <Icon
-            onClick={() => {
-              BlockchainTransaction.show({
-                mqttClient: mqtt,
-                waitOptions: {
-                  queueName: 'test'
-                },
-                onSucess: () => {}
-              });
-            }}
-            icon={'plus'}
-            tooltip={'hello'}
-          />
-          <Link display='block' href='www.google.com' useNormalAnchor>
-            www.google.com
-          </Link>
-          <Transition>
-            <Message error='Hello i am sucesss!' />
-          </Transition>
-          <Container width={1000} height={1000}>
+          <h4>Card</h4>
+          <Divider />
+          <h4>Message</h4>
+          <Container
+            margin={{ topPx: 15 }}
+            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
+            backgroundColor={'#FFF'}
+          >
+            <Transition>
+              <Message success='Hello i am a success!' />
+              <Message info='Hello i am an info!' />
+              <Message warning='Hello i am a waning!' />
+              <Message error='Hello i am an error!' />
+            </Transition>
+          </Container>
+          <Divider />
+          {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>
-
-          <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} />
+          <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
         </RootContainer>
         <Footer />
       </React.Fragment>

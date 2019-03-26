@@ -2,18 +2,26 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from '.';
-import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faTimesCircle,
+  faExclamation,
+  faInfo,
+  faInfoCircle,
+  faExclamationCircle
+} from '@fortawesome/free-solid-svg-icons';
 
 interface IProps extends IContainer {
-  error?: string | 'icon-only';
   success?: string | 'icon-only';
   info?: string | 'icon-only';
+  warning?: string | 'icon-only';
+  error?: string | 'icon-only';
 }
 
 export class Message extends React.Component<IProps, any> {
   public render() {
     let message: string;
-    let type: 'success' | 'error' | 'info';
+    let type: 'success' | 'error' | 'info' | 'warning';
     if (this.props.error) {
       message = this.props.error;
       type = 'error';
@@ -23,6 +31,9 @@ export class Message extends React.Component<IProps, any> {
     } else if (this.props.info) {
       message = this.props.info;
       type = 'info';
+    } else if (this.props.warning) {
+      message = this.props.warning;
+      type = 'warning';
     } else {
       return null;
     }
@@ -34,6 +45,10 @@ export class Message extends React.Component<IProps, any> {
       icon = faCheckCircle;
     } else if (type === 'error') {
       icon = faTimesCircle;
+    } else if (type === 'info') {
+      icon = faInfoCircle;
+    } else if (type === 'warning') {
+      icon = faExclamationCircle;
     }
 
     return (

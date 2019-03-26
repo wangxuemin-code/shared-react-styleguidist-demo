@@ -4,7 +4,11 @@ import { IContainer, Container } from './Container';
 import * as styles from '../css/main.scss';
 
 interface IProgressBar extends IContainer {
+  label?: boolean;
+  striped?: boolean;
+  animated?: boolean;
   value: number;
+  variant?: string;
 }
 
 interface IState {
@@ -32,7 +36,10 @@ export class ProgressBar extends React.Component<IProgressBar, IState> {
   public render() {
     return (
       <Container {...this.props} className={styles.istoxProgress}>
-        <ReactProgressBar now={this.state.value} />
+        <ReactProgressBar
+          now={this.state.value}
+          label={this.props.label ? `${this.state.value}%` : ''}
+        />
       </Container>
     );
   }

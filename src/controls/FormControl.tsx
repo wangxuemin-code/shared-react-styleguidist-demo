@@ -243,6 +243,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'datetime') {
       return (
         <DateTimePicker
+          type={'datetime'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
           onChange={this.onDateTimeChange}
@@ -250,7 +251,15 @@ export class FormControl extends React.Component<IProps, IState> {
         />
       );
     } else if (this.props.type === 'daterange') {
-      return <></>;
+      return (
+        <DateTimePicker
+          type={'daterange'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateTimeChange}
+          options={this.props.dateOptions}
+        />
+      );
     } else if (this.props.type === 'uploader') {
       return (
         <FileUploader

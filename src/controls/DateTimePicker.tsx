@@ -13,6 +13,7 @@ export interface IDateOption {
 }
 
 interface IProps extends IContainer {
+  type?: string;
   placeholder?: string;
   value?: number | string; // value will be in unix timestamp
   onChange?: (newTimestamp: number, newDate: Date) => void;
@@ -20,7 +21,8 @@ interface IProps extends IContainer {
 }
 
 interface IState {
-  selectedUnixTimestamp?: number;
+  selectedStartUnixTimestamp?: number;
+  selectedEndUnixTimestamp?: number;
 }
 
 export class DateTimePicker extends React.Component<IProps, IState> {
@@ -39,24 +41,65 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   public render() {
-    return (
-      <React.Fragment>
-        <DatePicker
-          selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
-          onChange={this.handleChange.bind(this)}
-          onChangeRaw={this.handleChangeRaw.bind(this)}
-          showTimeSelect
-          dateFormat='dd-MM-YY hh:mm aa'
-          // timeFormat='hh:mm A'
-          placeholderText={this.props.placeholder}
-          minDate={this.props.options.startDate}
-          maxDate={this.props.options.endDate}
-        />
-        <Controls.Container className={styles.datepickerCalenderContainer}>
-          <Controls.Icon icon={faCalendarAlt} />
-        </Controls.Container>
-      </React.Fragment>
-    );
+    if (this.props.type === 'datetime') {
+      return (
+        <React.Fragment>
+          <DatePicker
+            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            onChange={this.handleChangeStart.bind(this)}
+            onChangeRaw={this.handleChangeRawStart.bind(this)}
+            showTimeSelect
+            dateFormat='dd-MM-YY hh:mm aa'
+            // timeFormat='hh:mm A'
+            placeholderText={this.props.placeholder}
+            minDate={this.props.options.startDate}
+            maxDate={this.props.options.endDate}
+          />
+          <Controls.Container className={styles.datepickerCalenderContainer}>
+            <Controls.Icon icon={faCalendarAlt} />
+          </Controls.Container>
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <DatePicker
+            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            onChange={this.handleChangeStart.bind(this)}
+            onChangeRaw={this.handleChangeRawStart.bind(this)}
+            showTimeSelect
+            dateFormat='dd-MM-YY hh:mm aa'
+            // timeFormat='hh:mm A'
+            placeholderText={this.props.placeholder}
+            minDate={this.props.options.startDate}
+            maxDate={this.props.options.endDate}
+            selectsStart
+            startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+          />
+          <Controls.Container className={styles.datepickerCalenderContainer}>
+            <Controls.Icon icon={faCalendarAlt} />
+          </Controls.Container>
+          <DatePicker
+            selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+            onChange={this.handleChangeEnd.bind(this)}
+            onChangeRaw={this.handleChangeRawEnd.bind(this)}
+            showTimeSelect
+            dateFormat='dd-MM-YY hh:mm aa'
+            // timeFormat='hh:mm A'
+            placeholderText={this.props.placeholder}
+            minDate={this.props.options.startDate}
+            maxDate={this.props.options.endDate}
+            selectsEnd
+            startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+          />
+          <Controls.Container className={styles.datepickerCalenderContainer}>
+            <Controls.Icon icon={faCalendarAlt} />
+          </Controls.Container>
+        </React.Fragment>
+      );
+    }
   }
 
   private updateStateWithProps() {
@@ -68,20 +111,37 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
 
     this.state = {
-      selectedUnixTimestamp: value
+      selectedStartUnixTimestamp: value,
+      selectedEndUnixTimestamp: value
     };
   }
 
-  private handleChangeRaw(event: React.FocusEvent<HTMLInputElement>) {
+  private handleChangeRawStart(event: React.FocusEvent<HTMLInputElement>) {
     const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
     if (newMoment.isValid()) {
-      this.handleChange(newMoment.toDate());
+      this.handleChangeStart(newMoment.toDate());
     }
   }
 
-  private handleChange(date: Date) {
+  private handleChangeStart(date: Date) {
     const unixTimestamp = Formatter.dateToUnixTimestamp(date);
-    this.setState({ selectedUnixTimestamp: unixTimestamp });
+    this.setState({ selectedStartUnixTimestamp: unixTimestamp });
+
+    if (this.props.onChange) {
+      this.props.onChange(unixTimestamp, date);
+    }
+  }
+
+  private handleChangeRawEnd(event: React.FocusEvent<HTMLInputElement>) {
+    const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
+    if (newMoment.isValid()) {
+      this.handleChangeEnd(newMoment.toDate());
+    }
+  }
+
+  private handleChangeEnd(date: Date) {
+    const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+    this.setState({ selectedEndUnixTimestamp: unixTimestamp });
 
     if (this.props.onChange) {
       this.props.onChange(unixTimestamp, date);

@@ -1,11 +1,11 @@
 .istox-progress {
   .progress {
-    height: 8px;
+    height: 15px;
     margin-bottom: 0px;
+    line-height: 16px;
   }
 
   .progress-bar {
     transition: width 0.3s ease-in-out;
-    background-color: map-get($colors, primary);
   }
 }

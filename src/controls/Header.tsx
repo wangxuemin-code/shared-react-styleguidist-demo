@@ -27,6 +27,7 @@ interface IHeader extends IContainer {
   mainLinks?: IMainLink[];
   subLinks?: ISubLink[];
   className?: string;
+  logo: string;
 }
 
 interface IState {
@@ -55,7 +56,7 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container {...this.props}>
         <a href='/' className={styles.logoAnchor}>
-          <Image src='/images/ISTOX_Logo.png' className={styles.icon} />
+          <Image src={this.props.logo} className={styles.icon} />
         </a>
         <ul className={styles.links}>
           {this.props.mainLinks!.map((link) => {

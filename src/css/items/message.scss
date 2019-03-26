@@ -7,7 +7,15 @@
   color: map-get($colors, success);
 }
 
-.istox-message.error {
+.istox-message.warning {
+  color: map-get($colors, warning);
+}
+
+.istox-message.info {
+  color: map-get($colors, info);
+}
+
+.istox-message.danger {
   color: map-get($colors, danger);
 }
 
