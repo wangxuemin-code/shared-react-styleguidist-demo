@@ -1,4 +1,4 @@
-$borderRadius: 100px;
+$borderRadius: 6.25rem;
 .button {
   background-color: map-get($colors, primary);
   background-image: none;
@@ -14,7 +14,98 @@ $borderRadius: 100px;
   font-family: inherit;
   box-shadow: $boxShadow;
 
+  &.button-primary {
+    background-color: map-get($colors, primary);
+    background-image: none;
+    color: map-get($colors, primaryAlt);
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, primary);
+      color: map-get($colors, primary);
+    }
+  }
+
+  &.button-secondary {
+    background-color: map-get($colors, primaryGrey);
+    background-image: none;
+    color: map-get($colors, primaryDark);
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, primaryGrey);
+      color: map-get($colors, primaryGrey);
+    }
+  }
+
+  &.disabled,
+  &.button-disabled {
+    background-color: map-get($colors, primary);
+    background-image: none;
+    opacity: 0.5;
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, primary);
+      color: map-get($colors, primary);
+    }
+  }
+
+  &.button-info {
+    background-color: map-get($colors, info);
+    background-image: none;
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, info);
+      color: map-get($colors, info);
+    }
+  }
+
+  &.button-success {
+    background-color: map-get($colors, success);
+    background-image: none;
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, success);
+      color: map-get($colors, success);
+    }
+  }
+
+  &.button-warning {
+    background-color: map-get($colors, warning);
+    background-image: none;
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, warning);
+      color: map-get($colors, warning);
+    }
+  }
+
+  &.button-danger {
+    background-color: map-get($colors, danger);
+    background-image: none;
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      border: 1px solid map-get($colors, danger);
+      color: map-get($colors, danger);
+    }
+  }
+
   &.outline {
+    box-shadow: none;
+  }
+
+  &.minimal {
+    background-color: transparent !important;
+    box-shadow: none;
+    border: none !important;
+  }
+
+  &.flat {
     box-shadow: none;
   }
 }
@@ -49,91 +140,11 @@ $borderRadius: 100px;
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  border-radius: 0px;
+  border-radius: none;
 }
 
 .button.button-none {
   box-shadow: none;
-}
-
-.button.button-primary {
-  background-color: map-get($colors, primary);
-  background-image: none;
-  color: map-get($colors, primaryAlt);
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, primary);
-    color: map-get($colors, primary);
-  }
-}
-
-.button.button-secondary {
-  background-color: map-get($colors, primaryGrey);
-  background-image: none;
-  color: map-get($colors, primaryDark);
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, primaryGrey);
-    color: map-get($colors, primaryGrey);
-  }
-}
-
-.button.disabled {
-  background-color: map-get($colors, primary);
-  background-image: none;
-  opacity: 0.5;
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, primary);
-    color: map-get($colors, primary);
-  }
-}
-
-.button.button-info {
-  background-color: map-get($colors, info);
-  background-image: none;
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, info);
-    color: map-get($colors, info);
-  }
-}
-
-.button.button-success {
-  background-color: map-get($colors, success);
-  background-image: none;
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, success);
-    color: map-get($colors, success);
-  }
-}
-
-.button.button-warning {
-  background-color: map-get($colors, warning);
-  background-image: none;
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, warning);
-    color: map-get($colors, warning);
-  }
-}
-
-.button.button-danger {
-  background-color: map-get($colors, danger);
-  background-image: none;
-
-  &.outline {
-    background-color: map-get($colors, primaryAlt);
-    border: 1px solid map-get($colors, danger);
-    color: map-get($colors, danger);
-  }
 }
 
 .btn-loading {

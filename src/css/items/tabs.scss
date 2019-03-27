@@ -2,40 +2,96 @@
   display: flex;
   flex: 1;
 
-  .istox-tabs {
+  #istox-tab {
     display: flex;
     flex-direction: column;
     align-self: stretch;
     width: 100%;
 
-    [role='presentation'] {
-      background-color: white;
-      border-left: 1px solid map-get($colors, primaryGrey);
-      border-top: 1px solid map-get($colors, primaryGrey);
-      border-bottom: 1px solid map-get($colors, primaryGrey);
-      margin-bottom: -1px;
+    &.middle {
+      ul {
+        text-align: center;
+        li {
+          display: inline-flex;
+          float: none;
+        }
+      }
     }
 
-    [role='presentation']:last-of-type {
-      border-right: 1px solid map-get($colors, primaryGrey);
+    &.vertical {
+      .nav-tabs > li.active > a,
+      .nav-tabs > li.active > a:focus,
+      .nav-tabs > li.active > a:hover {
+        background-color: map-get($colors, primaryAlt);
+        color: map-get($colors, primary);
+      }
+      ul {
+        li {
+          a {
+            padding: 0.9375rem 1.875rem 0.3125rem 1.875rem;
+            height: auto;
+            font-size: 0.875rem;
+
+            span {
+              flex-direction: column;
+            }
+
+            svg {
+              font-size: 70px;
+              padding-bottom: 5px;
+            }
+          }
+        }
+      }
     }
 
-    [role='presentation'].active {
-      border-bottom: 1px solid transparent;
-    }
+    ul {
+      li {
+        background-color: white;
+        border-left: 1px solid map-get($colors, primaryGrey);
+        border-top: 1px solid map-get($colors, primaryGrey);
+        border-bottom: 1px solid map-get($colors, primaryGrey);
+        margin-bottom: -2px;
+        cursor: pointer;
 
-    [role='presentation'].active a {
-      font-weight: bold;
-    }
+        &:last-of-type {
+          border-right: 1px solid map-get($colors, primaryGrey);
+        }
 
-    .nav-tabs a {
-      border-radius: 0px;
-      color: map-get($colors, primaryGreyDark);
-      padding: 6px 50px;
-    }
+        a {
+          border-radius: 0;
+          color: map-get($colors, primaryGreyDark);
+          padding: 0 0.9375rem;
+          font-size: 1.125rem;
+          height: 3.75rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
 
-    .nav-tabs a:hover {
-      border-bottom: 1px solid transparent !important;
+          svg {
+            font-size: 1.875rem;
+          }
+
+          &:hover {
+            border-bottom: 1px solid transparent !important;
+          }
+        }
+
+        span {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &.active {
+          border-bottom: 1px solid transparent;
+
+          a {
+            font-weight: bold;
+          }
+        }
+      }
     }
 
     .nav-tabs > li.active > a,
@@ -47,7 +103,7 @@
     }
 
     .nav-tabs > li > a {
-      margin-right: 0px;
+      margin-right: 0;
       font-weight: lighter;
     }
 
@@ -55,44 +111,10 @@
       background-color: white;
       border: 1px solid map-get($colors, primaryGrey);
       flex: 1;
-    }
 
-    .nav-tabs {
-      border-bottom: 0px;
-
-      a {
-        line-height: 45px;
-        height: 60px;
-      }
-    }
-
-    .tab-content {
       .tab-pane {
         padding: 1rem;
       }
-    }
-  }
-
-  .middle {
-    ul {
-      text-align: center;
-      li {
-        display: inline-block;
-        float: none;
-      }
-    }
-  }
-
-  .vertical {
-    .nav-tabs > li.active > a,
-    .nav-tabs > li.active > a:focus,
-    .nav-tabs > li.active > a:hover {
-      background-color: map-get($colors, primaryAlt);
-      color: map-get($colors, primary);
-    }
-
-    a {
-      height: auto !important;
     }
   }
 }

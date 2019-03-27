@@ -6,30 +6,24 @@ import { Icon } from './Icon';
 
 interface IProps extends IContainer {
   title: string;
+  description: string;
   image?: string;
   icon?: any;
-  leftIcon?: any;
-  rightIcon?: any;
 }
 
-export class Card extends React.Component<IProps, any> {
+export class Item extends React.Component<IProps, any> {
   public render() {
     return (
-      <Container
-        {...this.props}
-        padding={{ topRem: 0.9375, bottomRem: 0.9375, leftRem: 1.875, rightRem: 1.875 }}
-        className={styles.card}
-      >
+      <Container {...this.props} padding={{ allRem: 0.9375 }} className={styles.item}>
         {this.props.image && <Image fullWidth src={this.props.image} />}
         {this.props.icon && <Icon icon={this.props.icon} />}
-        {this.props.leftIcon && <Icon className={'leftIcon'} icon={this.props.leftIcon} />}
-        {this.props.rightIcon && <Icon className={'rightIcon'} icon={this.props.rightIcon} />}
         <Container>
           {this.props.title && (
             <Container fontSizeRem={1.125} fontWeight={600}>
               {this.props.title}
             </Container>
           )}
+          {this.props.description && <Container> {this.props.description}</Container>}
         </Container>
       </Container>
     );

@@ -29,7 +29,7 @@ export interface IContainer {
   height?: number;
   width?: number;
   backgroundColor?: string;
-  display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid';
+  display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
@@ -46,6 +46,7 @@ export interface IContainer {
   fontSizeRem?: number;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
+  onClick?: MouseEventHandler;
   style?: React.CSSProperties;
   clamp?: number;
 }
@@ -189,6 +190,7 @@ export class Container extends React.Component<IContainer, any> {
         className={classes.join(' ')}
         onMouseEnter={this.props.onMouseEnter}
         onMouseLeave={this.props.onMouseLeave}
+        onClick={this.props.onClick}
       >
         {this.getContent(this.props.children)}
       </div>

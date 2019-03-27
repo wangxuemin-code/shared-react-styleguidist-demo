@@ -1,6 +1,7 @@
 export * from './Container';
 export * from './Button';
 export * from './Card';
+export * from './Item';
 export * from './Loading';
 export * from './Icon';
 export * from './Image';

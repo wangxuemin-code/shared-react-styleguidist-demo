@@ -11,12 +11,14 @@ interface IButton extends IContainer {
     | 'primary'
     | 'secondary'
     | 'info'
-    | 'invert'
+    | 'disabled'
     | 'success'
     | 'warning'
     | 'danger'
     | 'none';
   outline?: boolean;
+  minimal?: boolean;
+  flat?: boolean;
   type?: 'button' | 'submit';
   onPress?: () => void;
   href?: string;
@@ -49,6 +51,8 @@ export class Button extends React.Component<IButton, any> {
       classes.push(styles.buttonPrimary);
     } else if (this.props.buttonStyle === 'secondary') {
       classes.push(styles.buttonSecondary);
+    } else if (this.props.buttonStyle === 'disabled') {
+      classes.push(styles.buttonDisabled);
     } else if (this.props.buttonStyle === 'success') {
       classes.push(styles.buttonSuccess);
     } else if (this.props.buttonStyle === 'warning') {
@@ -59,6 +63,14 @@ export class Button extends React.Component<IButton, any> {
 
     if (this.props.outline) {
       classes.push('outline');
+    }
+
+    if (this.props.minimal) {
+      classes.push('minimal');
+    }
+
+    if (this.props.flat) {
+      classes.push('flat');
     }
 
     if (this.props.disabled) {

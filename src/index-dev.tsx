@@ -13,6 +13,7 @@ import {
   ErrorPage,
   Table,
   Card,
+  Item,
   Image,
   Tabs,
   Footer,
@@ -89,6 +90,7 @@ class Main extends React.Component<
 > {
   form: any;
   formControls: any[];
+  colorStates: string[];
 
   public constructor(props: any) {
     super(props);
@@ -98,6 +100,7 @@ class Main extends React.Component<
       loading: false,
       showModal: false
     };
+    this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
   }
 
   public render() {
@@ -150,12 +153,12 @@ class Main extends React.Component<
           <h4>Tabs</h4>
           <Tabs
             margin={{ topPx: 20 }}
-            className={'istox-tabs middle horizontal'}
+            orientation={'horizontal'}
             tabs={[
               {
                 title: (
                   <span>
-                    <Icon icon={faCheckCircle} padding={{ topPx: 2, rightPx: 15 }} />
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
                     Account Info
                   </span>
                 ),
@@ -164,7 +167,7 @@ class Main extends React.Component<
               {
                 title: (
                   <span>
-                    <Icon icon={faCheckCircle} padding={{ topPx: 2, rightPx: 15 }} />
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
                     Phone Number
                   </span>
                 ),
@@ -173,7 +176,7 @@ class Main extends React.Component<
               {
                 title: (
                   <span>
-                    <Icon icon={faCheckCircle} padding={{ topPx: 2, rightPx: 15 }} />
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
                     Personal Info
                   </span>
                 ),
@@ -182,7 +185,50 @@ class Main extends React.Component<
               {
                 title: (
                   <span>
-                    <Icon icon={faExclamationCircle} padding={{ topPx: 2, rightPx: 15 }} />
+                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                    Documents
+                  </span>
+                ),
+                contents: 'MNOP'
+              }
+            ]}
+          />
+          <Tabs
+            margin={{ topPx: 20 }}
+            orientation={'horizontal'}
+            align={'middle'}
+            tabs={[
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Account Info
+                  </span>
+                ),
+                contents: 'ABCD'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Phone Number
+                  </span>
+                ),
+                contents: 'EFGH'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Personal Info
+                  </span>
+                ),
+                contents: 'IJKL'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
                     Documents
                   </span>
                 ),
@@ -193,13 +239,14 @@ class Main extends React.Component<
           <Divider hidden />
           <Tabs
             margin={{ topPx: 20 }}
-            className={'istox-tabs middle vertical'}
+            className={'istox-tabs'}
+            orientation={'vertical'}
+            align={'middle'}
             tabs={[
               {
                 title: (
                   <span>
                     <Icon icon={faCheckCircle} />
-                    <br />
                     Account Info
                   </span>
                 ),
@@ -209,7 +256,6 @@ class Main extends React.Component<
                 title: (
                   <span>
                     <Icon icon={faCheckCircle} />
-                    <br />
                     Phone Number
                   </span>
                 ),
@@ -219,7 +265,6 @@ class Main extends React.Component<
                 title: (
                   <span>
                     <Icon icon={faCheckCircle} />
-                    <br />
                     Personal Info
                   </span>
                 ),
@@ -229,7 +274,6 @@ class Main extends React.Component<
                 title: (
                   <span>
                     <Icon icon={faExclamationCircle} />
-                    <br />
                     Documents
                   </span>
                 ),
@@ -252,37 +296,28 @@ class Main extends React.Component<
             Italic
           </Button>
           <Divider visibility={'hidden'} />
-          <Button buttonStyle='primary'>Primary / Default</Button>
-          <Button buttonStyle='secondary'>Secondary</Button>
-          <Button disabled href='abc'>
-            Disabled
-          </Button>
-          <Button buttonStyle='info'>Info</Button>
-          <Button buttonStyle='success'>Success</Button>
-          <Button buttonStyle='warning'>Warning</Button>
-          <Button buttonStyle='danger'>Danger</Button>
+          {this.colorStates.map((button: any) => (
+            <Button buttonStyle={button}>{button.toUpperCase()}</Button>
+          ))}
           <Divider visibility={'hidden'} />
-          <Button outline buttonStyle='primary'>
-            Primary / Default
-          </Button>
-          <Button outline buttonStyle='secondary'>
-            Secondary
-          </Button>
-          <Button outline disabled href='abc'>
-            Disabled
-          </Button>
-          <Button outline buttonStyle='info'>
-            Info
-          </Button>
-          <Button outline buttonStyle='success'>
-            Success
-          </Button>
-          <Button outline buttonStyle='warning'>
-            Warning
-          </Button>
-          <Button outline buttonStyle='danger'>
-            Danger
-          </Button>
+          {this.colorStates.map((button: any) => (
+            <Button flat buttonStyle={button}>
+              {button.toUpperCase()}
+            </Button>
+          ))}
+          <Divider visibility={'hidden'} />
+          {this.colorStates.map((button: any) => (
+            <Button outline buttonStyle={button}>
+              {button.toUpperCase()}
+            </Button>
+          ))}
+          <Divider visibility={'hidden'} />
+          {this.colorStates.map((button: any) => (
+            <Button outline minimal buttonStyle={button}>
+              {button.toUpperCase()}
+            </Button>
+          ))}
+          <Divider visibility={'hidden'} />
           <Divider />
           <h4>PopUps</h4>
           <Toast />
@@ -353,7 +388,7 @@ class Main extends React.Component<
           <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
           <Divider />
           <h4>Table</h4>
-          <Card padding={{ allPx: 10 }}>
+          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
             <Table
               headers={[{ title: 'Header1' }, { title: 'Header2' }]}
               rows={[
@@ -381,13 +416,9 @@ class Main extends React.Component<
                 }
               ]}
             />
-          </Card>
+          </Container>
           <Divider />
-          <Container
-            margin={{ topPx: 15 }}
-            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
-            backgroundColor={'#FFF'}
-          >
+          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
             <h4>Form Elements</h4>
             <Form
               display={'grid'}
@@ -521,14 +552,34 @@ class Main extends React.Component<
             </Form>
           </Container>
           <Divider />
+          <h4>Item</h4>
+          <Item
+            icon={faCheckCircle}
+            title={'Title'}
+            description={
+              'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
+            }
+          />
+          <Item
+            icon={faCheckCircle}
+            image={'/images/ISTOX_Logo.png'}
+            title={'Title'}
+            description={
+              'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
+            }
+          />
+          <Divider />
           <h4>Card</h4>
+          <Card
+            leftIcon={faCheckCircle}
+            rightIcon={faCheckCircle}
+            icon={faCheckCircle}
+            image={'/images/ISTOX_Logo.png'}
+            title={'Title'}
+          />
           <Divider />
           <h4>Message</h4>
-          <Container
-            margin={{ topPx: 15 }}
-            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
-            backgroundColor={'#FFF'}
-          >
+          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
             <Transition>
               <Message success='Hello i am a success!' />
               <Message info='Hello i am an info!' />

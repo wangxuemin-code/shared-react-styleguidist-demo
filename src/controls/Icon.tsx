@@ -39,14 +39,14 @@ export class Icon extends React.Component<IProps, any> {
           {...this.props}
           onPress={this.props.onClick}
           buttonStyle={'none'}
-          display={'inline-block'}
+          display={'inline-flex'}
         >
           {this.getIconDesign()} {this.props.text}
         </Button>
       );
     } else {
       return (
-        <Container {...this.props} display={'inline-block'}>
+        <Container {...this.props} display={'inline-flex'}>
           {this.getIconDesign()} {this.props.text}
         </Container>
       );

@@ -13,6 +13,8 @@ interface ITab {
 interface IProps extends IContainer {
   defaultSelectedIndex?: number;
   tabs: ITab[];
+  orientation?: 'vertical' | 'horizontal';
+  align?: 'left' | 'middle' | 'right';
 }
 
 interface IState {
@@ -33,6 +35,12 @@ export class Tabs extends React.Component<IProps, IState> {
   public render() {
     let classes: string[] = [this.props.className ? this.props.className : ''];
 
+    if (this.props.orientation) {
+      classes.push(this.props.orientation);
+    }
+    if (this.props.align) {
+      classes.push(this.props.align);
+    }
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
     }

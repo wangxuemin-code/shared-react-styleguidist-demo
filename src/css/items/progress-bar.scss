@@ -1,10 +1,10 @@
 .progress-bar {
-  line-height: 16px;
+  line-height: 1rem;
 }
 .istox-progress {
   .progress {
-    height: 15px;
-    margin-bottom: 0px;
+    height: 0.9375rem;
+    margin-bottom: 0;
 
     &.success {
       .progress-bar {
