@@ -38,7 +38,7 @@ export class Icon extends React.Component<IProps, any> {
         <Button
           {...this.props}
           onPress={this.props.onClick}
-          buttonStyle={'none'}
+          variant={'none'}
           display={'inline-flex'}
         >
           {this.getIconDesign()} {this.props.text}

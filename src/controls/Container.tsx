@@ -48,6 +48,7 @@ export interface IContainer {
   onMouseLeave?: MouseEventHandler;
   onClick?: MouseEventHandler;
   style?: React.CSSProperties;
+  variant?: any;
   clamp?: number;
 }
 

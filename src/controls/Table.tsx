@@ -59,11 +59,20 @@ export class Table extends React.Component<IProps, any> {
     return (
       <tr key={index}>
         {tableRowModel.rowContents.map((content, i) => {
-          return (
-            <td key={i}>
-              <Transition>{content}</Transition>
-            </td>
-          );
+          if (content.icon) {
+            <Transition>
+              {tableRowModel.rowActions &&
+                tableRowModel.rowActions.map((tableActionsModel, i) => {
+                  return this.getActionDesign(tableActionsModel, i);
+                })}
+            </Transition>;
+          } else {
+            return (
+              <td key={i}>
+                <Transition>{content}</Transition>
+              </td>
+            );
+          }
         })}
         <td className={styles.actionContainer} key='action'>
           <Transition>

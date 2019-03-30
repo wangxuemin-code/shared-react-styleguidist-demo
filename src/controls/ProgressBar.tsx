@@ -4,11 +4,14 @@ import { IContainer, Container } from './Container';
 import * as styles from '../css/main.scss';
 
 interface IProgressBar extends IContainer {
+  children?: any;
   label?: boolean;
   striped?: boolean;
   animated?: boolean;
-  value: number;
+  value?: any;
   variant?: string;
+  order?: number;
+  gap?: boolean;
 }
 
 interface IState {
@@ -34,15 +37,36 @@ export class ProgressBar extends React.Component<IProgressBar, IState> {
   }
 
   public render() {
+    if (this.props.children) {
+      return (
+        <Container {...this.props} className={styles.istoxProgress}>
+          <ReactProgressBar className={this.props.gap ? 'gap' : ''}>
+            {this.props.children.map((child: any) => {
+              return this.getProgressBarDesign(child.props);
+            })}
+          </ReactProgressBar>
+        </Container>
+      );
+    } else {
+      const { ...props } = this.props;
+      return (
+        <Container {...this.props} className={styles.istoxProgress}>
+          {this.getProgressBarDesign(props)}
+        </Container>
+      );
+    }
+  }
+
+  private getProgressBarDesign(IProgressBar: IProgressBar) {
+    const classes = [];
     return (
-      <Container {...this.props} className={styles.istoxProgress}>
-        <ReactProgressBar
-          now={this.state.value}
-          label={this.props.label ? `${this.state.value}%` : ''}
-          striped={this.props.striped}
-          className={this.props.variant}
-        />
-      </Container>
+      <ReactProgressBar
+        now={IProgressBar.value}
+        label={IProgressBar.label ? `${IProgressBar.value}%` : ''}
+        striped={IProgressBar.striped}
+        className={IProgressBar.variant}
+        key={IProgressBar.order}
+      />
     );
   }
 }

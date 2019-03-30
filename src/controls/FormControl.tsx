@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import { FormControl as BootstrapFormControl, Checkbox } from 'react-bootstrap';
 import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
@@ -25,7 +25,7 @@ interface IProps extends IContainer {
   fullWidth?: boolean;
   defaultValue?: string | number;
   value?: string | number | null;
-  placeholder?: string;
+  placeholder?: any;
   type?:
     | 'text'
     | 'number'
@@ -34,11 +34,13 @@ interface IProps extends IContainer {
     | 'email'
     | 'password'
     | 'select'
+    | 'customselect'
     | 'switch'
     | 'longtext'
     | 'datetime'
     | 'daterange'
-    | 'uploader';
+    | 'uploader'
+    | 'checkbox';
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -47,6 +49,7 @@ interface IProps extends IContainer {
   required?: boolean;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: string; value: string }[];
+  selectCustomOptions?: { label: string; value: string; path: string }[];
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
@@ -94,22 +97,25 @@ export class FormControl extends React.Component<IProps, IState> {
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
           <label>
-            <span key='1'>{this.props.label}</span>
-            {this.props.required && <span className={styles.required}>*</span>}
+            <span key='1'>
+              {this.props.label}
+              {this.props.required && <span className={styles.required}>*</span>}
+            </span>
           </label>
 
           <Container position={'relative'} className={styles.formControlsInner}>
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
-
             <div />
           </Container>
         </Container>
         {this.props.extraControls && (
           <Container className={styles.formControlsWrapper}>
             <span />
-            <Container display='block'>{this.props.extraControls}</Container>
+            <Container className={'extra-control'} display='block'>
+              {this.props.extraControls}
+            </Container>
           </Container>
         )}
 
@@ -217,6 +223,18 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.selectOptions}
         />
       );
+    } else if (this.props.type === 'customselect') {
+      return (
+        <Select
+          // componentClass='select'
+          className={'select'}
+          value={this.state.displayValue}
+          placeholder={this.props.placeholder}
+          onChange={this.onSetOption}
+          options={this.props.selectCustomOptions}
+          // optionRenderer={this.props.selectOptions}
+        />
+      );
     } else if (this.props.type === 'switch') {
       return (
         <Container className={styles.loadingContainerWrapper}>
@@ -271,6 +289,23 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onUploaderChanged}
         />
       );
+    } else if (this.props.type === 'checkbox') {
+      if (this.props.selectOptions) {
+        {
+          return (
+            <Container className={this.props.variant}>
+              {this.props.selectOptions.map((option) => {
+                return (
+                  <Container className={styles.loadingContainerWrapper}>
+                    <Checkbox type='checkbox' label={option.label} value={option.value} />
+                    {option.label}
+                  </Container>
+                );
+              })}
+            </Container>
+          );
+        }
+      }
     } else {
       return (
         <BootstrapFormControl

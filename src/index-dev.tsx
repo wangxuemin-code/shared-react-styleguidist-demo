@@ -153,6 +153,49 @@ class Main extends React.Component<
           <h4>Tabs</h4>
           <Tabs
             margin={{ topPx: 20 }}
+            basic={true}
+            orientation={'horizontal'}
+            tabs={[
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Account Info
+                  </span>
+                ),
+                contents: 'ABCD'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Phone Number
+                  </span>
+                ),
+                contents: 'EFGH'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    Personal Info
+                  </span>
+                ),
+                contents: 'IJKL'
+              },
+              {
+                title: (
+                  <span>
+                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                    Documents
+                  </span>
+                ),
+                contents: 'MNOP'
+              }
+            ]}
+          />
+          <Tabs
+            margin={{ topPx: 20 }}
             orientation={'horizontal'}
             tabs={[
               {
@@ -283,37 +326,37 @@ class Main extends React.Component<
           />
           <Divider />
           <h4>Button</h4>
-          <Button size={'small'} buttonStyle='primary'>
+          <Button size={'small'} variant='primary'>
             Small
           </Button>
-          <Button size={'medium'} buttonStyle='primary'>
+          <Button size={'medium'} variant='primary'>
             Medium
           </Button>
-          <Button size={'large'} buttonStyle='primary'>
+          <Button size={'large'} variant='primary'>
             Large
           </Button>
-          <Button size={'large'} fontStyle={'italic'} buttonStyle='primary'>
+          <Button size={'large'} fontStyle={'italic'} variant='primary'>
             Italic
           </Button>
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button buttonStyle={button}>{button.toUpperCase()}</Button>
+            <Button variant={button}>{button.toUpperCase()}</Button>
           ))}
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button flat buttonStyle={button}>
+            <Button flat variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button outline buttonStyle={button}>
+            <Button outline variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button outline minimal buttonStyle={button}>
+            <Button outline basic variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}
@@ -338,7 +381,7 @@ class Main extends React.Component<
             Modal
           </Modal>
           <Button
-            buttonStyle='danger'
+            variant='danger'
             onPress={() => {
               this.setState({
                 loading: true
@@ -355,7 +398,7 @@ class Main extends React.Component<
             Confirmation
           </Button>
           <Button
-            buttonStyle='info'
+            variant='info'
             loading={this.state.loading}
             onPress={() => {
               this.setState({ showModal: true });
@@ -363,11 +406,11 @@ class Main extends React.Component<
           >
             Modal
           </Button>
-          <Button outline buttonStyle='primary' tooltip={'tooltip!'} display='inline-block'>
+          <Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
             ToolTip
           </Button>
           <Button
-            buttonStyle='success'
+            variant='success'
             onPress={() => {
               BlockchainTransaction.show({
                 mqttClient: mqtt,
@@ -386,12 +429,39 @@ class Main extends React.Component<
           <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
           <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
           <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+          <ProgressBar margin={{ topPx: 20 }}>
+            <ProgressBar striped variant='success' value={25} order={1} />
+            <ProgressBar variant='info' value={25} order={2} />
+            <ProgressBar striped variant='warning' value={25} order={3} />
+            <ProgressBar striped variant='danger' value={25} order={4} />
+          </ProgressBar>
+          <ProgressBar width={200} margin={{ topPx: 20 }}>
+            <ProgressBar striped variant='success' value={25} order={1} />
+            <ProgressBar variant='info' value={25} order={2} />
+            <ProgressBar striped variant='warning' value={25} order={3} />
+            <ProgressBar striped variant='danger' value={25} order={4} />
+          </ProgressBar>
+          <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+            <ProgressBar striped variant='success' value={25} order={1} />
+            <ProgressBar variant='info' value={25} order={2} />
+            <ProgressBar striped variant='warning' value={25} order={3} />
+            <ProgressBar striped variant='danger' value={25} order={4} />
+          </ProgressBar>
+
           <Divider />
           <h4>Table</h4>
-          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
+          <Container backgroundColor={'#FFF'} margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
             <Table
-              headers={[{ title: 'Header1' }, { title: 'Header2' }]}
+              headers={[
+                { title: 'Code' },
+                { title: 'Date Created' },
+                { title: 'Request Status' },
+                {
+                  title: 'Actions'
+                }
+              ]}
               rows={[
+                { rowContents: ['Super Admin', 'This is another not very long content.'] },
                 {
                   rowContents: ['Super Admin', 'This is another not very long content.'],
                   rowActions: [
@@ -441,6 +511,7 @@ class Main extends React.Component<
             >
               <Controls.FormControl
                 required
+                placeholder={'Placeholder'}
                 disabled={true}
                 ref={(ref) => {
                   this.form = ref;
@@ -484,6 +555,14 @@ class Main extends React.Component<
                 }}
                 value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
               />
+              <Controls.FormControl
+                required
+                label={'Search'}
+                name='search'
+                type={'text'}
+                placeholder={'&#xf002; Search'}
+                value=''
+              />
               <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
               <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
               <Controls.FormControl label={'Password'} name='Password' type={'password'} />
@@ -500,27 +579,51 @@ class Main extends React.Component<
                 label={'Date'}
                 name='datetime'
                 type={'datetime'}
-                placeholder={'test'}
                 defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                 onInputChanged={(value) => {
                   console.log(value);
                 }}
               />
-              {() => {
-                return (
-                  <div>
-                    <div>
-                      <Controls.FormControl
-                        required
-                        label={'Notify me'}
-                        name='notify'
-                        type={'switch'}
-                        defaultValue='0'
-                      />
-                    </div>
-                  </div>
-                );
-              }}
+              <Controls.FormControl
+                required
+                label={'Notify me'}
+                name='notify'
+                type={'switch'}
+                defaultValue='0'
+              />
+              <Controls.FormControl
+                required
+                label={'H Checkbox'}
+                name='checkbox'
+                type={'checkbox'}
+                variant={'horizontal'}
+                selectOptions={[
+                  {
+                    label: 'Option1',
+                    value: 'hei!'
+                  },
+                  {
+                    label: 'Option2',
+                    value: 'abcl'
+                  }
+                ]}
+              />
+              <Controls.FormControl
+                required
+                label={'V Checkbox'}
+                name='checkbox'
+                type={'checkbox'}
+                selectOptions={[
+                  {
+                    label: 'Option1',
+                    value: 'hei!'
+                  },
+                  {
+                    label: 'Option2',
+                    value: 'abcl'
+                  }
+                ]}
+              />
               <Controls.FormControl
                 required
                 label={'DateRange'}
@@ -534,9 +637,9 @@ class Main extends React.Component<
               />
               <Controls.FormControl
                 required
-                label={'Type'}
-                name='Type'
-                placeholder='Country'
+                label={'Dropdown'}
+                name='Dropdown'
+                placeholder='Choose'
                 type={'select'}
                 selectOptions={[
                   {
@@ -546,6 +649,25 @@ class Main extends React.Component<
                   {
                     label: 'Option2',
                     value: 'abcl'
+                  }
+                ]}
+              />
+              <Controls.FormControl
+                required
+                label={'Custom Dropdown'}
+                name='Dropdown'
+                placeholder='Choose'
+                type={'customselect'}
+                selectCustomOptions={[
+                  {
+                    label: 'Option1',
+                    value: 'hei!',
+                    path: ''
+                  },
+                  {
+                    label: 'Option2',
+                    value: 'abcl',
+                    path: ''
                   }
                 ]}
               />

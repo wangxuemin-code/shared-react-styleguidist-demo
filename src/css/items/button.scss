@@ -14,7 +14,7 @@ $borderRadius: 6.25rem;
   font-family: inherit;
   box-shadow: $boxShadow;
 
-  &.button-primary {
+  &.primary {
     background-color: map-get($colors, primary);
     background-image: none;
     color: map-get($colors, primaryAlt);
@@ -26,7 +26,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.button-secondary {
+  &.secondary {
     background-color: map-get($colors, primaryGrey);
     background-image: none;
     color: map-get($colors, primaryDark);
@@ -38,8 +38,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.disabled,
-  &.button-disabled {
+  &.disabled {
     background-color: map-get($colors, primary);
     background-image: none;
     opacity: 0.5;
@@ -51,7 +50,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.button-info {
+  &.info {
     background-color: map-get($colors, info);
     background-image: none;
 
@@ -62,7 +61,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.button-success {
+  &.success {
     background-color: map-get($colors, success);
     background-image: none;
 
@@ -73,7 +72,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.button-warning {
+  &.warning {
     background-color: map-get($colors, warning);
     background-image: none;
 
@@ -84,7 +83,7 @@ $borderRadius: 6.25rem;
     }
   }
 
-  &.button-danger {
+  &.danger {
     background-color: map-get($colors, danger);
     background-image: none;
 
@@ -99,7 +98,7 @@ $borderRadius: 6.25rem;
     box-shadow: none;
   }
 
-  &.minimal {
+  &.basic {
     background-color: transparent !important;
     box-shadow: none;
     border: none !important;

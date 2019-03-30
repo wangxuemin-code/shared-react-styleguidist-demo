@@ -6,7 +6,7 @@ import { Link } from './Link';
 import { Loading } from '.';
 
 interface IButton extends IContainer {
-  buttonStyle?:
+  variant?:
     | 'default'
     | 'primary'
     | 'secondary'
@@ -17,7 +17,7 @@ interface IButton extends IContainer {
     | 'danger'
     | 'none';
   outline?: boolean;
-  minimal?: boolean;
+  basic?: boolean;
   flat?: boolean;
   type?: 'button' | 'submit';
   onPress?: () => void;
@@ -30,7 +30,7 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    buttonStyle: 'default',
+    variant: 'default',
     type: 'button',
     size: 'medium'
   };
@@ -43,30 +43,15 @@ export class Button extends React.Component<IButton, any> {
       this.props.innerClasses || ''
     ];
 
-    if (this.props.buttonStyle === 'none') {
-      classes.push(styles.buttonNone);
-    } else if (this.props.buttonStyle === 'info') {
-      classes.push(styles.buttonInfo);
-    } else if (this.props.buttonStyle === 'primary') {
-      classes.push(styles.buttonPrimary);
-    } else if (this.props.buttonStyle === 'secondary') {
-      classes.push(styles.buttonSecondary);
-    } else if (this.props.buttonStyle === 'disabled') {
-      classes.push(styles.buttonDisabled);
-    } else if (this.props.buttonStyle === 'success') {
-      classes.push(styles.buttonSuccess);
-    } else if (this.props.buttonStyle === 'warning') {
-      classes.push(styles.buttonWarning);
-    } else if (this.props.buttonStyle === 'danger') {
-      classes.push(styles.buttonDanger);
+    if (this.props.variant) {
+      classes.push(this.props.variant);
     }
-
     if (this.props.outline) {
       classes.push('outline');
     }
 
-    if (this.props.minimal) {
-      classes.push('minimal');
+    if (this.props.basic) {
+      classes.push('basic');
     }
 
     if (this.props.flat) {
@@ -89,7 +74,6 @@ export class Button extends React.Component<IButton, any> {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);
       }
-
       return this.getButtonDesign(style, classes);
     }
   }

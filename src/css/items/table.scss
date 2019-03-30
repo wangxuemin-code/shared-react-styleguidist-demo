@@ -1,9 +1,13 @@
 .istox-table {
   border: 1px solid map-get($colors, primaryGreyLight);
-}
 
-.istox-table table {
-  width: 100%;
+  table {
+    width: 100%;
+
+    thead {
+      background-color: map-get($colors, primaryGreyLight);
+    }
+  }
 }
 
 .istox-table th {
@@ -25,11 +29,11 @@
 }
 
 .istox-table tbody tr:hover {
-  background-color: map-get($colors, primary);
+  background-color: map-get($colors, primaryGrey);
 }
 
 .istox-table tbody tr:hover td {
-  color: white;
+  color: map-get($colors, primary);
 }
 
 .istox-table tbody tr:hover .action-container > div > .loading-container > div > div {

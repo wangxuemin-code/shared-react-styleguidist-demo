@@ -15,6 +15,7 @@ interface IProps extends IContainer {
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';
   align?: 'left' | 'middle' | 'right';
+  basic?: boolean;
 }
 
 interface IState {
@@ -40,6 +41,9 @@ export class Tabs extends React.Component<IProps, IState> {
     }
     if (this.props.align) {
       classes.push(this.props.align);
+    }
+    if (this.props.basic) {
+      classes.push('basic');
     }
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);

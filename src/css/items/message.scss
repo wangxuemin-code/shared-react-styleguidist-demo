@@ -1,25 +1,29 @@
 .istox-message {
   display: flex;
   align-items: center;
-}
 
-.istox-message.success {
-  color: map-get($colors, success);
-}
+  &.success {
+    color: map-get($colors, success);
+  }
 
-.istox-message.warning {
-  color: map-get($colors, warning);
-}
+  &.warning {
+    color: map-get($colors, warning);
+  }
 
-.istox-message.info {
-  color: map-get($colors, info);
-}
+  &.info {
+    color: map-get($colors, info);
+  }
 
-.istox-message.danger {
-  color: map-get($colors, danger);
-}
+  &.danger {
+    color: map-get($colors, danger);
+  }
 
-.istox-message .icon {
-  margin-right: 0.9rem;
-  font-size: 1.3rem;
+  .icon {
+    margin-right: 0.9rem;
+    font-size: 1.3rem;
+  }
+
+  span {
+    color: map-get($colors, primaryGreyDark);
+  }
 }

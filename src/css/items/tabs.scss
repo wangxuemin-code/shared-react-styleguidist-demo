@@ -2,6 +2,18 @@
   display: flex;
   flex: 1;
 
+  a {
+    color: map-get($colors, primaryGreyDark);
+  }
+
+  .nav-tabs > li.active > a,
+  .nav-tabs > li.active > a:focus,
+  .nav-tabs > li.active > a:hover {
+    border: 1px solid transparent;
+    background-color: map-get($colors, primary);
+    color: map-get($colors, primaryAlt);
+  }
+
   #istox-tab {
     display: flex;
     flex-direction: column;
@@ -45,6 +57,51 @@
       }
     }
 
+    &.basic {
+      ul {
+        border: 0;
+        padding: 0 0.9375rem;
+        background-color: map-get($colors, primaryAlt);
+
+        li {
+          background-color: map-get($colors, primaryAlt);
+          padding: 0 0.9375rem;
+          border: 0;
+          border-right: 0;
+          height: 100%;
+
+          &.active {
+            a,
+            a:focus,
+            a:hover {
+              color: map-get($colors, primary);
+              background-color: transparent;
+              font-size: 1.125rem;
+
+              &:after {
+                width: 100%;
+                content: '';
+                display: block;
+                background-color: map-get($colors, primary);
+                height: 2px;
+                position: relative;
+                top: 0.875rem;
+              }
+            }
+          }
+
+          &:last-of-type {
+            border-right: 0;
+          }
+        }
+      }
+
+      .tab-content {
+        border: 0;
+        background-color: transparent;
+      }
+    }
+
     ul {
       li {
         background-color: white;
@@ -60,7 +117,6 @@
 
         a {
           border-radius: 0;
-          color: map-get($colors, primaryGreyDark);
           padding: 0 0.9375rem;
           font-size: 1.125rem;
           height: 3.75rem;
@@ -92,14 +148,6 @@
           }
         }
       }
-    }
-
-    .nav-tabs > li.active > a,
-    .nav-tabs > li.active > a:focus,
-    .nav-tabs > li.active > a:hover {
-      border: 1px solid transparent;
-      background-color: map-get($colors, primary);
-      color: map-get($colors, primaryAlt);
     }
 
     .nav-tabs > li > a {
