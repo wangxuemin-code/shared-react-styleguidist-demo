@@ -163,7 +163,8 @@ class Main extends React.Component<
                     Account Info
                   </span>
                 ),
-                contents: 'ABCD'
+                contents: 'ABCD',
+                active: true
               },
               {
                 title: (
@@ -573,6 +574,14 @@ class Main extends React.Component<
                 alwaysCapitalize={true}
               />
               <Controls.FormControl label={'Number'} name='number' type={'number'} />
+              <Controls.FormControl
+                numInputs={5}
+                inputWidth={'95px'}
+                label={'OTP'}
+                name='numberfields'
+                type={'numberfields'}
+                separator={'  ·  '}
+              />
               <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
               <Controls.FormControl
                 required
@@ -662,15 +671,17 @@ class Main extends React.Component<
                   {
                     label: 'Option1',
                     value: 'hei!',
-                    path: ''
+                    image: '/images/ISTOX_Logo.png'
                   },
                   {
                     label: 'Option2',
                     value: 'abcl',
-                    path: ''
+                    image: '/images/ISTOX_Logo.png'
                   }
                 ]}
               />
+              <Controls.FormControl label={'Country'} name='country' type={'country'} />
+              <Controls.FormControl label={'Phone Code'} name='phone' type={'phone'} />
             </Form>
           </Container>
           <Divider />

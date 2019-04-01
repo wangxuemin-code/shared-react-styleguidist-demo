@@ -8,6 +8,7 @@ interface ITab {
   contents?: any;
   className?: string;
   icon?: string;
+  active?: boolean;
 }
 
 interface IProps extends IContainer {

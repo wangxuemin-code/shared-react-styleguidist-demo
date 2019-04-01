@@ -168,6 +168,7 @@ export const extraControl: string;
 export const formControlsInner: string;
 export const select: string;
 export const horizontal: string;
+export const selectOption: string;
 export const loadingContainerWrapper: string;
 export const error: string;
 export const required: string;

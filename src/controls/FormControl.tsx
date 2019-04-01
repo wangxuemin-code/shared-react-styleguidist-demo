@@ -11,7 +11,11 @@ import { Transition } from './Transition';
 import TextareaAutosize from 'react-textarea-autosize';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
 import FileUploader, { IAwsSettings } from './FileUploader';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
+import { Image } from './Image';
+import { countries } from 'country-data';
+import { any } from 'prop-types';
+import { OtpInput } from './OTP';
 
 interface IState {
   displayValue?: string;
@@ -29,12 +33,15 @@ interface IProps extends IContainer {
   type?:
     | 'text'
     | 'number'
+    | 'numberfields'
     | 'money'
     | 'static'
     | 'email'
     | 'password'
     | 'select'
     | 'customselect'
+    | 'phone'
+    | 'country'
     | 'switch'
     | 'longtext'
     | 'datetime'
@@ -49,12 +56,15 @@ interface IProps extends IContainer {
   required?: boolean;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: string; value: string }[];
-  selectCustomOptions?: { label: string; value: string; path: string }[];
+  selectCustomOptions?: { label: string; value: string; image: string }[];
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
   s3Settings?: IAwsSettings;
   decimalPlace?: number;
+  numInputs?: number;
+  inputWidth?: string;
+  separator?: string;
 }
 
 interface IProcessResult {
@@ -212,27 +222,118 @@ export class FormControl extends React.Component<IProps, IState> {
   private getControlDesign() {
     if (this.props.type === 'static') {
       return <Container>{this.props.value}</Container>;
+    } else if (this.props.type === 'numberfields') {
+      return (
+        <OtpInput
+          isInputNum
+          separator={this.props.separator}
+          inputWidth={this.props.inputWidth}
+          numInputs={this.props.numInputs}
+        />
+      );
     } else if (this.props.type === 'select') {
       return (
         <Select
           // componentClass='select'
           className={'select'}
-          value={this.state.displayValue}
+          // value={this.state.displayValue}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
         />
       );
     } else if (this.props.type === 'customselect') {
+      const CustomOption = (innerProps: any) => {
+        return (
+          <components.Option {...innerProps}>
+            <Container className='select-option'>
+              <Image fullWidth src={innerProps.data.image} />
+              {innerProps.data.label}
+            </Container>
+          </components.Option>
+        );
+      };
+      return (
+        <Select
+          className={'select'}
+          // value={this.state.displayValue}
+          // defaultMenuIsOpen
+          placeholder={this.props.placeholder}
+          onChange={this.onSetOption}
+          components={{ Option: CustomOption }}
+          styles={{
+            option: (base: any) => ({
+              ...base,
+              border: `1px dotted red`
+            })
+          }}
+          options={this.props.selectCustomOptions}
+        />
+      );
+    } else if (this.props.type === 'phone') {
+      const CustomOption = (innerProps: any) => {
+        return (
+          <components.Option {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.Option>
+        );
+      };
+      const Options: any = [];
+      countries.all.map((option) => {
+        if (option.countryCallingCodes.length && option.emoji) {
+          var obj = {
+            label: option.countryCallingCodes,
+            value: option.countryCallingCodes,
+            image: option.emoji
+          };
+          Options.push(obj);
+        }
+      });
       return (
         <Select
           // componentClass='select'
           className={'select'}
-          value={this.state.displayValue}
+          // value={this.state.displayValue}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
-          options={this.props.selectCustomOptions}
-          // optionRenderer={this.props.selectOptions}
+          components={{ Option: CustomOption }}
+          options={Options}
+        />
+      );
+    } else if (this.props.type === 'country') {
+      const CustomOption = (innerProps: any) => {
+        return (
+          <components.Option {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.Option>
+        );
+      };
+      const Options: any = [];
+      countries.all.map((option) => {
+        if (option.alpha3.length && option.emoji) {
+          var obj = {
+            label: option.alpha3,
+            value: option.alpha3,
+            image: option.emoji
+          };
+          Options.push(obj);
+        }
+      });
+      return (
+        <Select
+          // componentClass='select'
+          className={'select'}
+          // value={this.state.displayValue}
+          placeholder={this.props.placeholder}
+          onChange={this.onSetOption}
+          components={{ Option: CustomOption }}
+          options={Options}
         />
       );
     } else if (this.props.type === 'switch') {

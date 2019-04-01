@@ -50,6 +50,7 @@ export interface IContainer {
   style?: React.CSSProperties;
   variant?: any;
   clamp?: number;
+  focus?: boolean;
 }
 
 export class Container extends React.Component<IContainer, any> {
