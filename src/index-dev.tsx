@@ -46,6 +46,7 @@ import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUploader from './controls/FileUploader';
+var uniqid = require('uniqid');
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -341,23 +342,25 @@ class Main extends React.Component<
           </Button>
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button variant={button}>{button.toUpperCase()}</Button>
-          ))}
-          <Divider visibility={'hidden'} />
-          {this.colorStates.map((button: any) => (
-            <Button flat variant={button}>
+            <Button key={uniqid().toString()} variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button outline variant={button}>
+            <Button key={uniqid().toString()} flat variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (
-            <Button outline basic variant={button}>
+            <Button key={uniqid().toString()} outline variant={button}>
+              {button.toUpperCase()}
+            </Button>
+          ))}
+          <Divider visibility={'hidden'} />
+          {this.colorStates.map((button: any) => (
+            <Button key={uniqid().toString()} outline basic variant={button}>
               {button.toUpperCase()}
             </Button>
           ))}

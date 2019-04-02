@@ -4,6 +4,7 @@ import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Transition } from './Transition';
 import { Loading } from './Loading';
+var uniqid = require('uniqid');
 
 export interface TableHeaderModel {
   title: string;
@@ -34,8 +35,8 @@ export class Table extends React.Component<IProps, any> {
           <thead>
             <tr>
               {this.props.headers &&
-                this.props.headers.map((tableHeaderModel, i) => {
-                  return this.getHeaderDesign(tableHeaderModel, i);
+                this.props.headers.map((tableHeaderModel) => {
+                  return this.getHeaderDesign(tableHeaderModel, uniqid().toString());
                 })}
               <th />
             </tr>
@@ -58,17 +59,17 @@ export class Table extends React.Component<IProps, any> {
   private getRowDesign(tableRowModel: TableRowModel, index: number) {
     return (
       <tr key={index}>
-        {tableRowModel.rowContents.map((content, i) => {
+        {tableRowModel.rowContents.map((content) => {
           if (content.icon) {
             <Transition>
               {tableRowModel.rowActions &&
-                tableRowModel.rowActions.map((tableActionsModel, i) => {
-                  return this.getActionDesign(tableActionsModel, i);
+                tableRowModel.rowActions.map((tableActionsModel) => {
+                  return this.getActionDesign(tableActionsModel, uniqid().toString());
                 })}
             </Transition>;
           } else {
             return (
-              <td key={i}>
+              <td key={uniqid().toString()}>
                 <Transition>{content}</Transition>
               </td>
             );
@@ -77,8 +78,8 @@ export class Table extends React.Component<IProps, any> {
         <td className={styles.actionContainer} key='action'>
           <Transition>
             {tableRowModel.rowActions &&
-              tableRowModel.rowActions.map((tableActionsModel, i) => {
-                return this.getActionDesign(tableActionsModel, i);
+              tableRowModel.rowActions.map((tableActionsModel) => {
+                return this.getActionDesign(tableActionsModel, uniqid().toString());
               })}
           </Transition>
         </td>
@@ -88,7 +89,7 @@ export class Table extends React.Component<IProps, any> {
 
   private getActionDesign(tableActionsModel: TableActionsModel, index: number) {
     if (tableActionsModel.loading) {
-      return <Loading loading={true} backDrop={false} />;
+      return <Loading key={index} loading={true} backDrop={false} />;
     } else {
       return (
         <Icon

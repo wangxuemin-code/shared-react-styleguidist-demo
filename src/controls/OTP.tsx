@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
+var uniqid = require('uniqid');
 
 const BACKSPACE = 8;
 const LEFT_ARROW = 37;
@@ -11,13 +12,23 @@ interface IOtpInput extends IContainer {
   numInputs: number;
   onChange: Function;
   separator?: string;
+  shouldAutoFocus: boolean;
   isInputNum?: boolean;
-  inputWidth?: string;
+  inputWidth: string;
+  maxLength: number;
 }
 
 interface ISingleOtpInput extends IContainer {
-  value: number;
+  key: number;
+  value: string;
   maxLength: number;
+  shouldAutoFocus: boolean;
+  inputWidth: string;
+  isInputNum?: boolean;
+  onChange: any;
+  onKeyDown: any;
+  onFocus: Function;
+  onBlur: Function;
 }
 
 interface IState {
@@ -28,7 +39,10 @@ interface IState {
 export class OtpInput extends React.Component<IOtpInput, IState> {
   public static defaultProps: IOtpInput = {
     numInputs: 4,
-    onChange: (otp: number): void => console.log(otp)
+    onChange: (otp: number): void => console.log(otp),
+    shouldAutoFocus: false,
+    inputWidth: '2rem',
+    maxLength: 1
   };
 
   constructor(props: IOtpInput) {
@@ -40,8 +54,6 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
     };
   }
 
-  inputs: any = [];
-
   getOtp = () => {
     this.props.onChange(this.state.otp.join(''));
   };
@@ -52,7 +64,6 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
     this.setState({
       activeInput
     });
-    this.inputs[activeInput].focus();
   };
 
   focusNextInput = () => {
@@ -111,37 +122,82 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
 
   renderInputs = () => {
     const { activeInput, otp } = this.state;
-    const { numInputs, separator, isInputNum, inputWidth } = this.props;
+    const { numInputs, separator, shouldAutoFocus, isInputNum, inputWidth, maxLength } = this.props;
     const inputs = [];
-    const SingleOtpInput = (i: number, isLastChild: boolean, ...props: any) => (
-      <>
-        <input
-          ref={(input) => (this.inputs[i] = input)}
-          style={Object.assign({ width: inputWidth, textAlign: 'center' })}
-          className=''
-          onChange={this.handleOnChange}
-          onKeyDown={this.handleOnKeyDown}
-          onFocus={(e) => {
-            this.setState({
-              activeInput: i
-            });
-            e.target.select();
-          }}
-          type={this.props.isInputNum ? 'text' : 'text'}
-          maxLength={1}
-          value={props.value}
-        />
-        {isLastChild && <span>{separator}</span>}
-      </>
-    );
-    this.inputs = [];
     for (let i = 0; i < numInputs; i++) {
-      inputs.push(SingleOtpInput(i, i !== numInputs - 1, this.props));
+      inputs.push(
+        <>
+          <SingleOtpInput
+            key={i}
+            focus={activeInput === i}
+            value={otp && otp[i]}
+            onChange={this.handleOnChange}
+            onKeyDown={this.handleOnKeyDown}
+            onFocus={(e: any) => {
+              this.setState({
+                activeInput: i
+              });
+              e.target.select();
+            }}
+            onBlur={() => this.setState({ activeInput: -1 })}
+            // isLastChild={i === numInputs - 1}
+            shouldAutoFocus={shouldAutoFocus}
+            isInputNum={isInputNum}
+            inputWidth={inputWidth}
+            maxLength={maxLength}
+          />
+          {i !== numInputs - 1 && <span>{separator}</span>}
+        </>
+      );
     }
     return inputs;
   };
 
   public render() {
     return <Container {...this.props}>{this.renderInputs()}</Container>;
+  }
+}
+
+class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
+  input: any;
+  componentDidMount() {
+    const {
+      input,
+      props: { focus, shouldAutoFocus }
+    } = this;
+
+    if (input && focus && shouldAutoFocus) {
+      input.focus();
+    }
+  }
+
+  componentDidUpdate(prevProps: any) {
+    const {
+      input,
+      props: { focus }
+    } = this;
+
+    if (prevProps.focus !== focus && (input && focus)) {
+      input.focus();
+      input.select();
+    }
+  }
+
+  render() {
+    const { inputWidth, value, onKeyDown, onChange } = this.props;
+    return (
+      <input
+        ref={(input) => {
+          this.input = input;
+        }}
+        style={Object.assign({ width: inputWidth, textAlign: 'center' })}
+        className=''
+        onKeyDown={onKeyDown}
+        onChange={onChange}
+        type={this.props.isInputNum ? 'text' : 'text'}
+        maxLength={1}
+        value={value ? value : ''}
+      />
+    );
   }
 }

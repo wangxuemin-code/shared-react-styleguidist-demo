@@ -11,6 +11,13 @@ exports.stylings = {
         md: '64em' /* 1024px */,
         lg: '75em' /* 1200px */
     },
+    mediaqueries: {
+        xs: '(min-width: 0em)',
+        sm: '(min-width: 30em)',
+        md: '(min-width: 64em)',
+        lg: '(min-width: 75em)',
+        retina: '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)'
+    },
     typography: {
         font: "'Open Sans', sans-serif",
         text: '1rem',

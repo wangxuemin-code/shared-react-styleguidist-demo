@@ -16,6 +16,8 @@ import { Image } from './Image';
 import { countries } from 'country-data';
 import { any } from 'prop-types';
 import { OtpInput } from './OTP';
+import SingleValue from 'react-select/lib/components/SingleValue';
+var uniqid = require('uniqid');
 
 interface IState {
   displayValue?: string;
@@ -281,25 +283,47 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.Option>
         );
       };
+      const DisplayOption = (innerProps: any) => {
+        return (
+          <components.SingleValue {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.SingleValue>
+        );
+      };
       const Options: any = [];
       countries.all.map((option) => {
         if (option.countryCallingCodes.length && option.emoji) {
           var obj = {
             label: option.countryCallingCodes,
             value: option.countryCallingCodes,
-            image: option.emoji
+            image: option.emoji,
+            country: option.name
           };
           Options.push(obj);
         }
       });
+      const customFilter = (option: any, searchText: string) => {
+        if (
+          option.data.label.includes(searchText.toLowerCase()) ||
+          option.data.value.includes(searchText.toLowerCase()) ||
+          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      };
       return (
         <Select
           // componentClass='select'
           className={'select'}
-          // value={this.state.displayValue}
+          filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
-          components={{ Option: CustomOption }}
+          components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
         />
       );
@@ -314,25 +338,47 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.Option>
         );
       };
+      const DisplayOption = (innerProps: any) => {
+        return (
+          <components.SingleValue {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.SingleValue>
+        );
+      };
       const Options: any = [];
       countries.all.map((option) => {
         if (option.alpha3.length && option.emoji) {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,
-            image: option.emoji
+            image: option.emoji,
+            country: option.name
           };
           Options.push(obj);
         }
       });
+      const customFilter = (option: any, searchText: string) => {
+        if (
+          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
+          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
+          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      };
       return (
         <Select
-          // componentClass='select'
           className={'select'}
           // value={this.state.displayValue}
+          filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
-          components={{ Option: CustomOption }}
+          components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
         />
       );
@@ -397,7 +443,7 @@ export class FormControl extends React.Component<IProps, IState> {
             <Container className={this.props.variant}>
               {this.props.selectOptions.map((option) => {
                 return (
-                  <Container className={styles.loadingContainerWrapper}>
+                  <Container key={uniqid().toString()} className={styles.loadingContainerWrapper}>
                     <Checkbox type='checkbox' label={option.label} value={option.value} />
                     {option.label}
                   </Container>
