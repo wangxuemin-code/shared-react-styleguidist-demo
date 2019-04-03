@@ -33,7 +33,8 @@ import {
   faExclamationTriangle,
   faTicketAlt,
   faCheckCircle,
-  faExclamationCircle
+  faExclamationCircle,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 import { Confirm } from './controls/Confirm';
@@ -566,18 +567,7 @@ class Main extends React.Component<
                 type={'text'}
                 placeholder={'Search'}
                 value=''
-                append={
-                  <Button
-                    textAlign={'center'}
-                    type={'submit'}
-                    onPress={() => {
-                      console.log(this.form.getFormData());
-                      console.log(this.form.getInputValue('description'));
-                    }}
-                  >
-                    Submit
-                  </Button>
-                }
+                prepend={<Icon icon={faSearch} padding={{ topPx: 5 }} />}
               />
               <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
               <Controls.FormControl required label={'Password'} name='Password' type={'password'} />

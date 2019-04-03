@@ -53,6 +53,7 @@ interface IProps extends IContainer {
   name?: string;
   disabled?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
+  prepend?: any;
   append?: any;
   label?: any;
   required?: boolean;
@@ -116,10 +117,11 @@ export class FormControl extends React.Component<IProps, IState> {
           </label>
 
           <Container position={'relative'} className={styles.formControlsInner}>
+            {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
-            <div />
+            {/* <div /> */}
           </Container>
         </Container>
         {this.props.extraControls && (
@@ -456,6 +458,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else {
       return (
         <BootstrapFormControl
+          className={this.props.prepend ? 'prepend' : ''}
           autoComplete={'off'}
           autoCorrect={'off'}
           type={this.props.type === 'password' ? 'password' : 'text'}
@@ -611,5 +614,19 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     return <Container className={classes.join(' ')}>{append}</Container>;
+  }
+
+  private getInputPrependDesign(prepend?: any) {
+    if (!prepend) {
+      return null;
+    }
+
+    const classes = [styles.inputPrepend];
+
+    if (!(prepend instanceof SVGElement) && typeof prepend !== 'string') {
+      classes.push(styles.svg);
+    }
+
+    return <Container className={classes.join(' ')}>{prepend}</Container>;
   }
 }

@@ -31,6 +31,12 @@ $borderRadius: 0.375rem;
   .main-form-controls-wrapper:last-child {
     margin-bottom: 0px;
   }
+
+  input {
+    &.prepend {
+      padding-left: 30px;
+    }
+  }
 }
 
 .istox-form.form-horizontal .form-controls-wrapper {
@@ -147,26 +153,36 @@ $borderRadius: 0.375rem;
     border-radius: $borderRadius;
     border: none;
   }
+
+  button {
+    height: 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+  }
+
+  &.custom {
+    padding: 0px;
+    background-color: none;
+  }
+
+  &.form-controls-wrapper.error {
+    &.input-append {
+      background-color: map-get($colors, danger);
+    }
+  }
 }
 
-.istox-form .input-append.custom {
-  padding: 0px;
-  background-color: none;
-}
-
-.istox-form .form-controls-wrapper.error .input-append {
-  background-color: map-get($colors, danger);
+.istox-form .input-prepend {
+  &.svg {
+    position: absolute;
+    left: 10px;
+    color: #aaa;
+  }
 }
 
 .istox-form .istox-message {
   margin-left: 0.5rem;
   margin-top: 0.5rem;
-}
-
-.istox-form .input-append button {
-  height: 50px;
-  padding-top: 0px;
-  padding-bottom: 0px;
 }
 
 .react-toggle--checked .react-toggle-track {
