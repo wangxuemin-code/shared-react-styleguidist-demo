@@ -24,6 +24,11 @@
     }
   }
 
+  &.transparent {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
   a.logo-anchor {
     padding: 0 0.5rem;
     display: flex;

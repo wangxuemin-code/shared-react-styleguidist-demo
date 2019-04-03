@@ -446,8 +446,9 @@ export class FormControl extends React.Component<IProps, IState> {
               {this.props.selectOptions.map((option) => {
                 return (
                   <Container key={uniqid().toString()} className={styles.loadingContainerWrapper}>
-                    <Checkbox type='checkbox' label={option.label} value={option.value} />
+                    <input type='checkbox' value={option.value} />
                     {option.label}
+                    {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
                   </Container>
                 );
               })}

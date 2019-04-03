@@ -148,6 +148,7 @@ export const istoxMessage: string;
 export const istoxHeader: string;
 export const alt: string;
 export const links: string;
+export const transparent: string;
 export const logoAnchor: string;
 export const underline: string;
 export const selected: string;

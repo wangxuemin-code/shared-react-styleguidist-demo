@@ -114,10 +114,11 @@ class Main extends React.Component<
             className={'istox-header'}
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+            userAction
           />
           <Container
             margin={{ topPx: 15 }}
-            padding={{ topPx: 15, rightPx: 15, bottomPx: 15, leftPx: 15 }}
+            padding={{ allPx: 15 }}
             backgroundColor={'#FFF'}
             border={{
               borderSize: 1,

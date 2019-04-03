@@ -28,6 +28,7 @@ interface IHeader extends IContainer {
   subLinks?: ISubLink[];
   className?: string;
   logo: string;
+  userAction?: boolean;
 }
 
 interface IState {
@@ -63,7 +64,7 @@ export class Header extends React.Component<IHeader, IState> {
             return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
           })}
         </ul>
-        {this.getUserActionDesign()}
+        {this.props.userAction && this.getUserActionDesign()}
       </Container>
     );
   }
