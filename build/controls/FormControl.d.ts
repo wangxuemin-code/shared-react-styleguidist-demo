@@ -13,8 +13,8 @@ interface IProps extends IContainer {
     fullWidth?: boolean;
     defaultValue?: string | number;
     value?: string | number | null;
-    placeholder?: string;
-    type?: 'text' | 'number' | 'money' | 'static' | 'email' | 'password' | 'select' | 'switch' | 'longtext' | 'datetime' | 'uploader';
+    placeholder?: any;
+    type?: 'text' | 'number' | 'numberfields' | 'money' | 'static' | 'email' | 'password' | 'select' | 'customselect' | 'phone' | 'country' | 'switch' | 'longtext' | 'datetime' | 'daterange' | 'uploader' | 'checkbox';
     name?: string;
     disabled?: boolean;
     onInputChanged?: (value: string | number, name: string) => void;
@@ -26,11 +26,19 @@ interface IProps extends IContainer {
         label: string;
         value: string;
     }[];
+    selectCustomOptions?: {
+        label: string;
+        value: string;
+        image: string;
+    }[];
     extraControls?: any;
     dateOptions?: IDateOption;
     alwaysCapitalize?: boolean;
     s3Settings?: IAwsSettings;
     decimalPlace?: number;
+    numInputs?: number;
+    inputWidth?: string;
+    separator?: string;
 }
 export declare class FormControl extends React.Component<IProps, IState> {
     static defaultProps: IProps;
@@ -45,6 +53,7 @@ export declare class FormControl extends React.Component<IProps, IState> {
     toggle(notify?: boolean): void;
     private getControlDesign;
     private onChange;
+    onSetOption: (selectedOption: any) => void;
     private onDateTimeChange;
     private onUploaderChanged;
     private onSwitchChanged;

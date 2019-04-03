@@ -9,13 +9,6 @@ export declare const stylings: {
         md: string;
         lg: string;
     };
-    mediaqueries: {
-        xs: string;
-        sm: string;
-        md: string;
-        lg: string;
-        retina: string;
-    };
     typography: {
         font: string;
         text: string;

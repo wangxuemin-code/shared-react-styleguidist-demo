@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IButton extends IContainer {
-    buttonStyle?: 'normal' | 'info' | 'invert' | 'none' | 'negative' | 'success' | 'fail';
+    variant?: 'default' | 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger' | 'none';
+    outline?: boolean;
+    basic?: boolean;
+    flat?: boolean;
     type?: 'button' | 'submit';
     onPress?: () => void;
     href?: string;

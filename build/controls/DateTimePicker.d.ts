@@ -5,13 +5,15 @@ export interface IDateOption {
     startDate?: Date;
 }
 interface IProps extends IContainer {
+    type?: string;
     placeholder?: string;
     value?: number | string;
     onChange?: (newTimestamp: number, newDate: Date) => void;
     options: IDateOption;
 }
 interface IState {
-    selectedUnixTimestamp?: number;
+    selectedStartUnixTimestamp?: number;
+    selectedEndUnixTimestamp?: number;
 }
 export declare class DateTimePicker extends React.Component<IProps, IState> {
     static defaultProps: IProps;
@@ -19,7 +21,9 @@ export declare class DateTimePicker extends React.Component<IProps, IState> {
     componentDidUpdate(prevProps: IProps): void;
     render(): JSX.Element;
     private updateStateWithProps;
-    private handleChangeRaw;
-    private handleChange;
+    private handleChangeRawStart;
+    private handleChangeStart;
+    private handleChangeRawEnd;
+    private handleChangeEnd;
 }
 export {};

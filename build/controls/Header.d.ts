@@ -15,6 +15,8 @@ interface IHeader extends IContainer {
     fullWidth?: boolean;
     mainLinks?: IMainLink[];
     subLinks?: ISubLink[];
+    className?: string;
+    logo: string;
 }
 interface IState {
     showSubMenu: boolean;
@@ -25,6 +27,7 @@ export declare class Header extends React.Component<IHeader, IState> {
         subLinks: never[];
     };
     constructor(props: IHeader);
+    toggleClass(): void;
     render(): JSX.Element;
     private getLinkDesign;
     private getUserActionDesign;

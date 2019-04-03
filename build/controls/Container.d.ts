@@ -23,7 +23,7 @@ export interface IContainer {
     height?: number;
     width?: number;
     backgroundColor?: string;
-    display?: 'block' | 'inline-block' | 'inline' | 'flex';
+    display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
     position?: 'static' | 'absolute' | 'fixed' | 'relative';
     visibility?: 'hidden' | 'visible';
     hidden?: boolean;
@@ -40,8 +40,11 @@ export interface IContainer {
     fontSizeRem?: number;
     onMouseEnter?: MouseEventHandler;
     onMouseLeave?: MouseEventHandler;
+    onClick?: MouseEventHandler;
     style?: React.CSSProperties;
+    variant?: any;
     clamp?: number;
+    focus?: boolean;
 }
 export declare class Container extends React.Component<IContainer, any> {
     render(): JSX.Element | null;

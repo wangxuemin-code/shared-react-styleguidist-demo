@@ -564,8 +564,20 @@ class Main extends React.Component<
                 label={'Search'}
                 name='search'
                 type={'text'}
-                placeholder={'&#xf002; Search'}
+                placeholder={'Search'}
                 value=''
+                append={
+                  <Button
+                    textAlign={'center'}
+                    type={'submit'}
+                    onPress={() => {
+                      console.log(this.form.getFormData());
+                      console.log(this.form.getInputValue('description'));
+                    }}
+                  >
+                    Submit
+                  </Button>
+                }
               />
               <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
               <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
