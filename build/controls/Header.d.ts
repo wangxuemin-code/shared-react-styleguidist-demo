@@ -17,6 +17,7 @@ interface IHeader extends IContainer {
     subLinks?: ISubLink[];
     className?: string;
     logo: string;
+    userAction?: boolean;
 }
 interface IState {
     showSubMenu: boolean;

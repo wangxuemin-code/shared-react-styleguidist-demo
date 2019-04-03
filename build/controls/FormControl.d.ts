@@ -18,6 +18,7 @@ interface IProps extends IContainer {
     name?: string;
     disabled?: boolean;
     onInputChanged?: (value: string | number, name: string) => void;
+    prepend?: any;
     append?: any;
     label?: any;
     required?: boolean;
@@ -61,5 +62,6 @@ export declare class FormControl extends React.Component<IProps, IState> {
     private processValue;
     private onValueChanged;
     private getInputAppendDesign;
+    private getInputPrependDesign;
 }
 export {};
