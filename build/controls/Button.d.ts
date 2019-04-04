@@ -11,6 +11,7 @@ interface IButton extends IContainer {
     disabled?: boolean;
     innerClasses?: string;
     size?: 'medium' | 'large' | 'small';
+    fluid?: boolean;
     loading?: boolean;
 }
 export declare class Button extends React.Component<IButton, any> {
