@@ -107,6 +107,10 @@ $borderRadius: 6.25rem;
   &.flat {
     box-shadow: none;
   }
+
+  &.fluid {
+    width: 100%;
+  }
 }
 
 .button:focus,

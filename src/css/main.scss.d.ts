@@ -127,6 +127,7 @@ export const warning: string;
 export const danger: string;
 export const basic: string;
 export const flat: string;
+export const fluid: string;
 export const active: string;
 export const buttonLg: string;
 export const buttonSm: string;

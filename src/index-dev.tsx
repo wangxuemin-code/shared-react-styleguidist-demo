@@ -330,17 +330,21 @@ class Main extends React.Component<
           />
           <Divider />
           <h4>Button</h4>
-          <Button size={'small'} variant='primary'>
+          <Button size='small' variant='primary'>
             Small
           </Button>
-          <Button size={'medium'} variant='primary'>
+          <Button size='medium' variant='primary'>
             Medium
           </Button>
-          <Button size={'large'} variant='primary'>
+          <Button size='large' variant='primary'>
             Large
           </Button>
-          <Button size={'large'} fontStyle={'italic'} variant='primary'>
+          <Button size='large' fontStyle={'italic'} variant='primary'>
             Italic
+          </Button>
+          <Divider visibility={'hidden'} />
+          <Button fluid fontStyle={'italic'} variant='primary'>
+            Fluid
           </Button>
           <Divider visibility={'hidden'} />
           {this.colorStates.map((button: any) => (

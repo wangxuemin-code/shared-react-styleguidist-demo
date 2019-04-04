@@ -25,6 +25,7 @@ interface IButton extends IContainer {
   disabled?: boolean;
   innerClasses?: string;
   size?: 'medium' | 'large' | 'small';
+  fluid?: boolean;
   loading?: boolean;
 }
 
@@ -49,15 +50,15 @@ export class Button extends React.Component<IButton, any> {
     if (this.props.outline) {
       classes.push('outline');
     }
-
     if (this.props.basic) {
       classes.push('basic');
     }
-
     if (this.props.flat) {
       classes.push('flat');
     }
-
+    if (this.props.fluid) {
+      classes.push('fluid');
+    }
     if (this.props.disabled) {
       classes.push(styles.disabled);
     }
@@ -83,23 +84,23 @@ export class Button extends React.Component<IButton, any> {
     let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
 
     return (
-      <Container {...filteredProps} display='inline-block' position='relative'>
-        {this.props.loading && (
-          <div className={styles.btnLoading}>
-            <Loading backDrop={false} loading={this.props.loading} />
-          </div>
-        )}
+      // <Container {...filteredProps} display='inline-block' position='relative'>
+      //   {this.props.loading && (
+      //     <div className={styles.btnLoading}>
+      //       <Loading backDrop={false} loading={this.props.loading} />
+      //     </div>
+      //   )}
 
-        <button
-          type={this.props.type}
-          style={style}
-          className={classes.join(' ')}
-          onClick={this.props.onPress}
-          disabled={this.props.disabled}
-        >
-          {this.props.children}
-        </button>
-      </Container>
+      <button
+        type={this.props.type}
+        style={style}
+        className={classes.join(' ')}
+        onClick={this.props.onPress}
+        disabled={this.props.disabled}
+      >
+        {this.props.children}
+      </button>
+      // </Container>
     );
   }
 }
