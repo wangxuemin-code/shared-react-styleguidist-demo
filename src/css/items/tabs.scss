@@ -42,7 +42,7 @@
           a {
             padding: 0.9375rem 1.875rem 0.3125rem 1.875rem;
             height: auto;
-            font-size: 0.875rem;
+            font-size: 1rem;
 
             span {
               flex-direction: column;
@@ -76,7 +76,7 @@
             a:hover {
               color: map-get($colors, primary);
               background-color: transparent;
-              font-size: 1.125rem;
+              font-size: 1rem;
 
               &:after {
                 width: 100%;
@@ -118,7 +118,7 @@
         a {
           border-radius: 0;
           padding: 0 0.9375rem;
-          font-size: 1.125rem;
+          font-size: 1rem;
           height: 3.75rem;
           display: flex;
           align-items: center;

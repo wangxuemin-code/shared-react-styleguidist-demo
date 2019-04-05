@@ -109,12 +109,14 @@ export class FormControl extends React.Component<IProps, IState> {
     return (
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
-          <label>
-            <span key='1'>
-              {this.props.label}
-              {this.props.required && <span className={styles.required}>*</span>}
-            </span>
-          </label>
+          {this.props.label && (
+            <label>
+              <span key='1'>
+                {this.props.label}
+                {this.props.required && <span className={styles.required}>*</span>}
+              </span>
+            </label>
+          )}
 
           <Container position={'relative'} className={styles.formControlsInner}>
             {this.getInputPrependDesign(this.props.prepend)}

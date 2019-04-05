@@ -38,7 +38,6 @@ export class Table extends React.Component<IProps, any> {
                 this.props.headers.map((tableHeaderModel) => {
                   return this.getHeaderDesign(tableHeaderModel, uniqid().toString());
                 })}
-              <th />
             </tr>
           </thead>
           <tbody>

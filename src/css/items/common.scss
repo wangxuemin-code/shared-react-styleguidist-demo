@@ -24,12 +24,16 @@
 
 @import '//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css';
 
+:root {
+  font-size: $base;
+}
+
 body,
 #reactContainer {
   margin: 0;
   min-height: 100%;
   background: map-get($colors, primaryGreyLight);
-  font-family: $font;
+  font-family: map-get($typography, font);
   line-height: normal;
   font-size: 1rem;
   display: flex;
@@ -52,6 +56,10 @@ body,
   padding-top: $headerHeight;
 }
 
+.istox-wrapper {
+  flex: 1 0 auto;
+}
+
 *:focus {
   outline: none !important;
 }
@@ -60,14 +68,8 @@ body,
   flex-shrink: 0;
 }
 
-// #reactContainer {
-//   height: 100vh;
-//   padding-top: $headerHeight;
-// }
-
 html {
   height: 100%;
-  font-size: 1rem;
 }
 
 h1 {

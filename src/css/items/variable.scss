@@ -1,5 +1,5 @@
-// $base: get("base");
-// $spacing: get("spacing");
+$base: get('base');
+$spacing: get('spacing');
 // $grid: get("grid");
 $breakpoints: get('breakpoints');
 $colors: get('colors');
@@ -8,3 +8,4 @@ $boxShadow: get('boxShadow');
 $transitionLinear: get('transitionDuration') linear;
 $headerHeight: get('headerHeight');
 $headerBackground: linear-gradient(225deg, #3c77a0 0%, #1c4267 100%);
+$typography: get('typography');

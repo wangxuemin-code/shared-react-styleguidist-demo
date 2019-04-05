@@ -1,5 +1,18 @@
+.my-modal {
+  .button.none {
+    background-color: transparent;
+    float: right;
+    box-shadow: none;
+    border: none;
+    color: map-get($colors, primary);
+    padding: 0;
+    position: relative;
+  }
+}
 .my-modal [role='document'] {
   border-radius: 0.375rem;
+  min-height: 5rem;
+  padding: 1rem;
 }
 
 .my-modal-body {

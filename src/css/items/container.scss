@@ -4,10 +4,16 @@
   width: 100%;
 }
 
+.istox-wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
 @mixin root($screenMinWidth, $rootWidth) {
   // write the css here
   @media (min-width: $screenMinWidth) {
-    .istox-root {
+    .istox-wrapper {
       max-width: $rootWidth;
     }
   }

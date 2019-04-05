@@ -16,12 +16,6 @@
     background-color: map-get($colors, primaryAlt);
     color: map-get($colors, primary);
     box-shadow: none;
-
-    ul.links {
-      a {
-        color: map-get($colors, primaryAlt);
-      }
-    }
   }
 
   &.transparent {
@@ -63,7 +57,7 @@
 
 .istox-header ul.links > li {
   float: left;
-  font-size: 1.05rem;
+  font-size: 1rem;
   margin-right: 20px;
   margin-left: 20px;
   cursor: pointer;
@@ -89,7 +83,7 @@
 }
 
 .istox-header .user-action {
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: 0.25s;
   display: flex;
   justify-content: center;
@@ -142,7 +136,7 @@
 
 .istox-header .user-action .sub-menu a {
   color: map-get($colors, primaryGreyDark);
-  font-size: 0.9rem;
+  font-size: 1rem;
   display: block;
   padding: 10px;
   font-weight: bold;

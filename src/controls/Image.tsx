@@ -4,8 +4,9 @@ import { Container, IContainer } from './Container';
 
 interface IImage extends IContainer {
   fullWidth?: boolean;
-  src: string;
+  src?: string;
   alt?: any;
+  variant?: 'logo' | 'logo alt';
 }
 
 interface IState {
@@ -22,12 +23,20 @@ export class Image extends React.Component<IImage, IState> {
 
   public render() {
     const classes: string[] = [styles.imageResponsive];
-
+    let src = this.props.src;
+    switch (this.props.variant) {
+      case 'logo':
+        src = '/images/ISTOX_Logo.png';
+        break;
+      case 'logo alt':
+        src = '/images/ISTOX_Logo_Alt.png';
+        break;
+    }
     return (
       <Container {...this.props}>
         {this.state.showAlt && this.props.alt}
         {!this.state.showAlt && (
-          <img onError={this.onError} className={classes.join(' ')} src={this.props.src} />
+          <img onError={this.onError} className={classes.join(' ')} src={src} />
         )}
       </Container>
     );

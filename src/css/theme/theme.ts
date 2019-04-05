@@ -1,5 +1,5 @@
 export const stylings = {
-  base: '12px',
+  base: '14px',
   spacing: '1rem',
   borderRadius: '6px',
   boxShadow: '0 5px 10px rgba(28, 66, 103, 0.3)',
@@ -11,8 +11,8 @@ export const stylings = {
   },
   typography: {
     font: "'Open Sans', sans-serif",
-    text: '0.875rem',
-    title: '1.5rem'
+    text: '1rem',
+    title: '1rem'
   },
   headerHeight: '4rem',
   transitionDuration: '150ms',

@@ -10,6 +10,7 @@ import {
   Form,
   Header,
   RootContainer,
+  WrapperContainer,
   ErrorPage,
   Table,
   Card,
@@ -109,632 +110,659 @@ class Main extends React.Component<
     return (
       <React.Fragment>
         <RootContainer>
-          <Header
-            logo={'/images/icon.png'}
-            className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
-            userAction
-          />
-          <Container
-            margin={{ topPx: 15 }}
-            padding={{ allPx: 15 }}
-            backgroundColor={'#FFF'}
-            border={{
-              borderSize: 1,
-              borderRadius: 10,
-              borderColor: '#E9E9E9',
-              borderStyle: 'solid'
-            }}
-          >
-            <h4>Typography</h4>
-            <Container display={'flex'}>
-              <Container padding={{ leftPx: 15 }} className={'flex-50'}>
-                <h1>H1</h1>
-                <h2>H2</h2>
-                <h3>H3</h3>
-                <h4>H4</h4>
-                <h5>H5</h5>
-                <h6>H6</h6>
-              </Container>
-              <Divider direction={'vertical'} />
-              <Container padding={{ leftPx: 15 }} className={'flex-50'}>
-                <p>Paragraph</p>
-                <b>Bold</b>
-                <br />
-                <i>Italic</i>
-                <br />
-                <Link href='/' useNormalAnchor>
-                  Links
-                </Link>
-                <br />
-                <u>Underline</u>
+          <WrapperContainer>
+            <Header
+              className={'istox-header'}
+              mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+              subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+              userAction
+            />
+            <Container
+              margin={{ topPx: 15 }}
+              padding={{ allPx: 15 }}
+              backgroundColor={'#FFF'}
+              border={{
+                borderSize: 1,
+                borderRadius: 10,
+                borderColor: '#E9E9E9',
+                borderStyle: 'solid'
+              }}
+            >
+              <h4>Typography</h4>
+              <Container display={'flex'}>
+                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                  <h1>H1</h1>
+                  <h2>H2</h2>
+                  <h3>H3</h3>
+                  <h4>H4</h4>
+                  <h5>H5</h5>
+                  <h6>H6</h6>
+                </Container>
+                <Divider direction={'vertical'} />
+                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                  <p>Paragraph</p>
+                  <b>Bold</b>
+                  <br />
+                  <i>Italic</i>
+                  <br />
+                  <Link href='/' useNormalAnchor>
+                    Links
+                  </Link>
+                  <br />
+                  <u>Underline</u>
+                </Container>
               </Container>
             </Container>
-          </Container>
-          <Divider />
-          <h4>Tabs</h4>
-          <Tabs
-            margin={{ topPx: 20 }}
-            basic={true}
-            orientation={'horizontal'}
-            tabs={[
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Account Info
-                  </span>
-                ),
-                contents: 'ABCD',
-                active: true
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Phone Number
-                  </span>
-                ),
-                contents: 'EFGH'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Personal Info
-                  </span>
-                ),
-                contents: 'IJKL'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                    Documents
-                  </span>
-                ),
-                contents: 'MNOP'
-              }
-            ]}
-          />
-          <Tabs
-            margin={{ topPx: 20 }}
-            orientation={'horizontal'}
-            tabs={[
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Account Info
-                  </span>
-                ),
-                contents: 'ABCD'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Phone Number
-                  </span>
-                ),
-                contents: 'EFGH'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Personal Info
-                  </span>
-                ),
-                contents: 'IJKL'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                    Documents
-                  </span>
-                ),
-                contents: 'MNOP'
-              }
-            ]}
-          />
-          <Tabs
-            margin={{ topPx: 20 }}
-            orientation={'horizontal'}
-            align={'middle'}
-            tabs={[
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Account Info
-                  </span>
-                ),
-                contents: 'ABCD'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Phone Number
-                  </span>
-                ),
-                contents: 'EFGH'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                    Personal Info
-                  </span>
-                ),
-                contents: 'IJKL'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                    Documents
-                  </span>
-                ),
-                contents: 'MNOP'
-              }
-            ]}
-          />
-          <Divider hidden />
-          <Tabs
-            margin={{ topPx: 20 }}
-            className={'istox-tabs'}
-            orientation={'vertical'}
-            align={'middle'}
-            tabs={[
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} />
-                    Account Info
-                  </span>
-                ),
-                contents: 'ABCD'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} />
-                    Phone Number
-                  </span>
-                ),
-                contents: 'EFGH'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faCheckCircle} />
-                    Personal Info
-                  </span>
-                ),
-                contents: 'IJKL'
-              },
-              {
-                title: (
-                  <span>
-                    <Icon icon={faExclamationCircle} />
-                    Documents
-                  </span>
-                ),
-                contents: 'MNOP'
-              }
-            ]}
-          />
-          <Divider />
-          <h4>Button</h4>
-          <Button size='small' variant='primary'>
-            Small
-          </Button>
-          <Button size='medium' variant='primary'>
-            Medium
-          </Button>
-          <Button size='large' variant='primary'>
-            Large
-          </Button>
-          <Button size='large' fontStyle={'italic'} variant='primary'>
-            Italic
-          </Button>
-          <Divider visibility={'hidden'} />
-          <Button fluid fontStyle={'italic'} variant='primary'>
-            Fluid
-          </Button>
-          <Divider visibility={'hidden'} />
-          {this.colorStates.map((button: any) => (
-            <Button key={uniqid().toString()} variant={button}>
-              {button.toUpperCase()}
-            </Button>
-          ))}
-          <Divider visibility={'hidden'} />
-          {this.colorStates.map((button: any) => (
-            <Button key={uniqid().toString()} flat variant={button}>
-              {button.toUpperCase()}
-            </Button>
-          ))}
-          <Divider visibility={'hidden'} />
-          {this.colorStates.map((button: any) => (
-            <Button key={uniqid().toString()} outline variant={button}>
-              {button.toUpperCase()}
-            </Button>
-          ))}
-          <Divider visibility={'hidden'} />
-          {this.colorStates.map((button: any) => (
-            <Button key={uniqid().toString()} outline basic variant={button}>
-              {button.toUpperCase()}
-            </Button>
-          ))}
-          <Divider visibility={'hidden'} />
-          <Divider />
-          <h4>PopUps</h4>
-          <Toast />
-          <Button
-            onPress={() => {
-              Toast.show({
-                type: 'transaction_status_ok',
-                blockchainTransactionOptions: {
-                  purpose: 'Hello',
-                  txHash: '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
-                }
-              });
-            }}
-          >
-            Toast
-          </Button>
-          <Modal className={'abc'} visible={this.state.showModal}>
-            Modal
-          </Modal>
-          <Button
-            variant='danger'
-            onPress={() => {
-              this.setState({
-                loading: true
-              });
-              Confirm.show({
-                type: 'yesno',
-                message: 'hello',
-                onResult: (result) => {
-                  console.log(result);
-                }
-              });
-            }}
-          >
-            Confirmation
-          </Button>
-          <Button
-            variant='info'
-            loading={this.state.loading}
-            onPress={() => {
-              this.setState({ showModal: true });
-            }}
-          >
-            Modal
-          </Button>
-          <Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
-            ToolTip
-          </Button>
-          <Button
-            variant='success'
-            onPress={() => {
-              BlockchainTransaction.show({
-                mqttClient: mqtt,
-                waitOptions: {
-                  queueName: 'test'
+            <Divider />
+            <h4>Tabs</h4>
+            <Tabs
+              margin={{ topPx: 20 }}
+              basic={true}
+              orientation={'horizontal'}
+              tabs={[
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Account Info
+                    </span>
+                  ),
+                  contents: 'ABCD',
+                  active: true
                 },
-                onSucess: () => {}
-              });
-            }}
-          >
-            Bottom Toast
-          </Button>
-          <Divider />
-          <h4>Progress</h4>
-          <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-          <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-          <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-          <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-          <ProgressBar margin={{ topPx: 20 }}>
-            <ProgressBar striped variant='success' value={25} order={1} />
-            <ProgressBar variant='info' value={25} order={2} />
-            <ProgressBar striped variant='warning' value={25} order={3} />
-            <ProgressBar striped variant='danger' value={25} order={4} />
-          </ProgressBar>
-          <ProgressBar width={200} margin={{ topPx: 20 }}>
-            <ProgressBar striped variant='success' value={25} order={1} />
-            <ProgressBar variant='info' value={25} order={2} />
-            <ProgressBar striped variant='warning' value={25} order={3} />
-            <ProgressBar striped variant='danger' value={25} order={4} />
-          </ProgressBar>
-          <ProgressBar gap width={200} margin={{ topPx: 20 }}>
-            <ProgressBar striped variant='success' value={25} order={1} />
-            <ProgressBar variant='info' value={25} order={2} />
-            <ProgressBar striped variant='warning' value={25} order={3} />
-            <ProgressBar striped variant='danger' value={25} order={4} />
-          </ProgressBar>
-
-          <Divider />
-          <h4>Table</h4>
-          <Container backgroundColor={'#FFF'} margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
-            <Table
-              headers={[
-                { title: 'Code' },
-                { title: 'Date Created' },
-                { title: 'Request Status' },
                 {
-                  title: 'Actions'
-                }
-              ]}
-              rows={[
-                { rowContents: ['Super Admin', 'This is another not very long content.'] },
-                {
-                  rowContents: ['Super Admin', 'This is another not very long content.'],
-                  rowActions: [
-                    {
-                      icon: faAddressBook,
-                      callback: () => {
-                        console.log('heeelop');
-                      }
-                    },
-                    {
-                      icon: faAdjust,
-                      callback: () => {
-                        console.log('heeelop');
-                      }
-                    }
-                  ]
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Phone Number
+                    </span>
+                  ),
+                  contents: 'EFGH'
                 },
-                { rowContents: ['Super Admin', 'This is another not very long content.'] },
                 {
-                  rowContents: ['Super Admin', 'This is another not very long content.'],
-                  rowActions: [{ loading: true }]
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Personal Info
+                    </span>
+                  ),
+                  contents: 'IJKL'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                      Documents
+                    </span>
+                  ),
+                  contents: 'MNOP'
                 }
               ]}
             />
-          </Container>
-          <Divider />
-          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-            <h4>Form Elements</h4>
-            <Form
-              display={'grid'}
-              horizontal
-              error={String(404)}
-              ref={(ref) => {
-                if (ref) {
-                  this.form = ref;
-                  // this.form.reset();
+            <Tabs
+              margin={{ topPx: 20 }}
+              orientation={'horizontal'}
+              tabs={[
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Account Info
+                    </span>
+                  ),
+                  contents: 'ABCD'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Phone Number
+                    </span>
+                  ),
+                  contents: 'EFGH'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Personal Info
+                    </span>
+                  ),
+                  contents: 'IJKL'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                      Documents
+                    </span>
+                  ),
+                  contents: 'MNOP'
                 }
-              }}
-              onSubmit={() => {
-                // console.log(this.form.reset());
-                console.log('FORM SUBMITTED');
-                this.setState({
-                  success: '',
-                  error: ''
+              ]}
+            />
+            <Tabs
+              margin={{ topPx: 20 }}
+              orientation={'horizontal'}
+              align={'middle'}
+              tabs={[
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Account Info
+                    </span>
+                  ),
+                  contents: 'ABCD'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Phone Number
+                    </span>
+                  ),
+                  contents: 'EFGH'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                      Personal Info
+                    </span>
+                  ),
+                  contents: 'IJKL'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                      Documents
+                    </span>
+                  ),
+                  contents: 'MNOP'
+                }
+              ]}
+            />
+            <Divider hidden />
+            <Tabs
+              margin={{ topPx: 20 }}
+              className={'istox-tabs'}
+              orientation={'vertical'}
+              align={'middle'}
+              tabs={[
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} />
+                      Account Info
+                    </span>
+                  ),
+                  contents: 'ABCD'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} />
+                      Phone Number
+                    </span>
+                  ),
+                  contents: 'EFGH'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faCheckCircle} />
+                      Personal Info
+                    </span>
+                  ),
+                  contents: 'IJKL'
+                },
+                {
+                  title: (
+                    <span>
+                      <Icon icon={faExclamationCircle} />
+                      Documents
+                    </span>
+                  ),
+                  contents: 'MNOP'
+                }
+              ]}
+            />
+            <Divider />
+            <h4>Button</h4>
+            <Button size='small' variant='primary'>
+              Small
+            </Button>
+            <Button size='medium' variant='primary'>
+              Medium
+            </Button>
+            <Button size='large' variant='primary'>
+              Large
+            </Button>
+            <Button size='large' fontStyle={'italic'} variant='primary'>
+              Italic
+            </Button>
+            <Divider visibility={'hidden'} />
+            <Button fluid fontStyle={'italic'} variant='primary'>
+              Fluid
+            </Button>
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} flat variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} outline variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} outline basic variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider />
+            <h4>Image</h4>
+            <Container padding={{ allPx: 15 }}>
+              <Image variant={'logo'} />
+            </Container>
+            <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
+              <Image variant={'logo alt'} />
+            </Container>
+            <Divider />
+            <h4>PopUps</h4>
+            <Toast />
+            <Button
+              onPress={() => {
+                Toast.show({
+                  type: 'transaction_status_ok',
+                  blockchainTransactionOptions: {
+                    purpose: 'Hello',
+                    txHash: '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
+                  }
                 });
               }}
             >
-              <Controls.FormControl
-                required
-                placeholder={'Placeholder'}
-                disabled={true}
+              Toast
+            </Button>
+            <Modal className={'abc'} visible={this.state.showModal}>
+              Modal
+            </Modal>
+            <Button
+              variant='danger'
+              onPress={() => {
+                this.setState({
+                  loading: true
+                });
+                Confirm.show({
+                  type: 'yesno',
+                  message: 'hello',
+                  onResult: (result) => {
+                    console.log(result);
+                  }
+                });
+              }}
+            >
+              Confirmation
+            </Button>
+            <Button
+              variant='info'
+              loading={this.state.loading}
+              onPress={() => {
+                this.setState({ showModal: true });
+              }}
+            >
+              Modal
+            </Button>
+            <Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
+              ToolTip
+            </Button>
+            <Button
+              variant='success'
+              onPress={() => {
+                BlockchainTransaction.show({
+                  mqttClient: mqtt,
+                  waitOptions: {
+                    queueName: 'test'
+                  },
+                  onSucess: () => {}
+                });
+              }}
+            >
+              Bottom Toast
+            </Button>
+            <Divider />
+            <h4>Progress</h4>
+            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+            <ProgressBar margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+            <ProgressBar width={200} margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+            <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+
+            <Divider />
+            <h4>Table</h4>
+            <Container backgroundColor={'#FFF'} margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
+              <Table
+                headers={[
+                  { title: 'Code' },
+                  { title: 'Date Created' },
+                  { title: 'Request Status' },
+                  {
+                    title: 'Actions'
+                  }
+                ]}
+                rows={[
+                  { rowContents: ['Super Admin', 'This is another not very long content.'] },
+                  {
+                    rowContents: [
+                      'Super Admin',
+                      'This is another not very long content.',
+                      'DDMMYYYY'
+                    ],
+                    rowActions: [
+                      {
+                        icon: faAddressBook,
+                        callback: () => {
+                          console.log('heeelop');
+                        }
+                      },
+                      {
+                        icon: faAdjust,
+                        callback: () => {
+                          console.log('heeelop');
+                        }
+                      }
+                    ]
+                  },
+                  { rowContents: ['Super Admin', 'This is another not very long content.'] },
+                  {
+                    rowContents: [
+                      'Super Admin',
+                      'This is another not very long content.',
+                      'DDMMYYYY'
+                    ],
+                    rowActions: [{ loading: true }]
+                  }
+                ]}
+              />
+            </Container>
+            <Divider />
+            <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+              <h4>Form Elements</h4>
+              <Form
+                display={'grid'}
+                horizontal
+                error={String(404)}
                 ref={(ref) => {
-                  this.form = ref;
-                }}
-                label={
-                  <span>
-                    Amount in <b>USD</b>
-                  </span>
-                }
-                extraControls={
-                  <Link>
-                    <Icon icon={faPlus} text={'Extra control'} />
-                  </Link>
-                }
-                append={
-                  <Button
-                    textAlign={'center'}
-                    type={'submit'}
-                    onPress={() => {
-                      console.log(this.form.getFormData());
-                      console.log(this.form.getInputValue('description'));
-                    }}
-                  >
-                    Submit
-                  </Button>
-                }
-                name='hi'
-                type={'money'}
-                decimalPlace={2}
-              />
-              <Controls.FormControl
-                required
-                label='Image'
-                name='image'
-                type='uploader'
-                s3Settings={{
-                  bucketName: 'istox-stos-test',
-                  region: 'ap-southeast-1',
-                  accessKeyId: 'secret',
-                  secretAccessKey: 'secret'
-                }}
-                value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
-              />
-              <Controls.FormControl
-                required
-                label={'Search'}
-                name='search'
-                type={'text'}
-                placeholder={'Search'}
-                value=''
-                prepend={<Icon icon={faSearch} padding={{ topPx: 5 }} />}
-              />
-              <Controls.FormControl required label={'Email'} name='email' type={'email'} value='' />
-              <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
-              <Controls.FormControl label={'Password'} name='Password' type={'password'} />
-              <Controls.FormControl
-                label={'Description'}
-                name='description'
-                type={'longtext'}
-                alwaysCapitalize={true}
-              />
-              <Controls.FormControl label={'Number'} name='number' type={'number'} />
-              <Controls.FormControl
-                numInputs={5}
-                inputWidth={'95px'}
-                label={'OTP'}
-                name='numberfields'
-                type={'numberfields'}
-                separator={'  ·  '}
-              />
-              <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
-              <Controls.FormControl
-                required
-                label={'Date'}
-                name='datetime'
-                type={'datetime'}
-                defaultValue={Formatter.dateToUnixTimestamp(new Date())}
-                onInputChanged={(value) => {
-                  console.log(value);
-                }}
-              />
-              <Controls.FormControl
-                required
-                label={'Notify me'}
-                name='notify'
-                type={'switch'}
-                defaultValue='0'
-              />
-              <Controls.FormControl
-                required
-                label={'H Checkbox'}
-                name='checkbox'
-                type={'checkbox'}
-                variant={'horizontal'}
-                selectOptions={[
-                  {
-                    label: 'Option1',
-                    value: 'hei!'
-                  },
-                  {
-                    label: 'Option2',
-                    value: 'abcl'
+                  if (ref) {
+                    this.form = ref;
+                    // this.form.reset();
                   }
-                ]}
-              />
-              <Controls.FormControl
-                required
-                label={'V Checkbox'}
-                name='checkbox'
-                type={'checkbox'}
-                selectOptions={[
-                  {
-                    label: 'Option1',
-                    value: 'hei!'
-                  },
-                  {
-                    label: 'Option2',
-                    value: 'abcl'
-                  }
-                ]}
-              />
-              <Controls.FormControl
-                required
-                label={'DateRange'}
-                name='daterange'
-                type={'daterange'}
-                placeholder={''}
-                defaultValue={Formatter.dateToUnixTimestamp(new Date())}
-                onInputChanged={(value) => {
-                  console.log(value);
                 }}
-              />
-              <Controls.FormControl
-                required
-                label={'Dropdown'}
-                name='Dropdown'
-                placeholder='Choose'
-                type={'select'}
-                selectOptions={[
-                  {
-                    label: 'Option1',
-                    value: 'hei!'
-                  },
-                  {
-                    label: 'Option2',
-                    value: 'abcl'
+                onSubmit={() => {
+                  // console.log(this.form.reset());
+                  console.log('FORM SUBMITTED');
+                  this.setState({
+                    success: '',
+                    error: ''
+                  });
+                }}
+              >
+                <Controls.FormControl
+                  required
+                  placeholder={'Placeholder'}
+                  disabled={true}
+                  ref={(ref) => {
+                    this.form = ref;
+                  }}
+                  label={
+                    <span>
+                      Amount in <b>USD</b>
+                    </span>
                   }
-                ]}
-              />
-              <Controls.FormControl
-                required
-                label={'Custom Dropdown'}
-                name='Dropdown'
-                placeholder='Choose'
-                type={'customselect'}
-                selectCustomOptions={[
-                  {
-                    label: 'Option1',
-                    value: 'hei!',
-                    image: '/images/ISTOX_Logo.png'
-                  },
-                  {
-                    label: 'Option2',
-                    value: 'abcl',
-                    image: '/images/ISTOX_Logo.png'
+                  extraControls={
+                    <Link>
+                      <Icon icon={faPlus} text={'Extra control'} />
+                    </Link>
                   }
-                ]}
-              />
-              <Controls.FormControl label={'Country'} name='country' type={'country'} />
-              <Controls.FormControl label={'Phone Code'} name='phone' type={'phone'} />
-            </Form>
-          </Container>
-          <Divider />
-          <h4>Item</h4>
-          <Item
-            icon={faCheckCircle}
-            title={'Title'}
-            description={
-              'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
-            }
-          />
-          <Item
-            icon={faCheckCircle}
-            image={'/images/ISTOX_Logo.png'}
-            title={'Title'}
-            description={
-              'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
-            }
-          />
-          <Divider />
-          <h4>Card</h4>
-          <Card
-            leftIcon={faCheckCircle}
-            rightIcon={faCheckCircle}
-            icon={faCheckCircle}
-            image={'/images/ISTOX_Logo.png'}
-            title={'Title'}
-          />
-          <Divider />
-          <h4>Message</h4>
-          <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-            <Transition>
-              <Message success='Hello i am a success!' />
-              <Message info='Hello i am an info!' />
-              <Message warning='Hello i am a waning!' />
-              <Message error='Hello i am an error!' />
-            </Transition>
-          </Container>
-          <Divider />
-          {/* <Container width={1000} height={1000}>
+                  append={
+                    <Button
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        console.log(this.form.getFormData());
+                        console.log(this.form.getInputValue('description'));
+                      }}
+                    >
+                      Submit
+                    </Button>
+                  }
+                  name='hi'
+                  type={'money'}
+                  decimalPlace={2}
+                />
+                <Controls.FormControl
+                  required
+                  label='Image'
+                  name='image'
+                  type='uploader'
+                  s3Settings={{
+                    bucketName: 'istox-stos-test',
+                    region: 'ap-southeast-1',
+                    accessKeyId: 'secret',
+                    secretAccessKey: 'secret'
+                  }}
+                  value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
+                />
+                <Controls.FormControl
+                  required
+                  label={'Search'}
+                  name='search'
+                  type={'text'}
+                  placeholder={'Search'}
+                  value=''
+                  prepend={<Icon icon={faSearch} padding={{ topPx: 5 }} />}
+                />
+                <Controls.FormControl
+                  required
+                  label={'Email'}
+                  name='email'
+                  type={'email'}
+                  value=''
+                />
+                <Controls.FormControl
+                  required
+                  label={'Password'}
+                  name='Password'
+                  type={'password'}
+                />
+                <Controls.FormControl label={'Password'} name='Password' type={'password'} />
+                <Controls.FormControl
+                  label={'Description'}
+                  name='description'
+                  type={'longtext'}
+                  alwaysCapitalize={true}
+                />
+                <Controls.FormControl label={'Number'} name='number' type={'number'} />
+                <Controls.FormControl
+                  numInputs={5}
+                  inputWidth={'95px'}
+                  label={'OTP'}
+                  name='numberfields'
+                  type={'numberfields'}
+                  separator={'  ·  '}
+                />
+                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+                <Controls.FormControl
+                  required
+                  label={'Date'}
+                  name='datetime'
+                  type={'datetime'}
+                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'Notify me'}
+                  name='notify'
+                  type={'switch'}
+                  defaultValue='0'
+                />
+                <Controls.FormControl
+                  required
+                  label={'H Checkbox'}
+                  name='checkbox'
+                  type={'checkbox'}
+                  variant={'horizontal'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'hei!'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'abcl'
+                    }
+                  ]}
+                />
+                <Controls.FormControl
+                  required
+                  label={'V Checkbox'}
+                  name='checkbox'
+                  type={'checkbox'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'hei!'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'abcl'
+                    }
+                  ]}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateRange'}
+                  name='daterange'
+                  type={'daterange'}
+                  placeholder={''}
+                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'Dropdown'}
+                  name='Dropdown'
+                  placeholder='Choose'
+                  type={'select'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'hei!'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'abcl'
+                    }
+                  ]}
+                />
+                <Controls.FormControl
+                  required
+                  label={'Custom Dropdown'}
+                  name='Dropdown'
+                  placeholder='Choose'
+                  type={'customselect'}
+                  selectCustomOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'hei!',
+                      image: '/images/ISTOX_Logo.png'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'abcl',
+                      image: '/images/ISTOX_Logo.png'
+                    }
+                  ]}
+                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} />
+                <Controls.FormControl label={'Phone Code'} name='phone' type={'phone'} />
+              </Form>
+            </Container>
+            <Divider />
+            <h4>Item</h4>
+            <Item
+              icon={faCheckCircle}
+              title={'Title'}
+              description={
+                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
+              }
+            />
+            <Item
+              icon={faCheckCircle}
+              image={'/images/ISTOX_Logo.png'}
+              title={'Title'}
+              description={
+                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
+              }
+            />
+            <Divider />
+            <h4>Card</h4>
+            <Card
+              leftIcon={faCheckCircle}
+              rightIcon={faCheckCircle}
+              icon={faCheckCircle}
+              image={'/images/ISTOX_Logo.png'}
+              title={'Title'}
+            />
+            <Divider />
+            <h4>Message</h4>
+            <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+              <Transition>
+                <Message success='Hello i am a success!' />
+                <Message info='Hello i am an info!' />
+                <Message warning='Hello i am a waning!' />
+                <Message error='Hello i am an error!' />
+              </Transition>
+            </Container>
+            <Divider />
+            {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>
           <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
+          </WrapperContainer>
         </RootContainer>
         <Footer />
       </React.Fragment>
