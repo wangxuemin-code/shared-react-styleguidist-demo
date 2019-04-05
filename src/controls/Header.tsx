@@ -27,7 +27,7 @@ interface IHeader extends IContainer {
   mainLinks?: IMainLink[];
   subLinks?: ISubLink[];
   className?: string;
-  logo?: string;
+  logo?: string | boolean;
   userAction?: boolean;
 }
 
@@ -55,18 +55,21 @@ export class Header extends React.Component<IHeader, IState> {
 
   public render() {
     const className: any = this.props.className;
-    const logo = this.props.logo
-      ? this.props.logo
-      : className.includes('alt')
-      ? '/images/ISTOX_Logo.png'
-      : '/images/ISTOX_Logo_Alt.png';
+    const logo =
+      typeof this.props.logo === 'string'
+        ? this.props.logo
+        : this.props.logo
+        ? className.includes('alt')
+          ? '/images/ISTOX_Logo.png'
+          : '/images/ISTOX_Logo_Alt.png'
+        : '';
     return (
       <Container {...this.props}>
         <a href='/' className={styles.logoAnchor}>
           <Image src={logo} className={styles.icon} />
         </a>
         <ul className={styles.links}>
-          {this.props.mainLinks!.map((link) => {
+          {this.props.mainLinks!.map((link, i) => {
             return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
           })}
         </ul>
@@ -80,7 +83,7 @@ export class Header extends React.Component<IHeader, IState> {
       <li key={href} className={selected ? 'selected' : ''}>
         {useAnchorTag && (
           <a href={href}>
-            {title}
+            {title} dasdsd
             <div className={styles.underline} />
           </a>
         )}
@@ -135,7 +138,7 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.subMenu}>
           {this.props.subLinks &&
             this.props.subLinks.map((sublink) => (
-              <Link useNormalAnchor={sublink.useAnchorTag} href={sublink.path}>
+              <Link key={sublink.path} useNormalAnchor={sublink.useAnchorTag} href={sublink.path}>
                 {sublink.title}
               </Link>
             ))}

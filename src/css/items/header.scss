@@ -12,10 +12,33 @@
   height: $headerHeight;
   box-shadow: $boxShadow;
 
+  ul.links {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: map-get($colors, primaryAlt);
+    }
+
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
   &.alt {
     background-color: map-get($colors, primaryAlt);
     color: map-get($colors, primary);
     box-shadow: none;
+
+    ul.links {
+      a {
+        color: map-get($colors, primary);
+      }
+    }
   }
 
   &.transparent {
@@ -26,23 +49,6 @@
   a.logo-anchor {
     padding: 0 0.5rem;
     display: flex;
-  }
-
-  ul.links {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-
-    a {
-      color: map-get($colors, primary);
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
   }
 }
 
@@ -139,7 +145,6 @@
   font-size: 1rem;
   display: block;
   padding: 10px;
-  font-weight: bold;
 }
 
 .istox-header .user-action .sub-menu a:hover {

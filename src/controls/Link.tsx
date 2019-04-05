@@ -10,24 +10,28 @@ interface ILink extends IContainer {
 
 export class Link extends React.Component<ILink, any> {
   public render() {
+    var { useNormalAnchor, ...linkProps } = this.props;
     if (this.props.href) {
-      if (this.props.useNormalAnchor) {
+      if (useNormalAnchor) {
         return (
-          <a style={{ cursor: 'pointer' }} href={this.props.href}>
-            <Container {...this.props} display={this.props.display || 'inline-block'} />
+          <a {...linkProps} style={{ cursor: 'pointer' }} href={this.props.href}>
+            <Container {...linkProps} display={this.props.display || 'inline-block'} />
           </a>
         );
       } else {
         return (
-          <ReactRouterLink to={this.props.href} style={{ cursor: 'pointer' }}>
-            <Container {...this.props} display={this.props.display || 'inline-block'} />
-          </ReactRouterLink>
+          <a {...linkProps} style={{ cursor: 'pointer' }} href={this.props.href}>
+            <Container {...linkProps} display={this.props.display || 'inline-block'} />
+          </a>
+          // <ReactRouterLink {...linkProps} to={this.props.href} style={{ cursor: 'pointer' }}>
+          //   <Container {...linkProps} display={this.props.display || 'inline-block'} />
+          // </ReactRouterLink>
         );
       }
     } else {
       return (
-        <a onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
-          <Container {...this.props} display={this.props.display || 'inline-block'} />
+        <a {...linkProps} onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
+          <Container {...linkProps} display={this.props.display || 'inline-block'} />
         </a>
       );
     }

@@ -112,9 +112,12 @@ class Main extends React.Component<
         <RootContainer>
           <WrapperContainer>
             <Header
+              logo={true}
               className={'istox-header'}
-              mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
-              subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+              mainLinks={[
+                { title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }
+              ]}
+              subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
               userAction
             />
             <Container
