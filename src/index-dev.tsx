@@ -110,16 +110,14 @@ class Main extends React.Component<
     return (
       <React.Fragment>
         <RootContainer>
+          <Header
+            logo={true}
+            className={'istox-header'}
+            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            userAction
+          />
           <WrapperContainer>
-            <Header
-              logo={true}
-              className={'istox-header'}
-              mainLinks={[
-                { title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }
-              ]}
-              subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
-              userAction
-            />
             <Container
               margin={{ topPx: 15 }}
               padding={{ allPx: 15 }}

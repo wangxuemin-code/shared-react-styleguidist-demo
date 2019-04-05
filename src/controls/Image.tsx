@@ -26,10 +26,10 @@ export class Image extends React.Component<IImage, IState> {
     let src = this.props.src;
     switch (this.props.variant) {
       case 'logo':
-        src = '/images/ISTOX_Logo.png';
+        src = '/node_modules/istox_shared/public/images/ISTOX_Logo.png';
         break;
       case 'logo alt':
-        src = '/images/ISTOX_Logo_Alt.png';
+        src = '/node_modules/istox_shared/public/images/ISTOX_Logo_Alt.png';
         break;
     }
     return (

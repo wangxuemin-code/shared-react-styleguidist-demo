@@ -29,6 +29,7 @@ export declare class Header extends React.Component<IHeader, IState> {
     };
     constructor(props: IHeader);
     toggleClass(): void;
+    addDefaultSrc(ev: any): void;
     render(): JSX.Element;
     private getLinkDesign;
     private getUserActionDesign;
