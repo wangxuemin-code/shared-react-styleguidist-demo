@@ -2,8 +2,9 @@ import * as React from 'react';
 import { IContainer } from './Container';
 interface IImage extends IContainer {
     fullWidth?: boolean;
-    src: string;
+    src?: string;
     alt?: any;
+    variant?: 'logo' | 'logo alt';
 }
 interface IState {
     showAlt: boolean;

@@ -16,7 +16,7 @@ interface IHeader extends IContainer {
     mainLinks?: IMainLink[];
     subLinks?: ISubLink[];
     className?: string;
-    logo: string;
+    logo?: string;
     userAction?: boolean;
 }
 interface IState {
