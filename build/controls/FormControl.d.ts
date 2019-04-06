@@ -14,7 +14,7 @@ interface IProps extends IContainer {
     defaultValue?: string | number;
     value?: string | number | null;
     placeholder?: any;
-    type?: 'text' | 'number' | 'numberfields' | 'money' | 'static' | 'email' | 'password' | 'select' | 'customselect' | 'phone' | 'country' | 'switch' | 'longtext' | 'datetime' | 'daterange' | 'uploader' | 'checkbox';
+    type?: 'text' | 'number' | 'numberfields' | 'phone' | 'money' | 'static' | 'email' | 'password' | 'select' | 'customselect' | 'phonecode' | 'countrycode' | 'switch' | 'longtext' | 'datetime' | 'daterange' | 'uploader' | 'checkbox';
     name?: string;
     disabled?: boolean;
     onInputChanged?: (value: string | number, name: string) => void;

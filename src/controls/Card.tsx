@@ -10,6 +10,7 @@ interface IProps extends IContainer {
   icon?: any;
   leftIcon?: any;
   rightIcon?: any;
+  className?: string;
 }
 
 export class Card extends React.Component<IProps, any> {

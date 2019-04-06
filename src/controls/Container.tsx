@@ -51,6 +51,7 @@ export interface IContainer {
   variant?: any;
   clamp?: number;
   focus?: boolean;
+  alignItems?: 'baseline' | 'center' | 'start' | 'end';
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -59,26 +60,16 @@ export class Container extends React.Component<IContainer, any> {
       return null;
     }
 
-    let classes: string[] = [this.props.className ? this.props.className : ''];
+    let classes: string[] = [
+      this.props.className ? this.props.className : '',
+      this.props.textAlign === 'center' ? styles.textCenter : '',
+      this.props.textAlign === 'left' ? styles.textLeft : '',
+      this.props.textAlign === 'right' ? styles.textRight : '',
+      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
+    ];
 
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
-    }
-
-    if (this.props.textAlign === 'center') {
-      classes.push(styles.textCenter);
-    } else if (this.props.textAlign === 'left') {
-      classes.push(styles.textLeft);
-    } else if (this.props.textAlign === 'right') {
-      classes.push(styles.textRight);
-    }
-
-    if (this.props.float === 'right') {
-      classes.push(styles.right);
-    }
-
-    if (this.props.float === 'left') {
-      classes.push(styles.left);
     }
 
     let style: React.CSSProperties = this.props.style || {};
@@ -184,6 +175,10 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.letterSpacing) {
       style.letterSpacing = this.props.letterSpacing;
+    }
+
+    if (this.props.alignItems) {
+      style.alignItems = this.props.alignItems;
     }
 
     return (

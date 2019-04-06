@@ -35,17 +35,13 @@ export class Tabs extends React.Component<IProps, IState> {
   }
 
   public render() {
-    let classes: string[] = [this.props.className ? this.props.className : ''];
+    let classes: string[] = [
+      this.props.className ? this.props.className : '',
+      this.props.orientation ? this.props.orientation : '',
+      this.props.align ? this.props.align : '',
+      this.props.basic ? styles.basic : ''
+    ];
 
-    if (this.props.orientation) {
-      classes.push(this.props.orientation);
-    }
-    if (this.props.align) {
-      classes.push(this.props.align);
-    }
-    if (this.props.basic) {
-      classes.push('basic');
-    }
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
     }

@@ -115,6 +115,7 @@ export const textCenter: string;
 export const textRight: string;
 export const right: string;
 export const left: string;
+export const flex1: string;
 export const flex50: string;
 export const width50: string;
 export const button: string;

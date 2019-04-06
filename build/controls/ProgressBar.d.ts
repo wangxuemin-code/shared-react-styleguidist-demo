@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IContainer } from './Container';
 interface IProgressBar extends IContainer {
     children?: any;
-    label?: boolean;
+    label?: boolean | string;
     striped?: boolean;
     animated?: boolean;
     value?: any;

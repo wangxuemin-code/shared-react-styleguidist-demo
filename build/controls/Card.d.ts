@@ -6,6 +6,7 @@ interface IProps extends IContainer {
     icon?: any;
     leftIcon?: any;
     rightIcon?: any;
+    className?: string;
 }
 export declare class Card extends React.Component<IProps, any> {
     render(): JSX.Element;

@@ -36,14 +36,15 @@ interface IProps extends IContainer {
     | 'text'
     | 'number'
     | 'numberfields'
+    | 'phone'
     | 'money'
     | 'static'
     | 'email'
     | 'password'
     | 'select'
     | 'customselect'
-    | 'phone'
-    | 'country'
+    | 'phonecode'
+    | 'countrycode'
     | 'switch'
     | 'longtext'
     | 'datetime'
@@ -118,12 +119,15 @@ export class FormControl extends React.Component<IProps, IState> {
             </label>
           )}
 
-          <Container position={'relative'} className={styles.formControlsInner}>
+          <Container
+            classNames={[styles.formControlsInner, this.props.append ? styles.flex1 : '']}
+            position={'relative'}
+            className={styles.formControlsInner}
+          >
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
-            {/* <div /> */}
           </Container>
         </Container>
         {this.props.extraControls && (
@@ -276,7 +280,7 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.selectCustomOptions}
         />
       );
-    } else if (this.props.type === 'phone') {
+    } else if (this.props.type === 'phonecode') {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
@@ -331,7 +335,7 @@ export class FormControl extends React.Component<IProps, IState> {
           options={Options}
         />
       );
-    } else if (this.props.type === 'country') {
+    } else if (this.props.type === 'countrycode') {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
@@ -447,7 +451,11 @@ export class FormControl extends React.Component<IProps, IState> {
             <Container className={this.props.variant}>
               {this.props.selectOptions.map((option) => {
                 return (
-                  <Container key={uniqid().toString()} className={styles.loadingContainerWrapper}>
+                  <Container
+                    alignItems={'baseline'}
+                    key={uniqid().toString()}
+                    className={styles.loadingContainerWrapper}
+                  >
                     <input type='checkbox' value={option.value} />
                     {option.label}
                     {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
@@ -584,6 +592,12 @@ export class FormControl extends React.Component<IProps, IState> {
                   decimalPlace: this.props.decimalPlace
                 }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
+          };
+        } else if (this.props.type === 'phone') {
+          const re = /^\d+$/;
+          return {
+            displayValue: !re.test(value) ? '' : value,
+            value: !re.test(value) ? '' : value
           };
         }
       }

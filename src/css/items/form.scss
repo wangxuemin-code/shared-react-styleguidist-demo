@@ -27,7 +27,7 @@ $borderRadius: 0.375rem;
   }
 
   .main-form-controls-wrapper {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
   }
 
   .main-form-controls-wrapper:last-child {
@@ -42,7 +42,7 @@ $borderRadius: 0.375rem;
 
   input[type='checkbox'],
   input[type='radio'] {
-    margin: -3px 5px 0 0;
+    margin: 0px 5px 0 0;
     cursor: pointer;
   }
 }
@@ -113,7 +113,7 @@ $borderRadius: 0.375rem;
     display: inline-flex;
 
     > div {
-      margin-right: 0.9375rem;
+      margin-right: 1rem;
     }
   }
 
@@ -148,19 +148,15 @@ $borderRadius: 0.375rem;
 .istox-form .input-append {
   font-size: 0.8rem;
   color: #ffffff;
-  position: absolute;
   background-color: map-get($colors, primaryLight);
-  border-radius: $borderRadius;
+  border-radius: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 1px;
-  right: 1px;
-  bottom: 1px;
   padding: 0 20px;
+  margin-left: 1rem;
 
   .button {
-    border-radius: $borderRadius;
     border: none;
   }
 

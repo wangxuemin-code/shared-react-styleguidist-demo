@@ -291,6 +291,7 @@ class Main extends React.Component<
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
+              basic={true}
               tabs={[
                 {
                   title: (
@@ -448,6 +449,12 @@ class Main extends React.Component<
             <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
             <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
             <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+            <ProgressBar
+              margin={{ topPx: 20 }}
+              value={20}
+              label={'Strong Password'}
+              variant={'success'}
+            />
             <ProgressBar margin={{ topPx: 20 }}>
               <ProgressBar striped variant='success' value={25} order={1} />
               <ProgressBar variant='info' value={25} order={2} />
@@ -612,6 +619,7 @@ class Main extends React.Component<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Number'} name='number' type={'number'} />
+                <Controls.FormControl label={'Phone'} name='phone' type={'phone'} />
                 <Controls.FormControl
                   numInputs={5}
                   inputWidth={'95px'}
@@ -718,8 +726,12 @@ class Main extends React.Component<
                     }
                   ]}
                 />
-                <Controls.FormControl label={'Country'} name='country' type={'country'} />
-                <Controls.FormControl label={'Phone Code'} name='phone' type={'phone'} />
+                <Controls.FormControl
+                  label={'Country Code'}
+                  name='countrycode'
+                  type={'countrycode'}
+                />
+                <Controls.FormControl label={'Phone Code'} name='phonecode' type={'phonecode'} />
               </Form>
             </Container>
             <Divider />

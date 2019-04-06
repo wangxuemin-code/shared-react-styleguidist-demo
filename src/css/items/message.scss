@@ -1,6 +1,7 @@
 .istox-message {
   display: flex;
   align-items: center;
+  margin-bottom: 1rem;
 
   &.success {
     color: map-get($colors, success);

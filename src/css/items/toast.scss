@@ -1,7 +1,7 @@
 .istox-toast {
   min-height: auto !important;
   background-color: map-get($colors, primary) !important;
-  padding: 0.9375rem !important;
+  padding: 1rem !important;
 }
 
 .istox-toast button {
@@ -9,13 +9,13 @@
 }
 
 .istox-toast-body {
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin: auto !important;
   width: 100%;
 }
 
 .istox-toast-progress {
-  font-size: 0.9rem;
+  font-size: 1rem;
   background: map-get($colors, primaryDark) !important;
 }
 
@@ -25,7 +25,7 @@
   }
 
   .main-title {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 20px;
   }

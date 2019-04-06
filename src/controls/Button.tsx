@@ -27,13 +27,15 @@ interface IButton extends IContainer {
   size?: 'medium' | 'large' | 'small';
   fluid?: boolean;
   loading?: boolean;
+  float?: 'left' | 'right' | 'none';
 }
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
     variant: 'default',
     type: 'button',
-    size: 'medium'
+    size: 'medium',
+    float: 'left'
   };
 
   public render() {
@@ -41,27 +43,15 @@ export class Button extends React.Component<IButton, any> {
       styles.button,
       this.props.size === 'large' ? styles.buttonLg : '',
       this.props.size === 'small' ? styles.buttonSm : '',
-      this.props.innerClasses || ''
+      this.props.innerClasses || '',
+      this.props.variant || '',
+      this.props.outline ? 'outline' : '',
+      this.props.basic ? 'basic' : '',
+      this.props.flat ? 'flat' : '',
+      this.props.fluid ? 'fluid' : '',
+      this.props.disabled ? styles.disabled : '',
+      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
     ];
-
-    if (this.props.variant) {
-      classes.push(this.props.variant);
-    }
-    if (this.props.outline) {
-      classes.push('outline');
-    }
-    if (this.props.basic) {
-      classes.push('basic');
-    }
-    if (this.props.flat) {
-      classes.push('flat');
-    }
-    if (this.props.fluid) {
-      classes.push('fluid');
-    }
-    if (this.props.disabled) {
-      classes.push(styles.disabled);
-    }
 
     let style: React.CSSProperties = {};
 

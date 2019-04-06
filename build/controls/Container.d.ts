@@ -45,6 +45,7 @@ export interface IContainer {
     variant?: any;
     clamp?: number;
     focus?: boolean;
+    alignItems?: 'baseline' | 'center' | 'start' | 'end';
 }
 export declare class Container extends React.Component<IContainer, any> {
     render(): JSX.Element | null;

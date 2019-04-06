@@ -40,7 +40,7 @@
       ul {
         li {
           a {
-            padding: 0.9375rem 1.875rem 0.3125rem 1.875rem;
+            padding: 1rem 2rem 0.5rem 2rem;
             height: auto;
             font-size: 1rem;
 
@@ -60,12 +60,12 @@
     &.basic {
       ul {
         border: 0;
-        padding: 0 0.9375rem;
+        padding: 0 1rem;
         background-color: map-get($colors, primaryAlt);
 
         li {
           background-color: map-get($colors, primaryAlt);
-          padding: 0 0.9375rem;
+          padding: 0 1rem;
           border: 0;
           border-right: 0;
           height: 100%;
@@ -98,7 +98,6 @@
 
       .tab-content {
         border: 0;
-        background-color: transparent;
       }
     }
 
@@ -159,6 +158,7 @@
       background-color: white;
       border: 1px solid map-get($colors, primaryGrey);
       flex: 1;
+      overflow: auto;
 
       .tab-pane {
         padding: 1rem;

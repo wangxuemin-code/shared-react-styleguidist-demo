@@ -5,7 +5,7 @@ import * as styles from '../css/main.scss';
 
 interface IProgressBar extends IContainer {
   children?: any;
-  label?: boolean;
+  label?: boolean | string;
   striped?: boolean;
   animated?: boolean;
   value?: any;
@@ -59,10 +59,15 @@ export class ProgressBar extends React.Component<IProgressBar, IState> {
 
   private getProgressBarDesign(IProgressBar: IProgressBar) {
     const classes = [];
+    const label = IProgressBar.label
+      ? typeof IProgressBar.label === 'string'
+        ? IProgressBar.label
+        : `${IProgressBar.value}%`
+      : '';
     return (
       <ReactProgressBar
         now={IProgressBar.value}
-        label={IProgressBar.label ? `${IProgressBar.value}%` : ''}
+        label={label}
         striped={IProgressBar.striped}
         className={IProgressBar.variant}
         key={IProgressBar.order}
