@@ -291,7 +291,6 @@ class Main extends React.Component<
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
-              basic={true}
               tabs={[
                 {
                   title: (
@@ -525,8 +524,8 @@ class Main extends React.Component<
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Form
-                display={'grid'}
                 horizontal
+                display={'grid'}
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -543,39 +542,57 @@ class Main extends React.Component<
                   });
                 }}
               >
-                <Controls.FormControl
-                  required
-                  placeholder={'Placeholder'}
-                  disabled={true}
-                  ref={(ref) => {
-                    this.form = ref;
-                  }}
-                  label={
-                    <span>
-                      Amount in <b>USD</b>
-                    </span>
-                  }
-                  extraControls={
-                    <Link>
-                      <Icon icon={faPlus} text={'Extra control'} />
-                    </Link>
-                  }
-                  append={
-                    <Button
-                      textAlign={'center'}
-                      type={'submit'}
-                      onPress={() => {
-                        console.log(this.form.getFormData());
-                        console.log(this.form.getInputValue('description'));
-                      }}
-                    >
-                      Submit
-                    </Button>
-                  }
-                  name='hi'
-                  type={'money'}
-                  decimalPlace={2}
-                />
+                <Controls.Container className={styles.formGroup} display={'flex'}>
+                  <Controls.FormControl label={'Area Code'} name='phonecode' type={'phonecode'} />
+                  <Controls.FormControl
+                    required={true}
+                    placeholder={'XXXXXXXX'}
+                    label={<span>Phone Number</span>}
+                    append={
+                      <Controls.Button textAlign={'center'} type={'submit'}>
+                        Send Code
+                      </Controls.Button>
+                    }
+                    name='phone'
+                    type={'phone'}
+                    decimalPlace={2}
+                  />
+                </Controls.Container>
+                <Controls.Container className={styles.formGroup} display={'flex'}>
+                  <Controls.FormControl
+                    required
+                    placeholder={'Placeholder'}
+                    disabled={true}
+                    ref={(ref) => {
+                      this.form = ref;
+                    }}
+                    label={
+                      <span>
+                        Amount in <b>USD</b>
+                      </span>
+                    }
+                    extraControls={
+                      <Link>
+                        <Icon icon={faPlus} text={'Extra control'} />
+                      </Link>
+                    }
+                    append={
+                      <Button
+                        textAlign={'center'}
+                        type={'submit'}
+                        onPress={() => {
+                          console.log(this.form.getFormData());
+                          console.log(this.form.getInputValue('description'));
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    }
+                    name='hi'
+                    type={'money'}
+                    decimalPlace={2}
+                  />
+                </Controls.Container>
                 <Controls.FormControl
                   required
                   label='Image'

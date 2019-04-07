@@ -19,6 +19,7 @@ export interface IContainer {
     classNames?: string[];
     lineHeight?: number;
     clearFix?: boolean;
+    heightPercent?: number;
     widthPercent?: number;
     height?: number;
     width?: number;
@@ -45,7 +46,9 @@ export interface IContainer {
     variant?: any;
     clamp?: number;
     focus?: boolean;
-    alignItems?: 'baseline' | 'center' | 'start' | 'end';
+    alignItems?: 'baseline' | 'center' | 'start' | 'end' | 'stretch';
+    justifyContent?: 'baseline' | 'center' | 'start' | 'end' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
+    equalWidth?: boolean;
 }
 export declare class Container extends React.Component<IContainer, any> {
     render(): JSX.Element | null;

@@ -110,20 +110,13 @@ export class FormControl extends React.Component<IProps, IState> {
     return (
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
-          {this.props.label && (
-            <label>
-              <span key='1'>
-                {this.props.label}
-                {this.props.required && <span className={styles.required}>*</span>}
-              </span>
-            </label>
-          )}
-
-          <Container
-            classNames={[styles.formControlsInner, this.props.append ? styles.flex1 : '']}
-            position={'relative'}
-            className={styles.formControlsInner}
-          >
+          <label>
+            <span key='1'>
+              {this.props.label}
+              {this.props.required && <span className={styles.required}>*</span>}
+            </span>
+          </label>
+          <Container classNames={[styles.formControlsInner]} position={'relative'}>
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
@@ -138,7 +131,6 @@ export class FormControl extends React.Component<IProps, IState> {
             </Container>
           </Container>
         )}
-
         <Container className={styles.formControlsWrapper}>
           <span />
           <Transition in={this.state.showError}>
@@ -548,6 +540,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'email' ||
       this.props.type === 'password' ||
       this.props.type === 'select' ||
+      this.props.type === 'customselect' ||
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
       this.props.type === 'uploader'

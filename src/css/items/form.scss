@@ -1,5 +1,9 @@
 $borderRadius: 0.375rem;
 .istox-form {
+  .form-controls-inner {
+    flex: auto;
+    display: flex;
+  }
   input,
   select,
   textarea {
@@ -8,6 +12,23 @@ $borderRadius: 0.375rem;
     background-color: map-get($colors, primaryGreyLight);
     border: none;
     box-shadow: none;
+  }
+
+  input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
+    min-width: 18.571428571428573rem;
+  }
+  .select {
+    width: 100%;
+  }
+  input[id*='select'] {
+    min-width: 3rem !important;
+    min-height: 36px !important;
+  }
+  input.otp {
+    min-width: 0 !important;
+  }
+  textarea {
+    min-width: 100%;
   }
 
   select {
@@ -27,11 +48,7 @@ $borderRadius: 0.375rem;
   }
 
   .main-form-controls-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  .main-form-controls-wrapper:last-child {
-    margin-bottom: 0px;
+    margin: 0 1rem 1rem 0;
   }
 
   input {
@@ -45,92 +62,99 @@ $borderRadius: 0.375rem;
     margin: 0px 5px 0 0;
     cursor: pointer;
   }
-}
 
-.istox-form.form-horizontal .form-controls-wrapper {
-  display: grid;
-  grid-template-columns: 10rem auto;
-}
+  &.form-horizontal {
+    .form-group {
+      margin: 0;
+    }
+    input[id*='select'] {
+      min-height: 50px !important;
+    }
+    .form-controls-wrapper {
+      display: grid;
+      grid-template-columns: 10rem auto;
 
-.istox-form label {
-  margin-bottom: 0px;
-  font-weight: 300;
-  margin-bottom: 0.5rem;
-}
+      .form-controls-inner {
+        display: flex;
 
-.istox-form.form-horizontal .form-controls-wrapper label {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  margin-bottom: 0px;
-}
+        .select {
+          width: 100%;
+          border: 1px solid map-get($colors, primaryGrey);
 
-.istox-form.form-horizontal .form-controls-wrapper .checkbox {
-  padding: 0;
+          div {
+            padding-top: 0;
+            padding-bottom: 0;
+            margin: 0;
+            cursor: pointer;
+            border: none;
+          }
+
+          div[id*='select'] {
+            padding: 8px;
+            cursor: pointer;
+          }
+        }
+
+        .horizontal {
+          display: inline-flex;
+
+          > div {
+            margin-right: 1rem;
+          }
+        }
+
+        .select-option {
+          display: flex;
+          align-items: center;
+        }
+
+        .loading-container-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .loading-container {
+          border-radius: $borderRadius;
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        justify-content: start;
+        margin-bottom: 0px;
+      }
+
+      .checkbox {
+        padding: 0;
+
+        label {
+          min-height: 15px;
+        }
+
+        input[type='checkbox'] {
+          cursor: pointer;
+        }
+      }
+
+      .extra-control div {
+        display: flex;
+        align-items: center;
+      }
+
+      .icon {
+        margin-right: 0.9rem;
+        font-size: 1.3rem;
+      }
+    }
+  }
 
   label {
-    min-height: 15px;
+    margin-bottom: 0px;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
   }
-
-  input[type='checkbox'] {
-    cursor: pointer;
-  }
-}
-
-.istox-form.form-horizontal .form-controls-wrapper .extra-control div {
-  display: flex;
-  align-items: center;
-}
-
-.istox-form.form-horizontal .form-controls-wrapper .icon {
-  margin-right: 0.9rem;
-  font-size: 1.3rem;
-}
-
-.istox-form.form-horizontal .form-controls-inner {
-  display: flex;
-  align-items: center;
-
-  .select {
-    width: 100%;
-    border: 1px solid map-get($colors, primaryGrey);
-
-    div {
-      padding-top: 0;
-      padding-bottom: 0;
-      margin: 0;
-      cursor: pointer;
-      border: none;
-    }
-
-    div[id*='select'] {
-      padding: 8px;
-      cursor: pointer;
-    }
-  }
-
-  .horizontal {
-    display: inline-flex;
-
-    > div {
-      margin-right: 1rem;
-    }
-  }
-
-  .select-option {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.istox-form .form-controls-inner .loading-container-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.istox-form .form-controls-inner .loading-container {
-  border-radius: $borderRadius;
 }
 
 .istox-form .form-controls-wrapper.error input,
@@ -182,6 +206,7 @@ $borderRadius: 0.375rem;
   &.svg {
     position: absolute;
     left: 10px;
+    top: 1rem;
     color: #aaa;
   }
 }

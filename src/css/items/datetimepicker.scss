@@ -13,6 +13,7 @@
 :global(.react-datepicker-wrapper),
 :global(.react-datepicker__input-container),
 :global(.react-datepicker__input-container) > input {
+  min-width: 18.571428571428573rem;
   width: 100%;
 }
 
@@ -21,7 +22,11 @@
 }
 
 .datepicker-calender-container {
-  position: relative;
-  right: 1.875rem;
   pointer-events: none;
+
+  > div {
+    position: absolute;
+    right: 1.3rem;
+    top: 1.3rem;
+  }
 }

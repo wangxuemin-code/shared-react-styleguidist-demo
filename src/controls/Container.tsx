@@ -25,6 +25,7 @@ export interface IContainer {
   classNames?: string[];
   lineHeight?: number;
   clearFix?: boolean;
+  heightPercent?: number;
   widthPercent?: number;
   height?: number;
   width?: number;
@@ -51,7 +52,17 @@ export interface IContainer {
   variant?: any;
   clamp?: number;
   focus?: boolean;
-  alignItems?: 'baseline' | 'center' | 'start' | 'end';
+  alignItems?: 'baseline' | 'center' | 'start' | 'end' | 'stretch';
+  justifyContent?:
+    | 'baseline'
+    | 'center'
+    | 'start'
+    | 'end'
+    | 'stretch'
+    | 'space-between'
+    | 'space-around'
+    | 'space-evenly';
+  equalWidth?: boolean;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -65,7 +76,8 @@ export class Container extends React.Component<IContainer, any> {
       this.props.textAlign === 'center' ? styles.textCenter : '',
       this.props.textAlign === 'left' ? styles.textLeft : '',
       this.props.textAlign === 'right' ? styles.textRight : '',
-      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
+      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : '',
+      this.props.equalWidth ? styles.equalWidth : ''
     ];
 
     if (this.props.classNames) {
@@ -103,6 +115,10 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.display) {
       style.display = this.props.display;
+    }
+
+    if (this.props.heightPercent) {
+      style.height = this.props.heightPercent + '%';
     }
 
     if (this.props.widthPercent) {

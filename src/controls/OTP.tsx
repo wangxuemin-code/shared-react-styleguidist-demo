@@ -191,7 +191,7 @@ class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
           this.input = input;
         }}
         style={Object.assign({ width: inputWidth, textAlign: 'center' })}
-        className=''
+        className='otp'
         onKeyDown={onKeyDown}
         onChange={onChange}
         type={this.props.isInputNum ? 'text' : 'text'}

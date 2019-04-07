@@ -108,6 +108,7 @@ hr {
   &.hidden {
     visibility: none;
   }
+  float: left;
 }
 
 .header {
@@ -161,14 +162,20 @@ hr {
 
 .right {
   float: right;
+  margin-left: auto;
 }
 
 .left {
   float: left;
+  margin-right: auto;
 }
 
 .flex-1 {
   flex: 1;
+}
+
+.flex-auto {
+  flex: auto;
 }
 
 .flex-50 {
@@ -177,4 +184,11 @@ hr {
 
 .width-50 {
   width: 50%;
+}
+
+.equal-width {
+  display: flex;
+  > div {
+    flex: 1;
+  }
 }

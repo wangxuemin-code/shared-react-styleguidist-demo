@@ -13,6 +13,7 @@ $borderRadius: 6.25rem;
   font-weight: bold;
   font-family: inherit;
   box-shadow: $boxShadow;
+  margin-right: 1rem;
 
   &.primary {
     background-color: map-get($colors, primary);
@@ -106,6 +107,7 @@ $borderRadius: 6.25rem;
 
   &.flat {
     box-shadow: none;
+    border: none;
   }
 
   &.fluid {
@@ -124,15 +126,15 @@ $borderRadius: 6.25rem;
 }
 
 .button.button-lg {
-  font-size: 1.5rem;
+  font-size: 1.4285714285714286rem;
   border-radius: $borderRadius;
   padding: 13px 55px;
 }
 
 .button.button-sm {
-  font-size: 0.85rem;
+  font-size: 0.8571428571428571rem;
   border-radius: $borderRadius;
-  padding: 5px 20px;
+  padding: 10px 20px;
 }
 
 .button.button-none {

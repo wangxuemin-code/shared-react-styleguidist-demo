@@ -77,7 +77,11 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
           />
-          <Controls.Container className={styles.datepickerCalenderContainer}>
+          <Controls.Container
+            margin={{ rightRem: 1 }}
+            position={'relative'}
+            className={styles.datepickerCalenderContainer}
+          >
             <Controls.Icon icon={faCalendarAlt} />
           </Controls.Container>
           <DatePicker
@@ -94,7 +98,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
           />
-          <Controls.Container className={styles.datepickerCalenderContainer}>
+          <Controls.Container position={'relative'} className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
           </Controls.Container>
         </React.Fragment>
