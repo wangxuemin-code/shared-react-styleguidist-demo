@@ -36,7 +36,7 @@ interface IProps extends IContainer {
     | 'text'
     | 'number'
     | 'numberfields'
-    | 'phone'
+    | 'numeric'
     | 'money'
     | 'static'
     | 'email'
@@ -59,7 +59,7 @@ interface IProps extends IContainer {
   label?: any;
   required?: boolean;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
-  selectOptions?: { label: string; value: string }[];
+  selectOptions?: { label: any; value: string }[];
   selectCustomOptions?: { label: string; value: string; image: string }[];
   extraControls?: any;
   dateOptions?: IDateOption;
@@ -586,7 +586,7 @@ export class FormControl extends React.Component<IProps, IState> {
                 }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
-        } else if (this.props.type === 'phone') {
+        } else if (this.props.type === 'numeric') {
           const re = /^\d+$/;
           return {
             displayValue: !re.test(value) ? '' : value,

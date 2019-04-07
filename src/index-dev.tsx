@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Fragment } from 'react';
 import {
   Container,
   Button,
@@ -107,6 +108,11 @@ class Main extends React.Component<
   }
 
   public render() {
+    const link = (
+      <Fragment>
+        <a href='google.com'>Test Link</a>
+      </Fragment>
+    );
     return (
       <React.Fragment>
         <RootContainer>
@@ -373,12 +379,14 @@ class Main extends React.Component<
               </Button>
             ))}
             <Divider />
-            <h4>Image</h4>
-            <Container padding={{ allPx: 15 }}>
-              <Image variant={'logo'} />
-            </Container>
-            <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
-              <Image variant={'logo alt'} />
+            <Container display={'grid'} padding={{ allPx: 15 }}>
+              <h4>Image</h4>
+              <Container padding={{ allPx: 15 }}>
+                <Image variant={'logo'} />
+              </Container>
+              <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
+                <Image variant={'logo alt'} />
+              </Container>
             </Container>
             <Divider />
             <h4>PopUps</h4>
@@ -443,36 +451,37 @@ class Main extends React.Component<
               Bottom Toast
             </Button>
             <Divider />
-            <h4>Progress</h4>
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-            <ProgressBar
-              margin={{ topPx: 20 }}
-              value={20}
-              label={'Strong Password'}
-              variant={'success'}
-            />
-            <ProgressBar margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar gap width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-
+            <Container display={'grid'} padding={{ allPx: 15 }}>
+              <h4>Progress</h4>
+              <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+              <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+              <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+              <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+              <ProgressBar
+                margin={{ topPx: 20 }}
+                value={20}
+                label={'Strong Password'}
+                variant={'success'}
+              />
+              <ProgressBar margin={{ topPx: 20 }}>
+                <ProgressBar striped variant='success' value={25} order={1} />
+                <ProgressBar variant='info' value={25} order={2} />
+                <ProgressBar striped variant='warning' value={25} order={3} />
+                <ProgressBar striped variant='danger' value={25} order={4} />
+              </ProgressBar>
+              <ProgressBar width={200} margin={{ topPx: 20 }}>
+                <ProgressBar striped variant='success' value={25} order={1} />
+                <ProgressBar variant='info' value={25} order={2} />
+                <ProgressBar striped variant='warning' value={25} order={3} />
+                <ProgressBar striped variant='danger' value={25} order={4} />
+              </ProgressBar>
+              <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+                <ProgressBar striped variant='success' value={25} order={1} />
+                <ProgressBar variant='info' value={25} order={2} />
+                <ProgressBar striped variant='warning' value={25} order={3} />
+                <ProgressBar striped variant='danger' value={25} order={4} />
+              </ProgressBar>
+            </Container>
             <Divider />
             <h4>Table</h4>
             <Container backgroundColor={'#FFF'} margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
@@ -553,8 +562,8 @@ class Main extends React.Component<
                         Send Code
                       </Controls.Button>
                     }
-                    name='phone'
-                    type={'phone'}
+                    name='numeric'
+                    type={'numeric'}
                     decimalPlace={2}
                   />
                 </Controls.Container>
@@ -636,7 +645,7 @@ class Main extends React.Component<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Number'} name='number' type={'number'} />
-                <Controls.FormControl label={'Phone'} name='phone' type={'phone'} />
+                <Controls.FormControl label={'Phone'} name='numeric' type={'numeric'} />
                 <Controls.FormControl
                   numInputs={5}
                   inputWidth={'95px'}
@@ -671,7 +680,7 @@ class Main extends React.Component<
                   variant={'horizontal'}
                   selectOptions={[
                     {
-                      label: 'Option1',
+                      label: link,
                       value: 'hei!'
                     },
                     {
