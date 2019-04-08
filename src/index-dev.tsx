@@ -125,7 +125,6 @@ class Main extends React.Component<
           />
           <WrapperContainer>
             <Container
-              margin={{ topPx: 15 }}
               padding={{ allPx: 15 }}
               backgroundColor={'#FFF'}
               border={{

@@ -80,6 +80,10 @@ export class Container extends React.Component<IContainer, any> {
       this.props.equalWidth ? styles.equalWidth : ''
     ];
 
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
     }

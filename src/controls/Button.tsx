@@ -53,6 +53,10 @@ export class Button extends React.Component<IButton, any> {
       this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
     ];
 
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
     let style: React.CSSProperties = {};
 
     if (this.props.padding) {

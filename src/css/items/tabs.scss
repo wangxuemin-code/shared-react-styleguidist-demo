@@ -1,6 +1,7 @@
 .istox-tabs-container {
   display: flex;
   flex: 1;
+  width: 100%;
 
   a {
     color: map-get($colors, primaryGreyDark);
