@@ -1,4 +1,5 @@
 $borderRadius: 0.375rem;
+
 .istox-form {
   .form-controls-inner {
     flex: auto;
@@ -13,12 +14,15 @@ $borderRadius: 0.375rem;
     border: none;
     box-shadow: none;
   }
-
   input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
     min-width: 18.571428571428573rem;
   }
   .select {
     width: 100%;
+
+    div {
+      color: map-get($colors, primaryDark) !important;
+    }
   }
   input[id*='select'] {
     min-width: 3rem !important;
@@ -30,7 +34,6 @@ $borderRadius: 0.375rem;
   textarea {
     min-width: 100%;
   }
-
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -42,21 +45,22 @@ $borderRadius: 0.375rem;
     background-color: map-get($colors, primaryAlt);
     cursor: pointer;
   }
-
   textarea {
     resize: none;
   }
-
   .main-form-controls-wrapper {
-    margin: 0 1rem 1rem 0;
+    margin: 0 0 1rem 0;
   }
-
+  .form-group {
+    .main-form-controls-wrapper {
+      margin: 0 1rem 1rem 0;
+    }
+  }
   input {
     &.prepend {
       padding-left: 30px;
     }
   }
-
   input[type='checkbox'],
   input[type='radio'] {
     margin: 0px 5px 0 0;
@@ -148,12 +152,6 @@ $borderRadius: 0.375rem;
         font-size: 1.3rem;
       }
     }
-  }
-
-  label {
-    margin-bottom: 0px;
-    font-weight: 300;
-    margin-bottom: 0.5rem;
   }
 }
 

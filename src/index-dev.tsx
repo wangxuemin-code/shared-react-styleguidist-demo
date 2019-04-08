@@ -555,7 +555,7 @@ class Main extends React.Component<
                   <Controls.FormControl
                     required={true}
                     placeholder={'XXXXXXXX'}
-                    label={<span>Phone Number</span>}
+                    label={'Phone Number'}
                     append={
                       <Controls.Button textAlign={'center'} type={'submit'}>
                         Send Code
@@ -734,7 +734,7 @@ class Main extends React.Component<
                 />
                 <Controls.FormControl
                   required
-                  label={'Custom Dropdown'}
+                  label={'Html Dropdown'}
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
@@ -751,6 +751,7 @@ class Main extends React.Component<
                     }
                   ]}
                 />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'

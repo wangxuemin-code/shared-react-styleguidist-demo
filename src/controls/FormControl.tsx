@@ -43,6 +43,7 @@ interface IProps extends IContainer {
     | 'password'
     | 'select'
     | 'customselect'
+    | 'country'
     | 'phonecode'
     | 'countrycode'
     | 'switch'
@@ -110,12 +111,14 @@ export class FormControl extends React.Component<IProps, IState> {
     return (
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
-          <label>
-            <span key='1'>
-              {this.props.label}
-              {this.props.required && <span className={styles.required}>*</span>}
-            </span>
-          </label>
+          {this.props.label && (
+            <label>
+              <span className={styles.displayFlex}>
+                {this.props.label}
+                {this.props.required && <span className={styles.required}>*</span>}
+              </span>
+            </label>
+          )}
           <Container classNames={[styles.formControlsInner]} position={'relative'}>
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
@@ -320,6 +323,61 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           className={'select'}
+          filterOption={customFilter}
+          placeholder={this.props.placeholder}
+          onChange={this.onSetOption}
+          components={{ Option: CustomOption, SingleValue: DisplayOption }}
+          options={Options}
+        />
+      );
+    } else if (this.props.type === 'country') {
+      const CustomOption = (innerProps: any) => {
+        return (
+          <components.Option {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.Option>
+        );
+      };
+      const DisplayOption = (innerProps: any) => {
+        return (
+          <components.SingleValue {...innerProps}>
+            <Container className='select-option'>
+              {innerProps.data.image}
+              {innerProps.data.label}
+            </Container>
+          </components.SingleValue>
+        );
+      };
+      const Options: any = [];
+      countries.all.map((option) => {
+        if (option.alpha3.length && option.emoji) {
+          var obj = {
+            label: option.name,
+            value: option.name,
+            image: option.emoji,
+            country: option.name
+          };
+          Options.push(obj);
+        }
+      });
+      const customFilter = (option: any, searchText: string) => {
+        if (
+          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
+          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
+          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+        ) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+      return (
+        <Select
+          className={'select'}
+          // value={this.state.displayValue}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}

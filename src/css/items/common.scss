@@ -123,15 +123,20 @@ hr {
   display: inline-block;
 }
 
+.display-flex {
+  display: flex;
+}
+
 .normal-text {
-  font-weight: normal;
+  font-weight: 300;
 }
 
 .bold {
   font-weight: bold;
 }
 
-.light-bold {
+.light-bold,
+.semi-bold {
   font-weight: 500;
 }
 
