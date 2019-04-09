@@ -503,6 +503,7 @@ export class FormControl extends React.Component<IProps, IState> {
                 return (
                   <Container
                     alignItems={'baseline'}
+                    display={'flex'}
                     key={uniqid().toString()}
                     className={styles.loadingContainerWrapper}
                   >

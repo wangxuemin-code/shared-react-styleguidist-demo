@@ -85,13 +85,16 @@ h4 {
   font-size: 1.7142857142857142rem; // 24px
 }
 h5 {
-  font-size: 1.5rem; // 21px;
+  font-size: 1.5rem; // 21px
 }
 h6 {
   font-size: 1.2857142857142858rem; // 18px
 }
 span {
-  font-size: 1.1428571428571428rem; // 16px;
+  font-size: 1.1428571428571428rem; // 16px
+}
+p {
+  font-size: 1rem; // 14pm
 }
 
 h1,
@@ -166,13 +169,13 @@ hr {
 }
 
 .right {
-  float: right;
-  margin-left: auto;
+  float: right !important;
+  margin-left: auto !important;
 }
 
 .left {
-  float: left;
-  margin-right: auto;
+  float: left !important;
+  margin-right: auto !important;
 }
 
 .flex-1 {

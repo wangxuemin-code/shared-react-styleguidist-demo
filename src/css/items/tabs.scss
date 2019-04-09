@@ -3,8 +3,10 @@
   flex: 1;
   width: 100%;
 
-  a {
-    color: map-get($colors, primaryGreyDark);
+  .nav {
+    a {
+      color: map-get($colors, primaryGreyDark);
+    }
   }
 
   .nav-tabs > li.active > a,

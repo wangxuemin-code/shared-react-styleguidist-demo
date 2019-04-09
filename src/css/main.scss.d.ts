@@ -203,6 +203,7 @@ export const slideOut: string;
 export const content: string;
 export const invi: string;
 export const istoxTabsContainer: string;
+export const nav: string;
 export const navTabs: string;
 export const istoxTab: string;
 export const middle: string;
