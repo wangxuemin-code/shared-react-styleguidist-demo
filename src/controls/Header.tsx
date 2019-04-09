@@ -71,15 +71,20 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container display={'flex'} {...this.props}>
         <WrapperContainer display={'grid'}>
-          <a href='/' className={styles.logoAnchor}>
-            {this.props.logo && <Image src={logo} className={styles.icon} />}
-          </a>
-          <ul className={styles.links}>
-            {this.props.mainLinks!.map((link, i) => {
-              return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
-            })}
-          </ul>
-          {this.props.userAction && this.getUserActionDesign()}
+          {this.props.children}
+          {!this.props.children && (
+            <a href='/' className={styles.logoAnchor}>
+              {this.props.logo && <Image src={logo} className={styles.icon} />}
+            </a>
+          )}
+          {!this.props.children && (
+            <ul className={styles.links}>
+              {this.props.mainLinks!.map((link, i) => {
+                return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
+              })}
+            </ul>
+          )}
+          {!this.props.children && this.props.userAction && this.getUserActionDesign()}
         </WrapperContainer>
       </Container>
     );
