@@ -58,6 +58,8 @@ export interface IContainer {
     | 'center'
     | 'start'
     | 'end'
+    | 'left'
+    | 'right'
     | 'stretch'
     | 'space-between'
     | 'space-around'
@@ -199,6 +201,10 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.alignItems) {
       style.alignItems = this.props.alignItems;
+    }
+
+    if (this.props.justifyContent) {
+      style.justifyContent = this.props.justifyContent;
     }
 
     return (

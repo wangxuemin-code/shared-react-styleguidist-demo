@@ -47,7 +47,7 @@ export interface IContainer {
     clamp?: number;
     focus?: boolean;
     alignItems?: 'baseline' | 'center' | 'start' | 'end' | 'stretch';
-    justifyContent?: 'baseline' | 'center' | 'start' | 'end' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
+    justifyContent?: 'baseline' | 'center' | 'start' | 'end' | 'left' | 'right' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
     equalWidth?: boolean;
 }
 export declare class Container extends React.Component<IContainer, any> {

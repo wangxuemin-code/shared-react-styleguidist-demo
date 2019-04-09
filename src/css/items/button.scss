@@ -1,9 +1,17 @@
 $borderRadius: 6.25rem;
+
+.fluid {
+  width: 100%;
+  .button {
+    width: 100%;
+  }
+}
+
 .button {
   background-color: map-get($colors, primary);
   background-image: none;
   font-size: 1rem;
-  padding: 12px 40px;
+  padding: 1.143rem 2rem;
   outline: none;
   color: #fff;
   cursor: pointer;
@@ -108,10 +116,6 @@ $borderRadius: 6.25rem;
   &.flat {
     box-shadow: none;
     border: none;
-  }
-
-  &.fluid {
-    width: 100%;
   }
 }
 

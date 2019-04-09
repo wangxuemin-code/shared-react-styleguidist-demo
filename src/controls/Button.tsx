@@ -39,6 +39,10 @@ export class Button extends React.Component<IButton, any> {
   };
 
   public render() {
+    let containerClasses = [
+      this.props.fluid ? 'fluid' : '',
+      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
+    ];
     let classes: string[] = [
       styles.button,
       this.props.size === 'large' ? styles.buttonLg : '',
@@ -48,10 +52,12 @@ export class Button extends React.Component<IButton, any> {
       this.props.outline ? 'outline' : '',
       this.props.basic ? 'basic' : '',
       this.props.flat ? 'flat' : '',
-      this.props.fluid ? 'fluid' : '',
-      this.props.disabled ? styles.disabled : '',
-      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
+      this.props.disabled ? styles.disabled : ''
     ];
+
+    containerClasses = containerClasses.filter(function(el) {
+      return el != '';
+    });
 
     classes = classes.filter(function(el) {
       return el != '';
@@ -64,37 +70,47 @@ export class Button extends React.Component<IButton, any> {
     }
 
     if (this.props.href && !this.props.disabled) {
-      return <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>;
+      return (
+        <Link href={this.props.href}>{this.getButtonDesign(style, classes, containerClasses)}</Link>
+      );
     } else {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);
       }
-      return this.getButtonDesign(style, classes);
+      return this.getButtonDesign(style, classes, containerClasses);
     }
   }
 
-  private getButtonDesign(style: React.CSSProperties, classes: string[]) {
+  private getButtonDesign(
+    style: React.CSSProperties,
+    classes: string[],
+    containerClasses: string[]
+  ) {
     // remove padding, so that it won't get passed to Container
     let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
 
     return (
-      // <Container {...filteredProps} display='inline-block' position='relative'>
-      //   {this.props.loading && (
-      //     <div className={styles.btnLoading}>
-      //       <Loading backDrop={false} loading={this.props.loading} />
-      //     </div>
-      //   )}
-
-      <button
-        type={this.props.type}
-        style={style}
-        className={classes.join(' ')}
-        onClick={this.props.onPress}
-        disabled={this.props.disabled}
+      <Container
+        className={containerClasses.join(' ')}
+        {...filteredProps}
+        display='inline-block'
+        position='relative'
       >
-        {this.props.children}
-      </button>
-      // </Container>
+        {this.props.loading && (
+          <div className={styles.btnLoading}>
+            <Loading backDrop={false} loading={this.props.loading} />
+          </div>
+        )}
+        <button
+          type={this.props.type}
+          style={style}
+          className={classes.join(' ')}
+          onClick={this.props.onPress}
+          disabled={this.props.disabled}
+        >
+          {this.props.children}
+        </button>
+      </Container>
     );
   }
 }
