@@ -75,7 +75,12 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
           <Loading loading={this.state.loading} />
           <img src={state.imageSrc} />
           {!state.loaded && <Icon icon={faUpload} classNames={[styles.icon]} />}
-
+          {!state.active && (
+            <p className={styles.normalText}>
+              Drag and drop or <br />
+              Click here to attached a file
+            </p>
+          )}
           <input type='file' accept='image/*' onChange={this.onFileChange} />
         </label>
       </Container>

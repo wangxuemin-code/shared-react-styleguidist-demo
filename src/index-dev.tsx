@@ -346,7 +346,7 @@ class Main extends React.Component<
             <Button size='large' variant='primary'>
               Large
             </Button>
-            <Button size='large' fontStyle={'italic'} variant='primary'>
+            <Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
             </Button>
             <Divider visibility={'hidden'} />

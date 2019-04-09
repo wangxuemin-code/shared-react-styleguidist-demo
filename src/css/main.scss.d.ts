@@ -124,6 +124,8 @@ export const width50: string;
 export const equalWidth: string;
 export const fluid: string;
 export const button: string;
+export const medium: string;
+export const large: string;
 export const primary: string;
 export const outline: string;
 export const secondary: string;

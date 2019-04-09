@@ -45,8 +45,7 @@ export class Button extends React.Component<IButton, any> {
     ];
     let classes: string[] = [
       styles.button,
-      this.props.size === 'large' ? styles.buttonLg : '',
-      this.props.size === 'small' ? styles.buttonSm : '',
+      this.props.size ? this.props.size : '',
       this.props.innerClasses || '',
       this.props.variant || '',
       this.props.outline ? 'outline' : '',
@@ -87,12 +86,12 @@ export class Button extends React.Component<IButton, any> {
     containerClasses: string[]
   ) {
     // remove padding, so that it won't get passed to Container
-    let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
+    // let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
 
     return (
       <Container
         className={containerClasses.join(' ')}
-        {...filteredProps}
+        // {...filteredProps}
         display='inline-block'
         position='relative'
       >

@@ -11,7 +11,7 @@ $borderRadius: 6.25rem;
   background-color: map-get($colors, primary);
   background-image: none;
   font-size: 1rem;
-  padding: 1.143rem 2rem;
+  padding: 0.786rem 2rem;
   outline: none;
   color: #fff;
   cursor: pointer;
@@ -22,6 +22,14 @@ $borderRadius: 6.25rem;
   font-family: inherit;
   box-shadow: $boxShadow;
   margin-right: 1rem;
+
+  &.medium {
+    padding: 1.143rem 2.357rem;
+  }
+
+  &.large {
+    padding: 1.5rem 2.714rem;
+  }
 
   &.primary {
     background-color: map-get($colors, primary);
