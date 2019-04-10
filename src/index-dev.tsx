@@ -801,19 +801,27 @@ class Main extends React.Component<
             </Item>
             <Divider />
             <h4>Card</h4>
-            <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle} icon={faUser} title={'Title'} />
-            <Card
-              leftIcon={faInfoCircle}
-              rightIcon={faCheckCircle}
-              image={'/images/ISTOX_Logo.png'}
-              title={'Title'}
-            />
+            <Container display={'flex'}>
+              <Card
+                leftIcon={faInfoCircle}
+                rightIcon={faCheckCircle}
+                icon={faUser}
+                title={'Title'}
+              />
+              <Card
+                leftIcon={faInfoCircle}
+                rightIcon={faCheckCircle}
+                image={'/images/ISTOX_Logo.png'}
+                title={'Title'}
+              />
 
-            <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
-              <Button float={'none'} size='small' variant='primary'>
-                Small
-              </Button>
-            </Card>
+              <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
+                <Button float={'none'} size='small' variant='primary'>
+                  Small
+                </Button>
+              </Card>
+            </Container>
+
             <Divider />
             <h4>Message</h4>
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
