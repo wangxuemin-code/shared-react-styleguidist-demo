@@ -18,20 +18,23 @@ export class Card extends React.Component<IProps, any> {
     return (
       <Container
         {...this.props}
-        padding={{ topRem: 0.9375, bottomRem: 0.9375, leftRem: 1.875, rightRem: 1.875 }}
+        width={225}
+        padding={{ topRem: 2.5, bottomRem: 1, leftRem: 1.875, rightRem: 1.875 }}
         className={styles.card}
       >
         {this.props.image && <Image fullWidth src={this.props.image} />}
-        {this.props.icon && <Icon icon={this.props.icon} />}
-        {this.props.leftIcon && <Icon className={'leftIcon'} icon={this.props.leftIcon} />}
-        {this.props.rightIcon && <Icon className={'rightIcon'} icon={this.props.rightIcon} />}
-        <Container>
-          {this.props.title && (
-            <Container fontSizeRem={1.125} fontWeight={600}>
-              {this.props.title}
-            </Container>
-          )}
-        </Container>
+        {this.props.icon && <Icon className={styles.cardMiddleIcon} icon={this.props.icon} />}
+        {this.props.leftIcon && (
+          <Icon className={styles.cardTopLeftIcon} icon={this.props.leftIcon} />
+        )}
+        {this.props.rightIcon && (
+          <Icon className={styles.cardTopRightIcon} icon={this.props.rightIcon} />
+        )}
+        {this.props.title && (
+          <Container padding={{ topRem: 1 }} fontSizeRem={1.143} fontWeight={500}>
+            {this.props.title}
+          </Container>
+        )}
       </Container>
     );
   }

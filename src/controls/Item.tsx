@@ -19,7 +19,7 @@ export class Item extends React.Component<IProps, any> {
         {this.props.icon && <Icon icon={this.props.icon} />}
         <Container>
           {this.props.title && (
-            <Container fontSizeRem={1.125} fontWeight={600}>
+            <Container fontSizeRem={1.143} fontWeight={500}>
               {this.props.title}
             </Container>
           )}

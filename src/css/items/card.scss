@@ -8,16 +8,22 @@
   text-align: center;
   position: relative;
 
-  .leftIcon {
+  .card-top-left-icon {
     position: absolute;
-    left: 5px;
-    top: 5px;
+    left: 0.8rem;
+    top: 0.8rem;
+    font-size: 1.429rem;
   }
 
-  .rightIcon {
+  .card-middle-icon {
+    font-size: 2.857rem;
+  }
+
+  .card-top-right-icon {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0.8rem;
+    top: 0.8rem;
+    font-size: 1.429rem;
   }
 
   &:hover {

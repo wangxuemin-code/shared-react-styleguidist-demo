@@ -31,12 +31,12 @@ import {
   faAddressBook,
   faAdjust,
   faPlus,
-  faQuestion,
-  faExclamationTriangle,
-  faTicketAlt,
+  faTimesCircle,
   faCheckCircle,
   faExclamationCircle,
-  faSearch
+  faInfoCircle,
+  faSearch,
+  faUser
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 import { Confirm } from './controls/Confirm';
@@ -782,10 +782,10 @@ class Main extends React.Component<
             />
             <Divider />
             <h4>Card</h4>
+            <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle} icon={faUser} title={'Title'} />
             <Card
-              leftIcon={faCheckCircle}
+              leftIcon={faInfoCircle}
               rightIcon={faCheckCircle}
-              icon={faCheckCircle}
               image={'/images/ISTOX_Logo.png'}
               title={'Title'}
             />
@@ -793,10 +793,19 @@ class Main extends React.Component<
             <h4>Message</h4>
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <Transition>
-                <Message success='Hello i am a success!' />
-                <Message info='Hello i am an info!' />
-                <Message warning='Hello i am a waning!' />
-                <Message error='Hello i am an error!' />
+                <Message variant={'success'} icon={faCheckCircle} message='Hello i am a success!' />
+                <Message
+                  variant={'warning'}
+                  icon={faTimesCircle}
+                  message='Hello i am an warning!'
+                />
+                <Message variant={'info'} icon={faInfoCircle} message='Hello i am a info!' />
+                <Message
+                  variant={'danger'}
+                  icon={faExclamationCircle}
+                  message='Hello i am an error!'
+                />
+                <Message variant={'danger'} message='Hello i am an error!' />
               </Transition>
             </Container>
             <Divider />

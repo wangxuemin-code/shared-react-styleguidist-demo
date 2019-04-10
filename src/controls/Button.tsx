@@ -6,16 +6,7 @@ import { Link } from './Link';
 import { Loading } from '.';
 
 interface IButton extends IContainer {
-  variant?:
-    | 'default'
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'success'
-    | 'warning'
-    | 'danger'
-    | 'none';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
   outline?: boolean;
   basic?: boolean;
   flat?: boolean;
@@ -24,7 +15,7 @@ interface IButton extends IContainer {
   href?: string;
   disabled?: boolean;
   innerClasses?: string;
-  size?: 'medium' | 'large' | 'small';
+  size?: 'small' | 'medium' | 'large';
   fluid?: boolean;
   loading?: boolean;
   float?: 'left' | 'right' | 'none';
@@ -32,9 +23,8 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    variant: 'default',
     type: 'button',
-    size: 'medium',
+    size: 'small',
     float: 'left'
   };
 

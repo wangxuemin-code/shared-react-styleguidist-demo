@@ -112,7 +112,7 @@ export class FormControl extends React.Component<IProps, IState> {
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
           {this.props.label && (
-            <label>
+            <label className={styles.semiBold}>
               <span className={styles.displayFlex}>
                 {this.props.label}
                 {this.props.required && <span className={styles.required}>*</span>}
@@ -137,7 +137,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Container className={styles.formControlsWrapper}>
           <span />
           <Transition in={this.state.showError}>
-            <Message error={this.state.error} />
+            <Message variant={'danger'} message={this.state.error} />
           </Transition>
         </Container>
       </Container>
@@ -506,6 +506,8 @@ export class FormControl extends React.Component<IProps, IState> {
                     display={'flex'}
                     key={uniqid().toString()}
                     className={styles.loadingContainerWrapper}
+                    padding={{ leftRem: 1.286 }}
+                    position={'relative'}
                   >
                     <input type='checkbox' value={option.value} />
                     {option.label}

@@ -3,28 +3,37 @@
   align-items: center;
   margin-bottom: 1rem;
 
+  .icon {
+    margin-right: 1rem;
+  }
+  span {
+    color: map-get($colors, primaryGreyDark);
+  }
   &.success {
-    color: map-get($colors, success);
+    .message-only,
+    .icon {
+      color: map-get($colors, success);
+    }
   }
 
   &.warning {
-    color: map-get($colors, warning);
+    .message-only,
+    .icon {
+      color: map-get($colors, warning);
+    }
   }
 
   &.info {
-    color: map-get($colors, info);
+    .message-only,
+    .icon {
+      color: map-get($colors, info);
+    }
   }
 
   &.danger {
-    color: map-get($colors, danger);
-  }
-
-  .icon {
-    margin-right: 0.9rem;
-    font-size: 1.3rem;
-  }
-
-  span {
-    color: map-get($colors, primaryGreyDark);
+    .message-only,
+    .icon {
+      color: map-get($colors, danger);
+    }
   }
 }

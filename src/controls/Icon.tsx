@@ -35,12 +35,7 @@ export class Icon extends React.Component<IProps, any> {
   private getWrapper() {
     if (this.props.onClick) {
       return (
-        <Button
-          {...this.props}
-          onPress={this.props.onClick}
-          variant={'none'}
-          display={'inline-flex'}
-        >
+        <Button {...this.props} onPress={this.props.onClick} display={'inline-flex'}>
           {this.getIconDesign()} {this.props.text}
         </Button>
       );

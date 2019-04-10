@@ -4,6 +4,7 @@
   width: 100%;
 
   .nav {
+    border-bottom: 0;
     a {
       color: map-get($colors, primaryGreyDark);
     }

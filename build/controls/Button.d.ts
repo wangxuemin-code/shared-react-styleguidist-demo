@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IButton extends IContainer {
-    variant?: 'default' | 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger' | 'none';
+    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
     outline?: boolean;
     basic?: boolean;
     flat?: boolean;
@@ -10,7 +10,7 @@ interface IButton extends IContainer {
     href?: string;
     disabled?: boolean;
     innerClasses?: string;
-    size?: 'medium' | 'large' | 'small';
+    size?: 'small' | 'medium' | 'large';
     fluid?: boolean;
     loading?: boolean;
     float?: 'left' | 'right' | 'none';

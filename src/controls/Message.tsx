@@ -12,49 +12,54 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps extends IContainer {
-  success?: string | 'icon-only';
-  info?: string | 'icon-only';
-  warning?: string | 'icon-only';
-  error?: string | 'icon-only';
+  icon?: any;
+  message?: string;
+  // success?: string | 'icon-only';
+  // info?: string | 'icon-only';
+  // warning?: string | 'icon-only';
+  // error?: string | 'icon-only';
+  variant?: 'info' | 'success' | 'warning' | 'danger';
 }
 
 export class Message extends React.Component<IProps, any> {
   public render() {
-    let message: string;
-    let type: 'success' | 'error' | 'info' | 'warning';
-    if (this.props.error) {
-      message = this.props.error;
-      type = 'error';
-    } else if (this.props.success) {
-      message = this.props.success;
-      type = 'success';
-    } else if (this.props.info) {
-      message = this.props.info;
-      type = 'info';
-    } else if (this.props.warning) {
-      message = this.props.warning;
-      type = 'warning';
-    } else {
-      return null;
-    }
+    // let message: string;
+    // let type: 'success' | 'error' | 'info' | 'warning';
+    // if (this.props.error) {
+    //   message = this.props.error;
+    //   type = 'error';
+    // } else if (this.props.success) {
+    //   message = this.props.success;
+    //   type = 'success';
+    // } else if (this.props.info) {
+    //   message = this.props.info;
+    //   type = 'info';
+    // } else if (this.props.warning) {
+    //   message = this.props.warning;
+    //   type = 'warning';
+    // } else {
+    //   return null;
+    // }
 
-    const classes: string[] = [type, styles.istoxMessage];
+    let classes: string[] = [styles.istoxMessage, this.props.variant || ''];
 
-    let icon;
-    if (type === 'success') {
-      icon = faCheckCircle;
-    } else if (type === 'error') {
-      icon = faTimesCircle;
-    } else if (type === 'info') {
-      icon = faInfoCircle;
-    } else if (type === 'warning') {
-      icon = faExclamationCircle;
-    }
+    // let icon;
+    // if (type === 'success') {
+    //   icon = faCheckCircle;
+    // } else if (type === 'error') {
+    //   icon = faTimesCircle;
+    // } else if (type === 'info') {
+    //   icon = faInfoCircle;
+    // } else if (type === 'warning') {
+    //   icon = faExclamationCircle;
+    // }
 
     return (
       <Container {...this.props} className={classes.join(' ')}>
-        <Icon icon={icon} className={styles.icon} />
-        <span>{message !== 'icon-only' && message}</span>
+        {this.props.icon && <Icon icon={this.props.icon} className={styles.icon} />}
+        {this.props.message && (
+          <span className={!this.props.icon ? 'message-only' : ''}>{this.props.message}</span>
+        )}
       </Container>
     );
   }

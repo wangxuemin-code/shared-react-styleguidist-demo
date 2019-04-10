@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IProps extends IContainer {
-    success?: string | 'icon-only';
-    info?: string | 'icon-only';
-    warning?: string | 'icon-only';
-    error?: string | 'icon-only';
+    icon?: any;
+    message?: string;
+    variant?: 'info' | 'success' | 'warning' | 'danger';
 }
 export declare class Message extends React.Component<IProps, any> {
-    render(): JSX.Element | null;
+    render(): JSX.Element;
 }
 export {};
