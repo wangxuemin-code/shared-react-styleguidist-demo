@@ -7,6 +7,8 @@
   margin: 0 1rem 1rem 0;
   text-align: center;
   position: relative;
+  min-width: 16rem;
+  padding: 2.5rem 1.875rem 1rem 1.875rem;
 
   .card-top-left-icon {
     position: absolute;
@@ -24,6 +26,12 @@
     right: 0.8rem;
     top: 0.8rem;
     font-size: 1.429rem;
+  }
+
+  .card-title {
+    padding-top: 1rem;
+    font-size: 1.143rem;
+    font-weight: 500;
   }
 
   &:hover {

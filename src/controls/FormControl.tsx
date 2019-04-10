@@ -508,6 +508,7 @@ export class FormControl extends React.Component<IProps, IState> {
                     className={styles.loadingContainerWrapper}
                     padding={{ leftRem: 1.286 }}
                     position={'relative'}
+                    textAlign={'justify'}
                   >
                     <input type='checkbox' value={option.value} />
                     {option.label}

@@ -16,12 +16,7 @@ interface IProps extends IContainer {
 export class Card extends React.Component<IProps, any> {
   public render() {
     return (
-      <Container
-        {...this.props}
-        width={225}
-        padding={{ topRem: 2.5, bottomRem: 1, leftRem: 1.875, rightRem: 1.875 }}
-        className={styles.card}
-      >
+      <Container {...this.props} className={styles.card}>
         {this.props.image && <Image fullWidth src={this.props.image} />}
         {this.props.icon && <Icon className={styles.cardMiddleIcon} icon={this.props.icon} />}
         {this.props.leftIcon && (
@@ -30,11 +25,7 @@ export class Card extends React.Component<IProps, any> {
         {this.props.rightIcon && (
           <Icon className={styles.cardTopRightIcon} icon={this.props.rightIcon} />
         )}
-        {this.props.title && (
-          <Container padding={{ topRem: 1 }} fontSizeRem={1.143} fontWeight={500}>
-            {this.props.title}
-          </Container>
-        )}
+        {this.props.title && <Container className={styles.cardTitle}>{this.props.title}</Container>}
       </Container>
     );
   }

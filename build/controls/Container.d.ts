@@ -14,7 +14,7 @@ export interface IContainer {
     positionPoints?: IDirection;
     border?: IBorder;
     children?: any;
-    textAlign?: 'left' | 'right' | 'center';
+    textAlign?: 'left' | 'right' | 'center' | 'justify';
     className?: string;
     classNames?: string[];
     lineHeight?: number;

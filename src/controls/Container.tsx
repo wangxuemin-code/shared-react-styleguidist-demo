@@ -20,7 +20,7 @@ export interface IContainer {
   positionPoints?: IDirection; // will only be used when position absolute
   border?: IBorder;
   children?: any;
-  textAlign?: 'left' | 'right' | 'center';
+  textAlign?: 'left' | 'right' | 'center' | 'justify';
   className?: string;
   classNames?: string[];
   lineHeight?: number;
@@ -78,6 +78,7 @@ export class Container extends React.Component<IContainer, any> {
       this.props.textAlign === 'center' ? styles.textCenter : '',
       this.props.textAlign === 'left' ? styles.textLeft : '',
       this.props.textAlign === 'right' ? styles.textRight : '',
+      this.props.textAlign === 'justify' ? styles.textJustify : '',
       this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : '',
       this.props.equalWidth ? styles.equalWidth : ''
     ];
