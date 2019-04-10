@@ -31,7 +31,13 @@ export class Button extends React.Component<IButton, any> {
   public render() {
     let containerClasses = [
       this.props.fluid ? 'fluid' : '',
-      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : ''
+      this.props.float
+        ? this.props.float == 'none'
+          ? styles.none
+          : this.props.float == 'left'
+          ? styles.left
+          : styles.right
+        : ''
     ];
     let classes: string[] = [
       styles.button,

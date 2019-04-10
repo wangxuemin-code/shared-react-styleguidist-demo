@@ -780,6 +780,25 @@ class Main extends React.Component<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
+            <Item icon={faCheckCircle}>
+              <Container widthPercent={100} verticalAlign={'center'}>
+                <Card
+                  leftIcon={faInfoCircle}
+                  rightIcon={faCheckCircle}
+                  icon={faUser}
+                  title={'Title'}
+                />
+                <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+                  <ProgressBar striped variant='success' value={25} order={1} />
+                  <ProgressBar variant='info' value={25} order={2} />
+                  <ProgressBar striped variant='warning' value={25} order={3} />
+                  <ProgressBar striped variant='danger' value={25} order={4} />
+                </ProgressBar>
+                <Button float={'right'} size='small' variant='primary'>
+                  Small
+                </Button>
+              </Container>
+            </Item>
             <Divider />
             <h4>Card</h4>
             <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle} icon={faUser} title={'Title'} />
@@ -789,6 +808,12 @@ class Main extends React.Component<
               image={'/images/ISTOX_Logo.png'}
               title={'Title'}
             />
+
+            <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
+              <Button float={'none'} size='small' variant='primary'>
+                Small
+              </Button>
+            </Card>
             <Divider />
             <h4>Message</h4>
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>

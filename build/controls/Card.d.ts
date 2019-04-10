@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IProps extends IContainer {
-    title: string;
+    title?: string;
     image?: string;
     icon?: any;
     leftIcon?: any;
