@@ -35,9 +35,9 @@ export class Button extends React.Component<IButton, any> {
       this.props.size ? this.props.size : '',
       this.props.innerClasses || '',
       this.props.variant || '',
-      this.props.outline ? 'outline' : '',
-      this.props.basic ? 'basic' : '',
-      this.props.flat ? 'flat' : '',
+      this.props.outline ? styles.outline : '',
+      this.props.basic ? styles.basic : '',
+      this.props.flat ? styles.flat : '',
       this.props.disabled ? styles.disabled : '',
       this.props.subText ? styles.subText : ''
     ];

@@ -16,6 +16,7 @@ export interface TableActionsModel {
 interface IProps extends IContainer {
     headers?: TableHeaderModel[];
     rows?: TableRowModel[];
+    basic?: boolean;
 }
 export declare class Table extends React.Component<IProps, any> {
     render(): JSX.Element;

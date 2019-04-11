@@ -25,12 +25,18 @@ export interface TableActionsModel {
 interface IProps extends IContainer {
   headers?: TableHeaderModel[];
   rows?: TableRowModel[];
+  basic?: boolean;
 }
 
 export class Table extends React.Component<IProps, any> {
   public render() {
+    let classes: string[] = [
+      styles.istoxTable,
+      this.props.className ? this.props.className : '',
+      this.props.basic ? styles.basic : ''
+    ];
     return (
-      <Container {...this.props} className={styles.istoxTable}>
+      <Container {...this.props} className={classes.join(' ')}>
         <table>
           <thead>
             <tr>

@@ -486,8 +486,21 @@ class Main extends React.Component<
             </Container>
             <Divider />
             <h4>Table</h4>
-            <Container backgroundColor={'#FFF'} margin={{ topPx: 15 }} padding={{ allPx: 15 }}>
+            <Container
+              border={{
+                borderSize: 1,
+                borderRadius: 6,
+                borderColor: '#E9E9E9',
+                borderStyle: 'solid'
+              }}
+              backgroundColor={'#FFF'}
+              margin={{ topPx: 15 }}
+            >
+              <Item basic={true} icon={faCheckCircle}>
+                Test
+              </Item>
               <Table
+                basic
                 headers={[
                   { title: 'Code' },
                   { title: 'Date Created' },

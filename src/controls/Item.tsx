@@ -5,6 +5,7 @@ import { Image } from './Image';
 import { Icon } from './Icon';
 
 interface IProps extends IContainer {
+  basic?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -13,7 +14,11 @@ interface IProps extends IContainer {
 
 export class Item extends React.Component<IProps, any> {
   public render() {
-    let classes: string[] = [this.props.className ? this.props.className : '', styles.item];
+    let classes: string[] = [
+      styles.item,
+      this.props.className ? this.props.className : '',
+      this.props.basic ? styles.basic : ''
+    ];
     return (
       <Container {...this.props} className={classes.join(' ')}>
         {this.props.image && <Image fullWidth src={this.props.image} />}

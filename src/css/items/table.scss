@@ -1,9 +1,12 @@
 .istox-table {
   border: 1px solid map-get($colors, primaryGreyLight);
+  border-radius: 0.429rem;
 
   table {
+    &.basic {
+      border: none;
+    }
     width: 100%;
-
     thead {
       background-color: map-get($colors, primaryGreyLight);
     }
@@ -18,6 +21,7 @@
   font-size: 1rem;
   padding: 10px;
   color: map-get($colors, primaryGreyDark);
+  background: map-get($colors, primaryGreyLight);
 }
 
 .istox-table td {
@@ -26,6 +30,7 @@
   color: map-get($colors, primaryGreyDark);
   font-weight: lighter;
   border-top: 1px solid map-get($colors, primaryGreyLight);
+  background: map-get($colors, primaryAlt);
 }
 
 .istox-table tbody tr {
