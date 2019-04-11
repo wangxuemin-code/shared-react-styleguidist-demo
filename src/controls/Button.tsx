@@ -19,6 +19,7 @@ interface IButton extends IContainer {
   fluid?: boolean;
   loading?: boolean;
   float?: 'left' | 'right' | 'none';
+  subText?: string;
 }
 
 export class Button extends React.Component<IButton, any> {
@@ -29,16 +30,6 @@ export class Button extends React.Component<IButton, any> {
   };
 
   public render() {
-    let containerClasses = [
-      this.props.fluid ? 'fluid' : '',
-      this.props.float
-        ? this.props.float == 'none'
-          ? styles.none
-          : this.props.float == 'left'
-          ? styles.left
-          : styles.right
-        : ''
-    ];
     let classes: string[] = [
       styles.button,
       this.props.size ? this.props.size : '',
@@ -47,12 +38,9 @@ export class Button extends React.Component<IButton, any> {
       this.props.outline ? 'outline' : '',
       this.props.basic ? 'basic' : '',
       this.props.flat ? 'flat' : '',
-      this.props.disabled ? styles.disabled : ''
+      this.props.disabled ? styles.disabled : '',
+      this.props.subText ? styles.subText : ''
     ];
-
-    containerClasses = containerClasses.filter(function(el) {
-      return el != '';
-    });
 
     classes = classes.filter(function(el) {
       return el != '';
@@ -65,32 +53,20 @@ export class Button extends React.Component<IButton, any> {
     }
 
     if (this.props.href && !this.props.disabled) {
-      return (
-        <Link href={this.props.href}>{this.getButtonDesign(style, classes, containerClasses)}</Link>
-      );
+      return <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>;
     } else {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);
       }
-      return this.getButtonDesign(style, classes, containerClasses);
+      return this.getButtonDesign(style, classes);
     }
   }
 
-  private getButtonDesign(
-    style: React.CSSProperties,
-    classes: string[],
-    containerClasses: string[]
-  ) {
+  private getButtonDesign(style: React.CSSProperties, classes: string[]) {
     // remove padding, so that it won't get passed to Container
-    // let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
-
+    let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
     return (
-      <Container
-        className={containerClasses.join(' ')}
-        // {...filteredProps}
-        display='inline-block'
-        position='relative'
-      >
+      <Container {...filteredProps} display='inline-grid' position='relative'>
         {this.props.loading && (
           <div className={styles.btnLoading}>
             <Loading backDrop={false} loading={this.props.loading} />
@@ -105,6 +81,9 @@ export class Button extends React.Component<IButton, any> {
         >
           {this.props.children}
         </button>
+        <Container textAlign={'center'} padding={{ topRem: 0.3 }}>
+          {this.props.subText}
+        </Container>
       </Container>
     );
   }

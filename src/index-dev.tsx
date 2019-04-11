@@ -346,11 +346,14 @@ class Main extends React.Component<
             <Button size='large' variant='primary'>
               Large
             </Button>
+            <Button size='large' variant='primary' subText={'Back to Residential / Mailing'}>
+              SubText
+            </Button>
             <Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
             </Button>
             <Divider visibility={'hidden'} />
-            <Button fluid fontStyle={'italic'} variant='primary'>
+            <Button fluid variant='primary'>
               Fluid
             </Button>
             <Divider visibility={'hidden'} />
@@ -532,7 +535,6 @@ class Main extends React.Component<
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Form
-                horizontal
                 display={'grid'}
                 error={String(404)}
                 ref={(ref) => {
@@ -814,14 +816,12 @@ class Main extends React.Component<
                 image={'/images/ISTOX_Logo.png'}
                 title={'Title'}
               />
-
               <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
                 <Button float={'none'} size='small' variant='primary'>
                   Small
                 </Button>
               </Card>
             </Container>
-
             <Divider />
             <h4>Message</h4>
             <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>

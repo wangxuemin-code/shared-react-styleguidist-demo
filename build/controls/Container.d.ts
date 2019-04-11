@@ -23,6 +23,7 @@ export interface IContainer {
     widthPercent?: number;
     height?: number;
     width?: number;
+    fluid?: boolean;
     backgroundColor?: string;
     display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
     position?: 'static' | 'absolute' | 'fixed' | 'relative';

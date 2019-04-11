@@ -29,6 +29,7 @@ export interface IContainer {
   widthPercent?: number;
   height?: number;
   width?: number;
+  fluid?: boolean;
   backgroundColor?: string;
   display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
@@ -79,8 +80,15 @@ export class Container extends React.Component<IContainer, any> {
       this.props.textAlign === 'left' ? styles.textLeft : '',
       this.props.textAlign === 'right' ? styles.textRight : '',
       this.props.textAlign === 'justify' ? styles.textJustify : '',
-      this.props.float ? (this.props.float == 'left' ? styles.left : styles.right) : '',
-      this.props.equalWidth ? styles.equalWidth : ''
+      this.props.float
+        ? this.props.float == 'none'
+          ? styles.none
+          : this.props.float == 'left'
+          ? styles.left
+          : styles.right
+        : '',
+      this.props.equalWidth ? styles.equalWidth : '',
+      this.props.fluid ? styles.fluid : ''
     ];
 
     classes = classes.filter(function(el) {

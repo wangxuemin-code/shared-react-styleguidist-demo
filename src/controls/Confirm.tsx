@@ -50,13 +50,14 @@ export class Confirm extends React.Component<IProps, IState> {
             {this.props.type === 'confirm' && (
               <div>
                 <Button
+                  float={'none'}
                   variant={'secondary'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
                 >
                   Cancel
                 </Button>
-                <Button outline variant={'danger'} onPress={this.onPositivePressed}>
+                <Button float={'none'} outline variant={'danger'} onPress={this.onPositivePressed}>
                   Confirm
                 </Button>
               </div>
@@ -64,20 +65,21 @@ export class Confirm extends React.Component<IProps, IState> {
             {this.props.type === 'yesno' && (
               <div>
                 <Button
+                  float={'none'}
                   variant={'secondary'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
                 >
                   No
                 </Button>
-                <Button outline variant={'danger'} onPress={this.onPositivePressed}>
+                <Button float={'none'} outline variant={'danger'} onPress={this.onPositivePressed}>
                   Yes
                 </Button>
               </div>
             )}
             {this.props.type === 'okonly' && (
               <div>
-                <Button variant={'info'} onPress={this.onPositivePressed}>
+                <Button float={'none'} variant={'info'} onPress={this.onPositivePressed}>
                   OK
                 </Button>
               </div>

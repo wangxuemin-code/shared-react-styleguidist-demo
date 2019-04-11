@@ -22,6 +22,10 @@ $borderRadius: 6.25rem;
   font-family: inherit;
   box-shadow: $boxShadow;
 
+  .sub-text {
+    position: relative;
+  }
+
   &.medium {
     padding: 1.143rem 2.357rem;
     font-size: 1.286rem;

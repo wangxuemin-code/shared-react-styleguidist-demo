@@ -14,6 +14,7 @@ interface IButton extends IContainer {
     fluid?: boolean;
     loading?: boolean;
     float?: 'left' | 'right' | 'none';
+    subText?: string;
 }
 export declare class Button extends React.Component<IButton, any> {
     static defaultProps: IButton;

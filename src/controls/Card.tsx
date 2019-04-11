@@ -15,8 +15,9 @@ interface IProps extends IContainer {
 
 export class Card extends React.Component<IProps, any> {
   public render() {
+    let classes: string[] = [this.props.className ? this.props.className : '', styles.card];
     return (
-      <Container {...this.props} className={styles.card}>
+      <Container {...this.props} className={classes.join(' ')}>
         {this.props.children}
         {!this.props.children && this.props.image && <Image fullWidth src={this.props.image} />}
         {!this.props.children && this.props.icon && (
