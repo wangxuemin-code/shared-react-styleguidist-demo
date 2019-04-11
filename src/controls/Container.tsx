@@ -66,6 +66,7 @@ export interface IContainer {
     | 'space-around'
     | 'space-evenly';
   equalWidth?: boolean;
+  overflow?: 'hidden' | 'auto';
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -88,7 +89,12 @@ export class Container extends React.Component<IContainer, any> {
           : styles.right
         : '',
       this.props.equalWidth ? styles.equalWidth : '',
-      this.props.fluid ? styles.fluid : ''
+      this.props.fluid ? styles.fluid : '',
+      this.props.overflow
+        ? this.props.overflow === 'hidden'
+          ? styles.overflowHidden
+          : styles.overflowAuto
+        : ''
     ];
 
     classes = classes.filter(function(el) {

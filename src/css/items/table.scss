@@ -1,16 +1,18 @@
 .istox-table {
   border: 1px solid map-get($colors, primaryGreyLight);
   border-radius: 0.429rem;
+  background-color: map-get($colors, primaryAlt);
+
+  &.basic {
+    border: none;
+    border-radius: 0;
+  }
 
   table {
-    &.basic {
-      border: none;
-    }
     width: 100%;
     thead {
       background-color: map-get($colors, primaryGreyLight);
     }
-
     th:last-child {
       text-align: right;
     }
@@ -21,7 +23,6 @@
   font-size: 1rem;
   padding: 10px;
   color: map-get($colors, primaryGreyDark);
-  background: map-get($colors, primaryGreyLight);
 }
 
 .istox-table td {
@@ -30,7 +31,6 @@
   color: map-get($colors, primaryGreyDark);
   font-weight: lighter;
   border-top: 1px solid map-get($colors, primaryGreyLight);
-  background: map-get($colors, primaryAlt);
 }
 
 .istox-table tbody tr {
@@ -55,11 +55,11 @@
 }
 
 .istox-table .action {
-  border: 1px solid map-get($colors, primaryGreyLight);
-  border-radius: $borderRadius;
-  padding: 5px 20px;
-  transition: color $transitionLinear, background-color $transitionLinear;
-  margin-left: 10px;
+  // border: 1px solid map-get($colors, primaryGreyLight);
+  // border-radius: $borderRadius;
+  // padding: 5px 20px;
+  // transition: color $transitionLinear, background-color $transitionLinear;
+  // margin-left: 10px;
 }
 
 .istox-table tbody tr .action:hover {

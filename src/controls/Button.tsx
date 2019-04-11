@@ -81,9 +81,11 @@ export class Button extends React.Component<IButton, any> {
         >
           {this.props.children}
         </button>
-        <Container textAlign={'center'} padding={{ topRem: 0.3 }}>
-          {this.props.subText}
-        </Container>
+        {this.props.subText && (
+          <Container textAlign={'center'} padding={{ topRem: 0.3 }}>
+            {this.props.subText}
+          </Container>
+        )}
       </Container>
     );
   }

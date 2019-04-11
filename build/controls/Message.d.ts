@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { IContainer } from './Container';
-interface IProps extends IContainer {
+interface IMessage extends IContainer {
     icon?: any;
     message?: string;
-    variant?: 'info' | 'success' | 'warning' | 'danger';
+    outline?: boolean;
+    variant?: 'default' | 'info' | 'success' | 'warning' | 'danger';
 }
-export declare class Message extends React.Component<IProps, any> {
+export declare class Message extends React.Component<IMessage, any> {
+    static defaultProps: IMessage;
     render(): JSX.Element;
 }
 export {};

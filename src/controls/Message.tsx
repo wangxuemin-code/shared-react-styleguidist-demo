@@ -11,17 +11,21 @@ import {
   faExclamationCircle
 } from '@fortawesome/free-solid-svg-icons';
 
-interface IProps extends IContainer {
+interface IMessage extends IContainer {
   icon?: any;
   message?: string;
   // success?: string | 'icon-only';
   // info?: string | 'icon-only';
   // warning?: string | 'icon-only';
   // error?: string | 'icon-only';
-  variant?: 'info' | 'success' | 'warning' | 'danger';
+  outline?: boolean;
+  variant?: 'default' | 'info' | 'success' | 'warning' | 'danger';
 }
 
-export class Message extends React.Component<IProps, any> {
+export class Message extends React.Component<IMessage, any> {
+  public static defaultProps: IMessage = {
+    variant: 'default'
+  };
   public render() {
     // let message: string;
     // let type: 'success' | 'error' | 'info' | 'warning';
@@ -41,7 +45,11 @@ export class Message extends React.Component<IProps, any> {
     //   return null;
     // }
 
-    let classes: string[] = [styles.istoxMessage, this.props.variant || ''];
+    let classes: string[] = [
+      styles.istoxMessage,
+      this.props.variant || '',
+      this.props.outline ? styles.outline : ''
+    ];
 
     // let icon;
     // if (type === 'success') {

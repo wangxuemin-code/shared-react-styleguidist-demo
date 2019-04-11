@@ -10,6 +10,10 @@
   min-width: 16rem;
   padding: 2.5rem 1.875rem 1rem 1.875rem;
 
+  .icon {
+    display: inline-grid;
+  }
+
   .card-top-left-icon {
     position: absolute;
     left: 0.8rem;

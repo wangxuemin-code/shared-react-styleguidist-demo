@@ -26,7 +26,7 @@ export class Footer extends React.Component<any, any> {
           <Container className={styles.contactContainer}>
             3 Temasek Blvd, Singapore 038983
           </Container>
-          <Container className={styles.copyrightContainer}>Copyright © 2018 iStox</Container>
+          <Container className={styles.copyrightContainer}>Copyright © 2019 iStox</Container>
         </Container>
       </Container>
     );

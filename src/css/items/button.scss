@@ -7,6 +7,19 @@ $borderRadius: 6.25rem;
   }
 }
 
+.icon {
+  .button {
+    background-color: map-get($colors, primaryAlt);
+    color: map-get($colors, primaryGreyDark);
+    border-radius: 50%;
+    padding: 0.3rem;
+    font-size: 1.429rem;
+    box-shadow: none;
+    line-height: 0;
+    padding: 0.7rem 0.8rem;
+  }
+}
+
 .button {
   background-color: map-get($colors, primary);
   background-image: none;
@@ -21,6 +34,11 @@ $borderRadius: 6.25rem;
   font-weight: 500;
   font-family: inherit;
   box-shadow: $boxShadow;
+
+  .icon {
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
 
   .sub-text {
     position: relative;

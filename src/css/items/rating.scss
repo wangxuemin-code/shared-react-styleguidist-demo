@@ -1,0 +1,30 @@
+.rating {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.3rem 0;
+
+  .rating-signal {
+    height: 1.071rem;
+    width: 1.071rem;
+    border-radius: 50%;
+    border: 1px solid map-get($colors, primaryGreyDark);
+    background-color: map-get($colors, primaryAlt);
+
+    &.success {
+      border: none;
+      background-color: map-get($colors, success);
+    }
+    &.info {
+      border: none;
+      background-color: map-get($colors, info);
+    }
+    &.warning {
+      border: none;
+      background-color: map-get($colors, warning);
+    }
+    &.danger {
+      border: none;
+      background-color: map-get($colors, danger);
+    }
+  }
+}

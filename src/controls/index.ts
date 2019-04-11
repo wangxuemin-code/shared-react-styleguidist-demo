@@ -27,3 +27,4 @@ export * from './Tabs';
 export * from './Footer';
 export * from './ProgressBar';
 export * from './Toast';
+export * from './Rating';

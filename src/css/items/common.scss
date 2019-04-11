@@ -108,10 +108,12 @@ h6 {
 }
 
 hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   &.hidden {
     visibility: none;
   }
-  float: left;
+  display: inline-block;
 }
 
 .header {
@@ -212,4 +214,12 @@ hr {
   > div {
     flex: 1;
   }
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-auto {
+  overflow: auto;
 }

@@ -5,6 +5,7 @@ import { IContainer, Container } from './Container';
 import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import * as styles from '../css/main.scss';
 
 interface IProps extends IContainer {
   /**
@@ -33,18 +34,22 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getWrapper() {
+    let classes: string[] = [styles.icon, this.props.className ? this.props.className : ''];
     if (this.props.onClick) {
       return (
-        // <Button {...this.props} onPress={this.props.onClick} display={'inline-flex'}>
-        //   {this.getIconDesign()} {this.props.text}
-        // </Button>
-        <Container {...this.props} display={'inline-flex'}>
+        <Button
+          float={'none'}
+          className={classes.join(' ')}
+          {...this.props}
+          onPress={this.props.onClick}
+          display={'inline-flex'}
+        >
           {this.getIconDesign()} {this.props.text}
-        </Container>
+        </Button>
       );
     } else {
       return (
-        <Container {...this.props} display={'inline-flex'}>
+        <Container {...this.props} className={classes.join(' ')}>
           {this.getIconDesign()} {this.props.text}
         </Container>
       );

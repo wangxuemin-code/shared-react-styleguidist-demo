@@ -19,7 +19,6 @@ interface IOtpInput extends IContainer {
 }
 
 interface ISingleOtpInput extends IContainer {
-  key: number;
   value: string;
   maxLength: number;
   shouldAutoFocus: boolean;
@@ -39,7 +38,9 @@ interface IState {
 export class OtpInput extends React.Component<IOtpInput, IState> {
   public static defaultProps: IOtpInput = {
     numInputs: 4,
-    onChange: (otp: number): void => console.log(otp),
+    onChange: (otp: number): void => {
+      // console.log(otp);
+    },
     shouldAutoFocus: false,
     inputWidth: '2rem',
     maxLength: 1
@@ -126,9 +127,8 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
     const inputs = [];
     for (let i = 0; i < numInputs; i++) {
       inputs.push(
-        <>
+        <Container key={i}>
           <SingleOtpInput
-            key={i}
             focus={activeInput === i}
             value={otp && otp[i]}
             onChange={this.handleOnChange}
@@ -147,14 +147,18 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
             maxLength={maxLength}
           />
           {i !== numInputs - 1 && <span>{separator}</span>}
-        </>
+        </Container>
       );
     }
     return inputs;
   };
 
   public render() {
-    return <Container {...this.props}>{this.renderInputs()}</Container>;
+    return (
+      <Container display={'flex'} {...this.props}>
+        {this.renderInputs()}
+      </Container>
+    );
   }
 }
 

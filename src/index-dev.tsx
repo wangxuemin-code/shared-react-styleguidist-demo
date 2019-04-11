@@ -20,7 +20,8 @@ import {
   Tabs,
   Footer,
   Toast,
-  Divider
+  Divider,
+  Rating
 } from './controls';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -343,8 +344,13 @@ class Main extends React.Component<
             <Button size='medium' variant='primary'>
               Medium
             </Button>
+            <Icon icon={faUser} onClick={() => {}} />
+            <Button onClick={() => {}} size='small' variant='primary'>
+              Small
+            </Button>
             <Button size='large' variant='primary'>
-              Large
+              <Icon icon={faPlus} />
+              Icon
             </Button>
             <Button size='large' variant='primary' subText={'Back to Residential / Mailing'}>
               SubText
@@ -381,14 +387,12 @@ class Main extends React.Component<
               </Button>
             ))}
             <Divider />
-            <Container display={'grid'} padding={{ allPx: 15 }}>
-              <h4>Image</h4>
-              <Container padding={{ allPx: 15 }}>
-                <Image variant={'logo'} />
-              </Container>
-              <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
-                <Image variant={'logo alt'} />
-              </Container>
+            <h4>Image</h4>
+            <Container padding={{ allPx: 15 }}>
+              <Image variant={'logo'} />
+            </Container>
+            <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
+              <Image variant={'logo alt'} />
             </Container>
             <Divider />
             <h4>PopUps</h4>
@@ -453,37 +457,39 @@ class Main extends React.Component<
               Bottom Toast
             </Button>
             <Divider />
-            <Container display={'grid'} padding={{ allPx: 15 }}>
-              <h4>Progress</h4>
-              <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-              <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-              <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-              <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-              <ProgressBar
-                margin={{ topPx: 20 }}
-                value={20}
-                label={'Strong Password'}
-                variant={'success'}
-              />
-              <ProgressBar margin={{ topPx: 20 }}>
-                <ProgressBar striped variant='success' value={25} order={1} />
-                <ProgressBar variant='info' value={25} order={2} />
-                <ProgressBar striped variant='warning' value={25} order={3} />
-                <ProgressBar striped variant='danger' value={25} order={4} />
-              </ProgressBar>
-              <ProgressBar width={200} margin={{ topPx: 20 }}>
-                <ProgressBar striped variant='success' value={25} order={1} />
-                <ProgressBar variant='info' value={25} order={2} />
-                <ProgressBar striped variant='warning' value={25} order={3} />
-                <ProgressBar striped variant='danger' value={25} order={4} />
-              </ProgressBar>
-              <ProgressBar gap width={200} margin={{ topPx: 20 }}>
-                <ProgressBar striped variant='success' value={25} order={1} />
-                <ProgressBar variant='info' value={25} order={2} />
-                <ProgressBar striped variant='warning' value={25} order={3} />
-                <ProgressBar striped variant='danger' value={25} order={4} />
-              </ProgressBar>
-            </Container>
+            <h4>Progress</h4>
+            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+            <ProgressBar
+              margin={{ topPx: 20 }}
+              value={20}
+              label={'Strong Password'}
+              variant={'success'}
+            />
+            <ProgressBar margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+            <ProgressBar width={200} margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+            <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+              <ProgressBar striped variant='success' value={25} order={1} />
+              <ProgressBar variant='info' value={25} order={2} />
+              <ProgressBar striped variant='warning' value={25} order={3} />
+              <ProgressBar striped variant='danger' value={25} order={4} />
+            </ProgressBar>
+            <Divider />
+            <h4>Rating</h4>
+            <Rating defaultValue={4.5} maxValue={8} />
+            <Rating defaultValue={2.5} width={200} maxValue={4} />
             <Divider />
             <h4>Table</h4>
             <Container
@@ -493,11 +499,12 @@ class Main extends React.Component<
                 borderColor: '#E9E9E9',
                 borderStyle: 'solid'
               }}
+              overflow={'hidden'}
               backgroundColor={'#FFF'}
               margin={{ topPx: 15 }}
             >
               <Item basic={true} icon={faCheckCircle}>
-                Test
+                Header
               </Item>
               <Table
                 basic
@@ -510,7 +517,7 @@ class Main extends React.Component<
                   }
                 ]}
                 rows={[
-                  { rowContents: ['Super Admin', 'This is another not very long content.'] },
+                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
                   {
                     rowContents: [
                       'Super Admin',
@@ -532,7 +539,7 @@ class Main extends React.Component<
                       }
                     ]
                   },
-                  { rowContents: ['Super Admin', 'This is another not very long content.'] },
+                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
                   {
                     rowContents: [
                       'Super Admin',
@@ -543,11 +550,59 @@ class Main extends React.Component<
                   }
                 ]}
               />
+              <Item basic={true} icon={faCheckCircle}>
+                Footer
+              </Item>
             </Container>
+            <Divider visibility={'hidden'} />
+            <Table
+              headers={[
+                { title: 'Code' },
+                { title: 'Date Created' },
+                { title: 'Request Status' },
+                {
+                  title: 'Actions'
+                }
+              ]}
+              rows={[
+                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [
+                    {
+                      icon: faAddressBook,
+                      callback: () => {
+                        console.log('heeelop');
+                      }
+                    },
+                    {
+                      icon: faAdjust,
+                      callback: () => {
+                        console.log('heeelop');
+                      }
+                    }
+                  ]
+                },
+                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [{ loading: true }]
+                }
+              ]}
+            />
             <Divider />
-            <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Form
+                horizontal
                 display={'grid'}
                 error={String(404)}
                 ref={(ref) => {
@@ -795,6 +850,15 @@ class Main extends React.Component<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
+            <Item
+              basic
+              icon={faCheckCircle}
+              title={'Title'}
+              description={
+                'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
+              }
+            />
+            <Divider visibility={'hidden'} />
             <Item icon={faCheckCircle}>
               <Container widthPercent={100} verticalAlign={'center'}>
                 <Card
@@ -837,8 +901,9 @@ class Main extends React.Component<
             </Container>
             <Divider />
             <h4>Message</h4>
-            <Container margin={{ topPx: 15 }} padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <Transition>
+                <Message icon={faCheckCircle} message='Hello i am a default!' />
                 <Message variant={'success'} icon={faCheckCircle} message='Hello i am a success!' />
                 <Message
                   variant={'warning'}
@@ -851,7 +916,44 @@ class Main extends React.Component<
                   icon={faExclamationCircle}
                   message='Hello i am an error!'
                 />
+                <Divider visibility={'hidden'} />
+                <Message outline icon={faInfoCircle} message='Hello i am a default!' />
+                <Message
+                  outline
+                  icon={faInfoCircle}
+                  variant={'success'}
+                  message='Hello i am a success!'
+                />
+                <Message
+                  outline
+                  icon={faInfoCircle}
+                  variant={'warning'}
+                  message='Hello i am an warning!'
+                />
+                <Message
+                  outline
+                  icon={faInfoCircle}
+                  variant={'info'}
+                  message='Hello i am a info!'
+                />
+                <Message
+                  outline
+                  icon={faInfoCircle}
+                  variant={'danger'}
+                  message='Hello i am an error!'
+                />
+                <Divider visibility={'hidden'} />
+                <Message message='Hello i am a default!' />
+                <Message variant={'success'} message='Hello i am a success!' />
+                <Message variant={'warning'} message='Hello i am an warning!' />
+                <Message variant={'info'} message='Hello i am a info!' />
                 <Message variant={'danger'} message='Hello i am an error!' />
+                <Divider visibility={'hidden'} />
+                <Message outline message='Hello i am a default!' />
+                <Message outline variant={'success'} message='Hello i am a success!' />
+                <Message outline variant={'warning'} message='Hello i am an warning!' />
+                <Message outline variant={'info'} message='Hello i am a info!' />
+                <Message outline variant={'danger'} message='Hello i am an error!' />
               </Transition>
             </Container>
             <Divider />
