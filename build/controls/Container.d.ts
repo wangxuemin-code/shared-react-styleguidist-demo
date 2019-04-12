@@ -52,7 +52,6 @@ export interface IContainer {
     focus?: boolean;
     alignItems?: 'baseline' | 'center' | 'start' | 'end' | 'stretch';
     justifyContent?: 'baseline' | 'center' | 'start' | 'end' | 'left' | 'right' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
-    fitted?: boolean;
     overflow?: 'hidden' | 'auto';
 }
 export declare class Container extends React.Component<IContainer, any> {
