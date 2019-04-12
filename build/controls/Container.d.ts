@@ -25,6 +25,9 @@ export interface IContainer {
     width?: number;
     fluid?: boolean;
     backgroundColor?: string;
+    backgroundImage?: string;
+    backgroundPosition?: 'center' | 'bottom' | 'left' | 'right' | 'top' | 'initial' | 'inherit';
+    backgroundSize?: 'auto' | 'contain' | 'cover' | 'inherit' | 'initial';
     display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
     position?: 'static' | 'absolute' | 'fixed' | 'relative';
     visibility?: 'hidden' | 'visible';
@@ -50,6 +53,7 @@ export interface IContainer {
     alignItems?: 'baseline' | 'center' | 'start' | 'end' | 'stretch';
     justifyContent?: 'baseline' | 'center' | 'start' | 'end' | 'left' | 'right' | 'stretch' | 'space-between' | 'space-around' | 'space-evenly';
     equalWidth?: boolean;
+    fitted?: boolean;
     overflow?: 'hidden' | 'auto';
 }
 export declare class Container extends React.Component<IContainer, any> {

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IImage extends IContainer {
+    badge?: boolean;
     fullWidth?: boolean;
     src?: string;
     alt?: any;

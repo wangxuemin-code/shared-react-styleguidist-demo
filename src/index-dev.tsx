@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import {
   Container,
+  Grid,
   Button,
   Icon,
   FormControl,
@@ -345,8 +346,8 @@ class Main extends React.Component<
               Medium
             </Button>
             <Icon icon={faUser} onClick={() => {}} />
-            <Button onClick={() => {}} size='small' variant='primary'>
-              Small
+            <Button onClick={() => {}} size='large' variant='primary'>
+              Large
             </Button>
             <Button size='large' variant='primary'>
               <Icon icon={faPlus} />
@@ -387,12 +388,113 @@ class Main extends React.Component<
               </Button>
             ))}
             <Divider />
+            <h4>Grid</h4>
+            <Grid>
+              <Grid.Row>
+                <Grid.Col col={3}>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col col={6}>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col col={3}>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+              </Grid.Row>
+              <Grid.Row equalWidth>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col col={8}>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+              </Grid.Row>
+              <Grid.Row equalWidth>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+              </Grid.Row>
+              <Grid.Row fitted equalWidth>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+                <Grid.Col>
+                  <Container height={50} backgroundColor={'#e1e1e1'} />
+                </Grid.Col>
+              </Grid.Row>
+            </Grid>
+            <Divider />
             <h4>Image</h4>
-            <Container padding={{ allPx: 15 }}>
-              <Image variant={'logo'} />
-            </Container>
-            <Container padding={{ allPx: 15 }} backgroundColor={'#000'}>
-              <Image variant={'logo alt'} />
+            <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Image display={'inline-flex'} padding={{ allPx: 15 }} variant={'logo'} />
+              <Image
+                display={'inline-flex'}
+                margin={{ allPx: 15 }}
+                padding={{ allPx: 15 }}
+                backgroundColor={'#000'}
+                variant={'logo alt'}
+              />
+              <Image
+                display={'inline-flex'}
+                margin={{ allPx: 15 }}
+                border={{
+                  borderSize: 1,
+                  borderRadius: 20,
+                  borderColor: '#000',
+                  borderStyle: 'solid'
+                }}
+                width={100}
+                height={100}
+                backgroundColor={'#000'}
+                variant={'logo alt'}
+                padding={{ allPx: 15 }}
+              />
+              <Image
+                display={'inline-flex'}
+                margin={{ allPx: 15 }}
+                width={100}
+                height={100}
+                badge
+                src={'/images/ISTOX_Logo.png'}
+              />
+              <Image
+                display={'inline-flex'}
+                margin={{ allPx: 15 }}
+                border={{
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#000',
+                  borderStyle: 'solid'
+                }}
+                width={100}
+                height={100}
+                badge
+                src={'/images/ISTOX_Logo.png'}
+              />
             </Container>
             <Divider />
             <h4>PopUps</h4>
@@ -458,6 +560,7 @@ class Main extends React.Component<
             </Button>
             <Divider />
             <h4>Progress</h4>
+            <ProgressBar margin={{ topPx: 20 }} value={20} />
             <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
             <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
             <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />

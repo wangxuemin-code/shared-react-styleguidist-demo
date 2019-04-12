@@ -31,6 +31,9 @@ export interface IContainer {
   width?: number;
   fluid?: boolean;
   backgroundColor?: string;
+  backgroundImage?: string;
+  backgroundPosition?: 'center' | 'bottom' | 'left' | 'right' | 'top' | 'initial' | 'inherit';
+  backgroundSize?: 'auto' | 'contain' | 'cover' | 'inherit' | 'initial';
   display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
@@ -66,6 +69,7 @@ export interface IContainer {
     | 'space-around'
     | 'space-evenly';
   equalWidth?: boolean;
+  fitted?: boolean;
   overflow?: 'hidden' | 'auto';
 }
 
@@ -89,6 +93,7 @@ export class Container extends React.Component<IContainer, any> {
           : styles.right
         : '',
       this.props.equalWidth ? styles.equalWidth : '',
+      this.props.fitted ? styles.fitted : '',
       this.props.fluid ? styles.fluid : '',
       this.props.overflow
         ? this.props.overflow === 'hidden'
@@ -137,7 +142,6 @@ export class Container extends React.Component<IContainer, any> {
     if (this.props.display) {
       style.display = this.props.display;
     }
-
     if (this.props.heightPercent) {
       style.height = this.props.heightPercent + '%';
     }
@@ -148,6 +152,18 @@ export class Container extends React.Component<IContainer, any> {
 
     if (this.props.backgroundColor) {
       style.background = this.props.backgroundColor;
+    }
+
+    if (this.props.backgroundImage) {
+      style.backgroundImage = this.props.backgroundImage;
+    }
+
+    if (this.props.backgroundPosition) {
+      style.backgroundPosition = this.props.backgroundPosition;
+    }
+
+    if (this.props.backgroundSize) {
+      style.backgroundSize = this.props.backgroundSize;
     }
 
     if (this.props.position) {

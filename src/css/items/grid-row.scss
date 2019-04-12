@@ -1,0 +1,19 @@
+.grid-row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+
+  &.equal-width {
+    grid-template-columns: max-content auto max-content;
+
+    > div {
+      flex: auto;
+    }
+  }
+
+  &.fitted {
+    > div {
+      padding: 0.1rem;
+    }
+  }
+}
