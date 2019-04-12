@@ -970,7 +970,7 @@ class Main extends React.Component<
                   icon={faUser}
                   title={'Title'}
                 />
-                <ProgressBar gap width={200} margin={{ topPx: 20 }}>
+                <ProgressBar gap width={200}>
                   <ProgressBar striped variant='success' value={25} order={1} />
                   <ProgressBar variant='info' value={25} order={2} />
                   <ProgressBar striped variant='warning' value={25} order={3} />

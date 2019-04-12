@@ -68,7 +68,6 @@ export interface IContainer {
     | 'space-between'
     | 'space-around'
     | 'space-evenly';
-  fitted?: boolean;
   overflow?: 'hidden' | 'auto';
 }
 
