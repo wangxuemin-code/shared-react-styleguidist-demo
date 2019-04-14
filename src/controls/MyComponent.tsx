@@ -49,8 +49,10 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
     };
   }
 
-  protected shouldRender(component: any, loading?: boolean, error?: any): any {
-    if (this.props.loading || loading) {
+  protected shouldRender(component: any, loading?: boolean, error?: any, data?: any): any {
+    const dataHasProperty = data && Object.keys(data).length > 0;
+
+    if ((this.props.loading || loading) && !dataHasProperty) {
       return <Loading backDrop={false} loading={true} />;
     } else if (this.props.error || error) {
       return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
