@@ -28,6 +28,7 @@
 
   .item-info {
     padding-left: 2rem;
+    width: 100%;
   }
   &:hover {
     border: 1px solid map-get($colors, primary);

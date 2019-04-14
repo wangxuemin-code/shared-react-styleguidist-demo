@@ -826,7 +826,7 @@ class Main extends React.Component<
                   label={'OTP'}
                   name='numberfields'
                   type={'numberfields'}
-                  separator={'  ·  '}
+                  separator={<span>&nbsp;&nbsp;</span>}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl

@@ -39,7 +39,7 @@ interface IProps extends IContainer {
     decimalPlace?: number;
     numInputs?: number;
     inputWidth?: string;
-    separator?: string;
+    separator?: any;
 }
 export declare class FormControl extends React.Component<IProps, IState> {
     static defaultProps: IProps;

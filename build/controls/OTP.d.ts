@@ -3,7 +3,7 @@ import { IContainer } from './Container';
 interface IOtpInput extends IContainer {
     numInputs: number;
     onChange: Function;
-    separator?: string;
+    separator?: any;
     shouldAutoFocus: boolean;
     isInputNum?: boolean;
     inputWidth: string;

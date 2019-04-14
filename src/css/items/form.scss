@@ -73,6 +73,8 @@ $borderRadius: 0.375rem;
     left: 0px;
     top: -2px;
     cursor: pointer;
+    min-width: 0 !important;
+    min-height: 0 !important;
   }
 
   .react-toggle-screenreader-only {
@@ -103,11 +105,18 @@ $borderRadius: 0.375rem;
             margin: 0;
             cursor: pointer;
             border: none;
+            background-color: transparent;
           }
 
           div[id*='select'] {
-            padding: 8px;
+            background-color: map-get($colors, primaryAlt);
+            padding: 0.8rem;
             cursor: pointer;
+          }
+
+          div[id*='select']:hover {
+            background-color: map-get($colors, primaryGreyLight);
+            color: map-get($colors, primary);
           }
         }
 
@@ -211,7 +220,6 @@ $borderRadius: 0.375rem;
 }
 
 .istox-form .istox-message {
-  margin-left: 0.5rem;
   margin-top: 0.5rem;
 }
 

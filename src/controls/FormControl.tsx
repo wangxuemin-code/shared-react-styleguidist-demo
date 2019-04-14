@@ -69,7 +69,7 @@ interface IProps extends IContainer {
   decimalPlace?: number;
   numInputs?: number;
   inputWidth?: string;
-  separator?: string;
+  separator?: any;
 }
 
 interface IProcessResult {
