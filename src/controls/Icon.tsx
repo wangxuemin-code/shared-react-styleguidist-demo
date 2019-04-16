@@ -6,9 +6,6 @@ import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
-import * as SolidIcons from '@fortawesome/pro-solid-svg-icons';
-// import { IconDefinition as LightPro } from '@fortawesome/pro-light-svg-icons';
-// import { IconDefinition as RegularPro } from '@fortawesome/pro-light-svg-icons';
 
 interface IProps extends IContainer {
   icon: any;
@@ -24,8 +21,7 @@ export class Icon extends React.Component<IProps, any> {
   constructor(props: IProps) {
     super(props);
     if (this.checkIconType() === 'fontawesome') {
-      // console.log(SolidIcons);
-      // library.add(this.props.icon as any);
+      library.add(this.props.icon as any);
     }
   }
 
@@ -61,7 +57,7 @@ export class Icon extends React.Component<IProps, any> {
     if (typeof this.props.icon !== 'string') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
     } else {
-      return <FontAwesomeIcon icon='adjust' />;
+      //return <FontAwesomeIcon icon='adjust' />;
       console.log(this.props.icon);
     }
 
@@ -74,11 +70,11 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private checkIconType(): 'glyphicon' | 'fontawesome' {
-    return 'fontawesome';
-    // if (typeof this.props.icon !== 'string') {
-    //   return 'fontawesome';
-    // } else {
-    //   return 'glyphicon';
-    // }
+    // return 'fontawesome';
+    if (typeof this.props.icon !== 'string') {
+      return 'fontawesome';
+    } else {
+      return 'glyphicon';
+    }
   }
 }
