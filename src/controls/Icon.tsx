@@ -6,6 +6,7 @@ import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
+import { Image } from '.';
 
 interface IProps extends IContainer {
   icon: any;
@@ -53,12 +54,10 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getIconDesign() {
-    const string: any = 'adjust';
     if (typeof this.props.icon !== 'string') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
     } else {
-      //return <FontAwesomeIcon icon='adjust' />;
-      console.log(this.props.icon);
+      return <Image src={`./images/svgs/solid/${this.props.icon}.svg`} />;
     }
 
     // if (this.checkIconType() === 'glyphicon') {

@@ -403,7 +403,6 @@ class Main extends React.Component<
               {this.colorStates.map((link: any) => (
                 <Container key={uniqid().toString()}>
                   <Link variant={link}>{link.toUpperCase()}</Link>
-                  &nbsp; &nbsp;
                 </Container>
               ))}
             </Container>
@@ -411,10 +410,9 @@ class Main extends React.Component<
             <Container display={'flex'}>
               {this.colorStates.map((link: any) => (
                 <Container key={uniqid().toString()}>
-                  <Link basic='true' variant={link}>
+                  <Link basic variant={link}>
                     {link.toUpperCase()}
                   </Link>
-                  &nbsp; &nbsp;
                 </Container>
               ))}
             </Container>

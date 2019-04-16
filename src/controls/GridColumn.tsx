@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
-import { stripTrailingSlash } from 'history/PathUtils';
 
 interface IGridColumn extends IContainer {
   col?: number;
