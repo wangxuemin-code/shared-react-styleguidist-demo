@@ -13,7 +13,7 @@ import {
 
 interface IMessage extends IContainer {
   icon?: any;
-  message?: string;
+  message?: any;
   // success?: string | 'icon-only';
   // info?: string | 'icon-only';
   // warning?: string | 'icon-only';

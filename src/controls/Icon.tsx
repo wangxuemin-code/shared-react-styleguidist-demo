@@ -1,17 +1,16 @@
 import * as React from 'react';
-import { Glyphicon } from 'react-bootstrap';
+// import { Glyphicon } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IContainer, Container } from './Container';
 import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
+import * as SolidIcons from '@fortawesome/pro-solid-svg-icons';
+// import { IconDefinition as LightPro } from '@fortawesome/pro-light-svg-icons';
+// import { IconDefinition as RegularPro } from '@fortawesome/pro-light-svg-icons';
 
 interface IProps extends IContainer {
-  /**
-   * For bootstrap glyphicon, do omit the glyphicon when setting icon
-   * eg. for "glyphicon glyphicon-question-sign", you only need to set "question-sign"
-   */
   icon: any;
   onClick?: () => void;
   text?: string;
@@ -25,7 +24,8 @@ export class Icon extends React.Component<IProps, any> {
   constructor(props: IProps) {
     super(props);
     if (this.checkIconType() === 'fontawesome') {
-      library.add(this.props.icon as any);
+      // console.log(SolidIcons);
+      // library.add(this.props.icon as any);
     }
   }
 
@@ -57,18 +57,28 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getIconDesign() {
-    if (this.checkIconType() === 'glyphicon') {
-      return <Glyphicon glyph={`${this.props.icon}`} />;
-    } else if (this.checkIconType() === 'fontawesome') {
+    const string: any = 'adjust';
+    if (typeof this.props.icon !== 'string') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+    } else {
+      return <FontAwesomeIcon icon='adjust' />;
+      console.log(this.props.icon);
     }
+
+    // if (this.checkIconType() === 'glyphicon') {
+    //   return <Glyphicon glyph={`${this.props.icon}`} />;
+    // } else if (this.checkIconType() === 'fontawesome') {
+    //   return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+    //   // return <FontAwesomeIcon icon={faMobileAndroidAlt as IconDefinition} />;
+    // }
   }
 
   private checkIconType(): 'glyphicon' | 'fontawesome' {
-    if (typeof this.props.icon !== 'string') {
-      return 'fontawesome';
-    } else {
-      return 'glyphicon';
-    }
+    return 'fontawesome';
+    // if (typeof this.props.icon !== 'string') {
+    //   return 'fontawesome';
+    // } else {
+    //   return 'glyphicon';
+    // }
   }
 }

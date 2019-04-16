@@ -3,7 +3,6 @@ import { IContainer } from './Container';
 interface IButton extends IContainer {
     variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
     outline?: boolean;
-    basic?: boolean;
     flat?: boolean;
     type?: 'button' | 'submit';
     onPress?: () => void;

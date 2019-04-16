@@ -51,9 +51,11 @@ export class Confirm extends React.Component<IProps, IState> {
               <div>
                 <Button
                   float={'none'}
+                  flat
                   variant={'secondary'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
+                  className={styles.confirmCancel}
                 >
                   Cancel
                 </Button>
@@ -66,9 +68,11 @@ export class Confirm extends React.Component<IProps, IState> {
               <div>
                 <Button
                   float={'none'}
+                  flat
                   variant={'secondary'}
                   margin={{ rightPx: 30 }}
                   onPress={this.onNegativePressed}
+                  className={styles.confirmCancel}
                 >
                   No
                 </Button>
