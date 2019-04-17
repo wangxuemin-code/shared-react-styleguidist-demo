@@ -13,6 +13,7 @@ export interface TableHeaderModel {
 export interface TableRowModel {
   rowContents: any[];
   rowActions?: TableActionsModel[];
+  onClick?: () => void;
 }
 
 export interface TableActionsModel {
@@ -26,7 +27,6 @@ interface IProps extends IContainer {
   headers?: TableHeaderModel[];
   rows?: TableRowModel[];
   basic?: boolean;
-  callback?: () => void;
 }
 
 export class Table extends React.Component<IProps, any> {
@@ -67,7 +67,7 @@ export class Table extends React.Component<IProps, any> {
 
   private getRowDesign(tableRowModel: TableRowModel, index: number) {
     return (
-      <tr key={index} onClick={this.props.callback}>
+      <tr key={index} onClick={tableRowModel.onClick}>
         {tableRowModel.rowContents.map((content) => {
           if (content.icon) {
             <Transition>

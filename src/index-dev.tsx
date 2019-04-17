@@ -379,7 +379,7 @@ class Main extends React.Component<
             ))}
             <Divider />
             <h4>Link</h4>
-            <Container display={'flex'}>
+            <Container textAlign={'center'} display={'inline-flex'}>
               <Link size={'small'} href='/' useNormalAnchor>
                 Small
               </Link>
@@ -447,7 +447,7 @@ class Main extends React.Component<
             </Container>
             <Divider />
             <h4>ICON</h4>
-            <Container alignItems={'center'} display={'inline-flex'}>
+            <Container display={'flex'}>
               <Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
               <Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
               <Icon size='large' icon={faUser} text={'Large'} />
@@ -692,7 +692,6 @@ class Main extends React.Component<
                 Header
               </Item>
               <Table
-                callback={this.function}
                 basic
                 headers={[
                   { title: 'Code' },
@@ -725,7 +724,10 @@ class Main extends React.Component<
                       }
                     ]
                   },
-                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                  {
+                    rowContents: ['Super Admin', 'This is a table row with a callback', ''],
+                    onClick: this.function
+                  },
                   {
                     rowContents: [
                       'Super Admin',

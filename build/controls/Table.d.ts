@@ -6,6 +6,7 @@ export interface TableHeaderModel {
 export interface TableRowModel {
     rowContents: any[];
     rowActions?: TableActionsModel[];
+    onClick?: () => void;
 }
 export interface TableActionsModel {
     icon?: any;
