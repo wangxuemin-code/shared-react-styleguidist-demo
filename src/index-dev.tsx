@@ -673,7 +673,7 @@ class Main extends React.Component<
                       }
                     ]
                   },
-                  { rowContents: ['Super Admin', 'This is another not very long content11111.', ''], onClick: this.function },
+                  { rowContents: ['Super Admin', 'This is a table row with a callback', ''], onClick: this.function },
                   {
                     rowContents: [
                       'Super Admin',
@@ -1107,7 +1107,7 @@ class Main extends React.Component<
   }
 
   private function = () => {
-      console.log('hi')
+      console.log('this is a callback')
   }
 }
 
