@@ -8,22 +8,19 @@
   }
 
   svg {
-    width: 1rem !important;
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+    width: 0.875em;
   }
 
   &.medium {
     font-size: 1.286rem;
-
-    svg {
-      width: 1.286rem !important;
-    }
   }
 
   &.large {
     font-size: 2.5rem;
-
-    svg {
-      width: 2.5rem !important;
-    }
   }
 }

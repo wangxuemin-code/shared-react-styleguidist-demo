@@ -379,7 +379,7 @@ class Main extends React.Component<
             ))}
             <Divider />
             <h4>Link</h4>
-            <Container textAlign={'center'} display={'inline-flex'}>
+            <Container alignItems={'center'} display={'inline-flex'}>
               <Link size={'small'} href='/' useNormalAnchor>
                 Small
               </Link>
