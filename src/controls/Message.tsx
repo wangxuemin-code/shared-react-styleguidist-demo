@@ -51,6 +51,10 @@ export class Message extends React.Component<IMessage, any> {
       this.props.outline ? styles.outline : ''
     ];
 
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
     // let icon;
     // if (type === 'success') {
     //   icon = faCheckCircle;

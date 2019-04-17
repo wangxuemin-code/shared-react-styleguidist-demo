@@ -392,29 +392,54 @@ class Main extends React.Component<
                 Large
               </Link>
             </Container>
+            <Divider visibility={'hidden'} />
+            <Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Container key={uniqid().toString()}>
+                  <Link basic='true' variant={link} useNormalAnchor>
+                    {link.toUpperCase()}
+                  </Link>
+                  &nbsp; &nbsp;
+                </Container>
+              ))}
+            </Container>
+            <Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Container key={uniqid().toString()}>
+                  <Link variant={link} useNormalAnchor>
+                    {link.toUpperCase()}
+                  </Link>
+                  &nbsp; &nbsp;
+                </Container>
+              ))}
+            </Container>
+            <span>
+              There is a&nbsp;
+              <Link size={'small'} href='/' useNormalAnchor>
+                Link
+              </Link>
+              &nbsp;in this sentence
+            </span>
+            <Divider visibility={'hidden'} />
+            <Container
+              padding={{ allRem: 1 }}
+              border={{
+                borderSize: 1,
+                borderColor: '#000',
+                borderStyle: 'solid'
+              }}
+              display={'flex'}
+              verticalAlign={'center'}
+            >
+              <Link size={'small'} href='/' useNormalAnchor>
+                Link
+              </Link>
+            </Container>
             <Divider />
             <h4>ICON</h4>
             <Container display={'flex'}>
               <Icon icon={faUser} text={'Passing ICON as a variable'} />
               <Icon icon={'mobile'} text={'Passing ICON as a string'} />
-            </Container>
-            <Divider />
-            <Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link variant={link}>{link.toUpperCase()}</Link>
-                </Container>
-              ))}
-            </Container>
-            <Divider visibility={'hidden'} />
-            <Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link basic variant={link}>
-                    {link.toUpperCase()}
-                  </Link>
-                </Container>
-              ))}
             </Container>
             <Divider />
             <h4>Grid</h4>

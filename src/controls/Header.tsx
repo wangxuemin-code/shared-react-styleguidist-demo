@@ -99,7 +99,7 @@ export class Header extends React.Component<IHeader, IState> {
         )}
 
         {!useAnchorTag && (
-          <Controls.Link href={href}>
+          <Controls.Link useNormalAnchor href={href}>
             {title}
             <div className={styles.underline} />
           </Controls.Link>

@@ -42,6 +42,10 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.basic ? styles.basic : ''
     ];
 
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
     }

@@ -39,6 +39,9 @@ export class Rating extends React.Component<IRating, IState> {
           this.props.className ? this.props.className : '',
           variant || ''
         ];
+        classes = classes.filter(function(el) {
+          return el != '';
+        });
         ratings.push(<Container key={i} className={classes.join(' ')} />);
       }
     }

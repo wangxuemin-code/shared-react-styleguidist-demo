@@ -35,6 +35,9 @@ export class Table extends React.Component<IProps, any> {
       this.props.className ? this.props.className : '',
       this.props.basic ? styles.basic : ''
     ];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
     return (
       <Container {...this.props} className={classes.join(' ')}>
         <table>

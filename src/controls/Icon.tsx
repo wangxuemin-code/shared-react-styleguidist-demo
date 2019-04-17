@@ -32,6 +32,9 @@ export class Icon extends React.Component<IProps, any> {
 
   private getWrapper() {
     let classes: string[] = [styles.icon, this.props.className ? this.props.className : ''];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
     if (this.props.onClick) {
       return (
         <Button
@@ -57,7 +60,7 @@ export class Icon extends React.Component<IProps, any> {
     if (typeof this.props.icon !== 'string') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
     } else {
-      return <Image src={`./images/svgs/solid/${this.props.icon}.svg`} />;
+      return './images/svgs/solid/${this.props.icon}.svg';
     }
 
     // if (this.checkIconType() === 'glyphicon') {

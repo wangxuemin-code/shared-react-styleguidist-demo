@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-// import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
@@ -36,39 +36,27 @@ export class Link extends React.Component<ILink, any> {
     if (this.props.href) {
       if (useNormalAnchor) {
         return (
-          <a
-            className={classes.join(' ')}
-            {...linkProps}
-            style={{ cursor: 'pointer' }}
-            href={this.props.href}
-          >
-            <Container {...linkProps} display={this.props.display || 'inline-block'} />
+          <a className={classes.join(' ')} {...linkProps} href={this.props.href}>
+            <Container display={this.props.display || 'inline-block'}>
+              {this.props.children}
+            </Container>
           </a>
         );
       } else {
         return (
-          <a
-            className={classes.join(' ')}
-            {...linkProps}
-            style={{ cursor: 'pointer' }}
-            href={this.props.href}
-          >
-            <Container {...linkProps} display={this.props.display || 'inline-block'} />
-          </a>
-          // <ReactRouterLink {...linkProps} to={this.props.href} style={{ cursor: 'pointer' }}>
-          //   <Container {...linkProps} display={this.props.display || 'inline-block'} />
-          // </ReactRouterLink>
+          <ReactRouterLink className={classes.join(' ')} {...linkProps} to={this.props.href}>
+            <Container display={this.props.display || 'inline-block'}>
+              {this.props.children}
+            </Container>
+          </ReactRouterLink>
         );
       }
     } else {
       return (
-        <a
-          className={classes.join(' ')}
-          {...linkProps}
-          onClick={this.props.onClick}
-          style={{ cursor: 'pointer' }}
-        >
-          <Container {...linkProps} display={this.props.display || 'inline-block'} />
+        <a className={classes.join(' ')} {...linkProps} href={this.props.href}>
+          <Container display={this.props.display || 'inline-block'}>
+            {this.props.children}
+          </Container>
         </a>
       );
     }

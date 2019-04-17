@@ -2,20 +2,19 @@
   font-size: 1rem;
   cursor: pointer;
   font-style: inherit;
-  text-decoration: inherit;
+  text-decoration: none;
   font-weight: 500;
   font-family: inherit;
-  padding-bottom: 5px;
+  position: relative;
 
   &:hover {
     &:after {
       width: 100%;
       content: '';
       display: block;
-      background-color: map-get($colors, primary);
-      height: 2px;
-      position: relative;
-      top: 1.2rem;
+      border-bottom: 1px solid map-get($colors, primary);
+      position: absolute;
+      top: 1rem;
       left: 0;
     }
   }
@@ -25,17 +24,17 @@
 
     &:hover {
       &:after {
-        top: 1.6rem;
+        top: 1.4rem;
       }
     }
   }
 
   &.large {
-    font-size: 1.571rem;
+    font-size: 2.5rem;
 
     &:hover {
       &:after {
-        top: 2rem;
+        top: 2.4rem;
       }
     }
   }
@@ -44,7 +43,7 @@
     color: map-get($colors, primary);
     &:hover {
       &:after {
-        background-color: map-get($colors, primary);
+        border-bottom: 1px solid map-get($colors, primary);
       }
     }
   }
@@ -53,7 +52,7 @@
     color: map-get($colors, primaryGrey);
     &:hover {
       &:after {
-        background-color: map-get($colors, primaryGrey);
+        border-bottom: 1px solid map-get($colors, primaryGrey);
       }
     }
   }
@@ -66,8 +65,8 @@
     }
 
     &:hover {
-      :after {
-        background-color: map-get($colors, primary);
+      &:after {
+        border-bottom: 1px solid map-get($colors, primary);
         opacity: 0.5;
       }
     }
@@ -77,7 +76,7 @@
     color: map-get($colors, info);
     &:hover {
       &:after {
-        background-color: map-get($colors, info);
+        border-bottom: 1px solid map-get($colors, info);
       }
     }
   }
@@ -86,7 +85,7 @@
     color: map-get($colors, success);
     &:hover {
       &:after {
-        background-color: map-get($colors, success);
+        border-bottom: 1px solid map-get($colors, success);
       }
     }
   }
@@ -95,7 +94,7 @@
     color: map-get($colors, warning);
     &:hover {
       &:after {
-        background-color: map-get($colors, warning);
+        border-bottom: 1px solid map-get($colors, warning);
       }
     }
   }
@@ -104,7 +103,7 @@
     color: map-get($colors, danger);
     &:hover {
       &:after {
-        background-color: map-get($colors, danger);
+        border-bottom: 1px solid map-get($colors, danger);
       }
     }
   }
@@ -112,16 +111,8 @@
   &.basic {
     &:hover {
       &:after {
-        background-color: transparent !important;
+        border-bottom: none;
       }
     }
   }
-}
-
-.link:focus,
-.link:active:focus,
-.link.active:focus {
-}
-.link:active,
-.link.active {
 }
