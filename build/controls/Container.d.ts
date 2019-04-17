@@ -28,6 +28,7 @@ export interface IContainer {
     backgroundImage?: string;
     backgroundPosition?: 'center' | 'bottom' | 'left' | 'right' | 'top' | 'initial' | 'inherit';
     backgroundSize?: 'auto' | 'contain' | 'cover' | 'inherit' | 'initial';
+    backgroundRepeat?: 'no-repeat' | 'initial' | 'inherit' | 'repeat' | 'repeat-x' | 'repeat-y';
     display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
     position?: 'static' | 'absolute' | 'fixed' | 'relative';
     visibility?: 'hidden' | 'visible';

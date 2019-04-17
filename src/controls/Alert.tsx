@@ -122,10 +122,10 @@ export class Alert extends React.Component<IAlert, IState> {
         icon = 'ok-sign';
         break;
       case 'danger':
-        icon = 'info-sign';
+        icon = 'info-circle';
         break;
       case 'info':
-        icon = 'info-sign';
+        icon = 'info-circle';
         break;
     }
 

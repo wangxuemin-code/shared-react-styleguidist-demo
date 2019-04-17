@@ -413,10 +413,20 @@ class Main extends React.Component<
                 </Container>
               ))}
             </Container>
+            <Divider visibility={'hidden'} />
             <span>
               There is a&nbsp;
               <Link size={'small'} href='/' useNormalAnchor>
                 Link
+              </Link>
+              &nbsp;in this sentence
+            </span>
+            <br />
+            <br />
+            <span>
+              There is a&nbsp;
+              <Link size={'large'} href='/' useNormalAnchor>
+                Big Link
               </Link>
               &nbsp;in this sentence
             </span>
@@ -437,9 +447,27 @@ class Main extends React.Component<
             </Container>
             <Divider />
             <h4>ICON</h4>
+            <Container alignItems={'center'} display={'inline-flex'}>
+              <Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
+              <Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
+              <Icon size='large' icon={faUser} text={'Large'} />
+            </Container>
+            <Divider visibility={'hidden'} />
             <Container display={'flex'}>
-              <Icon icon={faUser} text={'Passing ICON as a variable'} />
+              <Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
               <Icon icon={'mobile'} text={'Passing ICON as a string'} />
+            </Container>
+            <Container display={'flex'}>
+              <Icon
+                badge={{
+                  backgroundColor: '#000',
+                  width: 100,
+                  height: 100
+                }}
+                icon={'mobile'}
+                text={'Badge'}
+                color={'red'}
+              />
             </Container>
             <Divider />
             <h4>Grid</h4>
@@ -664,6 +692,7 @@ class Main extends React.Component<
                 Header
               </Item>
               <Table
+                callback={this.function}
                 basic
                 headers={[
                   { title: 'Code' },
@@ -1128,6 +1157,10 @@ class Main extends React.Component<
       </React.Fragment>
     );
   }
+
+  private function = () => {
+    console.log('this is a callback');
+  };
 }
 
 const render = () => {

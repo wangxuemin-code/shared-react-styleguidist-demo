@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IContainer } from './Container';
 interface IProps extends IContainer {
     icon: any;
+    size?: 'small' | 'medium' | 'large';
     onClick?: () => void;
     text?: string;
 }

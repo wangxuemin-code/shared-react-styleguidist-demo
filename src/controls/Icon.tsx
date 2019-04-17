@@ -1,3 +1,4 @@
+import { BorderColorProperty, BorderStyleProperty } from 'csstype';
 import * as React from 'react';
 // import { Glyphicon } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,16 +7,30 @@ import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
-import { Image } from '.';
+import SVG from 'react-inlinesvg';
+
+interface IBadge {
+  backgroundColor?: string;
+  borderSize?: number;
+  borderRadius?: number;
+  borderColor?: BorderColorProperty;
+  borderStyle?: BorderStyleProperty;
+  height?: number;
+  width?: number;
+}
 
 interface IProps extends IContainer {
   icon: any;
+  size?: 'small' | 'medium' | 'large';
   onClick?: () => void;
   text?: string;
+  badge?: IBadge;
+  color?: string;
 }
 
 export class Icon extends React.Component<IProps, any> {
   public static defaultProps: IProps = {
+    size: 'small',
     icon: ''
   };
 
@@ -31,7 +46,11 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getWrapper() {
-    let classes: string[] = [styles.icon, this.props.className ? this.props.className : ''];
+    let classes: string[] = [
+      styles.icon,
+      this.props.size ? this.props.size : '',
+      this.props.className ? this.props.className : ''
+    ];
     classes = classes.filter(function(el) {
       return el != '';
     });
@@ -57,12 +76,16 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getIconDesign() {
-    if (typeof this.props.icon !== 'string') {
+    const src = `./images/svgs/solid/${this.props.icon}.svg`;
+    if (this.checkIconType() === 'fontawesome') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
     } else {
-      return './images/svgs/solid/${this.props.icon}.svg';
+      return (
+        <Container className={styles.svg} {...this.props}>
+          <SVG style={{ fill: this.props.color }} src={src} />
+        </Container>
+      );
     }
-
     // if (this.checkIconType() === 'glyphicon') {
     //   return <Glyphicon glyph={`${this.props.icon}`} />;
     // } else if (this.checkIconType() === 'fontawesome') {
@@ -71,12 +94,11 @@ export class Icon extends React.Component<IProps, any> {
     // }
   }
 
-  private checkIconType(): 'glyphicon' | 'fontawesome' {
-    // return 'fontawesome';
+  private checkIconType(): 'fontawesomepro' | 'fontawesome' {
     if (typeof this.props.icon !== 'string') {
       return 'fontawesome';
     } else {
-      return 'glyphicon';
+      return 'fontawesomepro';
     }
   }
 }

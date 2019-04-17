@@ -1,0 +1,29 @@
+.icon {
+  display: inline-flex;
+  font-size: 1rem;
+  align-items: center;
+
+  .svg {
+    display: inline-block;
+  }
+
+  svg {
+    width: 1rem !important;
+  }
+
+  &.medium {
+    font-size: 1.286rem;
+
+    svg {
+      width: 1.286rem !important;
+    }
+  }
+
+  &.large {
+    font-size: 2.5rem;
+
+    svg {
+      width: 2.5rem !important;
+    }
+  }
+}
