@@ -641,7 +641,6 @@ class Main extends React.Component<
                 Header
               </Item>
               <Table
-                callback={this.function}
                 basic
                 headers={[
                   { title: 'Code' },
@@ -674,7 +673,7 @@ class Main extends React.Component<
                       }
                     ]
                   },
-                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                  { rowContents: ['Super Admin', 'This is another not very long content11111.', ''], onClick: this.function },
                   {
                     rowContents: [
                       'Super Admin',
@@ -1108,7 +1107,7 @@ class Main extends React.Component<
   }
 
   private function = () => {
-    console.log('this is a callback')
+      console.log('hi')
   }
 }
 
