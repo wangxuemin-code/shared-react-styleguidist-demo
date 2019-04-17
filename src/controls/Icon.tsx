@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Glyphicon } from 'react-bootstrap';
+// import { Glyphicon } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IContainer, Container } from './Container';
 import { Button } from '.';
@@ -8,10 +8,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
 
 interface IProps extends IContainer {
-  /**
-   * For bootstrap glyphicon, do omit the glyphicon when setting icon
-   * eg. for "glyphicon glyphicon-question-sign", you only need to set "question-sign"
-   */
   icon: any;
   onClick?: () => void;
   text?: string;
@@ -57,14 +53,24 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getIconDesign() {
-    if (this.checkIconType() === 'glyphicon') {
-      return <Glyphicon glyph={`${this.props.icon}`} />;
-    } else if (this.checkIconType() === 'fontawesome') {
+    const string: any = 'adjust';
+    if (typeof this.props.icon !== 'string') {
       return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+    } else {
+      //return <FontAwesomeIcon icon='adjust' />;
+      console.log(this.props.icon);
     }
+
+    // if (this.checkIconType() === 'glyphicon') {
+    //   return <Glyphicon glyph={`${this.props.icon}`} />;
+    // } else if (this.checkIconType() === 'fontawesome') {
+    //   return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+    //   // return <FontAwesomeIcon icon={faMobileAndroidAlt as IconDefinition} />;
+    // }
   }
 
   private checkIconType(): 'glyphicon' | 'fontawesome' {
+    // return 'fontawesome';
     if (typeof this.props.icon !== 'string') {
       return 'fontawesome';
     } else {

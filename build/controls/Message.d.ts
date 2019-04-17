@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IContainer } from './Container';
 interface IMessage extends IContainer {
     icon?: any;
-    message?: string;
+    message?: any;
     outline?: boolean;
     variant?: 'default' | 'info' | 'success' | 'warning' | 'danger';
 }

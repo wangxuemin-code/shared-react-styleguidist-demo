@@ -11,7 +11,6 @@
 }
 
 @mixin root($screenMinWidth, $rootWidth) {
-  // write the css here
   @media (min-width: $screenMinWidth) {
     .istox-wrapper {
       max-width: $rootWidth;
@@ -19,7 +18,11 @@
   }
 }
 
-@include root(576px, 576px);
-@include root(768px, 768px);
-@include root(992px, 992px);
-@include root(1200px, 1200px);
+// @include root(576px, 576px);
+// @include root(768px, 768px);
+// @include root(992px, 992px);
+// @include root(1200px, 1200px);
+@include root(320px, 320px);
+@include root(480px, 480px);
+@include root(736px, 736px);
+@include root(980px, 980px);

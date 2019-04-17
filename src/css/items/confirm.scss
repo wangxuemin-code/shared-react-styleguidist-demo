@@ -1,6 +1,10 @@
 .confirm-container {
   padding: 20px;
   text-align: center;
+
+  .confirm-cancel {
+    margin-right: 1rem !important;
+  }
 }
 
 .confirm-container .icon-container {

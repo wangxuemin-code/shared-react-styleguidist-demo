@@ -4,7 +4,7 @@ import { Container, IContainer } from './Container';
 import { Image } from './Image';
 import { Icon } from './Icon';
 
-interface IProps extends IContainer {
+interface IItem extends IContainer {
   basic?: boolean;
   title?: string;
   description?: string;
@@ -12,7 +12,7 @@ interface IProps extends IContainer {
   icon?: any;
 }
 
-export class Item extends React.Component<IProps, any> {
+export class Item extends React.Component<IItem, any> {
   public render() {
     let classes: string[] = [
       styles.item,

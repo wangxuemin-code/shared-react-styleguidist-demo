@@ -153,10 +153,6 @@ class Main extends React.Component<
                   <br />
                   <i>Italic</i>
                   <br />
-                  <Link href='/' useNormalAnchor>
-                    Links
-                  </Link>
-                  <br />
                   <u>Underline</u>
                 </Container>
               </Container>
@@ -165,7 +161,7 @@ class Main extends React.Component<
             <h4>Tabs</h4>
             <Tabs
               margin={{ topPx: 20 }}
-              basic={true}
+              basic
               orientation={'horizontal'}
               tabs={[
                 {
@@ -381,12 +377,47 @@ class Main extends React.Component<
                 {button.toUpperCase()}
               </Button>
             ))}
+            <Divider />
+            <h4>Link</h4>
+            <Container display={'flex'}>
+              <Link size={'small'} href='/' useNormalAnchor>
+                Small
+              </Link>
+              &nbsp; &nbsp;
+              <Link size={'medium'} href='/' useNormalAnchor>
+                Medium
+              </Link>
+              &nbsp; &nbsp;
+              <Link size={'large'} href='/' useNormalAnchor>
+                Large
+              </Link>
+            </Container>
+            <Divider />
+            <h4>ICON</h4>
+            <Container display={'flex'}>
+              <Icon icon={faUser} text={'Passing ICON as a variable'} />
+              <Icon icon={'mobile'} text={'Passing ICON as a string'} />
+            </Container>
+            <Divider />
+            <Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Container key={uniqid().toString()}>
+                  <Link variant={link}>{link.toUpperCase()}</Link>
+                  &nbsp; &nbsp;
+                </Container>
+              ))}
+            </Container>
             <Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} outline basic variant={button}>
-                {button.toUpperCase()}
-              </Button>
-            ))}
+            <Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Container key={uniqid().toString()}>
+                  <Link basic='true' variant={link}>
+                    {link.toUpperCase()}
+                  </Link>
+                  &nbsp; &nbsp;
+                </Container>
+              ))}
+            </Container>
             <Divider />
             <h4>Grid</h4>
             <Grid>
@@ -606,10 +637,11 @@ class Main extends React.Component<
               backgroundColor={'#FFF'}
               margin={{ topPx: 15 }}
             >
-              <Item basic={true} icon={faCheckCircle}>
+              <Item basic icon={faCheckCircle}>
                 Header
               </Item>
               <Table
+                callback={this.function}
                 basic
                 headers={[
                   { title: 'Code' },
@@ -653,7 +685,7 @@ class Main extends React.Component<
                   }
                 ]}
               />
-              <Item basic={true} icon={faCheckCircle}>
+              <Item basic icon={faCheckCircle}>
                 Footer
               </Item>
             </Container>
@@ -730,7 +762,7 @@ class Main extends React.Component<
                     placeholder={'XXXXXXXX'}
                     label={'Phone Number'}
                     append={
-                      <Controls.Button textAlign={'center'} type={'submit'}>
+                      <Controls.Button width={130} textAlign={'center'} type={'submit'}>
                         Send Code
                       </Controls.Button>
                     }
@@ -1007,7 +1039,11 @@ class Main extends React.Component<
             <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <Transition>
                 <Message icon={faCheckCircle} message='Hello i am a default!' />
-                <Message variant={'success'} icon={faCheckCircle} message='Hello i am a success!' />
+                <Message
+                  variant={'success'}
+                  icon={faCheckCircle}
+                  message={<span className='dasd'>Hello i am a success!</span>}
+                />
                 <Message
                   variant={'warning'}
                   icon={faTimesCircle}
@@ -1069,6 +1105,10 @@ class Main extends React.Component<
         <Footer />
       </React.Fragment>
     );
+  }
+
+  private function = () => {
+    console.log('this is a callback')
   }
 }
 

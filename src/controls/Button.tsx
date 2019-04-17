@@ -8,7 +8,6 @@ import { Loading } from '.';
 interface IButton extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
   outline?: boolean;
-  basic?: boolean;
   flat?: boolean;
   type?: 'button' | 'submit';
   onPress?: () => void;
@@ -36,7 +35,6 @@ export class Button extends React.Component<IButton, any> {
       this.props.innerClasses || '',
       this.props.variant || '',
       this.props.outline ? styles.outline : '',
-      this.props.basic ? styles.basic : '',
       this.props.flat ? styles.flat : '',
       this.props.disabled ? styles.disabled : '',
       this.props.subText ? styles.subText : ''
