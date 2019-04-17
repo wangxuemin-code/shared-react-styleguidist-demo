@@ -8,7 +8,8 @@
   padding-bottom: 5px;
 
   :hover {
-    border-bottom: 1px solid map-get($colors, primary);
+    //border-bottom: 1px solid map-get($colors, primary);
+    text-decoration: underline;
   }
 
   &.medium {

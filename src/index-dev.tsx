@@ -641,6 +641,7 @@ class Main extends React.Component<
                 Header
               </Item>
               <Table
+                callback={this.function}
                 basic
                 headers={[
                   { title: 'Code' },
@@ -1104,6 +1105,10 @@ class Main extends React.Component<
         <Footer />
       </React.Fragment>
     );
+  }
+
+  private function = () => {
+    console.log('this is a callback')
   }
 }
 
