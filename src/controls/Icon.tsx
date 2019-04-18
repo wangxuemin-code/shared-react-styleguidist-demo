@@ -10,11 +10,11 @@ import * as styles from '../css/main.scss';
 import SVG from 'react-inlinesvg';
 
 interface IBadge {
-  backgroundColor?: string;
   borderSize?: number;
   borderRadius?: number;
   borderColor?: BorderColorProperty;
   borderStyle?: BorderStyleProperty;
+  backgroundColor?: string;
   height?: number;
   width?: number;
 }
@@ -76,12 +76,41 @@ export class Icon extends React.Component<IProps, any> {
   }
 
   private getIconDesign() {
+    let style: React.CSSProperties = this.props.style || {};
+    if (this.props.badge) {
+      if (this.props.badge.borderColor) {
+        style.borderColor = this.props.badge.borderColor;
+      }
+      if (this.props.badge.borderRadius) {
+        style.borderRadius = this.props.badge.borderRadius;
+      }
+      if (this.props.badge.borderSize) {
+        style.borderWidth = this.props.badge.borderSize;
+      }
+      if (this.props.badge.borderStyle) {
+        style.borderStyle = this.props.badge.borderStyle;
+      }
+      if (this.props.badge.width) {
+        style.width = this.props.badge.width;
+      }
+      if (this.props.badge.height) {
+        style.height = this.props.badge.height;
+      }
+      if (this.props.badge.backgroundColor) {
+        style.backgroundColor = this.props.badge.backgroundColor;
+      }
+    }
+    console.log(style, this.props.badge);
     const src = `./images/svgs/solid/${this.props.icon}.svg`;
     if (this.checkIconType() === 'fontawesome') {
-      return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
+      return (
+        <Container style={style} className={styles.svg} {...this.props}>
+          <FontAwesomeIcon icon={this.props.icon as IconDefinition} />
+        </Container>
+      );
     } else {
       return (
-        <Container className={styles.svg} {...this.props}>
+        <Container style={style} className={styles.svg} {...this.props}>
           <SVG style={{ fill: this.props.color }} src={src} />
         </Container>
       );

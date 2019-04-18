@@ -460,13 +460,17 @@ class Main extends React.Component<
             <Container display={'flex'}>
               <Icon
                 badge={{
-                  backgroundColor: '#000',
-                  width: 100,
-                  height: 100
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 50,
+                  height: 50,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid'
                 }}
-                icon={'mobile'}
+                icon={'arrow-alt-right'}
                 text={'Badge'}
-                color={'red'}
+                color={'#DC3545'}
               />
             </Container>
             <Divider />
@@ -673,7 +677,7 @@ class Main extends React.Component<
             </ProgressBar>
             <Divider />
             <h4>Rating</h4>
-            <Rating defaultValue={4.5} maxValue={8} />
+            <Rating defaultValue={1.5} maxValue={3} />
             <Rating defaultValue={2.5} width={200} maxValue={4} />
             <Divider />
             <h4>Table</h4>

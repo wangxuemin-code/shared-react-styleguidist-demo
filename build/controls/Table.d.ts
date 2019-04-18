@@ -18,7 +18,6 @@ interface IProps extends IContainer {
     headers?: TableHeaderModel[];
     rows?: TableRowModel[];
     basic?: boolean;
-    callback?: () => void;
 }
 export declare class Table extends React.Component<IProps, any> {
     render(): JSX.Element;
