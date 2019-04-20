@@ -3,16 +3,15 @@
 
 .istox-alert .alert {
   border-radius: 0.375rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   white-space: pre-wrap;
-  font-size: 1.2rem;
+  font-size: 1rem;
   display: flex;
   align-items: center;
+  padding: 1rem;
 }
 
 .istox-alert .icon {
   font-size: 2rem;
-  margin-right: 2rem;
-  width: 2rem;
-  height: 2rem;
+  margin-right: 0.5rem;
 }

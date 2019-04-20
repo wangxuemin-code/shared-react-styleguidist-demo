@@ -63,13 +63,15 @@ export class Icon extends React.Component<IProps, any> {
           onPress={this.props.onClick}
           display={'inline-flex'}
         >
-          {this.getIconDesign()} {this.props.text}
+          {this.getIconDesign()}
+          {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
         </Button>
       );
     } else {
       return (
         <Container {...this.props} className={classes.join(' ')}>
-          {this.getIconDesign()} {this.props.text}
+          {this.getIconDesign()}
+          {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
         </Container>
       );
     }
@@ -100,7 +102,6 @@ export class Icon extends React.Component<IProps, any> {
         style.backgroundColor = this.props.badge.backgroundColor;
       }
     }
-    console.log(style, this.props.badge);
     const src = `./images/svgs/solid/${this.props.icon}.svg`;
     if (this.checkIconType() === 'fontawesome') {
       return (

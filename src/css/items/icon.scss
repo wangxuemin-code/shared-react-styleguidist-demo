@@ -1,3 +1,7 @@
+.icon-text {
+  margin-left: 0.5rem;
+}
+
 .icon {
   display: inline-flex;
   font-size: 1rem;
@@ -7,15 +11,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 0.5rem;
   }
 
   svg {
-    display: inline-block;
+    display: inline-flex;
     font-size: inherit;
-    height: 1em;
     overflow: visible;
-    vertical-align: -0.125em;
+    align-self: center;
+    width: 0.875em;
+  }
+
+  .isvg {
+    display: inline-flex;
+    font-size: inherit;
+    overflow: visible;
+    align-self: center;
     width: 0.875em;
   }
 
@@ -24,6 +34,6 @@
   }
 
   &.large {
-    font-size: 2.5rem;
+    font-size: 1.571rem;
   }
 }

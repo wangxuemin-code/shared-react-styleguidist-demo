@@ -113,10 +113,10 @@ export class FormControl extends React.Component<IProps, IState> {
         <Container className={classes.join(' ')}>
           {this.props.label && (
             <label className={styles.semiBold}>
-              <span className={styles.displayFlex}>
+              <Container className={styles.displayFlex}>
                 {this.props.label}
-                {this.props.required && <span className={styles.required}>*</span>}
-              </span>
+                {this.props.required && <Container className={styles.required}>*</Container>}
+              </Container>
             </label>
           )}
           <Container classNames={[styles.formControlsInner]} position={'relative'}>
@@ -134,12 +134,14 @@ export class FormControl extends React.Component<IProps, IState> {
             </Container>
           </Container>
         )}
-        <Container className={styles.formControlsWrapper}>
-          <span />
-          <Transition in={this.state.showError}>
-            <Message variant={'danger'} message={this.state.error} />
-          </Transition>
-        </Container>
+        {this.state.showError && (
+          <Container className={styles.formControlsWrapper}>
+            <span />
+            <Transition in={this.state.showError}>
+              <Message variant={'danger'} message={this.state.error} />
+            </Transition>
+          </Container>
+        )}
       </Container>
     );
   }
@@ -245,6 +247,17 @@ export class FormControl extends React.Component<IProps, IState> {
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'customselect') {
@@ -267,9 +280,14 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption }}
           styles={{
-            option: (base: any) => ({
+            control: (base) => ({
               ...base,
-              border: `1px dotted red`
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
             })
           }}
           options={this.props.selectCustomOptions}
@@ -328,6 +346,17 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'country') {
@@ -383,6 +412,17 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'countrycode') {
@@ -438,6 +478,17 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'switch') {

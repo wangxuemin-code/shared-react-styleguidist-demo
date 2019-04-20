@@ -9,7 +9,7 @@ $borderRadius: 0.375rem;
   select,
   textarea {
     font-size: 1rem;
-    min-height: 50px;
+    min-height: 2.857rem;
     background-color: map-get($colors, primaryGreyLight);
     border: none;
     box-shadow: none;
@@ -18,15 +18,31 @@ $borderRadius: 0.375rem;
     min-width: 18.571428571428573rem;
   }
   .select {
+    cursor: pointer;
     width: 100%;
-
+    div {
+      margin: 0;
+      div {
+        padding: 0;
+      }
+    }
     div {
       color: map-get($colors, primaryDark) !important;
+    }
+
+    svg {
+      margin-left: 5px;
+    }
+
+    .select-option {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
     }
   }
   input[id*='select'] {
     min-width: 3rem !important;
-    min-height: 36px !important;
+    min-height: 2.571rem !important;
   }
   input.otp {
     min-width: 0 !important;
@@ -71,7 +87,7 @@ $borderRadius: 0.375rem;
   input[type='radio'] {
     position: absolute;
     left: 0px;
-    top: -2px;
+    top: 0;
     cursor: pointer;
     min-width: 0 !important;
     min-height: 0 !important;
@@ -86,7 +102,7 @@ $borderRadius: 0.375rem;
       margin: 0;
     }
     input[id*='select'] {
-      min-height: 50px !important;
+      min-height: 2.857rem !important;
     }
     .form-controls-wrapper {
       display: grid;
@@ -155,7 +171,7 @@ $borderRadius: 0.375rem;
         padding: 0;
 
         label {
-          min-height: 15px;
+          min-height: 1rem;
         }
 
         input[type='checkbox'] {
@@ -214,13 +230,13 @@ $borderRadius: 0.375rem;
   &.svg {
     position: absolute;
     left: 10px;
-    top: 0.55rem;
+    top: 4px;
     color: #aaa;
   }
 }
 
 .istox-form .istox-message {
-  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .react-toggle--checked .react-toggle-track {

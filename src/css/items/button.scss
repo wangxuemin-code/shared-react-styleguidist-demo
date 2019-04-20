@@ -12,11 +12,15 @@ $borderRadius: 6.25rem;
     background-color: map-get($colors, primaryAlt);
     color: map-get($colors, primaryGreyDark);
     border-radius: 50%;
-    padding: 0.3rem;
-    font-size: 1.429rem;
+    font-size: inherit;
     box-shadow: none;
     line-height: 0;
-    padding: 0.7rem 0.8rem;
+    padding: 0.714rem;
+    min-width: 0;
+
+    .svg {
+      margin-right: 0;
+    }
   }
 }
 
@@ -24,7 +28,7 @@ $borderRadius: 6.25rem;
   background-color: map-get($colors, primary);
   background-image: none;
   font-size: 1rem;
-  padding: 0.786rem 2rem;
+  padding: 0.714rem;
   outline: none;
   color: #fff;
   cursor: pointer;
@@ -34,6 +38,7 @@ $borderRadius: 6.25rem;
   font-weight: 500;
   font-family: inherit;
   box-shadow: $boxShadow;
+  min-width: 8.571rem;
 
   .icon {
     display: inline-block;
@@ -45,12 +50,10 @@ $borderRadius: 6.25rem;
   }
 
   &.medium {
-    padding: 1.143rem 2.357rem;
     font-size: 1.286rem;
   }
 
   &.large {
-    padding: 1.5rem 2.714rem;
     font-size: 1.571rem;
   }
 

@@ -110,14 +110,13 @@ export class Header extends React.Component<IHeader, IState> {
 
   private getUserActionDesign() {
     return (
-      // <Container className={styles.userAction}>Login / Register</Container>
       <Container
         onClick={() => this.toggleClass()}
         className={[styles.userAction, styles.afterLogin].join(' ')}
       >
-        <Icon icon={faUserCircle} />
+        <Icon size='large' icon={faUserCircle} />
         <Container className={styles.text}>
-          <span>{this.getUsername()}</span>
+          {this.getUsername()}
           <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
         </Container>
         {this.state.showSubMenu && this.getSubMenuDesign()}

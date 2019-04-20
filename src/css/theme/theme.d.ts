@@ -4,10 +4,13 @@ export declare const stylings: {
     borderRadius: string;
     boxShadow: string;
     breakpoints: {
-        xs: string;
-        sm: string;
-        md: string;
-        lg: string;
+        mini: string;
+        tiny: string;
+        small: string;
+        medium: string;
+        large: string;
+        big: string;
+        huge: string;
     };
     typography: {
         font: string;

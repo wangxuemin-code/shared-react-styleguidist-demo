@@ -5,13 +5,6 @@
   margin: 0 1.5rem 0 0;
   text-align: center;
 
-  .icon {
-    margin-right: 0.8rem;
-  }
-  span {
-    color: map-get($colors, primaryGreyDark);
-  }
-
   &.success {
     .message-only,
     .icon {

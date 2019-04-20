@@ -166,38 +166,38 @@ class Main extends React.Component<
               tabs={[
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Account Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'ABCD',
                   active: true
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Phone Number
-                    </span>
+                    </Container>
                   ),
                   contents: 'EFGH'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Personal Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'IJKL'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faExclamationCircle} />
                       Documents
-                    </span>
+                    </Container>
                   ),
                   contents: 'MNOP'
                 }
@@ -209,37 +209,37 @@ class Main extends React.Component<
               tabs={[
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Account Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'ABCD'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Phone Number
-                    </span>
+                    </Container>
                   ),
                   contents: 'EFGH'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Personal Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'IJKL'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faExclamationCircle} />
                       Documents
-                    </span>
+                    </Container>
                   ),
                   contents: 'MNOP'
                 }
@@ -252,37 +252,37 @@ class Main extends React.Component<
               tabs={[
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Account Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'ABCD'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Phone Number
-                    </span>
+                    </Container>
                   ),
                   contents: 'EFGH'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faCheckCircle} />
                       Personal Info
-                    </span>
+                    </Container>
                   ),
                   contents: 'IJKL'
                 },
                 {
                   title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
+                    <Container>
+                      <Icon icon={faExclamationCircle} />
                       Documents
-                    </span>
+                    </Container>
                   ),
                   contents: 'MNOP'
                 }
@@ -297,37 +297,37 @@ class Main extends React.Component<
               tabs={[
                 {
                   title: (
-                    <span>
+                    <Container>
                       <Icon icon={faCheckCircle} />
-                      Account Info
-                    </span>
+                      <span>Account Info</span>
+                    </Container>
                   ),
                   contents: 'ABCD'
                 },
                 {
                   title: (
-                    <span>
+                    <Container>
                       <Icon icon={faCheckCircle} />
-                      Phone Number
-                    </span>
+                      <span>Phone Number</span>
+                    </Container>
                   ),
                   contents: 'EFGH'
                 },
                 {
                   title: (
-                    <span>
+                    <Container>
                       <Icon icon={faCheckCircle} />
-                      Personal Info
-                    </span>
+                      <span>Personal Info</span>
+                    </Container>
                   ),
                   contents: 'IJKL'
                 },
                 {
                   title: (
-                    <span>
+                    <Container>
                       <Icon icon={faExclamationCircle} />
-                      Documents
-                    </span>
+                      <span>Documents</span>
+                    </Container>
                   ),
                   contents: 'MNOP'
                 }
@@ -414,22 +414,22 @@ class Main extends React.Component<
               ))}
             </Container>
             <Divider visibility={'hidden'} />
-            <span>
+            <Container>
               There is a&nbsp;
               <Link size={'small'} href='/' useNormalAnchor>
                 Link
               </Link>
               &nbsp;in this sentence
-            </span>
+            </Container>
             <br />
             <br />
-            <span>
+            <Container>
               There is a&nbsp;
               <Link size={'large'} href='/' useNormalAnchor>
                 Big Link
               </Link>
               &nbsp;in this sentence
-            </span>
+            </Container>
             <Divider visibility={'hidden'} />
             <Container
               padding={{ allRem: 1 }}
@@ -729,8 +729,7 @@ class Main extends React.Component<
                     ]
                   },
                   {
-                    rowContents: ['Super Admin', 'This is a table row with a callback', ''],
-                    onClick: this.function
+                    rowContents: ['Super Admin', 'This is a table row with a callback', '']
                   },
                   {
                     rowContents: [
@@ -837,9 +836,9 @@ class Main extends React.Component<
                       this.form = ref;
                     }}
                     label={
-                      <span>
+                      <div>
                         Amount in <b>USD</b>
-                      </span>
+                      </div>
                     }
                     extraControls={
                       <Link>
@@ -1099,7 +1098,7 @@ class Main extends React.Component<
                 <Message
                   variant={'success'}
                   icon={faCheckCircle}
-                  message={<span className='dasd'>Hello i am a success!</span>}
+                  message={'Hello i am a success!'}
                 />
                 <Message
                   variant={'warning'}

@@ -18,11 +18,9 @@
   }
 }
 
-// @include root(576px, 576px);
-// @include root(768px, 768px);
-// @include root(992px, 992px);
-// @include root(1200px, 1200px);
-@include root(320px, 320px);
-@include root(480px, 480px);
-@include root(736px, 736px);
-@include root(980px, 980px);
+@include root(map-get($breakpoints, tiny), map-get($breakpoints, tiny));
+@include root(map-get($breakpoints, small), map-get($breakpoints, small));
+@include root(map-get($breakpoints, medium), map-get($breakpoints, medium));
+@include root(map-get($breakpoints, large), map-get($breakpoints, medium));
+@include root(map-get($breakpoints, big), map-get($breakpoints, large));
+@include root(map-get($breakpoints, huge), map-get($breakpoints, big));

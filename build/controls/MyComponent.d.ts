@@ -15,6 +15,6 @@ export declare class MyComponent<P = {}, S = {}> extends React.Component<P & IPr
         right: number;
         bottom: number;
     };
-    protected shouldRender(component: any, loading?: boolean, error?: any): any;
+    protected shouldRender(component: any, loading?: boolean, error?: any, data?: any): any;
 }
 export {};

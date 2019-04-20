@@ -44,17 +44,19 @@
       ul {
         li {
           a {
-            padding: 1rem 2rem 0.5rem 2rem;
+            padding: 1rem 1.5rem 0.5rem 1.5rem;
             height: auto;
             font-size: 1rem;
 
-            span {
+            > div {
               flex-direction: column;
+              .icon .svg {
+                margin-right: 0;
+              }
             }
 
             svg {
-              font-size: 5rem;
-              width: 5rem;
+              font-size: 4em;
               padding-bottom: 5px;
             }
           }
@@ -89,8 +91,8 @@
                 display: block;
                 background-color: map-get($colors, primary);
                 height: 2px;
-                position: relative;
-                top: 0.875rem;
+                position: absolute;
+                bottom: 0rem;
               }
             }
           }
@@ -128,9 +130,19 @@
           align-items: center;
           justify-content: center;
           flex-direction: column;
+          position: relative;
+
+          > div {
+            display: flex;
+            align-items: center;
+          }
 
           svg {
-            font-size: 1.875rem;
+            font-size: 1.286rem;
+          }
+
+          .svg {
+            margin-right: 0.5rem;
           }
 
           &:hover {

@@ -267,14 +267,14 @@ export class Container extends React.Component<IContainer, any> {
   private wrapWithTooltip(children: any) {
     const randomId = String(Math.random() * 1000);
     return (
-      <span>
+      <Container>
         <span data-tip data-for={randomId}>
           {children}
         </span>
         <ReactTooltip id={randomId} effect='solid'>
           <span>{this.props.tooltip}</span>
         </ReactTooltip>
-      </span>
+      </Container>
     );
   }
 }

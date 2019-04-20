@@ -70,7 +70,9 @@ export class Message extends React.Component<IMessage, any> {
       <Container {...this.props} className={classes.join(' ')}>
         {this.props.icon && <Icon icon={this.props.icon} className={styles.icon} />}
         {this.props.message && (
-          <span className={!this.props.icon ? 'message-only' : ''}>{this.props.message}</span>
+          <Container className={this.props.icon ? styles.iconText : styles.messageOnly}>
+            {this.props.message}
+          </Container>
         )}
       </Container>
     );

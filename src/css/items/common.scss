@@ -9,7 +9,7 @@ body,
   min-height: 100%;
   background: map-get($colors, primaryGreyLight);
   line-height: normal;
-  font-size: 1rem;
+  font-size: $base;
   display: flex;
   flex-direction: column;
 }
@@ -48,29 +48,29 @@ html {
 }
 
 h1 {
-  font-size: 4.142857142857143rem; // 58px
-}
-h2 {
   font-size: 2.857142857142857rem; // 40px
 }
-h3 {
+h2 {
   font-size: 2.142857142857143rem; // 30px
 }
-h4 {
+h3 {
   font-size: 1.7142857142857142rem; // 24px
 }
-h5 {
+h4 {
   font-size: 1.5rem; // 21px
 }
-h6 {
+h5 {
   font-size: 1.2857142857142858rem; // 18px
 }
-span {
+h6 {
   font-size: 1.1428571428571428rem; // 16px
 }
 p,
 article {
   font-size: 1rem; // 14px
+}
+span {
+  font-size: 0.857rem; // 12px
 }
 
 h1,
@@ -112,10 +112,6 @@ hr {
   display: grid;
 }
 
-.normal-text {
-  font-weight: 300;
-}
-
 .bold {
   font-weight: bold;
 }
@@ -125,11 +121,14 @@ hr {
   font-weight: 500;
 }
 
+.normal-text {
+  font-weight: 300;
+}
+
 .italic {
   font-style: italic;
 }
 
-/** to set vertical align of inline block object center vertically */
 .vertical-align-sub {
   vertical-align: sub;
 }
