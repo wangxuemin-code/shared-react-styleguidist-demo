@@ -112,7 +112,10 @@ class Main extends React.Component<
   public render() {
     const link = (
       <Fragment>
-        <a href='google.com'>Test Link</a>
+        By visiting the iSTOX platform, I shall be subject to and bound by our&nbsp;
+        <Controls.Link href='/' useNormalAnchor={true}>
+          Terms of Use
+        </Controls.Link>
       </Fragment>
     );
     return (
@@ -149,8 +152,9 @@ class Main extends React.Component<
                 <Divider direction={'vertical'} />
                 <Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <p>Paragraph</p>
+                  <p className='semi-bold'>Semi Bold</p>
                   <b>Bold</b>
-                  <br />
+                  <p className='extra-bold'>Extra Bold</p>
                   <i>Italic</i>
                   <br />
                   <u>Underline</u>

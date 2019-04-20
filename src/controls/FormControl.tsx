@@ -553,8 +553,7 @@ export class FormControl extends React.Component<IProps, IState> {
               {this.props.selectOptions.map((option) => {
                 return (
                   <Container
-                    alignItems={'baseline'}
-                    display={'flex'}
+                    display={'block'}
                     key={uniqid().toString()}
                     className={styles.loadingContainerWrapper}
                     padding={{ leftRem: 1.286 }}
