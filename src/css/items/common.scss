@@ -70,8 +70,17 @@ article {
   font-size: 1rem; // 14px
   margin: 0;
 }
-span {
-  font-size: 0.857rem; // 12px
+.tiny {
+  font-size: 0.857rem !important; // 12px
+}
+.small {
+  font-size: 1rem !important; // 14px
+}
+.medium {
+  font-size: 1.1428571428571428rem !important; // 16px
+}
+.large {
+  font-size: 1.2857142857142858rem !important; // 18px
 }
 
 h1,

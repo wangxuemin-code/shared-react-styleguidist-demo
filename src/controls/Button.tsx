@@ -14,7 +14,7 @@ interface IButton extends IContainer {
   href?: string;
   disabled?: boolean;
   innerClasses?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
   fluid?: boolean;
   loading?: boolean;
   float?: 'left' | 'right' | 'none';

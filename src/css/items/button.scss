@@ -40,6 +40,18 @@ $borderRadius: 6.25rem;
   box-shadow: $boxShadow;
   min-width: 8.571rem;
 
+  &.tiny {
+    padding: 0.571rem;
+  }
+
+  &.medium {
+    padding: 0.857rem;
+  }
+
+  &.large {
+    padding: 1rem;
+  }
+
   .icon {
     display: inline-block;
     margin: 0 0.5rem;
@@ -47,14 +59,6 @@ $borderRadius: 6.25rem;
 
   .sub-text {
     position: relative;
-  }
-
-  &.medium {
-    font-size: 1.286rem;
-  }
-
-  &.large {
-    font-size: 1.571rem;
   }
 
   &.primary {

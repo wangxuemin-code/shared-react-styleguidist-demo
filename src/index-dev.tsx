@@ -158,6 +158,11 @@ class Main extends React.Component<
                   <i>Italic</i>
                   <br />
                   <u>Underline</u>
+                  <br />
+                  <span className='tiny'>Tiny</span> &nbsp;
+                  <span className='small'>Small</span> &nbsp;
+                  <span className='medium'>Medium</span> &nbsp;
+                  <span className='large'>Large</span>
                 </Container>
               </Container>
             </Container>
@@ -339,6 +344,9 @@ class Main extends React.Component<
             />
             <Divider />
             <h4>Button</h4>
+            <Button size='tiny' variant='primary'>
+              Tiny
+            </Button>
             <Button size='small' variant='primary'>
               Small
             </Button>

@@ -20,21 +20,17 @@
   }
 
   &.medium {
-    font-size: 1.286rem;
-
     &:hover {
       &:after {
-        top: 1.5rem;
+        top: 1.35rem;
       }
     }
   }
 
   &.large {
-    font-size: 1.571rem;
-
     &:hover {
       &:after {
-        top: 1.9rem;
+        top: 1.5rem;
       }
     }
   }
