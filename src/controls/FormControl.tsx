@@ -114,7 +114,8 @@ export class FormControl extends React.Component<IProps, IState> {
           {this.props.label && (
             <label className={styles.semiBold}>
               <Container className={styles.displayFlex}>
-                {this.props.label}
+                {typeof this.props.label === 'string' && <h6>{this.props.label}</h6>}
+                {typeof this.props.label !== 'string' && this.props.label}
                 {this.props.required && <Container className={styles.required}>*</Container>}
               </Container>
             </label>

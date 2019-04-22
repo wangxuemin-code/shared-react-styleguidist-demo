@@ -18,7 +18,7 @@ interface IButton extends IContainer {
   fluid?: boolean;
   loading?: boolean;
   float?: 'left' | 'right' | 'none';
-  subText?: string;
+  subText?: any;
 }
 
 export class Button extends React.Component<IButton, any> {
@@ -51,7 +51,11 @@ export class Button extends React.Component<IButton, any> {
     }
 
     if (this.props.href && !this.props.disabled) {
-      return <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>;
+      return (
+        <Link basic='true' href={this.props.href}>
+          {this.getButtonDesign(style, classes)}
+        </Link>
+      );
     } else {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);

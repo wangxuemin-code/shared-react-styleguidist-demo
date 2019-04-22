@@ -25,7 +25,7 @@ export class Item extends React.Component<IItem, any> {
     return (
       <Container {...this.props} className={classes.join(' ')}>
         {this.props.image && <Image fullWidth src={this.props.image} />}
-        {this.props.icon && <Icon icon={this.props.icon} />}
+        {this.props.icon && <Icon size={'large'} icon={this.props.icon} />}
         <Container className={styles.itemInfo}>
           {this.props.children}
           {!this.props.children && this.props.title && (
