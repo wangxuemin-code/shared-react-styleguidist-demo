@@ -23,9 +23,7 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    type: 'button',
-    size: 'small',
-    float: 'left'
+    type: 'button'
   };
 
   public render() {
@@ -52,7 +50,7 @@ export class Button extends React.Component<IButton, any> {
 
     if (this.props.href && !this.props.disabled) {
       return (
-        <Link basic='true' href={this.props.href}>
+        <Link basic href={this.props.href}>
           {this.getButtonDesign(style, classes)}
         </Link>
       );

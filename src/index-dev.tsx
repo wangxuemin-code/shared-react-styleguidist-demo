@@ -125,7 +125,7 @@ class Main extends React.Component<
             logo={true}
             className={'istox-header'}
             mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
             userAction
           />
           <WrapperContainer>
@@ -408,7 +408,7 @@ class Main extends React.Component<
             <Container display={'flex'}>
               {this.colorStates.map((link: any) => (
                 <Container key={uniqid().toString()}>
-                  <Link basic='true' variant={link} useNormalAnchor>
+                  <Link basic variant={link} useNormalAnchor>
                     {link.toUpperCase()}
                   </Link>
                   &nbsp; &nbsp;

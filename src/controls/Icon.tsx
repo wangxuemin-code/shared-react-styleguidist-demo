@@ -30,7 +30,6 @@ interface IProps extends IContainer {
 
 export class Icon extends React.Component<IProps, any> {
   public static defaultProps: IProps = {
-    size: 'small',
     icon: ''
   };
 

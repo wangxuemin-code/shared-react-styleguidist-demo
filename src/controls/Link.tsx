@@ -5,7 +5,7 @@ import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-  basic?: boolean | string;
+  basic?: boolean;
   size?: 'small' | 'medium' | 'large';
   href?: string;
   disabled?: boolean;
@@ -16,8 +16,7 @@ interface ILink extends IContainer {
 
 export class Link extends React.Component<ILink, any> {
   public static defaultProps: ILink = {
-    size: 'small',
-    float: 'left'
+    size: 'small'
   };
   public render() {
     let classes: string[] = [
@@ -36,16 +35,16 @@ export class Link extends React.Component<ILink, any> {
     if (this.props.href) {
       if (useNormalAnchor) {
         return (
-          <a className={classes.join(' ')} {...linkProps} href={this.props.href}>
-            <Container display={this.props.display || 'inline-block'}>
+          <a href={this.props.href}>
+            <Container className={classes.join(' ')} {...linkProps}>
               {this.props.children}
             </Container>
           </a>
         );
       } else {
         return (
-          <ReactRouterLink className={classes.join(' ')} {...linkProps} to={this.props.href}>
-            <Container display={this.props.display || 'inline-block'}>
+          <ReactRouterLink to={this.props.href}>
+            <Container className={classes.join(' ')} {...linkProps}>
               {this.props.children}
             </Container>
           </ReactRouterLink>
@@ -53,8 +52,8 @@ export class Link extends React.Component<ILink, any> {
       }
     } else {
       return (
-        <a className={classes.join(' ')} {...linkProps} href={this.props.href}>
-          <Container display={this.props.display || 'inline-block'}>
+        <a href={this.props.href}>
+          <Container className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>
         </a>

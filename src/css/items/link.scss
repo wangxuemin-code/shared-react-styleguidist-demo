@@ -5,6 +5,7 @@
   text-decoration: none;
   font-weight: 500;
   font-family: inherit;
+  display: inline-block;
   position: relative;
 
   &:hover {
@@ -14,7 +15,7 @@
       display: block;
       border-bottom: 1px solid map-get($colors, primary);
       position: absolute;
-      top: 1.25rem;
+      top: 1.2rem;
       left: 0;
     }
   }
@@ -22,7 +23,7 @@
   &.medium {
     &:hover {
       &:after {
-        top: 1.35rem;
+        top: 1.3rem;
       }
     }
   }

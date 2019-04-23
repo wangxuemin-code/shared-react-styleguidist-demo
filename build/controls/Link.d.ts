@@ -2,7 +2,7 @@ import * as React from 'react';
 import { IContainer } from './Container';
 interface ILink extends IContainer {
     variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-    basic?: boolean | string;
+    basic?: boolean;
     size?: 'small' | 'medium' | 'large';
     href?: string;
     disabled?: boolean;

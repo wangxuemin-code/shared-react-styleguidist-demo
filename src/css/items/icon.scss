@@ -4,7 +4,6 @@
 
 .icon {
   display: inline-flex;
-  font-size: 1rem;
   align-items: center;
 
   .svg {
@@ -27,13 +26,5 @@
     overflow: visible;
     align-self: center;
     width: 0.875em;
-  }
-
-  &.medium {
-    font-size: 1.286rem;
-  }
-
-  &.large {
-    font-size: 1.571rem;
   }
 }
