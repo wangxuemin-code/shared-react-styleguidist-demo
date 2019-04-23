@@ -8,7 +8,6 @@ interface ILink extends IContainer {
     disabled?: boolean;
     useNormalAnchor?: boolean;
     onClick?: () => void;
-    float?: 'left' | 'right' | 'none';
 }
 export declare class Link extends React.Component<ILink, any> {
     static defaultProps: ILink;

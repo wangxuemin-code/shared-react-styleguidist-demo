@@ -9,7 +9,6 @@ $borderRadius: 0.375rem;
   input,
   select,
   textarea {
-    font-size: 1rem;
     min-height: 2.857rem;
     background-color: map-get($colors, primaryGreyLight);
     border: none;
@@ -179,11 +178,6 @@ $borderRadius: 0.375rem;
           cursor: pointer;
         }
       }
-
-      .extra-control div {
-        display: flex;
-        align-items: center;
-      }
     }
   }
 }
@@ -201,7 +195,6 @@ $borderRadius: 0.375rem;
 }
 
 .istox-form .input-append {
-  font-size: 0.8rem;
   color: #ffffff;
   border-radius: 100px;
   display: flex;

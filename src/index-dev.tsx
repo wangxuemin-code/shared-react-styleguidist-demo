@@ -353,10 +353,11 @@ class Main extends React.Component<
             <Button size='medium' variant='primary'>
               Medium
             </Button>
-            <Icon icon={faUser} onClick={() => {}} />
             <Button onClick={() => {}} size='large' variant='primary'>
               Large
             </Button>
+            <Divider visibility={'hidden'} />
+            <Icon icon={faUser} onClick={() => {}} />
             <Button size='large' variant='primary'>
               <Icon icon={faPlus} />
               Icon
@@ -830,7 +831,12 @@ class Main extends React.Component<
                     placeholder={'XXXXXXXX'}
                     label={'Phone Number'}
                     append={
-                      <Controls.Button width={130} textAlign={'center'} type={'submit'}>
+                      <Controls.Button
+                        float={'left'}
+                        width={130}
+                        textAlign={'center'}
+                        type={'submit'}
+                      >
                         Send Code
                       </Controls.Button>
                     }
@@ -853,12 +859,13 @@ class Main extends React.Component<
                       </div>
                     }
                     extraControls={
-                      <Link>
+                      <Link basic>
                         <Icon icon={faPlus} text={'Extra control'} />
                       </Link>
                     }
                     append={
                       <Button
+                        float={'left'}
                         textAlign={'center'}
                         type={'submit'}
                         onPress={() => {

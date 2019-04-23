@@ -11,13 +11,10 @@ interface ILink extends IContainer {
   disabled?: boolean;
   useNormalAnchor?: boolean;
   onClick?: () => void;
-  float?: 'left' | 'right' | 'none';
 }
 
 export class Link extends React.Component<ILink, any> {
-  public static defaultProps: ILink = {
-    size: 'small'
-  };
+  public static defaultProps: ILink = {};
   public render() {
     let classes: string[] = [
       styles.link,

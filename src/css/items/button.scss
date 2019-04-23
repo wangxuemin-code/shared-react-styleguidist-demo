@@ -27,7 +27,6 @@ $borderRadius: 6.25rem;
 .button {
   background-color: map-get($colors, primary);
   background-image: none;
-  font-size: 1rem;
   padding: 0.714rem;
   outline: none;
   color: #fff;
@@ -35,7 +34,6 @@ $borderRadius: 6.25rem;
   border-radius: $borderRadius;
   font-style: inherit;
   text-decoration: inherit;
-  font-weight: 500;
   font-family: inherit;
   box-shadow: $boxShadow;
   min-width: 8.571rem;

@@ -214,7 +214,6 @@ export const formControlsWrapper: string;
 export const horizontal: string;
 export const loadingContainerWrapper: string;
 export const checkbox: string;
-export const extraControl: string;
 export const error: string;
 export const required: string;
 export const inputAppend: string;

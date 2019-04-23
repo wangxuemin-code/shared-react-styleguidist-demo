@@ -17,7 +17,6 @@ interface IButton extends IContainer {
   size?: 'tiny' | 'small' | 'medium' | 'large';
   fluid?: boolean;
   loading?: boolean;
-  float?: 'left' | 'right' | 'none';
   subText?: any;
 }
 
