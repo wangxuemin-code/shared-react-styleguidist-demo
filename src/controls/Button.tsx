@@ -48,11 +48,7 @@ export class Button extends React.Component<IButton, any> {
     }
 
     if (this.props.href && !this.props.disabled) {
-      return (
-        <Link basic href={this.props.href}>
-          {this.getButtonDesign(style, classes)}
-        </Link>
-      );
+      return <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>;
     } else {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);

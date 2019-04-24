@@ -51,6 +51,7 @@ import { Router, Route } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUploader from './controls/FileUploader';
+import { Breadcrumbs } from './controls/Breadcrumbs';
 var uniqid = require('uniqid');
 
 const mqtt = new Mqtt({
@@ -392,24 +393,11 @@ class Main extends React.Component<
             ))}
             <Divider />
             <h4>Link</h4>
-            <Container alignItems={'center'} display={'inline-flex'}>
-              <Link size={'small'} href='/' useNormalAnchor>
-                Small
-              </Link>
-              &nbsp; &nbsp;
-              <Link size={'medium'} href='/' useNormalAnchor>
-                Medium
-              </Link>
-              &nbsp; &nbsp;
-              <Link size={'large'} href='/' useNormalAnchor>
-                Large
-              </Link>
-            </Container>
             <Divider visibility={'hidden'} />
             <Container display={'flex'}>
               {this.colorStates.map((link: any) => (
                 <Container key={uniqid().toString()}>
-                  <Link basic variant={link} useNormalAnchor>
+                  <Link variant={link} useNormalAnchor>
                     {link.toUpperCase()}
                   </Link>
                   &nbsp; &nbsp;
@@ -429,20 +417,12 @@ class Main extends React.Component<
             <Divider visibility={'hidden'} />
             <Container>
               There is a&nbsp;
-              <Link size={'small'} href='/' useNormalAnchor>
+              <Link href='/' useNormalAnchor>
                 Link
               </Link>
               &nbsp;in this sentence
             </Container>
             <br />
-            <br />
-            <Container>
-              There is a&nbsp;
-              <Link size={'large'} href='/' useNormalAnchor>
-                Big Link
-              </Link>
-              &nbsp;in this sentence
-            </Container>
             <Divider visibility={'hidden'} />
             <Container
               padding={{ allRem: 1 }}
@@ -454,7 +434,7 @@ class Main extends React.Component<
               display={'flex'}
               verticalAlign={'center'}
             >
-              <Link size={'small'} href='/' useNormalAnchor>
+              <Link href='/' useNormalAnchor>
                 Link
               </Link>
             </Container>
@@ -859,7 +839,7 @@ class Main extends React.Component<
                       </div>
                     }
                     extraControls={
-                      <Link basic>
+                      <Link>
                         <Icon icon={faPlus} text={'Extra control'} />
                       </Link>
                     }
@@ -1171,6 +1151,9 @@ class Main extends React.Component<
               </Transition>
             </Container>
             <Divider />
+            <h4>Breadcrumbs</h4>
+            <Breadcrumbs links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]} />
+
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>

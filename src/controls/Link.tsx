@@ -5,8 +5,6 @@ import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-  basic?: boolean;
-  size?: 'small' | 'medium' | 'large';
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;
@@ -15,12 +13,11 @@ interface ILink extends IContainer {
 
 export class Link extends React.Component<ILink, any> {
   public static defaultProps: ILink = {};
+
   public render() {
     let classes: string[] = [
       styles.link,
-      this.props.size ? this.props.size : '',
       this.props.variant || '',
-      this.props.basic ? styles.basic : '',
       this.props.disabled ? styles.disabled : ''
     ];
 

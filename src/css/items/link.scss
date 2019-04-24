@@ -8,49 +8,40 @@
   position: relative;
 
   &:hover {
-    &:after {
-      width: 100%;
-      content: '';
-      display: block;
-      border-bottom: 1px solid map-get($colors, primary);
-      position: absolute;
-      top: 1.2rem;
-      left: 0;
-    }
+    text-decoration: underline;
+    // &:after {
+    //   width: 100%;
+    //   content: '';
+    //   display: block;
+    //   border-bottom: 1px solid map-get($colors, primary);
+    //   position: absolute;
+    //   top: 1.2rem;
+    //   left: 0;
+    // }
   }
 
-  &.medium {
-    &:hover {
-      &:after {
-        top: 1.3rem;
-      }
-    }
-  }
+  // &.medium {
+  //   &:hover {
+  //     &:after {
+  //       top: 1.3rem;
+  //     }
+  //   }
+  // }
 
-  &.large {
-    &:hover {
-      &:after {
-        top: 1.5rem;
-      }
-    }
-  }
+  // &.large {
+  //   &:hover {
+  //     &:after {
+  //       top: 1.5rem;
+  //     }
+  //   }
+  // }
 
   &.primary {
     color: map-get($colors, primary);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, primary);
-      }
-    }
   }
 
   &.secondary {
     color: map-get($colors, primaryGrey);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, primaryGrey);
-      }
-    }
   }
 
   &.disabled {
@@ -59,56 +50,21 @@
     > div {
       opacity: 0.5;
     }
-
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, primary);
-        opacity: 0.5;
-      }
-    }
   }
 
   &.info {
     color: map-get($colors, info);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, info);
-      }
-    }
   }
 
   &.success {
     color: map-get($colors, success);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, success);
-      }
-    }
   }
 
   &.warning {
     color: map-get($colors, warning);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, warning);
-      }
-    }
   }
 
   &.danger {
     color: map-get($colors, danger);
-    &:hover {
-      &:after {
-        border-bottom: 1px solid map-get($colors, danger);
-      }
-    }
-  }
-
-  &.basic {
-    &:hover {
-      &:after {
-        border-bottom: none;
-      }
-    }
   }
 }
