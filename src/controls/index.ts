@@ -29,3 +29,4 @@ export * from './Footer';
 export * from './ProgressBar';
 export * from './Toast';
 export * from './Rating';
+export * from './Breadcrumbs';
