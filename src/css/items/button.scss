@@ -37,6 +37,9 @@ $borderRadius: 6.25rem;
   font-family: inherit;
   box-shadow: $boxShadow;
   min-width: 8.571rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.tiny {
     padding: 0.571rem;
