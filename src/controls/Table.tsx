@@ -99,14 +99,17 @@ export class Table extends React.Component<IProps, any> {
             );
           }
         })}
-        <td className={styles.actionContainer} key='action'>
-          <Transition>
-            {tableRowModel.rowActions &&
-              tableRowModel.rowActions.map((tableActionsModel) => {
-                return this.getActionDesign(tableActionsModel, uniqid().toString());
-              })}
-          </Transition>
-        </td>
+
+        {tableRowModel.rowActions && tableRowModel.rowActions.length > 0 && (
+          <td className={styles.actionContainer} key='action'>
+            <Transition>
+              {tableRowModel.rowActions &&
+                tableRowModel.rowActions.map((tableActionsModel) => {
+                  return this.getActionDesign(tableActionsModel, uniqid().toString());
+                })}
+            </Transition>
+          </td>
+        )}
       </tr>
     );
   }
