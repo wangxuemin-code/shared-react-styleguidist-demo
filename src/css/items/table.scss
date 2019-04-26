@@ -2,6 +2,7 @@
   border: 1px solid map-get($colors, primaryGreyLight);
   border-radius: 0.429rem;
   background-color: map-get($colors, primaryAlt);
+  width: 100%;
 
   &.basic {
     border: none;
@@ -13,14 +14,11 @@
     thead {
       background-color: map-get($colors, primaryGreyLight);
     }
-    th:last-child {
-      text-align: right;
-    }
   }
 }
 
 .istox-table th {
-  font-size: 1rem;
+  font-size: 0.85rem;
   padding: 1rem;
   color: map-get($colors, primaryGreyDark);
 }
