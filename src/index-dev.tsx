@@ -800,7 +800,7 @@ class Main extends React.Component<
                     decimalPlace={2}
                   />
                 </Controls.Container>
-                <Controls.Container className={'form-group'} display={'flex'}>
+                <Controls.Container className={'form-group '} display={'flex'}>
                   <Controls.FormControl
                     required
                     placeholder={'Placeholder'}
@@ -959,6 +959,7 @@ class Main extends React.Component<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'select'}
+                  defaultValue={{ label: 'Option1', value: 'hei!' }}
                   selectOptions={[
                     {
                       label: 'Option1',
@@ -976,6 +977,11 @@ class Main extends React.Component<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
+                  defaultValue={{
+                    label: 'Option1',
+                    value: 'hei!',
+                    image: '/images/ISTOX_Logo.png'
+                  }}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
