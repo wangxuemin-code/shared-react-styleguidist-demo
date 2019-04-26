@@ -4,6 +4,7 @@ import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Transition } from './Transition';
 import { Loading } from './Loading';
+import { Item } from './Item';
 var uniqid = require('uniqid');
 
 export interface TableHeaderModel {
@@ -24,7 +25,9 @@ export interface TableActionsModel {
 }
 
 interface IProps extends IContainer {
-  headers?: TableHeaderModel[];
+  header?: any;
+  footer?: any;
+  columnHeaders?: TableHeaderModel[];
   rows?: TableRowModel[];
   basic?: boolean;
 }
@@ -41,11 +44,17 @@ export class Table extends React.Component<IProps, any> {
     });
     return (
       <Container {...this.props} className={classes.join(' ')}>
+        {typeof this.props.header === 'string' && (
+          <Container padding={{ allRem: 1 }}>
+            <h5>{this.props.header}</h5>
+          </Container>
+        )}
+        {typeof this.props.header !== 'string' && <Container>{this.props.header}</Container>}
         <table>
           <thead>
             <tr>
-              {this.props.headers &&
-                this.props.headers.map((tableHeaderModel) => {
+              {this.props.columnHeaders &&
+                this.props.columnHeaders.map((tableHeaderModel) => {
                   return this.getHeaderDesign(tableHeaderModel, uniqid().toString());
                 })}
             </tr>
@@ -57,6 +66,12 @@ export class Table extends React.Component<IProps, any> {
               })}
           </tbody>
         </table>
+        {typeof this.props.footer === 'string' && (
+          <Container padding={{ allRem: 1 }}>
+            <h5>{this.props.footer}</h5>
+          </Container>
+        )}
+        {typeof this.props.footer !== 'string' && <Container>{this.props.footer}</Container>}
       </Container>
     );
   }

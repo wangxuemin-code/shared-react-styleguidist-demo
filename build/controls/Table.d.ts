@@ -15,7 +15,9 @@ export interface TableActionsModel {
     loading?: boolean;
 }
 interface IProps extends IContainer {
-    headers?: TableHeaderModel[];
+    header?: any;
+    footer?: any;
+    columnHeaders?: TableHeaderModel[];
     rows?: TableRowModel[];
     basic?: boolean;
 }
