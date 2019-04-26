@@ -393,7 +393,6 @@ class Main extends React.Component<
             ))}
             <Divider />
             <h4>Link</h4>
-            <Divider visibility={'hidden'} />
             <Container display={'flex'}>
               {this.colorStates.map((link: any) => (
                 <Container key={uniqid().toString()}>
@@ -404,17 +403,6 @@ class Main extends React.Component<
                 </Container>
               ))}
             </Container>
-            <Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link variant={link} useNormalAnchor>
-                    {link.toUpperCase()}
-                  </Link>
-                  &nbsp; &nbsp;
-                </Container>
-              ))}
-            </Container>
-            <Divider visibility={'hidden'} />
             <Container>
               There is a&nbsp;
               <Link href='/' useNormalAnchor>
@@ -423,7 +411,6 @@ class Main extends React.Component<
               &nbsp;in this sentence
             </Container>
             <br />
-            <Divider visibility={'hidden'} />
             <Container
               padding={{ allRem: 1 }}
               border={{
@@ -674,73 +661,61 @@ class Main extends React.Component<
             <Rating defaultValue={2.5} width={200} maxValue={4} />
             <Divider />
             <h4>Table</h4>
-            <Container
-              border={{
-                borderSize: 1,
-                borderRadius: 6,
-                borderColor: '#E9E9E9',
-                borderStyle: 'solid'
-              }}
-              overflow={'hidden'}
-              backgroundColor={'#FFF'}
-              margin={{ topPx: 15 }}
-            >
-              <Item basic icon={faCheckCircle}>
-                Header
-              </Item>
-              <Table
-                basic
-                headers={[
-                  { title: 'Code' },
-                  { title: 'Date Created' },
-                  { title: 'Request Status' },
-                  {
-                    title: 'Actions'
-                  }
-                ]}
-                rows={[
-                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
-                  {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
-                    rowActions: [
-                      {
-                        icon: faAddressBook,
-                        callback: () => {
-                          console.log('heeelop');
-                        }
-                      },
-                      {
-                        icon: faAdjust,
-                        callback: () => {
-                          console.log('heeelop');
-                        }
+            <Table
+              header={'HEADER'}
+              footer={
+                <Item basic icon={faAdjust}>
+                  Footer
+                </Item>
+              }
+              basic
+              columnHeaders={[
+                { title: 'Code' },
+                { title: 'Date Created' },
+                { title: 'Request Status' },
+                {
+                  title: 'Actions'
+                }
+              ]}
+              rows={[
+                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [
+                    {
+                      icon: faAddressBook,
+                      callback: () => {
+                        console.log('heeelop');
                       }
-                    ]
-                  },
-                  {
-                    rowContents: ['Super Admin', 'This is a table row with a callback', '']
-                  },
-                  {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
-                    rowActions: [{ loading: true }]
-                  }
-                ]}
-              />
-              <Item basic icon={faCheckCircle}>
-                Footer
-              </Item>
-            </Container>
+                    },
+                    {
+                      icon: faAdjust,
+                      callback: () => {
+                        console.log('heeelop');
+                      }
+                    }
+                  ]
+                },
+                {
+                  rowContents: ['Super Admin', 'This is a table row with a callback', '']
+                },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [{ loading: true }]
+                }
+              ]}
+            />
             <Divider visibility={'hidden'} />
             <Table
-              headers={[
+              columnHeaders={[
                 { title: 'Code' },
                 { title: 'Date Created' },
                 { title: 'Request Status' },
@@ -804,7 +779,7 @@ class Main extends React.Component<
                   });
                 }}
               >
-                <Controls.Container className={styles.formGroup} display={'flex'}>
+                <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl label={'Area Code'} name='phonecode' type={'phonecode'} />
                   <Controls.FormControl
                     required={true}
@@ -825,7 +800,7 @@ class Main extends React.Component<
                     decimalPlace={2}
                   />
                 </Controls.Container>
-                <Controls.Container className={styles.formGroup} display={'flex'}>
+                <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl
                     required
                     placeholder={'Placeholder'}
@@ -909,7 +884,7 @@ class Main extends React.Component<
                 <Controls.FormControl label={'Phone'} name='numeric' type={'numeric'} />
                 <Controls.FormControl
                   numInputs={5}
-                  inputWidth={'95px'}
+                  inputWidth={'80px'}
                   label={'OTP'}
                   name='numberfields'
                   type={'numberfields'}
@@ -1153,7 +1128,6 @@ class Main extends React.Component<
             <Divider />
             <h4>Breadcrumbs</h4>
             <Breadcrumbs links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]} />
-
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>

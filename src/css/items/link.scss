@@ -5,7 +5,7 @@
   font-weight: inherit;
   font-family: inherit;
   display: inline-block;
-  position: relative;
+  // position: relative;
 
   &:hover {
     text-decoration: underline;
@@ -46,10 +46,7 @@
 
   &.disabled {
     color: map-get($colors, primary);
-
-    > div {
-      opacity: 0.5;
-    }
+    opacity: 0.5;
   }
 
   &.info {
