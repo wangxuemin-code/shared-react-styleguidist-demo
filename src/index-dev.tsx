@@ -856,7 +856,7 @@ class Main extends React.Component<
                   type={'text'}
                   placeholder={'Search'}
                   value=''
-                  prepend={<Icon icon={faSearch} padding={{ topPx: 5 }} />}
+                  prepend={<Icon icon={faSearch} />}
                 />
                 <Controls.FormControl
                   required

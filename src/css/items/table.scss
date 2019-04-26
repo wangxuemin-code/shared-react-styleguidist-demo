@@ -2,6 +2,7 @@
   border: 1px solid map-get($colors, primaryGreyLight);
   border-radius: 0.429rem;
   background-color: map-get($colors, primaryAlt);
+  width: 100%;
 
   &.basic {
     border: none;
@@ -12,9 +13,6 @@
     width: 100%;
     thead {
       background-color: map-get($colors, primaryGreyLight);
-    }
-    th:last-child {
-      text-align: right;
     }
   }
 }
