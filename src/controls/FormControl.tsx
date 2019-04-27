@@ -240,14 +240,12 @@ export class FormControl extends React.Component<IProps, IState> {
         />
       );
     } else if (this.props.type === 'select') {
+      let Options = this.props.selectOptions || [];
       return (
         <Select
           // componentClass='select'
           className={'select'}
-          defaultValue={{
-            value: this.props.defaultValue.value,
-            label: this.props.defaultValue.label
-          }}
+          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -275,15 +273,12 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.Option>
         );
       };
+      let Options = this.props.selectCustomOptions || [];
       return (
         <Select
           className={'select'}
           // defaultMenuIsOpen
-          defaultValue={{
-            value: this.props.defaultValue.value,
-            label: this.props.defaultValue.label,
-            image: this.props.defaultValue.image
-          }}
+          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption }}
@@ -349,10 +344,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           className={'select'}
-          defaultValue={{
-            value: this.props.defaultValue.value,
-            label: this.props.defaultValue.label
-          }}
+          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -418,10 +410,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          defaultValue={{
-            value: this.props.defaultValue.value,
-            label: this.props.defaultValue.label
-          }}
+          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -487,10 +476,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          defaultValue={{
-            value: this.props.defaultValue.value,
-            label: this.props.defaultValue.label
-          }}
+          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}

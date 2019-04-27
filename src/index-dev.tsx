@@ -959,7 +959,7 @@ class Main extends React.Component<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'select'}
-                  defaultValue={{ label: 'Option1', value: 'hei!' }}
+                  defaultValue={'abcl'}
                   selectOptions={[
                     {
                       label: 'Option1',
@@ -977,11 +977,7 @@ class Main extends React.Component<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
-                  defaultValue={{
-                    label: 'Option1',
-                    value: 'hei!',
-                    image: '/images/ISTOX_Logo.png'
-                  }}
+                  defaultValue={'hei!'}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
@@ -1000,6 +996,7 @@ class Main extends React.Component<
                   label={'Country Code'}
                   name='countrycode'
                   type={'countrycode'}
+                  defaultValue={'SGP'}
                 />
                 <Controls.FormControl label={'Phone Code'} name='phonecode' type={'phonecode'} />
               </Form>

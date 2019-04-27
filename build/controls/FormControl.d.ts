@@ -11,7 +11,7 @@ interface IState {
 interface IProps extends IContainer {
     loading?: boolean;
     fullWidth?: boolean;
-    defaultValue?: string | number;
+    defaultValue?: any;
     value?: string | number | null;
     placeholder?: any;
     type?: 'text' | 'number' | 'numberfields' | 'numeric' | 'money' | 'static' | 'email' | 'password' | 'select' | 'customselect' | 'country' | 'phonecode' | 'countrycode' | 'switch' | 'longtext' | 'datetime' | 'daterange' | 'uploader' | 'checkbox';
