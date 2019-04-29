@@ -761,7 +761,6 @@ class Main extends React.Component<
             <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Form
-                horizontal
                 display={'grid'}
                 error={String(404)}
                 ref={(ref) => {
@@ -991,14 +990,24 @@ class Main extends React.Component<
                     }
                   ]}
                 />
-                <Controls.FormControl label={'Country'} name='country' type={'country'} />
+                <Controls.FormControl
+                  defaultValue={'Singapore'}
+                  label={'Country'}
+                  name='country'
+                  type={'country'}
+                />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
                   type={'countrycode'}
                   defaultValue={'SGP'}
                 />
-                <Controls.FormControl label={'Phone Code'} name='phonecode' type={'phonecode'} />
+                <Controls.FormControl
+                  defaultValue={'+65'}
+                  label={'Phone Code'}
+                  name='phonecode'
+                  type={'phonecode'}
+                />
               </Form>
             </Container>
             <Divider />

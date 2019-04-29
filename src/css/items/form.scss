@@ -37,7 +37,6 @@ $borderRadius: 0.375rem;
     .select-option {
       display: flex;
       align-items: center;
-      padding: 0.5rem;
     }
   }
   input[id*='select'] {
@@ -97,6 +96,31 @@ $borderRadius: 0.375rem;
     position: absolute !important;
   }
 
+  .select {
+    width: 100%;
+    border: 1px solid map-get($colors, primaryGrey);
+
+    div {
+      padding-top: 0;
+      padding-bottom: 0;
+      margin: 0;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+
+    div[id*='select'] {
+      background-color: map-get($colors, primaryAlt);
+      padding: 0.8rem;
+      cursor: pointer;
+    }
+
+    div[id*='select']:hover {
+      background-color: map-get($colors, primaryGreyLight);
+      color: map-get($colors, primary);
+    }
+  }
+
   &.form-horizontal {
     .form-group {
       margin: 0;
@@ -110,31 +134,6 @@ $borderRadius: 0.375rem;
 
       .form-controls-inner {
         display: flex;
-
-        .select {
-          width: 100%;
-          border: 1px solid map-get($colors, primaryGrey);
-
-          div {
-            padding-top: 0;
-            padding-bottom: 0;
-            margin: 0;
-            cursor: pointer;
-            border: none;
-            background-color: transparent;
-          }
-
-          div[id*='select'] {
-            background-color: map-get($colors, primaryAlt);
-            padding: 0.8rem;
-            cursor: pointer;
-          }
-
-          div[id*='select']:hover {
-            background-color: map-get($colors, primaryGreyLight);
-            color: map-get($colors, primary);
-          }
-        }
 
         .horizontal {
           display: inline-flex;

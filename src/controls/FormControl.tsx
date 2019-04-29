@@ -244,6 +244,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           // componentClass='select'
+          // defaultMenuIsOpen
           className={'select'}
           defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           placeholder={this.props.placeholder}
@@ -344,7 +345,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           className={'select'}
-          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value[0] === this.props.defaultValue)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -475,6 +476,7 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          // defaultMenuIsOpen
           className={'select'}
           defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
           filterOption={customFilter}
