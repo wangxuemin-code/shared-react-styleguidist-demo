@@ -246,7 +246,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // componentClass='select'
           // defaultMenuIsOpen
           className={'select'}
-          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -279,7 +279,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           className={'select'}
           // defaultMenuIsOpen
-          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption }}
@@ -345,7 +345,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           className={'select'}
-          defaultValue={Options.filter((obj: any) => obj.value[0] === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value[0] === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -411,7 +411,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -478,7 +478,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // defaultMenuIsOpen
           className={'select'}
-          defaultValue={Options.filter((obj: any) => obj.value === this.props.defaultValue)[0]}
+          defaultValue={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}

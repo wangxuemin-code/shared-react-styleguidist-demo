@@ -782,7 +782,7 @@ class Main extends React.Component<
                   <Controls.FormControl
                     label={'Area Code'}
                     name='areacode'
-                    defaultValue={'+65'}
+                    value={'+65'}
                     type={'phonecode'}
                   />
                   <Controls.FormControl
