@@ -606,6 +606,10 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   onSetOption = (selectedOption: any) => {
+    let value = selectedOption.value;
+    if (value.constructor === Array) {
+      value = selectedOption.value[0];
+    }
     this.setState({ displayValue: selectedOption, value: selectedOption.value });
   };
 
