@@ -779,7 +779,12 @@ class Main extends React.Component<
                 }}
               >
                 <Controls.Container className={'form-group'} display={'flex'}>
-                  <Controls.FormControl label={'Area Code'} name='phonecode' type={'phonecode'} />
+                  <Controls.FormControl
+                    label={'Area Code'}
+                    name='areacode'
+                    defaultValue={'+65'}
+                    type={'phonecode'}
+                  />
                   <Controls.FormControl
                     required={true}
                     placeholder={'XXXXXXXX'}
@@ -824,7 +829,7 @@ class Main extends React.Component<
                         type={'submit'}
                         onPress={() => {
                           console.log(this.form.getFormData());
-                          console.log(this.form.getInputValue('description'));
+                          console.log(this.form.getInputValue('areacode'));
                         }}
                       >
                         Submit

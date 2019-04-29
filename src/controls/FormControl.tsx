@@ -610,7 +610,7 @@ export class FormControl extends React.Component<IProps, IState> {
     if (value.constructor === Array) {
       value = selectedOption.value[0];
     }
-    this.setState({ displayValue: selectedOption, value: selectedOption.value });
+    this.setState({ displayValue: selectedOption, value: value });
   };
 
   private onDateTimeChange(newUnixTimestamp: number) {
@@ -655,7 +655,6 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
-
     if (
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
@@ -663,6 +662,9 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'password' ||
       this.props.type === 'select' ||
       this.props.type === 'customselect' ||
+      this.props.type === 'phonecode' ||
+      this.props.type === 'countrycode' ||
+      this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
       this.props.type === 'uploader'
@@ -723,7 +725,6 @@ export class FormControl extends React.Component<IProps, IState> {
   private onValueChanged(firstCall: boolean, newValue: string) {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(String(newValue || ''));
-
     if (firstCall) {
       this.state = {
         displayValue: result.displayValue,
