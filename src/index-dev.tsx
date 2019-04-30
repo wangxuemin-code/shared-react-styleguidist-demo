@@ -22,7 +22,8 @@ import {
   Footer,
   Toast,
   Divider,
-  Rating
+  Rating,
+  MyComponent
 } from './controls';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
@@ -86,7 +87,7 @@ const mqtt = new Mqtt({
 //     console.log(message);
 //   });
 
-class Main extends React.Component<
+class Main extends MyComponent<
   any,
   {
     success: string[] | string;
@@ -1183,6 +1184,33 @@ class Main extends React.Component<
             <Divider />
             <h4>Breadcrumbs</h4>
             <Breadcrumbs links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]} />
+            <Divider />
+            <h4>My Components Loading Phase</h4>
+            {this.shouldRender(
+              () => {
+                return (
+                  <Controls.Container width={200} height={200}>
+                    Sample Container
+                  </Controls.Container>
+                );
+              },
+              true,
+              null,
+              { abc: '123' }
+            )}
+            {this.shouldRender(
+              () => {
+                return (
+                  <Controls.Container width={200} height={200}>
+                    Sample Container2
+                  </Controls.Container>
+                );
+              },
+              true,
+              null,
+              { abc: '123' }
+            )}
+
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>

@@ -26,7 +26,7 @@ export class Loading extends React.Component<IProps, any> {
       style.backgroundColor = 'rgba(0, 0, 0, 0.35)';
     }
     if (this.props.backDrop && this.props.variant === 'white') {
-      style.backgroundColor = 'rgba(1, 1, 1, 0.35)';
+      style.backgroundColor = 'rgba(255, 255, 255, 0.45)';
     }
 
     return (

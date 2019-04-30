@@ -60,7 +60,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
     }
 
     return (
-      <Controls.Container position='relative'>
+      <Controls.Container position='relative' className={'my-component'}>
         {typeof component === 'function' ? component() : component}
         {(this.props.loading || loading) && dataHasProperty && (
           <Loading backDrop={true} variant={'white'} loading={true} />
