@@ -81,6 +81,16 @@ export class Form extends React.Component<IProps> {
     return result;
   }
 
+  public getFormControls(): FormControl[] {
+    let result: FormControl[] = [];
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue) {
+        result.push(formControl);
+      }
+    });
+    return result;
+  }
+
   public getFormData(): FormData {
     const formData = new FormData();
     this.formControls.forEach((formControl: any) => {
