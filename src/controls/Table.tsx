@@ -85,16 +85,16 @@ export class Table extends React.Component<IProps, any> {
       <tr key={index} onClick={tableRowModel.onClick}>
         {tableRowModel.rowContents.map((content) => {
           if (content.icon) {
-            <Transition>
+            <Container>
               {tableRowModel.rowActions &&
                 tableRowModel.rowActions.map((tableActionsModel) => {
                   return this.getActionDesign(tableActionsModel, uniqid().toString());
                 })}
-            </Transition>;
+            </Container>;
           } else {
             return (
               <td key={uniqid().toString()}>
-                <Transition>{content}</Transition>
+                <Container>{content}</Container>
               </td>
             );
           }
@@ -102,12 +102,12 @@ export class Table extends React.Component<IProps, any> {
 
         {tableRowModel.rowActions && tableRowModel.rowActions.length > 0 && (
           <td className={styles.actionContainer} key='action'>
-            <Transition>
+            <Container>
               {tableRowModel.rowActions &&
                 tableRowModel.rowActions.map((tableActionsModel) => {
                   return this.getActionDesign(tableActionsModel, uniqid().toString());
                 })}
-            </Transition>
+            </Container>
           </td>
         )}
       </tr>
