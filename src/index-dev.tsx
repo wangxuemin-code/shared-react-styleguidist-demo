@@ -93,6 +93,7 @@ class Main extends React.Component<
     error: string;
     loading: boolean;
     showModal: boolean;
+    selectOptions: any[];
   }
 > {
   form: any;
@@ -105,7 +106,13 @@ class Main extends React.Component<
       success: ['Success'],
       error: '',
       loading: false,
-      showModal: false
+      showModal: false,
+      selectOptions: [
+        {
+          label: 'Primary',
+          value: 'primary'
+        }
+      ]
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
   }
@@ -354,7 +361,13 @@ class Main extends React.Component<
             <Button size='medium' variant='primary'>
               Medium
             </Button>
-            <Button onClick={() => {}} size='large' variant='primary'>
+            <Button
+              onClick={() => {
+                console.log(1);
+              }}
+              size='large'
+              variant='primary'
+            >
               Large
             </Button>
             <Divider visibility={'hidden'} />
@@ -451,6 +464,9 @@ class Main extends React.Component<
                 icon={'arrow-alt-right'}
                 text={'Badge'}
                 color={'#DC3545'}
+                onClick={() => {
+                  console.log(1);
+                }}
               />
             </Container>
             <Divider />
@@ -963,25 +979,47 @@ class Main extends React.Component<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'select'}
-                  defaultValue={'abcl'}
-                  selectOptions={[
-                    {
-                      label: 'Option1',
-                      value: 'hei!'
-                    },
-                    {
-                      label: 'Option2',
-                      value: 'abcl'
-                    }
-                  ]}
+                  value={'secondary'}
+                  selectOptions={this.state.selectOptions}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                  append={
+                    <Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({
+                          selectOptions: [
+                            {
+                              label: 'Primary',
+                              value: 'primary'
+                            },
+                            {
+                              label: 'Secondary',
+                              value: 'secondary'
+                            },
+                            {
+                              label: 'Disabled',
+                              value: 'disabled'
+                            }
+                          ]
+                        });
+                      }}
+                    >
+                      Change Dropdown
+                    </Button>
+                  }
                 />
+
                 <Controls.FormControl
                   required
                   label={'Html Dropdown'}
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
-                  defaultValue={'hei!'}
+                  value={'hei!'}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
@@ -996,7 +1034,7 @@ class Main extends React.Component<
                   ]}
                 />
                 <Controls.FormControl
-                  defaultValue={'Singapore'}
+                  value={'Singapore'}
                   label={'Country'}
                   name='country'
                   type={'country'}
@@ -1005,10 +1043,10 @@ class Main extends React.Component<
                   label={'Country Code'}
                   name='countrycode'
                   type={'countrycode'}
-                  defaultValue={'SGP'}
+                  value={'SGP'}
                 />
                 <Controls.FormControl
-                  defaultValue={'+65'}
+                  value={'+65'}
                   label={'Phone Code'}
                   name='phonecode'
                   type={'phonecode'}

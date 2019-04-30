@@ -53,27 +53,27 @@ export class Icon extends React.Component<IProps, any> {
     classes = classes.filter(function(el) {
       return el != '';
     });
-    if (this.props.onClick) {
-      return (
-        <Button
-          float={'none'}
-          className={classes.join(' ')}
-          {...this.props}
-          onPress={this.props.onClick}
-          display={'inline-flex'}
-        >
-          {this.getIconDesign()}
-          {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
-        </Button>
-      );
-    } else {
-      return (
-        <Container {...this.props} className={classes.join(' ')}>
-          {this.getIconDesign()}
-          {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
-        </Container>
-      );
-    }
+    // if (this.props.onClick) {
+    //   return (
+    //     <Button
+    //       float={'none'}
+    //       className={classes.join(' ')}
+    //       {...this.props}
+    //       onPress={this.props.onClick}
+    //       display={'inline-flex'}
+    //     >
+    //       {this.getIconDesign()}
+    //       {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
+    //     </Button>
+    //   );
+    // } else {
+    return (
+      <Container className={classes.join(' ')}>
+        {this.getIconDesign()}
+        {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
+      </Container>
+    );
+    // }
   }
 
   private getIconDesign() {
