@@ -14,6 +14,7 @@ export declare class Form extends React.Component<IProps> {
     private recursiveCloneChildren;
     getInputValue(name: string): string;
     getFormControl(name: string): FormControl;
+    getFormControls(): FormControl[];
     getFormData(): FormData;
     reset(): void;
     private _onSubmit;
