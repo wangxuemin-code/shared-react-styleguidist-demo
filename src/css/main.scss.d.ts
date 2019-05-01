@@ -223,6 +223,7 @@ export const errorPage: string;
 export const message: string;
 export const altIcon: string;
 export const istoxTable: string;
+export const min: string;
 export const actionContainer: string;
 export const action: string;
 export const confirmContainer: string;

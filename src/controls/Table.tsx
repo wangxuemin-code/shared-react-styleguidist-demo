@@ -9,6 +9,7 @@ var uniqid = require('uniqid');
 
 export interface TableHeaderModel {
   title: string;
+  min?: boolean;
 }
 
 export interface TableRowModel {
@@ -83,7 +84,7 @@ export class Table extends React.Component<IProps, any> {
   private getRowDesign(tableRowModel: TableRowModel, index: number) {
     return (
       <tr key={index} onClick={tableRowModel.onClick}>
-        {tableRowModel.rowContents.map((content) => {
+        {tableRowModel.rowContents.map((content, columnIndex) => {
           if (content.icon) {
             <Container>
               {tableRowModel.rowActions &&
@@ -92,8 +93,13 @@ export class Table extends React.Component<IProps, any> {
                 })}
             </Container>;
           } else {
+            let min: boolean | undefined = false;
+            if (this.props.columnHeaders && this.props.columnHeaders.length > columnIndex) {
+              min = this.props.columnHeaders[columnIndex].min;
+            }
+
             return (
-              <td key={uniqid().toString()}>
+              <td key={uniqid().toString()} className={min ? styles.min : ''}>
                 <Container>{content}</Container>
               </td>
             );

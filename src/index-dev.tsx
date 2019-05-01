@@ -713,7 +713,7 @@ class Main extends MyComponent<
               basic
               columnHeaders={[
                 { title: 'Code' },
-                { title: 'Date Created' },
+                { title: 'Date Created', min: true },
                 { title: 'Request Status' },
                 {
                   title: 'Actions'
