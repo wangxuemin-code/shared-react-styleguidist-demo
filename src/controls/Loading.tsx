@@ -6,11 +6,13 @@ import { stylings } from '../css/theme';
 interface IProps {
   loading?: boolean;
   backDrop?: boolean;
+  variant?: 'white' | 'black';
 }
 
 export class Loading extends React.Component<IProps, any> {
   public static defaultProps: IProps = {
-    backDrop: true
+    backDrop: true,
+    variant: 'black'
   };
 
   public render() {
@@ -20,8 +22,11 @@ export class Loading extends React.Component<IProps, any> {
       return null;
     }
 
-    if (this.props.backDrop) {
+    if (this.props.backDrop && this.props.variant === 'black') {
       style.backgroundColor = 'rgba(0, 0, 0, 0.35)';
+    }
+    if (this.props.backDrop && this.props.variant === 'white') {
+      style.backgroundColor = 'rgba(255, 255, 255, 0.45)';
     }
 
     return (
