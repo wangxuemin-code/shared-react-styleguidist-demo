@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Loading } from '.';
-import { ErrorPage } from './ErrorPage';
 import { ErrorHandle } from '../helpers';
-import { Controls } from '../index-prod';
+import { ErrorPage } from './ErrorPage';
 
 interface IProps {
   loading?: boolean;
@@ -59,13 +58,12 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
       return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
     }
 
-    return (
-      <Controls.Container position='relative' className={'my-component'}>
-        {typeof component === 'function' ? component() : component}
-        {(this.props.loading || loading) && dataHasProperty && (
-          <Loading backDrop={true} variant={'white'} loading={true} />
-        )}
-      </Controls.Container>
-    );
+    return typeof component === 'function' ? component() : component;
+    // <Controls.Container position='relative' className={'my-component'}>
+    //   {typeof component === 'function' ? component() : component}
+    //   {(this.props.loading || loading) && dataHasProperty && (
+    //     <Loading backDrop={true} variant={'white'} loading={true} />
+    //   )}
+    // </Controls.Container>
   }
 }
