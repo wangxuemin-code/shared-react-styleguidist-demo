@@ -371,6 +371,19 @@ class Main extends React.Component<
               Large
             </Button>
             <Divider visibility={'hidden'} />
+            <Button loading={'Tiny Loading'} size='tiny' variant='primary'>
+              Tiny Loading
+            </Button>
+            <Button loading={'Small Loading'} size='small' variant='primary'>
+              Small Loading
+            </Button>
+            <Button loading={'Medium Loading'} size='medium' variant='primary'>
+              Medium Loading
+            </Button>
+            <Button loading={'Large Loading'} size='large' variant='primary'>
+              Large Loading
+            </Button>
+            <Divider visibility={'hidden'} />
             <Icon icon={faUser} onClick={() => {}} />
             <Button size='large' variant='primary'>
               <Icon icon={faPlus} />
@@ -400,7 +413,19 @@ class Main extends React.Component<
             ))}
             <Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} loading flat variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
               <Button key={uniqid().toString()} outline variant={button}>
+                {button.toUpperCase()}
+              </Button>
+            ))}
+            <Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Button key={uniqid().toString()} loading outline variant={button}>
                 {button.toUpperCase()}
               </Button>
             ))}
