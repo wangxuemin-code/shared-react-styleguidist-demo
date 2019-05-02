@@ -6,12 +6,25 @@ import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IAllDirection, IDirection, IDirectionShort } from './common/interfaces';
 import Truncate from 'react-truncate';
+import { number } from 'prop-types';
 
 interface IBorder {
   borderRadius?: number;
   borderColor?: BorderColorProperty;
   borderStyle?: BorderStyleProperty;
   borderSize?: number;
+}
+
+interface ITooltipOptions {
+  place?: 'top' | 'right' | 'bottom' | 'left';
+  event?: string;
+  eventOff?: string;
+  globalEventOff?: string;
+  clickable?: boolean;
+  delayHide?: number;
+  delayShow?: number;
+  delayUpdate?: number;
+  className?: string;
 }
 
 export interface IContainer {
@@ -40,6 +53,7 @@ export interface IContainer {
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
   tooltip?: any;
+  tooltipOptions?: ITooltipOptions;
   verticalAlign?: 'center';
   zIndex?: number;
   fontStyle?: 'normal' | 'italic';
@@ -271,8 +285,14 @@ export class Container extends React.Component<IContainer, any> {
         <span data-tip data-for={randomId}>
           {children}
         </span>
-        <ReactTooltip id={randomId} effect='solid'>
-          <span>{this.props.tooltip}</span>
+        <ReactTooltip id={randomId} effect='solid' {...this.props.tooltipOptions} isCapture={true}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <span>{this.props.tooltip}</span>
+          </div>
         </ReactTooltip>
       </Container>
     );
