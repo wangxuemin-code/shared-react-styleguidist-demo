@@ -82,7 +82,9 @@ export class Button extends React.Component<IButton, any> {
                   ? 16
                   : this.props.size == 'small'
                   ? 14
-                  : 12
+                  : this.props.size == 'tiny'
+                  ? 12
+                  : 14
               }
               loading={this.props.loading}
             />

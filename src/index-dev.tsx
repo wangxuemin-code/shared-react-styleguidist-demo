@@ -558,15 +558,19 @@ class Main extends MyComponent<
             <Divider />
             <h4>Image</h4>
             <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
-              <Image display={'inline-flex'} padding={{ allPx: 15 }} variant={'logo'} />
+              <Image
+                backgroundColor={'#000'}
+                display={'inline-flex'}
+                padding={{ allPx: 15 }}
+                variant={'logo'}
+              />
               <Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 padding={{ allPx: 15 }}
-                backgroundColor={'#000'}
                 variant={'logo alt'}
               />
-              <Image
+              {/* <Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 border={{
@@ -578,7 +582,7 @@ class Main extends MyComponent<
                 width={100}
                 height={100}
                 backgroundColor={'#000'}
-                variant={'logo alt'}
+                variant={'logo'}
                 padding={{ allPx: 15 }}
               />
               <Image
@@ -587,7 +591,7 @@ class Main extends MyComponent<
                 width={100}
                 height={100}
                 badge
-                src={'/images/ISTOX_Logo.png'}
+                variant={'logo alt'}
               />
               <Image
                 display={'inline-flex'}
@@ -602,7 +606,7 @@ class Main extends MyComponent<
                 height={100}
                 badge
                 src={'/images/ISTOX_Logo.png'}
-              />
+              /> */}
             </Container>
             <Divider />
             <h4>PopUps</h4>
