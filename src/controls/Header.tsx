@@ -68,7 +68,7 @@ export class Header extends React.Component<IHeader, IState> {
             <a href='/' className={styles.logoAnchor}>
               {this.props.logo && (
                 <Image
-                  variant={className.includes('alt') ? 'logo alt' : 'logo'}
+                  variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
                   className={styles.icon}
                 />
               )}

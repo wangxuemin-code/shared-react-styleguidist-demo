@@ -86,7 +86,7 @@ export class Button extends React.Component<IButton, any> {
                   ? 12
                   : 14
               }
-              loading={this.props.loading}
+              loading
             />
           )}
           {this.props.children}
