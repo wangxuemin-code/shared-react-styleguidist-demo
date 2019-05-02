@@ -1210,31 +1210,26 @@ class Main extends MyComponent<
             <h4>Breadcrumbs</h4>
             <Breadcrumbs links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]} />
             <Divider />
-            <h4>My Components Loading Phase</h4>
-            {this.shouldRender(
-              () => {
-                return (
-                  <Controls.Container width={200} height={200}>
-                    Sample Container
-                  </Controls.Container>
-                );
-              },
-              true,
-              null,
-              { abc: '123' }
-            )}
-            {this.shouldRender(
-              () => {
-                return (
-                  <Controls.Container width={200} height={200}>
-                    Sample Container2
-                  </Controls.Container>
-                );
-              },
-              true,
-              null,
-              { abc: '123' }
-            )}
+            <h4>Custom tooltip</h4>
+            <Controls.Container
+              width={200}
+              height={200}
+              tooltip={
+                <Controls.Container backgroundColor={'#BBBBBB'}>
+                  I am tooltip content!
+                </Controls.Container>
+              }
+              tooltipOptions={{
+                place: 'left',
+                clickable: true,
+                delayShow: 500,
+                delayHide: 500,
+                delayUpdate: 500,
+                className: 'abc'
+              }}
+            >
+              Sample tooltip open on hover
+            </Controls.Container>
 
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
