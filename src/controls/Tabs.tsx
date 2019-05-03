@@ -26,7 +26,7 @@ interface IState {
 
 export class Tabs extends React.Component<IProps, IState> {
   public static defaultProps = {
-    defaultSelectedIndex: 0
+    selectedIndex: 0
   };
 
   constructor(props: IProps) {
