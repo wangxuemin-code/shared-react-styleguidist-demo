@@ -12,7 +12,7 @@ interface ITab {
 }
 
 interface IProps extends IContainer {
-  defaultSelectedIndex?: number;
+  selectedIndex?: number;
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';
   align?: 'left' | 'middle' | 'right';
@@ -32,8 +32,14 @@ export class Tabs extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = { selectedIndex: this.props.defaultSelectedIndex! };
-    this.onTabChanged(this.props.tabs[this.props.defaultSelectedIndex || 0].tabName);
+    this.state = { selectedIndex: this.props.selectedIndex! };
+    this.onTabChanged(this.props.tabs[this.props.selectedIndex || 0].tabName);
+  }
+
+  componentDidUpdate(prevProps: IProps) {
+    if (prevProps.selectedIndex !== this.props.selectedIndex) {
+      this.handleSelect(this.props.selectedIndex);
+    }
   }
 
   public render() {
@@ -56,7 +62,7 @@ export class Tabs extends React.Component<IProps, IState> {
         <BootstrapTabs
           //className={styles.istoxTabs}
           className={classes.join(' ')}
-          defaultActiveKey={this.state.selectedIndex}
+          activeKey={this.state.selectedIndex}
           id='istox-tab'
           onSelect={this.handleSelect}
         >
@@ -71,7 +77,46 @@ export class Tabs extends React.Component<IProps, IState> {
     );
   }
 
+  public goToNext() {
+    const index = Math.min(this.state.selectedIndex + 1, this.props.tabs.length - 1);
+    this.setState(
+      {
+        selectedIndex: index
+      },
+      () => {
+        this.handleSelect(index);
+      }
+    );
+  }
+
+  public goToPrevious() {
+    const index = Math.max(this.state.selectedIndex - 1, 0);
+    this.setState(
+      {
+        selectedIndex: index
+      },
+      () => {
+        this.handleSelect(index);
+      }
+    );
+  }
+
+  public goTo(index: number) {
+    this.setState(
+      {
+        selectedIndex: index
+      },
+      () => {
+        this.handleSelect(index);
+      }
+    );
+  }
+
   private handleSelect = (index: any) => {
+    if (this.state.selectedIndex != index) {
+      this.setState({ selectedIndex: index });
+    }
+
     this.onTabChanged(this.props.tabs[index].tabName);
   };
 
