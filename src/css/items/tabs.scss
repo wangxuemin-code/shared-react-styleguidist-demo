@@ -113,8 +113,6 @@
         background-color: white;
         border-left: 1px solid map-get($colors, primaryGrey);
         border-top: 1px solid map-get($colors, primaryGrey);
-        border-bottom: 1px solid map-get($colors, primaryGrey);
-        margin-bottom: -2px;
         cursor: pointer;
 
         &:last-of-type {
