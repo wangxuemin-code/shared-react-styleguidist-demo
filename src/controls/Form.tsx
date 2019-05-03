@@ -111,6 +111,13 @@ export class Form extends React.Component<IProps> {
 
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
+
+    if (this.validate() && this.props.onSubmit) {
+      this.props.onSubmit();
+    }
+  }
+
+  public validate(): boolean {
     let validated = true;
     this.formControls.forEach((formControl: any) => {
       if (formControl.validate) {
@@ -121,8 +128,6 @@ export class Form extends React.Component<IProps> {
       }
     });
 
-    if (validated && this.props.onSubmit) {
-      this.props.onSubmit();
-    }
+    return validated;
   }
 }
