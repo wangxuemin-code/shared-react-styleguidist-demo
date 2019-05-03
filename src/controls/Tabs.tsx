@@ -5,10 +5,10 @@ import { Tabs as BootstrapTabs, Tab as BootstrapTab } from 'react-bootstrap';
 
 interface ITab {
   title: any;
+  tabName?: string;
   contents?: any;
   className?: string;
   icon?: string;
-  active?: boolean;
 }
 
 interface IProps extends IContainer {
@@ -17,6 +17,7 @@ interface IProps extends IContainer {
   orientation?: 'vertical' | 'horizontal';
   align?: 'left' | 'middle' | 'right';
   basic?: boolean;
+  onTabSelected?: (tabName: string) => void;
 }
 
 interface IState {
@@ -32,6 +33,7 @@ export class Tabs extends React.Component<IProps, IState> {
     super(props);
 
     this.state = { selectedIndex: this.props.defaultSelectedIndex! };
+    this.onTabChanged(this.props.tabs[this.props.defaultSelectedIndex || 0].tabName);
   }
 
   public render() {
@@ -56,6 +58,7 @@ export class Tabs extends React.Component<IProps, IState> {
           className={classes.join(' ')}
           defaultActiveKey={this.state.selectedIndex}
           id='istox-tab'
+          onSelect={this.handleSelect}
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (
@@ -67,4 +70,14 @@ export class Tabs extends React.Component<IProps, IState> {
       </Container>
     );
   }
+
+  private handleSelect = (index: any) => {
+    this.onTabChanged(this.props.tabs[index].tabName);
+  };
+
+  private onTabChanged = (tabName?: string) => {
+    if (tabName && this.props.onTabSelected) {
+      this.props.onTabSelected(tabName);
+    }
+  };
 }

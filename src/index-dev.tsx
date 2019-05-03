@@ -181,6 +181,9 @@ class Main extends MyComponent<
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
+              onTabSelected={(tabName) => {
+                console.log(tabName);
+              }}
               tabs={[
                 {
                   title: (
@@ -189,8 +192,8 @@ class Main extends MyComponent<
                       Account Info
                     </Container>
                   ),
-                  contents: 'ABCD',
-                  active: true
+                  tabName: 'Account',
+                  contents: 'ABCD'
                 },
                 {
                   title: (
@@ -199,6 +202,7 @@ class Main extends MyComponent<
                       Phone Number
                     </Container>
                   ),
+                  tabName: 'Phone',
                   contents: 'EFGH'
                 },
                 {
@@ -208,6 +212,7 @@ class Main extends MyComponent<
                       Personal Info
                     </Container>
                   ),
+                  tabName: 'Personal',
                   contents: 'IJKL'
                 },
                 {
@@ -217,6 +222,7 @@ class Main extends MyComponent<
                       Documents
                     </Container>
                   ),
+                  tabName: 'Documents',
                   contents: 'MNOP'
                 }
               ]}
