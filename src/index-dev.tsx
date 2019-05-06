@@ -1040,6 +1040,7 @@ class Main extends MyComponent<
                   onInputChanged={(value) => {
                     console.log(value);
                   }}
+                  static={true}
                   append={
                     <Button
                       float={'left'}

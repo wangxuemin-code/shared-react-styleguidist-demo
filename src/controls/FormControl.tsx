@@ -95,7 +95,11 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public componentDidUpdate(prevProps: IProps) {
-    if (prevProps.value !== this.props.value) {
+    if (
+      prevProps.value !== this.props.value ||
+      prevProps.selectOptions !== this.props.selectOptions ||
+      prevProps.selectCustomOptions !== this.props.selectCustomOptions
+    ) {
       this.onValueChanged(false, String(this.props.value || ''));
     }
   }
