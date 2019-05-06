@@ -3,7 +3,7 @@ import * as React from 'react';
 // import { Glyphicon } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IContainer, Container } from './Container';
-import { Button } from '.';
+// import { Button } from '.';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';

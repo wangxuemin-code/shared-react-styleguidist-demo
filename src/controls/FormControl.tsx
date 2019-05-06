@@ -334,9 +334,9 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.includes(searchText.toLowerCase()) ||
-          option.data.value.includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.includes(searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -401,9 +401,9 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -467,9 +467,9 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
