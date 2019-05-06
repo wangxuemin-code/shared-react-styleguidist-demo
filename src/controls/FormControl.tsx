@@ -627,7 +627,11 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private onUploaderChanged(newUrl: string) {
-    this.setState({ displayValue: newUrl, value: newUrl });
+    this.setState({ displayValue: newUrl, value: newUrl }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(newUrl, this.props.name || '');
+      }
+    });
   }
 
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
