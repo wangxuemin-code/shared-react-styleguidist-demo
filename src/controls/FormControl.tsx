@@ -164,18 +164,18 @@ export class FormControl extends React.Component<IProps, IState> {
     return '';
   }
 
-  public validate(): boolean {
+  public validate(setErrorState: boolean = true): boolean {
     if (this.props.validateReturnError) {
       const error = this.props.validateReturnError(this.state.value);
       if (error) {
-        this.setState({ error, showError: true });
+        if (setErrorState) this.setState({ error, showError: true });
         return false;
       }
     }
 
     if (this.props.required) {
       if (!this.state.value) {
-        this.setState({ error: 'Cannot be empty.', showError: true });
+        if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
       }
     }
@@ -184,7 +184,8 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(this.state.value).toLowerCase())) {
-          this.setState({ error: 'Email address is not valid.', showError: true });
+          if (setErrorState)
+            this.setState({ error: 'Email address is not valid.', showError: true });
           return false;
         }
       }
@@ -194,11 +195,12 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
         if (!re.test(String(this.state.value))) {
-          this.setState({
-            error:
-              'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
-            showError: true
-          });
+          if (setErrorState)
+            this.setState({
+              error:
+                'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+              showError: true
+            });
           return false;
         }
       }

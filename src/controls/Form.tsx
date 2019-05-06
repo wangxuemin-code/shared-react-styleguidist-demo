@@ -111,18 +111,23 @@ export class Form extends React.Component<IProps> {
 
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
+
+    if (this.validate(true) && this.props.onSubmit) {
+      this.props.onSubmit();
+    }
+  }
+
+  public validate(setErrorState: boolean = true): boolean {
     let validated = true;
     this.formControls.forEach((formControl: any) => {
       if (formControl.validate) {
-        const isValid = formControl.validate();
+        const isValid = formControl.validate(setErrorState);
         if (validated) {
           validated = isValid;
         }
       }
     });
 
-    if (validated && this.props.onSubmit) {
-      this.props.onSubmit();
-    }
+    return validated;
   }
 }

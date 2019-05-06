@@ -97,6 +97,7 @@ class Main extends MyComponent<
     selectOptions: any[];
   }
 > {
+  tabs: Tabs;
   form: any;
   formControls: any[];
   colorStates: string[];
@@ -181,6 +182,13 @@ class Main extends MyComponent<
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
+              onTabSelected={(tabName) => {
+                console.log(tabName);
+              }}
+              selectedIndex={2}
+              ref={(ref) => {
+                if (ref) this.tabs = ref;
+              }}
               tabs={[
                 {
                   title: (
@@ -189,8 +197,8 @@ class Main extends MyComponent<
                       Account Info
                     </Container>
                   ),
-                  contents: 'ABCD',
-                  active: true
+                  tabName: 'Account',
+                  contents: 'ABCD'
                 },
                 {
                   title: (
@@ -199,6 +207,7 @@ class Main extends MyComponent<
                       Phone Number
                     </Container>
                   ),
+                  tabName: 'Phone',
                   contents: 'EFGH'
                 },
                 {
@@ -208,6 +217,7 @@ class Main extends MyComponent<
                       Personal Info
                     </Container>
                   ),
+                  tabName: 'Personal',
                   contents: 'IJKL'
                 },
                 {
@@ -217,10 +227,26 @@ class Main extends MyComponent<
                       Documents
                     </Container>
                   ),
+                  tabName: 'Documents',
                   contents: 'MNOP'
                 }
               ]}
             />
+            <Controls.Button
+              onClick={() => {
+                this.tabs.goToPrevious();
+              }}
+            >
+              Go to previous Tab
+            </Controls.Button>
+            <Controls.Button
+              onClick={() => {
+                this.tabs.goToNext();
+              }}
+            >
+              Go to next Tab
+            </Controls.Button>
+
             <Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
