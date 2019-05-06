@@ -1,22 +1,20 @@
+import { countries } from 'country-data';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { FormControl as BootstrapFormControl, Checkbox } from 'react-bootstrap';
+import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import Select, { components } from 'react-select';
+import TextareaAutosize from 'react-textarea-autosize';
 import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
-import { Loading } from './Loading';
-import { Message } from './Message';
-import { Transition } from './Transition';
-import TextareaAutosize from 'react-textarea-autosize';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
 import FileUploader, { IAwsSettings } from './FileUploader';
-import Select, { components } from 'react-select';
 import { Image } from './Image';
-import { countries } from 'country-data';
-import { any } from 'prop-types';
+import { Loading } from './Loading';
+import { Message } from './Message';
 import { OtpInput } from './OTP';
-import SingleValue from 'react-select/lib/components/SingleValue';
+import { Transition } from './Transition';
 var uniqid = require('uniqid');
 
 interface IState {
@@ -38,7 +36,6 @@ interface IProps extends IContainer {
     | 'numberfields'
     | 'numeric'
     | 'money'
-    | 'static'
     | 'email'
     | 'password'
     | 'select'
@@ -54,6 +51,7 @@ interface IProps extends IContainer {
     | 'checkbox';
   name?: string;
   disabled?: boolean;
+  static?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
   prepend?: any;
   append?: any;
@@ -230,8 +228,8 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private getControlDesign() {
-    if (this.props.type === 'static') {
-      return <Container>{this.props.value}</Container>;
+    if (this.props.static) {
+      return <Container>{this.state.displayValue}</Container>;
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
@@ -670,17 +668,34 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'longtext' ||
       this.props.type === 'email' ||
       this.props.type === 'password' ||
-      this.props.type === 'select' ||
-      this.props.type === 'customselect' ||
       this.props.type === 'phonecode' ||
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
-      this.props.type === 'uploader' ||
-      this.props.type === 'static'
+      this.props.type === 'uploader'
     ) {
       return { displayValue: value || '', value };
+    } else if (this.props.type === 'select') {
+      let displayValue = '';
+      if (
+        this.props.selectOptions!.map((item) => {
+          if (item.value === value) {
+            displayValue = item.label;
+          }
+        })
+      )
+        return { displayValue: displayValue || '', value };
+    } else if (this.props.type === 'customselect') {
+      let displayValue = '';
+      if (
+        this.props.selectCustomOptions!.map((item) => {
+          if (item.value === value) {
+            displayValue = item.label;
+          }
+        })
+      )
+        return { displayValue: displayValue || '', value };
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
       let appendDot: string = '';
