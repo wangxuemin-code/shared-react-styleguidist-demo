@@ -21,6 +21,7 @@ export interface IAwsSettings {
 interface IFileUploader extends IAwsSettings {
   value?: string;
   onChange?: (newImageSrc: string) => void;
+  disabled?: boolean;
 }
 
 export default class FileUploader extends React.Component<IFileUploader, IState> {
@@ -81,7 +82,12 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
               Click here to attached a file
             </span>
           )}
-          <input type='file' accept='image/*' onChange={this.onFileChange} />
+          <input
+            type='file'
+            accept='image/*'
+            onChange={this.onFileChange}
+            disabled={this.props.disabled}
+          />
         </label>
       </Container>
     );

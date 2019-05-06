@@ -1103,6 +1103,12 @@ class Main extends MyComponent<
                   name='phonecode'
                   type={'phonecode'}
                 />
+                <Controls.FormControl
+                  value={'1234567'}
+                  label={'Static'}
+                  name='test_static'
+                  type={'static'}
+                />
               </Form>
             </Container>
             <Divider />

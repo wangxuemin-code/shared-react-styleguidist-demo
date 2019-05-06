@@ -551,6 +551,7 @@ export class FormControl extends React.Component<IProps, IState> {
           secretAccessKey={this.props.s3Settings!.secretAccessKey}
           value={this.state.displayValue || undefined}
           onChange={this.onUploaderChanged}
+          disabled={this.props.disabled}
         />
       );
     } else if (this.props.type === 'checkbox') {
@@ -676,7 +677,8 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
-      this.props.type === 'uploader'
+      this.props.type === 'uploader' ||
+      this.props.type === 'static'
     ) {
       return { displayValue: value || '', value };
     } else {
