@@ -11,21 +11,13 @@ interface IState {
   loaded: boolean;
 }
 
-export interface IAwsSettings {
-  bucketName: string;
-  region: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-}
-
-interface IFileUploader extends IAwsSettings {
+interface IFileUploader {
   value?: string;
   onChange?: (newImageSrc: string) => void;
   disabled?: boolean;
 }
 
 export default class FileUploader extends React.Component<IFileUploader, IState> {
-  private S3Client: any;
 
   constructor(props: IFileUploader) {
     super(props);
@@ -41,15 +33,6 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
     this.onDragLeave = this.onDragLeave.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.onFileChange = this.onFileChange.bind(this);
-
-    const config = {
-      bucketName: this.props.bucketName,
-      region: this.props.region,
-      accessKeyId: this.props.accessKeyId,
-      secretAccessKey: this.props.secretAccessKey
-    };
-
-    this.S3Client = new S3(config);
   }
 
   public componentDidUpdate(prevProps: IFileUploader) {
@@ -84,7 +67,7 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
           )}
           <input
             type='file'
-            accept='image/*'
+            accept='image/*, application/pdf'
             onChange={this.onFileChange}
             disabled={this.props.disabled}
           />
@@ -126,22 +109,22 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
 
   private onFileChange(e: React.FormEvent<HTMLInputElement>, inputFile?: File) {
     var file = inputFile || (e.target as any).files[0],
-      pattern = /image-*/,
+      pattern = 'application/pdf|image-*',
       reader = new FileReader();
 
     if (!file.type.match(pattern)) {
-      alert('Please select an image.');
+      alert('Please select an image or pdf.');
       return;
     }
 
     this.setState({ loaded: false });
 
-    // reader.onload = (e) => {
-    //   this.setState({
-    //     imageSrc: reader.result as string,
-    //     loaded: true
-    //   });
-    // };
+    reader.onload = (e) => {
+       this.setState({
+         imageSrc: reader.result as string,
+         loaded: true
+       });
+     };
 
     reader.readAsDataURL(file);
 
@@ -152,27 +135,8 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
       value: `${Math.random().toString(36)}_${Date.now()}.${extension}`
     });
 
-    this.setState({
-      loading: true,
-      loaded: false,
-      imageSrc: ''
-    });
-
     if (this.props.onChange) {
       this.props.onChange('');
     }
-
-    this.S3Client.uploadFile(file)
-      .then((data: any) => {
-        console.log(data);
-        this.setState({ loading: false, loaded: true, imageSrc: data.location });
-
-        if (this.props.onChange) {
-          this.props.onChange(data.location);
-        }
-      })
-      .catch((err: any) => {
-        console.error(err);
-      });
   }
 }

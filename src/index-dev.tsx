@@ -917,12 +917,6 @@ class Main extends MyComponent<
                   label='Image'
                   name='image'
                   type='uploader'
-                  s3Settings={{
-                    bucketName: 'istox-stos-test',
-                    region: 'ap-southeast-1',
-                    accessKeyId: 'secret',
-                    secretAccessKey: 'secret'
-                  }}
                   value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
                 />
                 <Controls.FormControl
