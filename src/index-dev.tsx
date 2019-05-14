@@ -917,12 +917,6 @@ class Main extends MyComponent<
                   label='Image'
                   name='image'
                   type='uploader'
-                  s3Settings={{
-                    bucketName: 'istox-stos-test',
-                    region: 'ap-southeast-1',
-                    accessKeyId: 'secret',
-                    secretAccessKey: 'secret'
-                  }}
                   value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
                 />
                 <Controls.FormControl
@@ -965,6 +959,9 @@ class Main extends MyComponent<
                   name='numberfields'
                   type={'numberfields'}
                   separator={<span>&nbsp;&nbsp;</span>}
+                  onInputChanged={() => {
+                    console.log(this.form.getInputValue('numberfields'));
+                  }}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl
@@ -1025,7 +1022,11 @@ class Main extends MyComponent<
                   type={'daterange'}
                   placeholder={''}
                   defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  dateOptions={{
+                    showTimeSelect: false
+                  }}
                   onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('daterange'));
                     console.log(value);
                   }}
                 />
@@ -1040,7 +1041,7 @@ class Main extends MyComponent<
                   onInputChanged={(value) => {
                     console.log(value);
                   }}
-                  static={true}
+                  // static={true}
                   append={
                     <Button
                       float={'left'}

@@ -9,13 +9,13 @@ import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
-import FileUploader, { IAwsSettings } from './FileUploader';
 import { Image } from './Image';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { OtpInput } from './OTP';
 import { Transition } from './Transition';
 var uniqid = require('uniqid');
+import FileUploader from './FileUploader';
 
 interface IState {
   displayValue?: string;
@@ -53,6 +53,7 @@ interface IProps extends IContainer {
   disabled?: boolean;
   static?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
+  onBlur?: () => void;
   prepend?: any;
   append?: any;
   label?: any;
@@ -63,7 +64,6 @@ interface IProps extends IContainer {
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
-  s3Settings?: IAwsSettings;
   decimalPlace?: number;
   numInputs?: number;
   inputWidth?: string;
@@ -76,6 +76,7 @@ interface IProcessResult {
 }
 
 export class FormControl extends React.Component<IProps, IState> {
+  private otp?: OtpInput;
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
@@ -85,7 +86,9 @@ export class FormControl extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
+    this.onDateTimeRangeChange = this.onDateTimeRangeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.onValueChanged(
@@ -241,6 +244,8 @@ export class FormControl extends React.Component<IProps, IState> {
           separator={this.props.separator}
           inputWidth={this.props.inputWidth}
           numInputs={this.props.numInputs}
+          value={this.state.value || ''}
+          onChange={this.onChangeNumberFields}
         />
       );
     } else if (this.props.type === 'select') {
@@ -540,17 +545,13 @@ export class FormControl extends React.Component<IProps, IState> {
           type={'daterange'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeChange}
+          onChange={this.onDateTimeRangeChange}
           options={this.props.dateOptions}
         />
       );
     } else if (this.props.type === 'uploader') {
       return (
         <FileUploader
-          bucketName={this.props.s3Settings!.bucketName}
-          region={this.props.s3Settings!.region}
-          accessKeyId={this.props.s3Settings!.accessKeyId}
-          secretAccessKey={this.props.s3Settings!.secretAccessKey}
           value={this.state.displayValue || undefined}
           onChange={this.onUploaderChanged}
           disabled={this.props.disabled}
@@ -597,9 +598,18 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
+  private onChangeNumberFields(event: number) {
+    const numbers = event;
+    const result = this.processValue(numbers.toString());
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
+  }
+
   private onChange(event: React.FormEvent<any>) {
     const { value } = event.target as HTMLInputElement;
-
     if (this.validateValueCanChanged(value)) {
       const result = this.processValue(value);
       this.setState({ displayValue: result.displayValue, value: result.value }, () => {
@@ -622,6 +632,14 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private onDateTimeChange(newUnixTimestamp: number) {
+    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
+
+    if (this.props.onInputChanged) {
+      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
+    }
+  }
+
+  private onDateTimeRangeChange(newUnixTimestamp: number) {
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
 
     if (this.props.onInputChanged) {
@@ -677,7 +695,8 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
-      this.props.type === 'uploader'
+      this.props.type === 'uploader' ||
+      this.props.type === 'numberfields'
     ) {
       return { displayValue: value || '', value };
     } else if (this.props.type === 'select') {

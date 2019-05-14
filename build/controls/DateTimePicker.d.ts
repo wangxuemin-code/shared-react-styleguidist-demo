@@ -3,6 +3,7 @@ import { IContainer } from './Container';
 export interface IDateOption {
     endDate?: Date;
     startDate?: Date;
+    showTimeSelect?: boolean;
 }
 interface IProps extends IContainer {
     type?: string;
