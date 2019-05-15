@@ -15,7 +15,7 @@ import { Message } from './Message';
 import { OtpInput } from './OTP';
 import { Transition } from './Transition';
 var uniqid = require('uniqid');
-import FileUploader from './FileUploader';
+import FileUploader, { FilePattern } from './FileUploader';
 
 interface IState {
   displayValue?: string;
@@ -68,6 +68,10 @@ interface IProps extends IContainer {
   numInputs?: number;
   inputWidth?: string;
   separator?: any;
+  uploaderConfigs?: {
+    filePatterns?: FilePattern[];
+    customAllowFileExtensions?: string[];
+  };
 }
 
 interface IProcessResult {
@@ -80,7 +84,8 @@ export class FormControl extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
-    decimalPlace: 4
+    decimalPlace: 4,
+    uploaderConfigs: {}
   };
 
   constructor(props: IProps) {
@@ -555,6 +560,8 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || undefined}
           onChange={this.onUploaderChanged}
           disabled={this.props.disabled}
+          filePatterns={this.props.uploaderConfigs!.filePatterns}
+          customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
         />
       );
     } else if (this.props.type === 'checkbox') {
