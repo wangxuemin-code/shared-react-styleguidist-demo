@@ -9,6 +9,8 @@ export class ErrorHandle {
       // mean is apollo error
       if (error.graphQLErrors) {
         return this.formatApolloError(error);
+      } else if (error.response) {
+        return this.formatRestError(error);
       } else {
         return this.formatOtherError(error);
       }
@@ -45,5 +47,12 @@ export class ErrorHandle {
     } else {
       return { message: error, type: 'Unknown' };
     }
+  }
+
+  private static formatRestError(error?: any): IError {
+    if (!error.response.success) {
+      return { message: error.response.msg, type: 'Unknown' };
+    }
+    return { message: '', type: 'Empty' };
   }
 }
