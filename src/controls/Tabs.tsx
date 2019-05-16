@@ -9,6 +9,7 @@ interface ITab {
   contents?: any;
   className?: string;
   icon?: string;
+  disabled?: boolean;
 }
 
 interface IProps extends IContainer {
@@ -68,7 +69,7 @@ export class Tabs extends React.Component<IProps, IState> {
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (
-            <BootstrapTab key={i} eventKey={i} title={tab.title}>
+            <BootstrapTab key={i} eventKey={i} title={tab.title} disabled={tab.disabled}>
               {tab.contents}
             </BootstrapTab>
           ))}

@@ -22,6 +22,7 @@ interface IState {
   value?: string | number | null;
   error?: string;
   showError?: boolean;
+  checkArray?: string[];
 }
 
 interface IProps extends IContainer {
@@ -86,15 +87,18 @@ export class FormControl extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onSetOption = this.onSetOption.bind(this);
     this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
     this.onDateTimeRangeChange = this.onDateTimeRangeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
+    this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
     );
+    this.state = { checkArray: [] };
   }
 
   public componentDidUpdate(prevProps: IProps) {
@@ -103,6 +107,7 @@ export class FormControl extends React.Component<IProps, IState> {
       prevProps.selectOptions !== this.props.selectOptions ||
       prevProps.selectCustomOptions !== this.props.selectCustomOptions
     ) {
+      console.log(this.props.value, prevProps.value);
       this.onValueChanged(false, String(this.props.value || ''));
     }
   }
@@ -119,9 +124,18 @@ export class FormControl extends React.Component<IProps, IState> {
           {this.props.label && (
             <label className={styles.semiBold}>
               <Container className={styles.displayFlex}>
-                {typeof this.props.label === 'string' && <h6>{this.props.label}</h6>}
-                {typeof this.props.label !== 'string' && this.props.label}
-                {this.props.required && <Container className={styles.required}>*</Container>}
+                {typeof this.props.label === 'string' && (
+                  <h6>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </h6>
+                )}
+                {typeof this.props.label !== 'string' && (
+                  <>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </>
+                )}
               </Container>
             </label>
           )}
@@ -175,6 +189,16 @@ export class FormControl extends React.Component<IProps, IState> {
       if (error) {
         if (setErrorState) this.setState({ error, showError: true });
         return false;
+      }
+    }
+
+    if (this.props.type === 'checkbox') {
+      if (this.state.checkArray && this.state.checkArray.length == 0) {
+        if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
+        return false;
+      } else {
+        this.setState({ showError: false });
+        return true;
       }
     }
 
@@ -527,6 +551,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
         />
       );
     } else if (this.props.type === 'datetime') {
@@ -559,28 +584,37 @@ export class FormControl extends React.Component<IProps, IState> {
       );
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
-        {
-          return (
-            <Container className={this.props.variant}>
-              {this.props.selectOptions.map((option) => {
-                return (
-                  <Container
-                    display={'block'}
-                    key={uniqid().toString()}
-                    className={styles.loadingContainerWrapper}
-                    padding={{ leftRem: 1.286 }}
-                    position={'relative'}
-                    textAlign={'justify'}
-                  >
-                    <input type='checkbox' value={option.value} />
-                    {option.label}
-                    {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
-                  </Container>
-                );
-              })}
-            </Container>
-          );
-        }
+        return (
+          <Container className={this.props.variant}>
+            {this.props.selectOptions.map((option, i) => {
+              return (
+                <Container
+                  display={'block'}
+                  key={uniqid().toString()}
+                  className={styles.loadingContainerWrapper}
+                  padding={{ leftRem: 1.286 }}
+                  position={'relative'}
+                  textAlign={'justify'}
+                >
+                  <input
+                    onChange={(e) => this.onCheckChanged(e, i)}
+                    checked={
+                      this.state.checkArray
+                        ? this.state.checkArray.indexOf(option.value) !== -1
+                          ? true
+                          : false
+                        : false
+                    }
+                    type='checkbox'
+                    value={option.value}
+                  />
+                  {option.label}
+                  {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
+                </Container>
+              );
+            })}
+          </Container>
+        );
       }
     } else {
       return (
@@ -593,6 +627,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
         />
       );
     }
@@ -620,7 +655,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
-  onSetOption = (selectedOption: any) => {
+  private onSetOption = (selectedOption: any) => {
     let value = selectedOption.value;
     if (value.constructor === Array) {
       value = selectedOption.value[0];
@@ -633,7 +668,6 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onDateTimeChange(newUnixTimestamp: number) {
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
-
     if (this.props.onInputChanged) {
       this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
     }
@@ -662,6 +696,29 @@ export class FormControl extends React.Component<IProps, IState> {
         this.props.onInputChanged(result.value, this.props.name || '');
       }
     });
+  }
+
+  private onCheckChanged(e: any, index: number) {
+    const checked = e.target.checked;
+    const value = e.target.value;
+    let checkArray = this.state.checkArray || [];
+    if (checked) {
+      checkArray.push(value);
+    } else {
+      var index = checkArray.indexOf(value);
+      if (index > -1) {
+        checkArray.splice(index, 1);
+      }
+    }
+    const result = this.processValue(String(checkArray.join()));
+    this.setState(
+      { checkArray: checkArray, displayValue: result.displayValue, value: result.value },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(value, this.props.name || '');
+        }
+      }
+    );
   }
 
   private validateValueCanChanged(value: string): boolean {
@@ -696,7 +753,8 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'switch' ||
       this.props.type === 'datetime' ||
       this.props.type === 'uploader' ||
-      this.props.type === 'numberfields'
+      this.props.type === 'numberfields' ||
+      this.props.type === 'checkbox'
     ) {
       return { displayValue: value || '', value };
     } else if (this.props.type === 'select') {

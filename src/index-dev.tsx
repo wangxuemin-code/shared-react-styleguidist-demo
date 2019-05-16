@@ -39,7 +39,8 @@ import {
   faExclamationCircle,
   faInfoCircle,
   faSearch,
-  faUser
+  faUser,
+  faChevronCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 import { Confirm } from './controls/Confirm';
@@ -218,7 +219,8 @@ class Main extends MyComponent<
                     </Container>
                   ),
                   tabName: 'Personal',
-                  contents: 'IJKL'
+                  contents: 'IJKL',
+                  disabled: true
                 },
                 {
                   title: (
@@ -228,7 +230,8 @@ class Main extends MyComponent<
                     </Container>
                   ),
                   tabName: 'Documents',
-                  contents: 'MNOP'
+                  contents: 'MNOP',
+                  disabled: true
                 }
               ]}
             />
@@ -398,16 +401,16 @@ class Main extends MyComponent<
               Large
             </Button>
             <Divider visibility={'hidden'} />
-            <Button loading={'Tiny Loading'} size='tiny' variant='primary'>
+            <Button loading size='tiny' variant='primary'>
               Tiny Loading
             </Button>
-            <Button loading={'Small Loading'} size='small' variant='primary'>
+            <Button loading size='small' variant='primary'>
               Small Loading
             </Button>
-            <Button loading={'Medium Loading'} size='medium' variant='primary'>
+            <Button loading size='medium' variant='primary'>
               Medium Loading
             </Button>
-            <Button loading={'Large Loading'} size='large' variant='primary'>
+            <Button loading size='large' variant='primary'>
               Large Loading
             </Button>
             <Divider visibility={'hidden'} />
@@ -468,6 +471,16 @@ class Main extends MyComponent<
                 </Container>
               ))}
             </Container>
+            <Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Container key={uniqid().toString()}>
+                  <Link underline={false} variant={link} useNormalAnchor>
+                    {link.toUpperCase()}
+                  </Link>
+                  &nbsp; &nbsp;
+                </Container>
+              ))}
+            </Container>
             <Container>
               There is a&nbsp;
               <Link href='/' useNormalAnchor>
@@ -495,7 +508,7 @@ class Main extends MyComponent<
             <Container display={'flex'}>
               <Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
               <Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
-              <Icon size='large' icon={faUser} text={'Large'} />
+              <Icon size='large' color={'#3BE4C1'} icon={faChevronCircleRight} text={'Large'} />
             </Container>
             <Divider visibility={'hidden'} />
             <Container display={'flex'}>
@@ -852,10 +865,14 @@ class Main extends MyComponent<
               >
                 <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl
+                    required={true}
                     label={'Area Code'}
                     name='areacode'
                     value={'+65'}
                     type={'phonecode'}
+                    onInputChanged={() => {
+                      console.log(this.form.getInputValue('areacode'));
+                    }}
                   />
                   <Controls.FormControl
                     required={true}
@@ -885,9 +902,9 @@ class Main extends MyComponent<
                       this.form = ref;
                     }}
                     label={
-                      <div>
+                      <span>
                         Amount in <b>USD</b>
-                      </div>
+                      </span>
                     }
                     extraControls={
                       <Link>
@@ -900,6 +917,7 @@ class Main extends MyComponent<
                         textAlign={'center'}
                         type={'submit'}
                         onPress={() => {
+                          console.log(this.form.getInputValue('dropdown'));
                           console.log(this.form.getFormData());
                           console.log(this.form.getInputValue('areacode'));
                         }}
@@ -934,6 +952,9 @@ class Main extends MyComponent<
                   name='email'
                   type={'email'}
                   value=''
+                  onBlur={() => {
+                    console.log(this.form.getInputValue('email'));
+                  }}
                 />
                 <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl
@@ -969,7 +990,8 @@ class Main extends MyComponent<
                   label={'Date'}
                   name='datetime'
                   type={'datetime'}
-                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  value={'25/05/1988'}
+                  // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                   onInputChanged={(value) => {
                     console.log(value);
                   }}
@@ -984,36 +1006,40 @@ class Main extends MyComponent<
                 <Controls.FormControl
                   required
                   label={'H Checkbox'}
-                  name='checkbox'
+                  name='h_checkbox'
                   type={'checkbox'}
                   variant={'horizontal'}
                   selectOptions={[
                     {
                       label: link,
-                      value: 'hei!'
+                      value: 'option1'
                     },
                     {
                       label:
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                      value: 'abcl'
+                      value: 'option2'
                     }
                   ]}
                 />
                 <Controls.FormControl
                   required
                   label={'V Checkbox'}
-                  name='checkbox'
+                  name='v_checkbox'
                   type={'checkbox'}
                   selectOptions={[
                     {
                       label: 'Option1',
-                      value: 'hei!'
+                      value: 'option1'
                     },
                     {
                       label: 'Option2',
-                      value: 'abcl'
+                      value: 'option2'
                     }
                   ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('v_checkbox'));
+                    console.log(value);
+                  }}
                 />
                 <Controls.FormControl
                   required
@@ -1033,12 +1059,13 @@ class Main extends MyComponent<
                 <Controls.FormControl
                   required
                   label={'Dropdown'}
-                  name='Dropdown'
+                  name='dropdown'
                   placeholder='Choose'
                   type={'select'}
                   value={'secondary'}
                   selectOptions={this.state.selectOptions}
                   onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('dropdown'));
                     console.log(value);
                   }}
                   // static={true}
@@ -1096,6 +1123,7 @@ class Main extends MyComponent<
                   label={'Country'}
                   name='country'
                   type={'country'}
+                  required
                 />
                 <Controls.FormControl
                   label={'Country Code'}
@@ -1263,6 +1291,15 @@ class Main extends MyComponent<
                 <Message outline variant={'warning'} message='Hello i am an warning!' />
                 <Message outline variant={'info'} message='Hello i am a info!' />
                 <Message outline variant={'danger'} message='Hello i am an error!' />
+                <Divider visibility={'hidden'} />
+                <Message
+                  fluid
+                  justifyContent={'left'}
+                  outline
+                  icon={faInfoCircle}
+                  variant={'warning'}
+                  message='Hello i am an warning!'
+                />
               </Transition>
             </Container>
             <Divider />
