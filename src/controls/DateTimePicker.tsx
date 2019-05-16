@@ -41,16 +41,33 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   public render() {
-    if (this.props.type === 'datetime') {
+    if (this.props.type === 'date') {
       return (
         <React.Fragment>
           <DatePicker
             selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             onChange={this.handleChangeStart.bind(this)}
             onChangeRaw={this.handleChangeRawStart.bind(this)}
-            showTimeSelect={this.props.options.showTimeSelect}
+            showTimeSelect={false}
+            dateFormat='dd-MM-YY'
+            placeholderText={this.props.placeholder}
+            minDate={this.props.options.startDate}
+            maxDate={this.props.options.endDate}
+          />
+          <Controls.Container className={styles.datepickerCalenderContainer}>
+            <Controls.Icon icon={faCalendarAlt} />
+          </Controls.Container>
+        </React.Fragment>
+      );
+    } else if (this.props.type === 'datetime') {
+      return (
+        <React.Fragment>
+          <DatePicker
+            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            onChange={this.handleChangeStart.bind(this)}
+            onChangeRaw={this.handleChangeRawStart.bind(this)}
+            showTimeSelect={true}
             dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
@@ -69,7 +86,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             onChangeRaw={this.handleChangeRawStart.bind(this)}
             showTimeSelect={this.props.options.showTimeSelect}
             dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
@@ -90,7 +106,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             onChangeRaw={this.handleChangeRawEnd.bind(this)}
             showTimeSelect={this.props.options.showTimeSelect}
             dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
@@ -114,6 +129,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       value = this.props.value;
     }
 
+    console.log('weird', value);
     this.state = {
       selectedStartUnixTimestamp: value,
       selectedEndUnixTimestamp: value

@@ -988,9 +988,20 @@ class Main extends MyComponent<
                 <Controls.FormControl
                   required
                   label={'Date'}
+                  name='date'
+                  type={'date'}
+                  value={770169600}
+                  // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateTime'}
                   name='datetime'
                   type={'datetime'}
-                  value={'25/05/1988'}
+                  value={770169600}
                   // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                   onInputChanged={(value) => {
                     console.log(value);

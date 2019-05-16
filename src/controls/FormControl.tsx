@@ -46,6 +46,7 @@ interface IProps extends IContainer {
     | 'countrycode'
     | 'switch'
     | 'longtext'
+    | 'date'
     | 'datetime'
     | 'daterange'
     | 'uploader'
@@ -554,6 +555,16 @@ export class FormControl extends React.Component<IProps, IState> {
           onBlur={this.props.onBlur}
         />
       );
+    } else if (this.props.type === 'date') {
+      return (
+        <DateTimePicker
+          type={'date'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateTimeChange}
+          options={this.props.dateOptions}
+        />
+      );
     } else if (this.props.type === 'datetime') {
       return (
         <DateTimePicker
@@ -667,6 +678,7 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private onDateTimeChange(newUnixTimestamp: number) {
+    const result = this.processValue(newUnixTimestamp.toString());
     this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
     if (this.props.onInputChanged) {
       this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
@@ -751,11 +763,14 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
+      this.props.type === 'date' ||
       this.props.type === 'datetime' ||
+      this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields' ||
       this.props.type === 'checkbox'
     ) {
+      console.log(value);
       return { displayValue: value || '', value };
     } else if (this.props.type === 'select') {
       let displayValue = '';
