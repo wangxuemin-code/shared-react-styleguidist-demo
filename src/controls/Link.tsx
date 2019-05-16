@@ -5,7 +5,7 @@ import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-  underline: boolean;
+  underline?: boolean;
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;

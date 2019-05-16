@@ -53,6 +53,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
@@ -71,6 +74,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
@@ -92,6 +98,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             selectsStart
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container
             margin={{ rightRem: 1 }}
@@ -112,6 +121,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             selectsEnd
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container position={'relative'} className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
