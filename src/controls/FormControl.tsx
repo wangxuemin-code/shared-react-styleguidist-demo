@@ -95,11 +95,14 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
+    this.state = { checkArray: [] };
+  }
+
+  public componentWillMount() {
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
     );
-    this.state = { checkArray: [] };
   }
 
   public componentDidUpdate(prevProps: IProps) {
@@ -108,7 +111,6 @@ export class FormControl extends React.Component<IProps, IState> {
       prevProps.selectOptions !== this.props.selectOptions ||
       prevProps.selectCustomOptions !== this.props.selectCustomOptions
     ) {
-      console.log(this.props.value, prevProps.value);
       this.onValueChanged(false, String(this.props.value || ''));
     }
   }
@@ -679,18 +681,20 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onDateTimeChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
-    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
-    }
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private onDateTimeRangeChange(newUnixTimestamp: number) {
-    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
-
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
-    }
+    const result = this.processValue(newUnixTimestamp.toString());
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private onUploaderChanged(newUrl: string) {
@@ -770,7 +774,6 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'numberfields' ||
       this.props.type === 'checkbox'
     ) {
-      console.log(value);
       return { displayValue: value || '', value };
     } else if (this.props.type === 'select') {
       let displayValue = '';
@@ -848,10 +851,11 @@ export class FormControl extends React.Component<IProps, IState> {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(String(newValue || ''));
     if (firstCall) {
-      this.state = {
-        displayValue: result.displayValue,
-        value: result.value
-      };
+      // this.state = {
+      //   displayValue: result.displayValue,
+      //   value: result.value
+      // };
+      this.setState({ displayValue: result.displayValue, value: result.value });
     } else {
       this.setState({ displayValue: result.displayValue, value: result.value });
     }

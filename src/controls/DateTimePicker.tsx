@@ -128,8 +128,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     } else {
       value = this.props.value;
     }
-
-    console.log('weird', value);
     this.state = {
       selectedStartUnixTimestamp: value,
       selectedEndUnixTimestamp: value

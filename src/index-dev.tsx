@@ -84,7 +84,6 @@ const mqtt = new Mqtt({
 //     }
 //   })
 //   .then((message) => {
-//     console.log('aha');
 //     console.log(message);
 //   });
 
@@ -774,13 +773,13 @@ class Main extends MyComponent<
                     {
                       icon: faAddressBook,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     },
                     {
                       icon: faAdjust,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     }
                   ]
@@ -820,13 +819,13 @@ class Main extends MyComponent<
                     {
                       icon: faAddressBook,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     },
                     {
                       icon: faAdjust,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     }
                   ]
@@ -963,7 +962,12 @@ class Main extends MyComponent<
                     name='Password'
                     type={'password'}
                   />
-                  <Controls.FormControl label={'Password'} name='Password' type={'password'} />
+                  <Controls.FormControl
+                    label={'Password'}
+                    name='Password'
+                    type={'password'}
+                    value={'haha'}
+                  />
                 </Controls.Container>
                 <Controls.FormControl
                   label={'Description'}
@@ -990,7 +994,7 @@ class Main extends MyComponent<
                   label={'Date'}
                   name='date'
                   type={'date'}
-                  value={770169600}
+                  value={'770169600'}
                   // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                   onInputChanged={(value) => {
                     console.log(value);
