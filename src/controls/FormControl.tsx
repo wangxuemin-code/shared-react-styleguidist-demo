@@ -196,12 +196,14 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (this.props.type === 'checkbox') {
-      if (this.state.checkArray && this.state.checkArray.length == 0) {
-        if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
-        return false;
-      } else {
-        this.setState({ showError: false });
-        return true;
+      if (this.props.required) {
+        if (this.state.checkArray && this.state.checkArray.length == 0) {
+          if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
+          return false;
+        } else {
+          this.setState({ showError: false });
+          return true;
+        }
       }
     }
 

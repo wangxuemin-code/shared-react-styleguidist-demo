@@ -1019,7 +1019,6 @@ class Main extends MyComponent<
                   defaultValue='0'
                 />
                 <Controls.FormControl
-                  required
                   label={'H Checkbox'}
                   name='h_checkbox'
                   type={'checkbox'}
