@@ -31,29 +31,52 @@ export class DateTimePicker extends React.Component<IProps, IState> {
 
   public constructor(props: IProps) {
     super(props);
-    this.updateStateWithProps();
+    this.updateStateWithProps(true, this.props.value ? this.props.value : 0);
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (this.props.value !== prevProps.value) {
-      this.updateStateWithProps();
+      this.updateStateWithProps(false, this.props.value ? this.props.value : 0);
     }
   }
 
   public render() {
-    if (this.props.type === 'datetime') {
+    if (this.props.type === 'date') {
       return (
         <React.Fragment>
           <DatePicker
             selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             onChange={this.handleChangeStart.bind(this)}
             onChangeRaw={this.handleChangeRawStart.bind(this)}
-            showTimeSelect={this.props.options.showTimeSelect}
-            dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
+            showTimeSelect={false}
+            dateFormat='dd-MM-YY'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
+          />
+          <Controls.Container className={styles.datepickerCalenderContainer}>
+            <Controls.Icon icon={faCalendarAlt} />
+          </Controls.Container>
+        </React.Fragment>
+      );
+    } else if (this.props.type === 'datetime') {
+      return (
+        <React.Fragment>
+          <DatePicker
+            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+            onChange={this.handleChangeStart.bind(this)}
+            onChangeRaw={this.handleChangeRawStart.bind(this)}
+            showTimeSelect={true}
+            dateFormat='dd-MM-YY hh:mm aa'
+            placeholderText={this.props.placeholder}
+            minDate={this.props.options.startDate}
+            maxDate={this.props.options.endDate}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
@@ -69,13 +92,15 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             onChangeRaw={this.handleChangeRawStart.bind(this)}
             showTimeSelect={this.props.options.showTimeSelect}
             dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
             selectsStart
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container
             margin={{ rightRem: 1 }}
@@ -90,13 +115,15 @@ export class DateTimePicker extends React.Component<IProps, IState> {
             onChangeRaw={this.handleChangeRawEnd.bind(this)}
             showTimeSelect={this.props.options.showTimeSelect}
             dateFormat='dd-MM-YY hh:mm aa'
-            // timeFormat='hh:mm A'
             placeholderText={this.props.placeholder}
             minDate={this.props.options.startDate}
             maxDate={this.props.options.endDate}
             selectsEnd
             startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
             endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode='select'
           />
           <Controls.Container position={'relative'} className={styles.datepickerCalenderContainer}>
             <Controls.Icon icon={faCalendarAlt} />
@@ -106,18 +133,24 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   }
 
-  private updateStateWithProps() {
-    let value;
-    if (typeof this.props.value === 'string') {
-      value = parseInt(this.props.value, 10);
+  private updateStateWithProps(firstCall: boolean, newValue: number | string) {
+    let value = newValue;
+    if (typeof newValue === 'string') {
+      value = parseInt(newValue, 10);
     } else {
-      value = this.props.value;
+      value = newValue;
     }
-
-    this.state = {
-      selectedStartUnixTimestamp: value,
-      selectedEndUnixTimestamp: value
-    };
+    if (firstCall) {
+      this.state = {
+        selectedStartUnixTimestamp: value,
+        selectedEndUnixTimestamp: value
+      };
+    } else {
+      this.setState({
+        selectedStartUnixTimestamp: value,
+        selectedEndUnixTimestamp: value
+      });
+    }
   }
 
   private handleChangeRawStart(event: React.FocusEvent<HTMLInputElement>) {

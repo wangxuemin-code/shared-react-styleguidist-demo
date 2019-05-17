@@ -22,6 +22,7 @@ interface IState {
   value?: string | number | null;
   error?: string;
   showError?: boolean;
+  checkArray?: string[];
 }
 
 interface IProps extends IContainer {
@@ -45,6 +46,7 @@ interface IProps extends IContainer {
     | 'countrycode'
     | 'switch'
     | 'longtext'
+    | 'date'
     | 'datetime'
     | 'daterange'
     | 'uploader'
@@ -52,13 +54,10 @@ interface IProps extends IContainer {
   name?: string;
   disabled?: boolean;
   static?: boolean;
-  onInputChanged?: (value: string | number, name: string) => void;
-  onBlur?: () => void;
   prepend?: any;
   append?: any;
   label?: any;
   required?: boolean;
-  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: any; value: string }[];
   selectCustomOptions?: { label: string; value: string; image: string }[];
   extraControls?: any;
@@ -72,6 +71,9 @@ interface IProps extends IContainer {
     filePatterns?: FilePattern[];
     customAllowFileExtensions?: string[];
   };
+  onInputChanged?: (value: string | number, name: string) => void;
+  onBlur?: () => void;
+  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 
 interface IProcessResult {
@@ -91,11 +93,17 @@ export class FormControl extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onSetOption = this.onSetOption.bind(this);
     this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
     this.onDateTimeChange = this.onDateTimeChange.bind(this);
     this.onDateTimeRangeChange = this.onDateTimeRangeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
+    this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
+    this.state = { checkArray: [], displayValue: '', value: '' };
+  }
+
+  public componentWillMount() {
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
@@ -124,9 +132,18 @@ export class FormControl extends React.Component<IProps, IState> {
           {this.props.label && (
             <label className={styles.semiBold}>
               <Container className={styles.displayFlex}>
-                {typeof this.props.label === 'string' && <h6>{this.props.label}</h6>}
-                {typeof this.props.label !== 'string' && this.props.label}
-                {this.props.required && <Container className={styles.required}>*</Container>}
+                {typeof this.props.label === 'string' && (
+                  <h6>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </h6>
+                )}
+                {typeof this.props.label !== 'string' && (
+                  <>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </>
+                )}
               </Container>
             </label>
           )}
@@ -180,6 +197,18 @@ export class FormControl extends React.Component<IProps, IState> {
       if (error) {
         if (setErrorState) this.setState({ error, showError: true });
         return false;
+      }
+    }
+
+    if (this.props.type === 'checkbox') {
+      if (this.props.required) {
+        if (this.state.checkArray && this.state.checkArray.length == 0) {
+          if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
+          return false;
+        } else {
+          this.setState({ showError: false });
+          return true;
+        }
       }
     }
 
@@ -532,6 +561,17 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
+        />
+      );
+    } else if (this.props.type === 'date') {
+      return (
+        <DateTimePicker
+          type={'date'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateTimeChange}
+          options={this.props.dateOptions}
         />
       );
     } else if (this.props.type === 'datetime') {
@@ -566,28 +606,38 @@ export class FormControl extends React.Component<IProps, IState> {
       );
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
-        {
-          return (
-            <Container className={this.props.variant}>
-              {this.props.selectOptions.map((option) => {
-                return (
-                  <Container
-                    display={'block'}
-                    key={uniqid().toString()}
-                    className={styles.loadingContainerWrapper}
-                    padding={{ leftRem: 1.286 }}
-                    position={'relative'}
-                    textAlign={'justify'}
-                  >
-                    <input type='checkbox' value={option.value} />
-                    {option.label}
-                    {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
-                  </Container>
-                );
-              })}
-            </Container>
-          );
-        }
+        return (
+          <Container className={this.props.variant}>
+            {this.props.selectOptions.map((option, i) => {
+              return (
+                <Container
+                  display={'block'}
+                  key={uniqid().toString()}
+                  className={styles.loadingContainerWrapper}
+                  position={'relative'}
+                  textAlign={'justify'}
+                >
+                  <input
+                    onChange={(e) => this.onCheckChanged(e, i)}
+                    checked={
+                      this.state.value && this.state.value.toString().indexOf(option.value) !== -1
+                        ? true
+                        : this.state.checkArray
+                        ? this.state.checkArray.indexOf(option.value) !== -1
+                          ? true
+                          : false
+                        : false
+                    }
+                    type='checkbox'
+                    value={option.value}
+                  />
+                  <Container className={styles.checkboxLabel}>{option.label}</Container>
+                  {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
+                </Container>
+              );
+            })}
+          </Container>
+        );
       }
     } else {
       return (
@@ -600,6 +650,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
         />
       );
     }
@@ -627,7 +678,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   }
 
-  onSetOption = (selectedOption: any) => {
+  private onSetOption = (selectedOption: any) => {
     let value = selectedOption.value;
     if (value.constructor === Array) {
       value = selectedOption.value[0];
@@ -639,19 +690,21 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private onDateTimeChange(newUnixTimestamp: number) {
-    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
-
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
-    }
+    const result = this.processValue(newUnixTimestamp.toString());
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private onDateTimeRangeChange(newUnixTimestamp: number) {
-    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
-
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
-    }
+    const result = this.processValue(newUnixTimestamp.toString());
+    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(result.value, this.props.name || '');
+      }
+    });
   }
 
   private onUploaderChanged(newUrl: string) {
@@ -669,6 +722,29 @@ export class FormControl extends React.Component<IProps, IState> {
         this.props.onInputChanged(result.value, this.props.name || '');
       }
     });
+  }
+
+  private onCheckChanged(e: any, index: number) {
+    const checked = e.target.checked;
+    const value = e.target.value;
+    let checkArray = this.state.checkArray || [];
+    if (checked) {
+      checkArray.push(value);
+    } else {
+      var index = checkArray.indexOf(value);
+      if (index > -1) {
+        checkArray.splice(index, 1);
+      }
+    }
+    const result = this.processValue(String(checkArray.join()));
+    this.setState(
+      { checkArray: checkArray, displayValue: result.displayValue, value: result.value },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(value, this.props.name || '');
+        }
+      }
+    );
   }
 
   private validateValueCanChanged(value: string): boolean {
@@ -692,6 +768,10 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
+    if (this.props.type === 'checkbox') {
+      this.setState({ checkArray: value.split(',') });
+      return { displayValue: value || '', value };
+    }
     if (
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
@@ -701,7 +781,9 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
+      this.props.type === 'date' ||
       this.props.type === 'datetime' ||
+      this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields'
     ) {
@@ -782,10 +864,11 @@ export class FormControl extends React.Component<IProps, IState> {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(String(newValue || ''));
     if (firstCall) {
-      this.state = {
-        displayValue: result.displayValue,
-        value: result.value
-      };
+      // this.state = {
+      //   displayValue: result.displayValue,
+      //   value: result.value
+      // };
+      this.setState({ displayValue: result.displayValue, value: result.value });
     } else {
       this.setState({ displayValue: result.displayValue, value: result.value });
     }

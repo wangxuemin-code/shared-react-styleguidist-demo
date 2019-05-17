@@ -5,20 +5,24 @@ import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  underline?: boolean;
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;
   onClick?: () => void;
 }
 
-export class Link extends React.Component<ILink, any> {
-  public static defaultProps: ILink = {};
+export class Link extends React.Component<ILink> {
+  public static defaultProps: ILink = {
+    underline: true
+  };
 
   public render() {
     let classes: string[] = [
       styles.link,
       this.props.variant || '',
-      this.props.disabled ? styles.disabled : ''
+      this.props.disabled ? styles.disabled : '',
+      this.props.underline ? styles.underline : ''
     ];
 
     classes = classes.filter(function(el) {

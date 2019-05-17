@@ -114,7 +114,9 @@ export class Header extends React.Component<IHeader, IState> {
         <Icon size='large' icon={faUserCircle} />
         <Container className={styles.text}>
           {this.getUsername()}
-          <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
+          {((this.props.subLinks && this.props.subLinks.length) || Cookies.get('account')) && (
+            <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
+          )}
         </Container>
         {this.state.showSubMenu && this.getSubMenuDesign()}
       </Container>
@@ -144,13 +146,20 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.subMenu}>
           {this.props.subLinks &&
             this.props.subLinks.map((sublink) => (
-              <Link key={sublink.path} useNormalAnchor={sublink.useAnchorTag} href={sublink.path}>
+              <Link
+                underline={false}
+                key={sublink.path}
+                useNormalAnchor={sublink.useAnchorTag}
+                href={sublink.path}
+              >
                 {sublink.title}
               </Link>
             ))}
-          <Link useNormalAnchor href='/logout'>
-            Logout
-          </Link>
+          {Cookies.get('account') && (
+            <Link underline={false} useNormalAnchor href='/logout'>
+              Logout
+            </Link>
+          )}
         </Container>
       </Transition>
     );
