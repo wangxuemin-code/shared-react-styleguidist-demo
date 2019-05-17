@@ -8,7 +8,6 @@
   border: 3px dashed #2c97e2;
   position: relative;
   width: 15rem;
-  padding: 1rem 1rem 3.5rem 1rem;
   border-radius: 0.714rem;
 
   span {
@@ -29,7 +28,17 @@
 
   .icon {
     color: map-get($colors, primaryGreyDark);
-    font-size: 1.4em;
+    font-size: 5rem;
+    color: #2c97e2;
+  }
+
+  .check {
+    position: absolute;
+    bottom: -13px;
+    font-size: 3rem;
+    right: -17px;
+    color: map-get($colors, success);
+    font-size: 3rem;
   }
 
   img {

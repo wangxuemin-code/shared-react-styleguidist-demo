@@ -100,6 +100,7 @@ class Main extends MyComponent<
 > {
   tabs: Tabs;
   form: any;
+  imageForm: any;
   formControls: any[];
   colorStates: string[];
 
@@ -152,6 +153,27 @@ class Main extends MyComponent<
               }}
             >
               <h4>Typography</h4>
+
+              <Container>
+                <Form
+                  ref={(ref) => {
+                    this.imageForm = ref;
+                  }}
+                  onSubmit={() => {
+                    console.log(this.imageForm.getInputValue('upload'));
+                  }}
+                >
+                  <Controls.FormControl
+                    required
+                    label='Image'
+                    name='upload'
+                    type='uploader'
+                    uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                  />
+                  <Controls.Button type='submit'>Submit</Controls.Button>
+                </Form>
+              </Container>
+
               <Container display={'flex'}>
                 <Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <h1>H1</h1>
@@ -937,7 +959,7 @@ class Main extends MyComponent<
                   label='Image'
                   name='image'
                   type='uploader'
-                  value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
+                  uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
                 />
                 <Controls.FormControl
                   required
