@@ -13,6 +13,10 @@ interface ILink extends IContainer {
 }
 
 export class Link extends React.Component<ILink> {
+  public static defaultProps: ILink = {
+    underline: true
+  };
+
   public render() {
     let classes: string[] = [
       styles.link,
