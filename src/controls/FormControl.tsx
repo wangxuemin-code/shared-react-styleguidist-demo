@@ -743,9 +743,9 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { checkArray: checkArray, displayValue: result.displayValue, value: result.value },
       () => {
-        if (this.props.onInputChanged) {
-          this.props.onInputChanged(value, this.props.name || '');
-        }
+        // if (this.props.onInputChanged) {
+        //   this.props.onInputChanged(value, this.props.name || '');
+        // }
       }
     );
   }
