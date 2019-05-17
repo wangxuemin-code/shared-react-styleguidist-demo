@@ -54,13 +54,10 @@ interface IProps extends IContainer {
   name?: string;
   disabled?: boolean;
   static?: boolean;
-  onInputChanged?: (value: string | number, name: string) => void;
-  onBlur?: () => void;
   prepend?: any;
   append?: any;
   label?: any;
   required?: boolean;
-  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: any; value: string }[];
   selectCustomOptions?: { label: string; value: string; image: string }[];
   extraControls?: any;
@@ -70,6 +67,9 @@ interface IProps extends IContainer {
   numInputs?: number;
   inputWidth?: string;
   separator?: any;
+  onInputChanged?: (value: string | number, name: string) => void;
+  onBlur?: () => void;
+  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 
 interface IProcessResult {
@@ -95,7 +95,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
-    this.state = { checkArray: [] };
+    this.state = { checkArray: [], displayValue: '', value: '' };
   }
 
   public componentWillMount() {

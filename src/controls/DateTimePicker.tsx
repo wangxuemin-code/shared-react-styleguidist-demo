@@ -31,12 +31,12 @@ export class DateTimePicker extends React.Component<IProps, IState> {
 
   public constructor(props: IProps) {
     super(props);
-    this.updateStateWithProps();
+    this.updateStateWithProps(true, this.props.value ? this.props.value : 0);
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (this.props.value !== prevProps.value) {
-      this.updateStateWithProps();
+      this.updateStateWithProps(false, this.props.value ? this.props.value : 0);
     }
   }
 
@@ -133,17 +133,24 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   }
 
-  private updateStateWithProps() {
-    let value;
-    if (typeof this.props.value === 'string') {
-      value = parseInt(this.props.value, 10);
+  private updateStateWithProps(firstCall: boolean, newValue: number | string) {
+    let value = newValue;
+    if (typeof newValue === 'string') {
+      value = parseInt(newValue, 10);
     } else {
-      value = this.props.value;
+      value = newValue;
     }
-    this.state = {
-      selectedStartUnixTimestamp: value,
-      selectedEndUnixTimestamp: value
-    };
+    if (firstCall) {
+      this.state = {
+        selectedStartUnixTimestamp: value,
+        selectedEndUnixTimestamp: value
+      };
+    } else {
+      this.setState({
+        selectedStartUnixTimestamp: value,
+        selectedEndUnixTimestamp: value
+      });
+    }
   }
 
   private handleChangeRawStart(event: React.FocusEvent<HTMLInputElement>) {

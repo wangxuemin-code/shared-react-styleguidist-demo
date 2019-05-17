@@ -94,6 +94,7 @@ class Main extends MyComponent<
     error: string;
     loading: boolean;
     showModal: boolean;
+    value: string | number;
     selectOptions: any[];
   }
 > {
@@ -114,7 +115,8 @@ class Main extends MyComponent<
           label: 'Primary',
           value: 'primary'
         }
-      ]
+      ],
+      value: ''
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
   }
@@ -846,6 +848,7 @@ class Main extends MyComponent<
               <h4>Form Elements</h4>
               <Form
                 display={'grid'}
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -989,25 +992,50 @@ class Main extends MyComponent<
                   }}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+
                 <Controls.FormControl
                   required
                   label={'Date'}
                   name='date'
                   type={'date'}
-                  value={'770169600'}
-                  // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  value={this.state.value}
                   onInputChanged={(value) => {
                     console.log(value);
                   }}
+                  append={
+                    <Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({ value: 770169600 });
+                      }}
+                    >
+                      Change Date
+                    </Button>
+                  }
                 />
                 <Controls.FormControl
                   required
                   label={'DateTime'}
                   name='datetime'
                   type={'datetime'}
-                  value={770169600}
-                  // defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                   onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateRange'}
+                  name='daterange'
+                  type={'daterange'}
+                  placeholder={''}
+                  value={Formatter.dateToUnixTimestamp(new Date())}
+                  dateOptions={{
+                    showTimeSelect: false
+                  }}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('daterange'));
                     console.log(value);
                   }}
                 />
@@ -1052,21 +1080,6 @@ class Main extends MyComponent<
                   ]}
                   onInputChanged={(value) => {
                     console.log(this.form.getInputValue('v_checkbox'));
-                    console.log(value);
-                  }}
-                />
-                <Controls.FormControl
-                  required
-                  label={'DateRange'}
-                  name='daterange'
-                  type={'daterange'}
-                  placeholder={''}
-                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
-                  dateOptions={{
-                    showTimeSelect: false
-                  }}
-                  onInputChanged={(value) => {
-                    console.log(this.form.getInputValue('daterange'));
                     console.log(value);
                   }}
                 />
