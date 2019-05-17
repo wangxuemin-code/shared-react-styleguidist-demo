@@ -607,7 +607,6 @@ export class FormControl extends React.Component<IProps, IState> {
                   display={'block'}
                   key={uniqid().toString()}
                   className={styles.loadingContainerWrapper}
-                  padding={{ leftRem: 1.286 }}
                   position={'relative'}
                   textAlign={'justify'}
                 >
@@ -623,7 +622,7 @@ export class FormControl extends React.Component<IProps, IState> {
                     type='checkbox'
                     value={option.value}
                   />
-                  {option.label}
+                  <Container className={styles.checkboxLabel}>{option.label}</Container>
                   {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
                 </Container>
               );

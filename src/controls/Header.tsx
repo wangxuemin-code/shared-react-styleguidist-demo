@@ -114,7 +114,9 @@ export class Header extends React.Component<IHeader, IState> {
         <Icon size='large' icon={faUserCircle} />
         <Container className={styles.text}>
           {this.getUsername()}
-          <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
+          {((this.props.subLinks && this.props.subLinks.length) || Cookies.get('account')) && (
+            <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
+          )}
         </Container>
         {this.state.showSubMenu && this.getSubMenuDesign()}
       </Container>
