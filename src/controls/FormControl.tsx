@@ -736,6 +736,9 @@ export class FormControl extends React.Component<IProps, IState> {
         checkArray.splice(index, 1);
       }
     }
+    checkArray = checkArray.filter(function(x) {
+      return x !== (undefined || null || '');
+    });
     const result = this.processValue(String(checkArray.join()));
     this.setState(
       { checkArray: checkArray, displayValue: result.displayValue, value: result.value },

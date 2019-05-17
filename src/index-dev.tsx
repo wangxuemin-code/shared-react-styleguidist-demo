@@ -1098,9 +1098,12 @@ class Main extends MyComponent<
                     {
                       label: 'Option2',
                       value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
                     }
                   ]}
-                  value={'option1,option2'}
                   onInputChanged={(value) => {
                     console.log(this.form.getInputValue('v_checkbox'));
                     console.log(value);
