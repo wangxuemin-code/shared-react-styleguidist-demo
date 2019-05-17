@@ -206,6 +206,8 @@ export const formControlsInner: string;
 export const select: string;
 export const selectOption: string;
 export const otp: string;
+export const reactDatepickerMonthSelect: string;
+export const reactDatepickerYearSelect: string;
 export const mainFormControlsWrapper: string;
 export const formGroup: string;
 export const prepend: string;
