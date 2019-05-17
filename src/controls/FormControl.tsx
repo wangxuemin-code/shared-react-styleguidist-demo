@@ -613,7 +613,9 @@ export class FormControl extends React.Component<IProps, IState> {
                   <input
                     onChange={(e) => this.onCheckChanged(e, i)}
                     checked={
-                      this.state.checkArray
+                      this.state.value && this.state.value.toString().indexOf(option.value) !== -1
+                        ? true
+                        : this.state.checkArray
                         ? this.state.checkArray.indexOf(option.value) !== -1
                           ? true
                           : false
@@ -759,6 +761,10 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
+    if (this.props.type === 'checkbox') {
+      this.setState({ checkArray: value.split(',') });
+      return { displayValue: value || '', value };
+    }
     if (
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
@@ -772,8 +778,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'datetime' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
-      this.props.type === 'numberfields' ||
-      this.props.type === 'checkbox'
+      this.props.type === 'numberfields'
     ) {
       return { displayValue: value || '', value };
     } else if (this.props.type === 'select') {
