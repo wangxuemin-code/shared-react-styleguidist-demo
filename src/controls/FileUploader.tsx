@@ -75,8 +75,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   public getValue() {
     return JSON.stringify({
-      data: this.state.src,
-      extension: this.state.extension,
+      file: this.state.src,
       uploaded: this.state.uploaded
     });
   }
