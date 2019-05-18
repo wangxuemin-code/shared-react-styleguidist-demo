@@ -32,25 +32,25 @@ interface IProps extends IContainer {
   value?: string | number | null;
   placeholder?: any;
   type?:
-    | 'text'
-    | 'number'
-    | 'numberfields'
-    | 'numeric'
-    | 'money'
-    | 'email'
-    | 'password'
-    | 'select'
-    | 'customselect'
-    | 'country'
-    | 'phonecode'
-    | 'countrycode'
-    | 'switch'
-    | 'longtext'
-    | 'date'
-    | 'datetime'
-    | 'daterange'
-    | 'uploader'
-    | 'checkbox';
+  | 'text'
+  | 'number'
+  | 'numberfields'
+  | 'numeric'
+  | 'money'
+  | 'email'
+  | 'password'
+  | 'select'
+  | 'customselect'
+  | 'country'
+  | 'phonecode'
+  | 'countrycode'
+  | 'switch'
+  | 'longtext'
+  | 'date'
+  | 'datetime'
+  | 'daterange'
+  | 'uploader'
+  | 'checkbox';
   name?: string;
   disabled?: boolean;
   static?: boolean;
@@ -83,6 +83,8 @@ interface IProcessResult {
 
 export class FormControl extends React.Component<IProps, IState> {
   private otp?: OtpInput;
+  private control?: any;
+
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
@@ -251,6 +253,12 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public reset() {
     this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
+  }
+
+  public onSaved() {
+    if(this.control && this.control.onSaved) {
+      this.control.onSaved();
+    }
   }
 
   public setValue(value: string | number, notify: boolean = true) {
@@ -597,6 +605,11 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'uploader') {
       return (
         <FileUploader
+          ref={(ref) => {
+            if (ref) {
+              this.control = ref;
+            }
+          }}
           value={this.state.displayValue || undefined}
           onChange={this.onUploaderChanged}
           disabled={this.props.disabled}
@@ -623,10 +636,10 @@ export class FormControl extends React.Component<IProps, IState> {
                       this.state.value && this.state.value.toString().indexOf(option.value) !== -1
                         ? true
                         : this.state.checkArray
-                        ? this.state.checkArray.indexOf(option.value) !== -1
-                          ? true
+                          ? this.state.checkArray.indexOf(option.value) !== -1
+                            ? true
+                            : false
                           : false
-                        : false
                     }
                     type='checkbox'
                     value={option.value}
@@ -736,7 +749,7 @@ export class FormControl extends React.Component<IProps, IState> {
         checkArray.splice(index, 1);
       }
     }
-    checkArray = checkArray.filter(function(x) {
+    checkArray = checkArray.filter(function (x) {
       return x !== (undefined || null || '');
     });
     const result = this.processValue(String(checkArray.join()));
@@ -838,8 +851,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.money(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
+                decimalPlace: this.props.decimalPlace
+              }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
@@ -847,8 +860,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.number(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
+                decimalPlace: this.props.decimalPlace
+              }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'numeric') {

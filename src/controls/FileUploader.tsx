@@ -82,10 +82,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
     });
   }
 
+  public onSaved() {
+    this.setState({
+      uploaded: true
+    }, this.onValueChanged);
+  }
+
   public reset() {
     this.setState({
-      src: this.props.value || ''
-    });
+      src: this.props.value || '',
+      type: this.getExtensionType(),
+      uploaded: true
+    }, this.onValueChanged);
   }
 
   private onDragEnter = () => {
