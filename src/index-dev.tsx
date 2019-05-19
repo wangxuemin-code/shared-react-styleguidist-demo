@@ -96,6 +96,7 @@ class Main extends MyComponent<
     showModal: boolean;
     value: string | number;
     selectOptions: any[];
+    email: string;
   }
 > {
   tabs: Tabs;
@@ -117,7 +118,8 @@ class Main extends MyComponent<
           value: 'primary'
         }
       ],
-      value: ''
+      value: '',
+      email: ''
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
   }
@@ -975,7 +977,7 @@ class Main extends MyComponent<
                   label={'Email'}
                   name='email'
                   type={'email'}
-                  value=''
+                  value={this.state.email}
                   onBlur={() => {
                     console.log(this.form.getInputValue('email'));
                   }}

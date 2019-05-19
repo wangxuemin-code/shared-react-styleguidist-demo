@@ -72,6 +72,7 @@ interface IProps extends IContainer {
     customAllowFileExtensions?: string[];
   };
   onInputChanged?: (value: string | number, name: string) => void;
+  onFocus?: () => void;
   onBlur?: () => void;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
@@ -728,6 +729,9 @@ export class FormControl extends React.Component<IProps, IState> {
     const checked = e.target.checked;
     const value = e.target.value;
     let checkArray = this.state.checkArray || [];
+    checkArray = checkArray.filter(function(x) {
+      return x !== (undefined || null || '');
+    });
     if (checked) {
       checkArray.push(value);
     } else {
@@ -736,9 +740,6 @@ export class FormControl extends React.Component<IProps, IState> {
         checkArray.splice(index, 1);
       }
     }
-    checkArray = checkArray.filter(function(x) {
-      return x !== (undefined || null || '');
-    });
     const result = this.processValue(String(checkArray.join()));
     this.setState(
       { checkArray: checkArray, displayValue: result.displayValue, value: result.value },
