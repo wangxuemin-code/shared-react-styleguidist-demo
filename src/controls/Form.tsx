@@ -57,6 +57,14 @@ export class Form extends React.Component<IProps> {
     });
   }
 
+  public onSaved() {
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.onSaved) {
+        formControl.onSaved();
+      }
+    });
+  }
+
   public getInputValue(name: string): string {
     let value = '';
     this.formControls.forEach((formControl: any) => {

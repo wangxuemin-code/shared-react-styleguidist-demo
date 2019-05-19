@@ -84,6 +84,8 @@ interface IProcessResult {
 
 export class FormControl extends React.Component<IProps, IState> {
   private otp?: OtpInput;
+  private control?: any;
+
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
@@ -252,6 +254,12 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public reset() {
     this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
+  }
+
+  public onSaved() {
+    if (this.control && this.control.onSaved) {
+      this.control.onSaved();
+    }
   }
 
   public setValue(value: string | number, notify: boolean = true) {
@@ -598,6 +606,11 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'uploader') {
       return (
         <FileUploader
+          ref={(ref) => {
+            if (ref) {
+              this.control = ref;
+            }
+          }}
           value={this.state.displayValue || undefined}
           onChange={this.onUploaderChanged}
           disabled={this.props.disabled}
