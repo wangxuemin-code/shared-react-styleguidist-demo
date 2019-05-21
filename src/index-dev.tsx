@@ -1109,6 +1109,7 @@ class Main extends MyComponent<
                     console.log(this.form.getInputValue('v_checkbox'));
                     console.log(value);
                   }}
+                  // value={'option2,option3'}
                 />
                 <Controls.FormControl
                   required

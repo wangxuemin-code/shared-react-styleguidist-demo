@@ -119,6 +119,9 @@ export class FormControl extends React.Component<IProps, IState> {
       prevProps.selectOptions !== this.props.selectOptions ||
       prevProps.selectCustomOptions !== this.props.selectCustomOptions
     ) {
+      if (this.props.type === 'checkbox' && this.props.value == undefined) {
+        return false;
+      }
       this.onValueChanged(false, String(this.props.value || ''));
     }
   }
@@ -154,6 +157,7 @@ export class FormControl extends React.Component<IProps, IState> {
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
+            {/* {this.state.value} */}
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
           </Container>
         </Container>
@@ -205,7 +209,7 @@ export class FormControl extends React.Component<IProps, IState> {
 
     if (this.props.type === 'checkbox') {
       if (this.props.required) {
-        if (this.state.checkArray && this.state.checkArray.length == 0) {
+        if (this.state.value == '') {
           if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
           return false;
         } else {
@@ -786,7 +790,11 @@ export class FormControl extends React.Component<IProps, IState> {
       value = value.toUpperCase();
     }
     if (this.props.type === 'checkbox') {
-      this.setState({ checkArray: value.split(',') });
+      if (value) {
+        this.setState({ checkArray: value.split(',') });
+      } else {
+        this.setState({ checkArray: [] });
+      }
       return { displayValue: value || '', value };
     }
     if (
