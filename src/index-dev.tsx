@@ -97,6 +97,7 @@ class Main extends MyComponent<
     value: string | number;
     selectOptions: any[];
     email: string;
+    imageUrl: string;
   }
 > {
   tabs: Tabs;
@@ -119,7 +120,8 @@ class Main extends MyComponent<
         }
       ],
       value: '',
-      email: ''
+      email: '',
+      imageUrl: ''
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
   }
@@ -155,27 +157,6 @@ class Main extends MyComponent<
               }}
             >
               <h4>Typography</h4>
-
-              <Container>
-                <Form
-                  ref={(ref) => {
-                    this.imageForm = ref;
-                  }}
-                  onSubmit={() => {
-                    console.log(this.imageForm.getInputValue('upload'));
-                  }}
-                >
-                  <Controls.FormControl
-                    required
-                    label='Image'
-                    name='upload'
-                    type='uploader'
-                    uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
-                  />
-                  <Controls.Button type='submit'>Submit</Controls.Button>
-                </Form>
-              </Container>
-
               <Container display={'flex'}>
                 <Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <h1>H1</h1>
@@ -671,6 +652,50 @@ class Main extends MyComponent<
                 badge
                 src={'/images/ISTOX_Logo.png'}
               /> */}
+            </Container>
+            <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Form
+                ref={(ref) => {
+                  this.imageForm = ref;
+                }}
+                onSubmit={() => {
+                  console.log(this.imageForm.getInputValue('upload'));
+                }}
+              >
+                <Controls.FormControl
+                  required
+                  label='Image uploader'
+                  name='upload'
+                  type='uploader'
+                  value={this.state.imageUrl}
+                  uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                >
+                  <Container fluid verticalAlign={'center'}>
+                    <Image
+                      height={100}
+                      margin={{ topPx: -50 }}
+                      src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
+                    />
+                    <span className='normal-text'>
+                      Drag and drop or <br />
+                      Click here to attached a file
+                    </span>
+                  </Container>
+                </Controls.FormControl>
+                <Controls.Button
+                  type='submit'
+                  onPress={() => {
+                    this.setState({
+                      // imageUrl:
+                      //   'https://ichxouthmanager.s3.amazonaws.com/uploads/document/upload/4/1/1-last-submit-0.png'
+                      imageUrl:
+                        'https://ichxouthmanager.s3.amazonaws.com/uploads/document/upload/4/1/1-last-submit-0.pdf'
+                    });
+                  }}
+                >
+                  Fetch image from S3
+                </Controls.Button>
+              </Form>
             </Container>
             <Divider />
             <h4>PopUps</h4>

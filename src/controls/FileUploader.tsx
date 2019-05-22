@@ -39,14 +39,30 @@ export default class FileUploader extends React.Component<IProps, IState> {
     };
   }
 
-  // public componentDidUpdate(prevProps: IProps) {
-  //   if (prevProps.value !== this.props.value) {
-  //     this.setState({
-  //       src: this.props.value || '',
-  //       type: this.getExtensionType()
-  //     });
-  //   }
-  // }
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.value !== this.props.value) {
+      // this.setState({
+      //   src: this.props.value || '',
+      //   type: this.getExtensionType()
+      // });
+
+      const value = this.props.value;
+      if (value) {
+        const extension = value.split('.').pop();
+        if (extension == 'pdf') {
+          this.setState({
+            src: value,
+            type: 'pdf'
+          });
+        } else {
+          this.setState({
+            src: value,
+            type: 'image'
+          });
+        }
+      }
+    }
+  }
 
   public render() {
     let state = this.state;
@@ -83,17 +99,23 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public onSaved() {
-    this.setState({
-      uploaded: true
-    }, this.onValueChanged);
+    this.setState(
+      {
+        uploaded: true
+      },
+      this.onValueChanged
+    );
   }
 
   public reset() {
-    this.setState({
-      src: this.props.value || '',
-      type: this.getExtensionType(),
-      uploaded: true
-    }, this.onValueChanged);
+    this.setState(
+      {
+        src: this.props.value || '',
+        type: this.getExtensionType(),
+        uploaded: true
+      },
+      this.onValueChanged
+    );
   }
 
   private onDragEnter = () => {
@@ -184,7 +206,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       return undefined;
     } else {
       const extension = this.getExtension(this.props.value!);
-      if (['jpg', 'jpeg', 'gif'].indexOf(extension) >= 0) {
+      if (['jpg', 'jpeg', 'gif', 'png'].indexOf(extension) >= 0) {
         return 'image';
       } else if (extension === 'pdf') {
         return 'pdf';

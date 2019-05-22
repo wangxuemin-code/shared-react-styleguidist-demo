@@ -107,6 +107,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public componentWillMount() {
+    console.log(this.props.children);
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
@@ -620,7 +621,9 @@ export class FormControl extends React.Component<IProps, IState> {
           disabled={this.props.disabled}
           filePatterns={this.props.uploaderConfigs!.filePatterns}
           customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
-        />
+        >
+          {this.props.children}
+        </FileUploader>
       );
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
