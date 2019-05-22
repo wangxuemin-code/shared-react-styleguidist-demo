@@ -45,9 +45,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
       //   src: this.props.value || '',
       //   type: this.getExtensionType()
       // });
-
       const value = this.props.value;
-      if (value) {
+      if (value && this.validURL(value)) {
         const extension = value.split('.').pop();
         if (extension == 'pdf') {
           this.setState({
@@ -231,7 +230,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
         return (
           <Controls.Container position='relative' textAlign='center'>
             <Controls.Icon icon={faFilePdf} />
-            <Controls.Container margin={{ topPx: 5 }}>
+            <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
               {!this.state.uploaded ? 'Pending upload' : 'Saved'}
             </Controls.Container>
           </Controls.Container>
@@ -240,5 +239,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
     } else {
       return this.props.children;
     }
+  }
+
+  private validURL(str: any) {
+    var pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    ); // fragment locator
+    return !!pattern.test(str);
   }
 }

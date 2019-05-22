@@ -676,7 +676,7 @@ class Main extends MyComponent<
                       margin={{ topPx: -50 }}
                       src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                     />
-                    <span className='normal-text'>
+                    <span className="normal-text">
                       Drag and drop or <br />
                       Click here to attached a file
                     </span>

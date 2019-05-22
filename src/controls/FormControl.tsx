@@ -107,7 +107,6 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public componentWillMount() {
-    console.log(this.props.children);
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
