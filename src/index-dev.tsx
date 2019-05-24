@@ -345,6 +345,52 @@ class Main extends MyComponent<
             <Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
+              variant={'stacked'}
+              orientation={'vertical'}
+              align={'middle'}
+              tabs={[
+                {
+                  title: (
+                    <Container>
+                      <Icon icon={faCheckCircle} />
+                      <span>Account Info</span>
+                    </Container>
+                  ),
+                  contents: 'ABCD'
+                },
+                {
+                  title: (
+                    <Container>
+                      <Icon icon={faCheckCircle} />
+                      <span>Phone Number</span>
+                    </Container>
+                  ),
+                  contents: 'EFGH'
+                },
+                {
+                  title: (
+                    <Container>
+                      <Icon icon={faCheckCircle} />
+                      <span>Personal Info</span>
+                    </Container>
+                  ),
+                  contents: 'IJKL'
+                },
+                {
+                  title: (
+                    <Container>
+                      <Icon icon={faExclamationCircle} />
+                      <span>Documents</span>
+                    </Container>
+                  ),
+                  contents: 'MNOP'
+                }
+              ]}
+            />
+            <Divider />
+            <Tabs
+              margin={{ topPx: 20 }}
+              className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
               tabs={[
@@ -676,7 +722,7 @@ class Main extends MyComponent<
                       margin={{ topPx: -50 }}
                       src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                     />
-                    <span className="normal-text">
+                    <span className='normal-text'>
                       Drag and drop or <br />
                       Click here to attached a file
                     </span>
@@ -792,7 +838,10 @@ class Main extends MyComponent<
             </ProgressBar>
             <Divider />
             <h4>Rating</h4>
-            <Rating defaultValue={1.5} maxValue={3} />
+            <Rating defaultValue={2} maxValue={4} />
+            <Rating defaultValue={3} maxValue={4} />
+            <Rating defaultValue={4} maxValue={4} />
+            <Rating defaultValue={3} maxValue={3} />
             <Rating defaultValue={2.5} width={200} maxValue={4} />
             <Divider />
             <h4>Table</h4>

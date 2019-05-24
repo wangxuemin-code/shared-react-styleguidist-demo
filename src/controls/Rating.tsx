@@ -25,7 +25,7 @@ export class Rating extends React.Component<IRating, IState> {
     const ratings = [];
     if (maxValue) {
       for (let i = 1; i <= maxValue; i++) {
-        if (value > i) {
+        if (value >= i) {
           variant = 'success';
         } else {
           if (value == i - 0.5) {

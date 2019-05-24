@@ -1,4 +1,4 @@
-import { faUpload, faFilePdf, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faUpload, faFilePdf, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { Container, Icon, Loading } from '.';
 import * as styles from '../css/main.scss';
@@ -107,6 +107,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public reset() {
+    console.log(1);
     this.setState(
       {
         src: this.props.value || '',
@@ -140,6 +141,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
       reader = new FileReader();
 
     if (!file.type.match(pattern)) {
+      return;
+    }
+
+    if (file.size > 10485760) {
       return;
     }
 
@@ -225,7 +230,12 @@ export default class FileUploader extends React.Component<IProps, IState> {
   private getContentDesign() {
     if (this.state.src) {
       if (this.state.type === 'image') {
-        return <img src={this.state.src} />;
+        return (
+          <>
+            <Controls.Icon onClick={this.reset} className={styles.clearUpload} icon={faTimes} />
+            <img src={this.state.src} />
+          </>
+        );
       } else if (this.state.type === 'pdf') {
         return (
           <Controls.Container position='relative' textAlign='center'>

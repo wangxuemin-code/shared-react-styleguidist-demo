@@ -390,6 +390,7 @@ export class FormControl extends React.Component<IProps, IState> {
         if (
           (option.data && option.data.label.includes(searchText.toLowerCase())) ||
           (option.data && option.data.value.includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.includes('+' + searchText.toLowerCase())) ||
           (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;

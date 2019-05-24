@@ -105,7 +105,7 @@ export class Icon extends React.Component<IProps, any> {
     if (this.checkIconType() === 'fontawesome') {
       return (
         <Container style={style} className={styles.svg} {...this.props}>
-          <FontAwesomeIcon icon={this.props.icon as IconDefinition} />
+          <FontAwesomeIcon color={this.props.color} icon={this.props.icon as IconDefinition} />
         </Container>
       );
     } else {
