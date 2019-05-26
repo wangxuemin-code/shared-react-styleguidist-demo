@@ -1,9 +1,9 @@
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import * as React from 'react';
 import DatePicker from 'react-datepicker';
 import * as styles from '../css/main.scss';
-import { Controls } from '../index-prod';
-import { IContainer } from './Container';
+import { IContainer, Container } from './Container';
+import { Icon } from './Icon';
 import { Formatter } from '../helpers';
 import moment = require('moment');
 
@@ -11,6 +11,7 @@ export interface IDateOption {
   endDate?: Date;
   startDate?: Date;
   showTimeSelect?: boolean;
+  dateFormat?: string;
 }
 
 interface IProps extends IContainer {
@@ -44,90 +45,119 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (this.props.type === 'date') {
       return (
         <React.Fragment>
-          <DatePicker
-            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-            onChange={this.handleChangeStart.bind(this)}
-            onChangeRaw={this.handleChangeRawStart.bind(this)}
-            showTimeSelect={false}
-            dateFormat='dd-MM-YY'
-            placeholderText={this.props.placeholder}
-            minDate={this.props.options.startDate}
-            maxDate={this.props.options.endDate}
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode='select'
-          />
-          <Controls.Container className={styles.datepickerCalenderContainer}>
-            <Controls.Icon icon={faCalendarAlt} />
-          </Controls.Container>
+          <Container position={'relative'} display={'flex'} widthPercent={100}>
+            <DatePicker
+              selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+              onChange={this.handleChangeStart.bind(this)}
+              onChangeRaw={this.handleChangeRawStart.bind(this)}
+              showTimeSelect={false}
+              dateFormat={this.props.options.dateFormat || 'dd/MM/YY'}
+              placeholderText={this.props.placeholder}
+              minDate={this.props.options.startDate}
+              maxDate={this.props.options.endDate}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+              popperModifiers={{
+                flip: {
+                  enabled: false
+                }
+              }}
+            />
+            <Container className={styles.datepickerCalenderContainer}>
+              <Icon icon={faCalendarAlt} />
+            </Container>
+          </Container>
         </React.Fragment>
       );
     } else if (this.props.type === 'datetime') {
       return (
         <React.Fragment>
-          <DatePicker
-            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-            onChange={this.handleChangeStart.bind(this)}
-            onChangeRaw={this.handleChangeRawStart.bind(this)}
-            showTimeSelect={true}
-            dateFormat='dd-MM-YY hh:mm aa'
-            placeholderText={this.props.placeholder}
-            minDate={this.props.options.startDate}
-            maxDate={this.props.options.endDate}
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode='select'
-          />
-          <Controls.Container className={styles.datepickerCalenderContainer}>
-            <Controls.Icon icon={faCalendarAlt} />
-          </Controls.Container>
+          <Container position={'relative'} display={'flex'} widthPercent={100}>
+            <DatePicker
+              selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+              onChange={this.handleChangeStart.bind(this)}
+              onChangeRaw={this.handleChangeRawStart.bind(this)}
+              showTimeSelect={true}
+              dateFormat={this.props.options.dateFormat || 'dd/MM/YY hh:mm aa'}
+              placeholderText={this.props.placeholder}
+              minDate={this.props.options.startDate}
+              maxDate={this.props.options.endDate}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+              popperModifiers={{
+                flip: {
+                  enabled: false
+                }
+              }}
+            />
+            <Container className={styles.datepickerCalenderContainer}>
+              <Icon icon={faCalendarAlt} />
+            </Container>
+          </Container>
         </React.Fragment>
       );
     } else {
       return (
         <React.Fragment>
-          <DatePicker
-            selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-            onChange={this.handleChangeStart.bind(this)}
-            onChangeRaw={this.handleChangeRawStart.bind(this)}
-            showTimeSelect={this.props.options.showTimeSelect}
-            dateFormat='dd-MM-YY hh:mm aa'
-            placeholderText={this.props.placeholder}
-            minDate={this.props.options.startDate}
-            maxDate={this.props.options.endDate}
-            selectsStart
-            startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-            endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode='select'
-          />
-          <Controls.Container
-            margin={{ rightRem: 1 }}
+          <Container
             position={'relative'}
-            className={styles.datepickerCalenderContainer}
+            display={'flex'}
+            widthPercent={49}
+            margin={{ rightPercent: 2 }}
           >
-            <Controls.Icon icon={faCalendarAlt} />
-          </Controls.Container>
-          <DatePicker
-            selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-            onChange={this.handleChangeEnd.bind(this)}
-            onChangeRaw={this.handleChangeRawEnd.bind(this)}
-            showTimeSelect={this.props.options.showTimeSelect}
-            dateFormat='dd-MM-YY hh:mm aa'
-            placeholderText={this.props.placeholder}
-            minDate={this.props.options.startDate}
-            maxDate={this.props.options.endDate}
-            selectsEnd
-            startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-            endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-            showMonthDropdown
-            showYearDropdown
-            dropdownMode='select'
-          />
-          <Controls.Container position={'relative'} className={styles.datepickerCalenderContainer}>
-            <Controls.Icon icon={faCalendarAlt} />
-          </Controls.Container>
+            <DatePicker
+              selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+              onChange={this.handleChangeStart.bind(this)}
+              onChangeRaw={this.handleChangeRawStart.bind(this)}
+              showTimeSelect={this.props.options.showTimeSelect}
+              dateFormat={this.props.options.dateFormat || 'dd/MM/YY hh:mm aa'}
+              placeholderText={this.props.placeholder}
+              minDate={this.props.options.startDate}
+              maxDate={this.props.options.endDate}
+              selectsStart
+              startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+              endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+              popperModifiers={{
+                flip: {
+                  enabled: false
+                }
+              }}
+            />
+            <Container className={styles.datepickerCalenderContainer}>
+              <Icon icon={faCalendarAlt} />
+            </Container>
+          </Container>
+          <Container position={'relative'} display={'flex'} widthPercent={49}>
+            <DatePicker
+              selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+              onChange={this.handleChangeEnd.bind(this)}
+              onChangeRaw={this.handleChangeRawEnd.bind(this)}
+              showTimeSelect={this.props.options.showTimeSelect}
+              dateFormat={this.props.options.dateFormat || 'dd/MM/YY hh:mm aa'}
+              placeholderText={this.props.placeholder}
+              minDate={this.props.options.startDate}
+              maxDate={this.props.options.endDate}
+              selectsEnd
+              startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
+              endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode='select'
+              popperModifiers={{
+                flip: {
+                  enabled: false
+                }
+              }}
+            />
+            <Container className={styles.datepickerCalenderContainer}>
+              <Icon icon={faCalendarAlt} />
+            </Container>
+          </Container>
         </React.Fragment>
       );
     }

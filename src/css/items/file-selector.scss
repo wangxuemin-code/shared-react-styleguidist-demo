@@ -1,3 +1,20 @@
+.uploader-container {
+  position: relative;
+  .clear-upload {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    font-size: 2rem;
+    display: none;
+    color: map-get($colors, primary);
+    cursor: pointer;
+  }
+  &:hover {
+    .clear-upload {
+      display: block;
+    }
+  }
+}
 .uploader {
   align-items: center;
   background-color: #e9f4fc;
@@ -9,19 +26,6 @@
   position: relative;
   width: 15rem;
   border-radius: 0.714rem;
-
-  .clear-upload {
-    position: absolute;
-    right: 5px;
-    top: 1px;
-    font-size: 2rem;
-    display: none;
-  }
-  &:hover {
-    .clear-upload {
-      display: block;
-    }
-  }
 
   span {
     position: absolute;

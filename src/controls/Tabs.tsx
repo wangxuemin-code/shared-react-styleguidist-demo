@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
+import { Grid } from './Grid';
 import { Tabs as BootstrapTabs, Tab as BootstrapTab } from 'react-bootstrap';
 
 interface ITab {
@@ -16,6 +17,7 @@ interface IProps extends IContainer {
   selectedIndex?: number;
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';
+  tabsContentOrientation?: 'stacked' | 'inline';
   align?: 'left' | 'middle' | 'right';
   basic?: boolean;
   onTabSelected?: (tabName: string) => void;
@@ -27,7 +29,9 @@ interface IState {
 
 export class Tabs extends React.Component<IProps, IState> {
   public static defaultProps = {
-    selectedIndex: 0
+    selectedIndex: 0,
+    orientation: 'horizontal',
+    tabsContentOrientation: 'inline'
   };
 
   constructor(props: IProps) {
@@ -48,7 +52,8 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.className ? this.props.className : '',
       this.props.orientation ? this.props.orientation : '',
       this.props.align ? this.props.align : '',
-      this.props.basic ? styles.basic : ''
+      this.props.basic ? styles.basic : '',
+      this.props.tabsContentOrientation ? this.props.tabsContentOrientation : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -60,20 +65,36 @@ export class Tabs extends React.Component<IProps, IState> {
     }
     return (
       <Container {...this.props} className={styles.istoxTabsContainer}>
-        <BootstrapTabs
-          //className={styles.istoxTabs}
-          className={classes.join(' ')}
-          activeKey={this.state.selectedIndex}
-          id='istox-tab'
-          onSelect={this.handleSelect}
-        >
-          {this.props.children && <Container>{this.props.children}</Container>}
-          {this.props.tabs.map((tab, i) => (
-            <BootstrapTab key={i} eventKey={i} title={tab.title} disabled={tab.disabled}>
-              {tab.contents}
-            </BootstrapTab>
-          ))}
-        </BootstrapTabs>
+        {this.props.orientation === 'horizontal' && (
+          <BootstrapTabs
+            className={classes.join(' ')}
+            activeKey={this.state.selectedIndex}
+            id='istox-tab'
+            onSelect={this.handleSelect}
+          >
+            {this.props.children && <Container>{this.props.children}</Container>}
+            {this.props.tabs.map((tab, i) => (
+              <BootstrapTab key={i} eventKey={i} title={tab.title} disabled={tab.disabled}>
+                {tab.contents}
+              </BootstrapTab>
+            ))}
+          </BootstrapTabs>
+        )}
+        {this.props.orientation === 'vertical' && (
+          <BootstrapTabs
+            className={classes.join(' ')}
+            activeKey={this.state.selectedIndex}
+            id='istox-tab'
+            onSelect={this.handleSelect}
+          >
+            {this.props.children && <Container>{this.props.children}</Container>}
+            {this.props.tabs.map((tab, i) => (
+              <BootstrapTab key={i} eventKey={i} title={tab.title} disabled={tab.disabled}>
+                {tab.contents}
+              </BootstrapTab>
+            ))}
+          </BootstrapTabs>
+        )}
       </Container>
     );
   }

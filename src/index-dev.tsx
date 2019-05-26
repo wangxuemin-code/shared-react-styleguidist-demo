@@ -105,6 +105,7 @@ class Main extends MyComponent<
   imageForm: any;
   formControls: any[];
   colorStates: string[];
+  tabsContent: any[];
 
   public constructor(props: any) {
     super(props);
@@ -124,6 +125,44 @@ class Main extends MyComponent<
       imageUrl: ''
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
+    this.tabsContent = [
+      {
+        title: (
+          <Container>
+            <Icon icon={faCheckCircle} />
+            Account Info
+          </Container>
+        ),
+        contents: 'ABCD'
+      },
+      {
+        title: (
+          <Container>
+            <Icon icon={faCheckCircle} />
+            Phone Number
+          </Container>
+        ),
+        contents: 'EFGH'
+      },
+      {
+        title: (
+          <Container>
+            <Icon icon={faCheckCircle} />
+            Personal Info
+          </Container>
+        ),
+        contents: 'IJKL'
+      },
+      {
+        title: (
+          <Container>
+            <Icon icon={faExclamationCircle} />
+            Documents
+          </Container>
+        ),
+        contents: 'MNOP'
+      }
+    ];
   }
 
   public render() {
@@ -196,50 +235,7 @@ class Main extends MyComponent<
               ref={(ref) => {
                 if (ref) this.tabs = ref;
               }}
-              tabs={[
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Account Info
-                    </Container>
-                  ),
-                  tabName: 'Account',
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Phone Number
-                    </Container>
-                  ),
-                  tabName: 'Phone',
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Personal Info
-                    </Container>
-                  ),
-                  tabName: 'Personal',
-                  contents: 'IJKL',
-                  disabled: true
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faExclamationCircle} />
-                      Documents
-                    </Container>
-                  ),
-                  tabName: 'Documents',
-                  contents: 'MNOP',
-                  disabled: true
-                }
-              ]}
+              tabs={this.tabsContent}
             />
             <Controls.Button
               onClick={() => {
@@ -256,136 +252,21 @@ class Main extends MyComponent<
               Go to next Tab
             </Controls.Button>
 
-            <Tabs
-              margin={{ topPx: 20 }}
-              orientation={'horizontal'}
-              tabs={[
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Account Info
-                    </Container>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Phone Number
-                    </Container>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Personal Info
-                    </Container>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faExclamationCircle} />
-                      Documents
-                    </Container>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
-            />
+            <Tabs margin={{ topPx: 20 }} orientation={'horizontal'} tabs={this.tabsContent} />
             <Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
               align={'middle'}
-              tabs={[
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Account Info
-                    </Container>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Phone Number
-                    </Container>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      Personal Info
-                    </Container>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faExclamationCircle} />
-                      Documents
-                    </Container>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
             />
             <Divider hidden />
             <Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               variant={'stacked'}
-              orientation={'vertical'}
+              tabsContentOrientation={'stacked'}
               align={'middle'}
-              tabs={[
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Account Info</span>
-                    </Container>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Phone Number</span>
-                    </Container>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Personal Info</span>
-                    </Container>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faExclamationCircle} />
-                      <span>Documents</span>
-                    </Container>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
             />
             <Divider />
             <Tabs
@@ -393,44 +274,16 @@ class Main extends MyComponent<
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
-              tabs={[
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Account Info</span>
-                    </Container>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Phone Number</span>
-                    </Container>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faCheckCircle} />
-                      <span>Personal Info</span>
-                    </Container>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <Container>
-                      <Icon icon={faExclamationCircle} />
-                      <span>Documents</span>
-                    </Container>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
+            />
+            <Divider />
+            <Tabs
+              basic
+              margin={{ topPx: 20 }}
+              className={'istox-tabs'}
+              orientation={'vertical'}
+              align={'middle'}
+              tabs={this.tabsContent}
             />
             <Divider />
             <h4>Button</h4>
@@ -562,28 +415,79 @@ class Main extends MyComponent<
               <Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
               <Icon size='large' color={'#3BE4C1'} icon={faChevronCircleRight} text={'Large'} />
             </Container>
-            <Divider visibility={'hidden'} />
             <Container display={'flex'}>
               <Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
               <Icon icon={'mobile'} text={'Passing ICON as a string'} />
             </Container>
             <Container display={'flex'}>
+              <Icon currency={'SGD'} /> &nbsp; &nbsp;
+              <Icon currency={'MYR'} /> &nbsp; &nbsp;
+              <Icon flag={'SGP'} /> &nbsp; &nbsp;
+              <Icon flag={'MYS'} /> &nbsp; &nbsp;
+            </Container>
+            <Container display={'flex'}>
               <Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                   borderSize: 1,
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid'
                 }}
                 icon={'arrow-alt-right'}
-                text={'Badge'}
+                text={''}
                 color={'#DC3545'}
                 onClick={() => {
                   console.log(1);
                 }}
+              />
+              <Icon
+                badge={{
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  iconBackground: false,
+                  fontSize: 14
+                }}
+                currency={'SGD'}
+                text={''}
+                color={'#DC3545'}
+                onClick={() => {
+                  console.log(1);
+                }}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 100,
+                  iconBackground: true
+                }}
+                currency={'SGD'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                flag={'MYS'}
               />
             </Container>
             <Divider />
@@ -1096,6 +1000,10 @@ class Main extends MyComponent<
                   label={'Date'}
                   name='date'
                   type={'date'}
+                  dateOptions={{
+                    dateFormat: 'dd-MM-yyyy'
+                  }}
+                  placeholder={'DD-MM-YYYY'}
                   value={this.state.value}
                   onInputChanged={(value) => {
                     console.log(value);

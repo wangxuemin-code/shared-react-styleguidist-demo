@@ -9,6 +9,7 @@ import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
+import { Icon } from './Icon';
 import { Image } from './Image';
 import { Loading } from './Loading';
 import { Message } from './Message';
@@ -16,6 +17,7 @@ import { OtpInput } from './OTP';
 import { Transition } from './Transition';
 var uniqid = require('uniqid');
 import FileUploader, { FilePattern } from './FileUploader';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface IState {
   displayValue?: string;
@@ -103,6 +105,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
+    this.reset = this.reset.bind(this);
     this.state = { checkArray: [], displayValue: '', value: '' };
   }
 
@@ -153,7 +156,10 @@ export class FormControl extends React.Component<IProps, IState> {
               </Container>
             </label>
           )}
-          <Container classNames={[styles.formControlsInner]} position={'relative'}>
+          <Container
+            classNames={[styles.formControlsInner]}
+            position={this.props.prepend ? 'relative' : undefined}
+          >
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
@@ -610,20 +616,25 @@ export class FormControl extends React.Component<IProps, IState> {
       );
     } else if (this.props.type === 'uploader') {
       return (
-        <FileUploader
-          ref={(ref) => {
-            if (ref) {
-              this.control = ref;
-            }
-          }}
-          value={this.state.displayValue || undefined}
-          onChange={this.onUploaderChanged}
-          disabled={this.props.disabled}
-          filePatterns={this.props.uploaderConfigs!.filePatterns}
-          customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
-        >
-          {this.props.children}
-        </FileUploader>
+        <Container className={styles.uploaderContainer}>
+          <FileUploader
+            ref={(ref) => {
+              if (ref) {
+                this.control = ref;
+              }
+            }}
+            value={this.state.displayValue || undefined}
+            onChange={this.onUploaderChanged}
+            disabled={this.props.disabled}
+            filePatterns={this.props.uploaderConfigs!.filePatterns}
+            customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
+          >
+            {this.props.children}
+          </FileUploader>
+          {this.state.displayValue && (
+            <Icon onClick={this.reset} className={styles.clearUpload} icon={faTimes} />
+          )}
+        </Container>
       );
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {

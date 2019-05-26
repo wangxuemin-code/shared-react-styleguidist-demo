@@ -5,6 +5,7 @@
 .icon {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 
   .svg {
     display: flex;
@@ -26,5 +27,54 @@
     overflow: visible;
     align-self: center;
     width: 0.875em;
+  }
+
+  &.badge {
+    font-size: inherit;
+    overflow: hidden;
+
+    .flag {
+      font-size: inherit;
+      position: relative;
+      left: 5%;
+      top: 5%;
+    }
+
+    &.icon-background {
+      &.country {
+        font-size: inherit;
+
+        .flag {
+          font-size: inherit;
+          position: relative;
+          left: 80%;
+          top: 20%;
+        }
+      }
+    }
+  }
+
+  &.primary {
+    color: map-get($colors, primary);
+  }
+
+  &.secondary {
+    color: map-get($colors, secondary);
+  }
+
+  &.success {
+    color: map-get($colors, success);
+  }
+
+  &.warning {
+    color: map-get($colors, warning);
+  }
+
+  &.info {
+    color: map-get($colors, info);
+  }
+
+  &.danger {
+    color: map-get($colors, danger);
   }
 }

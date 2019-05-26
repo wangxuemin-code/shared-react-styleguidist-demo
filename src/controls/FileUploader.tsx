@@ -1,8 +1,9 @@
-import { faUpload, faFilePdf, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { Container, Icon, Loading } from '.';
 import * as styles from '../css/main.scss';
 import { Controls } from '../index-prod';
+import { Confirm } from './Confirm';
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
@@ -41,10 +42,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
-      // this.setState({
-      //   src: this.props.value || '',
-      //   type: this.getExtensionType()
-      // });
       const value = this.props.value;
       if (value && this.validURL(value)) {
         const extension = value.split('.').pop();
@@ -59,6 +56,11 @@ export default class FileUploader extends React.Component<IProps, IState> {
             type: 'image'
           });
         }
+      } else if (value === undefined) {
+        this.setState({
+          src: '',
+          type: this.getExtensionType()
+        });
       }
     }
   }
@@ -107,7 +109,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public reset() {
-    console.log(1);
     this.setState(
       {
         src: this.props.value || '',
@@ -140,39 +141,54 @@ export default class FileUploader extends React.Component<IProps, IState> {
       pattern = this.getAllowFileRules().join('|'),
       reader = new FileReader();
 
-    if (!file.type.match(pattern)) {
-      return;
-    }
-
-    if (file.size > 10485760) {
-      return;
-    }
-
-    reader.onload = (e) => {
-      if (file.type.split('/')[0] === 'image') {
-        this.setState(
-          {
-            src: reader.result as string,
-            type: 'image',
-            extension: this.getExtension(file.name),
-            uploaded: false
-          },
-          this.onValueChanged
-        );
-      } else if (file.type === 'application/pdf') {
-        this.setState(
-          {
-            src: reader.result as string,
-            type: 'pdf',
-            extension: this.getExtension(file.name),
-            uploaded: false
-          },
-          this.onValueChanged
-        );
+    if (file) {
+      if (!file.type.match(pattern)) {
+        Confirm.show({
+          type: 'okonly',
+          message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
+          onResult: (result) => {
+            console.log(result);
+          }
+        });
+        return;
       }
-    };
 
-    reader.readAsDataURL(file);
+      if (file.size > 10485760) {
+        Confirm.show({
+          type: 'okonly',
+          message: 'The maximum file size for upload is 10MB',
+          onResult: (result) => {
+            console.log(result);
+          }
+        });
+        return;
+      }
+
+      reader.onload = (e) => {
+        if (file.type.split('/')[0] === 'image') {
+          this.setState(
+            {
+              src: reader.result as string,
+              type: 'image',
+              extension: this.getExtension(file.name),
+              uploaded: false
+            },
+            this.onValueChanged
+          );
+        } else if (file.type === 'application/pdf') {
+          this.setState(
+            {
+              src: reader.result as string,
+              type: 'pdf',
+              extension: this.getExtension(file.name),
+              uploaded: false
+            },
+            this.onValueChanged
+          );
+        }
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   private onValueChanged = () => {
@@ -232,7 +248,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
       if (this.state.type === 'image') {
         return (
           <>
-            <Controls.Icon onClick={this.reset} className={styles.clearUpload} icon={faTimes} />
             <img src={this.state.src} />
           </>
         );
