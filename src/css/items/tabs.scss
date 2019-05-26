@@ -16,10 +16,6 @@
     border-bottom: 1px solid map-get($colors, primary);
     background-color: map-get($colors, primary);
     color: map-get($colors, primaryAlt);
-
-    .icon {
-      color: map-get($colors, success);
-    }
   }
 
   #istox-tab {

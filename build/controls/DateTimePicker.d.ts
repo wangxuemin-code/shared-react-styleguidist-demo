@@ -4,6 +4,7 @@ export interface IDateOption {
     endDate?: Date;
     startDate?: Date;
     showTimeSelect?: boolean;
+    dateFormat?: string;
 }
 interface IProps extends IContainer {
     type?: string;
