@@ -2,14 +2,6 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from '.';
-import {
-  faCheckCircle,
-  faTimesCircle,
-  faExclamation,
-  faInfo,
-  faInfoCircle,
-  faExclamationCircle
-} from '@fortawesome/free-solid-svg-icons';
 
 interface IMessage extends IContainer {
   icon?: any;

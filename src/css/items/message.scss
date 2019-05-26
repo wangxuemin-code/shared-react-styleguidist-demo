@@ -5,6 +5,11 @@
   margin: 0;
   text-align: left;
 
+  .message-only,
+  .icon {
+    color: map-get($colors, primaryGreyDark);
+  }
+
   &.success {
     .message-only,
     .icon {
