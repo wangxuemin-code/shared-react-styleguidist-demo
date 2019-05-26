@@ -24,13 +24,17 @@ export class Card extends React.Component<IProps, any> {
         {this.props.children}
         {!this.props.children && this.props.image && <Image fullWidth src={this.props.image} />}
         {!this.props.children && this.props.icon && (
-          <Icon className={styles.cardMiddleIcon} icon={this.props.icon} />
+          <Icon variant='secondary' className={styles.cardMiddleIcon} icon={this.props.icon} />
         )}
         {this.props.leftIcon && (
-          <Icon className={styles.cardTopLeftIcon} icon={this.props.leftIcon} />
+          <Icon variant='secondary' className={styles.cardTopLeftIcon} icon={this.props.leftIcon} />
         )}
         {this.props.rightIcon && (
-          <Icon className={styles.cardTopRightIcon} icon={this.props.rightIcon} />
+          <Icon
+            variant='secondary'
+            className={styles.cardTopRightIcon}
+            icon={this.props.rightIcon}
+          />
         )}
         {!this.props.children && this.props.title && (
           <Container className={styles.cardTitle}>{this.props.title}</Container>

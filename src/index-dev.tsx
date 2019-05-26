@@ -129,7 +129,7 @@ class Main extends MyComponent<
       {
         title: (
           <Container>
-            <Icon icon={faCheckCircle} />
+            <Icon variant={'success'} icon={faCheckCircle} />
             Account Info
           </Container>
         ),

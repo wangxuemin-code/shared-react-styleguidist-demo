@@ -149,15 +149,6 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
     }
-    if (this.checkIconType() === 'fontawesome') {
-    } else {
-    }
-    // if (this.checkIconType() === 'glyphicon') {
-    //   return <Glyphicon glyph={`${this.props.icon}`} />;
-    // } else if (this.checkIconType() === 'fontawesome') {
-    //   return <FontAwesomeIcon icon={this.props.icon as IconDefinition} />;
-    //   // return <FontAwesomeIcon icon={faMobileAndroidAlt as IconDefinition} />;
-    // }
   }
 
   private checkIconType(): 'fontawesomepro' | 'fontawesome' | 'flag' | 'currency' {

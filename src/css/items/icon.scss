@@ -6,7 +6,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: map-get($colors, primaryGreyDark);
 
   .svg {
     display: flex;
@@ -60,7 +59,7 @@
   }
 
   &.secondary {
-    color: map-get($colors, secondary);
+    color: map-get($colors, primaryGreyDark);
   }
 
   &.success {
