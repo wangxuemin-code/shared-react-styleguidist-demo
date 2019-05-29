@@ -1,0 +1,28 @@
+name: 'Istox Shared CI Pipeline'
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+pool:
+  name: Hosted Ubuntu 1604
+  vmImage: 'Ubuntu 16.04'
+  demands: npm
+
+steps:
+
+- task: Npm@1
+  displayName: 'Patch Version'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'version patch'
+
+- task: Npm@1
+  displayName: 'Publish Version'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'publish'
+    customEndpoint: 'istox-npm'
