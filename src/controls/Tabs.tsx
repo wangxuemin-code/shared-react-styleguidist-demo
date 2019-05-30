@@ -91,6 +91,7 @@ export class Tabs extends React.Component<IProps, IState> {
             <Grid className={classes.join(' ')}>
               <Grid.Row fitted>
                 <Grid.Col col={3}>
+                  {this.props.children && <Container>{this.props.children}</Container>}
                   <BootstrapNav className='nav-tabs'>
                     {this.props.tabs.map((tab, i) => (
                       <BootstrapNavItem key={i} eventKey={i}>
@@ -99,13 +100,14 @@ export class Tabs extends React.Component<IProps, IState> {
                     ))}
                   </BootstrapNav>
                 </Grid.Col>
-                <Grid.Col col={8}>
-                  {this.props.children && <Container>{this.props.children}</Container>}
-                  {this.props.tabs.map((tab, i) => (
-                    <BootstrapTab.Content key={i} animation>
-                      <BootstrapTab.Pane eventKey={i}>{tab.contents}</BootstrapTab.Pane>
-                    </BootstrapTab.Content>
-                  ))}
+                <Grid.Col col={9}>
+                  <BootstrapTab.Content animation>
+                    {this.props.tabs.map((tab, i) => (
+                      <BootstrapTab.Pane key={i} eventKey={i}>
+                        {tab.contents}
+                      </BootstrapTab.Pane>
+                    ))}
+                  </BootstrapTab.Content>
                 </Grid.Col>
               </Grid.Row>
             </Grid>

@@ -257,7 +257,28 @@ class Main extends Controls.MyComponent<
               orientation={'vertical'}
               align={'middle'}
               tabs={this.tabsContent}
-            />
+            >
+              <>
+                <Controls.Container
+                  padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5}}
+                >
+                  <Controls.Form>
+                    <Controls.FormControl
+                      fluid
+                      label={''}
+                      name='search'
+                      type={'text'}
+                      placeholder={'Search'}
+                      value=''
+                      prepend={<Controls.Icon icon={faSearch} />}
+                    />
+                  </Controls.Form>
+                </Controls.Container>
+                <Controls.Container padding={{ leftRem: 1, rightRem: 2 }}>
+                  <h6>All Transactions</h6>
+                </Controls.Container>
+              </>
+            </Controls.Tabs>
             <Controls.Divider />
             <h4>Button</h4>
             <Controls.Button size='tiny' variant='primary'>

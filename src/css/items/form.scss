@@ -246,7 +246,7 @@ $borderRadius: 0.375rem;
   &.svg {
     position: absolute;
     left: 15px;
-    top: 0px;
+    top: 2px;
     bottom: 0px;
     color: #aaa;
     display: flex;
@@ -261,6 +261,12 @@ $borderRadius: 0.375rem;
 .istox-form {
   .checkbox-label {
     padding: 0 1.5rem;
+  }
+}
+
+.fluid {
+  input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
+    min-width: 100%;
   }
 }
 

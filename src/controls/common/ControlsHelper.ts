@@ -66,7 +66,7 @@ export default class ControlsHelper {
       if (padding.leftRem) {
         style.paddingLeft = padding.leftRem + 'rem';
       }
-      if (padding.leftRem) {
+      if (padding.leftPercent) {
         style.paddingLeft = padding.leftPercent + '%';
       }
       if (padding.rightPx) {
@@ -157,7 +157,7 @@ export default class ControlsHelper {
       if (margin.leftRem) {
         style.marginLeft = margin.leftRem + 'rem';
       }
-      if (margin.leftRem) {
+      if (margin.leftPercent) {
         style.marginLeft = margin.leftPercent + '%';
       }
       if (margin.rightPx) {
