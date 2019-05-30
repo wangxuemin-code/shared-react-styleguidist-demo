@@ -3,13 +3,17 @@ import { IContainer } from './Container';
 export interface IDateOption {
     endDate?: Date;
     startDate?: Date;
+    showTimeSelect?: boolean;
+    dateFormat?: string;
 }
 interface IProps extends IContainer {
     type?: string;
     placeholder?: string;
     value?: number | string;
-    onChange?: (newTimestamp: number, newDate: Date) => void;
+    onChange?: (newTimestamp: number | string, newDate: Date) => void;
     options: IDateOption;
+    startDate?: Date;
+    endDate?: Date;
 }
 interface IState {
     selectedStartUnixTimestamp?: number;

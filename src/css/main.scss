@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800');
 @import 'items/variable.scss';
 @import 'items/font.scss';
 @import 'items/common.scss';
@@ -7,6 +8,7 @@
 @import 'items/grid.scss';
 @import 'items/grid-column.scss';
 @import 'items/grid-row.scss';
+@import 'items/icon.scss';
 @import 'items/link.scss';
 @import 'items/button.scss';
 @import 'items/image.scss';
@@ -29,3 +31,4 @@
 @import 'items/toast.scss';
 @import 'items/file-selector.scss';
 @import 'items/rating.scss';
+@import 'items/breadcrumbs.scss';

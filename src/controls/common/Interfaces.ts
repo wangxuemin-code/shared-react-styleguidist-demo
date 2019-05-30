@@ -1,6 +1,7 @@
 export interface IAllDirection {
   allPx?: number;
   allRem?: number;
+  allPercent?: number;
 }
 
 export interface IDirectionShort {
@@ -8,6 +9,8 @@ export interface IDirectionShort {
   leftRightPx?: number;
   topBottomRem?: number;
   leftRightRem?: number;
+  topBottomPercent?: number;
+  leftRightPercent?: number;
 }
 
 export interface IDirection {
@@ -19,6 +22,10 @@ export interface IDirection {
   leftRem?: number;
   bottomRem?: number;
   rightRem?: number;
+  topPercent?: number;
+  leftPercent?: number;
+  bottomPercent?: number;
+  rightPercent?: number;
 }
 
 export interface ISize {
@@ -26,4 +33,6 @@ export interface ISize {
   heightPx?: number;
   widthRem?: number;
   heightRem?: number;
+  widthPercent?: number;
+  heightPercent?: number;
 }

@@ -83,7 +83,7 @@ export class Confirm extends React.Component<IProps, IState> {
             )}
             {this.props.type === 'okonly' && (
               <div>
-                <Button float={'none'} variant={'info'} onPress={this.onPositivePressed}>
+                <Button float={'none'} variant={'primary'} onPress={this.onPositivePressed}>
                   OK
                 </Button>
               </div>
@@ -98,7 +98,7 @@ export class Confirm extends React.Component<IProps, IState> {
     if (this.props.type === 'confirm' || this.props.type === 'yesno') {
       return faQuestionCircle;
     } else if (this.props.type === 'okonly') {
-      return faCheckCircle;
+      return faExclamationCircle;
     } else if (this.props.type === 'error') {
       return faExclamationCircle;
     }

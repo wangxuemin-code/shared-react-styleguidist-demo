@@ -19,10 +19,13 @@ export class Item extends React.Component<IItem, any> {
       this.props.className ? this.props.className : '',
       this.props.basic ? styles.basic : ''
     ];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
     return (
       <Container {...this.props} className={classes.join(' ')}>
         {this.props.image && <Image fullWidth src={this.props.image} />}
-        {this.props.icon && <Icon icon={this.props.icon} />}
+        {this.props.icon && <Icon size={'large'} icon={this.props.icon} />}
         <Container className={styles.itemInfo}>
           {this.props.children}
           {!this.props.children && this.props.title && (

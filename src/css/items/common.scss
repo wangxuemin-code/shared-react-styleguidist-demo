@@ -1,4 +1,11 @@
 // @import '//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css';
+// @import '../../node_modules/bootstrap/fonts/glyphicons-halflings-regular.eot';
+// @import '../../node_modules/bootstrap/fonts/glyphicons-halflings-regular.svg';
+// @import '../../node_modules/bootstrap/fonts/glyphicons-halflings-regular.ttf';
+// @import '../../node_modules/bootstrap/fonts/glyphicons-halflings-regular.woff';
+// @import '../../node_modules/bootstrap/fonts/glyphicons-halflings-regular.woff2';
+// @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
 :root {
   font-size: $base;
 }
@@ -9,7 +16,7 @@ body,
   min-height: 100%;
   background: map-get($colors, primaryGreyLight);
   line-height: normal;
-  font-size: 1rem;
+  font-size: $base;
   display: flex;
   flex-direction: column;
 }
@@ -48,28 +55,39 @@ html {
 }
 
 h1 {
-  font-size: 4.142857142857143rem; // 58px
-}
-h2 {
   font-size: 2.857142857142857rem; // 40px
 }
-h3 {
+h2 {
   font-size: 2.142857142857143rem; // 30px
 }
-h4 {
+h3 {
   font-size: 1.7142857142857142rem; // 24px
 }
-h5 {
+h4 {
   font-size: 1.5rem; // 21px
 }
-h6 {
+h5 {
   font-size: 1.2857142857142858rem; // 18px
 }
-span {
+h6 {
   font-size: 1.1428571428571428rem; // 16px
 }
-p {
-  font-size: 1rem; // 14pm
+p,
+article {
+  font-size: 1rem; // 14px
+  margin: 0;
+}
+.tiny {
+  font-size: 0.857rem !important; // 12px
+}
+.small {
+  font-size: 1rem !important; // 14px
+}
+.medium {
+  font-size: 1.1428571428571428rem !important; // 16px
+}
+.large {
+  font-size: 1.2857142857142858rem !important; // 18px
 }
 
 h1,
@@ -78,8 +96,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: bold;
-  color: map-get($colors, primaryDark);
+  font-weight: 600;
+  color: inherit;
 }
 
 hr {
@@ -115,20 +133,23 @@ hr {
   font-weight: 300;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 .light-bold,
 .semi-bold {
-  font-weight: 500;
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.extra-bold {
+  font-weight: 800;
 }
 
 .italic {
   font-style: italic;
 }
 
-/** to set vertical align of inline block object center vertically */
 .vertical-align-sub {
   vertical-align: sub;
 }
@@ -142,7 +163,7 @@ hr {
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
 }
 
 .text-right {

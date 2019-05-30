@@ -8,6 +8,7 @@ interface IOtpInput extends IContainer {
     isInputNum?: boolean;
     inputWidth: string;
     maxLength: number;
+    value?: any;
 }
 interface IState {
     activeInput: number;

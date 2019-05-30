@@ -1,67 +1,73 @@
+import { faFilePdf, faTimes } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
+import { Container, Icon, Loading } from '.';
 import * as styles from '../css/main.scss';
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { Icon, Loading, Container } from '.';
-import * as S3 from 'aws-s3';
+import { Controls } from '../index-prod';
+import { Confirm } from './Confirm';
 
-interface IState {
-  active: boolean;
-  imageSrc: string;
-  loading: boolean;
-  loaded: boolean;
-}
+export type FilePattern = 'audio' | 'video' | 'image';
+type FileType = 'image' | 'pdf' | 'others';
 
-export interface IAwsSettings {
-  bucketName: string;
-  region: string;
-  accessKeyId: string;
-  secretAccessKey: string;
-}
-
-interface IFileUploader extends IAwsSettings {
+interface IProps {
   value?: string;
   onChange?: (newImageSrc: string) => void;
+  disabled?: boolean;
+  filePatterns?: FilePattern[];
+  customAllowFileExtensions?: string[];
 }
 
-export default class FileUploader extends React.Component<IFileUploader, IState> {
-  private S3Client: any;
+interface IState {
+  src: string;
+  extension?: string;
+  type?: FileType;
+  fileData?: any;
+  uploaded: boolean;
+}
 
-  constructor(props: IFileUploader) {
+export default class FileUploader extends React.Component<IProps, IState> {
+  public static defaultProps: IProps = {
+    filePatterns: ['image'],
+    customAllowFileExtensions: []
+  };
+
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
-      active: false,
-      imageSrc: this.props.value || '',
-      loaded: this.props.value ? true : false,
-      loading: false
+      src: this.props.value || '',
+      type: this.getExtensionType(),
+      uploaded: true
     };
-
-    this.onDragEnter = this.onDragEnter.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
-    this.onDrop = this.onDrop.bind(this);
-    this.onFileChange = this.onFileChange.bind(this);
-
-    const config = {
-      bucketName: this.props.bucketName,
-      region: this.props.region,
-      accessKeyId: this.props.accessKeyId,
-      secretAccessKey: this.props.secretAccessKey
-    };
-
-    this.S3Client = new S3(config);
   }
 
-  public componentDidUpdate(prevProps: IFileUploader) {
+  public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
-      this.setState({
-        imageSrc: this.props.value || ''
-      });
+      const value = this.props.value;
+      if (value && this.validURL(value)) {
+        const extension = value.split('.').pop();
+        if (extension == 'pdf') {
+          this.setState({
+            src: value,
+            type: 'pdf'
+          });
+        } else {
+          this.setState({
+            src: value,
+            type: 'image'
+          });
+        }
+      } else if (value === undefined) {
+        this.setState({
+          src: '',
+          type: this.getExtensionType()
+        });
+      }
     }
   }
 
   public render() {
     let state = this.state;
-    let labelClass = `uploader ${state.loaded && 'loaded'}`;
+    let labelClass = `uploader ${state.src && 'loaded'}`;
 
     return (
       <Container>
@@ -72,101 +78,204 @@ export default class FileUploader extends React.Component<IFileUploader, IState>
           onDragOver={this.onDragOver}
           onDrop={this.onDrop}
         >
-          <Loading loading={this.state.loading} />
-          <img src={state.imageSrc} />
-          {!state.loaded && <Icon icon={faUpload} classNames={[styles.icon]} />}
-          {!state.active && (
-            <p className={styles.normalText}>
-              Drag and drop or <br />
-              Click here to attached a file
-            </p>
-          )}
-          <input type='file' accept='image/*' onChange={this.onFileChange} />
+          {this.getContentDesign()}
+          <input
+            type='file'
+            accept={this.getAllowFileRules().join(',')}
+            onChange={this.onFileChange}
+            disabled={this.props.disabled}
+          />
         </label>
       </Container>
     );
   }
 
   public getValue() {
-    return this.state.imageSrc;
+    return JSON.stringify({
+      file: {
+        data: this.state.src,
+        uploaded: this.state.uploaded
+      }
+    });
+  }
+
+  public onSaved() {
+    this.setState(
+      {
+        uploaded: true
+      },
+      this.onValueChanged
+    );
   }
 
   public reset() {
-    this.setState({
-      imageSrc: this.props.value || '',
-      loaded: false,
-      loading: false,
-      active: false
-    });
+    this.setState(
+      {
+        src: this.props.value || '',
+        type: this.getExtensionType(),
+        uploaded: true
+      },
+      this.onValueChanged
+    );
   }
 
-  private onDragEnter() {
-    this.setState({ active: true });
-  }
+  private onDragEnter = () => {
+    // this.setState({ active: true });
+  };
 
-  private onDragLeave() {
-    this.setState({ active: false });
-  }
+  private onDragLeave = () => {
+    // this.setState({ active: false });
+  };
 
-  private onDragOver(e: any) {
+  private onDragOver = (e: any) => {
     e.preventDefault();
-  }
+  };
 
-  private onDrop(e: any) {
+  private onDrop = (e: any) => {
     e.preventDefault();
-    this.setState({ active: false });
     this.onFileChange(e, e.dataTransfer.files[0]);
-  }
+  };
 
-  private onFileChange(e: React.FormEvent<HTMLInputElement>, inputFile?: File) {
-    var file = inputFile || (e.target as any).files[0],
-      pattern = /image-*/,
+  private onFileChange = (e: React.FormEvent<HTMLInputElement>, inputFile?: File) => {
+    let file = inputFile || (e.target as any).files[0],
+      pattern = this.getAllowFileRules().join('|'),
       reader = new FileReader();
 
-    if (!file.type.match(pattern)) {
-      alert('Please select an image.');
-      return;
-    }
+    if (file) {
+      if (!file.type.match(pattern)) {
+        Confirm.show({
+          type: 'okonly',
+          message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
+          onResult: (result) => {
+            // console.log(result);
+          }
+        });
+        return;
+      }
 
-    this.setState({ loaded: false });
+      if (file.size > 10485760) {
+        Confirm.show({
+          type: 'okonly',
+          message: 'The maximum file size for upload is 10MB',
+          onResult: (result) => {
+            // console.log(result);
+          }
+        });
+        return;
+      }
 
-    // reader.onload = (e) => {
-    //   this.setState({
-    //     imageSrc: reader.result as string,
-    //     loaded: true
-    //   });
-    // };
-
-    reader.readAsDataURL(file);
-
-    const extension = file.type.replace(/.*\//g, '');
-
-    Object.defineProperty(file, 'name', {
-      writable: true,
-      value: `${Math.random().toString(36)}_${Date.now()}.${extension}`
-    });
-
-    this.setState({
-      loading: true,
-      loaded: false,
-      imageSrc: ''
-    });
-
-    if (this.props.onChange) {
-      this.props.onChange('');
-    }
-
-    this.S3Client.uploadFile(file)
-      .then((data: any) => {
-        console.log(data);
-        this.setState({ loading: false, loaded: true, imageSrc: data.location });
-
-        if (this.props.onChange) {
-          this.props.onChange(data.location);
+      reader.onload = (e) => {
+        if (file.type.split('/')[0] === 'image') {
+          this.setState(
+            {
+              src: reader.result as string,
+              type: 'image',
+              extension: this.getExtension(file.name),
+              uploaded: false
+            },
+            this.onValueChanged
+          );
+        } else if (file.type === 'application/pdf') {
+          this.setState(
+            {
+              src: reader.result as string,
+              type: 'pdf',
+              extension: this.getExtension(file.name),
+              uploaded: false
+            },
+            this.onValueChanged
+          );
         }
-      })
-      .catch((err: any) => {
-        console.error(err);
-      });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  private onValueChanged = () => {
+    if (this.props.onChange) {
+      this.props.onChange(this.getValue());
+    }
+  };
+
+  private getAllowFileRules(): string[] {
+    const results: string[] = [];
+
+    this.props.filePatterns!.map((pattern) => {
+      switch (pattern) {
+        case 'audio':
+          results.push('audio/*');
+          break;
+        case 'video':
+          results.push('video/*');
+          break;
+        case 'image':
+          results.push('image/*');
+          break;
+      }
+    });
+
+    this.props.customAllowFileExtensions!.map((extension) => {
+      results.push(extension);
+    });
+
+    return results;
+  }
+
+  private getExtensionType(): FileType | undefined {
+    if (!this.props.value) {
+      return undefined;
+    } else {
+      const extension = this.getExtension(this.props.value!);
+      if (['jpg', 'jpeg', 'gif', 'png'].indexOf(extension) >= 0) {
+        return 'image';
+      } else if (extension === 'pdf') {
+        return 'pdf';
+      }
+    }
+  }
+
+  private getExtension(fileName: string): string {
+    return fileName
+      .split(/\#|\?/)[0]
+      .split('.')
+      .pop()!
+      .trim()
+      .toLowerCase();
+  }
+
+  private getContentDesign() {
+    if (this.state.src) {
+      if (this.state.type === 'image') {
+        return (
+          <>
+            <img src={this.state.src} />
+          </>
+        );
+      } else if (this.state.type === 'pdf') {
+        return (
+          <Controls.Container position='relative' textAlign='center'>
+            <Controls.Icon icon={faFilePdf} />
+            <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
+              {!this.state.uploaded ? 'Pending upload' : 'Saved'}
+            </Controls.Container>
+          </Controls.Container>
+        );
+      }
+    } else {
+      return this.props.children;
+    }
+  }
+
+  private validURL(str: any) {
+    var pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    ); // fragment locator
+    return !!pattern.test(str);
   }
 }

@@ -57,6 +57,14 @@ export class Form extends React.Component<IProps> {
     });
   }
 
+  public onSaved() {
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.onSaved) {
+        formControl.onSaved();
+      }
+    });
+  }
+
   public getInputValue(name: string): string {
     let value = '';
     this.formControls.forEach((formControl: any) => {
@@ -76,6 +84,16 @@ export class Form extends React.Component<IProps> {
         if (formControl.getName() === name) {
           result = formControl;
         }
+      }
+    });
+    return result;
+  }
+
+  public getFormControls(): FormControl[] {
+    let result: FormControl[] = [];
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue) {
+        result.push(formControl);
       }
     });
     return result;
@@ -101,18 +119,23 @@ export class Form extends React.Component<IProps> {
 
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
+
+    if (this.validate(true) && this.props.onSubmit) {
+      this.props.onSubmit();
+    }
+  }
+
+  public validate(setErrorState: boolean = true): boolean {
     let validated = true;
     this.formControls.forEach((formControl: any) => {
       if (formControl.validate) {
-        const isValid = formControl.validate();
+        const isValid = formControl.validate(setErrorState);
         if (validated) {
           validated = isValid;
         }
       }
     });
 
-    if (validated && this.props.onSubmit) {
-      this.props.onSubmit();
-    }
+    return validated;
   }
 }

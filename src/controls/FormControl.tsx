@@ -1,35 +1,37 @@
+import { countries } from 'country-data';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { FormControl as BootstrapFormControl, Checkbox } from 'react-bootstrap';
+import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import Select, { components } from 'react-select';
+import TextareaAutosize from 'react-textarea-autosize';
 import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
+import { DateTimePicker, IDateOption } from './DateTimePicker';
+import { Icon } from './Icon';
+import { Image } from './Image';
 import { Loading } from './Loading';
 import { Message } from './Message';
-import { Transition } from './Transition';
-import TextareaAutosize from 'react-textarea-autosize';
-import { DateTimePicker, IDateOption } from './DateTimePicker';
-import FileUploader, { IAwsSettings } from './FileUploader';
-import Select, { components } from 'react-select';
-import { Image } from './Image';
-import { countries } from 'country-data';
-import { any } from 'prop-types';
 import { OtpInput } from './OTP';
-import SingleValue from 'react-select/lib/components/SingleValue';
+import { Transition } from './Transition';
 var uniqid = require('uniqid');
+import FileUploader, { FilePattern } from './FileUploader';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface IState {
   displayValue?: string;
   value?: string | number | null;
   error?: string;
   showError?: boolean;
+  valueArray?: string[];
+  extraControls?: string;
 }
 
 interface IProps extends IContainer {
   loading?: boolean;
   fullWidth?: boolean;
-  defaultValue?: string | number;
+  defaultValue?: any;
   value?: string | number | null;
   placeholder?: any;
   type?:
@@ -38,7 +40,6 @@ interface IProps extends IContainer {
     | 'numberfields'
     | 'numeric'
     | 'money'
-    | 'static'
     | 'email'
     | 'password'
     | 'select'
@@ -48,28 +49,36 @@ interface IProps extends IContainer {
     | 'countrycode'
     | 'switch'
     | 'longtext'
+    | 'date'
     | 'datetime'
     | 'daterange'
     | 'uploader'
     | 'checkbox';
   name?: string;
   disabled?: boolean;
-  onInputChanged?: (value: string | number, name: string) => void;
+  static?: boolean;
   prepend?: any;
   append?: any;
   label?: any;
   required?: boolean;
-  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   selectOptions?: { label: any; value: string }[];
   selectCustomOptions?: { label: string; value: string; image: string }[];
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
-  s3Settings?: IAwsSettings;
   decimalPlace?: number;
   numInputs?: number;
   inputWidth?: string;
   separator?: any;
+  uploaderConfigs?: {
+    filePatterns?: FilePattern[];
+    customAllowFileExtensions?: string[];
+  };
+  onInputChanged?: (value: string | number, name: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onKeyPress?: () => void;
+  validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 
 interface IProcessResult {
@@ -78,27 +87,53 @@ interface IProcessResult {
 }
 
 export class FormControl extends React.Component<IProps, IState> {
+  private otp?: OtpInput;
+  private control?: any;
+
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
-    decimalPlace: 4
+    decimalPlace: 4,
+    uploaderConfigs: {}
   };
 
   constructor(props: IProps) {
     super(props);
     this.onChange = this.onChange.bind(this);
-    this.onDateTimeChange = this.onDateTimeChange.bind(this);
+    this.onSetOption = this.onSetOption.bind(this);
+    this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onDateRangeChange = this.onDateRangeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
+    this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
+    this.reset = this.reset.bind(this);
+    this.state = { valueArray: [], displayValue: '', value: '' };
+  }
+
+  public componentWillMount() {
     this.onValueChanged(
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
     );
+    this.setState({ extraControls: this.props.extraControls });
   }
 
   public componentDidUpdate(prevProps: IProps) {
-    if (prevProps.value !== this.props.value) {
+    if (
+      prevProps.value !== this.props.value ||
+      prevProps.selectOptions !== this.props.selectOptions ||
+      prevProps.selectCustomOptions !== this.props.selectCustomOptions
+    ) {
+      if (this.props.type === 'checkbox' && this.props.value == undefined) {
+        return false;
+      }
       this.onValueChanged(false, String(this.props.value || ''));
+    }
+
+    if (prevProps.extraControls !== this.props.extraControls) {
+      console.log(this.props.extraControls);
+      this.setState({ extraControls: this.props.extraControls });
     }
   }
 
@@ -113,33 +148,49 @@ export class FormControl extends React.Component<IProps, IState> {
         <Container className={classes.join(' ')}>
           {this.props.label && (
             <label className={styles.semiBold}>
-              <span className={styles.displayFlex}>
-                {this.props.label}
-                {this.props.required && <span className={styles.required}>*</span>}
-              </span>
+              <Container className={styles.displayFlex}>
+                {typeof this.props.label === 'string' && (
+                  <h6>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </h6>
+                )}
+                {typeof this.props.label !== 'string' && (
+                  <>
+                    {this.props.label}
+                    {this.props.required && <Container className={styles.required}>*</Container>}
+                  </>
+                )}
+              </Container>
             </label>
           )}
-          <Container classNames={[styles.formControlsInner]} position={'relative'}>
+          <Container
+            classNames={[styles.formControlsInner]}
+            position={this.props.prepend ? 'relative' : undefined}
+          >
             {this.getInputPrependDesign(this.props.prepend)}
             {this.getControlDesign()}
             {this.getInputAppendDesign(this.props.append)}
+            {/* {this.state.value} */}
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
           </Container>
         </Container>
-        {this.props.extraControls && (
+        {this.state.extraControls && (
           <Container className={styles.formControlsWrapper}>
             <span />
             <Container className={'extra-control'} display='block'>
-              {this.props.extraControls}
+              {this.state.extraControls}
             </Container>
           </Container>
         )}
-        <Container className={styles.formControlsWrapper}>
-          <span />
-          <Transition in={this.state.showError}>
-            <Message variant={'danger'} message={this.state.error} />
-          </Transition>
-        </Container>
+        {this.state.showError && (
+          <Container className={styles.formControlsWrapper}>
+            <span />
+            <Transition in={this.state.showError}>
+              <Message variant={'danger'} message={this.state.error} />
+            </Transition>
+          </Container>
+        )}
       </Container>
     );
   }
@@ -161,18 +212,30 @@ export class FormControl extends React.Component<IProps, IState> {
     return '';
   }
 
-  public validate(): boolean {
+  public validate(setErrorState: boolean = true): boolean {
     if (this.props.validateReturnError) {
       const error = this.props.validateReturnError(this.state.value);
       if (error) {
-        this.setState({ error, showError: true });
+        if (setErrorState) this.setState({ error, showError: true });
         return false;
+      }
+    }
+
+    if (this.props.type === 'checkbox') {
+      if (this.props.required) {
+        if (this.state.value == '') {
+          if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
+          return false;
+        } else {
+          this.setState({ showError: false });
+          return true;
+        }
       }
     }
 
     if (this.props.required) {
       if (!this.state.value) {
-        this.setState({ error: 'Cannot be empty.', showError: true });
+        if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
       }
     }
@@ -181,7 +244,8 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(this.state.value).toLowerCase())) {
-          this.setState({ error: 'Email address is not valid.', showError: true });
+          if (setErrorState)
+            this.setState({ error: 'Email address is not valid.', showError: true });
           return false;
         }
       }
@@ -191,11 +255,12 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
         if (!re.test(String(this.state.value))) {
-          this.setState({
-            error:
-              'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
-            showError: true
-          });
+          if (setErrorState)
+            this.setState({
+              error:
+                'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+              showError: true
+            });
           return false;
         }
       }
@@ -207,6 +272,12 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public reset() {
     this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
+  }
+
+  public onSaved() {
+    if (this.control && this.control.onSaved) {
+      this.control.onSaved();
+    }
   }
 
   public setValue(value: string | number, notify: boolean = true) {
@@ -225,8 +296,8 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private getControlDesign() {
-    if (this.props.type === 'static') {
-      return <Container>{this.props.value}</Container>;
+    if (this.props.static) {
+      return <Container>{this.state.displayValue}</Container>;
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
@@ -234,17 +305,32 @@ export class FormControl extends React.Component<IProps, IState> {
           separator={this.props.separator}
           inputWidth={this.props.inputWidth}
           numInputs={this.props.numInputs}
+          value={this.state.value || ''}
+          onChange={this.onChangeNumberFields}
         />
       );
     } else if (this.props.type === 'select') {
+      let Options = this.props.selectOptions || [];
       return (
         <Select
           // componentClass='select'
+          // defaultMenuIsOpen
           className={'select'}
-          // value={this.state.displayValue}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'customselect') {
@@ -258,18 +344,24 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.Option>
         );
       };
+      let Options = this.props.selectCustomOptions || [];
       return (
         <Select
           className={'select'}
-          // value={this.state.displayValue}
           // defaultMenuIsOpen
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption }}
           styles={{
-            option: (base: any) => ({
+            control: (base) => ({
               ...base,
-              border: `1px dotted red`
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
             })
           }}
           options={this.props.selectCustomOptions}
@@ -310,9 +402,10 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.includes(searchText.toLowerCase()) ||
-          option.data.value.includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.includes('+' + searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -323,11 +416,23 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           className={'select'}
+          value={Options.filter((obj: any) => obj.value[0] === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'country') {
@@ -365,9 +470,9 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -377,12 +482,23 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          // value={this.state.displayValue}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'countrycode') {
@@ -420,9 +536,9 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       const customFilter = (option: any, searchText: string) => {
         if (
-          option.data.label.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.value.toLowerCase().includes(searchText.toLowerCase()) ||
-          option.data.country.toLowerCase().includes(searchText.toLowerCase())
+          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -431,13 +547,25 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          // defaultMenuIsOpen
           className={'select'}
-          // value={this.state.displayValue}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
+          styles={{
+            control: (base) => ({
+              ...base,
+              height: '2.857rem',
+              minHeight: '2.571rem',
+              padding: '0 0.5rem'
+            }),
+            option: (base: any) => ({
+              ...base
+            })
+          }}
         />
       );
     } else if (this.props.type === 'switch') {
@@ -461,6 +589,17 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
+        />
+      );
+    } else if (this.props.type === 'date') {
+      return (
+        <DateTimePicker
+          type={'date'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateChange}
+          options={this.props.dateOptions}
         />
       );
     } else if (this.props.type === 'datetime') {
@@ -469,7 +608,7 @@ export class FormControl extends React.Component<IProps, IState> {
           type={'datetime'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeChange}
+          onChange={this.onDateChange}
           options={this.props.dateOptions}
         />
       );
@@ -479,46 +618,66 @@ export class FormControl extends React.Component<IProps, IState> {
           type={'daterange'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeChange}
+          onChange={this.onDateRangeChange}
           options={this.props.dateOptions}
         />
       );
     } else if (this.props.type === 'uploader') {
       return (
-        <FileUploader
-          bucketName={this.props.s3Settings!.bucketName}
-          region={this.props.s3Settings!.region}
-          accessKeyId={this.props.s3Settings!.accessKeyId}
-          secretAccessKey={this.props.s3Settings!.secretAccessKey}
-          value={this.state.displayValue || undefined}
-          onChange={this.onUploaderChanged}
-        />
+        <Container className={styles.uploaderContainer}>
+          <FileUploader
+            ref={(ref) => {
+              if (ref) {
+                this.control = ref;
+              }
+            }}
+            value={this.state.displayValue || undefined}
+            onChange={this.onUploaderChanged}
+            disabled={this.props.disabled}
+            filePatterns={this.props.uploaderConfigs!.filePatterns}
+            customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
+          >
+            {this.props.children}
+          </FileUploader>
+          {this.state.displayValue && (
+            <Icon onClick={this.reset} className={styles.clearUpload} icon={faTimes} />
+          )}
+        </Container>
       );
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
-        {
-          return (
-            <Container className={this.props.variant}>
-              {this.props.selectOptions.map((option) => {
-                return (
-                  <Container
-                    alignItems={'baseline'}
-                    display={'flex'}
-                    key={uniqid().toString()}
-                    className={styles.loadingContainerWrapper}
-                    padding={{ leftRem: 1.286 }}
-                    position={'relative'}
-                    textAlign={'justify'}
-                  >
-                    <input type='checkbox' value={option.value} />
-                    {option.label}
-                    {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
-                  </Container>
-                );
-              })}
-            </Container>
-          );
-        }
+        return (
+          <Container className={this.props.variant}>
+            {this.props.selectOptions.map((option, i) => {
+              return (
+                <Container
+                  display={'block'}
+                  key={uniqid().toString()}
+                  className={styles.loadingContainerWrapper}
+                  position={'relative'}
+                  textAlign={'justify'}
+                >
+                  <input
+                    onChange={(e) => this.onCheckChanged(e, i)}
+                    checked={
+                      this.state.value && this.state.value.toString().indexOf(option.value) !== -1
+                        ? true
+                        : this.state.valueArray
+                        ? this.state.valueArray.indexOf(option.value) !== -1
+                          ? true
+                          : false
+                        : false
+                    }
+                    type='checkbox'
+                    value={option.value}
+                  />
+                  <Container className={styles.checkboxLabel}>{option.label}</Container>
+                  {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
+                </Container>
+              );
+            })}
+          </Container>
+        );
       }
     } else {
       return (
@@ -531,47 +690,124 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
+          onBlur={this.props.onBlur}
         />
       );
     }
   }
 
-  private onChange(event: React.FormEvent<any>) {
-    const { value } = event.target as HTMLInputElement;
-
-    if (this.validateValueCanChanged(value)) {
-      const result = this.processValue(value);
-      this.setState({ displayValue: result.displayValue, value: result.value }, () => {
+  private onChangeNumberFields(event: number) {
+    const numbers = event;
+    const result = this.processValue(numbers.toString());
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
         if (this.props.onInputChanged) {
           this.props.onInputChanged(result.value, this.props.name || '');
         }
-      });
+      }
+    );
+  }
+
+  private onChange(event: React.FormEvent<any>) {
+    const { value } = event.target as HTMLInputElement;
+    if (this.validateValueCanChanged(value)) {
+      const result = this.processValue(value);
+      this.setState(
+        { displayValue: result.displayValue, value: result.value, showError: false },
+        () => {
+          if (this.props.onInputChanged) {
+            this.props.onInputChanged(result.value, this.props.name || '');
+          }
+        }
+      );
     }
   }
 
-  onSetOption = (selectedOption: any) => {
-    this.setState({ displayValue: selectedOption, value: selectedOption.value });
+  private onSetOption = (selectedOption: any) => {
+    let value = selectedOption.value;
+    if (value.constructor === Array) {
+      value = selectedOption.value[0];
+    }
+    this.setState({ displayValue: selectedOption, value: value, showError: false });
+    if (this.props.onInputChanged) {
+      this.props.onInputChanged(selectedOption, this.props.name || '');
+    }
   };
 
-  private onDateTimeChange(newUnixTimestamp: number) {
-    this.setState({ displayValue: newUnixTimestamp.toString(), value: newUnixTimestamp });
+  private onDateChange(newUnixTimestamp: number) {
+    const result = this.processValue(newUnixTimestamp.toString());
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
+      }
+    );
+  }
 
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newUnixTimestamp, this.props.name || '');
-    }
+  private onDateRangeChange(newUnixTimestamp: number) {
+    const result = this.processValue(newUnixTimestamp.toString());
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
+      }
+    );
   }
 
   private onUploaderChanged(newUrl: string) {
-    this.setState({ displayValue: newUrl, value: newUrl });
+    this.setState({ displayValue: newUrl, value: newUrl, showError: false }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(newUrl, this.props.name || '');
+      }
+    });
   }
 
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
     const result = this.processValue((e.target as any).checked ? '1' : '0');
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
+    );
+  }
+
+  private onCheckChanged(e: any, index: number) {
+    const checked = e.target.checked;
+    const value = e.target.value;
+    let valueArray = this.state.valueArray || [];
+    valueArray = valueArray.filter(function(x) {
+      return x !== (undefined || null || '');
     });
+    if (checked) {
+      valueArray.push(value);
+    } else {
+      var index = valueArray.indexOf(value);
+      if (index > -1) {
+        valueArray.splice(index, 1);
+      }
+    }
+    const result = this.processValue(String(valueArray.join()));
+    this.setState(
+      {
+        valueArray: valueArray,
+        displayValue: result.displayValue,
+        value: result.value,
+        showError: false
+      },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(value, this.props.name || '');
+        }
+      }
+    );
   }
 
   private validateValueCanChanged(value: string): boolean {
@@ -595,19 +831,50 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
-
+    if (this.props.type === 'checkbox') {
+      if (value) {
+        this.setState({ valueArray: value.split(',') });
+      } else {
+        this.setState({ valueArray: [] });
+      }
+      return { displayValue: value || '', value };
+    }
     if (
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
       this.props.type === 'email' ||
       this.props.type === 'password' ||
-      this.props.type === 'select' ||
-      this.props.type === 'customselect' ||
+      this.props.type === 'phonecode' ||
+      this.props.type === 'countrycode' ||
+      this.props.type === 'country' ||
       this.props.type === 'switch' ||
+      this.props.type === 'date' ||
       this.props.type === 'datetime' ||
-      this.props.type === 'uploader'
+      this.props.type === 'daterange' ||
+      this.props.type === 'uploader' ||
+      this.props.type === 'numberfields'
     ) {
       return { displayValue: value || '', value };
+    } else if (this.props.type === 'select') {
+      let displayValue = '';
+      if (
+        this.props.selectOptions!.map((item) => {
+          if (item.value === value) {
+            displayValue = item.label;
+          }
+        })
+      )
+        return { displayValue: displayValue || '', value };
+    } else if (this.props.type === 'customselect') {
+      let displayValue = '';
+      if (
+        this.props.selectCustomOptions!.map((item) => {
+          if (item.value === value) {
+            displayValue = item.label;
+          }
+        })
+      )
+        return { displayValue: displayValue || '', value };
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
       let appendDot: string = '';
@@ -663,12 +930,12 @@ export class FormControl extends React.Component<IProps, IState> {
   private onValueChanged(firstCall: boolean, newValue: string) {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(String(newValue || ''));
-
     if (firstCall) {
-      this.state = {
-        displayValue: result.displayValue,
-        value: result.value
-      };
+      // this.state = {
+      //   displayValue: result.displayValue,
+      //   value: result.value
+      // };
+      this.setState({ displayValue: result.displayValue, value: result.value });
     } else {
       this.setState({ displayValue: result.displayValue, value: result.value });
     }

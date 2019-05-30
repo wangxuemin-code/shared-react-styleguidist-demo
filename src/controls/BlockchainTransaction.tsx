@@ -101,12 +101,12 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
           <Icon icon={faCheck} margin={{ rightPx: 20 }} />
           {this.state.succeed && this.state.txId && (
             <React.Fragment>
-              <span>Transaction {this.state.txId} executed successfully</span>
+              <p>Transaction {this.state.txId} executed successfully</p>
               <Link margin={{ leftPx: 20 }}>Show</Link>
             </React.Fragment>
           )}
           {this.state.succeed && !this.state.txId && (
-            <span>Blockchain transaction is executed successfully</span>
+            <p>Blockchain transaction is executed successfully</p>
           )}
         </Container>
       </Container>

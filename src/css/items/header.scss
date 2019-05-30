@@ -1,6 +1,5 @@
 .istox-header {
   background-color: map-get($colors, primary);
-  padding: 0 10rem;
   color: map-get($colors, primaryAlt);
   width: 100%;
   z-index: 999;
@@ -99,6 +98,10 @@
   padding: 0px 30px;
   position: relative;
   height: $headerHeight;
+
+  .icon {
+    padding-top: 2px;
+  }
 }
 
 .istox-header .user-action:hover {
@@ -138,7 +141,6 @@
   background-color: white;
   text-align: center;
   border-radius: 3px;
-  border: 1px solid #f3f4f6;
   box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
 }
 

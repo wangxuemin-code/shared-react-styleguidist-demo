@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Modal as BootstrapModal } from 'react-bootstrap';
 import * as styles from '../css/main.scss';
 import { Icon } from '.';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface IState {
   visible: boolean;
@@ -37,12 +38,7 @@ export class Modal extends React.Component<IProps, IState> {
         className={[styles.myModal, this.props.className || ''].join(' ')}
         onExited={this.props.onExited}
       >
-        <Icon
-          icon={'remove'}
-          className={styles.closeButton}
-          onClick={this.onModalHide}
-          fontSizeRem={1}
-        />
+        <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
         <BootstrapModal.Body className={styles.myModalBody}>
           {this.props.children}
         </BootstrapModal.Body>

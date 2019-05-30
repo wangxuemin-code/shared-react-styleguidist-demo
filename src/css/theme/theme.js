@@ -6,10 +6,13 @@ exports.stylings = {
     borderRadius: '6px',
     boxShadow: '0 5px 10px rgba(28, 66, 103, 0.3)',
     breakpoints: {
-        xs: '0em' /* 0px */,
-        sm: '30em' /* 480px */,
-        md: '64em' /* 1024px */,
-        lg: '75em' /* 1200px */
+        mini: '20rem' /* 280px */,
+        tiny: '22.857rem' /* 320px */,
+        small: '34.286rem' /* 480px */,
+        medium: '54.857rem' /* 768px */,
+        large: '70rem' /* 980px */,
+        big: '85.714rem' /* 1200px */,
+        huge: '100rem' /* 1400px */
     },
     typography: {
         font: "'Open Sans', sans-serif",

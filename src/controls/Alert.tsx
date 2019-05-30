@@ -4,6 +4,7 @@ import { Container, IContainer } from './Container';
 import { Alert as ReactAlert } from 'react-bootstrap';
 import { Icon } from '.';
 import { Transition } from './Transition';
+import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 export interface IAlert extends IContainer {
   error?: string | string[];
@@ -119,13 +120,13 @@ export class Alert extends React.Component<IAlert, IState> {
     let icon;
     switch (type) {
       case 'success':
-        icon = 'ok-sign';
+        icon = faCheckCircle;
         break;
       case 'danger':
-        icon = 'info-sign';
+        icon = faInfoCircle;
         break;
       case 'info':
-        icon = 'info-sign';
+        icon = faInfoCircle;
         break;
     }
 

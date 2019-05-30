@@ -6,12 +6,25 @@ import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IAllDirection, IDirection, IDirectionShort } from './common/interfaces';
 import Truncate from 'react-truncate';
+import { number } from 'prop-types';
 
 interface IBorder {
   borderRadius?: number;
   borderColor?: BorderColorProperty;
   borderStyle?: BorderStyleProperty;
   borderSize?: number;
+}
+
+interface ITooltipOptions {
+  place?: 'top' | 'right' | 'bottom' | 'left';
+  event?: string;
+  eventOff?: string;
+  globalEventOff?: string;
+  clickable?: boolean;
+  delayHide?: number;
+  delayShow?: number;
+  delayUpdate?: number;
+  className?: string;
 }
 
 export interface IContainer {
@@ -34,11 +47,13 @@ export interface IContainer {
   backgroundImage?: string;
   backgroundPosition?: 'center' | 'bottom' | 'left' | 'right' | 'top' | 'initial' | 'inherit';
   backgroundSize?: 'auto' | 'contain' | 'cover' | 'inherit' | 'initial';
+  backgroundRepeat?: 'no-repeat' | 'initial' | 'inherit' | 'repeat' | 'repeat-x' | 'repeat-y';
   display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
   tooltip?: any;
+  tooltipOptions?: ITooltipOptions;
   verticalAlign?: 'center';
   zIndex?: number;
   fontStyle?: 'normal' | 'italic';
@@ -266,14 +281,20 @@ export class Container extends React.Component<IContainer, any> {
   private wrapWithTooltip(children: any) {
     const randomId = String(Math.random() * 1000);
     return (
-      <span>
+      <Container>
         <span data-tip data-for={randomId}>
           {children}
         </span>
-        <ReactTooltip id={randomId} effect='solid'>
-          <span>{this.props.tooltip}</span>
+        <ReactTooltip id={randomId} effect='solid' {...this.props.tooltipOptions} isCapture={true}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <span>{this.props.tooltip}</span>
+          </div>
         </ReactTooltip>
-      </span>
+      </Container>
     );
   }
 }

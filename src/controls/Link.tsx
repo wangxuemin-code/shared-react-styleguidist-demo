@@ -1,31 +1,28 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-// import { Link as ReactRouterLink } from 'react-router-dom';
+import { Link as ReactRouterLink } from 'react-router-dom';
 import { IContainer, Container } from './Container';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-  basic?: boolean | string;
-  size?: 'small' | 'medium' | 'large';
+  underline?: boolean;
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;
   onClick?: () => void;
-  float?: 'left' | 'right' | 'none';
 }
 
-export class Link extends React.Component<ILink, any> {
+export class Link extends React.Component<ILink> {
   public static defaultProps: ILink = {
-    size: 'small',
-    float: 'left'
+    underline: true
   };
+
   public render() {
     let classes: string[] = [
       styles.link,
-      this.props.size ? this.props.size : '',
       this.props.variant || '',
-      this.props.basic ? styles.basic : '',
-      this.props.disabled ? styles.disabled : ''
+      this.props.disabled ? styles.disabled : '',
+      this.props.underline ? styles.underline : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -36,39 +33,25 @@ export class Link extends React.Component<ILink, any> {
     if (this.props.href) {
       if (useNormalAnchor) {
         return (
-          <a
-            className={classes.join(' ')}
-            {...linkProps}
-            style={{ cursor: 'pointer' }}
-            href={this.props.href}
-          >
-            <Container {...linkProps} display={this.props.display || 'inline-block'} />
+          <a href={this.props.href}>
+            <Container className={classes.join(' ')} {...linkProps}>
+              {this.props.children}
+            </Container>
           </a>
         );
       } else {
         return (
-          <a
-            className={classes.join(' ')}
-            {...linkProps}
-            style={{ cursor: 'pointer' }}
-            href={this.props.href}
-          >
-            <Container {...linkProps} display={this.props.display || 'inline-block'} />
-          </a>
-          // <ReactRouterLink {...linkProps} to={this.props.href} style={{ cursor: 'pointer' }}>
-          //   <Container {...linkProps} display={this.props.display || 'inline-block'} />
-          // </ReactRouterLink>
+          <ReactRouterLink to={this.props.href}>
+            <Container {...linkProps}>{this.props.children}</Container>
+          </ReactRouterLink>
         );
       }
     } else {
       return (
-        <a
-          className={classes.join(' ')}
-          {...linkProps}
-          onClick={this.props.onClick}
-          style={{ cursor: 'pointer' }}
-        >
-          <Container {...linkProps} display={this.props.display || 'inline-block'} />
+        <a onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
+          <Container className={classes.join(' ')} {...linkProps}>
+            {this.props.children}
+          </Container>
         </a>
       );
     }

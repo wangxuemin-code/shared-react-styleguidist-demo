@@ -45,8 +45,8 @@ export class Toast extends React.Component {
             <Icon icon={faCheck} /> Blockchain transaction completed
           </div>
           <div className='item'>
-            <span className='title'>Purpose</span>
-            <span className='value'>{blockchainTransactionOptions.purpose}</span>
+            <p className='title'>Purpose</p>
+            <p className='value'>{blockchainTransactionOptions.purpose}</p>
           </div>
           <div className='single-row'>
             <div className='title'>Tx hash</div>

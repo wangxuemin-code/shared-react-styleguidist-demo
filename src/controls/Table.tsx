@@ -4,15 +4,18 @@ import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Transition } from './Transition';
 import { Loading } from './Loading';
+import { Item } from './Item';
 var uniqid = require('uniqid');
 
 export interface TableHeaderModel {
   title: string;
+  min?: boolean;
 }
 
 export interface TableRowModel {
   rowContents: any[];
   rowActions?: TableActionsModel[];
+  onClick?: () => void;
 }
 
 export interface TableActionsModel {
@@ -23,10 +26,11 @@ export interface TableActionsModel {
 }
 
 interface IProps extends IContainer {
-  headers?: TableHeaderModel[];
+  header?: any;
+  footer?: any;
+  columnHeaders?: TableHeaderModel[];
   rows?: TableRowModel[];
   basic?: boolean;
-  callback?: () => void;
 }
 
 export class Table extends React.Component<IProps, any> {
@@ -36,13 +40,22 @@ export class Table extends React.Component<IProps, any> {
       this.props.className ? this.props.className : '',
       this.props.basic ? styles.basic : ''
     ];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
     return (
       <Container {...this.props} className={classes.join(' ')}>
+        {typeof this.props.header === 'string' && (
+          <Container padding={{ allRem: 1 }}>
+            <h5>{this.props.header}</h5>
+          </Container>
+        )}
+        {typeof this.props.header !== 'string' && <Container>{this.props.header}</Container>}
         <table>
           <thead>
             <tr>
-              {this.props.headers &&
-                this.props.headers.map((tableHeaderModel) => {
+              {this.props.columnHeaders &&
+                this.props.columnHeaders.map((tableHeaderModel) => {
                   return this.getHeaderDesign(tableHeaderModel, uniqid().toString());
                 })}
             </tr>
@@ -54,6 +67,12 @@ export class Table extends React.Component<IProps, any> {
               })}
           </tbody>
         </table>
+        {typeof this.props.footer === 'string' && (
+          <Container padding={{ allRem: 1 }}>
+            <h5>{this.props.footer}</h5>
+          </Container>
+        )}
+        {typeof this.props.footer !== 'string' && <Container>{this.props.footer}</Container>}
       </Container>
     );
   }
@@ -64,31 +83,39 @@ export class Table extends React.Component<IProps, any> {
 
   private getRowDesign(tableRowModel: TableRowModel, index: number) {
     return (
-      <tr key={index} onClick={this.props.callback}>
-        {tableRowModel.rowContents.map((content) => {
+      <tr key={index} onClick={tableRowModel.onClick}>
+        {tableRowModel.rowContents.map((content, columnIndex) => {
           if (content.icon) {
-            <Transition>
+            <Container>
               {tableRowModel.rowActions &&
                 tableRowModel.rowActions.map((tableActionsModel) => {
                   return this.getActionDesign(tableActionsModel, uniqid().toString());
                 })}
-            </Transition>;
+            </Container>;
           } else {
+            let min: boolean | undefined = false;
+            if (this.props.columnHeaders && this.props.columnHeaders.length > columnIndex) {
+              min = this.props.columnHeaders[columnIndex].min;
+            }
+
             return (
-              <td key={uniqid().toString()}>
-                <Transition>{content}</Transition>
+              <td key={uniqid().toString()} className={min ? styles.min : ''}>
+                <Container>{content}</Container>
               </td>
             );
           }
         })}
-        <td className={styles.actionContainer} key='action'>
-          <Transition>
-            {tableRowModel.rowActions &&
-              tableRowModel.rowActions.map((tableActionsModel) => {
-                return this.getActionDesign(tableActionsModel, uniqid().toString());
-              })}
-          </Transition>
-        </td>
+
+        {tableRowModel.rowActions && tableRowModel.rowActions.length > 0 && (
+          <td className={styles.actionContainer} key='action'>
+            <Container>
+              {tableRowModel.rowActions &&
+                tableRowModel.rowActions.map((tableActionsModel) => {
+                  return this.getActionDesign(tableActionsModel, uniqid().toString());
+                })}
+            </Container>
+          </td>
+        )}
       </tr>
     );
   }

@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { IContainer, Container } from './Container';
+import { Icon } from './Icon';
 import * as styles from '../css/main.scss';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface IRating extends IContainer {
   value?: any;
@@ -25,7 +27,7 @@ export class Rating extends React.Component<IRating, IState> {
     const ratings = [];
     if (maxValue) {
       for (let i = 1; i <= maxValue; i++) {
-        if (value > i) {
+        if (value >= i) {
           variant = 'success';
         } else {
           if (value == i - 0.5) {
@@ -39,7 +41,18 @@ export class Rating extends React.Component<IRating, IState> {
           this.props.className ? this.props.className : '',
           variant || ''
         ];
-        ratings.push(<Container key={i} className={classes.join(' ')} />);
+        classes = classes.filter(function(el) {
+          return el != '';
+        });
+        if (variant == 'success') {
+          ratings.push(
+            <Container key={i}>
+              <Icon variant={'success'} icon={faCheckCircle} />
+            </Container>
+          );
+        } else {
+          ratings.push(<Container key={i} className={classes.join(' ')} />);
+        }
       }
     }
     return ratings;

@@ -1,32 +1,7 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import {
-  Container,
-  Grid,
-  Button,
-  Icon,
-  FormControl,
-  Link,
-  Modal,
-  Message,
-  Form,
-  Header,
-  RootContainer,
-  WrapperContainer,
-  ErrorPage,
-  Table,
-  Card,
-  Item,
-  Image,
-  Tabs,
-  Footer,
-  Toast,
-  Divider,
-  Rating
-} from './controls';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
-import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
 import {
@@ -38,20 +13,17 @@ import {
   faExclamationCircle,
   faInfoCircle,
   faSearch,
-  faUser
+  faUser,
+  faChevronCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-import { Confirm } from './controls/Confirm';
-import { BlockchainTransaction } from './controls/BlockchainTransaction';
-import { CandleStickChart } from './controls/CandleStickChart';
-import { LineChart } from './controls/LineChart';
-import Truncate from 'react-truncate';
-import { ProgressBar } from './controls/ProgressBar';
-import { Router, Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import FileUploader from './controls/FileUploader';
 var uniqid = require('uniqid');
+// import { CandleStickChart } from './controls/CandleStickChart';
+// import { LineChart } from './controls/LineChart';
+// import Truncate from 'react-truncate';
+// import { Router, Route } from 'react-router';
+// import { BrowserRouter } from 'react-router-dom';
+// import { ToastContainer, toast } from 'react-toastify';
 
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -81,22 +53,28 @@ const mqtt = new Mqtt({
 //     }
 //   })
 //   .then((message) => {
-//     console.log('aha');
 //     console.log(message);
 //   });
 
-class Main extends React.Component<
+class Main extends Controls.MyComponent<
   any,
   {
     success: string[] | string;
     error: string;
     loading: boolean;
     showModal: boolean;
+    value: string | number;
+    selectOptions: any[];
+    email: string;
+    imageUrl: string;
   }
 > {
+  tabs: Controls.Tabs;
   form: any;
+  imageForm: any;
   formControls: any[];
   colorStates: string[];
+  tabsContent: any[];
 
   public constructor(props: any) {
     super(props);
@@ -104,29 +82,79 @@ class Main extends React.Component<
       success: ['Success'],
       error: '',
       loading: false,
-      showModal: false
+      showModal: false,
+      selectOptions: [
+        {
+          label: 'Primary',
+          value: 'primary'
+        }
+      ],
+      value: '',
+      email: '',
+      imageUrl: ''
     };
     this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
+    this.tabsContent = [
+      {
+        title: (
+          <Controls.Container>
+            <Controls.Icon variant={'success'} icon={faCheckCircle} />
+            Account Info
+          </Controls.Container>
+        ),
+        contents: 'ABCD'
+      },
+      {
+        title: (
+          <Controls.Container>
+            <Controls.Icon icon={faCheckCircle} />
+            Phone Number
+          </Controls.Container>
+        ),
+        contents: 'EFGHsa'
+      },
+      {
+        title: (
+          <Controls.Container>
+            <Controls.Icon icon={faCheckCircle} />
+            Personal Info
+          </Controls.Container>
+        ),
+        contents: 'IJKL'
+      },
+      {
+        title: (
+          <Controls.Container>
+            <Controls.Icon icon={faExclamationCircle} />
+            Documents
+          </Controls.Container>
+        ),
+        contents: 'MNOP'
+      }
+    ];
   }
 
   public render() {
     const link = (
       <Fragment>
-        <a href='google.com'>Test Link</a>
+        By visiting the iSTOX platform, I shall be subject to and bound by our&nbsp;
+        <Controls.Link href='/' useNormalAnchor={true}>
+          Terms of Use
+        </Controls.Link>
       </Fragment>
     );
     return (
       <React.Fragment>
-        <RootContainer>
-          <Header
+        <Controls.RootContainer>
+          <Controls.Header
             logo={true}
             className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }]}
+            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
             userAction
           />
-          <WrapperContainer>
-            <Container
+          <Controls.WrapperContainer>
+            <Controls.Container
               padding={{ allPx: 15 }}
               backgroundColor={'#FFF'}
               border={{
@@ -137,359 +165,408 @@ class Main extends React.Component<
               }}
             >
               <h4>Typography</h4>
-              <Container display={'flex'}>
-                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+              <Controls.Container display={'flex'}>
+                <Controls.Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <h1>H1</h1>
                   <h2>H2</h2>
                   <h3>H3</h3>
                   <h4>H4</h4>
                   <h5>H5</h5>
                   <h6>H6</h6>
-                </Container>
-                <Divider direction={'vertical'} />
-                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                </Controls.Container>
+                <Controls.Divider direction={'vertical'} />
+                <Controls.Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <p>Paragraph</p>
+                  <p className='semi-bold'>Semi Bold</p>
                   <b>Bold</b>
-                  <br />
+                  <p className='extra-bold'>Extra Bold</p>
                   <i>Italic</i>
                   <br />
                   <u>Underline</u>
-                </Container>
-              </Container>
-            </Container>
-            <Divider />
+                  <br />
+                  <span className='tiny'>Tiny</span> &nbsp;
+                  <span className='small'>Small</span> &nbsp;
+                  <span className='medium'>Medium</span> &nbsp;
+                  <span className='large'>Large</span>
+                </Controls.Container>
+              </Controls.Container>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Tabs</h4>
-            <Tabs
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
-              tabs={[
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Account Info
-                    </span>
-                  ),
-                  contents: 'ABCD',
-                  active: true
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Phone Number
-                    </span>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Personal Info
-                    </span>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                      Documents
-                    </span>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              onTabSelected={(tabName) => {
+                console.log(tabName);
+              }}
+              selectedIndex={2}
+              ref={(ref) => {
+                if (ref) this.tabs = ref;
+              }}
+              tabs={this.tabsContent}
             />
-            <Tabs
+            <Controls.Button
+              onClick={() => {
+                this.tabs.goToPrevious();
+              }}
+            >
+              Go to previous Tab
+            </Controls.Button>
+            <Controls.Button
+              onClick={() => {
+                this.tabs.goToNext();
+              }}
+            >
+              Go to next Tab
+            </Controls.Button>
+
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
-              tabs={[
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Account Info
-                    </span>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Phone Number
-                    </span>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Personal Info
-                    </span>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                      Documents
-                    </span>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
             />
-            <Tabs
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
               align={'middle'}
-              tabs={[
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Account Info
-                    </span>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Phone Number
-                    </span>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} padding={{ rightPx: 15 }} />
-                      Personal Info
-                    </span>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} padding={{ rightPx: 15 }} />
-                      Documents
-                    </span>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
             />
-            <Divider hidden />
-            <Tabs
+            <Controls.Divider hidden />
+            <Controls.Tabs
+              margin={{ topPx: 20 }}
+              className={'istox-tabs'}
+              variant={'stacked'}
+              tabsContentOrientation={'stacked'}
+              align={'middle'}
+              tabs={this.tabsContent}
+            />
+            <Controls.Divider />
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
-              tabs={[
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} />
-                      Account Info
-                    </span>
-                  ),
-                  contents: 'ABCD'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} />
-                      Phone Number
-                    </span>
-                  ),
-                  contents: 'EFGH'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faCheckCircle} />
-                      Personal Info
-                    </span>
-                  ),
-                  contents: 'IJKL'
-                },
-                {
-                  title: (
-                    <span>
-                      <Icon icon={faExclamationCircle} />
-                      Documents
-                    </span>
-                  ),
-                  contents: 'MNOP'
-                }
-              ]}
+              tabs={this.tabsContent}
             />
-            <Divider />
+            <Controls.Divider />
+            <Controls.Tabs
+              basic
+              margin={{ topPx: 20 }}
+              className={'istox-tabs'}
+              orientation={'vertical'}
+              align={'middle'}
+              tabs={this.tabsContent}
+            >
+              <>
+                <Controls.Container padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5 }}>
+                  <Controls.Form>
+                    <Controls.FormControl
+                      fluid
+                      label={''}
+                      name='search'
+                      type={'text'}
+                      placeholder={'Search'}
+                      value=''
+                      prepend={<Controls.Icon icon={faSearch} />}
+                    />
+                  </Controls.Form>
+                </Controls.Container>
+                <Controls.Container padding={{ leftRem: 1, rightRem: 2 }}>
+                  <h6>All Transactions</h6>
+                </Controls.Container>
+              </>
+            </Controls.Tabs>
+            <Controls.Divider />
             <h4>Button</h4>
-            <Button size='small' variant='primary'>
+            <Controls.Button size='tiny' variant='primary'>
+              Tiny
+            </Controls.Button>
+            <Controls.Button size='small' variant='primary'>
               Small
-            </Button>
-            <Button size='medium' variant='primary'>
+            </Controls.Button>
+            <Controls.Button size='medium' variant='primary'>
               Medium
-            </Button>
-            <Icon icon={faUser} onClick={() => {}} />
-            <Button onClick={() => {}} size='large' variant='primary'>
+            </Controls.Button>
+            <Controls.Button
+              onClick={() => {
+                console.log(1);
+              }}
+              size='large'
+              variant='primary'
+            >
               Large
-            </Button>
-            <Button size='large' variant='primary'>
-              <Icon icon={faPlus} />
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Button loading size='tiny' variant='primary'>
+              Tiny Loading
+            </Controls.Button>
+            <Controls.Button loading size='small' variant='primary'>
+              Small Loading
+            </Controls.Button>
+            <Controls.Button loading size='medium' variant='primary'>
+              Medium Loading
+            </Controls.Button>
+            <Controls.Button loading size='large' variant='primary'>
+              Large Loading
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Icon icon={faUser} onClick={() => {}} />
+            <Controls.Button size='large' variant='primary'>
+              <Controls.Icon icon={faPlus} />
               Icon
-            </Button>
-            <Button size='large' variant='primary' subText={'Back to Residential / Mailing'}>
+            </Controls.Button>
+            <Controls.Button
+              size='large'
+              variant='primary'
+              subText={'Back to Residential / Mailing'}
+            >
               SubText
-            </Button>
-            <Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
+            </Controls.Button>
+            <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
-            </Button>
-            <Divider visibility={'hidden'} />
-            <Button fluid variant='primary'>
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Button fluid variant='primary'>
               Fluid
-            </Button>
-            <Divider visibility={'hidden'} />
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} variant={button}>
+              <Controls.Button key={uniqid().toString()} variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} flat variant={button}>
+              <Controls.Button key={uniqid().toString()} flat variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} outline variant={button}>
+              <Controls.Button key={uniqid().toString()} loading flat variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider />
+            <Controls.Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Controls.Button key={uniqid().toString()} outline variant={button}>
+                {button.toUpperCase()}
+              </Controls.Button>
+            ))}
+            <Controls.Divider visibility={'hidden'} />
+            {this.colorStates.map((button: any) => (
+              <Controls.Button key={uniqid().toString()} loading outline variant={button}>
+                {button.toUpperCase()}
+              </Controls.Button>
+            ))}
+            <Controls.Divider />
             <h4>Link</h4>
-            <Container display={'flex'}>
-              <Link size={'small'} href='/' useNormalAnchor>
-                Small
-              </Link>
-              &nbsp; &nbsp;
-              <Link size={'medium'} href='/' useNormalAnchor>
-                Medium
-              </Link>
-              &nbsp; &nbsp;
-              <Link size={'large'} href='/' useNormalAnchor>
-                Large
-              </Link>
-            </Container>
-            <Divider />
-            <h4>ICON</h4>
-            <Container display={'flex'}>
-              <Icon icon={faUser} text={'Passing ICON as a variable'} />
-              <Icon icon={'mobile'} text={'Passing ICON as a string'} />
-            </Container>
-            <Divider />
-            <Container display={'flex'}>
+            <Controls.Container display={'flex'}>
               {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link variant={link}>{link.toUpperCase()}</Link>
-                  &nbsp; &nbsp;
-                </Container>
-              ))}
-            </Container>
-            <Divider visibility={'hidden'} />
-            <Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link basic='true' variant={link}>
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link variant={link} useNormalAnchor>
                     {link.toUpperCase()}
-                  </Link>
+                  </Controls.Link>
                   &nbsp; &nbsp;
-                </Container>
+                </Controls.Container>
               ))}
-            </Container>
-            <Divider />
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              {this.colorStates.map((link: any) => (
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link underline={false} variant={link} useNormalAnchor>
+                    {link.toUpperCase()}
+                  </Controls.Link>
+                  &nbsp; &nbsp;
+                </Controls.Container>
+              ))}
+            </Controls.Container>
+            <Controls.Container>
+              There is a&nbsp;
+              <Controls.Link href='/' useNormalAnchor>
+                Link
+              </Controls.Link>
+              &nbsp;in this sentence
+            </Controls.Container>
+            <br />
+            <Controls.Container
+              padding={{ allRem: 1 }}
+              border={{
+                borderSize: 1,
+                borderColor: '#000',
+                borderStyle: 'solid'
+              }}
+              display={'flex'}
+              verticalAlign={'center'}
+            >
+              <Controls.Link href='/' useNormalAnchor>
+                Link
+              </Controls.Link>
+            </Controls.Container>
+            <Controls.Divider />
+            <h4>ICON</h4>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
+              <Controls.Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
+              <Controls.Icon
+                size='large'
+                color={'#3BE4C1'}
+                icon={faChevronCircleRight}
+                text={'Large'}
+              />
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
+              <Controls.Icon icon={'mobile'} text={'Passing ICON as a string'} />
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon currency={'SGD'} /> &nbsp; &nbsp;
+              <Controls.Icon currency={'MYR'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'SGP'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'MYS'} /> &nbsp; &nbsp;
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid'
+                }}
+                icon={'arrow-alt-right'}
+                text={''}
+                color={'#DC3545'}
+                onClick={() => {
+                  console.log(1);
+                }}
+              />
+              <Controls.Icon
+                badge={{
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  iconBackground: false,
+                  fontSize: 14
+                }}
+                currency={'SGD'}
+                text={''}
+                color={'#DC3545'}
+                onClick={() => {
+                  console.log(1);
+                }}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 100,
+                  iconBackground: true
+                }}
+                currency={'SGD'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                flag={'MYS'}
+              />
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Grid</h4>
-            <Grid>
-              <Grid.Row>
-                <Grid.Col col={3}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={6}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={3}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={8}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row fitted equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-            </Grid>
-            <Divider />
+            <Controls.Grid>
+              <Controls.Grid.Row>
+                <Controls.Grid.Col col={3}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={6}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={3}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={8}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row fitted equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+            </Controls.Grid>
+            <Controls.Divider />
             <h4>Image</h4>
-            <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
-              <Image display={'inline-flex'} padding={{ allPx: 15 }} variant={'logo'} />
-              <Image
+            <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Controls.Image
+                backgroundColor={'#000'}
+                display={'inline-flex'}
+                padding={{ allPx: 15 }}
+                variant={'logo'}
+              />
+              <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 padding={{ allPx: 15 }}
-                backgroundColor={'#000'}
                 variant={'logo alt'}
               />
-              <Image
+              {/*  <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 border={{
@@ -501,18 +578,18 @@ class Main extends React.Component<
                 width={100}
                 height={100}
                 backgroundColor={'#000'}
-                variant={'logo alt'}
+                variant={'logo'}
                 padding={{ allPx: 15 }}
               />
-              <Image
+               <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 width={100}
                 height={100}
                 badge
-                src={'/images/ISTOX_Logo.png'}
+                variant={'logo alt'}
               />
-              <Image
+               <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 border={{
@@ -525,14 +602,58 @@ class Main extends React.Component<
                 height={100}
                 badge
                 src={'/images/ISTOX_Logo.png'}
-              />
-            </Container>
-            <Divider />
+              /> */}
+            </Controls.Container>
+            <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Controls.Form
+                ref={(ref) => {
+                  this.imageForm = ref;
+                }}
+                onSubmit={() => {
+                  console.log(this.imageForm.getInputValue('upload'));
+                }}
+              >
+                <Controls.FormControl
+                  required
+                  label='Image uploader'
+                  name='upload'
+                  type='uploader'
+                  value={this.state.imageUrl}
+                  uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                >
+                  <Controls.Container fluid verticalAlign={'center'}>
+                    <Controls.Image
+                      height={100}
+                      margin={{ topPx: -50 }}
+                      src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
+                    />
+                    <span className='normal-text'>
+                      Drag and drop or <br />
+                      Click here to attached a file
+                    </span>
+                  </Controls.Container>
+                </Controls.FormControl>
+                <Controls.Button
+                  type='submit'
+                  onPress={() => {
+                    this.setState({
+                      // imageUrl:
+                      //   'https://ichxouthmanager.s3.amazonaws.com/uploads/document/upload/4/1/1-last-submit-0.png'
+                      imageUrl:
+                        'https://ichxouthmanager.s3.amazonaws.com/uploads/document/upload/4/1/1-last-submit-0.pdf'
+                    });
+                  }}
+                >
+                  Fetch image from S3
+                </Controls.Button>
+              </Controls.Form>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>PopUps</h4>
-            <Toast />
-            <Button
+            <Controls.Toast />
+            <Controls.Button
               onPress={() => {
-                Toast.show({
+                Controls.Toast.show({
                   type: 'transaction_status_ok',
                   blockchainTransactionOptions: {
                     purpose: 'Hello',
@@ -542,17 +663,17 @@ class Main extends React.Component<
               }}
             >
               Toast
-            </Button>
-            <Modal className={'abc'} visible={this.state.showModal}>
+            </Controls.Button>
+            <Controls.Modal className={'abc'} visible={this.state.showModal}>
               Modal
-            </Modal>
-            <Button
+            </Controls.Modal>
+            <Controls.Button
               variant='danger'
               onPress={() => {
                 this.setState({
                   loading: true
                 });
-                Confirm.show({
+                Controls.Confirm.show({
                   type: 'yesno',
                   message: 'hello',
                   onResult: (result) => {
@@ -562,8 +683,8 @@ class Main extends React.Component<
               }}
             >
               Confirmation
-            </Button>
-            <Button
+            </Controls.Button>
+            <Controls.Button
               variant='info'
               loading={this.state.loading}
               onPress={() => {
@@ -571,14 +692,14 @@ class Main extends React.Component<
               }}
             >
               Modal
-            </Button>
-            <Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
+            </Controls.Button>
+            <Controls.Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
               ToolTip
-            </Button>
-            <Button
+            </Controls.Button>
+            <Controls.Button
               variant='success'
               onPress={() => {
-                BlockchainTransaction.show({
+                Controls.BlockchainTransaction.show({
                   mqttClient: mqtt,
                   waitOptions: {
                     queueName: 'test'
@@ -588,110 +709,102 @@ class Main extends React.Component<
               }}
             >
               Bottom Toast
-            </Button>
-            <Divider />
+            </Controls.Button>
+            <Controls.Divider />
             <h4>Progress</h4>
-            <ProgressBar margin={{ topPx: 20 }} value={20} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-            <ProgressBar
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+            <Controls.ProgressBar
               margin={{ topPx: 20 }}
               value={20}
               label={'Strong Password'}
               variant={'success'}
             />
-            <ProgressBar margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar gap width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <Divider />
+            <Controls.ProgressBar margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.ProgressBar width={200} margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.ProgressBar gap width={200} margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.Divider />
             <h4>Rating</h4>
-            <Rating defaultValue={4.5} maxValue={8} />
-            <Rating defaultValue={2.5} width={200} maxValue={4} />
-            <Divider />
+            <Controls.Rating defaultValue={2} maxValue={4} />
+            <Controls.Rating defaultValue={3} maxValue={4} />
+            <Controls.Rating defaultValue={4} maxValue={4} />
+            <Controls.Rating defaultValue={3} maxValue={3} />
+            <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
+            <Controls.Divider />
             <h4>Table</h4>
-            <Container
-              border={{
-                borderSize: 1,
-                borderRadius: 6,
-                borderColor: '#E9E9E9',
-                borderStyle: 'solid'
-              }}
-              overflow={'hidden'}
-              backgroundColor={'#FFF'}
-              margin={{ topPx: 15 }}
-            >
-              <Item basic icon={faCheckCircle}>
-                Header
-              </Item>
-              <Table
-                callback={this.function}
-                basic
-                headers={[
-                  { title: 'Code' },
-                  { title: 'Date Created' },
-                  { title: 'Request Status' },
-                  {
-                    title: 'Actions'
-                  }
-                ]}
-                rows={[
-                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
-                  {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
-                    rowActions: [
-                      {
-                        icon: faAddressBook,
-                        callback: () => {
-                          console.log('heeelop');
-                        }
-                      },
-                      {
-                        icon: faAdjust,
-                        callback: () => {
-                          console.log('heeelop');
-                        }
+            <Controls.Table
+              header={'HEADER'}
+              footer={
+                <Controls.Item basic icon={faAdjust}>
+                  Footer
+                </Controls.Item>
+              }
+              basic
+              columnHeaders={[
+                { title: 'Code' },
+                { title: 'Date Created', min: true },
+                { title: 'Request Status' },
+                {
+                  title: 'Actions'
+                }
+              ]}
+              rows={[
+                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [
+                    {
+                      icon: faAddressBook,
+                      callback: () => {
+                        console.log('1');
                       }
-                    ]
-                  },
-                  { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
-                  {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
-                    rowActions: [{ loading: true }]
-                  }
-                ]}
-              />
-              <Item basic icon={faCheckCircle}>
-                Footer
-              </Item>
-            </Container>
-            <Divider visibility={'hidden'} />
-            <Table
-              headers={[
+                    },
+                    {
+                      icon: faAdjust,
+                      callback: () => {
+                        console.log('1');
+                      }
+                    }
+                  ]
+                },
+                {
+                  rowContents: ['Super Admin', 'This is a table row with a callback', '']
+                },
+                {
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    'DDMMYYYY'
+                  ],
+                  rowActions: [{ loading: true }]
+                }
+              ]}
+            />
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Table
+              columnHeaders={[
                 { title: 'Code' },
                 { title: 'Date Created' },
                 { title: 'Request Status' },
@@ -711,13 +824,13 @@ class Main extends React.Component<
                     {
                       icon: faAddressBook,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     },
                     {
                       icon: faAdjust,
                       callback: () => {
-                        console.log('heeelop');
+                        console.log('1');
                       }
                     }
                   ]
@@ -733,12 +846,12 @@ class Main extends React.Component<
                 }
               ]}
             />
-            <Divider />
-            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Divider />
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
-              <Form
-                horizontal
+              <Controls.Form
                 display={'grid'}
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -755,14 +868,28 @@ class Main extends React.Component<
                   });
                 }}
               >
-                <Controls.Container className={styles.formGroup} display={'flex'}>
-                  <Controls.FormControl label={'Area Code'} name='phonecode' type={'phonecode'} />
+                <Controls.Container className={'form-group'} display={'flex'}>
+                  <Controls.FormControl
+                    required={true}
+                    label={'Area Code'}
+                    name='areacode'
+                    value={'+65'}
+                    type={'phonecode'}
+                    onInputChanged={() => {
+                      console.log(this.form.getInputValue('areacode'));
+                    }}
+                  />
                   <Controls.FormControl
                     required={true}
                     placeholder={'XXXXXXXX'}
                     label={'Phone Number'}
                     append={
-                      <Controls.Button width={130} textAlign={'center'} type={'submit'}>
+                      <Controls.Button
+                        float={'left'}
+                        width={130}
+                        textAlign={'center'}
+                        type={'submit'}
+                      >
                         Send Code
                       </Controls.Button>
                     }
@@ -771,9 +898,9 @@ class Main extends React.Component<
                     decimalPlace={2}
                   />
                 </Controls.Container>
-                <Controls.Container className={styles.formGroup} display={'flex'}>
+                <Controls.Container className={'form-group '} display={'flex'}>
                   <Controls.FormControl
-                    required
+                    // required
                     placeholder={'Placeholder'}
                     disabled={true}
                     ref={(ref) => {
@@ -785,21 +912,31 @@ class Main extends React.Component<
                       </span>
                     }
                     extraControls={
-                      <Link>
-                        <Icon icon={faPlus} text={'Extra control'} />
-                      </Link>
+                      this.state.error === 'yes' && (
+                        <Controls.Transition>
+                          <Controls.Message variant='danger' message='Hello i am a default!' />
+                        </Controls.Transition>
+                      )
+                      // <Controls.Link>
+                      //   <Controls.Icon icon={faPlus} text={'Extra control'} />
+                      // </Controls.Link>
                     }
                     append={
-                      <Button
+                      <Controls.Button
+                        float={'left'}
                         textAlign={'center'}
                         type={'submit'}
                         onPress={() => {
+                          console.log(this.form.getInputValue('dropdown'));
                           console.log(this.form.getFormData());
-                          console.log(this.form.getInputValue('description'));
+                          console.log(this.form.getInputValue('areacode'));
+                          this.setState({
+                            error: 'yes'
+                          });
                         }}
                       >
                         Submit
-                      </Button>
+                      </Controls.Button>
                     }
                     name='hi'
                     type={'money'}
@@ -811,13 +948,7 @@ class Main extends React.Component<
                   label='Image'
                   name='image'
                   type='uploader'
-                  s3Settings={{
-                    bucketName: 'istox-stos-test',
-                    region: 'ap-southeast-1',
-                    accessKeyId: 'secret',
-                    secretAccessKey: 'secret'
-                  }}
-                  value='https://istox-stos.s3-ap-southeast-1.amazonaws.com/0.inqnqs9knpo_1550406707310.jpeg'
+                  uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
                 />
                 <Controls.FormControl
                   required
@@ -826,14 +957,17 @@ class Main extends React.Component<
                   type={'text'}
                   placeholder={'Search'}
                   value=''
-                  prepend={<Icon icon={faSearch} padding={{ topPx: 5 }} />}
+                  prepend={<Controls.Icon icon={faSearch} />}
                 />
                 <Controls.FormControl
                   required
                   label={'Email'}
                   name='email'
                   type={'email'}
-                  value=''
+                  value={this.state.email}
+                  onBlur={() => {
+                    console.log(this.form.getInputValue('email'));
+                  }}
                 />
                 <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl
@@ -842,7 +976,12 @@ class Main extends React.Component<
                     name='Password'
                     type={'password'}
                   />
-                  <Controls.FormControl label={'Password'} name='Password' type={'password'} />
+                  <Controls.FormControl
+                    label={'Password'}
+                    name='Password'
+                    type={'password'}
+                    value={'haha'}
+                  />
                 </Controls.Container>
                 <Controls.FormControl
                   label={'Description'}
@@ -854,20 +993,67 @@ class Main extends React.Component<
                 <Controls.FormControl label={'Phone'} name='numeric' type={'numeric'} />
                 <Controls.FormControl
                   numInputs={5}
-                  inputWidth={'95px'}
+                  inputWidth={'80px'}
                   label={'OTP'}
                   name='numberfields'
                   type={'numberfields'}
                   separator={<span>&nbsp;&nbsp;</span>}
+                  onInputChanged={() => {
+                    console.log(this.form.getInputValue('numberfields'));
+                  }}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+
                 <Controls.FormControl
                   required
                   label={'Date'}
-                  name='datetime'
-                  type={'datetime'}
-                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
+                  name='date'
+                  type={'date'}
+                  dateOptions={{
+                    dateFormat: 'dd-MM-yyyy'
+                  }}
+                  placeholder={'DD-MM-YYYY'}
+                  value={this.state.value}
                   onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({ value: 770169600 });
+                      }}
+                    >
+                      Change Date
+                    </Controls.Button>
+                  }
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateTime'}
+                  name='datetime'
+                  type={'date'}
+                  dateOptions={{
+                    showTimeSelect: true
+                  }}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateRange'}
+                  name='daterange'
+                  type={'daterange'}
+                  placeholder={''}
+                  // value={Formatter.dateToUnixTimestamp(new Date())}
+                  dateOptions={{
+                    showTimeSelect: false
+                  }}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('daterange'));
                     console.log(value);
                   }}
                 />
@@ -879,73 +1065,95 @@ class Main extends React.Component<
                   defaultValue='0'
                 />
                 <Controls.FormControl
-                  required
                   label={'H Checkbox'}
-                  name='checkbox'
+                  name='h_checkbox'
                   type={'checkbox'}
                   variant={'horizontal'}
                   selectOptions={[
                     {
                       label: link,
-                      value: 'hei!'
-                    },
-                    {
-                      label:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                      value: 'abcl'
+                      value: '1'
                     }
                   ]}
-                />
-                <Controls.FormControl
-                  required
-                  label={'V Checkbox'}
-                  name='checkbox'
-                  type={'checkbox'}
-                  selectOptions={[
-                    {
-                      label: 'Option1',
-                      value: 'hei!'
-                    },
-                    {
-                      label: 'Option2',
-                      value: 'abcl'
-                    }
-                  ]}
-                />
-                <Controls.FormControl
-                  required
-                  label={'DateRange'}
-                  name='daterange'
-                  type={'daterange'}
-                  placeholder={''}
-                  defaultValue={Formatter.dateToUnixTimestamp(new Date())}
                   onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('h_checkbox'));
                     console.log(value);
                   }}
                 />
                 <Controls.FormControl
                   required
-                  label={'Dropdown'}
-                  name='Dropdown'
-                  placeholder='Choose'
-                  type={'select'}
+                  label={'V Checkbox'}
+                  name='v_checkbox'
+                  type={'checkbox'}
                   selectOptions={[
                     {
                       label: 'Option1',
-                      value: 'hei!'
+                      value: 'option1'
                     },
                     {
                       label: 'Option2',
-                      value: 'abcl'
+                      value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
                     }
                   ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('v_checkbox'));
+                    console.log(value);
+                  }}
+                  // value={'option2,option3'}
                 />
+                <Controls.FormControl
+                  required
+                  label={'Dropdown'}
+                  name='dropdown'
+                  placeholder='Choose'
+                  type={'select'}
+                  value={'secondary'}
+                  selectOptions={this.state.selectOptions}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('dropdown'));
+                    console.log(value);
+                  }}
+                  // static={true}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({
+                          selectOptions: [
+                            {
+                              label: 'Primary',
+                              value: 'primary'
+                            },
+                            {
+                              label: 'Secondary',
+                              value: 'secondary'
+                            },
+                            {
+                              label: 'Disabled',
+                              value: 'disabled'
+                            }
+                          ]
+                        });
+                      }}
+                    >
+                      Change Dropdown
+                    </Controls.Button>
+                  }
+                />
+
                 <Controls.FormControl
                   required
                   label={'Html Dropdown'}
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
+                  value={'hei!'}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
@@ -959,25 +1167,58 @@ class Main extends React.Component<
                     }
                   ]}
                 />
-                <Controls.FormControl label={'Country'} name='country' type={'country'} />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
                   type={'countrycode'}
+                  value={'SGP'}
                 />
-                <Controls.FormControl label={'Phone Code'} name='phonecode' type={'phonecode'} />
-              </Form>
-            </Container>
-            <Divider />
+                <Controls.FormControl
+                  value={'+65'}
+                  label={'Phone Code'}
+                  name='phonecode'
+                  type={'phonecode'}
+                />
+                <Controls.FormControl
+                  value={'1234567'}
+                  label={'Static'}
+                  name='test_static'
+                  static={true}
+                  type='number'
+                />
+
+                <Controls.FormControl
+                  required
+                  label={'Select static'}
+                  name='select_static'
+                  type={'select'}
+                  static={true}
+                  value={'hei!'}
+                  selectOptions={[
+                    {
+                      label: 'this is label',
+                      value: 'hei!'
+                    },
+                    {
+                      label:
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                      value: 'abcl'
+                    }
+                  ]}
+                />
+              </Controls.Form>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Item</h4>
-            <Item
+            <Controls.Item
               icon={faCheckCircle}
               title={'Title'}
               description={
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Item
+            <Controls.Item
               icon={faCheckCircle}
               image={'/images/ISTOX_Logo.png'}
               title={'Title'}
@@ -985,7 +1226,7 @@ class Main extends React.Component<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Item
+            <Controls.Item
               basic
               icon={faCheckCircle}
               title={'Title'}
@@ -993,123 +1234,162 @@ class Main extends React.Component<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Divider visibility={'hidden'} />
-            <Item icon={faCheckCircle}>
-              <Container widthPercent={100} verticalAlign={'center'}>
-                <Card
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Item icon={faCheckCircle}>
+              <Controls.Container widthPercent={100} verticalAlign={'center'}>
+                <Controls.Card
                   leftIcon={faInfoCircle}
                   rightIcon={faCheckCircle}
                   icon={faUser}
                   title={'Title'}
                 />
-                <ProgressBar gap width={200}>
-                  <ProgressBar striped variant='success' value={25} order={1} />
-                  <ProgressBar variant='info' value={25} order={2} />
-                  <ProgressBar striped variant='warning' value={25} order={3} />
-                  <ProgressBar striped variant='danger' value={25} order={4} />
-                </ProgressBar>
-                <Button float={'right'} size='small' variant='primary'>
+                <Controls.ProgressBar gap width={200}>
+                  <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                  <Controls.ProgressBar variant='info' value={25} order={2} />
+                  <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+                  <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                </Controls.ProgressBar>
+                <Controls.Button float={'right'} size='small' variant='primary'>
                   Small
-                </Button>
-              </Container>
-            </Item>
-            <Divider />
+                </Controls.Button>
+              </Controls.Container>
+            </Controls.Item>
+            <Controls.Divider />
             <h4>Card</h4>
-            <Container display={'flex'}>
-              <Card
+            <Controls.Container display={'flex'}>
+              <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}
                 icon={faUser}
                 title={'Title'}
               />
-              <Card
+              <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}
                 image={'/images/ISTOX_Logo.png'}
                 title={'Title'}
               />
-              <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
-                <Button float={'none'} size='small' variant='primary'>
+              <Controls.Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
+                <Controls.Button float={'none'} size='small' variant='primary'>
                   Small
-                </Button>
-              </Card>
-            </Container>
-            <Divider />
+                </Controls.Button>
+              </Controls.Card>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Message</h4>
-            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <Transition>
-                <Message icon={faCheckCircle} message='Hello i am a default!' />
-                <Message
+                <Controls.Message icon={faCheckCircle} message='Hello i am a default!' />
+                <Controls.Message
                   variant={'success'}
                   icon={faCheckCircle}
-                  message={<span className='dasd'>Hello i am a success!</span>}
+                  message={'Hello i am a success!'}
                 />
-                <Message
+                <Controls.Message
                   variant={'warning'}
                   icon={faTimesCircle}
                   message='Hello i am an warning!'
                 />
-                <Message variant={'info'} icon={faInfoCircle} message='Hello i am a info!' />
-                <Message
+                <Controls.Message
+                  variant={'info'}
+                  icon={faInfoCircle}
+                  message='Hello i am a info!'
+                />
+                <Controls.Message
                   variant={'danger'}
                   icon={faExclamationCircle}
                   message='Hello i am an error!'
                 />
-                <Divider visibility={'hidden'} />
-                <Message outline icon={faInfoCircle} message='Hello i am a default!' />
-                <Message
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message outline icon={faInfoCircle} message='Hello i am a default!' />
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'success'}
                   message='Hello i am a success!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'warning'}
                   message='Hello i am an warning!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'info'}
                   message='Hello i am a info!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'danger'}
                   message='Hello i am an error!'
                 />
-                <Divider visibility={'hidden'} />
-                <Message message='Hello i am a default!' />
-                <Message variant={'success'} message='Hello i am a success!' />
-                <Message variant={'warning'} message='Hello i am an warning!' />
-                <Message variant={'info'} message='Hello i am a info!' />
-                <Message variant={'danger'} message='Hello i am an error!' />
-                <Divider visibility={'hidden'} />
-                <Message outline message='Hello i am a default!' />
-                <Message outline variant={'success'} message='Hello i am a success!' />
-                <Message outline variant={'warning'} message='Hello i am an warning!' />
-                <Message outline variant={'info'} message='Hello i am a info!' />
-                <Message outline variant={'danger'} message='Hello i am an error!' />
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message message='Hello i am a default!' />
+                <Controls.Message variant={'success'} message='Hello i am a success!' />
+                <Controls.Message variant={'warning'} message='Hello i am an warning!' />
+                <Controls.Message variant={'info'} message='Hello i am a info!' />
+                <Controls.Message variant={'danger'} message='Hello i am an error!' />
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message outline message='Hello i am a default!' />
+                <Controls.Message outline variant={'success'} message='Hello i am a success!' />
+                <Controls.Message outline variant={'warning'} message='Hello i am an warning!' />
+                <Controls.Message outline variant={'info'} message='Hello i am a info!' />
+                <Controls.Message outline variant={'danger'} message='Hello i am an error!' />
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message
+                  fluid
+                  justifyContent={'left'}
+                  outline
+                  icon={faInfoCircle}
+                  variant={'warning'}
+                  message='Hello i am an warning!'
+                />
               </Transition>
-            </Container>
-            <Divider />
-            {/* <Container width={1000} height={1000}>
+            </Controls.Container>
+            <Controls.Divider />
+            <h4>Breadcrumbs</h4>
+            <Controls.Breadcrumbs
+              links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]}
+            />
+            <Controls.Divider />
+            <h4>Custom tooltip</h4>
+            <Controls.Container
+              width={200}
+              height={200}
+              tooltip={
+                <Controls.Container backgroundColor={'#BBBBBB'}>
+                  I am tooltip content!
+                </Controls.Container>
+              }
+              tooltipOptions={{
+                place: 'left',
+                clickable: true,
+                delayShow: 500,
+                delayHide: 500,
+                delayUpdate: 500,
+                className: 'abc'
+              }}
+            >
+              Sample tooltip open on hover
+            </Controls.Container>
+
+            {/* <Controls.Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
-          </Container>
-          <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
-          </WrapperContainer>
-        </RootContainer>
-        <Footer />
+          </Controls.Container>
+           <Controls.Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
+          </Controls.WrapperContainer>
+        </Controls.RootContainer>
+        <Controls.Footer />
       </React.Fragment>
     );
   }
 
   private function = () => {
-    console.log('this is a callback')
-  }
+    console.log('this is a callback');
+  };
 }
 
 const render = () => {

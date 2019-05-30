@@ -2,13 +2,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 1.5rem 0 0;
-  text-align: center;
+  margin: 0;
+  text-align: left;
 
+  .message-only,
   .icon {
-    margin-right: 0.8rem;
-  }
-  span {
     color: map-get($colors, primaryGreyDark);
   }
 
@@ -43,7 +41,7 @@
   &.outline {
     background-color: map-get($colors, primaryGrey);
     border-radius: 0.429rem;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 0.8rem;
 
     &.success {
       background-color: rgba(40, 167, 69, 0.1);

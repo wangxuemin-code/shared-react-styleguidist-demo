@@ -16,6 +16,7 @@ interface IOtpInput extends IContainer {
   isInputNum?: boolean;
   inputWidth: string;
   maxLength: number;
+  value?: any;
 }
 
 interface ISingleOtpInput extends IContainer {
@@ -38,7 +39,7 @@ interface IState {
 export class OtpInput extends React.Component<IOtpInput, IState> {
   public static defaultProps: IOtpInput = {
     numInputs: 4,
-    onChange: (otp: number): void => {
+    onChange: (otp: number) => {
       // console.log(otp);
     },
     shouldAutoFocus: false,
@@ -56,6 +57,7 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
   }
 
   getOtp = () => {
+    // console.log(this.state.otp);
     this.props.onChange(this.state.otp.join(''));
   };
 

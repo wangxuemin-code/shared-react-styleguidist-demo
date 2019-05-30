@@ -2,14 +2,6 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from '.';
-import {
-  faCheckCircle,
-  faTimesCircle,
-  faExclamation,
-  faInfo,
-  faInfoCircle,
-  faExclamationCircle
-} from '@fortawesome/free-solid-svg-icons';
 
 interface IMessage extends IContainer {
   icon?: any;
@@ -51,6 +43,10 @@ export class Message extends React.Component<IMessage, any> {
       this.props.outline ? styles.outline : ''
     ];
 
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
     // let icon;
     // if (type === 'success') {
     //   icon = faCheckCircle;
@@ -66,7 +62,9 @@ export class Message extends React.Component<IMessage, any> {
       <Container {...this.props} className={classes.join(' ')}>
         {this.props.icon && <Icon icon={this.props.icon} className={styles.icon} />}
         {this.props.message && (
-          <span className={!this.props.icon ? 'message-only' : ''}>{this.props.message}</span>
+          <Container className={this.props.icon ? styles.iconText : styles.messageOnly}>
+            {this.props.message}
+          </Container>
         )}
       </Container>
     );

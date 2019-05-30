@@ -3,7 +3,7 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import ControlsHelper from './common/ControlsHelper';
 import { Link } from './Link';
-import { Loading } from '.';
+import { ClipLoader } from 'react-spinners';
 
 interface IButton extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
@@ -14,18 +14,15 @@ interface IButton extends IContainer {
   href?: string;
   disabled?: boolean;
   innerClasses?: string;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
   fluid?: boolean;
   loading?: boolean;
-  float?: 'left' | 'right' | 'none';
-  subText?: string;
+  subText?: any;
 }
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    type: 'button',
-    size: 'small',
-    float: 'left'
+    type: 'button'
   };
 
   public render() {
@@ -37,7 +34,10 @@ export class Button extends React.Component<IButton, any> {
       this.props.outline ? styles.outline : '',
       this.props.flat ? styles.flat : '',
       this.props.disabled ? styles.disabled : '',
-      this.props.subText ? styles.subText : ''
+      this.props.subText ? styles.subText : '',
+      this.props.loading ? styles.verticalAlignMiddle : '',
+      this.props.loading ? styles.loading : '',
+      this.props.loading ? styles.disabled : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -61,22 +61,34 @@ export class Button extends React.Component<IButton, any> {
   }
 
   private getButtonDesign(style: React.CSSProperties, classes: string[]) {
-    // remove padding, so that it won't get passed to Container
     let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
     return (
       <Container {...filteredProps} display='inline-grid' position='relative'>
-        {this.props.loading && (
-          <div className={styles.btnLoading}>
-            <Loading backDrop={false} loading={this.props.loading} />
-          </div>
-        )}
         <button
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={this.props.onPress}
-          disabled={this.props.disabled}
+          onClick={!this.props.disabled ? this.props.onPress : undefined}
+          disabled={this.props.loading || this.props.disabled}
         >
+          {this.props.loading && (
+            <ClipLoader
+              color={'#fff'}
+              sizeUnit={'px'}
+              size={
+                this.props.size == 'large'
+                  ? 18
+                  : this.props.size == 'medium'
+                  ? 16
+                  : this.props.size == 'small'
+                  ? 14
+                  : this.props.size == 'tiny'
+                  ? 12
+                  : 14
+              }
+              loading
+            />
+          )}
           {this.props.children}
         </button>
         {this.props.subText && (
