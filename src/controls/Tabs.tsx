@@ -2,7 +2,12 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Grid } from './Grid';
-import { Tabs as BootstrapTabs, Tab as BootstrapTab } from 'react-bootstrap';
+import {
+  Tabs as BootstrapTabs,
+  Tab as BootstrapTab,
+  Nav as BootstrapNav,
+  NavItem as BootstrapNavItem
+} from 'react-bootstrap';
 
 interface ITab {
   title: any;
@@ -53,7 +58,8 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.orientation ? this.props.orientation : '',
       this.props.align ? this.props.align : '',
       this.props.basic ? styles.basic : '',
-      this.props.tabsContentOrientation ? this.props.tabsContentOrientation : ''
+      this.props.tabsContentOrientation ? this.props.tabsContentOrientation : '',
+      'istox-tab'
     ];
 
     classes = classes.filter(function(el) {
@@ -81,19 +87,29 @@ export class Tabs extends React.Component<IProps, IState> {
           </BootstrapTabs>
         )}
         {this.props.orientation === 'vertical' && (
-          <BootstrapTabs
-            className={classes.join(' ')}
-            activeKey={this.state.selectedIndex}
-            id='istox-tab'
-            onSelect={this.handleSelect}
-          >
-            {this.props.children && <Container>{this.props.children}</Container>}
-            {this.props.tabs.map((tab, i) => (
-              <BootstrapTab key={i} eventKey={i} title={tab.title} disabled={tab.disabled}>
-                {tab.contents}
-              </BootstrapTab>
-            ))}
-          </BootstrapTabs>
+          <BootstrapTab.Container id='istox-tab' defaultActiveKey={this.state.selectedIndex}>
+            <Grid className={classes.join(' ')}>
+              <Grid.Row fitted>
+                <Grid.Col col={3}>
+                  <BootstrapNav className='nav-tabs'>
+                    {this.props.tabs.map((tab, i) => (
+                      <BootstrapNavItem key={i} eventKey={i}>
+                        {tab.title}
+                      </BootstrapNavItem>
+                    ))}
+                  </BootstrapNav>
+                </Grid.Col>
+                <Grid.Col col={8}>
+                  {this.props.children && <Container>{this.props.children}</Container>}
+                  {this.props.tabs.map((tab, i) => (
+                    <BootstrapTab.Content key={i} animation>
+                      <BootstrapTab.Pane eventKey={i}>{tab.contents}</BootstrapTab.Pane>
+                    </BootstrapTab.Content>
+                  ))}
+                </Grid.Col>
+              </Grid.Row>
+            </Grid>
+          </BootstrapTab.Container>
         )}
       </Container>
     );

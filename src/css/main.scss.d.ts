@@ -249,6 +249,7 @@ export const istoxTab: string;
 export const middle: string;
 export const vertical: string;
 export const tabContent: string;
+export const tabPane: string;
 export const stacked: string;
 export const datepickerCalenderContainer: string;
 export const progressBar: string;

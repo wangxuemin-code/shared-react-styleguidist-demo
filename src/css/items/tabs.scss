@@ -18,7 +18,8 @@
     color: map-get($colors, primaryAlt);
   }
 
-  #istox-tab {
+  #istox-tab,
+  .istox-tab {
     display: flex;
     flex-direction: column;
     align-self: stretch;
@@ -45,8 +46,6 @@
     }
 
     &.vertical {
-      display: initial;
-
       .nav-tabs > li.active > a,
       .nav-tabs > li.active > a:focus,
       .nav-tabs > li.active > a:hover {
@@ -54,24 +53,22 @@
         color: map-get($colors, primaryAlt);
       }
       ul {
-        width: 20%;
-        float: left;
-
         li {
           width: 100%;
           a {
             width: 100%;
-            align-items: left;
-            > div {
-              align-items: left;
-            }
           }
         }
       }
 
       .tab-content {
-        width: 80%;
-        float: left;
+        border: 0;
+
+        > .tab-pane {
+          position: absolute;
+          background: #fff;
+          width: 100%;
+        }
       }
     }
 

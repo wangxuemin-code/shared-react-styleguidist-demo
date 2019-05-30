@@ -147,7 +147,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           type: 'okonly',
           message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
           onResult: (result) => {
-            console.log(result);
+            // console.log(result);
           }
         });
         return;
@@ -158,7 +158,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           type: 'okonly',
           message: 'The maximum file size for upload is 10MB',
           onResult: (result) => {
-            console.log(result);
+            // console.log(result);
           }
         });
         return;

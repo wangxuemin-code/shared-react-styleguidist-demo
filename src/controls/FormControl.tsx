@@ -24,7 +24,7 @@ interface IState {
   value?: string | number | null;
   error?: string;
   showError?: boolean;
-  checkArray?: string[];
+  valueArray?: string[];
 }
 
 interface IProps extends IContainer {
@@ -49,7 +49,6 @@ interface IProps extends IContainer {
     | 'switch'
     | 'longtext'
     | 'date'
-    | 'datetime'
     | 'daterange'
     | 'uploader'
     | 'checkbox';
@@ -76,6 +75,7 @@ interface IProps extends IContainer {
   onInputChanged?: (value: string | number, name: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  onKeyPress?: () => void;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 
@@ -100,13 +100,13 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onChange = this.onChange.bind(this);
     this.onSetOption = this.onSetOption.bind(this);
     this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
-    this.onDateTimeChange = this.onDateTimeChange.bind(this);
-    this.onDateTimeRangeChange = this.onDateTimeRangeChange.bind(this);
+    this.onDateChange = this.onDateChange.bind(this);
+    this.onDateRangeChange = this.onDateRangeChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.reset = this.reset.bind(this);
-    this.state = { checkArray: [], displayValue: '', value: '' };
+    this.state = { valueArray: [], displayValue: '', value: '' };
   }
 
   public componentWillMount() {
@@ -590,27 +590,17 @@ export class FormControl extends React.Component<IProps, IState> {
           type={'date'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeChange}
-          options={this.props.dateOptions}
-        />
-      );
-    } else if (this.props.type === 'datetime') {
-      return (
-        <DateTimePicker
-          type={'datetime'}
-          placeholder={this.props.placeholder}
-          value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeChange}
+          onChange={this.onDateChange}
           options={this.props.dateOptions}
         />
       );
     } else if (this.props.type === 'daterange') {
       return (
         <DateTimePicker
-          type={'daterange'}
+          type={'rdateange'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
-          onChange={this.onDateTimeRangeChange}
+          onChange={this.onDateRangeChange}
           options={this.props.dateOptions}
         />
       );
@@ -654,8 +644,8 @@ export class FormControl extends React.Component<IProps, IState> {
                     checked={
                       this.state.value && this.state.value.toString().indexOf(option.value) !== -1
                         ? true
-                        : this.state.checkArray
-                        ? this.state.checkArray.indexOf(option.value) !== -1
+                        : this.state.valueArray
+                        ? this.state.valueArray.indexOf(option.value) !== -1
                           ? true
                           : false
                         : false
@@ -721,7 +711,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   };
 
-  private onDateTimeChange(newUnixTimestamp: number) {
+  private onDateChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
     this.setState({ displayValue: result.displayValue, value: result.value }, () => {
       if (this.props.onInputChanged) {
@@ -730,7 +720,7 @@ export class FormControl extends React.Component<IProps, IState> {
     });
   }
 
-  private onDateTimeRangeChange(newUnixTimestamp: number) {
+  private onDateRangeChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
     this.setState({ displayValue: result.displayValue, value: result.value }, () => {
       if (this.props.onInputChanged) {
@@ -759,21 +749,21 @@ export class FormControl extends React.Component<IProps, IState> {
   private onCheckChanged(e: any, index: number) {
     const checked = e.target.checked;
     const value = e.target.value;
-    let checkArray = this.state.checkArray || [];
-    checkArray = checkArray.filter(function(x) {
+    let valueArray = this.state.valueArray || [];
+    valueArray = valueArray.filter(function(x) {
       return x !== (undefined || null || '');
     });
     if (checked) {
-      checkArray.push(value);
+      valueArray.push(value);
     } else {
-      var index = checkArray.indexOf(value);
+      var index = valueArray.indexOf(value);
       if (index > -1) {
-        checkArray.splice(index, 1);
+        valueArray.splice(index, 1);
       }
     }
-    const result = this.processValue(String(checkArray.join()));
+    const result = this.processValue(String(valueArray.join()));
     this.setState(
-      { checkArray: checkArray, displayValue: result.displayValue, value: result.value },
+      { valueArray: valueArray, displayValue: result.displayValue, value: result.value },
       () => {
         if (this.props.onInputChanged) {
           this.props.onInputChanged(value, this.props.name || '');
@@ -805,9 +795,9 @@ export class FormControl extends React.Component<IProps, IState> {
     }
     if (this.props.type === 'checkbox') {
       if (value) {
-        this.setState({ checkArray: value.split(',') });
+        this.setState({ valueArray: value.split(',') });
       } else {
-        this.setState({ checkArray: [] });
+        this.setState({ valueArray: [] });
       }
       return { displayValue: value || '', value };
     }
@@ -821,7 +811,6 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'date' ||
-      this.props.type === 'datetime' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields'
