@@ -1,4 +1,4 @@
-name: 'Istox Shared CI Pipeline'
+name: 'Istox Share CI Pipeline'
 trigger:
   batch: true
   branches:
@@ -12,12 +12,15 @@ pool:
 
 steps:
 
+- script: |
+    git config user.email aws@istox.com
+    git config user.name istox
+  displayName: 'Configure GIT username'
+
 - task: Npm@1
-  displayName: 'Patch Version'
+  displayName: 'Install NPM'
   inputs:
-    command: custom
     verbose: false
-    customCommand: 'version patch'
 
 - task: Npm@1
   displayName: 'Publish Version'
