@@ -99,7 +99,7 @@ $borderRadius: 0.375rem;
   }
   input {
     &.prepend {
-      padding-left: 30px;
+      padding-left: 3rem;
     }
   }
   input[type='checkbox'],
@@ -156,7 +156,6 @@ $borderRadius: 0.375rem;
       .form-controls-inner {
         display: flex;
         align-items: center;
-        padding-left: 0.5rem;
 
         .horizontal {
           display: inline-flex;
@@ -205,7 +204,7 @@ $borderRadius: 0.375rem;
 }
 
 .istox-form .form-controls-wrapper.error input,
-.istox-form .form-controls-wrapper.error select,
+.istox-form .form-controls-wrapper.error .select,
 .istox-form .form-controls-wrapper.error textarea {
   border: 1px solid map-get($colors, danger);
 }

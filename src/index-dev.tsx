@@ -259,9 +259,7 @@ class Main extends Controls.MyComponent<
               tabs={this.tabsContent}
             >
               <>
-                <Controls.Container
-                  padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5}}
-                >
+                <Controls.Container padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5 }}>
                   <Controls.Form>
                     <Controls.FormControl
                       fluid
@@ -902,7 +900,7 @@ class Main extends Controls.MyComponent<
                 </Controls.Container>
                 <Controls.Container className={'form-group '} display={'flex'}>
                   <Controls.FormControl
-                    required
+                    // required
                     placeholder={'Placeholder'}
                     disabled={true}
                     ref={(ref) => {
@@ -914,9 +912,14 @@ class Main extends Controls.MyComponent<
                       </span>
                     }
                     extraControls={
-                      <Controls.Link>
-                        <Controls.Icon icon={faPlus} text={'Extra control'} />
-                      </Controls.Link>
+                      this.state.error === 'yes' && (
+                        <Controls.Transition>
+                          <Controls.Message variant='danger' message='Hello i am a default!' />
+                        </Controls.Transition>
+                      )
+                      // <Controls.Link>
+                      //   <Controls.Icon icon={faPlus} text={'Extra control'} />
+                      // </Controls.Link>
                     }
                     append={
                       <Controls.Button
@@ -927,6 +930,9 @@ class Main extends Controls.MyComponent<
                           console.log(this.form.getInputValue('dropdown'));
                           console.log(this.form.getFormData());
                           console.log(this.form.getInputValue('areacode'));
+                          this.setState({
+                            error: 'yes'
+                          });
                         }}
                       >
                         Submit
@@ -1161,13 +1167,7 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl
-                  value={'Singapore'}
-                  label={'Country'}
-                  name='country'
-                  type={'country'}
-                  required
-                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'

@@ -25,6 +25,7 @@ interface IState {
   error?: string;
   showError?: boolean;
   valueArray?: string[];
+  extraControls?: string;
 }
 
 interface IProps extends IContainer {
@@ -49,6 +50,7 @@ interface IProps extends IContainer {
     | 'switch'
     | 'longtext'
     | 'date'
+    | 'datetime'
     | 'daterange'
     | 'uploader'
     | 'checkbox';
@@ -114,6 +116,7 @@ export class FormControl extends React.Component<IProps, IState> {
       true,
       String(this.props.value ? this.props.value : this.props.defaultValue || '')
     );
+    this.setState({ extraControls: this.props.extraControls });
   }
 
   public componentDidUpdate(prevProps: IProps) {
@@ -126,6 +129,11 @@ export class FormControl extends React.Component<IProps, IState> {
         return false;
       }
       this.onValueChanged(false, String(this.props.value || ''));
+    }
+
+    if (prevProps.extraControls !== this.props.extraControls) {
+      console.log(this.props.extraControls);
+      this.setState({ extraControls: this.props.extraControls });
     }
   }
 
@@ -167,11 +175,11 @@ export class FormControl extends React.Component<IProps, IState> {
             <input type='hidden' name={this.props.name} value={this.state.value || ''} />
           </Container>
         </Container>
-        {this.props.extraControls && (
+        {this.state.extraControls && (
           <Container className={styles.formControlsWrapper}>
             <span />
             <Container className={'extra-control'} display='block'>
-              {this.props.extraControls}
+              {this.state.extraControls}
             </Container>
           </Container>
         )}
@@ -594,10 +602,20 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.dateOptions}
         />
       );
+    } else if (this.props.type === 'datetime') {
+      return (
+        <DateTimePicker
+          type={'datetime'}
+          placeholder={this.props.placeholder}
+          value={this.state.displayValue || undefined}
+          onChange={this.onDateChange}
+          options={this.props.dateOptions}
+        />
+      );
     } else if (this.props.type === 'daterange') {
       return (
         <DateTimePicker
-          type={'rdateange'}
+          type={'daterange'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
           onChange={this.onDateRangeChange}
@@ -681,22 +699,28 @@ export class FormControl extends React.Component<IProps, IState> {
   private onChangeNumberFields(event: number) {
     const numbers = event;
     const result = this.processValue(numbers.toString());
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
-    });
+    );
   }
 
   private onChange(event: React.FormEvent<any>) {
     const { value } = event.target as HTMLInputElement;
     if (this.validateValueCanChanged(value)) {
       const result = this.processValue(value);
-      this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-        if (this.props.onInputChanged) {
-          this.props.onInputChanged(result.value, this.props.name || '');
+      this.setState(
+        { displayValue: result.displayValue, value: result.value, showError: false },
+        () => {
+          if (this.props.onInputChanged) {
+            this.props.onInputChanged(result.value, this.props.name || '');
+          }
         }
-      });
+      );
     }
   }
 
@@ -705,7 +729,7 @@ export class FormControl extends React.Component<IProps, IState> {
     if (value.constructor === Array) {
       value = selectedOption.value[0];
     }
-    this.setState({ displayValue: selectedOption, value: value });
+    this.setState({ displayValue: selectedOption, value: value, showError: false });
     if (this.props.onInputChanged) {
       this.props.onInputChanged(selectedOption, this.props.name || '');
     }
@@ -713,24 +737,30 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onDateChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
-    });
+    );
   }
 
   private onDateRangeChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
-    });
+    );
   }
 
   private onUploaderChanged(newUrl: string) {
-    this.setState({ displayValue: newUrl, value: newUrl }, () => {
+    this.setState({ displayValue: newUrl, value: newUrl, showError: false }, () => {
       if (this.props.onInputChanged) {
         this.props.onInputChanged(newUrl, this.props.name || '');
       }
@@ -739,11 +769,14 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
     const result = this.processValue((e.target as any).checked ? '1' : '0');
-    this.setState({ displayValue: result.displayValue, value: result.value }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(result.value, this.props.name || '');
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
       }
-    });
+    );
   }
 
   private onCheckChanged(e: any, index: number) {
@@ -763,7 +796,12 @@ export class FormControl extends React.Component<IProps, IState> {
     }
     const result = this.processValue(String(valueArray.join()));
     this.setState(
-      { valueArray: valueArray, displayValue: result.displayValue, value: result.value },
+      {
+        valueArray: valueArray,
+        displayValue: result.displayValue,
+        value: result.value,
+        showError: false
+      },
       () => {
         if (this.props.onInputChanged) {
           this.props.onInputChanged(value, this.props.name || '');
@@ -811,6 +849,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
       this.props.type === 'date' ||
+      this.props.type === 'datetime' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields'
