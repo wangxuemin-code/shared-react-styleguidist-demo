@@ -423,8 +423,8 @@ class Main extends Controls.MyComponent<
             <Controls.Container display={'flex'}>
               <Controls.Icon currency={'SGD'} /> &nbsp; &nbsp;
               <Controls.Icon currency={'MYR'} /> &nbsp; &nbsp;
-              <Controls.Icon flag={'SGP'} /> &nbsp; &nbsp;
-              <Controls.Icon flag={'MYS'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'SG'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'MY'} /> &nbsp; &nbsp;
             </Controls.Container>
             <Controls.Container display={'flex'}>
               <Controls.Icon
@@ -471,7 +471,7 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 100,
+                  fontSize: 60,
                   iconBackground: true
                 }}
                 currency={'SGD'}
@@ -485,11 +485,12 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 60,
                   iconBackground: true
                 }}
-                flag={'MYS'}
+                flag={'MY'}
               />
+              {/* <Flag code={'SG'} /> */}
             </Controls.Container>
             <Controls.Divider />
             <h4>Grid</h4>
@@ -1153,17 +1154,33 @@ class Main extends Controls.MyComponent<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
-                  value={'hei!'}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
                       value: 'hei!',
-                      image: '/images/ISTOX_Logo.png'
+                      html: (
+                        <Controls.Container>
+                          <Controls.Icon
+                            badge={{
+                              backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                              width: 40,
+                              height: 40,
+                              borderSize: 1,
+                              borderRadius: 50,
+                              borderColor: '#FFF',
+                              borderStyle: 'solid',
+                              fontSize: 100,
+                              iconBackground: true
+                            }}
+                            currency={'SGD'}
+                          />
+                        </Controls.Container>
+                      )
                     },
                     {
                       label: 'Option2',
                       value: 'abcl',
-                      image: '/images/ISTOX_Logo.png'
+                      html: <Controls.Image fullWidth src={'/images/ISTOX_Logo.png'} />
                     }
                   ]}
                 />
