@@ -8,6 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
 import SVG from 'react-inlinesvg';
 import { countries } from 'country-data';
+import ReactCountryFlag from 'react-country-flag';
 
 interface IBadge {
   borderSize?: number;
@@ -131,10 +132,10 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'flag':
-        const flag = countries.all.filter((obj: any) => obj.alpha3 === this.props.flag)[0];
+        const flag = countries.all.filter((obj: any) => obj.alpha2 === this.props.flag)[0];
         return (
           <Container className={styles.flag} {...this.props}>
-            {flag && flag.emoji}
+            {flag && <ReactCountryFlag code={flag.alpha2} svg />}
           </Container>
         );
         break;
@@ -144,7 +145,7 @@ export class Icon extends React.Component<IProps, any> {
         )[0];
         return (
           <Container className={styles.flag} {...this.props}>
-            {currency && currency.emoji}
+            {currency && <ReactCountryFlag code={currency.alpha2} svg />}
           </Container>
         );
         break;

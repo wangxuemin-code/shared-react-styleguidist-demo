@@ -10,7 +10,6 @@ import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
 import { Icon } from './Icon';
-import { Image } from './Image';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { OtpInput } from './OTP';
@@ -62,7 +61,7 @@ interface IProps extends IContainer {
   label?: any;
   required?: boolean;
   selectOptions?: { label: any; value: string }[];
-  selectCustomOptions?: { label: string; value: string; image: string }[];
+  selectCustomOptions?: { label: string; value: string; html: any }[];
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
@@ -337,11 +336,15 @@ export class FormControl extends React.Component<IProps, IState> {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
-            <Container className='select-option'>
-              <Image fullWidth src={innerProps.data.image} />
-              {innerProps.data.label}
-            </Container>
+            <Container className='select-option'>{innerProps.data.html}</Container>
           </components.Option>
+        );
+      };
+      const DisplayOption = (innerProps: any) => {
+        return (
+          <components.SingleValue {...innerProps}>
+            <Container className='select-option'>{innerProps.data.html}</Container>
+          </components.SingleValue>
         );
       };
       let Options = this.props.selectCustomOptions || [];
@@ -352,7 +355,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
-          components={{ Option: CustomOption }}
+          components={{ Option: CustomOption, SingleValue: DisplayOption }}
           styles={{
             control: (base) => ({
               ...base,
@@ -372,7 +375,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -382,7 +385,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -395,7 +398,8 @@ export class FormControl extends React.Component<IProps, IState> {
             label: option.countryCallingCodes,
             value: option.countryCallingCodes,
             image: option.emoji,
-            country: option.name
+            country: option.name,
+            code: option.alpha2
           };
           Options.push(obj);
         }
@@ -405,7 +409,8 @@ export class FormControl extends React.Component<IProps, IState> {
           (option.data && option.data.label.includes(searchText.toLowerCase())) ||
           (option.data && option.data.value.includes(searchText.toLowerCase())) ||
           (option.data && option.data.value.includes('+' + searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -440,7 +445,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -450,7 +455,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -463,7 +468,8 @@ export class FormControl extends React.Component<IProps, IState> {
             label: option.name,
             value: option.name,
             image: option.emoji,
-            country: option.name
+            country: option.name,
+            code: option.alpha2
           };
           Options.push(obj);
         }
@@ -472,7 +478,8 @@ export class FormControl extends React.Component<IProps, IState> {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
           (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
@@ -506,7 +513,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -516,7 +523,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              {innerProps.data.image}
+              <Icon flag={innerProps.data.code} /> &nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -529,7 +536,8 @@ export class FormControl extends React.Component<IProps, IState> {
             label: option.alpha3,
             value: option.alpha3,
             image: option.emoji,
-            country: option.name
+            country: option.name,
+            code: option.alpha2
           };
           Options.push(obj);
         }
@@ -538,7 +546,8 @@ export class FormControl extends React.Component<IProps, IState> {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
           (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase()))
+          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
+          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
         ) {
           return true;
         } else {
