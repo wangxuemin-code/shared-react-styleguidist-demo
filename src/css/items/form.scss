@@ -31,6 +31,11 @@ $borderRadius: 0.375rem;
       div {
         padding: 0;
       }
+
+      .flag {
+        display: inherit;
+        padding-top: 2px;
+      }
     }
     div {
       color: map-get($colors, primaryDark) !important;

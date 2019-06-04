@@ -149,8 +149,12 @@ class Main extends Controls.MyComponent<
           <Controls.Header
             logo={true}
             className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+            mainLinks={[
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: false },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: false }
+            ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            username={this.state.email}
             userAction
           />
           <Controls.WrapperContainer>
@@ -890,6 +894,11 @@ class Main extends Controls.MyComponent<
                         width={130}
                         textAlign={'center'}
                         type={'submit'}
+                        onPress={() => {
+                          this.setState({
+                            email: 'Username'
+                          });
+                        }}
                       >
                         Send Code
                       </Controls.Button>
