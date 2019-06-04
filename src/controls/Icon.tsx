@@ -19,6 +19,8 @@ interface IBadge {
   width?: number;
   iconBackground?: boolean;
   fontSize?: number;
+  topPx?: number;
+  leftPx?: number;
 }
 
 interface IProps extends IContainer {
@@ -78,6 +80,7 @@ export class Icon extends React.Component<IProps, any> {
     //   );
     // } else {
     let style: React.CSSProperties = this.props.style || {};
+    let iconStyle: React.CSSProperties = {};
     if (this.props.badge) {
       if (this.props.badge.borderColor) {
         style.borderColor = this.props.badge.borderColor;
@@ -103,21 +106,27 @@ export class Icon extends React.Component<IProps, any> {
       if (this.props.badge.fontSize) {
         style.fontSize = this.props.badge.fontSize;
       }
+      if (this.props.badge.leftPx) {
+        iconStyle.left = this.props.badge.leftPx + 'px';
+      }
+      if (this.props.badge.topPx) {
+        iconStyle.top = this.props.badge.topPx + 'px';
+      }
     }
     return (
       <Container style={style} className={classes.join(' ')}>
-        {this.getIconDesign()}
+        {this.getIconDesign(iconStyle)}
         {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
       </Container>
     );
     // }
   }
 
-  private getIconDesign() {
+  private getIconDesign(iconStyle: React.CSSProperties) {
     switch (this.checkIconType()) {
       case 'fontawesome':
         return (
-          <Container className={styles.svg} {...this.props}>
+          <Container style={iconStyle} className={styles.svg} {...this.props}>
             <FontAwesomeIcon color={this.props.color} icon={this.props.icon as IconDefinition} />
           </Container>
         );
@@ -125,28 +134,44 @@ export class Icon extends React.Component<IProps, any> {
       case 'fontawesomepro':
         const src = `./images/svgs/solid/${this.props.icon}.svg`;
         return (
-          <Container className={styles.svg} {...this.props}>
+          <Container style={iconStyle} className={styles.svg} {...this.props}>
             <SVG style={{ fill: this.props.color }} src={src} />
           </Container>
         );
         break;
       case 'flag':
+        // console.log("iconStyle", iconStyle);
         const flag = countries.all.filter((obj: any) => obj.alpha3 === this.props.flag)[0];
         return (
-          <Container className={styles.flag} {...this.props}>
+          <Container style={iconStyle} className={styles.flag} {...this.props}>
             {flag && flag.emoji}
           </Container>
         );
         break;
       case 'currency':
-        const currency = countries.all.filter(
-          (obj: any) => obj.currencies[0] === this.props.currency
-        )[0];
-        return (
-          <Container className={styles.flag} {...this.props}>
-            {currency && currency.emoji}
-          </Container>
-        );
+        // EUR is used by multiple countries as currencies
+        // the emoji flag of European Union is linked with no alpha3 code
+        //the emoji is hardcoded here for display purpose
+        if (this.props.currency === 'EUR') {
+          const europeanUnioncurrency = countries.all.filter(
+            (obj: any) => obj.alpha2 === 'EU'
+          )[0];
+          return (
+            <Container style={iconStyle} className={styles.flag} {...this.props}>
+              {europeanUnioncurrency && europeanUnioncurrency.emoji}
+            </Container>
+          );
+          
+        } else {
+          const currency = countries.all.filter(
+            (obj: any) => obj.currencies[0] === this.props.currency
+          )[0];
+          return (
+            <Container style={iconStyle} className={styles.flag} {...this.props}>
+              {currency && currency.emoji}
+            </Container>
+          );
+        }
         break;
     }
   }

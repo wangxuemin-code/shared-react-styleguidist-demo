@@ -34,6 +34,8 @@ interface IProps extends IContainer {
   value?: string | number | null;
   placeholder?: any;
   type?:
+    | 'alphabet'
+    | 'dateText'
     | 'text'
     | 'number'
     | 'numberfields'
@@ -229,6 +231,34 @@ export class FormControl extends React.Component<IProps, IState> {
       if (!this.state.value) {
         if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
+      }
+    }
+
+    if (this.props.type === 'alphabet') {
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /^[A-Za-z]+$/;
+        if (!re.test(String(this.state.value))) {
+          if (setErrorState) {
+            this.setState({
+              error: 'input field is not valid, only alphabets are allowed', 
+              showError: true
+            });
+          }
+          return false;
+        }
+      }
+    }
+
+    if (this.props.type === 'dateText') {
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /^[0-9]{2,2}-[0-9]{2,2}-[0-9]{4,4}$/;
+        if (!re.test(String(this.state.value))) {
+          if (setErrorState) 
+            this.setState({
+              error: 'date format is invalid, only DD-MM-YYYY is allowed', 
+              showError: true});
+          return false;
+        }
       }
     }
 
@@ -889,6 +919,18 @@ export class FormControl extends React.Component<IProps, IState> {
           };
         } else if (this.props.type === 'numeric') {
           const re = /^\d+$/;
+          return {
+            displayValue: !re.test(value) ? '' : value,
+            value: !re.test(value) ? '' : value
+          };
+        } else if (this.props.type === 'alphabet') {
+          const re=/^[a-zA-Z]+$/;
+          return {
+            displayValue: !re.test(value) ? '' : value,
+            value: !re.test(value) ? '' : value
+          };
+        } else if (this.props.type === 'dateText') {
+          const re = /^[0-9]+$/;
           return {
             displayValue: !re.test(value) ? '' : value,
             value: !re.test(value) ? '' : value

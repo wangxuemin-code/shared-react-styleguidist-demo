@@ -30,6 +30,8 @@ import * as ReactDOM from 'react-dom';
 import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
+import { NormalToast} from './controls/NormalToast';
+import { PieChart } from './controls/PieChart';
 import {
   faAddressBook,
   faAdjust,
@@ -40,7 +42,8 @@ import {
   faInfoCircle,
   faSearch,
   faUser,
-  faChevronCircleRight
+  faChevronCircleRight,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 import { Confirm } from './controls/Confirm';
@@ -54,8 +57,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import FileUploader from './controls/FileUploader';
 import { Breadcrumbs } from './controls/Breadcrumbs';
+import { Pagination } from 'react-bootstrap';
+import ReactPaginate from 'react-paginate';
 var uniqid = require('uniqid');
-
 const mqtt = new Mqtt({
   host: 'localhost',
   port: 35675,
@@ -63,7 +67,6 @@ const mqtt = new Mqtt({
     console.log('connected!');
   }
 });
-
 // const mqtt = new Mqtt({
 //   host: 'diligent-goat.rmq.cloudamqp.com',
 //   username: 'jxlsbgfq:jxlsbgfq',
@@ -426,6 +429,7 @@ class Main extends MyComponent<
               <Icon flag={'MYS'} /> &nbsp; &nbsp;
             </Container>
             <Container display={'flex'}>
+              {/* TO_DO: change the position of the flag so that the signature pattern will be reflected*/}
               <Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
@@ -470,10 +474,95 @@ class Main extends MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 100,
+                  fontSize: 85,
                   iconBackground: true
                 }}
                 currency={'SGD'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                currency={'MYR'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  //iconBackground: true
+                }}
+                flag={'IND'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 90,
+                  iconBackground: true,
+                  topPx: 1
+                }}
+                currency={'PHP'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                currency={'CNY'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85
+                  //iconBackground: true
+                }}
+                currency={'EUR'}
+              />
+              <Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  //iconBackground: true
+                }}
+                currency={'KRW'}
               />
               <Icon
                 badge={{
@@ -708,6 +797,20 @@ class Main extends MyComponent<
               }}
             >
               Bottom Toast
+            </Button>
+            <br />
+            <br />
+            <h5>Toast with image, title and description</h5>
+            <Button
+              onPress={() => {
+                NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here'
+                });
+              }}
+            >
+              Toast with image, title and description
             </Button>
             <Divider />
             <h4>Progress</h4>
@@ -1363,7 +1466,116 @@ class Main extends MyComponent<
             >
               Sample tooltip open on hover
             </Controls.Container>
-
+            <Divider />
+            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <h4>Input text with only alphabet and date</h4>
+            <Form
+                display={'grid'}
+                horizontal
+                //error={String(404)}
+                ref={(ref) => {
+                  if (ref) {
+                    this.form = ref;
+                    // this.form.reset();
+                  }
+                }}
+                onSubmit={() => {
+                  // console.log(this.form.reset());
+                  console.log('FORM SUBMITTED');
+                  this.setState({
+                    success: '',
+                    error: ''
+                  });
+                }}
+              >
+                <Controls.FormControl
+                  required
+                  label={'name'}
+                  name='name with only alphbet'
+                  placeholder={'name with only alphabet'}
+                  type={'alphabet'}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      width={130}
+                      textAlign={'center'}
+                      type={'submit'}
+                    >
+                    Submit
+                    </Controls.Button>
+                  }
+                />
+                <Controls.FormControl
+                  required={true}
+                  placeholder={'DD-MM-YYYY'}
+                  label={'date'}
+                  name='only DD-MM-YYYY format is allowed'
+                  type={'dateText'}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      width={130}
+                      textAlign={'center'}
+                      type={'submit'}
+                    >
+                    Submit
+                  </Controls.Button>
+                }
+              />
+            </Form>
+            </Container>
+            <Divider />
+            <Container>
+              <h4>pagination</h4>
+              <Pagination>
+                <Pagination.First />
+                <Pagination.Prev />
+                <Pagination.Item active>{1}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item>{10}</Pagination.Item>
+                <Pagination.Item>{11}</Pagination.Item>
+                <Pagination.Item active>{12}</Pagination.Item>
+                <Pagination.Item>{13}</Pagination.Item>
+                <Pagination.Item disabled>{14}</Pagination.Item>
+                <Pagination.Ellipsis />
+                <Pagination.Item disabled>{20}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+              </Pagination>
+              <br/>
+              <ul className='pagination'>
+                <li><a href="#">&laquo;</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">&raquo;</a></li>
+              </ul>
+              <br />
+              <ReactPaginate
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={5}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                //onPageChange={this.handlePageClick}
+                containerClassName={'pagination'}
+                //subContainerClassName={'pages pagination'}
+                activeClassName={'active'}
+              />
+              </Container>
+              <Divider />
+              <Container>
+                <h4>pie chart</h4>
+                <PieChart
+                  severe={1}
+                  moderate={2}
+                  mild={3}
+                />
+              </Container>
+              <Divider />
+              <Container>
+                <h4> hightlighted information pop-up</h4>
+              </Container>
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Container>
