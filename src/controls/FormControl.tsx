@@ -133,7 +133,6 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (prevProps.extraControls !== this.props.extraControls) {
-      console.log(this.props.extraControls);
       this.setState({ extraControls: this.props.extraControls });
     }
   }
@@ -282,12 +281,13 @@ export class FormControl extends React.Component<IProps, IState> {
 
     if (this.props.type === 'password') {
       if (this.props.required || (!this.props.required && this.state.value)) {
-        const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        // const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/;
         if (!re.test(String(this.state.value))) {
           if (setErrorState)
             this.setState({
               error:
-                'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+                'Password must contain at least one number, one lowercase letter, one uppercase letter, one special chatacter and eight characters in length',
               showError: true
             });
           return false;
@@ -405,7 +405,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -415,7 +415,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -425,9 +425,9 @@ export class FormControl extends React.Component<IProps, IState> {
       countries.all.map((option) => {
         if (option.countryCallingCodes.length && option.emoji) {
           var obj = {
-            label: option.countryCallingCodes,
-            value: option.countryCallingCodes,
-            image: option.emoji,
+            label: option.countryCallingCodes[0],
+            value: option.countryCallingCodes[0],
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -475,7 +475,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -485,7 +485,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -497,7 +497,7 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.name,
             value: option.name,
-            image: option.emoji,
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -543,7 +543,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -553,7 +553,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -565,7 +565,7 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,
-            image: option.emoji,
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -850,6 +850,11 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private validateValueCanChanged(value: string): boolean {
+    if (this.props.type == 'password') {
+      if (/\s/.test(value)) {
+        return false;
+      }
+    }
     if (this.props.type === 'money' || this.props.type === 'number') {
       const temp = value.split('.');
       if (temp.length === 2) {

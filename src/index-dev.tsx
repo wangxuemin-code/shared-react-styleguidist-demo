@@ -142,8 +142,12 @@ class Main extends Controls.MyComponent<
           <Controls.Header
             logo={true}
             className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+            mainLinks={[
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: false },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: false }
+            ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            username={this.state.email}
             userAction
           />
           <Controls.WrapperContainer>
@@ -492,7 +496,7 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 85
                   //iconBackground: true
                 }}
                 flag={'IND'}
@@ -549,7 +553,7 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 85
                   //iconBackground: true
                 }}
                 currency={'KRW'}
@@ -943,7 +947,7 @@ class Main extends Controls.MyComponent<
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Controls.Form
-                display={'grid'}
+                // display={'grid'}
                 horizontal
                 error={String(404)}
                 ref={(ref) => {
@@ -982,6 +986,11 @@ class Main extends Controls.MyComponent<
                         width={130}
                         textAlign={'center'}
                         type={'submit'}
+                        onPress={() => {
+                          this.setState({
+                            email: 'Username'
+                          });
+                        }}
                       >
                         Send Code
                       </Controls.Button>
@@ -1486,9 +1495,9 @@ class Main extends Controls.MyComponent<
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-            <h4>Input text with only alphabet and date</h4>
-            <Controls.Form
-                display={'grid'}
+              <h4>Input text with only alphabet and date</h4>
+              <Controls.Form
+                // display={'grid'}
                 horizontal
                 //error={String(404)}
                 ref={(ref) => {
@@ -1519,7 +1528,7 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                     >
-                    Submit
+                      Submit
                     </Controls.Button>
                   }
                 />
@@ -1536,19 +1545,25 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                     >
-                    Submit
-                  </Controls.Button>
-                }
-              />
-            </Controls.Form>
+                      Submit
+                    </Controls.Button>
+                  }
+                />
+              </Controls.Form>
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>
               <h4>pagination</h4>
               <ul className='pagination'>
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li>
+                  <a href='#'>&laquo;</a>
+                </li>
+                <li>
+                  <a href='#'>1</a>
+                </li>
+                <li>
+                  <a href='#'>&raquo;</a>
+                </li>
               </ul>
               <br />
               <Controls.Pagination
