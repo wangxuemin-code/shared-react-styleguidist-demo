@@ -4,7 +4,7 @@ import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
-import { NormalToast} from './controls/NormalToast';
+import { NormalToast } from './controls/NormalToast';
 import { PieChart } from './controls/PieChart';
 import {
   faAddressBook,
@@ -500,7 +500,7 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 85
                   //iconBackground: true
                 }}
                 flag={'IND'}
@@ -557,7 +557,7 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 85
                   //iconBackground: true
                 }}
                 currency={'KRW'}
@@ -951,7 +951,7 @@ class Main extends Controls.MyComponent<
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Controls.Form
-                display={'grid'}
+                // display={'grid'}
                 horizontal
                 error={String(404)}
                 ref={(ref) => {
@@ -1499,9 +1499,9 @@ class Main extends Controls.MyComponent<
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-            <h4>Input text with only alphabet and date</h4>
-            <Controls.Form
-                display={'grid'}
+              <h4>Input text with only alphabet and date</h4>
+              <Controls.Form
+                // display={'grid'}
                 horizontal
                 //error={String(404)}
                 ref={(ref) => {
@@ -1532,7 +1532,7 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                     >
-                    Submit
+                      Submit
                     </Controls.Button>
                   }
                 />
@@ -1549,11 +1549,11 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                     >
-                    Submit
-                  </Controls.Button>
-                }
-              />
-            </Controls.Form>
+                      Submit
+                    </Controls.Button>
+                  }
+                />
+              </Controls.Form>
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>
@@ -1573,11 +1573,17 @@ class Main extends Controls.MyComponent<
                 <Pagination.Next />
                 <Pagination.Last />
               </Pagination>
-              <br/>
+              <br />
               <ul className='pagination'>
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">&raquo;</a></li>
+                <li>
+                  <a href='#'>&laquo;</a>
+                </li>
+                <li>
+                  <a href='#'>1</a>
+                </li>
+                <li>
+                  <a href='#'>&raquo;</a>
+                </li>
               </ul>
               <br />
               <ReactPaginate
@@ -1593,20 +1599,16 @@ class Main extends Controls.MyComponent<
                 //subContainerClassName={'pages pagination'}
                 activeClassName={'active'}
               />
-              </Controls.Container>
-              <Controls.Divider />
-              <Controls.Container>
-                <h4>pie chart</h4>
-                <PieChart
-                  severe={1}
-                  moderate={2}
-                  mild={3}
-                />
-              </Controls.Container>
-              <Controls.Divider />
-              <Controls.Container>
-                <h4> hightlighted information pop-up</h4>
-              </Controls.Container>
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4>pie chart</h4>
+              <PieChart severe={1} moderate={2} mild={3} />
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4> hightlighted information pop-up</h4>
+            </Controls.Container>
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Controls.Container>
