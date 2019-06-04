@@ -3,9 +3,6 @@ import { Fragment } from 'react';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
 import { Controls } from './index-prod';
-import { Transition } from './controls/Transition';
-import { NormalToast} from './controls/NormalToast';
-import { PieChart } from './controls/PieChart';
 import {
   faAddressBook,
   faAdjust,
@@ -20,8 +17,7 @@ import {
   faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-import { Pagination } from 'react-bootstrap';
-import ReactPaginate from 'react-paginate';
+
 var uniqid = require('uniqid');
 const mqtt = new Mqtt({
   host: 'localhost',
@@ -798,7 +794,7 @@ class Main extends Controls.MyComponent<
             <h5>Toast with image, title and description</h5>
             <Controls.Button
               onPress={() => {
-                NormalToast.show({
+                Controls.NormalToast.show({
                   icon: faCheck,
                   title: 'normal toast',
                   description: 'description goes here'
@@ -1391,7 +1387,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Message</h4>
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-              <Transition>
+              <Controls.Transition>
                 <Controls.Message icon={faCheckCircle} message='Hello i am a default!' />
                 <Controls.Message
                   variant={'success'}
@@ -1460,7 +1456,7 @@ class Main extends Controls.MyComponent<
                   variant={'warning'}
                   message='Hello i am an warning!'
                 />
-              </Transition>
+              </Controls.Transition>
             </Controls.Container>
             <Controls.Divider />
             <h4>Breadcrumbs</h4>
@@ -1549,50 +1545,44 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <Controls.Container>
               <h4>pagination</h4>
-              <Pagination>
-                <Pagination.First />
-                <Pagination.Prev />
-                <Pagination.Item active>{1}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item>{10}</Pagination.Item>
-                <Pagination.Item>{11}</Pagination.Item>
-                <Pagination.Item active>{12}</Pagination.Item>
-                <Pagination.Item>{13}</Pagination.Item>
-                <Pagination.Item disabled>{14}</Pagination.Item>
-                <Pagination.Ellipsis />
-                <Pagination.Item disabled>{20}</Pagination.Item>
-                <Pagination.Next />
-                <Pagination.Last />
-              </Pagination>
-              <br/>
               <ul className='pagination'>
                 <li><a href="#">&laquo;</a></li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">&raquo;</a></li>
               </ul>
               <br />
-              <ReactPaginate
+              <Controls.Pagination
                 previousLabel={'previous'}
                 nextLabel={'next'}
                 breakLabel={'...'}
-                breakClassName={'break-me'}
-                pageCount={5}
+                pageCount={7}
                 marginPagesDisplayed={2}
-                pageRangeDisplayed={5}
-                //onPageChange={this.handlePageClick}
-                containerClassName={'pagination'}
-                //subContainerClassName={'pages pagination'}
-                activeClassName={'active'}
+                pageRangeDisplayed={3}
+              />
+              <br />
+              <Controls.Pagination
+                pageCount={7}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
               />
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container>
                 <h4>pie chart</h4>
-                <PieChart
-                  severe={1}
-                  moderate={2}
-                  mild={3}
-                />
+                <Controls.Container position={'absolute'}>
+                </Controls.Container>
+                <Controls.Container position={'absolute'}>
+                  <Controls.PieChart
+                    displayType={'moderate'}
+                  />
+                </Controls.Container>
+                <Controls.Container position={'relative'}>
+                  <Controls.DoughNutChart 
+                    severe={1}
+                    moderate={2}
+                    mild={3}
+                  />
+                </Controls.Container>
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container>

@@ -3,9 +3,8 @@ import { IContainer } from './Container';
 var DoughnutChart = require("react-chartjs").Doughnut;
 
 interface IProps extends IContainer {
-    severe: number;
-    moderate: number;
-    mild: number;
+    displayType: 'severe' | 'moderate' |'mild';
+    
 }
 
 export class PieChart extends React.Component<IProps> {
@@ -14,50 +13,16 @@ export class PieChart extends React.Component<IProps> {
     }
 
     public render() {
-        var outterData = [
+        var typeColor = this.getColor();
+        var data = [
             {
-                value: this.props.severe,
-                color:"#DC3545",
-                highlight: "#DC3545",
-                label: "fake data"
-            },
-            {
-                value: this.props.moderate,
-                color: "#FFC107",
-                highlight: "#FFC107",
-                label: "unmatched/blurred data"
-            },
-            {
-                value: this.props.mild,
-                color: "#28A745",
-                highlight: "#28A745",
-                label: "verfied/matched data"
+                value: 1,
+                color: typeColor,
+                highlight: typeColor
             }
         ]
 
-
-        var innerData = [
-            {
-                value: this.props.severe,
-                color: 'rgba(231, 123, 129, 1)'
-            }, {
-                value: this.props.moderate,
-                color: 'rgba(255, 243, 205, 1)'
-            }, {
-                value: this.props.mild,
-                color: 'rgba(95, 224, 125, 1)'
-
-            }
-        ]
-
-        var outterOption = {
-            segmentShowStroke : false,
-            segmentStrokeWidth : 0,
-            animateRotate : false,
-            percentageInnerCutout : 80
-        }
-
-        var innerOption ={
+        var option = {
             segmentShowStroke : false,
             segmentStrokeWidth : 0,
             animateRotate : false,
@@ -66,11 +31,25 @@ export class PieChart extends React.Component<IProps> {
 
         return(
             <div>
-                <DoughnutChart data={outterData} options={outterOption}/>
-                <DoughnutChart data={innerData} options={innerOption} />
+                <DoughnutChart data={data} options={option}/>
             </div>
-            
         );
 
+    }
+
+    public getColor() {
+        var color = '#ffffff';
+        switch (this.props.displayType) {
+            case 'severe':
+                color = 'rgba(231, 123, 129, 1)';
+                break;
+            case 'moderate':
+                color = 'rgba(255, 243, 205, 1)';
+                break;
+            case 'mild':
+                color = 'rgba(95, 224, 125, 1)';
+                break;
+        }
+        return color;
     }
 }

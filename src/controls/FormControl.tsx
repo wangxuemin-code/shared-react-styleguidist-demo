@@ -967,7 +967,7 @@ export class FormControl extends React.Component<IProps, IState> {
             value: !re.test(value) ? '' : value
           };
         } else if (this.props.type === 'dateText') {
-          const re = /^[0-9]+$/;
+          const re = /^[0-9-]+$/;
           return {
             displayValue: !re.test(value) ? '' : value,
             value: !re.test(value) ? '' : value
