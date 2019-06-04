@@ -1,33 +1,7 @@
 import * as React from 'react';
 import { Fragment } from 'react';
-import {
-  Container,
-  Grid,
-  Button,
-  Icon,
-  FormControl,
-  Link,
-  Modal,
-  Message,
-  Form,
-  Header,
-  RootContainer,
-  WrapperContainer,
-  ErrorPage,
-  Table,
-  Card,
-  Item,
-  Image,
-  Tabs,
-  Footer,
-  Toast,
-  Divider,
-  Rating,
-  MyComponent
-} from './controls';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
-import * as styles from './css/main.scss';
 import { Controls } from './index-prod';
 import { Transition } from './controls/Transition';
 import { NormalToast} from './controls/NormalToast';
@@ -46,17 +20,6 @@ import {
   faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-import { Confirm } from './controls/Confirm';
-import { BlockchainTransaction } from './controls/BlockchainTransaction';
-import { CandleStickChart } from './controls/CandleStickChart';
-import { LineChart } from './controls/LineChart';
-import Truncate from 'react-truncate';
-import { ProgressBar } from './controls/ProgressBar';
-import { Router, Route } from 'react-router';
-import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import FileUploader from './controls/FileUploader';
-import { Breadcrumbs } from './controls/Breadcrumbs';
 import { Pagination } from 'react-bootstrap';
 import ReactPaginate from 'react-paginate';
 var uniqid = require('uniqid');
@@ -90,7 +53,7 @@ const mqtt = new Mqtt({
 //     console.log(message);
 //   });
 
-class Main extends MyComponent<
+class Main extends Controls.MyComponent<
   any,
   {
     success: string[] | string;
@@ -103,7 +66,7 @@ class Main extends MyComponent<
     imageUrl: string;
   }
 > {
-  tabs: Tabs;
+  tabs: Controls.Tabs;
   form: any;
   imageForm: any;
   formControls: any[];
@@ -131,37 +94,37 @@ class Main extends MyComponent<
     this.tabsContent = [
       {
         title: (
-          <Container>
-            <Icon variant={'success'} icon={faCheckCircle} />
+          <Controls.Container>
+            <Controls.Icon variant={'success'} icon={faCheckCircle} />
             Account Info
-          </Container>
+          </Controls.Container>
         ),
         contents: 'ABCD'
       },
       {
         title: (
-          <Container>
-            <Icon icon={faCheckCircle} />
+          <Controls.Container>
+            <Controls.Icon icon={faCheckCircle} />
             Phone Number
-          </Container>
+          </Controls.Container>
         ),
-        contents: 'EFGH'
+        contents: 'EFGHsa'
       },
       {
         title: (
-          <Container>
-            <Icon icon={faCheckCircle} />
+          <Controls.Container>
+            <Controls.Icon icon={faCheckCircle} />
             Personal Info
-          </Container>
+          </Controls.Container>
         ),
         contents: 'IJKL'
       },
       {
         title: (
-          <Container>
-            <Icon icon={faExclamationCircle} />
+          <Controls.Container>
+            <Controls.Icon icon={faExclamationCircle} />
             Documents
-          </Container>
+          </Controls.Container>
         ),
         contents: 'MNOP'
       }
@@ -179,16 +142,16 @@ class Main extends MyComponent<
     );
     return (
       <React.Fragment>
-        <RootContainer>
-          <Header
+        <Controls.RootContainer>
+          <Controls.Header
             logo={true}
             className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: false }]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
             userAction
           />
-          <WrapperContainer>
-            <Container
+          <Controls.WrapperContainer>
+            <Controls.Container
               padding={{ allPx: 15 }}
               backgroundColor={'#FFF'}
               border={{
@@ -199,17 +162,17 @@ class Main extends MyComponent<
               }}
             >
               <h4>Typography</h4>
-              <Container display={'flex'}>
-                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+              <Controls.Container display={'flex'}>
+                <Controls.Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <h1>H1</h1>
                   <h2>H2</h2>
                   <h3>H3</h3>
                   <h4>H4</h4>
                   <h5>H5</h5>
                   <h6>H6</h6>
-                </Container>
-                <Divider direction={'vertical'} />
-                <Container padding={{ leftPx: 15 }} className={'flex-50'}>
+                </Controls.Container>
+                <Controls.Divider direction={'vertical'} />
+                <Controls.Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <p>Paragraph</p>
                   <p className='semi-bold'>Semi Bold</p>
                   <b>Bold</b>
@@ -222,12 +185,12 @@ class Main extends MyComponent<
                   <span className='small'>Small</span> &nbsp;
                   <span className='medium'>Medium</span> &nbsp;
                   <span className='large'>Large</span>
-                </Container>
-              </Container>
-            </Container>
-            <Divider />
+                </Controls.Container>
+              </Controls.Container>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Tabs</h4>
-            <Tabs
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
@@ -255,15 +218,19 @@ class Main extends MyComponent<
               Go to next Tab
             </Controls.Button>
 
-            <Tabs margin={{ topPx: 20 }} orientation={'horizontal'} tabs={this.tabsContent} />
-            <Tabs
+            <Controls.Tabs
+              margin={{ topPx: 20 }}
+              orientation={'horizontal'}
+              tabs={this.tabsContent}
+            />
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
               align={'middle'}
               tabs={this.tabsContent}
             />
-            <Divider hidden />
-            <Tabs
+            <Controls.Divider hidden />
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               variant={'stacked'}
@@ -271,35 +238,54 @@ class Main extends MyComponent<
               align={'middle'}
               tabs={this.tabsContent}
             />
-            <Divider />
-            <Tabs
+            <Controls.Divider />
+            <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
               tabs={this.tabsContent}
             />
-            <Divider />
-            <Tabs
+            <Controls.Divider />
+            <Controls.Tabs
               basic
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
               tabs={this.tabsContent}
-            />
-            <Divider />
+            >
+              <>
+                <Controls.Container padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5 }}>
+                  <Controls.Form>
+                    <Controls.FormControl
+                      fluid
+                      label={''}
+                      name='search'
+                      type={'text'}
+                      placeholder={'Search'}
+                      value=''
+                      prepend={<Controls.Icon icon={faSearch} />}
+                    />
+                  </Controls.Form>
+                </Controls.Container>
+                <Controls.Container padding={{ leftRem: 1, rightRem: 2 }}>
+                  <h6>All Transactions</h6>
+                </Controls.Container>
+              </>
+            </Controls.Tabs>
+            <Controls.Divider />
             <h4>Button</h4>
-            <Button size='tiny' variant='primary'>
+            <Controls.Button size='tiny' variant='primary'>
               Tiny
-            </Button>
-            <Button size='small' variant='primary'>
+            </Controls.Button>
+            <Controls.Button size='small' variant='primary'>
               Small
-            </Button>
-            <Button size='medium' variant='primary'>
+            </Controls.Button>
+            <Controls.Button size='medium' variant='primary'>
               Medium
-            </Button>
-            <Button
+            </Controls.Button>
+            <Controls.Button
               onClick={() => {
                 console.log(1);
               }}
@@ -307,97 +293,101 @@ class Main extends MyComponent<
               variant='primary'
             >
               Large
-            </Button>
-            <Divider visibility={'hidden'} />
-            <Button loading size='tiny' variant='primary'>
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Button loading size='tiny' variant='primary'>
               Tiny Loading
-            </Button>
-            <Button loading size='small' variant='primary'>
+            </Controls.Button>
+            <Controls.Button loading size='small' variant='primary'>
               Small Loading
-            </Button>
-            <Button loading size='medium' variant='primary'>
+            </Controls.Button>
+            <Controls.Button loading size='medium' variant='primary'>
               Medium Loading
-            </Button>
-            <Button loading size='large' variant='primary'>
+            </Controls.Button>
+            <Controls.Button loading size='large' variant='primary'>
               Large Loading
-            </Button>
-            <Divider visibility={'hidden'} />
-            <Icon icon={faUser} onClick={() => {}} />
-            <Button size='large' variant='primary'>
-              <Icon icon={faPlus} />
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Icon icon={faUser} onClick={() => {}} />
+            <Controls.Button size='large' variant='primary'>
+              <Controls.Icon icon={faPlus} />
               Icon
-            </Button>
-            <Button size='large' variant='primary' subText={'Back to Residential / Mailing'}>
+            </Controls.Button>
+            <Controls.Button
+              size='large'
+              variant='primary'
+              subText={'Back to Residential / Mailing'}
+            >
               SubText
-            </Button>
-            <Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
+            </Controls.Button>
+            <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
-            </Button>
-            <Divider visibility={'hidden'} />
-            <Button fluid variant='primary'>
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Button fluid variant='primary'>
               Fluid
-            </Button>
-            <Divider visibility={'hidden'} />
+            </Controls.Button>
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} variant={button}>
+              <Controls.Button key={uniqid().toString()} variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} flat variant={button}>
+              <Controls.Button key={uniqid().toString()} flat variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} loading flat variant={button}>
+              <Controls.Button key={uniqid().toString()} loading flat variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} outline variant={button}>
+              <Controls.Button key={uniqid().toString()} outline variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider visibility={'hidden'} />
+            <Controls.Divider visibility={'hidden'} />
             {this.colorStates.map((button: any) => (
-              <Button key={uniqid().toString()} loading outline variant={button}>
+              <Controls.Button key={uniqid().toString()} loading outline variant={button}>
                 {button.toUpperCase()}
-              </Button>
+              </Controls.Button>
             ))}
-            <Divider />
+            <Controls.Divider />
             <h4>Link</h4>
-            <Container display={'flex'}>
+            <Controls.Container display={'flex'}>
               {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link variant={link} useNormalAnchor>
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link variant={link} useNormalAnchor>
                     {link.toUpperCase()}
-                  </Link>
+                  </Controls.Link>
                   &nbsp; &nbsp;
-                </Container>
+                </Controls.Container>
               ))}
-            </Container>
-            <Container display={'flex'}>
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
               {this.colorStates.map((link: any) => (
-                <Container key={uniqid().toString()}>
-                  <Link underline={false} variant={link} useNormalAnchor>
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link underline={false} variant={link} useNormalAnchor>
                     {link.toUpperCase()}
-                  </Link>
+                  </Controls.Link>
                   &nbsp; &nbsp;
-                </Container>
+                </Controls.Container>
               ))}
-            </Container>
-            <Container>
+            </Controls.Container>
+            <Controls.Container>
               There is a&nbsp;
-              <Link href='/' useNormalAnchor>
+              <Controls.Link href='/' useNormalAnchor>
                 Link
-              </Link>
+              </Controls.Link>
               &nbsp;in this sentence
-            </Container>
+            </Controls.Container>
             <br />
-            <Container
+            <Controls.Container
               padding={{ allRem: 1 }}
               border={{
                 borderSize: 1,
@@ -407,30 +397,34 @@ class Main extends MyComponent<
               display={'flex'}
               verticalAlign={'center'}
             >
-              <Link href='/' useNormalAnchor>
+              <Controls.Link href='/' useNormalAnchor>
                 Link
-              </Link>
-            </Container>
-            <Divider />
+              </Controls.Link>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>ICON</h4>
-            <Container display={'flex'}>
-              <Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
-              <Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
-              <Icon size='large' color={'#3BE4C1'} icon={faChevronCircleRight} text={'Large'} />
-            </Container>
-            <Container display={'flex'}>
-              <Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
-              <Icon icon={'mobile'} text={'Passing ICON as a string'} />
-            </Container>
-            <Container display={'flex'}>
-              <Icon currency={'SGD'} /> &nbsp; &nbsp;
-              <Icon currency={'MYR'} /> &nbsp; &nbsp;
-              <Icon flag={'SGP'} /> &nbsp; &nbsp;
-              <Icon flag={'MYS'} /> &nbsp; &nbsp;
-            </Container>
-            <Container display={'flex'}>
-              {/* TO_DO: change the position of the flag so that the signature pattern will be reflected*/}
-              <Icon
+            <Controls.Container display={'flex'}>
+              <Controls.Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
+              <Controls.Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
+              <Controls.Icon
+                size='large'
+                color={'#3BE4C1'}
+                icon={faChevronCircleRight}
+                text={'Large'}
+              />
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
+              <Controls.Icon icon={'mobile'} text={'Passing ICON as a string'} />
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon currency={'SGD'} /> &nbsp; &nbsp;
+              <Controls.Icon currency={'MYR'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'SG'} /> &nbsp; &nbsp;
+              <Controls.Icon flag={'MY'} /> &nbsp; &nbsp;
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -447,7 +441,7 @@ class Main extends MyComponent<
                   console.log(1);
                 }}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   width: 40,
                   height: 40,
@@ -465,7 +459,7 @@ class Main extends MyComponent<
                   console.log(1);
                 }}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -474,12 +468,12 @@ class Main extends MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 60,
                   iconBackground: true
                 }}
                 currency={'SGD'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -488,12 +482,12 @@ class Main extends MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid',
-                  fontSize: 85,
+                  fontSize: 60,
                   iconBackground: true
                 }}
                 currency={'MYR'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -507,7 +501,7 @@ class Main extends MyComponent<
                 }}
                 flag={'IND'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -522,7 +516,7 @@ class Main extends MyComponent<
                 }}
                 currency={'PHP'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -536,7 +530,7 @@ class Main extends MyComponent<
                 }}
                 currency={'CNY'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -550,7 +544,7 @@ class Main extends MyComponent<
                 }}
                 currency={'EUR'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -564,7 +558,7 @@ class Main extends MyComponent<
                 }}
                 currency={'KRW'}
               />
-              <Icon
+              <Controls.Icon
                 badge={{
                   backgroundColor: 'rgba(220, 53, 69, 0.5)',
                   width: 40,
@@ -578,83 +572,84 @@ class Main extends MyComponent<
                 }}
                 flag={'MYS'}
               />
-            </Container>
-            <Divider />
+              {/* <Flag code={'SG'} /> */}
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Grid</h4>
-            <Grid>
-              <Grid.Row>
-                <Grid.Col col={3}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={6}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={3}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col col={8}>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-              <Grid.Row fitted equalWidth>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-                <Grid.Col>
-                  <Container height={50} backgroundColor={'#e1e1e1'} />
-                </Grid.Col>
-              </Grid.Row>
-            </Grid>
-            <Divider />
+            <Controls.Grid>
+              <Controls.Grid.Row>
+                <Controls.Grid.Col col={3}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={6}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={3}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col col={8}>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row fitted equalWidth>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+            </Controls.Grid>
+            <Controls.Divider />
             <h4>Image</h4>
-            <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
-              <Image
+            <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Controls.Image
                 backgroundColor={'#000'}
                 display={'inline-flex'}
                 padding={{ allPx: 15 }}
                 variant={'logo'}
               />
-              <Image
+              <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 padding={{ allPx: 15 }}
                 variant={'logo alt'}
               />
-              {/* <Image
+              {/*  <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 border={{
@@ -669,7 +664,7 @@ class Main extends MyComponent<
                 variant={'logo'}
                 padding={{ allPx: 15 }}
               />
-              <Image
+               <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 width={100}
@@ -677,7 +672,7 @@ class Main extends MyComponent<
                 badge
                 variant={'logo alt'}
               />
-              <Image
+               <Controls.Image
                 display={'inline-flex'}
                 margin={{ allPx: 15 }}
                 border={{
@@ -691,9 +686,9 @@ class Main extends MyComponent<
                 badge
                 src={'/images/ISTOX_Logo.png'}
               /> */}
-            </Container>
-            <Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
-              <Form
+            </Controls.Container>
+            <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
+              <Controls.Form
                 ref={(ref) => {
                   this.imageForm = ref;
                 }}
@@ -709,8 +704,8 @@ class Main extends MyComponent<
                   value={this.state.imageUrl}
                   uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
                 >
-                  <Container fluid verticalAlign={'center'}>
-                    <Image
+                  <Controls.Container fluid verticalAlign={'center'}>
+                    <Controls.Image
                       height={100}
                       margin={{ topPx: -50 }}
                       src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
@@ -719,7 +714,7 @@ class Main extends MyComponent<
                       Drag and drop or <br />
                       Click here to attached a file
                     </span>
-                  </Container>
+                  </Controls.Container>
                 </Controls.FormControl>
                 <Controls.Button
                   type='submit'
@@ -734,14 +729,14 @@ class Main extends MyComponent<
                 >
                   Fetch image from S3
                 </Controls.Button>
-              </Form>
-            </Container>
-            <Divider />
+              </Controls.Form>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>PopUps</h4>
-            <Toast />
-            <Button
+            <Controls.Toast />
+            <Controls.Button
               onPress={() => {
-                Toast.show({
+                Controls.Toast.show({
                   type: 'transaction_status_ok',
                   blockchainTransactionOptions: {
                     purpose: 'Hello',
@@ -751,17 +746,17 @@ class Main extends MyComponent<
               }}
             >
               Toast
-            </Button>
-            <Modal className={'abc'} visible={this.state.showModal}>
+            </Controls.Button>
+            <Controls.Modal className={'abc'} visible={this.state.showModal}>
               Modal
-            </Modal>
-            <Button
+            </Controls.Modal>
+            <Controls.Button
               variant='danger'
               onPress={() => {
                 this.setState({
                   loading: true
                 });
-                Confirm.show({
+                Controls.Confirm.show({
                   type: 'yesno',
                   message: 'hello',
                   onResult: (result) => {
@@ -771,8 +766,8 @@ class Main extends MyComponent<
               }}
             >
               Confirmation
-            </Button>
-            <Button
+            </Controls.Button>
+            <Controls.Button
               variant='info'
               loading={this.state.loading}
               onPress={() => {
@@ -780,14 +775,14 @@ class Main extends MyComponent<
               }}
             >
               Modal
-            </Button>
-            <Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
+            </Controls.Button>
+            <Controls.Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
               ToolTip
-            </Button>
-            <Button
+            </Controls.Button>
+            <Controls.Button
               variant='success'
               onPress={() => {
-                BlockchainTransaction.show({
+                Controls.BlockchainTransaction.show({
                   mqttClient: mqtt,
                   waitOptions: {
                     queueName: 'test'
@@ -797,11 +792,11 @@ class Main extends MyComponent<
               }}
             >
               Bottom Toast
-            </Button>
+            </Controls.Button>
             <br />
             <br />
             <h5>Toast with image, title and description</h5>
-            <Button
+            <Controls.Button
               onPress={() => {
                 NormalToast.show({
                   icon: faCheck,
@@ -811,53 +806,53 @@ class Main extends MyComponent<
               }}
             >
               Toast with image, title and description
-            </Button>
-            <Divider />
+            </Controls.Button>
+            <Controls.Divider />
             <h4>Progress</h4>
-            <ProgressBar margin={{ topPx: 20 }} value={20} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-            <ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-            <ProgressBar
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
+            <Controls.ProgressBar
               margin={{ topPx: 20 }}
               value={20}
               label={'Strong Password'}
               variant={'success'}
             />
-            <ProgressBar margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <ProgressBar gap width={200} margin={{ topPx: 20 }}>
-              <ProgressBar striped variant='success' value={25} order={1} />
-              <ProgressBar variant='info' value={25} order={2} />
-              <ProgressBar striped variant='warning' value={25} order={3} />
-              <ProgressBar striped variant='danger' value={25} order={4} />
-            </ProgressBar>
-            <Divider />
+            <Controls.ProgressBar margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.ProgressBar width={200} margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.ProgressBar gap width={200} margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
+            <Controls.Divider />
             <h4>Rating</h4>
-            <Rating defaultValue={2} maxValue={4} />
-            <Rating defaultValue={3} maxValue={4} />
-            <Rating defaultValue={4} maxValue={4} />
-            <Rating defaultValue={3} maxValue={3} />
-            <Rating defaultValue={2.5} width={200} maxValue={4} />
-            <Divider />
+            <Controls.Rating defaultValue={2} maxValue={4} />
+            <Controls.Rating defaultValue={3} maxValue={4} />
+            <Controls.Rating defaultValue={4} maxValue={4} />
+            <Controls.Rating defaultValue={3} maxValue={3} />
+            <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
+            <Controls.Divider />
             <h4>Table</h4>
-            <Table
+            <Controls.Table
               header={'HEADER'}
               footer={
-                <Item basic icon={faAdjust}>
+                <Controls.Item basic icon={faAdjust}>
                   Footer
-                </Item>
+                </Controls.Item>
               }
               basic
               columnHeaders={[
@@ -904,8 +899,8 @@ class Main extends MyComponent<
                 }
               ]}
             />
-            <Divider visibility={'hidden'} />
-            <Table
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Table
               columnHeaders={[
                 { title: 'Code' },
                 { title: 'Date Created' },
@@ -948,10 +943,10 @@ class Main extends MyComponent<
                 }
               ]}
             />
-            <Divider />
-            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Divider />
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
-              <Form
+              <Controls.Form
                 display={'grid'}
                 horizontal
                 error={String(404)}
@@ -1002,7 +997,7 @@ class Main extends MyComponent<
                 </Controls.Container>
                 <Controls.Container className={'form-group '} display={'flex'}>
                   <Controls.FormControl
-                    required
+                    // required
                     placeholder={'Placeholder'}
                     disabled={true}
                     ref={(ref) => {
@@ -1014,12 +1009,17 @@ class Main extends MyComponent<
                       </span>
                     }
                     extraControls={
-                      <Link>
-                        <Icon icon={faPlus} text={'Extra control'} />
-                      </Link>
+                      this.state.error === 'yes' && (
+                        <Controls.Transition>
+                          <Controls.Message variant='danger' message='Hello i am a default!' />
+                        </Controls.Transition>
+                      )
+                      // <Controls.Link>
+                      //   <Controls.Icon icon={faPlus} text={'Extra control'} />
+                      // </Controls.Link>
                     }
                     append={
-                      <Button
+                      <Controls.Button
                         float={'left'}
                         textAlign={'center'}
                         type={'submit'}
@@ -1027,10 +1027,13 @@ class Main extends MyComponent<
                           console.log(this.form.getInputValue('dropdown'));
                           console.log(this.form.getFormData());
                           console.log(this.form.getInputValue('areacode'));
+                          this.setState({
+                            error: 'yes'
+                          });
                         }}
                       >
                         Submit
-                      </Button>
+                      </Controls.Button>
                     }
                     name='hi'
                     type={'money'}
@@ -1051,7 +1054,7 @@ class Main extends MyComponent<
                   type={'text'}
                   placeholder={'Search'}
                   value=''
-                  prepend={<Icon icon={faSearch} />}
+                  prepend={<Controls.Icon icon={faSearch} />}
                 />
                 <Controls.FormControl
                   required
@@ -1112,7 +1115,7 @@ class Main extends MyComponent<
                     console.log(value);
                   }}
                   append={
-                    <Button
+                    <Controls.Button
                       float={'left'}
                       textAlign={'center'}
                       type={'submit'}
@@ -1121,14 +1124,17 @@ class Main extends MyComponent<
                       }}
                     >
                       Change Date
-                    </Button>
+                    </Controls.Button>
                   }
                 />
                 <Controls.FormControl
                   required
                   label={'DateTime'}
                   name='datetime'
-                  type={'datetime'}
+                  type={'date'}
+                  dateOptions={{
+                    showTimeSelect: true
+                  }}
                   onInputChanged={(value) => {
                     console.log(value);
                   }}
@@ -1139,7 +1145,7 @@ class Main extends MyComponent<
                   name='daterange'
                   type={'daterange'}
                   placeholder={''}
-                  value={Formatter.dateToUnixTimestamp(new Date())}
+                  // value={Formatter.dateToUnixTimestamp(new Date())}
                   dateOptions={{
                     showTimeSelect: false
                   }}
@@ -1210,7 +1216,7 @@ class Main extends MyComponent<
                   }}
                   // static={true}
                   append={
-                    <Button
+                    <Controls.Button
                       float={'left'}
                       textAlign={'center'}
                       type={'submit'}
@@ -1234,7 +1240,7 @@ class Main extends MyComponent<
                       }}
                     >
                       Change Dropdown
-                    </Button>
+                    </Controls.Button>
                   }
                 />
 
@@ -1244,27 +1250,37 @@ class Main extends MyComponent<
                   name='Dropdown'
                   placeholder='Choose'
                   type={'customselect'}
-                  value={'hei!'}
                   selectCustomOptions={[
                     {
                       label: 'Option1',
                       value: 'hei!',
-                      image: '/images/ISTOX_Logo.png'
+                      html: (
+                        <Controls.Container>
+                          <Controls.Icon
+                            badge={{
+                              backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                              width: 40,
+                              height: 40,
+                              borderSize: 1,
+                              borderRadius: 50,
+                              borderColor: '#FFF',
+                              borderStyle: 'solid',
+                              fontSize: 100,
+                              iconBackground: true
+                            }}
+                            currency={'SGD'}
+                          />
+                        </Controls.Container>
+                      )
                     },
                     {
                       label: 'Option2',
                       value: 'abcl',
-                      image: '/images/ISTOX_Logo.png'
+                      html: <Controls.Image fullWidth src={'/images/ISTOX_Logo.png'} />
                     }
                   ]}
                 />
-                <Controls.FormControl
-                  value={'Singapore'}
-                  label={'Country'}
-                  name='country'
-                  type={'country'}
-                  required
-                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
@@ -1304,18 +1320,18 @@ class Main extends MyComponent<
                     }
                   ]}
                 />
-              </Form>
-            </Container>
-            <Divider />
+              </Controls.Form>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Item</h4>
-            <Item
+            <Controls.Item
               icon={faCheckCircle}
               title={'Title'}
               description={
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Item
+            <Controls.Item
               icon={faCheckCircle}
               image={'/images/ISTOX_Logo.png'}
               title={'Title'}
@@ -1323,7 +1339,7 @@ class Main extends MyComponent<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Item
+            <Controls.Item
               basic
               icon={faCheckCircle}
               title={'Title'}
@@ -1331,108 +1347,112 @@ class Main extends MyComponent<
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
               }
             />
-            <Divider visibility={'hidden'} />
-            <Item icon={faCheckCircle}>
-              <Container widthPercent={100} verticalAlign={'center'}>
-                <Card
+            <Controls.Divider visibility={'hidden'} />
+            <Controls.Item icon={faCheckCircle}>
+              <Controls.Container widthPercent={100} verticalAlign={'center'}>
+                <Controls.Card
                   leftIcon={faInfoCircle}
                   rightIcon={faCheckCircle}
                   icon={faUser}
                   title={'Title'}
                 />
-                <ProgressBar gap width={200}>
-                  <ProgressBar striped variant='success' value={25} order={1} />
-                  <ProgressBar variant='info' value={25} order={2} />
-                  <ProgressBar striped variant='warning' value={25} order={3} />
-                  <ProgressBar striped variant='danger' value={25} order={4} />
-                </ProgressBar>
-                <Button float={'right'} size='small' variant='primary'>
+                <Controls.ProgressBar gap width={200}>
+                  <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                  <Controls.ProgressBar variant='info' value={25} order={2} />
+                  <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+                  <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                </Controls.ProgressBar>
+                <Controls.Button float={'right'} size='small' variant='primary'>
                   Small
-                </Button>
-              </Container>
-            </Item>
-            <Divider />
+                </Controls.Button>
+              </Controls.Container>
+            </Controls.Item>
+            <Controls.Divider />
             <h4>Card</h4>
-            <Container display={'flex'}>
-              <Card
+            <Controls.Container display={'flex'}>
+              <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}
                 icon={faUser}
                 title={'Title'}
               />
-              <Card
+              <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}
                 image={'/images/ISTOX_Logo.png'}
                 title={'Title'}
               />
-              <Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
-                <Button float={'none'} size='small' variant='primary'>
+              <Controls.Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
+                <Controls.Button float={'none'} size='small' variant='primary'>
                   Small
-                </Button>
-              </Card>
-            </Container>
-            <Divider />
+                </Controls.Button>
+              </Controls.Card>
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Message</h4>
-            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <Transition>
-                <Message icon={faCheckCircle} message='Hello i am a default!' />
-                <Message
+                <Controls.Message icon={faCheckCircle} message='Hello i am a default!' />
+                <Controls.Message
                   variant={'success'}
                   icon={faCheckCircle}
                   message={'Hello i am a success!'}
                 />
-                <Message
+                <Controls.Message
                   variant={'warning'}
                   icon={faTimesCircle}
                   message='Hello i am an warning!'
                 />
-                <Message variant={'info'} icon={faInfoCircle} message='Hello i am a info!' />
-                <Message
+                <Controls.Message
+                  variant={'info'}
+                  icon={faInfoCircle}
+                  message='Hello i am a info!'
+                />
+                <Controls.Message
                   variant={'danger'}
                   icon={faExclamationCircle}
                   message='Hello i am an error!'
                 />
-                <Divider visibility={'hidden'} />
-                <Message outline icon={faInfoCircle} message='Hello i am a default!' />
-                <Message
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message outline icon={faInfoCircle} message='Hello i am a default!' />
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'success'}
                   message='Hello i am a success!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'warning'}
                   message='Hello i am an warning!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'info'}
                   message='Hello i am a info!'
                 />
-                <Message
+                <Controls.Message
                   outline
                   icon={faInfoCircle}
                   variant={'danger'}
                   message='Hello i am an error!'
                 />
-                <Divider visibility={'hidden'} />
-                <Message message='Hello i am a default!' />
-                <Message variant={'success'} message='Hello i am a success!' />
-                <Message variant={'warning'} message='Hello i am an warning!' />
-                <Message variant={'info'} message='Hello i am a info!' />
-                <Message variant={'danger'} message='Hello i am an error!' />
-                <Divider visibility={'hidden'} />
-                <Message outline message='Hello i am a default!' />
-                <Message outline variant={'success'} message='Hello i am a success!' />
-                <Message outline variant={'warning'} message='Hello i am an warning!' />
-                <Message outline variant={'info'} message='Hello i am a info!' />
-                <Message outline variant={'danger'} message='Hello i am an error!' />
-                <Divider visibility={'hidden'} />
-                <Message
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message message='Hello i am a default!' />
+                <Controls.Message variant={'success'} message='Hello i am a success!' />
+                <Controls.Message variant={'warning'} message='Hello i am an warning!' />
+                <Controls.Message variant={'info'} message='Hello i am a info!' />
+                <Controls.Message variant={'danger'} message='Hello i am an error!' />
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message outline message='Hello i am a default!' />
+                <Controls.Message outline variant={'success'} message='Hello i am a success!' />
+                <Controls.Message outline variant={'warning'} message='Hello i am an warning!' />
+                <Controls.Message outline variant={'info'} message='Hello i am a info!' />
+                <Controls.Message outline variant={'danger'} message='Hello i am an error!' />
+                <Controls.Divider visibility={'hidden'} />
+                <Controls.Message
                   fluid
                   justifyContent={'left'}
                   outline
@@ -1441,11 +1461,13 @@ class Main extends MyComponent<
                   message='Hello i am an warning!'
                 />
               </Transition>
-            </Container>
-            <Divider />
+            </Controls.Container>
+            <Controls.Divider />
             <h4>Breadcrumbs</h4>
-            <Breadcrumbs links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]} />
-            <Divider />
+            <Controls.Breadcrumbs
+              links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]}
+            />
+            <Controls.Divider />
             <h4>Custom tooltip</h4>
             <Controls.Container
               width={200}
@@ -1466,10 +1488,10 @@ class Main extends MyComponent<
             >
               Sample tooltip open on hover
             </Controls.Container>
-            <Divider />
-            <Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Divider />
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
             <h4>Input text with only alphabet and date</h4>
-            <Form
+            <Controls.Form
                 display={'grid'}
                 horizontal
                 //error={String(404)}
@@ -1522,10 +1544,10 @@ class Main extends MyComponent<
                   </Controls.Button>
                 }
               />
-            </Form>
-            </Container>
-            <Divider />
-            <Container>
+            </Controls.Form>
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
               <h4>pagination</h4>
               <Pagination>
                 <Pagination.First />
@@ -1562,27 +1584,27 @@ class Main extends MyComponent<
                 //subContainerClassName={'pages pagination'}
                 activeClassName={'active'}
               />
-              </Container>
-              <Divider />
-              <Container>
+              </Controls.Container>
+              <Controls.Divider />
+              <Controls.Container>
                 <h4>pie chart</h4>
                 <PieChart
                   severe={1}
                   moderate={2}
                   mild={3}
                 />
-              </Container>
-              <Divider />
-              <Container>
+              </Controls.Container>
+              <Controls.Divider />
+              <Controls.Container>
                 <h4> hightlighted information pop-up</h4>
-              </Container>
+              </Controls.Container>
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
-          </Container>
-          <Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
-          </WrapperContainer>
-        </RootContainer>
-        <Footer />
+          </Controls.Container>
+           <Controls.Image src={'abc.png'} alt={<Controls.Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
+          </Controls.WrapperContainer>
+        </Controls.RootContainer>
+        <Controls.Footer />
       </React.Fragment>
     );
   }

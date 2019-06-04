@@ -11,6 +11,8 @@ interface IBadge {
     width?: number;
     iconBackground?: boolean;
     fontSize?: number;
+    topPx?: number;
+    leftPx?: number;
 }
 interface IProps extends IContainer {
     icon: any;

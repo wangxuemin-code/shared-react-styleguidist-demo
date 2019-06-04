@@ -42,15 +42,13 @@ export class Link extends React.Component<ILink> {
       } else {
         return (
           <ReactRouterLink to={this.props.href}>
-            <Container className={classes.join(' ')} {...linkProps}>
-              {this.props.children}
-            </Container>
+            <Container {...linkProps}>{this.props.children}</Container>
           </ReactRouterLink>
         );
       }
     } else {
       return (
-        <a href={this.props.href}>
+        <a onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
           <Container className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>

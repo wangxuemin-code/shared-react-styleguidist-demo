@@ -8,6 +8,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
 import SVG from 'react-inlinesvg';
 import { countries } from 'country-data';
+import ReactCountryFlag from 'react-country-flag';
 
 interface IBadge {
   borderSize?: number;
@@ -140,38 +141,22 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'flag':
-        // console.log("iconStyle", iconStyle);
-        const flag = countries.all.filter((obj: any) => obj.alpha3 === this.props.flag)[0];
+        const flag = countries.all.filter((obj: any) => obj.alpha2 === this.props.flag)[0];
         return (
-          <Container style={iconStyle} className={styles.flag} {...this.props}>
-            {flag && flag.emoji}
+          <Container className={styles.flag} {...this.props}>
+            {flag && <ReactCountryFlag code={flag.alpha2} svg />}
           </Container>
         );
         break;
       case 'currency':
-        // EUR is used by multiple countries as currencies
-        // the emoji flag of European Union is linked with no alpha3 code
-        //the emoji is hardcoded here for display purpose
-        if (this.props.currency === 'EUR') {
-          const europeanUnioncurrency = countries.all.filter(
-            (obj: any) => obj.alpha2 === 'EU'
-          )[0];
-          return (
-            <Container style={iconStyle} className={styles.flag} {...this.props}>
-              {europeanUnioncurrency && europeanUnioncurrency.emoji}
-            </Container>
-          );
-          
-        } else {
-          const currency = countries.all.filter(
-            (obj: any) => obj.currencies[0] === this.props.currency
-          )[0];
-          return (
-            <Container style={iconStyle} className={styles.flag} {...this.props}>
-              {currency && currency.emoji}
-            </Container>
-          );
-        }
+        const currency = countries.all.filter(
+          (obj: any) => obj.currencies[0] === this.props.currency
+        )[0];
+        return (
+          <Container className={styles.flag} {...this.props}>
+            {currency && <ReactCountryFlag code={currency.alpha2} svg />}
+          </Container>
+        );
         break;
     }
   }

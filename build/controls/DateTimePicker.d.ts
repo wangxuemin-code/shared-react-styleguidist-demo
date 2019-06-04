@@ -10,10 +10,13 @@ interface IProps extends IContainer {
     type?: string;
     placeholder?: string;
     value?: number | string;
-    onChange?: (newTimestamp: number, newDate: Date) => void;
+    onChange?: (newTimestamp: number | string, newDate: Date) => void;
     options: IDateOption;
+    startDate?: Date;
+    endDate?: Date;
 }
 interface IState {
+    selectedUnixTimestamp?: number;
     selectedStartUnixTimestamp?: number;
     selectedEndUnixTimestamp?: number;
 }
@@ -23,6 +26,8 @@ export declare class DateTimePicker extends React.Component<IProps, IState> {
     componentDidUpdate(prevProps: IProps): void;
     render(): JSX.Element;
     private updateStateWithProps;
+    private handleChangeRaw;
+    private handleChange;
     private handleChangeRawStart;
     private handleChangeStart;
     private handleChangeRawEnd;
