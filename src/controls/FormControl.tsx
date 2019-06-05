@@ -123,8 +123,10 @@ export class FormControl extends React.Component<IProps, IState> {
   public componentDidUpdate(prevProps: IProps) {
     if (
       prevProps.value !== this.props.value ||
-      prevProps.selectOptions !== this.props.selectOptions ||
-      prevProps.selectCustomOptions !== this.props.selectCustomOptions
+      (prevProps.selectOptions !== this.props.selectOptions &&
+        prevProps.selectOptions == undefined) ||
+      (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
+        prevProps.selectCustomOptions == undefined)
     ) {
       if (this.props.type === 'checkbox' && this.props.value == undefined) {
         return false;
@@ -246,7 +248,7 @@ export class FormControl extends React.Component<IProps, IState> {
         if (!re.test(String(this.state.value))) {
           if (setErrorState) {
             this.setState({
-              error: 'input field is not valid, only alphabets are allowed', 
+              error: 'input field is not valid, only alphabets are allowed',
               showError: true
             });
           }
@@ -259,10 +261,11 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /^[0-9]{2,2}-[0-9]{2,2}-[0-9]{4,4}$/;
         if (!re.test(String(this.state.value))) {
-          if (setErrorState) 
+          if (setErrorState)
             this.setState({
-              error: 'date format is invalid, only DD-MM-YYYY is allowed', 
-              showError: true});
+              error: 'date format is invalid, only DD-MM-YYYY is allowed',
+              showError: true
+            });
           return false;
         }
       }
@@ -764,13 +767,13 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private onSetOption = (selectedOption: any) => {
-    let value = selectedOption.value;
-    if (value.constructor === Array) {
-      value = selectedOption.value[0];
+    let newValue = selectedOption.value;
+    if (newValue.constructor === Array) {
+      newValue = selectedOption.value[0];
     }
-    this.setState({ displayValue: selectedOption, value: value, showError: false });
+    this.setState({ displayValue: newValue, value: newValue, showError: false });
     if (this.props.onInputChanged) {
-      this.props.onInputChanged(selectedOption, this.props.name || '');
+      this.props.onInputChanged(newValue, this.props.name || '');
     }
   };
 
@@ -966,7 +969,7 @@ export class FormControl extends React.Component<IProps, IState> {
             value: !re.test(value) ? '' : value
           };
         } else if (this.props.type === 'alphabet') {
-          const re=/^[a-zA-Z]+$/;
+          const re = /^[a-zA-Z]+$/;
           return {
             displayValue: !re.test(value) ? '' : value,
             value: !re.test(value) ? '' : value

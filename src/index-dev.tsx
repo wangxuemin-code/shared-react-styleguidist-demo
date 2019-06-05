@@ -1105,7 +1105,20 @@ class Main extends Controls.MyComponent<
                   }}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
-
+                <Controls.FormControl
+                  required
+                  label={'Alpha only'}
+                  name='alphbet'
+                  placeholder={'Only alphbet allowed'}
+                  type={'alphabet'}
+                />
+                <Controls.FormControl
+                  required={true}
+                  name={'date-format'}
+                  label={'Date'}
+                  placeholder='only DD-MM-YYYY format is allowed'
+                  type={'dateText'}
+                />
                 <Controls.FormControl
                   required
                   label={'Date'}
@@ -1494,64 +1507,6 @@ class Main extends Controls.MyComponent<
               Sample tooltip open on hover
             </Controls.Container>
             <Controls.Divider />
-            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-              <h4>Input text with only alphabet and date</h4>
-              <Controls.Form
-                // display={'grid'}
-                horizontal
-                //error={String(404)}
-                ref={(ref) => {
-                  if (ref) {
-                    this.form = ref;
-                    // this.form.reset();
-                  }
-                }}
-                onSubmit={() => {
-                  // console.log(this.form.reset());
-                  console.log('FORM SUBMITTED');
-                  this.setState({
-                    success: '',
-                    error: ''
-                  });
-                }}
-              >
-                <Controls.FormControl
-                  required
-                  label={'name'}
-                  name='name with only alphbet'
-                  placeholder={'name with only alphabet'}
-                  type={'alphabet'}
-                  append={
-                    <Controls.Button
-                      float={'left'}
-                      width={130}
-                      textAlign={'center'}
-                      type={'submit'}
-                    >
-                      Submit
-                    </Controls.Button>
-                  }
-                />
-                <Controls.FormControl
-                  required={true}
-                  placeholder={'DD-MM-YYYY'}
-                  label={'date'}
-                  name='only DD-MM-YYYY format is allowed'
-                  type={'dateText'}
-                  append={
-                    <Controls.Button
-                      float={'left'}
-                      width={130}
-                      textAlign={'center'}
-                      type={'submit'}
-                    >
-                      Submit
-                    </Controls.Button>
-                  }
-                />
-              </Controls.Form>
-            </Controls.Container>
-            <Controls.Divider />
             <Controls.Container>
               <h4>pagination</h4>
               <ul className='pagination'>
@@ -1575,34 +1530,23 @@ class Main extends Controls.MyComponent<
                 pageRangeDisplayed={3}
               />
               <br />
-              <Controls.Pagination
-                pageCount={7}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={3}
-              />
+              <Controls.Pagination pageCount={7} marginPagesDisplayed={2} pageRangeDisplayed={3} />
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4>pie chart</h4>
+              <Controls.Container position={'absolute'} />
+              <Controls.Container position={'absolute'}>
+                <Controls.PieChart displayType={'moderate'} />
               </Controls.Container>
-              <Controls.Divider />
-              <Controls.Container>
-                <h4>pie chart</h4>
-                <Controls.Container position={'absolute'}>
-                </Controls.Container>
-                <Controls.Container position={'absolute'}>
-                  <Controls.PieChart
-                    displayType={'moderate'}
-                  />
-                </Controls.Container>
-                <Controls.Container position={'relative'}>
-                  <Controls.DoughNutChart 
-                    severe={1}
-                    moderate={2}
-                    mild={3}
-                  />
-                </Controls.Container>
+              <Controls.Container position={'relative'}>
+                <Controls.DoughNutChart severe={1} moderate={2} mild={3} />
               </Controls.Container>
-              <Controls.Divider />
-              <Controls.Container>
-                <h4> hightlighted information pop-up</h4>
-              </Controls.Container>
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4> hightlighted information pop-up</h4>
+            </Controls.Container>
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Controls.Container>
