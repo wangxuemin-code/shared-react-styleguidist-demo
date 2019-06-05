@@ -13,7 +13,8 @@ export interface TableHeaderModel {
 }
 
 export interface TableRowModel {
-  rowContents: any[];
+  rowContents?: any[];
+  rawRowContent?: any;
   rowActions?: TableActionsModel[];
   onClick?: () => void;
 }
@@ -82,42 +83,46 @@ export class Table extends React.Component<IProps, any> {
   }
 
   private getRowDesign(tableRowModel: TableRowModel, index: number) {
-    return (
-      <tr key={index} onClick={tableRowModel.onClick}>
-        {tableRowModel.rowContents.map((content, columnIndex) => {
-          if (content.icon) {
-            <Container>
-              {tableRowModel.rowActions &&
-                tableRowModel.rowActions.map((tableActionsModel) => {
-                  return this.getActionDesign(tableActionsModel, uniqid().toString());
-                })}
-            </Container>;
-          } else {
-            let min: boolean | undefined = false;
-            if (this.props.columnHeaders && this.props.columnHeaders.length > columnIndex) {
-              min = this.props.columnHeaders[columnIndex].min;
+    if (tableRowModel.rowContents) {
+      return (
+        <tr key={index} onClick={tableRowModel.onClick}>
+          {tableRowModel.rowContents.map((content, columnIndex) => {
+            if (content.icon) {
+              <Container>
+                {tableRowModel.rowActions &&
+                  tableRowModel.rowActions.map((tableActionsModel) => {
+                    return this.getActionDesign(tableActionsModel, uniqid().toString());
+                  })}
+              </Container>;
+            } else {
+              let min: boolean | undefined = false;
+              if (this.props.columnHeaders && this.props.columnHeaders.length > columnIndex) {
+                min = this.props.columnHeaders[columnIndex].min;
+              }
+
+              return (
+                <td key={uniqid().toString()} className={min ? styles.min : ''}>
+                  <Container>{content}</Container>
+                </td>
+              );
             }
+          })}
 
-            return (
-              <td key={uniqid().toString()} className={min ? styles.min : ''}>
-                <Container>{content}</Container>
-              </td>
-            );
-          }
-        })}
-
-        {tableRowModel.rowActions && tableRowModel.rowActions.length > 0 && (
-          <td className={styles.actionContainer} key='action'>
-            <Container>
-              {tableRowModel.rowActions &&
-                tableRowModel.rowActions.map((tableActionsModel) => {
-                  return this.getActionDesign(tableActionsModel, uniqid().toString());
-                })}
-            </Container>
-          </td>
-        )}
-      </tr>
-    );
+          {tableRowModel.rowActions && tableRowModel.rowActions.length > 0 && (
+            <td className={styles.actionContainer} key='action'>
+              <Container>
+                {tableRowModel.rowActions &&
+                  tableRowModel.rowActions.map((tableActionsModel) => {
+                    return this.getActionDesign(tableActionsModel, uniqid().toString());
+                  })}
+              </Container>
+            </td>
+          )}
+        </tr>
+      );
+    } else {
+      return tableRowModel.rawRowContent;
+    }
   }
 
   private getActionDesign(tableActionsModel: TableActionsModel, index: number) {
