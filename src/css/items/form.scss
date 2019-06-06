@@ -15,7 +15,7 @@ $borderRadius: 0.375rem;
     box-shadow: none;
   }
   input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
-    min-width: 18.571428571428573rem;
+    // min-width: 18.571428571428573rem;
   }
   input:focus,
   select:focus,
@@ -30,6 +30,11 @@ $borderRadius: 0.375rem;
       margin: 0;
       div {
         padding: 0;
+      }
+
+      .flag {
+        display: inherit;
+        padding-top: 2px;
       }
     }
     div {

@@ -34,6 +34,8 @@ interface IProps extends IContainer {
   value?: string | number | null;
   placeholder?: any;
   type?:
+    | 'alphabet'
+    | 'dateText'
     | 'text'
     | 'number'
     | 'numberfields'
@@ -121,8 +123,10 @@ export class FormControl extends React.Component<IProps, IState> {
   public componentDidUpdate(prevProps: IProps) {
     if (
       prevProps.value !== this.props.value ||
-      prevProps.selectOptions !== this.props.selectOptions ||
-      prevProps.selectCustomOptions !== this.props.selectCustomOptions
+      (prevProps.selectOptions !== this.props.selectOptions &&
+        prevProps.selectOptions == undefined) ||
+      (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
+        prevProps.selectCustomOptions == undefined)
     ) {
       if (this.props.type === 'checkbox' && this.props.value == undefined) {
         return false;
@@ -131,7 +135,6 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (prevProps.extraControls !== this.props.extraControls) {
-      console.log(this.props.extraControls);
       this.setState({ extraControls: this.props.extraControls });
     }
   }
@@ -239,6 +242,35 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     }
 
+    if (this.props.type === 'alphabet') {
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /^[A-Za-z]+$/;
+        if (!re.test(String(this.state.value))) {
+          if (setErrorState) {
+            this.setState({
+              error: 'input field is not valid, only alphabets are allowed',
+              showError: true
+            });
+          }
+          return false;
+        }
+      }
+    }
+
+    if (this.props.type === 'dateText') {
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        const re = /^[0-9]{2,2}-[0-9]{2,2}-[0-9]{4,4}$/;
+        if (!re.test(String(this.state.value))) {
+          if (setErrorState)
+            this.setState({
+              error: 'date format is invalid, only DD-MM-YYYY is allowed',
+              showError: true
+            });
+          return false;
+        }
+      }
+    }
+
     if (this.props.type === 'email') {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -252,12 +284,13 @@ export class FormControl extends React.Component<IProps, IState> {
 
     if (this.props.type === 'password') {
       if (this.props.required || (!this.props.required && this.state.value)) {
-        const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        // const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+        const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/;
         if (!re.test(String(this.state.value))) {
           if (setErrorState)
             this.setState({
               error:
-                'Password must contain at least one number, one lowercase letter, one uppercase letter and at least six characters',
+                'Password must contain at least one number, one lowercase letter, one uppercase letter, one special chatacter and eight characters in length',
               showError: true
             });
           return false;
@@ -375,7 +408,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -385,7 +418,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -395,9 +428,9 @@ export class FormControl extends React.Component<IProps, IState> {
       countries.all.map((option) => {
         if (option.countryCallingCodes.length && option.emoji) {
           var obj = {
-            label: option.countryCallingCodes,
-            value: option.countryCallingCodes,
-            image: option.emoji,
+            label: option.countryCallingCodes[0],
+            value: option.countryCallingCodes[0],
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -445,7 +478,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -455,7 +488,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -467,7 +500,7 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.name,
             value: option.name,
-            image: option.emoji,
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -513,7 +546,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.Option {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.Option>
@@ -523,7 +556,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <components.SingleValue {...innerProps}>
             <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
           </components.SingleValue>
@@ -535,7 +568,7 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,
-            image: option.emoji,
+            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
@@ -734,13 +767,13 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private onSetOption = (selectedOption: any) => {
-    let value = selectedOption.value;
-    if (value.constructor === Array) {
-      value = selectedOption.value[0];
+    let newValue = selectedOption.value;
+    if (newValue.constructor === Array) {
+      newValue = selectedOption.value[0];
     }
-    this.setState({ displayValue: selectedOption, value: value, showError: false });
+    this.setState({ displayValue: newValue, value: newValue, showError: false });
     if (this.props.onInputChanged) {
-      this.props.onInputChanged(selectedOption, this.props.name || '');
+      this.props.onInputChanged(newValue, this.props.name || '');
     }
   };
 
@@ -820,6 +853,11 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private validateValueCanChanged(value: string): boolean {
+    if (this.props.type == 'password') {
+      if (/\s/.test(value)) {
+        return false;
+      }
+    }
     if (this.props.type === 'money' || this.props.type === 'number') {
       const temp = value.split('.');
       if (temp.length === 2) {
@@ -926,6 +964,18 @@ export class FormControl extends React.Component<IProps, IState> {
           };
         } else if (this.props.type === 'numeric') {
           const re = /^\d+$/;
+          return {
+            displayValue: !re.test(value) ? '' : value,
+            value: !re.test(value) ? '' : value
+          };
+        } else if (this.props.type === 'alphabet') {
+          const re = /^[a-zA-Z]+$/;
+          return {
+            displayValue: !re.test(value) ? '' : value,
+            value: !re.test(value) ? '' : value
+          };
+        } else if (this.props.type === 'dateText') {
+          const re = /^[0-9-]+$/;
           return {
             displayValue: !re.test(value) ? '' : value,
             value: !re.test(value) ? '' : value

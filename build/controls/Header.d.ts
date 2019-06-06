@@ -18,9 +18,11 @@ interface IHeader extends IContainer {
     className?: string;
     logo?: string | boolean;
     userAction?: boolean;
+    username?: string;
 }
 interface IState {
     showSubMenu: boolean;
+    username: string;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
@@ -28,6 +30,7 @@ export declare class Header extends React.Component<IHeader, IState> {
         subLinks: never[];
     };
     constructor(props: IHeader);
+    componentDidUpdate(prevProps: IHeader): void;
     toggleClass(): void;
     addDefaultSrc(ev: any): void;
     render(): JSX.Element;

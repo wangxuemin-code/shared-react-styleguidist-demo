@@ -30,10 +30,12 @@ interface IHeader extends IContainer {
   className?: string;
   logo?: string | boolean;
   userAction?: boolean;
+  username?: string;
 }
 
 interface IState {
   showSubMenu: boolean;
+  username: string;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -44,9 +46,14 @@ export class Header extends React.Component<IHeader, IState> {
 
   constructor(props: IHeader) {
     super(props);
-
-    this.state = { showSubMenu: false };
+    this.state = { showSubMenu: false, username: '' };
     this.showSubMenu = this.showSubMenu.bind(this);
+  }
+
+  public componentDidUpdate(prevProps: IHeader) {
+    if (prevProps.username !== this.props.username && this.props.username) {
+      this.setState({ username: this.props.username });
+    }
   }
 
   toggleClass() {
@@ -89,14 +96,13 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <li key={href} className={selected ? 'selected' : ''}>
         {useAnchorTag && (
-          <a href={href}>
+          <Controls.Link href={href} underline={false}>
             {title}
             <div className={styles.underline} />
-          </a>
+          </Controls.Link>
         )}
-
         {!useAnchorTag && (
-          <Controls.Link useNormalAnchor href={href}>
+          <Controls.Link useNormalAnchor href={href} underline={false}>
             {title}
             <div className={styles.underline} />
           </Controls.Link>
@@ -114,7 +120,9 @@ export class Header extends React.Component<IHeader, IState> {
         <Icon size='large' icon={faUserCircle} />
         <Container className={styles.text}>
           {this.getUsername()}
-          {((this.props.subLinks && this.props.subLinks.length) || Cookies.get('account')) && (
+          {((this.props.subLinks && this.props.subLinks.length) ||
+            Cookies.get('account') ||
+            this.state.username !== '') && (
             <>
               &nbsp; <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
             </>
@@ -129,6 +137,8 @@ export class Header extends React.Component<IHeader, IState> {
     const accountEmail = Cookies.get('account');
     if (accountEmail) {
       return accountEmail.split('@')[0];
+    } else if (this.state.username !== '') {
+      return this.state.username;
     } else {
       return 'Guest';
     }

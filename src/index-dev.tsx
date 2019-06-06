@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
 import { Controls } from './index-prod';
-import { Transition } from './controls/Transition';
 import {
   faAddressBook,
   faAdjust,
@@ -14,17 +13,12 @@ import {
   faInfoCircle,
   faSearch,
   faUser,
-  faChevronCircleRight
+  faChevronCircleRight,
+  faCheck
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-var uniqid = require('uniqid');
-// import { CandleStickChart } from './controls/CandleStickChart';
-// import { LineChart } from './controls/LineChart';
-// import Truncate from 'react-truncate';
-// import { Router, Route } from 'react-router';
-// import { BrowserRouter } from 'react-router-dom';
-// import { ToastContainer, toast } from 'react-toastify';
 
+var uniqid = require('uniqid');
 const mqtt = new Mqtt({
   host: 'localhost',
   port: 35675,
@@ -32,7 +26,6 @@ const mqtt = new Mqtt({
     console.log('connected!');
   }
 });
-
 // const mqtt = new Mqtt({
 //   host: 'diligent-goat.rmq.cloudamqp.com',
 //   username: 'jxlsbgfq:jxlsbgfq',
@@ -149,8 +142,12 @@ class Main extends Controls.MyComponent<
           <Controls.Header
             logo={true}
             className={'istox-header'}
-            mainLinks={[{ title: 'Wallet', path: 'wallet', selected: false, useAnchorTag: true }]}
+            mainLinks={[
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: false },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: false }
+            ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            username={this.state.email}
             userAction
           />
           <Controls.WrapperContainer>
@@ -488,7 +485,92 @@ class Main extends Controls.MyComponent<
                   fontSize: 60,
                   iconBackground: true
                 }}
-                flag={'MY'}
+                currency={'MYR'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85
+                  //iconBackground: true
+                }}
+                flag={'IND'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 90,
+                  iconBackground: true,
+                  topPx: 1
+                }}
+                currency={'PHP'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                currency={'CNY'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85
+                  //iconBackground: true
+                }}
+                currency={'EUR'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85
+                  //iconBackground: true
+                }}
+                currency={'KRW'}
+              />
+              <Controls.Icon
+                badge={{
+                  backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                  width: 40,
+                  height: 40,
+                  borderSize: 1,
+                  borderRadius: 50,
+                  borderColor: '#FFF',
+                  borderStyle: 'solid',
+                  fontSize: 85,
+                  iconBackground: true
+                }}
+                flag={'MYS'}
               />
               {/* <Flag code={'SG'} /> */}
             </Controls.Container>
@@ -711,6 +793,20 @@ class Main extends Controls.MyComponent<
             >
               Bottom Toast
             </Controls.Button>
+            <br />
+            <br />
+            <h5>Toast with image, title and description</h5>
+            <Controls.Button
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here'
+                });
+              }}
+            >
+              Toast with image, title and description
+            </Controls.Button>
             <Controls.Divider />
             <h4>Progress</h4>
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
@@ -851,7 +947,7 @@ class Main extends Controls.MyComponent<
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
               <h4>Form Elements</h4>
               <Controls.Form
-                display={'grid'}
+                // display={'grid'}
                 horizontal
                 error={String(404)}
                 ref={(ref) => {
@@ -890,6 +986,11 @@ class Main extends Controls.MyComponent<
                         width={130}
                         textAlign={'center'}
                         type={'submit'}
+                        onPress={() => {
+                          this.setState({
+                            email: 'Username'
+                          });
+                        }}
                       >
                         Send Code
                       </Controls.Button>
@@ -1004,7 +1105,20 @@ class Main extends Controls.MyComponent<
                   }}
                 />
                 <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
-
+                <Controls.FormControl
+                  required
+                  label={'Alpha only'}
+                  name='alphbet'
+                  placeholder={'Only alphbet allowed'}
+                  type={'alphabet'}
+                />
+                <Controls.FormControl
+                  required={true}
+                  name={'date-format'}
+                  label={'Date'}
+                  placeholder='only DD-MM-YYYY format is allowed'
+                  type={'dateText'}
+                />
                 <Controls.FormControl
                   required
                   label={'Date'}
@@ -1295,7 +1409,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Message</h4>
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-              <Transition>
+              <Controls.Transition>
                 <Controls.Message icon={faCheckCircle} message='Hello i am a default!' />
                 <Controls.Message
                   variant={'success'}
@@ -1364,7 +1478,7 @@ class Main extends Controls.MyComponent<
                   variant={'warning'}
                   message='Hello i am an warning!'
                 />
-              </Transition>
+              </Controls.Transition>
             </Controls.Container>
             <Controls.Divider />
             <h4>Breadcrumbs</h4>
@@ -1392,11 +1506,51 @@ class Main extends Controls.MyComponent<
             >
               Sample tooltip open on hover
             </Controls.Container>
-
-            {/* <Controls.Container width={1000} height={1000}>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4>pagination</h4>
+              <ul className='pagination'>
+                <li>
+                  <a href='#'>&laquo;</a>
+                </li>
+                <li>
+                  <a href='#'>1</a>
+                </li>
+                <li>
+                  <a href='#'>&raquo;</a>
+                </li>
+              </ul>
+              <br />
+              <Controls.Pagination
+                previousLabel={'previous'}
+                nextLabel={'next'}
+                breakLabel={'...'}
+                pageCount={7}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+              />
+              <br />
+              <Controls.Pagination pageCount={7} marginPagesDisplayed={2} pageRangeDisplayed={3} />
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4>pie chart</h4>
+              <Controls.Container position={'absolute'} />
+              <Controls.Container position={'absolute'}>
+                <Controls.PieChart displayType={'moderate'} />
+              </Controls.Container>
+              <Controls.Container position={'relative'}>
+                <Controls.DoughNutChart severe={1} moderate={2} mild={3} />
+              </Controls.Container>
+            </Controls.Container>
+            <Controls.Divider />
+            <Controls.Container>
+              <h4> hightlighted information pop-up</h4>
+            </Controls.Container>
+            {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
           </Controls.Container>
-           <Controls.Image src={'abc.png'} alt={<Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
+           <Controls.Image src={'abc.png'} alt={<Controls.Icon icon={faExclamationTriangle} fontSizeRem={15} />} /> */}
           </Controls.WrapperContainer>
         </Controls.RootContainer>
         <Controls.Footer />
