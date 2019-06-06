@@ -48,13 +48,25 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
                 text: this.props.subTitle,
                 y: 250
             },
-            series: [{
+            series: [
+                {
+                    type: 'pie',
+                    enableMouseTracking: false,
+                    data: [
+                        {
+                            y: 1,
+                            color: this.props.backgroundColor
+                        }
+                    ]
+                },
+                {
                 minPointSize: 10,
                 innerSize: '80%',
                 zMin: 0,
                 name: this.props.labelName,
                 data: this.props.data
-            }]
+            }
+        ]
         }
 
         return(

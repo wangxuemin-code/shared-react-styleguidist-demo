@@ -1588,7 +1588,7 @@ class Main extends Controls.MyComponent<
                   title={'Failed'}
                   subTitle={'3 issues found'}
                   labelName={'issues'}
-                  backgroundColor={'#3BE4C1'}
+                  backgroundColor={'rgba(255, 243, 205, 1)'}
                   data={
                     [
                       {
