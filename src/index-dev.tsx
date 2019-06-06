@@ -1494,7 +1494,7 @@ class Main extends Controls.MyComponent<
               Sample tooltip open on hover
             </Controls.Container>
             <Controls.Divider />
-            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+            <Controls.Container>
               <h4>Input text with only alphabet and date</h4>
               <Controls.Form
                 // display={'grid'}
@@ -1584,20 +1584,28 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <Controls.Container>
                 <h4>pie chart</h4>
-                <Controls.Container position={'absolute'}>
-                </Controls.Container>
-                <Controls.Container position={'absolute'}>
-                  <Controls.PieChart
-                    displayType={'moderate'}
-                  />
-                </Controls.Container>
-                <Controls.Container position={'relative'}>
-                  <Controls.DoughNutChart 
-                    severe={1}
-                    moderate={2}
-                    mild={3}
-                  />
-                </Controls.Container>
+                <Controls.DoughnutChart
+                  title={'Failed'}
+                  subTitle={'3 issues found'}
+                  labelName={'issues'}
+                  backgroundColor={'#3BE4C1'}
+                  data={
+                    [
+                      {
+                        name: 'fake data',
+                        y: 2
+                      },
+                      {
+                        name: 'blurred documents/data',
+                        y: 3
+                      },
+                      {
+                        name: 'verified documents',
+                        y: 10
+                      }
+                    ]
+                  }
+                />
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container>
