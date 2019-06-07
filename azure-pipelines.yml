@@ -1,0 +1,31 @@
+name: 'Istox Share CI Pipeline'
+trigger:
+  batch: true
+  branches:
+    include:
+    - master
+
+pool:
+  name: Hosted Ubuntu 1604
+  vmImage: 'Ubuntu 16.04'
+  demands: npm
+
+steps:
+
+- script: |
+    git config user.email aws@istox.com
+    git config user.name istox
+  displayName: 'Configure GIT username'
+
+- task: Npm@1
+  displayName: 'Install NPM'
+  inputs:
+    verbose: false
+
+- task: Npm@1
+  displayName: 'Publish Version'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'publish'
+    customEndpoint: 'istox-npm'

@@ -1108,6 +1108,20 @@ class Main extends Controls.MyComponent<
 
                 <Controls.FormControl
                   required
+                  label={'Alpha only'}
+                  name='alphbet'
+                  placeholder={'Only alphbet allowed'}
+                  type={'alphabet'}
+                />
+                <Controls.FormControl
+                  required={true}
+                  name={'date-format'}
+                  label={'Date'}
+                  placeholder='only DD-MM-YYYY format is allowed'
+                  type={'dateText'}
+                />
+                <Controls.FormControl
+                  required
                   label={'Date'}
                   name='date'
                   type={'date'}
@@ -1141,6 +1155,21 @@ class Main extends Controls.MyComponent<
                     showTimeSelect: true
                   }}
                   onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateRange'}
+                  name='daterange'
+                  type={'daterange'}
+                  placeholder={''}
+                  // value={Formatter.dateToUnixTimestamp(new Date())}
+                  dateOptions={{
+                    showTimeSelect: false
+                  }}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('daterange'));
                     console.log(value);
                   }}
                 />
