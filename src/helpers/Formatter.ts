@@ -51,7 +51,7 @@ export class Formatter {
     return input.replace('$', '').replace(/,/g, '');
   }
 
-  public static datetime(input?: string): string {
+  public static datetime(input?: string | Date): string {
     return moment(input).format('DD MMMM YYYY hh:mm A');
   }
 
