@@ -33,3 +33,4 @@ export * from './Breadcrumbs';
 export * from './DoughnutChart';
 export * from './NormalToast';
 export * from './Pagination';
+export * from './HightlightedInfo';

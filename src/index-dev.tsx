@@ -799,13 +799,92 @@ class Main extends Controls.MyComponent<
             <Controls.Button
               onPress={() => {
                 Controls.NormalToast.show({
+                  //variant: 'primary',
                   icon: faCheck,
                   title: 'normal toast',
                   description: 'description goes here'
                 });
               }}
             >
-              Toast with image, title and description
+              primary
+            </Controls.Button>
+            <Controls.Button
+              variant={'secondary'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'secondary' 
+                });
+              }}
+            >
+              secondary
+            </Controls.Button>
+            <Controls.Button
+              variant={'disabled'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'disabled' 
+                });
+              }}
+            >
+              disabled
+            </Controls.Button>
+            <Controls.Button
+              variant={'info'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'info' 
+                });
+              }}
+            >
+              info
+            </Controls.Button>
+            <Controls.Button
+              variant={'success'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'success' 
+                });
+              }}
+            >
+              success
+            </Controls.Button>
+            <Controls.Button
+              variant={'warning'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'warning' 
+                });
+              }}
+            >
+              warning
+            </Controls.Button>
+            <Controls.Button
+              variant={'danger'}
+              onPress={() => {
+                Controls.NormalToast.show({
+                  icon: faCheck,
+                  title: 'normal toast',
+                  description: 'description goes here',
+                  variant: 'danger' 
+                });
+              }}
+            >
+              danger
             </Controls.Button>
             <Controls.Divider />
             <h4>Progress</h4>
@@ -1583,18 +1662,6 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <Controls.Container>
               <h4>pagination</h4>
-              <ul className='pagination'>
-                <li>
-                  <a href='#'>&laquo;</a>
-                </li>
-                <li>
-                  <a href='#'>1</a>
-                </li>
-                <li>
-                  <a href='#'>&raquo;</a>
-                </li>
-              </ul>
-              <br />
               <Controls.Pagination
                 previousLabel={'previous'}
                 nextLabel={'next'}
@@ -1638,7 +1705,57 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container>
-                <h4> hightlighted information pop-up</h4>
+                <h4>Highlighted Information</h4>
+                <Controls.HighlightedInfo
+                  variant={'info'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                >
+                This is a children
+                </Controls.HighlightedInfo>
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'primary'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'secondary'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'disabled'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'success'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'warning'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
+                <br />
+                <Controls.HighlightedInfo
+                  variant={'danger'}
+                  headline={'new info'}
+                  title={'Issuer name'}
+                  subtitle={'Misty Kasumi'}
+                />
               </Controls.Container>
             {/* <Container width={1000} height={1000}>
             <ErrorPage type={'500'} message={'omgggg'} />
