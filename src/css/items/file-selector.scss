@@ -17,12 +17,12 @@
 }
 .uploader {
   align-items: center;
-  background-color: #e9f4fc;
+  background-color: rgba(23, 162, 184, 0.1);
   cursor: pointer;
   display: flex;
   height: 13rem;
   justify-content: center !important;
-  border: 3px dashed #2c97e2;
+  border: 3px dashed map-get($colors, primary);
   position: relative;
   width: 15rem;
   border-radius: 0.714rem;
@@ -46,7 +46,7 @@
   .icon {
     color: map-get($colors, primaryGreyDark);
     font-size: 5rem;
-    color: #2c97e2;
+    color: map-get($colors, info);
   }
 
   .check {

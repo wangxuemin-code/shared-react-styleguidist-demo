@@ -1,52 +1,78 @@
 import * as React from 'react';
-import { IContainer } from './Container';
-var DoughnutChart = require("react-chartjs").Doughnut;
+import { IContainer, Container } from './Container';
+import * as Highcharts from 'highcharts';
+import HighchartsReact from 'highcharts-react-official';
+import * as theme from '../css/theme/theme';
+import { vertical } from '../css/main.scss';
 
-interface IProps extends IContainer {
-    severe: number;
-    moderate: number;
-    mild: number;
-    
+interface IDoughnutChart extends IContainer {
+    title?: string;
+    subTitle?: string;
+    labelName?: string;
+    backgroundColor: string;
+    data: {
+        name: string;
+        y: number;
+    }[];
 }
 
-export class DoughNutChart extends React.Component<IProps> {
-    public constructor(props: IProps) {
-        super(props);
+export class DoughnutChart extends React.Component<IDoughnutChart> {
+
+    componentDidMount() {
+        window.dispatchEvent(new Event('resize'));
     }
 
     public render() {
-        var data = [
-            {
-                value: this.props.severe,
-                color:"#DC3545",
-                highlight: "#DC3545",
-                label: "fake data"
+        const props = this.props;
+        const defaultColors = [theme.stylings.colors.danger, theme.stylings.colors.warning, theme.stylings.colors.success];
+        var len = this.props.data.length;
+ 
+        const options = {
+            backgroundColor: this.props.backgroundColor,
+            colors: defaultColors,
+            chart: {
+                type: 'pie'
             },
-            {
-                value: this.props.moderate,
-                color: "#FFC107",
-                highlight: "#FFC107",
-                label: "unmatched/blurred data"
+            plotOptions: {
+                pie: {
+                    dataLabels: {
+                        enabled: false
+                    }
+                }
             },
-            {
-                value: this.props.mild,
-                color: "#28A745",
-                highlight: "#28A745",
-                label: "verfied/matched data"
+            title: {
+                text: this.props.title,
+                verticalAlign: 'middle'
+            },
+            subtitle: {
+                text: this.props.subTitle,
+                y: 250
+            },
+            series: [
+                {
+                    type: 'pie',
+                    enableMouseTracking: false,
+                    data: [
+                        {
+                            y: 1,
+                            color: this.props.backgroundColor
+                        }
+                    ]
+                },
+                {
+                minPointSize: 10,
+                innerSize: '80%',
+                zMin: 0,
+                name: this.props.labelName,
+                data: this.props.data
             }
         ]
-
-        var option = {
-            segmentShowStroke : false,
-            segmentStrokeWidth : 0,
-            animateRotate : false,
-            percentageInnerCutout : 80
         }
 
         return(
-            <div>
-                <DoughnutChart data={data} options={option}/>
-            </div>
+            <Container {...this.props}>
+                <HighchartsReact highcharts={Highcharts} options={options}/>
+            </Container>
         );
 
     }

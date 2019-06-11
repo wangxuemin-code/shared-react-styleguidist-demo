@@ -9,14 +9,15 @@ import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import { Container, IContainer } from './Container';
 import { DateTimePicker, IDateOption } from './DateTimePicker';
+import { Phone } from './Phone';
 import { Icon } from './Icon';
 import { Loading } from './Loading';
 import { Message } from './Message';
 import { OtpInput } from './OTP';
 import { Transition } from './Transition';
-var uniqid = require('uniqid');
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+var uniqid = require('uniqid');
 
 interface IState {
   displayValue?: string;
@@ -46,7 +47,7 @@ interface IProps extends IContainer {
     | 'select'
     | 'customselect'
     | 'country'
-    | 'phonecode'
+    | 'phone'
     | 'countrycode'
     | 'switch'
     | 'longtext'
@@ -71,6 +72,7 @@ interface IProps extends IContainer {
   numInputs?: number;
   inputWidth?: string;
   separator?: any;
+  verificationNumber?: string;
   uploaderConfigs?: {
     filePatterns?: FilePattern[];
     customAllowFileExtensions?: string[];
@@ -79,6 +81,7 @@ interface IProps extends IContainer {
   onFocus?: () => void;
   onBlur?: () => void;
   onKeyPress?: () => void;
+  onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 
@@ -105,6 +108,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onChangeNumberFields = this.onChangeNumberFields.bind(this);
     this.onDateChange = this.onDateChange.bind(this);
     this.onDateRangeChange = this.onDateRangeChange.bind(this);
+    this.onPhoneChange = this.onPhoneChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
@@ -240,18 +244,11 @@ export class FormControl extends React.Component<IProps, IState> {
         if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
       }
-    }
 
-    if (this.props.type === 'alphabet') {
-      if (this.props.required || (!this.props.required && this.state.value)) {
-        const re = /^[A-Za-z]+$/;
-        if (!re.test(String(this.state.value))) {
-          if (setErrorState) {
-            this.setState({
-              error: 'input field is not valid, only alphabets are allowed',
-              showError: true
-            });
-          }
+      if (this.props.type === 'phone') {
+        const value = this.state.value;
+        if (!value && value.toString().split('-').length < 2) {
+          if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
           return false;
         }
       }
@@ -334,11 +331,13 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <OtpInput
           isInputNum
+          verificationNumber={this.props.verificationNumber}
           separator={this.props.separator}
           inputWidth={this.props.inputWidth}
           numInputs={this.props.numInputs}
           value={this.state.value || ''}
           onChange={this.onChangeNumberFields}
+          onSendCode={this.props.onSendCode}
         />
       );
     } else if (this.props.type === 'select') {
@@ -403,74 +402,12 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.selectCustomOptions}
         />
       );
-    } else if (this.props.type === 'phonecode') {
-      const CustomOption = (innerProps: any) => {
-        return (
-          <components.Option {...innerProps}>
-            <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.Option>
-        );
-      };
-      const DisplayOption = (innerProps: any) => {
-        return (
-          <components.SingleValue {...innerProps}>
-            <Container className='select-option'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.SingleValue>
-        );
-      };
-      const Options: any = [];
-      countries.all.map((option) => {
-        if (option.countryCallingCodes.length && option.emoji) {
-          var obj = {
-            label: option.countryCallingCodes[0],
-            value: option.countryCallingCodes[0],
-            // image: option.emoji,
-            country: option.name,
-            code: option.alpha2
-          };
-          Options.push(obj);
-        }
-      });
-      const customFilter = (option: any, searchText: string) => {
-        if (
-          (option.data && option.data.label.includes(searchText.toLowerCase())) ||
-          (option.data && option.data.value.includes(searchText.toLowerCase())) ||
-          (option.data && option.data.value.includes('+' + searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      };
+    } else if (this.props.type === 'phone') {
       return (
-        <Select
-          // componentClass='select'
-          className={'select'}
-          value={Options.filter((obj: any) => obj.value[0] === this.state.value)[0]}
-          filterOption={customFilter}
+        <Phone
           placeholder={this.props.placeholder}
-          onChange={this.onSetOption}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          options={Options}
-          styles={{
-            control: (base) => ({
-              ...base,
-              height: '2.857rem',
-              minHeight: '2.571rem',
-              padding: '0 0.5rem'
-            }),
-            option: (base: any) => ({
-              ...base
-            })
-          }}
+          value={this.state.displayValue || undefined}
+          onChange={this.onPhoneChange}
         />
       );
     } else if (this.props.type === 'country') {
@@ -777,6 +714,14 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   };
 
+  private onPhoneChange(value: string) {
+    this.setState({ displayValue: value, value: value, showError: false }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(value, this.props.name || '');
+      }
+    });
+  }
+
   private onDateChange(newUnixTimestamp: number) {
     const result = this.processValue(newUnixTimestamp.toString());
     this.setState(
@@ -858,6 +803,12 @@ export class FormControl extends React.Component<IProps, IState> {
         return false;
       }
     }
+    if (this.props.type === 'alphabet') {
+      const re = /^[A-Za-z]+$/;
+      if (!re.test(String(value))) {
+        return false;
+      }
+    }
     if (this.props.type === 'money' || this.props.type === 'number') {
       const temp = value.split('.');
       if (temp.length === 2) {
@@ -891,7 +842,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'longtext' ||
       this.props.type === 'email' ||
       this.props.type === 'password' ||
-      this.props.type === 'phonecode' ||
+      this.props.type === 'phone' ||
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
@@ -910,8 +861,9 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue = item.label;
           }
         })
-      )
+      ) {
         return { displayValue: displayValue || '', value };
+      }
     } else if (this.props.type === 'customselect') {
       let displayValue = '';
       if (
@@ -920,8 +872,9 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue = item.label;
           }
         })
-      )
+      ) {
         return { displayValue: displayValue || '', value };
+      }
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
       let appendDot: string = '';

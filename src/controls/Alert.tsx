@@ -133,7 +133,7 @@ export class Alert extends React.Component<IAlert, IState> {
     return (
       <Container {...this.props} className={styles.istoxAlert}>
         <ReactAlert bsStyle={type}>
-          <Icon icon={icon} className={styles.icon} />
+          <Icon icon={icon} />
           {message}
         </ReactAlert>
       </Container>

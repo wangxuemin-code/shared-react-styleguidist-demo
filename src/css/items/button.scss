@@ -29,7 +29,7 @@ $borderRadius: 6.25rem;
   background-image: none;
   padding: 0.714rem;
   outline: none;
-  color: #fff;
+  color: map-get($colors, primaryAlt);
   cursor: pointer;
   border-radius: $borderRadius;
   font-style: inherit;
@@ -113,12 +113,12 @@ $borderRadius: 6.25rem;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primaryGrey);
-      color: map-get($colors, primaryGrey);
+      border: 1px solid map-get($colors, primaryDark);
+      color: map-get($colors, primaryDark);
 
       &.loading {
         > div {
-          border-color: map-get($colors, primaryGrey);
+          border-color: map-get($colors, primaryDark);
           border-bottom-color: transparent;
         }
       }

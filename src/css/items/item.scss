@@ -1,6 +1,6 @@
 .item {
   border: 1px solid map-get($colors, primaryGrey);
-  background: #ffffff;
+  background: map-get($colors, primaryAlt);
   display: flex;
   align-items: center;
   border-radius: 0.375rem;
