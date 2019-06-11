@@ -4,7 +4,7 @@ import { MouseEventHandler } from 'react';
 import * as ReactTooltip from 'react-tooltip';
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
-import { IAllDirection, IDirection, IDirectionShort } from './common/interfaces';
+import { IAllDirection, IDirection, IDirectionShort } from './common/Interfaces';
 import Truncate from 'react-truncate';
 import { number } from 'prop-types';
 

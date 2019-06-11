@@ -1,4 +1,4 @@
-import { IDirection, IDirectionShort, IAllDirection } from './interfaces';
+import { IDirection, IDirectionShort, IAllDirection } from './Interfaces';
 
 export default class ControlsHelper {
   public static processPadding(

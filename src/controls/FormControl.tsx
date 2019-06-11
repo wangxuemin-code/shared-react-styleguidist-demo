@@ -81,7 +81,7 @@ interface IProps extends IContainer {
   onFocus?: () => void;
   onBlur?: () => void;
   onKeyPress?: () => void;
-  onSendCode?: (pressed: boolean) => any;
+  onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
 }
 

@@ -32,6 +32,17 @@ exports.stylings = {
         info: 'rgba(23, 162, 184, 1)' /* 17a2b8 */,
         success: 'rgba(40, 167, 69, 1)' /* 28A745 */,
         danger: 'rgba(220, 53, 69, 1)' /* DC3545 */,
-        warning: 'rgba(255, 193, 7, 1)' /* FFC107 */
+        warning: 'rgba(255, 193, 7, 1)' /* FFC107 */,
+        primaryBackground: 'rgba(28, 66, 103, 0.1)',
+        primaryAltBackground: 'rgba(255, 255, 255, 0.1)',
+        primaryLightBackground: 'rgba(28, 66, 103, 0.1)',
+        primaryDarkBackground: 'rgba(51, 51, 51, 0.1)',
+        primaryGreyDarkBackground: 'rgba(125, 125, 125, 0.1)',
+        primaryGreyBackground: 'rrgba(233, 233, 233, 0.1)',
+        primaryGreyLightBackground: 'rgba(248, 248, 248, 0.1)',
+        infoBackground: 'rgba(23, 162, 184, 0.1)',
+        successBackground: 'rgba(40, 167, 69, 0.1)',
+        dangerBackground: 'rgba(220, 53, 69, 0.1)',
+        warningBackground: 'rgba(255, 193, 7, 0.1)'
     }
 };

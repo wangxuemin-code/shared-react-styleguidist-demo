@@ -31,5 +31,16 @@ export declare const stylings: {
         success: string;
         danger: string;
         warning: string;
+        primaryBackground: string;
+        primaryAltBackground: string;
+        primaryLightBackground: string;
+        primaryDarkBackground: string;
+        primaryGreyDarkBackground: string;
+        primaryGreyBackground: string;
+        primaryGreyLightBackground: string;
+        infoBackground: string;
+        successBackground: string;
+        dangerBackground: string;
+        warningBackground: string;
     };
 };
