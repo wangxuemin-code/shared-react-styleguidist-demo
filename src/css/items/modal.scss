@@ -18,7 +18,7 @@
     padding: 0;
     position: relative;
   }
-  color: #bbbbbb;
+  color: map-get($colors, primaryGreyDark);
   position: absolute !important;
   font-size: 1.1428571428571428rem;
   right: 0.5rem;
@@ -28,5 +28,5 @@
 }
 
 .my-modal .close-button:hover {
-  color: #000000;
+  color: map-get($colors, primary);
 }

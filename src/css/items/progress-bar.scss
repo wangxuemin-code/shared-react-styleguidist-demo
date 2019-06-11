@@ -10,7 +10,7 @@
 
     &.gap {
       .progress-bar {
-        border-right: 2px solid #fff;
+        border-right: 2px solid map-get($colors, primaryAlt);
 
         &:last-of-type {
           border-right: 0;

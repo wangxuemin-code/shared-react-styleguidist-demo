@@ -7,7 +7,7 @@ export declare class Formatter {
         decimalPlace?: number;
     }): string;
     static stripSymbol(input: string): string;
-    static datetime(input?: string): string;
+    static datetime(input?: string | Date): string;
     static date(input?: string | Date): string;
     static time(input?: string | Date): string;
     static datetimeToDate(input?: string): Date;

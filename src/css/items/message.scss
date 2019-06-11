@@ -4,48 +4,96 @@
   justify-content: center;
   margin: 0;
   text-align: left;
+  font-weight: 600;
 
-  .message-only,
+  > div,
   .icon {
-    color: map-get($colors, primaryGreyDark);
+    color: map-get($colors, primary);
+  }
+
+  &.primary {
+    > div,
+    .icon {
+      color: map-get($colors, primary);
+    }
+  }
+
+  &.secondary {
+    > div,
+    .icon {
+      color: map-get($colors, primaryDark);
+    }
+  }
+
+  &.disabled {
+    > div,
+    .icon {
+      color: map-get($colors, primary);
+      opacity: 0.7;
+    }
   }
 
   &.success {
-    .message-only,
+    > div,
     .icon {
       color: map-get($colors, success);
     }
   }
 
   &.warning {
-    .message-only,
+    > div,
     .icon {
       color: map-get($colors, warning);
     }
   }
 
   &.info {
-    .message-only,
+    > div,
     .icon {
       color: map-get($colors, info);
     }
   }
 
   &.danger {
-    .message-only,
+    > div,
     .icon {
       color: map-get($colors, danger);
     }
   }
 
-  &.outline {
-    background-color: map-get($colors, primaryGrey);
+  &.flat {
+    background-color: map-get($colors, primary);
     border-radius: 0.429rem;
     padding: 0.5rem 0.8rem;
 
+    &.primary {
+      background-color: rgba(28, 66, 103, 0.1);
+      > div,
+      .icon {
+        color: map-get($colors, primary);
+      }
+    }
+
+    &.secondary {
+      background-color: rgba(51, 51, 51, 0.1);
+      > div,
+      .icon {
+        color: map-get($colors, primaryDark);
+      }
+    }
+
+    &.disabled {
+      background-color: rgba(28, 66, 103, 0.1);
+      > div,
+      .icon {
+        color: map-get($colors, primary);
+        opacity: 0.7;
+      }
+    }
+
     &.success {
       background-color: rgba(40, 167, 69, 0.1);
-      .message-only,
+      > div,
       .icon {
         color: map-get($colors, success);
       }
@@ -53,7 +101,7 @@
 
     &.warning {
       background-color: rgba(255, 193, 7, 0.1);
-      .message-only,
+      > div,
       .icon {
         color: map-get($colors, warning);
       }
@@ -61,7 +109,7 @@
 
     &.info {
       background-color: rgba(23, 162, 184, 0.1);
-      .message-only,
+      > div,
       .icon {
         color: map-get($colors, info);
       }
@@ -69,7 +117,78 @@
 
     &.danger {
       background-color: rgba(220, 53, 69, 0.1);
-      .message-only,
+      > div,
+      .icon {
+        color: map-get($colors, danger);
+      }
+    }
+  }
+
+  &.outline {
+    background-color: map-get($colors, primaryGrey);
+    border: 1px solid map-get($colors, primaryGreyDark);
+    border-radius: 0.429rem;
+    padding: 0.5rem 0.8rem;
+
+    &.primary {
+      background-color: rgba(28, 66, 103, 0.1);
+      border: 1px solid map-get($colors, primary);
+      > div,
+      .icon {
+        color: map-get($colors, primary);
+      }
+    }
+
+    &.secondary {
+      background-color: rgba(51, 51, 51, 0.1);
+      border: 1px solid map-get($colors, primaryDark);
+      > div,
+      .icon {
+        color: map-get($colors, primaryDark);
+      }
+    }
+
+    &.disabled {
+      background-color: rgba(28, 66, 103, 0.1);
+      border: 1px solid map-get($colors, primary);
+      > div,
+      .icon {
+        color: map-get($colors, primary);
+        opacity: 0.7;
+      }
+    }
+
+    &.success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid map-get($colors, success);
+      > div,
+      .icon {
+        color: map-get($colors, success);
+      }
+    }
+
+    &.warning {
+      background-color: rgba(255, 193, 7, 0.1);
+      border: 1px solid map-get($colors, warning);
+      > div,
+      .icon {
+        color: map-get($colors, warning);
+      }
+    }
+
+    &.info {
+      background-color: rgba(23, 162, 184, 0.1);
+      border: 1px solid map-get($colors, info);
+      > div,
+      .icon {
+        color: map-get($colors, info);
+      }
+    }
+
+    &.danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid map-get($colors, danger);
+      > div,
       .icon {
         color: map-get($colors, danger);
       }

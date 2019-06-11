@@ -1,7 +1,7 @@
 .istox-footer {
   background-image: $headerBackground;
   padding: 3rem 3rem;
-  color: #d8d8d8;
+  color: map-get($colors, primaryAlt);
   display: flex;
   justify-content: center;
   align-items: center;

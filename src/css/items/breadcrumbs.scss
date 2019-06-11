@@ -3,7 +3,7 @@
 
   a,
   span {
-    color: #7d7d7d;
+    color: map-get($colors, primaryGreyDark);
     margin-right: 10px;
   }
 }

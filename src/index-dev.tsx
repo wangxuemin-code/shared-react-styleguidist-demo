@@ -66,7 +66,7 @@ class Main extends Controls.MyComponent<
   form: any;
   imageForm: any;
   formControls: any[];
-  colorStates: string[];
+  variantStates: string[];
   tabsContent: any[];
 
   public constructor(props: any) {
@@ -86,7 +86,15 @@ class Main extends Controls.MyComponent<
       email: '',
       imageUrl: ''
     };
-    this.colorStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
+    this.variantStates = [
+      'primary',
+      'secondary',
+      'disabled',
+      'info',
+      'success',
+      'warning',
+      'danger'
+    ];
     this.tabsContent = [
       {
         title: (
@@ -328,31 +336,31 @@ class Main extends Controls.MyComponent<
               Fluid
             </Controls.Button>
             <Controls.Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
+            {this.variantStates.map((button: any) => (
               <Controls.Button key={uniqid().toString()} variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
             <Controls.Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
+            {this.variantStates.map((button: any) => (
               <Controls.Button key={uniqid().toString()} flat variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
             <Controls.Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
+            {this.variantStates.map((button: any) => (
               <Controls.Button key={uniqid().toString()} loading flat variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
             <Controls.Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
+            {this.variantStates.map((button: any) => (
               <Controls.Button key={uniqid().toString()} outline variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
             <Controls.Divider visibility={'hidden'} />
-            {this.colorStates.map((button: any) => (
+            {this.variantStates.map((button: any) => (
               <Controls.Button key={uniqid().toString()} loading outline variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
@@ -360,7 +368,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Link</h4>
             <Controls.Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
+              {this.variantStates.map((link: any) => (
                 <Controls.Container key={uniqid().toString()}>
                   <Controls.Link variant={link} useNormalAnchor>
                     {link.toUpperCase()}
@@ -370,7 +378,7 @@ class Main extends Controls.MyComponent<
               ))}
             </Controls.Container>
             <Controls.Container display={'flex'}>
-              {this.colorStates.map((link: any) => (
+              {this.variantStates.map((link: any) => (
                 <Controls.Container key={uniqid().toString()}>
                   <Controls.Link underline={false} variant={link} useNormalAnchor>
                     {link.toUpperCase()}
@@ -402,7 +410,7 @@ class Main extends Controls.MyComponent<
               </Controls.Link>
             </Controls.Container>
             <Controls.Divider />
-            <h4>ICON</h4>
+            <h4>Icon</h4>
             <Controls.Container display={'flex'}>
               <Controls.Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
               <Controls.Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
@@ -965,41 +973,6 @@ class Main extends Controls.MyComponent<
                   });
                 }}
               >
-                <Controls.Container className={'form-group'} display={'flex'}>
-                  <Controls.FormControl
-                    required={true}
-                    label={'Area Code'}
-                    name='areacode'
-                    value={'+65'}
-                    type={'phonecode'}
-                    onInputChanged={() => {
-                      console.log(this.form.getInputValue('areacode'));
-                    }}
-                  />
-                  <Controls.FormControl
-                    required={true}
-                    placeholder={'XXXXXXXX'}
-                    label={'Phone Number'}
-                    append={
-                      <Controls.Button
-                        float={'left'}
-                        width={130}
-                        textAlign={'center'}
-                        type={'submit'}
-                        onPress={() => {
-                          this.setState({
-                            email: 'Username'
-                          });
-                        }}
-                      >
-                        Send Code
-                      </Controls.Button>
-                    }
-                    name='numeric'
-                    type={'numeric'}
-                    decimalPlace={2}
-                  />
-                </Controls.Container>
                 <Controls.Container className={'form-group '} display={'flex'}>
                   <Controls.FormControl
                     // required
@@ -1091,8 +1064,16 @@ class Main extends Controls.MyComponent<
                   type={'longtext'}
                   alwaysCapitalize={true}
                 />
-                <Controls.FormControl label={'Number'} name='number' type={'number'} />
-                <Controls.FormControl label={'Phone'} name='numeric' type={'numeric'} />
+                <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
+                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
+                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+                <Controls.FormControl
+                  required
+                  label={'Alpha only'}
+                  name='alphabet'
+                  placeholder={'Only alphbet allowed'}
+                  type={'alphabet'}
+                />
                 <Controls.FormControl
                   numInputs={5}
                   inputWidth={'80px'}
@@ -1104,13 +1085,20 @@ class Main extends Controls.MyComponent<
                     console.log(this.form.getInputValue('numberfields'));
                   }}
                 />
-                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl
-                  required
-                  label={'Alpha only'}
-                  name='alphbet'
-                  placeholder={'Only alphbet allowed'}
-                  type={'alphabet'}
+                  numInputs={5}
+                  inputWidth={'80px'}
+                  label={'OTP with verification'}
+                  verificationNumber={'+65-88234124'}
+                  name='numberfields'
+                  type={'numberfields'}
+                  separator={<span>&nbsp;&nbsp;</span>}
+                  onSendCode={(processing: boolean) => {
+                    console.log(processing);
+                  }}
+                  onInputChanged={() => {
+                    console.log(this.form.getInputValue('numberfields'));
+                  }}
                 />
                 <Controls.FormControl
                   required={true}
@@ -1261,7 +1249,6 @@ class Main extends Controls.MyComponent<
                     </Controls.Button>
                   }
                 />
-
                 <Controls.FormControl
                   required
                   label={'Html Dropdown'}
@@ -1305,12 +1292,33 @@ class Main extends Controls.MyComponent<
                   type={'countrycode'}
                   value={'SGP'}
                 />
-                <Controls.FormControl
-                  value={'+65'}
-                  label={'Phone Code'}
-                  name='phonecode'
-                  type={'phonecode'}
-                />
+                <Controls.Container className={'form-group'} display={'flex'}>
+                  <Controls.FormControl
+                    required={true}
+                    label={'Phone'}
+                    name='phone'
+                    // value={'+65-88234124'}
+                    type={'phone'}
+                    append={
+                      <Controls.Button
+                        float={'left'}
+                        width={130}
+                        textAlign={'center'}
+                        type={'submit'}
+                        onPress={() => {
+                          this.setState({
+                            email: 'Username'
+                          });
+                        }}
+                      >
+                        Send Code
+                      </Controls.Button>
+                    }
+                    onInputChanged={() => {
+                      console.log(this.form.getInputValue('phone'));
+                    }}
+                  />
+                </Controls.Container>
                 <Controls.FormControl
                   value={'1234567'}
                   label={'Static'}
@@ -1318,7 +1326,6 @@ class Main extends Controls.MyComponent<
                   static={true}
                   type='number'
                 />
-
                 <Controls.FormControl
                   required
                   label={'Select static'}
@@ -1409,76 +1416,73 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Message</h4>
             <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
-              <Controls.Transition>
-                <Controls.Message icon={faCheckCircle} message='Hello i am a default!' />
+              {this.variantStates.map((message: any) => (
                 <Controls.Message
-                  variant={'success'}
+                  key={uniqid().toString()}
+                  variant={message}
                   icon={faCheckCircle}
-                  message={'Hello i am a success!'}
+                  message={`Hello i am a ${message}`}
                 />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
                 <Controls.Message
-                  variant={'warning'}
-                  icon={faTimesCircle}
-                  message='Hello i am an warning!'
-                />
-                <Controls.Message
-                  variant={'info'}
+                  key={uniqid().toString()}
+                  flat
                   icon={faInfoCircle}
-                  message='Hello i am a info!'
+                  variant={message}
+                  message={`Hello i am a ${message}`}
                 />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
                 <Controls.Message
-                  variant={'danger'}
-                  icon={faExclamationCircle}
-                  message='Hello i am an error!'
+                  key={uniqid().toString()}
+                  flat
+                  icon={faInfoCircle}
+                  variant={message}
+                  message={`Hello i am a ${message}`}
+                  messageColor={'#000'}
                 />
-                <Controls.Divider visibility={'hidden'} />
-                <Controls.Message outline icon={faInfoCircle} message='Hello i am a default!' />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
                 <Controls.Message
+                  key={uniqid().toString()}
+                  variant={message}
+                  message={`Hello i am a ${message}`}
+                />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
+                <Controls.Message
+                  key={uniqid().toString()}
+                  flat
+                  variant={message}
+                  message={`Hello i am a ${message}`}
+                />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
+                <Controls.Message
+                  key={uniqid().toString()}
                   outline
-                  icon={faInfoCircle}
-                  variant={'success'}
-                  message='Hello i am a success!'
+                  variant={message}
+                  message={`Hello i am a ${message}`}
                 />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
                 <Controls.Message
-                  outline
-                  icon={faInfoCircle}
-                  variant={'warning'}
-                  message='Hello i am an warning!'
-                />
-                <Controls.Message
-                  outline
-                  icon={faInfoCircle}
-                  variant={'info'}
-                  message='Hello i am a info!'
-                />
-                <Controls.Message
-                  outline
-                  icon={faInfoCircle}
-                  variant={'danger'}
-                  message='Hello i am an error!'
-                />
-                <Controls.Divider visibility={'hidden'} />
-                <Controls.Message message='Hello i am a default!' />
-                <Controls.Message variant={'success'} message='Hello i am a success!' />
-                <Controls.Message variant={'warning'} message='Hello i am an warning!' />
-                <Controls.Message variant={'info'} message='Hello i am a info!' />
-                <Controls.Message variant={'danger'} message='Hello i am an error!' />
-                <Controls.Divider visibility={'hidden'} />
-                <Controls.Message outline message='Hello i am a default!' />
-                <Controls.Message outline variant={'success'} message='Hello i am a success!' />
-                <Controls.Message outline variant={'warning'} message='Hello i am an warning!' />
-                <Controls.Message outline variant={'info'} message='Hello i am a info!' />
-                <Controls.Message outline variant={'danger'} message='Hello i am an error!' />
-                <Controls.Divider visibility={'hidden'} />
-                <Controls.Message
+                  key={uniqid().toString()}
                   fluid
                   justifyContent={'left'}
                   outline
                   icon={faInfoCircle}
-                  variant={'warning'}
-                  message='Hello i am an warning!'
+                  variant={message}
+                  message={`Hello i am a ${message}`}
                 />
-              </Controls.Transition>
+              ))}
             </Controls.Container>
             <Controls.Divider />
             <h4>Breadcrumbs</h4>
@@ -1488,8 +1492,6 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Custom tooltip</h4>
             <Controls.Container
-              width={200}
-              height={200}
               tooltip={
                 <Controls.Container backgroundColor={'#BBBBBB'}>
                   I am tooltip content!

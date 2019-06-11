@@ -9,12 +9,18 @@ interface IOtpInput extends IContainer {
     inputWidth: string;
     maxLength: number;
     value?: any;
+    verificationNumber?: string;
+    onSendCode?: (processing: boolean) => void;
 }
 interface IState {
     activeInput: number;
     otp: string[];
+    phoneCode?: string | number;
+    phoneNumber?: string | number;
+    timeRemainingInSeconds: number;
 }
 export declare class OtpInput extends React.Component<IOtpInput, IState> {
+    private timer;
     static defaultProps: IOtpInput;
     constructor(props: IOtpInput);
     getOtp: () => void;
@@ -26,5 +32,7 @@ export declare class OtpInput extends React.Component<IOtpInput, IState> {
     handleOnKeyDown: (e: any) => void;
     renderInputs: () => JSX.Element[];
     render(): JSX.Element;
+    private sendPhoneCode;
+    private decrementTimeRemaining;
 }
 export {};

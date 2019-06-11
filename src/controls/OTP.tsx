@@ -1,7 +1,10 @@
 import * as React from 'react';
-import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
-var uniqid = require('uniqid');
+import { Button } from './Button';
+import { Item } from './Item';
+import { Divider } from './Divider';
+import { faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import * as styles from '../css/main.scss';
 
 const BACKSPACE = 8;
 const LEFT_ARROW = 37;
@@ -17,6 +20,8 @@ interface IOtpInput extends IContainer {
   inputWidth: string;
   maxLength: number;
   value?: any;
+  verificationNumber?: string;
+  onSendCode?: (processing: boolean) => void;
 }
 
 interface ISingleOtpInput extends IContainer {
@@ -34,9 +39,13 @@ interface ISingleOtpInput extends IContainer {
 interface IState {
   activeInput: number;
   otp: string[];
+  phoneCode?: string | number;
+  phoneNumber?: string | number;
+  timeRemainingInSeconds: number;
 }
 
 export class OtpInput extends React.Component<IOtpInput, IState> {
+  private timer: any;
   public static defaultProps: IOtpInput = {
     numInputs: 4,
     onChange: (otp: number) => {
@@ -52,7 +61,14 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
 
     this.state = {
       activeInput: 0,
-      otp: []
+      otp: [],
+      phoneCode: this.props.verificationNumber
+        ? this.props.verificationNumber.toString().split('-')[0]
+        : '',
+      phoneNumber: this.props.verificationNumber
+        ? this.props.verificationNumber.toString().split('-')[1]
+        : '',
+      timeRemainingInSeconds: 60
     };
   }
 
@@ -156,12 +172,72 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
   };
 
   public render() {
+    let phoneNumber = this.state.phoneNumber;
+    const asterisk = '* ';
+    const asteriskCount = phoneNumber ? phoneNumber.toString().length - 3 : 0;
+    phoneNumber = phoneNumber
+      ? phoneNumber.toString().substr(phoneNumber.toString().length - 3)
+      : '';
     return (
-      <Container display={'flex'} {...this.props}>
-        {this.renderInputs()}
+      <Container {...this.props} className={styles.otpControl}>
+        {this.props.verificationNumber && (
+          <>
+            <Item basic={true} backgroundColor={'#F8F8F8'} icon={faMobileAlt}>
+              <Container verticalAlign={'center'}>
+                <Container>
+                  code sent to <br /> {this.state.phoneCode}&nbsp; {asterisk.repeat(asteriskCount)}
+                  {phoneNumber}
+                </Container>
+                <Button
+                  loading={
+                    this.state.timeRemainingInSeconds === 60 ||
+                    this.state.timeRemainingInSeconds === 0
+                      ? false
+                      : true
+                  }
+                  float={'right'}
+                  variant='primary'
+                  onPress={this.sendPhoneCode}
+                >
+                  {this.state.timeRemainingInSeconds === 60
+                    ? 'Resend Code'
+                    : this.state.timeRemainingInSeconds === 0
+                    ? 'Resend Code'
+                    : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
+                </Button>
+              </Container>
+            </Item>
+            <Divider visibility={'hidden'} />
+            <h6>Enter Code</h6>
+          </>
+        )}
+        <Container display={'flex'}>{this.renderInputs()}</Container>
       </Container>
     );
   }
+
+  private sendPhoneCode = () => {
+    this.setState({ timeRemainingInSeconds: 59 });
+    this.timer = setInterval(() => {
+      this.decrementTimeRemaining();
+    }, 1000);
+    if (this.props.onSendCode) {
+      this.props.onSendCode(true);
+    }
+  };
+
+  private decrementTimeRemaining = () => {
+    if (this.state.timeRemainingInSeconds > 0) {
+      this.setState({
+        timeRemainingInSeconds: this.state.timeRemainingInSeconds - 1
+      });
+    } else {
+      if (this.props.onSendCode) {
+        this.props.onSendCode(false);
+      }
+      clearInterval(this.timer!);
+    }
+  };
 }
 
 class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
