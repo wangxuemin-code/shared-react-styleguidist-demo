@@ -330,6 +330,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
+          required={this.props.required}
           isInputNum
           verificationNumber={this.props.verificationNumber}
           separator={this.props.separator}
@@ -405,9 +406,11 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'phone') {
       return (
         <Phone
+          required={this.props.required}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
           onChange={this.onPhoneChange}
+          onSendCode={this.props.onSendCode}
         />
       );
     } else if (this.props.type === 'country') {
@@ -805,7 +808,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
     if (this.props.type === 'alphabet') {
       const re = /^[A-Za-z]+$/;
-      if (!re.test(String(value))) {
+      if (value && !re.test(String(value))) {
         return false;
       }
     }

@@ -11,6 +11,7 @@ interface IOtpInput extends IContainer {
     value?: any;
     verificationNumber?: string;
     onSendCode?: (processing: boolean) => void;
+    required?: boolean;
 }
 interface IState {
     activeInput: number;

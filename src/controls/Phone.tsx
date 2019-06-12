@@ -2,23 +2,29 @@ import { countries } from 'country-data';
 import * as React from 'react';
 import { FormControl as BootstrapFormControl } from 'react-bootstrap';
 import Select, { components } from 'react-select';
+import { Button } from './Button';
 import { Container } from './Container';
 import { Icon } from './Icon';
+import * as styles from '../css/main.scss';
 
 interface IProps {
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
   selectOptions?: { label: any; value: string }[];
+  required?: boolean;
+  onSendCode?: (processing: boolean) => void;
 }
 
 interface IState {
   value?: string | number;
   phoneCode?: string | number;
   phoneNumber?: string | number;
+  timeRemainingInSeconds: number;
 }
 
 export class Phone extends React.Component<IProps, IState> {
+  private timer: any;
   public static defaultProps: IProps = {};
 
   public constructor(props: IProps) {
@@ -27,7 +33,8 @@ export class Phone extends React.Component<IProps, IState> {
     this.onChange = this.onChange.bind(this);
     this.state = {
       phoneCode: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      timeRemainingInSeconds: 60
     };
   }
 
@@ -86,40 +93,88 @@ export class Phone extends React.Component<IProps, IState> {
       }
     };
     return (
-      <>
-        <Select
-          // componentClass='select'
-          className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
-          filterOption={customFilter}
-          placeholder={this.props.placeholder}
-          onChange={this.onSetOption}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          options={Options}
-          styles={{
-            control: (base) => ({
-              ...base,
-              height: '2.857rem',
-              minHeight: '2.571rem',
-              padding: '0 0.5rem'
-            }),
-            option: (base: any) => ({
-              ...base
-            })
-          }}
-        />
+      <Container display={'flex'} className={'form-group'}>
+        <Container width={120}>
+          <label className={styles.semiBold}>
+            <h6>
+              Area Code
+              {this.props.required && <Container className={styles.required}>*</Container>}
+            </h6>
+          </label>
+          <Select
+            // componentClass='select'
+            className={'select'}
+            value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
+            filterOption={customFilter}
+            placeholder={this.props.placeholder}
+            onChange={this.onSetOption}
+            components={{ Option: CustomOption, SingleValue: DisplayOption }}
+            options={Options}
+            styles={{
+              control: (base) => ({
+                ...base,
+                height: '2.857rem',
+                minHeight: '2.571rem',
+                padding: '0 0.5rem'
+              }),
+              option: (base: any) => ({
+                ...base
+              })
+            }}
+          />
+        </Container>
         &nbsp;&nbsp;
-        <BootstrapFormControl
-          autoComplete={'off'}
-          autoCorrect={'off'}
-          type={'text'}
-          placeholder={this.props.placeholder}
-          value={this.state.phoneNumber || ''}
-          onChange={this.onChange}
-          // disabled={this.props.disabled}
-          // onBlur={this.props.onBlur}
-        />
-      </>
+        <Container>
+          <label className={styles.semiBold}>
+            <h6>
+              Phone Number
+              {this.props.required && <Container className={styles.required}>*</Container>}
+            </h6>
+          </label>
+          <Container display={'flex'}>
+            <Container width={230}>
+              <BootstrapFormControl
+                autoComplete={'off'}
+                autoCorrect={'off'}
+                type={'text'}
+                placeholder={this.props.placeholder}
+                value={this.state.phoneNumber || ''}
+                onChange={this.onChange}
+                // disabled={this.props.disabled}
+                // onBlur={this.props.onBlur}
+              />
+            </Container>
+            &nbsp;&nbsp;
+            <Container>
+              {this.props.onSendCode && (
+                <Button
+                  loading={
+                    this.state.timeRemainingInSeconds === 60 ||
+                    this.state.timeRemainingInSeconds === 0
+                      ? false
+                      : true
+                  }
+                  width={
+                    this.state.timeRemainingInSeconds === 60 ||
+                    this.state.timeRemainingInSeconds === 0
+                      ? undefined
+                      : 150
+                  }
+                  float={'right'}
+                  variant='primary'
+                  onPress={this.sendPhoneCode}
+                >
+                  {this.state.timeRemainingInSeconds === 60
+                    ? 'Resend Code'
+                    : this.state.timeRemainingInSeconds === 0
+                    ? 'Resend Code'
+                    : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
+                </Button>
+              )}
+            </Container>
+          </Container>
+        </Container>
+      </Container>
     );
   }
 
@@ -168,6 +223,29 @@ export class Phone extends React.Component<IProps, IState> {
     this.setState({ phoneCode: newValue, value: value });
     if (this.props.onChange) {
       this.props.onChange(value);
+    }
+  };
+
+  private sendPhoneCode = () => {
+    this.setState({ timeRemainingInSeconds: 59 });
+    this.timer = setInterval(() => {
+      this.decrementTimeRemaining();
+    }, 1000);
+    if (this.props.onSendCode) {
+      this.props.onSendCode(true);
+    }
+  };
+
+  private decrementTimeRemaining = () => {
+    if (this.state.timeRemainingInSeconds > 0) {
+      this.setState({
+        timeRemainingInSeconds: this.state.timeRemainingInSeconds - 1
+      });
+    } else {
+      if (this.props.onSendCode) {
+        this.props.onSendCode(false);
+      }
+      clearInterval(this.timer!);
     }
   };
 }
