@@ -140,14 +140,13 @@ export class Phone extends React.Component<IProps, IState> {
                 placeholder={this.props.placeholder}
                 value={this.state.phoneNumber || ''}
                 onChange={this.onChange}
-                // disabled={this.props.disabled}
-                // onBlur={this.props.onBlur}
               />
             </Container>
             &nbsp;&nbsp;
             <Container>
               {this.props.onSendCode && (
                 <Button
+                  disabled={!this.state.phoneCode || !this.state.phoneNumber}
                   loading={
                     this.state.timeRemainingInSeconds === 60 ||
                     this.state.timeRemainingInSeconds === 0
@@ -182,7 +181,6 @@ export class Phone extends React.Component<IProps, IState> {
     const phone = phoneValue ? phoneValue.toString().split('-') : '';
     const phoneCode = phone[0] ? phone[0] : '';
     const phoneNumber = phone[1] ? phone[1] : '';
-    console.log(phoneCode && phoneNumber);
     this.setState({ phoneCode: phoneCode, phoneNumber: phoneNumber });
   };
 

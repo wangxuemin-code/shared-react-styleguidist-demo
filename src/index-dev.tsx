@@ -1172,6 +1172,7 @@ class Main extends Controls.MyComponent<
                   name='numberfields'
                   type={'numberfields'}
                   separator={<span>&nbsp;&nbsp;</span>}
+                  required
                   onSendCode={(processing: boolean) => {
                     console.log(processing);
                   }}
@@ -1375,17 +1376,15 @@ class Main extends Controls.MyComponent<
                   required={true}
                   label={'Phone'}
                   name='phone'
-                  // value={'+65-88234124'}
+                  value={'+65-88234124'}
                   type={'phone'}
                   onInputChanged={() => {
                     console.log(this.form.getInputValue('phone'));
                   }}
                 />
                 <Controls.FormControl
-                  required={true}
                   label={'Phone With Send Code'}
                   name='phone'
-                  // value={'+65-88234124'}
                   type={'phone'}
                   onSendCode={(processing: boolean) => {
                     console.log(processing);

@@ -190,6 +190,7 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
                   {phoneNumber}
                 </Container>
                 <Button
+                  disabled={!phoneNumber}
                   loading={
                     this.state.timeRemainingInSeconds === 60 ||
                     this.state.timeRemainingInSeconds === 0
@@ -209,7 +210,12 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
               </Container>
             </Item>
             <Divider visibility={'hidden'} />
-            <h6>Enter Code</h6>
+            <label className={styles.semiBold}>
+              <h6>
+                Enter Code
+                {this.props.required && <Container className={styles.required}>*</Container>}
+              </h6>
+            </label>
           </>
         )}
         <Container display={'flex'}>{this.renderInputs()}</Container>
