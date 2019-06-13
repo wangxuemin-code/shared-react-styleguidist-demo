@@ -6,10 +6,11 @@ import * as theme from '../css/theme/theme';
 import { vertical } from '../css/main.scss';
 
 interface IDoughnutChart extends IContainer {
-  title?: string;
+  title?: any;
   subTitle?: string;
   labelName?: string;
   backgroundColor: string;
+  width?: number;
   height?: number;
   data: {
     name: string;
@@ -19,10 +20,17 @@ interface IDoughnutChart extends IContainer {
 
 export class DoughnutChart extends React.Component<IDoughnutChart> {
   private chart: any;
+  private pieChartContainer: any;
+  constructor(props: any) {
+    super(props);
+  }
+
   componentDidMount() {
-    setTimeout(function() {
-      window.dispatchEvent(new Event('resize'));
-    }, 100);
+    if (this.props.width || this.props.height) {
+      this.chart.chart.setSize(this.props.width, this.props.height, false);
+      this.chart.chart.reflow();
+    }
+    window.dispatchEvent(new Event('resize'));
   }
 
   public render() {
@@ -41,8 +49,7 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
         enabled: false
       },
       chart: {
-        type: 'pie',
-        height: this.props.height
+        type: 'pie'
       },
       plotOptions: {
         pie: {
@@ -53,11 +60,8 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
       },
       title: {
         text: this.props.title,
-        verticalAlign: 'middle'
-      },
-      subtitle: {
-        text: this.props.subTitle,
-        y: 250
+        verticalAlign: 'middle',
+        useHTML: true
       },
       series: [
         {
@@ -81,12 +85,7 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
     };
 
     return (
-      <Container
-        className={'pieChart'}
-        width={this.props.width}
-        height={this.props.height}
-        {...this.props}
-      >
+      <Container className={'pieChart'} {...this.props}>
         <HighchartsReact
           ref={(element: any) => (this.chart = element)}
           highcharts={Highcharts}
@@ -97,11 +96,7 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
     );
   }
 
-  handleResize = () => {};
-
   getChart = (obj: any) => {
-    // this.chart = obj.chart;
-    // console.log('b', this.chart);
-    // this.chart.reflow();
+    this.chart = obj;
   };
 }

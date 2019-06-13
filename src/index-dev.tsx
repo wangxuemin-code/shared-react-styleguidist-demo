@@ -328,12 +328,7 @@ class Main extends Controls.MyComponent<
             >
               SubText
             </Controls.Button>
-            <Controls.Button
-              size='large'
-              float={'right'}
-              fontStyle={'italic'}
-              variant='primary'
-            >
+            <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
             </Controls.Button>
             <Controls.Divider visibility={'hidden'} />
@@ -815,12 +810,7 @@ class Main extends Controls.MyComponent<
             >
               Modal
             </Controls.Button>
-            <Controls.Button
-              outline
-              variant='primary'
-              tooltip={'tooltip!'}
-              display='inline-block'
-            >
+            <Controls.Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
               ToolTip
             </Controls.Button>
             <Controls.Button
@@ -935,12 +925,7 @@ class Main extends Controls.MyComponent<
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <Controls.ProgressBar
-              margin={{ topPx: 20 }}
-              value={20}
-              striped
-              variant={'warning'}
-            />
+            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
             <Controls.ProgressBar
               margin={{ topPx: 20 }}
@@ -1238,17 +1223,8 @@ class Main extends Controls.MyComponent<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
-                <Controls.FormControl
-                  label={'Numbers with commas'}
-                  name='number'
-                  type={'number'}
-                />
-                <Controls.FormControl
-                  label={'$$$'}
-                  name='money'
-                  type={'money'}
-                  decimalPlace={2}
-                />
+                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
+                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl
                   required
                   label={'Alpha only'}
@@ -1468,12 +1444,7 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl
-                  label={'Country'}
-                  name='country'
-                  type={'country'}
-                  required
-                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
@@ -1717,18 +1688,19 @@ class Main extends Controls.MyComponent<
                 pageRangeDisplayed={3}
               />
               <br />
-              <Controls.Pagination
-                pageCount={7}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={3}
-              />
+              <Controls.Pagination pageCount={7} marginPagesDisplayed={2} pageRangeDisplayed={3} />
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>
               <h4>Pie chart</h4>
               <Controls.DoughnutChart
-                title={'Failed'}
-                subTitle={'3 issues found'}
+                width={300}
+                height={300}
+                title='
+                  <div style="margin-top: -40px; text-align: center;">
+                    <h3>Fail</h3>
+                    <span>3 issues found</span>
+                  </div>'
                 labelName={'issues'}
                 backgroundColor={'rgba(255, 243, 205, 1)'}
                 data={[

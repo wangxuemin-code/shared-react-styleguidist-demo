@@ -21,19 +21,16 @@
     border: 2px solid map-get($colors, info);
   }
 
-
   &.disabled {
     background-color: map-get($colors, primaryDarkBackground);
     border: 2px solid map-get($colors, primaryDark);
   }
-
 
   &.success {
     background-color: map-get($colors, successBackground);
     border: 2px solid map-get($colors, success);
   }
 
-  
   &.warning {
     background-color: map-get($colors, warningBackground);
     border: 2px solid map-get($colors, warning);
@@ -43,7 +40,7 @@
     background-color: map-get($colors, dangerBackground);
     border: 2px solid map-get($colors, danger);
   }
-  
+
   .title {
     color: map-get($colors, primaryGreyDark);
   }
@@ -64,30 +61,27 @@
     background-color: map-get($colors, primary);
     border: 2px solid map-get($colors, primary);
   }
-  
+
   &.secondary {
     background-color: map-get($colors, primaryGreyDark);
     border: 2px solid map-get($colors, primaryGreyDark);
   }
-  
+
   &.info {
     background-color: map-get($colors, info);
     border: 2px solid map-get($colors, info);
   }
-  
-  
+
   &.disabled {
     background-color: map-get($colors, primaryDark);
     border: 2px solid map-get($colors, primaryDark);
   }
-  
-  
+
   &.success {
     background-color: map-get($colors, success);
     border: 2px solid map-get($colors, success);
   }
-  
-  
+
   &.warning {
     background-color: map-get($colors, warning);
     border: 2px solid map-get($colors, warning);
@@ -97,5 +91,4 @@
     background-color: map-get($colors, danger);
     border: 2px solid map-get($colors, danger);
   }
-
 }
