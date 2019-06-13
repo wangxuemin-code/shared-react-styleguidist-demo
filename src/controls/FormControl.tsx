@@ -74,8 +74,10 @@ interface IProps extends IContainer {
   separator?: any;
   verificationNumber?: string;
   uploaderConfigs?: {
+    label?: any;
     filePatterns?: FilePattern[];
     customAllowFileExtensions?: string[];
+    viewer?: boolean;
   };
   onInputChanged?: (value: string | number, name: string) => void;
   onFocus?: () => void;
@@ -613,9 +615,12 @@ export class FormControl extends React.Component<IProps, IState> {
                 this.control = ref;
               }
             }}
+            label={this.props.label}
+            uploaderLabel={this.props.uploaderConfigs!.label}
             value={this.state.displayValue || undefined}
             onChange={this.onUploaderChanged}
             disabled={this.props.disabled}
+            viewer={this.props.uploaderConfigs!.viewer}
             filePatterns={this.props.uploaderConfigs!.filePatterns}
             customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
           >

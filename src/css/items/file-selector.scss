@@ -15,6 +15,17 @@
     }
   }
 }
+
+.uploader-viewer {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: map-get($colors, primaryGreyDark);
+  cursor: pointer;
+}
+.uploader-viewer:hover {
+  color: map-get($colors, primary);
+}
 .uploader {
   align-items: center;
   background-color: rgba(23, 162, 184, 0.1);
@@ -26,6 +37,21 @@
   position: relative;
   width: 15rem;
   border-radius: 0.714rem;
+
+  .uploader-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: map-get($colors, primaryGreyDark);
+    padding: 0 0.5rem;
+    color: map-get($colors, primaryAlt);
+    border-top-left-radius: 0.714rem;
+    border-bottom-right-radius: 0.714rem;
+  }
+
+  &.disabled {
+    border: 0;
+  }
 
   span {
     position: absolute;

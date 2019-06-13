@@ -1,0 +1,18 @@
+.list {
+  display: block;
+
+  .list-header {
+    background-color: map-get($colors, primaryGrey);
+    padding: 1rem;
+  }
+
+  .list-content {
+    border: 1px solid map-get($colors, primaryGrey);
+    border-bottom: 0;
+  }
+
+  .list-footer {
+    border: 1px solid map-get($colors, primaryGrey);
+    padding: 1rem;
+  }
+}

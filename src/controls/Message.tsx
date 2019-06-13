@@ -36,7 +36,7 @@ export class Message extends React.Component<IMessage, any> {
 
     return (
       <Container {...this.props} className={classes.join(' ')}>
-        {this.props.icon && <Icon icon={this.props.icon} />}
+        {this.props.icon && <Icon size={'small'} icon={this.props.icon} />}
         {this.props.message && (
           <Container style={style} className={this.props.icon ? styles.iconText : ''}>
             {this.props.message}

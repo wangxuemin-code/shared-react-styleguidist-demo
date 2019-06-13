@@ -328,7 +328,12 @@ class Main extends Controls.MyComponent<
             >
               SubText
             </Controls.Button>
-            <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
+            <Controls.Button
+              size='large'
+              float={'right'}
+              fontStyle={'italic'}
+              variant='primary'
+            >
               Italic
             </Controls.Button>
             <Controls.Divider visibility={'hidden'} />
@@ -704,26 +709,54 @@ class Main extends Controls.MyComponent<
                   console.log(this.imageForm.getInputValue('upload'));
                 }}
               >
-                <Controls.FormControl
-                  required
-                  label='Image uploader'
-                  name='upload'
-                  type='uploader'
-                  value={this.state.imageUrl}
-                  uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
-                >
-                  <Controls.Container fluid verticalAlign={'center'}>
-                    <Controls.Image
-                      height={100}
-                      margin={{ topPx: -50 }}
-                      src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
-                    />
-                    <span className='normal-text'>
-                      Drag and drop or <br />
-                      Click here to attached a file
-                    </span>
-                  </Controls.Container>
-                </Controls.FormControl>
+                <Controls.Container className={'form-group '} display={'flex'}>
+                  <Controls.FormControl
+                    required
+                    label='Image uploader'
+                    name='upload'
+                    type='uploader'
+                    value={this.state.imageUrl}
+                    uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                  >
+                    <Controls.Container fluid verticalAlign={'center'}>
+                      <Controls.Image
+                        height={100}
+                        margin={{ topPx: -50 }}
+                        src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
+                      />
+                      <span className='normal-text'>
+                        Drag and drop or <br />
+                        Click here to attached a file
+                      </span>
+                    </Controls.Container>
+                  </Controls.FormControl>
+                  <Controls.FormControl
+                    required
+                    label='Image uploader disabled '
+                    name='uploadviewer'
+                    type='uploader'
+                    disabled
+                    value={''}
+                    uploaderConfigs={{
+                      customAllowFileExtensions: ['.pdf'],
+                      viewer: true,
+                      label: 'Front'
+                    }}
+                  >
+                    <Controls.Container>
+                      <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                        <Controls.Image
+                          src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
+                          //src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
+                        />
+                      </Controls.Container>
+
+                      <Controls.Container fluid verticalAlign={'center'}>
+                        <span className='tiny normal-text'>file-name-doc_1.pdf</span>
+                      </Controls.Container>
+                    </Controls.Container>
+                  </Controls.FormControl>
+                </Controls.Container>
                 <Controls.Button
                   type='submit'
                   onPress={() => {
@@ -755,9 +788,7 @@ class Main extends Controls.MyComponent<
             >
               Toast
             </Controls.Button>
-            <Controls.Modal className={'abc'} visible={this.state.showModal}>
-              Modal
-            </Controls.Modal>
+            <Controls.Modal visible={this.state.showModal}>Modal</Controls.Modal>
             <Controls.Button
               variant='danger'
               onPress={() => {
@@ -784,7 +815,12 @@ class Main extends Controls.MyComponent<
             >
               Modal
             </Controls.Button>
-            <Controls.Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
+            <Controls.Button
+              outline
+              variant='primary'
+              tooltip={'tooltip!'}
+              display='inline-block'
+            >
               ToolTip
             </Controls.Button>
             <Controls.Button
@@ -899,7 +935,12 @@ class Main extends Controls.MyComponent<
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
+            <Controls.ProgressBar
+              margin={{ topPx: 20 }}
+              value={20}
+              striped
+              variant={'warning'}
+            />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
             <Controls.ProgressBar
               margin={{ topPx: 20 }}
@@ -932,6 +973,59 @@ class Main extends Controls.MyComponent<
             <Controls.Rating defaultValue={4} maxValue={4} />
             <Controls.Rating defaultValue={3} maxValue={3} />
             <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
+            {this.variantStates.map((rating: any) => (
+              <Controls.Container display={'flex'} alignItems={'center'}>
+                <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
+                &nbsp;&nbsp; {rating}
+              </Controls.Container>
+            ))}
+            <Controls.Divider />
+            <h4>List</h4>
+            <Controls.List
+              height={100}
+              header={<h6>List Title</h6>}
+              listItems={
+                <>
+                  <p>13 May 2019 • 10:00 pm</p>
+                  <Controls.Divider visibility={'hidden'} />
+                  <Controls.Message
+                    padding={{ bottomRem: 0.3 }}
+                    fluid
+                    justifyContent={'left'}
+                    variant={'danger'}
+                    icon={faCheckCircle}
+                    messageColor={'#000'}
+                    message={
+                      <Controls.Container>
+                        <p className='large bold '>Title</p>
+                        <p>2 Fake document</p>
+                      </Controls.Container>
+                    }
+                  />
+                  <Controls.Message
+                    padding={{ bottomRem: 0.3 }}
+                    fluid
+                    justifyContent={'left'}
+                    variant={'danger'}
+                    icon={faCheckCircle}
+                    messageColor={'#000'}
+                    message={
+                      <Controls.Container>
+                        <p className='large bold '>Title</p>
+                        <p>2 Fake document</p>
+                      </Controls.Container>
+                    }
+                  />
+                </>
+              }
+              footer={
+                <Controls.Container verticalAlign={'center'} fluid>
+                  <Controls.Link href='/' useNormalAnchor>
+                    Link
+                  </Controls.Link>
+                </Controls.Container>
+              }
+            />
             <Controls.Divider />
             <h4>Table</h4>
             <Controls.Table
@@ -1144,8 +1238,17 @@ class Main extends Controls.MyComponent<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
-                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
-                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+                <Controls.FormControl
+                  label={'Numbers with commas'}
+                  name='number'
+                  type={'number'}
+                />
+                <Controls.FormControl
+                  label={'$$$'}
+                  name='money'
+                  type={'money'}
+                  decimalPlace={2}
+                />
                 <Controls.FormControl
                   required
                   label={'Alpha only'}
@@ -1365,7 +1468,12 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
+                <Controls.FormControl
+                  label={'Country'}
+                  name='country'
+                  type={'country'}
+                  required
+                />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
@@ -1557,6 +1665,21 @@ class Main extends Controls.MyComponent<
                   message={`Hello i am a ${message}`}
                 />
               ))}
+              <Controls.Message
+                fluid
+                justifyContent={'left'}
+                outline
+                icon={faInfoCircle}
+                message={`Hello i am a  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget sem
+              tortor. Nam eu bibendum nisi. In pellentesque consequat orci, at fermentum neque
+              luctus in. Vestibulum quis magna porta, pulvinar ipsum ut, sollicitudin nibh.
+              Suspendisse tincidunt, nulla quis varius dictum, elit mauris iaculis lorem, id
+              efficitur orci quam ac felis. Pellentesque auctor et orci ultricies varius. Nullam
+              mollis velit sit amet erat scelerisque, nec blandit orci interdum. Vivamus turpis
+              tortor, malesuada sit amet dignissim ac, malesuada ac tortor. Sed rutrum tincidunt
+              auctor. Mauris odio ipsum, pretium vitae consectetur eu, tempor vitae lorem. Nulla
+              facilisi.`}
+              />
             </Controls.Container>
             <Controls.Divider />
             <h4>Breadcrumbs</h4>
@@ -1594,7 +1717,11 @@ class Main extends Controls.MyComponent<
                 pageRangeDisplayed={3}
               />
               <br />
-              <Controls.Pagination pageCount={7} marginPagesDisplayed={2} pageRangeDisplayed={3} />
+              <Controls.Pagination
+                pageCount={7}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={3}
+              />
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>

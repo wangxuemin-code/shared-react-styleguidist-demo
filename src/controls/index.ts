@@ -12,6 +12,7 @@ export * from './Sticky';
 export * from './Divider';
 export * from './FormControl';
 export * from './Link';
+export * from './List';
 export * from './Modal';
 export * from './Alert';
 export * from './Message';

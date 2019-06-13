@@ -10,6 +10,7 @@ interface IDoughnutChart extends IContainer {
   subTitle?: string;
   labelName?: string;
   backgroundColor: string;
+  height?: number;
   data: {
     name: string;
     y: number;
@@ -17,8 +18,11 @@ interface IDoughnutChart extends IContainer {
 }
 
 export class DoughnutChart extends React.Component<IDoughnutChart> {
+  private chart: any;
   componentDidMount() {
-    window.dispatchEvent(new Event('resize'));
+    setTimeout(function() {
+      window.dispatchEvent(new Event('resize'));
+    }, 100);
   }
 
   public render() {
@@ -33,8 +37,12 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
     const options = {
       backgroundColor: this.props.backgroundColor,
       colors: defaultColors,
+      credits: {
+        enabled: false
+      },
       chart: {
-        type: 'pie'
+        type: 'pie',
+        height: this.props.height
       },
       plotOptions: {
         pie: {
@@ -73,9 +81,27 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
     };
 
     return (
-      <Container {...this.props}>
-        <HighchartsReact highcharts={Highcharts} options={options} />
+      <Container
+        className={'pieChart'}
+        width={this.props.width}
+        height={this.props.height}
+        {...this.props}
+      >
+        <HighchartsReact
+          ref={(element: any) => (this.chart = element)}
+          highcharts={Highcharts}
+          options={options}
+          callback={this.getChart}
+        />
       </Container>
     );
   }
+
+  handleResize = () => {};
+
+  getChart = (obj: any) => {
+    // this.chart = obj.chart;
+    // console.log('b', this.chart);
+    // this.chart.reflow();
+  };
 }

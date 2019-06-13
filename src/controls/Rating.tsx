@@ -23,30 +23,31 @@ export class Rating extends React.Component<IRating, IState> {
   renderInputs = () => {
     const { maxValue, defaultValue } = this.props;
     let { variant } = this.props;
+    let childVariant = '';
     const value = defaultValue || 0;
     const ratings = [];
     if (maxValue) {
       for (let i = 1; i <= maxValue; i++) {
         if (value >= i) {
-          variant = 'success';
+          childVariant = 'success';
         } else {
           if (value == i - 0.5) {
-            variant = 'warning';
+            childVariant = 'warning';
           } else {
-            variant = '';
+            childVariant = variant ? variant : '';
           }
         }
         let classes: string[] = [
           styles.ratingSignal,
           this.props.className ? this.props.className : '',
-          variant || ''
+          childVariant || ''
         ];
         classes = classes.filter(function(el) {
           return el != '';
         });
-        if (variant == 'success') {
+        if (childVariant == 'success') {
           ratings.push(
-            <Container key={i}>
+            <Container display={'inherit'} key={i}>
               <Icon variant={'success'} icon={faCheckCircle} />
             </Container>
           );
@@ -59,7 +60,6 @@ export class Rating extends React.Component<IRating, IState> {
   };
 
   public render() {
-    const { ...props } = this.props;
     return (
       <Container {...this.props} className={styles.rating}>
         {this.renderInputs()}

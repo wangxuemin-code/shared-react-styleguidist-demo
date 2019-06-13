@@ -3,6 +3,7 @@
   border-radius: 0.429rem;
   background-color: map-get($colors, primaryAlt);
   width: 100%;
+  overflow-x: auto;
 
   &.basic {
     border: none;

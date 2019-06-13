@@ -1,14 +1,29 @@
 .rating {
   display: flex;
   justify-content: space-between;
-  margin: 0.3rem 0;
 
   .rating-signal {
-    height: 1.071rem;
-    width: 1.071rem;
+    height: 1rem;
+    width: 1rem;
     border-radius: 50%;
     border: 1px solid map-get($colors, primaryGreyDark);
     background-color: map-get($colors, primaryAlt);
+
+    &.primary {
+      border: none;
+      background-color: map-get($colors, primary);
+    }
+
+    &.secondary {
+      border: none;
+      background-color: map-get($colors, primaryGrey);
+    }
+
+    &.disabled {
+      border: none;
+      background-color: map-get($colors, primary);
+      opacity: 0.7;
+    }
 
     &.success {
       border: none;

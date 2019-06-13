@@ -93,83 +93,87 @@ export class Phone extends React.Component<IProps, IState> {
       }
     };
     return (
-      <Container display={'flex'} className={'form-group'}>
-        <Container width={120}>
-          <label className={styles.semiBold}>
-            <h6>
-              Area Code
-              {this.props.required && <Container className={styles.required}>*</Container>}
-            </h6>
-          </label>
-          <Select
-            // componentClass='select'
-            className={'select'}
-            value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
-            filterOption={customFilter}
-            placeholder={this.props.placeholder}
-            onChange={this.onSetOption}
-            components={{ Option: CustomOption, SingleValue: DisplayOption }}
-            options={Options}
-            styles={{
-              control: (base) => ({
-                ...base,
-                height: '2.857rem',
-                minHeight: '2.571rem',
-                padding: '0 0.5rem'
-              }),
-              option: (base: any) => ({
-                ...base
-              })
-            }}
-          />
+      <Container fluid display={'flex'}>
+        <Container display={'flex'}>
+          <Container width={120}>
+            <label className={styles.semiBold}>
+              <h6>
+                Area Code
+                {this.props.required && <Container className={styles.required}>*</Container>}
+              </h6>
+            </label>
+            <Select
+              // componentClass='select'
+              className={'select'}
+              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
+              filterOption={customFilter}
+              placeholder={this.props.placeholder}
+              onChange={this.onSetOption}
+              components={{ Option: CustomOption, SingleValue: DisplayOption }}
+              options={Options}
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  height: '2.857rem',
+                  minHeight: '2.571rem',
+                  padding: '0 0.5rem'
+                }),
+                option: (base: any) => ({
+                  ...base
+                })
+              }}
+            />
+          </Container>
         </Container>
         &nbsp;&nbsp;
-        <Container>
-          <label className={styles.semiBold}>
-            <h6>
-              Phone Number
-              {this.props.required && <Container className={styles.required}>*</Container>}
-            </h6>
-          </label>
-          <Container display={'flex'}>
-            <Container width={230}>
-              <BootstrapFormControl
-                autoComplete={'off'}
-                autoCorrect={'off'}
-                type={'text'}
-                placeholder={this.props.placeholder}
-                value={this.state.phoneNumber || ''}
-                onChange={this.onChange}
-              />
-            </Container>
-            &nbsp;&nbsp;
-            <Container>
-              {this.props.onSendCode && (
-                <Button
-                  disabled={!this.state.phoneCode || !this.state.phoneNumber}
-                  loading={
-                    this.state.timeRemainingInSeconds === 60 ||
-                    this.state.timeRemainingInSeconds === 0
-                      ? false
-                      : true
-                  }
-                  width={
-                    this.state.timeRemainingInSeconds === 60 ||
-                    this.state.timeRemainingInSeconds === 0
-                      ? undefined
-                      : 150
-                  }
-                  float={'right'}
-                  variant='primary'
-                  onPress={this.sendPhoneCode}
-                >
-                  {this.state.timeRemainingInSeconds === 60
-                    ? 'Resend Code'
-                    : this.state.timeRemainingInSeconds === 0
-                    ? 'Resend Code'
-                    : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
-                </Button>
-              )}
+        <Container fluid display={'flex'} className={styles.flex1}>
+          <Container fluid>
+            <label className={styles.semiBold}>
+              <h6>
+                Phone Number
+                {this.props.required && <Container className={styles.required}>*</Container>}
+              </h6>
+            </label>
+            <Container display={'flex'}>
+              <Container fluid>
+                <BootstrapFormControl
+                  autoComplete={'off'}
+                  autoCorrect={'off'}
+                  type={'text'}
+                  placeholder={this.props.placeholder}
+                  value={this.state.phoneNumber || ''}
+                  onChange={this.onChange}
+                />
+              </Container>
+              &nbsp;&nbsp;
+              <Container>
+                {this.props.onSendCode && (
+                  <Button
+                    disabled={!this.state.phoneCode || !this.state.phoneNumber}
+                    loading={
+                      this.state.timeRemainingInSeconds === 60 ||
+                      this.state.timeRemainingInSeconds === 0
+                        ? false
+                        : true
+                    }
+                    width={
+                      this.state.timeRemainingInSeconds === 60 ||
+                      this.state.timeRemainingInSeconds === 0
+                        ? undefined
+                        : 150
+                    }
+                    float={'right'}
+                    variant='primary'
+                    onPress={this.sendPhoneCode}
+                  >
+                    {this.state.timeRemainingInSeconds === 60
+                      ? 'Resend Code'
+                      : this.state.timeRemainingInSeconds === 0
+                      ? 'Resend Code'
+                      : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
+                  </Button>
+                )}
+              </Container>
             </Container>
           </Container>
         </Container>

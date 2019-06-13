@@ -1,14 +1,18 @@
-import { faFilePdf, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faFilePdf, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
-import { Container, Icon, Loading } from '.';
+import { Container } from '.';
 import * as styles from '../css/main.scss';
-import { Controls } from '../index-prod';
 import { Confirm } from './Confirm';
+import { Icon } from './Icon';
+import { Modal } from './Modal';
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
 
 interface IProps {
+  label?: any;
+  uploaderLabel?: any;
+  viewer?: boolean;
   value?: string;
   onChange?: (newImageSrc: string) => void;
   disabled?: boolean;
@@ -22,6 +26,7 @@ interface IState {
   type?: FileType;
   fileData?: any;
   uploaded: boolean;
+  showViewer: boolean;
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
@@ -36,7 +41,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
     this.state = {
       src: this.props.value || '',
       type: this.getExtensionType(),
-      uploaded: true
+      uploaded: true,
+      showViewer: false
     };
   }
 
@@ -68,26 +74,52 @@ export default class FileUploader extends React.Component<IProps, IState> {
   public render() {
     let state = this.state;
     let labelClass = `uploader ${state.src && 'loaded'}`;
+    let classes: string[] = [labelClass, this.props.disabled ? styles.disabled : ''];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
 
     return (
-      <Container>
-        <label
-          className={labelClass}
-          onDragEnter={this.onDragEnter}
-          onDragLeave={this.onDragLeave}
-          onDragOver={this.onDragOver}
-          onDrop={this.onDrop}
-        >
-          {this.getContentDesign()}
-          <input
-            type='file'
-            accept={this.getAllowFileRules().join(',')}
-            onChange={this.onFileChange}
-            disabled={this.props.disabled}
-          />
-        </label>
-      </Container>
+      <>
+        {this.props.viewer && this.props.children && (
+          <Modal visible={this.state.showViewer}>
+            <Container fluid>{this.props.children}</Container>
+          </Modal>
+        )}
+        <Container position={'relative'}>
+          <label
+            onDragEnter={this.onDragEnter}
+            onDragLeave={this.onDragLeave}
+            onDragOver={this.onDragOver}
+            onDrop={this.onDrop}
+            className={classes.join(' ')}
+          >
+            {this.props.uploaderLabel && (
+              <Container className={styles.uploaderLabel}>{this.props.uploaderLabel}</Container>
+            )}
+            {this.getContentDesign()}
+            <input
+              type='file'
+              accept={this.getAllowFileRules().join(',')}
+              onChange={this.onFileChange}
+              disabled={this.props.disabled}
+            />
+          </label>
+          {this.props.viewer && this.props.children && (
+            <Icon
+              onClick={this.openViewer.bind(this)}
+              size={'large'}
+              className={styles.uploaderViewer}
+              icon={faSearchPlus}
+            />
+          )}
+        </Container>
+      </>
     );
+  }
+
+  public openViewer() {
+    this.setState({ showViewer: true });
   }
 
   public getValue() {
@@ -253,12 +285,12 @@ export default class FileUploader extends React.Component<IProps, IState> {
         );
       } else if (this.state.type === 'pdf') {
         return (
-          <Controls.Container position='relative' textAlign='center'>
-            <Controls.Icon icon={faFilePdf} />
-            <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
+          <Container position='relative' textAlign='center'>
+            <Icon icon={faFilePdf} />
+            <Container className='normal-text' margin={{ topPx: 5 }}>
               {!this.state.uploaded ? 'Pending upload' : 'Saved'}
-            </Controls.Container>
-          </Controls.Container>
+            </Container>
+          </Container>
         );
       }
     } else {

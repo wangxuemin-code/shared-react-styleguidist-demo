@@ -29,6 +29,24 @@
     width: 0.875em;
   }
 
+  &.small {
+    .svg {
+      font-size: 1.286rem !important;
+    }
+  }
+
+  &.medium {
+    .svg {
+      font-size: 1.429rem !important;
+    }
+  }
+
+  &.large {
+    .svg {
+      font-size: 1.571rem !important;
+    }
+  }
+
   &.badge {
     font-size: inherit;
     overflow: hidden;
