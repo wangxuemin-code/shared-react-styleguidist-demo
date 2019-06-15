@@ -17,6 +17,7 @@ import { OtpInput } from './OTP';
 import { Transition } from './Transition';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import moment = require('moment');
 var uniqid = require('uniqid');
 
 interface IState {
@@ -36,7 +37,6 @@ interface IProps extends IContainer {
   placeholder?: any;
   type?:
     | 'alphabet'
-    | 'dateText'
     | 'text'
     | 'number'
     | 'numberfields'
@@ -93,7 +93,6 @@ interface IProcessResult {
 }
 
 export class FormControl extends React.Component<IProps, IState> {
-  private otp?: OtpInput;
   private control?: any;
 
   public static defaultProps: IProps = {
@@ -256,13 +255,14 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     }
 
-    if (this.props.type === 'dateText') {
+    if (this.props.type === 'date') {
       if (this.props.required || (!this.props.required && this.state.value)) {
-        const re = /^[0-9]{2,2}-[0-9]{2,2}-[0-9]{4,4}$/;
-        if (!re.test(String(this.state.value))) {
+        const re = /^\d\d[./-]\d\d[./-]\d\d\d\d$/;
+        const value = moment.unix(Number(this.state.value)).format('DD-MM-YYYY');
+        if (!re.test(value)) {
           if (setErrorState)
             this.setState({
-              error: 'date format is invalid, only DD-MM-YYYY is allowed',
+              error: 'Date format is invalid, only DD-MM-YYYY is allowed',
               showError: true
             });
           return false;
@@ -824,7 +824,6 @@ export class FormControl extends React.Component<IProps, IState> {
           return false;
         }
       }
-
       const realValue = parseFloat(Formatter.stripSymbol(value).trim());
       if (realValue > 999999999999) {
         return false;
@@ -935,7 +934,7 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: !re.test(value) ? '' : value,
             value: !re.test(value) ? '' : value
           };
-        } else if (this.props.type === 'dateText') {
+        } else if (this.props.type === 'date') {
           const re = /^[0-9-]+$/;
           return {
             displayValue: !re.test(value) ? '' : value,

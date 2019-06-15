@@ -28,6 +28,7 @@ interface IState {
   selectedUnixTimestamp?: number;
   selectedStartUnixTimestamp?: number;
   selectedEndUnixTimestamp?: number;
+  keyCodeArray?: any[];
 }
 
 export class DateTimePicker extends React.Component<IProps, IState> {
@@ -55,6 +56,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           <Container position={'relative'} display={'flex'} widthPercent={100}>
             <DatePicker
               selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
+              onKeyDown={(e) => this.handleKeyDown(e)}
               onChange={this.handleChange.bind(this)}
               onChangeRaw={this.handleChangeRaw.bind(this)}
               showTimeSelect={
@@ -68,8 +70,8 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 this.props.options.dateFormat
                   ? this.props.options.dateFormat
                   : this.props.type === 'datetime' || this.props.options.showTimeSelect
-                  ? 'dd/MM/YY hh:mm aa'
-                  : 'dd/MM/YY'
+                  ? 'dd/MM/yyyy hh:mm aa'
+                  : 'dd/MM/yyyy'
               }
               placeholderText={this.props.placeholder}
               minDate={this.props.options.startDate}
@@ -107,7 +109,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               showTimeSelect={this.props.options.showTimeSelect}
               dateFormat={
                 this.props.options.dateFormat ||
-                (this.props.options.showTimeSelect ? 'dd/MM/YY hh:mm aa' : 'dd/MM/YY')
+                (this.props.options.showTimeSelect ? 'dd/MM/yyyy hh:mm aa' : 'dd/MM/yyyy')
               }
               placeholderText={this.props.placeholder}
               minDate={this.props.options.startDate}
@@ -136,7 +138,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               showTimeSelect={this.props.options.showTimeSelect}
               dateFormat={
                 this.props.options.dateFormat ||
-                (this.props.options.showTimeSelect ? 'dd/MM/YY hh:mm aa' : 'dd/MM/YY')
+                (this.props.options.showTimeSelect ? 'dd/MM/yyyy hh:mm aa' : 'dd/MM/yyyy')
               }
               placeholderText={this.props.placeholder}
               minDate={this.props.options.startDate}
@@ -204,76 +206,133 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   }
 
+  private handleKeyDown(e: any) {
+    if (this.props.type === 'date') {
+      const keyCodeArray: number[] = this.state.keyCodeArray || [];
+      if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 191 || e.keyCode === 189) {
+        if (keyCodeArray.length > 9) {
+          e.preventDefault();
+        }
+        if (keyCodeArray.length == 2 || keyCodeArray.length == 5) {
+          if (this.props.options.dateFormat === 'dd-MM-yyyy') {
+            if (e.keyCode === 189) {
+              keyCodeArray.push(e.keyCode);
+              this.setState({ keyCodeArray: keyCodeArray });
+            } else {
+              e.preventDefault();
+            }
+          } else {
+            if (e.keyCode === 191) {
+              keyCodeArray.push(e.keyCode);
+              this.setState({ keyCodeArray: keyCodeArray });
+            } else {
+              e.preventDefault();
+            }
+          }
+        } else {
+          if (e.keyCode === 189 || e.keyCode === 191) {
+            e.preventDefault();
+          } else {
+            keyCodeArray.push(e.keyCode);
+            this.setState({ keyCodeArray: keyCodeArray });
+          }
+        }
+      } else if (e.keyCode === 8) {
+        keyCodeArray.pop();
+        this.setState({ keyCodeArray: keyCodeArray });
+      } else {
+        e.preventDefault();
+      }
+    }
+  }
+
   private handleChangeRaw(event: React.FocusEvent<HTMLInputElement>) {
-    const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
-    if (newMoment.isValid()) {
-      this.handleChangeStart(newMoment.toDate());
+    if (this.props.type === 'date') {
+      const newMoment = moment(event.target.value, 'DD-MM-YYYY');
+      if (newMoment.isValid()) {
+        this.handleChange(newMoment.toDate());
+      }
+    } else {
+      const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
+      if (newMoment.isValid()) {
+        this.handleChange(newMoment.toDate());
+      }
     }
   }
 
   private handleChange(date: Date) {
-    const unixTimestamp = Formatter.dateToUnixTimestamp(date);
-    this.setState({ selectedUnixTimestamp: unixTimestamp });
-    if (this.props.onChange) {
-      this.props.onChange(unixTimestamp, date);
+    if (date) {
+      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+      if (date) {
+        this.setState({
+          selectedUnixTimestamp: unixTimestamp
+        });
+      }
+      if (this.props.onChange) {
+        this.props.onChange(unixTimestamp, date);
+      }
     }
   }
 
   private handleChangeRawStart(event: React.FocusEvent<HTMLInputElement>) {
-    const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
+    const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
     if (newMoment.isValid()) {
       this.handleChangeStart(newMoment.toDate());
     }
   }
 
   private handleChangeStart(date: Date) {
-    const unixTimestamp = Formatter.dateToUnixTimestamp(date);
-    if (this.state.selectedEndUnixTimestamp) {
-      if (this.state.selectedEndUnixTimestamp < unixTimestamp) {
-        this.setState({
-          selectedStartUnixTimestamp: unixTimestamp,
-          selectedEndUnixTimestamp: 0
-        });
-        if (this.props.onChange) {
-          this.props.onChange(unixTimestamp + ',' + 0, date);
+    if (date) {
+      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+      if (this.state.selectedEndUnixTimestamp) {
+        if (this.state.selectedEndUnixTimestamp < unixTimestamp) {
+          this.setState({
+            selectedStartUnixTimestamp: unixTimestamp,
+            selectedEndUnixTimestamp: 0
+          });
+          if (this.props.onChange) {
+            this.props.onChange(unixTimestamp + ',' + 0, date);
+          }
+        } else {
+          this.setState({ selectedStartUnixTimestamp: unixTimestamp });
+          if (this.props.onChange) {
+            this.props.onChange(unixTimestamp + ',' + this.state.selectedEndUnixTimestamp, date);
+          }
         }
       } else {
         this.setState({ selectedStartUnixTimestamp: unixTimestamp });
         if (this.props.onChange) {
-          this.props.onChange(unixTimestamp + ',' + this.state.selectedEndUnixTimestamp, date);
+          this.props.onChange(unixTimestamp + ',' + 0, date);
         }
-      }
-    } else {
-      this.setState({ selectedStartUnixTimestamp: unixTimestamp });
-      if (this.props.onChange) {
-        this.props.onChange(unixTimestamp + ',' + 0, date);
       }
     }
   }
 
   private handleChangeRawEnd(event: React.FocusEvent<HTMLInputElement>) {
-    const newMoment = moment(event.target.value, 'DD-MM-YY hh:mm A');
+    const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
     if (newMoment.isValid()) {
       this.handleChangeEnd(newMoment.toDate());
     }
   }
 
   private handleChangeEnd(date: Date) {
-    const unixTimestamp = Formatter.dateToUnixTimestamp(date);
-    if (this.state.selectedStartUnixTimestamp) {
-      if (this.state.selectedStartUnixTimestamp < unixTimestamp) {
+    if (date) {
+      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+      if (this.state.selectedStartUnixTimestamp) {
+        if (this.state.selectedStartUnixTimestamp < unixTimestamp) {
+          this.setState({ selectedEndUnixTimestamp: unixTimestamp });
+          if (this.props.onChange) {
+            this.props.onChange(this.state.selectedStartUnixTimestamp + ',' + unixTimestamp, date);
+          }
+        } else {
+          this.setState({ selectedStartUnixTimestamp: unixTimestamp });
+          this.handleChangeStart(date);
+        }
+      } else {
         this.setState({ selectedEndUnixTimestamp: unixTimestamp });
         if (this.props.onChange) {
           this.props.onChange(this.state.selectedStartUnixTimestamp + ',' + unixTimestamp, date);
         }
-      } else {
-        this.setState({ selectedStartUnixTimestamp: unixTimestamp });
-        this.handleChangeStart(date);
-      }
-    } else {
-      this.setState({ selectedEndUnixTimestamp: unixTimestamp });
-      if (this.props.onChange) {
-        this.props.onChange(this.state.selectedStartUnixTimestamp + ',' + unixTimestamp, date);
       }
     }
   }

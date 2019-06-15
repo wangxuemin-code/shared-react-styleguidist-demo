@@ -107,7 +107,6 @@ export class Phone extends React.Component<IProps, IState> {
               className={'select'}
               value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
               filterOption={customFilter}
-              placeholder={this.props.placeholder}
               onChange={this.onSetOption}
               components={{ Option: CustomOption, SingleValue: DisplayOption }}
               options={Options}

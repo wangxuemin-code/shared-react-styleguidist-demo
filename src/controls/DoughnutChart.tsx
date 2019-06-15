@@ -3,11 +3,9 @@ import { IContainer, Container } from './Container';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import * as theme from '../css/theme/theme';
-import { vertical } from '../css/main.scss';
 
 interface IDoughnutChart extends IContainer {
   title?: any;
-  subTitle?: string;
   labelName?: string;
   backgroundColor: string;
   width?: number;
@@ -20,7 +18,6 @@ interface IDoughnutChart extends IContainer {
 
 export class DoughnutChart extends React.Component<IDoughnutChart> {
   private chart: any;
-  private pieChartContainer: any;
   constructor(props: any) {
     super(props);
   }
@@ -34,7 +31,6 @@ export class DoughnutChart extends React.Component<IDoughnutChart> {
   }
 
   public render() {
-    const props = this.props;
     const defaultColors = [
       theme.stylings.colors.danger,
       theme.stylings.colors.warning,

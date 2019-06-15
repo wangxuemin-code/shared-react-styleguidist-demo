@@ -82,7 +82,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
     return (
       <>
         {this.props.viewer && this.props.children && (
-          <Modal visible={this.state.showViewer}>
+          <Modal onModalHide={this.hideViewer.bind(this)} visible={this.state.showViewer}>
             <Container fluid>{this.props.children}</Container>
           </Modal>
         )}
@@ -119,7 +119,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public openViewer() {
+    console.log(1);
     this.setState({ showViewer: true });
+  }
+
+  public hideViewer() {
+    console.log(2);
+    this.setState({ showViewer: false });
   }
 
   public getValue() {

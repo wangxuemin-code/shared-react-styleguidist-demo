@@ -7,7 +7,6 @@ import {
   faAddressBook,
   faAdjust,
   faPlus,
-  faTimesCircle,
   faCheckCircle,
   faExclamationCircle,
   faInfoCircle,
@@ -745,7 +744,6 @@ class Main extends Controls.MyComponent<
                           //src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
                       </Controls.Container>
-
                       <Controls.Container fluid verticalAlign={'center'}>
                         <span className='tiny normal-text'>file-name-doc_1.pdf</span>
                       </Controls.Container>
@@ -959,7 +957,7 @@ class Main extends Controls.MyComponent<
             <Controls.Rating defaultValue={3} maxValue={3} />
             <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
             {this.variantStates.map((rating: any) => (
-              <Controls.Container display={'flex'} alignItems={'center'}>
+              <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
                 <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                 &nbsp;&nbsp; {rating}
               </Controls.Container>
@@ -1145,14 +1143,18 @@ class Main extends Controls.MyComponent<
                       </span>
                     }
                     extraControls={
-                      this.state.error === 'yes' && (
+                      this.state.error === 'yes' ? (
                         <Controls.Transition>
-                          <Controls.Message variant='danger' message='Hello i am a default!' />
+                          <Controls.Message
+                            variant='danger'
+                            message='Hello i am a extra controls'
+                          />
                         </Controls.Transition>
+                      ) : (
+                        <Controls.Link>
+                          <Controls.Icon icon={faPlus} text={'Extra control'} />
+                        </Controls.Link>
                       )
-                      // <Controls.Link>
-                      //   <Controls.Icon icon={faPlus} text={'Extra control'} />
-                      // </Controls.Link>
                     }
                     append={
                       <Controls.Button
@@ -1233,7 +1235,7 @@ class Main extends Controls.MyComponent<
                   type={'alphabet'}
                 />
                 <Controls.FormControl
-                  numInputs={5}
+                  numInputs={6}
                   inputWidth={'80px'}
                   label={'OTP'}
                   name='numberfields'
@@ -1244,7 +1246,7 @@ class Main extends Controls.MyComponent<
                   }}
                 />
                 <Controls.FormControl
-                  numInputs={5}
+                  numInputs={6}
                   inputWidth={'80px'}
                   label={'OTP with verification'}
                   verificationNumber={'+65-88234124'}
@@ -1260,21 +1262,14 @@ class Main extends Controls.MyComponent<
                   }}
                 />
                 <Controls.FormControl
-                  required={true}
-                  name={'date-format'}
-                  label={'Date'}
-                  placeholder='only DD-MM-YYYY format is allowed'
-                  type={'dateText'}
-                />
-                <Controls.FormControl
                   required
                   label={'Date'}
                   name='date'
                   type={'date'}
+                  placeholder={'DD/MM/YYYY'}
                   dateOptions={{
-                    dateFormat: 'dd-MM-yyyy'
+                    endDate: new Date()
                   }}
-                  placeholder={'DD-MM-YYYY'}
                   value={this.state.value}
                   onInputChanged={(value) => {
                     console.log(value);
@@ -1291,6 +1286,20 @@ class Main extends Controls.MyComponent<
                       Change Date
                     </Controls.Button>
                   }
+                />
+                <Controls.FormControl
+                  required={true}
+                  name={'dateformat'}
+                  label={
+                    <h6>
+                      Date <br /> (DD-MM-YYYY)
+                    </h6>
+                  }
+                  placeholder='Only DD-MM-YYYY format is allowed'
+                  type={'date'}
+                  dateOptions={{
+                    dateFormat: 'dd-MM-yyyy'
+                  }}
                 />
                 <Controls.FormControl
                   required
@@ -1465,6 +1474,7 @@ class Main extends Controls.MyComponent<
                   label={'Phone With Send Code'}
                   name='phone'
                   type={'phone'}
+                  placeholder={'+65-88234124'}
                   onSendCode={(processing: boolean) => {
                     console.log(processing);
                   }}
