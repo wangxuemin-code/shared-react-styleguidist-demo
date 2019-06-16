@@ -11,7 +11,7 @@ const LEFT_ARROW = 37;
 const RIGHT_ARROW = 39;
 const DELETE = 46;
 
-interface IOtpInput extends IContainer {
+interface IProps extends IContainer {
   numInputs: number;
   onChange: Function;
   separator?: any;
@@ -23,6 +23,7 @@ interface IOtpInput extends IContainer {
   verificationNumber?: string;
   onSendCode?: (processing: boolean) => void;
   required?: boolean;
+  loading?: boolean;
 }
 
 interface ISingleOtpInput extends IContainer {
@@ -43,11 +44,12 @@ interface IState {
   phoneCode?: string | number;
   phoneNumber?: string | number;
   timeRemainingInSeconds: number;
+  firstSendCode?: boolean;
 }
 
-export class OtpInput extends React.Component<IOtpInput, IState> {
+export class OtpInput extends React.Component<IProps, IState> {
   private timer: any;
-  public static defaultProps: IOtpInput = {
+  public static defaultProps: IProps = {
     numInputs: 4,
     onChange: (otp: number) => {
       // console.log(otp);
@@ -57,7 +59,7 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
     maxLength: 1
   };
 
-  constructor(props: IOtpInput) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
@@ -69,12 +71,20 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
       phoneNumber: this.props.verificationNumber
         ? this.props.verificationNumber.toString().split('-')[1]
         : '',
-      timeRemainingInSeconds: 60
+      timeRemainingInSeconds: 60,
+      firstSendCode: true
     };
   }
 
+  public componentDidUpdate(prevProps: IProps) {
+    if (this.props.value !== prevProps.value) {
+      if (this.props.value === '') {
+        this.setState({ activeInput: 0, otp: [] });
+      }
+    }
+  }
+
   getOtp = () => {
-    // console.log(this.state.otp);
     this.props.onChange(this.state.otp.join(''));
   };
 
@@ -193,7 +203,8 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
                   disabled={!phoneNumber}
                   loading={
                     this.state.timeRemainingInSeconds === 60 ||
-                    this.state.timeRemainingInSeconds === 0
+                    this.state.timeRemainingInSeconds === 0 ||
+                    !this.props.loading
                       ? false
                       : true
                   }
@@ -201,9 +212,11 @@ export class OtpInput extends React.Component<IOtpInput, IState> {
                   variant='primary'
                   onPress={this.sendPhoneCode}
                 >
-                  {this.state.timeRemainingInSeconds === 60
-                    ? 'Resend Code'
-                    : this.state.timeRemainingInSeconds === 0
+                  {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
+                    ? 'Send Code'
+                    : this.state.timeRemainingInSeconds === 60 ||
+                      this.state.timeRemainingInSeconds === 0 ||
+                      !this.props.loading
                     ? 'Resend Code'
                     : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
                 </Button>

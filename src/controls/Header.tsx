@@ -119,7 +119,7 @@ export class Header extends React.Component<IHeader, IState> {
       >
         <Icon size='large' icon={faUserCircle} />
         <Container className={styles.text}>
-          {this.getUsername()}
+          {this.props.username || this.state.username || this.getUsername()}
           {((this.props.subLinks && this.props.subLinks.length) ||
             Cookies.get('account') ||
             this.state.username !== '') && (

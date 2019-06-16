@@ -55,7 +55,7 @@ class Main extends Controls.MyComponent<
     error: string;
     loading: boolean;
     showModal: boolean;
-    value: string | number;
+    value?: string | number;
     selectOptions: any[];
     email: string;
     imageUrl: string;
@@ -703,7 +703,7 @@ class Main extends Controls.MyComponent<
                   console.log(this.imageForm.getInputValue('upload'));
                 }}
               >
-                <Controls.Container className={'form-group '} display={'flex'}>
+                <Controls.Container className={'form-group'} display={'flex'}>
                   <Controls.FormControl
                     required
                     label='Image uploader'
@@ -1254,8 +1254,13 @@ class Main extends Controls.MyComponent<
                   type={'numberfields'}
                   separator={<span>&nbsp;&nbsp;</span>}
                   required
+                  loading={this.state.loading}
                   onSendCode={(processing: boolean) => {
+                    this.setState({ loading: true });
                     console.log(processing);
+                  }}
+                  validateReturnError={(value: string | number | undefined | null): any => {
+                    return 'Invalid OTP';
                   }}
                   onInputChanged={() => {
                     console.log(this.form.getInputValue('numberfields'));
@@ -1346,6 +1351,21 @@ class Main extends Controls.MyComponent<
                       value: '1'
                     }
                   ]}
+                  value={this.state.value || '1'}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({
+                          value: '2'
+                        });
+                      }}
+                    >
+                      Change Checkbox
+                    </Controls.Button>
+                  }
                   onInputChanged={(value) => {
                     console.log(this.form.getInputValue('h_checkbox'));
                     console.log(value);

@@ -209,32 +209,34 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   private handleKeyDown(e: any) {
     if (this.props.type === 'date') {
       const keyCodeArray: number[] = this.state.keyCodeArray || [];
+
       if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 191 || e.keyCode === 189) {
         if (keyCodeArray.length > 9) {
           e.preventDefault();
-        }
-        if (keyCodeArray.length == 2 || keyCodeArray.length == 5) {
-          if (this.props.options.dateFormat === 'dd-MM-yyyy') {
-            if (e.keyCode === 189) {
-              keyCodeArray.push(e.keyCode);
-              this.setState({ keyCodeArray: keyCodeArray });
-            } else {
-              e.preventDefault();
-            }
-          } else {
-            if (e.keyCode === 191) {
-              keyCodeArray.push(e.keyCode);
-              this.setState({ keyCodeArray: keyCodeArray });
-            } else {
-              e.preventDefault();
-            }
-          }
         } else {
-          if (e.keyCode === 189 || e.keyCode === 191) {
-            e.preventDefault();
+          if (keyCodeArray.length == 2 || keyCodeArray.length == 5) {
+            if (this.props.options.dateFormat === 'dd-MM-yyyy') {
+              if (e.keyCode === 189) {
+                keyCodeArray.push(e.keyCode);
+                this.setState({ keyCodeArray: keyCodeArray });
+              } else {
+                e.preventDefault();
+              }
+            } else {
+              if (e.keyCode === 191) {
+                keyCodeArray.push(e.keyCode);
+                this.setState({ keyCodeArray: keyCodeArray });
+              } else {
+                e.preventDefault();
+              }
+            }
           } else {
-            keyCodeArray.push(e.keyCode);
-            this.setState({ keyCodeArray: keyCodeArray });
+            if (e.keyCode === 189 || e.keyCode === 191) {
+              e.preventDefault();
+            } else {
+              keyCodeArray.push(e.keyCode);
+              this.setState({ keyCodeArray: keyCodeArray });
+            }
           }
         }
       } else if (e.keyCode === 8) {
@@ -243,6 +245,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       } else {
         e.preventDefault();
       }
+      // console.log(keyCodeArray);
     }
   }
 

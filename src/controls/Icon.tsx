@@ -133,7 +133,10 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'fontawesomepro':
-        const src = `./images/svgs/solid/${this.props.icon}.svg`;
+        let src = '';
+        if (this.props.icon) {
+          src = `./images/svgs/solid/${this.props.icon}.svg`;
+        }
         return (
           <Container style={iconStyle} className={styles.svg} {...this.props}>
             <SVG style={{ fill: this.props.color }} src={src} />

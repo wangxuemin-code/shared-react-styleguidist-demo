@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IContainer } from './Container';
-interface IOtpInput extends IContainer {
+interface IProps extends IContainer {
     numInputs: number;
     onChange: Function;
     separator?: any;
@@ -12,6 +12,7 @@ interface IOtpInput extends IContainer {
     verificationNumber?: string;
     onSendCode?: (processing: boolean) => void;
     required?: boolean;
+    loading?: boolean;
 }
 interface IState {
     activeInput: number;
@@ -19,11 +20,13 @@ interface IState {
     phoneCode?: string | number;
     phoneNumber?: string | number;
     timeRemainingInSeconds: number;
+    firstSendCode?: boolean;
 }
-export declare class OtpInput extends React.Component<IOtpInput, IState> {
+export declare class OtpInput extends React.Component<IProps, IState> {
     private timer;
-    static defaultProps: IOtpInput;
-    constructor(props: IOtpInput);
+    static defaultProps: IProps;
+    constructor(props: IProps);
+    componentDidUpdate(prevProps: IProps): void;
     getOtp: () => void;
     focusInput: (input: number) => void;
     focusNextInput: () => void;

@@ -44,7 +44,11 @@ export class Phone extends React.Component<IProps, IState> {
     }
   }
 
-  public componentDidUpdate(prevProps: IProps) {}
+  public componentDidUpdate(prevProps: IProps) {
+    if (this.props.value !== prevProps.value) {
+      this.processPhoneCode(this.props.value);
+    }
+  }
 
   public render() {
     const CustomOption = (innerProps: any) => {
@@ -105,7 +109,7 @@ export class Phone extends React.Component<IProps, IState> {
             <Select
               // componentClass='select'
               className={'select'}
-              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0]}
+              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || {}}
               filterOption={customFilter}
               onChange={this.onSetOption}
               components={{ Option: CustomOption, SingleValue: DisplayOption }}
@@ -180,11 +184,15 @@ export class Phone extends React.Component<IProps, IState> {
     );
   }
 
-  private processPhoneCode = (phoneValue: string) => {
-    const phone = phoneValue ? phoneValue.toString().split('-') : '';
-    const phoneCode = phone[0] ? phone[0] : '';
-    const phoneNumber = phone[1] ? phone[1] : '';
-    this.setState({ phoneCode: phoneCode, phoneNumber: phoneNumber });
+  private processPhoneCode = (phoneValue: string | undefined) => {
+    if (phoneValue) {
+      const phone = phoneValue ? phoneValue.toString().split('-') : '';
+      const phoneCode = phone[0] ? phone[0] : '';
+      const phoneNumber = phone[1] ? phone[1] : '';
+      this.setState({ phoneCode: phoneCode, phoneNumber: phoneNumber, value: phoneValue });
+    } else {
+      this.setState({ phoneCode: '', phoneNumber: '', value: '' });
+    }
   };
 
   private validateValueCanChanged(value: string): boolean {

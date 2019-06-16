@@ -332,6 +332,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
+          loading={this.props.loading}
           required={this.props.required}
           isInputNum
           verificationNumber={this.props.verificationNumber}
@@ -350,7 +351,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // componentClass='select'
           // defaultMenuIsOpen
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -387,7 +388,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           className={'select'}
           // defaultMenuIsOpen
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
@@ -464,7 +465,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -533,7 +534,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // defaultMenuIsOpen
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0]}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
