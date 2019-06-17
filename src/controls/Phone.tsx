@@ -14,6 +14,7 @@ interface IProps {
   selectOptions?: { label: any; value: string }[];
   required?: boolean;
   onSendCode?: (processing: boolean) => void;
+  loading?: boolean;
 }
 
 interface IState {
@@ -21,6 +22,7 @@ interface IState {
   phoneCode?: string | number;
   phoneNumber?: string | number;
   timeRemainingInSeconds: number;
+  firstSendCode?: boolean;
 }
 
 export class Phone extends React.Component<IProps, IState> {
@@ -34,7 +36,8 @@ export class Phone extends React.Component<IProps, IState> {
     this.state = {
       phoneCode: '',
       phoneNumber: '',
-      timeRemainingInSeconds: 60
+      timeRemainingInSeconds: 60,
+      firstSendCode: true
     };
   }
 
@@ -109,11 +112,12 @@ export class Phone extends React.Component<IProps, IState> {
             <Select
               // componentClass='select'
               className={'select'}
-              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || {}}
+              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
               filterOption={customFilter}
               onChange={this.onSetOption}
               components={{ Option: CustomOption, SingleValue: DisplayOption }}
               options={Options}
+              isDisabled={this.props.loading}
               styles={{
                 control: (base) => ({
                   ...base,
@@ -143,6 +147,7 @@ export class Phone extends React.Component<IProps, IState> {
                   autoComplete={'off'}
                   autoCorrect={'off'}
                   type={'text'}
+                  disabled={this.props.loading}
                   placeholder={this.props.placeholder}
                   value={this.state.phoneNumber || ''}
                   onChange={this.onChange}
@@ -155,13 +160,15 @@ export class Phone extends React.Component<IProps, IState> {
                     disabled={!this.state.phoneCode || !this.state.phoneNumber}
                     loading={
                       this.state.timeRemainingInSeconds === 60 ||
-                      this.state.timeRemainingInSeconds === 0
+                      this.state.timeRemainingInSeconds === 0 ||
+                      !this.props.loading
                         ? false
                         : true
                     }
                     width={
                       this.state.timeRemainingInSeconds === 60 ||
-                      this.state.timeRemainingInSeconds === 0
+                      this.state.timeRemainingInSeconds === 0 ||
+                      !this.props.loading
                         ? undefined
                         : 150
                     }
@@ -169,9 +176,11 @@ export class Phone extends React.Component<IProps, IState> {
                     variant='primary'
                     onPress={this.sendPhoneCode}
                   >
-                    {this.state.timeRemainingInSeconds === 60
-                      ? 'Resend Code'
-                      : this.state.timeRemainingInSeconds === 0
+                    {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
+                      ? 'Send Code'
+                      : this.state.timeRemainingInSeconds === 60 ||
+                        this.state.timeRemainingInSeconds === 0 ||
+                        !this.props.loading
                       ? 'Resend Code'
                       : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
                   </Button>

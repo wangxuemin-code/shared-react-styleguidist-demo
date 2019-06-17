@@ -1256,8 +1256,11 @@ class Main extends Controls.MyComponent<
                   required
                   loading={this.state.loading}
                   onSendCode={(processing: boolean) => {
-                    this.setState({ loading: true });
-                    console.log(processing);
+                    if (processing) {
+                      this.setState({ loading: true });
+                    } else {
+                      this.setState({ loading: false });
+                    }
                   }}
                   validateReturnError={(value: string | number | undefined | null): any => {
                     return 'Invalid OTP';
@@ -1429,7 +1432,8 @@ class Main extends Controls.MyComponent<
                               label: 'Disabled',
                               value: 'disabled'
                             }
-                          ]
+                          ],
+                          loading: false
                         });
                       }}
                     >
@@ -1495,8 +1499,14 @@ class Main extends Controls.MyComponent<
                   name='phone'
                   type={'phone'}
                   placeholder={'+65-88234124'}
+                  loading={this.state.loading}
                   onSendCode={(processing: boolean) => {
                     console.log(processing);
+                    if (processing) {
+                      this.setState({ loading: true });
+                    } else {
+                      this.setState({ loading: false });
+                    }
                   }}
                   onInputChanged={() => {
                     console.log(this.form.getInputValue('phone'));

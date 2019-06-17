@@ -351,7 +351,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // componentClass='select'
           // defaultMenuIsOpen
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -388,7 +388,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           className={'select'}
           // defaultMenuIsOpen
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
@@ -414,6 +414,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || undefined}
           onChange={this.onPhoneChange}
           onSendCode={this.props.onSendCode}
+          loading={this.props.loading}
         />
       );
     } else if (this.props.type === 'country') {
@@ -465,7 +466,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -534,7 +535,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // defaultMenuIsOpen
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || {}}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -717,10 +718,11 @@ export class FormControl extends React.Component<IProps, IState> {
     if (newValue.constructor === Array) {
       newValue = selectedOption.value[0];
     }
-    this.setState({ displayValue: newValue, value: newValue, showError: false });
-    if (this.props.onInputChanged) {
-      this.props.onInputChanged(newValue, this.props.name || '');
-    }
+    this.setState({ displayValue: newValue, value: newValue, showError: false }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(newValue, this.props.name || '');
+      }
+    });
   };
 
   private onPhoneChange(value: string) {
