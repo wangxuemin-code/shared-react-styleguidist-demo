@@ -1659,6 +1659,16 @@ class Main extends Controls.MyComponent<
               {this.variantStates.map((message: any) => (
                 <Controls.Message
                   key={uniqid().toString()}
+                  flat
+                  variant={message}
+                  size={'small'}
+                  message={`Hello i am a smaller ${message}`}
+                />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
+                <Controls.Message
+                  key={uniqid().toString()}
                   outline
                   variant={message}
                   message={`Hello i am a ${message}`}

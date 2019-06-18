@@ -10,18 +10,21 @@ interface IMessage extends IContainer {
   outline?: boolean;
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
   messageColor?: string;
+  size?: 'small' | 'normal';
 }
 
 export class Message extends React.Component<IMessage, any> {
   public static defaultProps: IMessage = {
-    variant: 'primary'
+    variant: 'primary',
+    size: 'normal'
   };
   public render() {
     let classes: string[] = [
       styles.istoxMessage,
       this.props.variant || '',
       this.props.outline ? styles.outline : '',
-      this.props.flat ? styles.flat : ''
+      this.props.flat ? styles.flat : '',
+      this.props.size === 'small' ? styles.smallMessage : ''
     ];
 
     classes = classes.filter(function(el) {
