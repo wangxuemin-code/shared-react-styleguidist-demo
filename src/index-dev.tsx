@@ -1288,7 +1288,7 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                       onPress={() => {
-                        this.setState({ value: 770169600 });
+                        this.setState({ value: 770169600, loading: false });
                       }}
                     >
                       Change Date
