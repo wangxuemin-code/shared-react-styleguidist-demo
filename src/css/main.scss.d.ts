@@ -194,6 +194,7 @@ export const closeButton: string;
 export const istoxAlert: string;
 export const alert: string;
 export const istoxMessage: string;
+export const smallMessage: string;
 export const istoxHeader: string;
 export const links: string;
 export const alt: string;
