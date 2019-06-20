@@ -210,6 +210,7 @@ export const iconContainer: string;
 export const contactContainer: string;
 export const copyrightContainer: string;
 export const istoxForm: string;
+export const oldValueActive: string;
 export const formControlsInner: string;
 export const select: string;
 export const selectOption: string;

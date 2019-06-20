@@ -1112,7 +1112,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                horizontal
+                // horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1517,15 +1517,31 @@ class Main extends Controls.MyComponent<
                   label={'Static'}
                   name='test_static'
                   static={true}
+                  oldValue={'9876543'}
                   type='number'
                 />
                 <Controls.FormControl
+                  label={'Static Date'}
+                  name='date_static'
+                  type={'date'}
+                  static={true}
+                  placeholder={'DD/MM/YYYY'}
+                  dateOptions={{
+                    endDate: new Date()
+                  }}
+                  oldValue={Formatter.dateToUnixTimestamp(
+                    new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+                  )}
+                  value={Formatter.dateToUnixTimestamp(new Date())}
+                />
+                <Controls.FormControl
                   required
-                  label={'Select static'}
+                  label={'Static Select'}
                   name='select_static'
                   type={'select'}
                   static={true}
                   value={'hei!'}
+                  oldValue={'abcl'}
                   selectOptions={[
                     {
                       label: 'this is label',
@@ -1537,6 +1553,15 @@ class Main extends Controls.MyComponent<
                       value: 'abcl'
                     }
                   ]}
+                />
+                <Controls.FormControl
+                  required
+                  static={true}
+                  label='Static Image uploader'
+                  name='upload'
+                  type='uploader'
+                  oldValue='https://v.fastcdn.co/t/fb1fdb8c/bb03cafd/1558938078-42717848-212x56-iSTOX-Logo.png'
+                  value='https://v.fastcdn.co/t/fb1fdb8c/bb03cafd/1558938078-42717848-212x56-iSTOX-Logo.png'
                 />
               </Controls.Form>
             </Controls.Container>

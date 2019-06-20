@@ -15,12 +15,14 @@ import { Loading } from './Loading';
 import { Message } from './Message';
 import { OtpInput } from './OTP';
 import { Transition } from './Transition';
+import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
 var uniqid = require('uniqid');
 
 interface IState {
+  oldDisplayValue?: string;
   displayValue?: string;
   value?: string | number | null;
   error?: string;
@@ -34,6 +36,7 @@ interface IProps extends IContainer {
   fullWidth?: boolean;
   defaultValue?: any;
   value?: string | number | null;
+  oldValue?: string | number | null;
   placeholder?: any;
   type?:
     | 'alphabet'
@@ -114,7 +117,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.reset = this.reset.bind(this);
-    this.state = { valueArray: [], displayValue: '', value: '' };
+    this.state = { valueArray: [], displayValue: '', value: '', oldDisplayValue: '' };
   }
 
   public componentWillMount() {
@@ -153,34 +156,70 @@ export class FormControl extends React.Component<IProps, IState> {
     return (
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
-          {this.props.label && (
-            <label className={styles.semiBold}>
-              <Container className={styles.displayFlex}>
-                {typeof this.props.label === 'string' && (
-                  <h6>
-                    {this.props.label}
-                    {this.props.required && <Container className={styles.required}>*</Container>}
-                  </h6>
+          <>
+            {this.props.oldValue && (
+              <>
+                {this.props.label && (
+                  <label className={styles.semiBold}>
+                    <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
+                      {typeof this.props.label === 'string' && (
+                        <h6>
+                          {this.props.label}
+                          {this.props.required && (
+                            <Container className={styles.required}>*</Container>
+                          )}
+                        </h6>
+                      )}
+                      {typeof this.props.label !== 'string' && (
+                        <>
+                          {this.props.label}
+                          {this.props.required && (
+                            <Container className={styles.required}>*</Container>
+                          )}
+                        </>
+                      )}
+                    </Container>
+                  </label>
                 )}
-                {typeof this.props.label !== 'string' && (
-                  <>
-                    {this.props.label}
-                    {this.props.required && <Container className={styles.required}>*</Container>}
-                  </>
-                )}
-              </Container>
-            </label>
-          )}
-          <Container
-            classNames={[styles.formControlsInner]}
-            position={this.props.prepend ? 'relative' : undefined}
-          >
-            {this.getInputPrependDesign(this.props.prepend)}
-            {this.getControlDesign()}
-            {this.getInputAppendDesign(this.props.append)}
-            {/* {this.state.value} */}
-            <input type='hidden' name={this.props.name} value={this.state.value || ''} />
-          </Container>
+                <Container
+                  classNames={[styles.formControlsInner, styles.oldValueActive]}
+                  position={this.props.prepend ? 'relative' : undefined}
+                >
+                  {this.getInputPrependDesign(this.props.prepend)}
+                  {this.getControlDesign(true)}
+                  {this.getInputAppendDesign(this.props.append)}
+                  <input type='hidden' name={this.props.name} value={this.state.value || ''} />
+                </Container>
+              </>
+            )}
+            {this.props.label && (
+              <label className={styles.semiBold}>
+                <Container className={styles.displayFlex}>
+                  {typeof this.props.label === 'string' && (
+                    <h6>
+                      {this.props.label}
+                      {this.props.required && <Container className={styles.required}>*</Container>}
+                    </h6>
+                  )}
+                  {typeof this.props.label !== 'string' && (
+                    <>
+                      {this.props.label}
+                      {this.props.required && <Container className={styles.required}>*</Container>}
+                    </>
+                  )}
+                </Container>
+              </label>
+            )}
+            <Container
+              classNames={[styles.formControlsInner]}
+              position={this.props.prepend ? 'relative' : undefined}
+            >
+              {this.getInputPrependDesign(this.props.prepend)}
+              {this.getControlDesign(false)}
+              {this.getInputAppendDesign(this.props.append)}
+              <input type='hidden' name={this.props.name} value={this.state.value || ''} />
+            </Container>
+          </>
         </Container>
         {this.state.extraControls && (
           <Container className={styles.formControlsWrapper}>
@@ -326,9 +365,33 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setValue(this.state.value === '0' ? '1' : '0', notify);
   }
 
-  private getControlDesign() {
+  private getControlDesign(oldValue: boolean) {
     if (this.props.static) {
-      return <Container>{this.state.displayValue}</Container>;
+      if (this.props.type === 'uploader') {
+        return (
+          <Container>
+            <Image
+              src={
+                oldValue
+                  ? this.props.oldValue
+                    ? this.state.oldDisplayValue
+                    : ''
+                  : this.state.displayValue
+              }
+            />
+          </Container>
+        );
+      } else {
+        return (
+          <Container>
+            {oldValue
+              ? this.props.oldValue
+                ? this.state.oldDisplayValue
+                : ''
+              : this.state.displayValue}
+          </Container>
+        );
+      }
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
@@ -836,6 +899,8 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private processValue(value: string): IProcessResult {
+    let oldDisplayValue = this.props.oldValue ? this.props.oldValue.toString() : '';
+    this.setState({ oldDisplayValue: oldDisplayValue });
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
@@ -856,8 +921,6 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
-      this.props.type === 'date' ||
-      this.props.type === 'datetime' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields'
@@ -870,8 +933,12 @@ export class FormControl extends React.Component<IProps, IState> {
           if (item.value === value) {
             displayValue = item.label;
           }
+          if (item.value === this.props.oldValue) {
+            oldDisplayValue = item.label;
+          }
         })
       ) {
+        this.setState({ oldDisplayValue: oldDisplayValue });
         return { displayValue: displayValue || '', value };
       }
     } else if (this.props.type === 'customselect') {
@@ -881,33 +948,75 @@ export class FormControl extends React.Component<IProps, IState> {
           if (item.value === value) {
             displayValue = item.label;
           }
+          if (item.value === this.props.oldValue) {
+            oldDisplayValue = item.label;
+          }
         })
       ) {
+        this.setState({ oldDisplayValue: oldDisplayValue });
         return { displayValue: displayValue || '', value };
+      }
+    } else if (this.props.type === 'numeric') {
+      const re = /^\d+$/;
+      return {
+        displayValue: !re.test(value) ? '' : value,
+        value: !re.test(value) ? '' : value
+      };
+    } else if (this.props.type === 'alphabet') {
+      const re = /^[a-zA-Z]+$/;
+      return {
+        displayValue: !re.test(value) ? '' : value,
+        value: !re.test(value) ? '' : value
+      };
+    } else if (this.props.type === 'date' || this.props.type === 'datetime') {
+      const re = /^[0-9-]+$/;
+      const dateFormat = this.props.dateOptions
+        ? this.props.dateOptions.dateFormat
+          ? this.props.dateOptions.dateFormat
+          : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
+          ? 'DD/MM/YYYY hh:mm A'
+          : 'DD/MM/YYYY'
+        : 'DD/MM/YYYY';
+      if (this.props.static) {
+        this.setState({
+          oldDisplayValue: moment.unix(Number(oldDisplayValue)).format(dateFormat)
+        });
+        return {
+          displayValue: !re.test(value)
+            ? ''
+            : Formatter.unixTimestampToDate(Number(value))
+            ? moment.unix(Number(value)).format(dateFormat)
+            : '',
+          value: !re.test(value)
+            ? ''
+            : Formatter.unixTimestampToDate(Number(value))
+            ? moment.unix(Number(value)).format(dateFormat)
+            : ''
+        };
+      } else {
+        return {
+          displayValue: !re.test(value) ? '' : value,
+          value: !re.test(value) ? '' : value
+        };
       }
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
-      let appendDot: string = '';
-      var dotsCount = (originalValue.match(/[\.]+/g) || []).length;
+      const originalOldValue = Formatter.stripSymbol(oldDisplayValue).trim();
 
-      if (originalValue.length > 0 && dotsCount >= 1) {
-        if (originalValue[originalValue.length - 1] === '.') {
-          appendDot = originalValue.match(/[\.]+/g)![0];
-          appendDot = appendDot.replace('..', '.');
-        }
-      }
-
-      var dotZeroCount = (originalValue.match(/\.[0]+/g) || []).length;
-      if (originalValue.length > 1 && dotZeroCount === 1) {
-        const matched = originalValue.match(/\.[0]+/g)![0];
-        if (originalValue.indexOf(matched) + matched.length === originalValue.length) {
-          appendDot = originalValue.match(/\.[0]+/g)![0];
-          appendDot = appendDot.replace('.0000', '.000');
-        }
-      }
+      const appendDot = this.processNumber(originalValue);
+      const appendOldDot = this.processNumber(originalOldValue);
 
       if (originalValue) {
         if (this.props.type === 'money') {
+          if (isNaN(parseFloat(originalOldValue))) {
+            oldDisplayValue = '';
+          } else {
+            oldDisplayValue =
+              Formatter.money(parseFloat(originalOldValue), {
+                decimalPlace: this.props.decimalPlace
+              }) + appendOldDot;
+          }
+          this.setState({ oldDisplayValue: oldDisplayValue });
           return {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
@@ -917,6 +1026,15 @@ export class FormControl extends React.Component<IProps, IState> {
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
+          if (isNaN(parseFloat(originalOldValue))) {
+            oldDisplayValue = '';
+          } else {
+            oldDisplayValue =
+              Formatter.number(parseFloat(originalOldValue), {
+                decimalPlace: this.props.decimalPlace
+              }) + appendOldDot;
+          }
+          this.setState({ oldDisplayValue: oldDisplayValue });
           return {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
@@ -925,28 +1043,34 @@ export class FormControl extends React.Component<IProps, IState> {
                 }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
-        } else if (this.props.type === 'numeric') {
-          const re = /^\d+$/;
-          return {
-            displayValue: !re.test(value) ? '' : value,
-            value: !re.test(value) ? '' : value
-          };
-        } else if (this.props.type === 'alphabet') {
-          const re = /^[a-zA-Z]+$/;
-          return {
-            displayValue: !re.test(value) ? '' : value,
-            value: !re.test(value) ? '' : value
-          };
-        } else if (this.props.type === 'date') {
-          const re = /^[0-9-]+$/;
-          return {
-            displayValue: !re.test(value) ? '' : value,
-            value: !re.test(value) ? '' : value
-          };
         }
       }
     }
     return { displayValue: '', value: '' };
+  }
+
+  private processNumber(value: string) {
+    const originalValue = Formatter.stripSymbol(value).trim();
+    let appendDot: string = '';
+    var dotsCount = (originalValue.match(/[\.]+/g) || []).length;
+
+    if (originalValue.length > 0 && dotsCount >= 1) {
+      if (originalValue[originalValue.length - 1] === '.') {
+        appendDot = originalValue.match(/[\.]+/g)![0];
+        appendDot = appendDot.replace('..', '.');
+      }
+    }
+
+    var dotZeroCount = (originalValue.match(/\.[0]+/g) || []).length;
+    if (originalValue.length > 1 && dotZeroCount === 1) {
+      const matched = originalValue.match(/\.[0]+/g)![0];
+      if (originalValue.indexOf(matched) + matched.length === originalValue.length) {
+        appendDot = originalValue.match(/\.[0]+/g)![0];
+        appendDot = appendDot.replace('.0000', '.000');
+      }
+    }
+
+    return appendDot;
   }
 
   private onValueChanged(firstCall: boolean, newValue: string) {
