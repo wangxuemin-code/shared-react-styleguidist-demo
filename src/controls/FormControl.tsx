@@ -164,7 +164,7 @@ export class FormControl extends React.Component<IProps, IState> {
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
                         <h6>
-                          {this.props.label}
+                          {this.props.label} {this.props.oldValue && '(Old)'}
                           {this.props.required && (
                             <Container className={styles.required}>*</Container>
                           )}
@@ -172,7 +172,7 @@ export class FormControl extends React.Component<IProps, IState> {
                       )}
                       {typeof this.props.label !== 'string' && (
                         <>
-                          {this.props.label}
+                          {this.props.label} {this.props.oldValue && '(Old)'}
                           {this.props.required && (
                             <Container className={styles.required}>*</Container>
                           )}
@@ -197,13 +197,13 @@ export class FormControl extends React.Component<IProps, IState> {
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
                     <h6>
-                      {this.props.label}
+                      {this.props.label} {this.props.oldValue && '(New)'}
                       {this.props.required && <Container className={styles.required}>*</Container>}
                     </h6>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>
-                      {this.props.label}
+                      {this.props.label} {this.props.oldValue && '(New)'}
                       {this.props.required && <Container className={styles.required}>*</Container>}
                     </>
                   )}
