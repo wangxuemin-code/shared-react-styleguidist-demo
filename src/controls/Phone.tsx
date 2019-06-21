@@ -245,6 +245,7 @@ export class Phone extends React.Component<IProps, IState> {
   };
 
   private sendPhoneCode = () => {
+    clearInterval(this.timer!);
     this.setState({ timeRemainingInSeconds: 59 });
     this.timer = setInterval(() => {
       this.decrementTimeRemaining();

@@ -2,6 +2,13 @@ $borderRadius: 0.375rem;
 
 .istox-form {
   margin: auto;
+  .old-value-active {
+    opacity: 0.5;
+
+    &.form-controls-inner {
+      margin-bottom: 2rem;
+    }
+  }
   .form-controls-inner {
     flex: auto;
     display: flex;
@@ -153,6 +160,9 @@ $borderRadius: 0.375rem;
   }
 
   &.form-horizontal {
+    .old-value-active {
+      margin-bottom: 0;
+    }
     .form-group {
       margin: 0;
     }
