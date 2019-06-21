@@ -39,6 +39,19 @@
 
 .istox-table tbody tr {
   transition: background-color $transitionLinear;
+
+  &.row-header {
+    background-color: map-get($colors, primaryGreyLight);
+    color: map-get($colors, primaryGreyDark);
+
+    td {
+      padding: 4px 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-top: 1px solid map-get($colors, primaryGreyLight);
+      border-bottom: 1px solid map-get($colors, primaryGreyLight);
+    }
+  }
 }
 
 .istox-table tbody tr:hover {

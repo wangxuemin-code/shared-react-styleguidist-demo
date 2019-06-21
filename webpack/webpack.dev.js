@@ -59,6 +59,9 @@ module.exports = {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true
   },
+  watchOptions: {
+    poll: true
+  },
   devServer: {
     // All options here: https://webpack.js.org/configuration/dev-server/
 
@@ -217,8 +220,7 @@ module.exports = {
               functions: {
                 'get($keys)': function(keys) {
                   keys = keys.getValue().split('.');
-                  var result = require(commonPaths.srcPath +
-                    '/css/theme/theme.js').stylings;
+                  var result = require(commonPaths.srcPath + '/css/theme/theme.js').stylings;
                   var i;
                   for (i = 0; i < keys.length; i++) {
                     result = result[keys[i]];

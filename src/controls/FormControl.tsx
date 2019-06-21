@@ -802,7 +802,7 @@ export class FormControl extends React.Component<IProps, IState> {
       },
       () => {
         if (this.props.onInputChanged) {
-          this.props.onInputChanged(value, this.props.name || '');
+          this.props.onInputChanged(checked ? value : null, this.props.name || '');
         }
       }
     );
