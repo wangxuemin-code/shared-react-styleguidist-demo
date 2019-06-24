@@ -157,27 +157,20 @@ export class FormControl extends React.Component<IProps, IState> {
       <Container {...this.props} className={styles.mainFormControlsWrapper}>
         <Container className={classes.join(' ')}>
           <>
-            {this.props.oldValue && (
+            {this.props.oldValue !== this.props.value && this.props.oldValue && (
               <>
                 {this.props.label && (
                   <label className={styles.semiBold}>
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
-                        <h6>
-                          {this.props.label}
-                          {this.props.required && (
-                            <Container className={styles.required}>*</Container>
-                          )}
-                        </h6>
-                      )}
-                      {typeof this.props.label !== 'string' && (
                         <>
-                          {this.props.label}
+                          <h6>{this.props.label}</h6>
                           {this.props.required && (
                             <Container className={styles.required}>*</Container>
                           )}
                         </>
                       )}
+                      {typeof this.props.label !== 'string' && <>{this.props.label}</>}
                     </Container>
                   </label>
                 )}
@@ -196,17 +189,12 @@ export class FormControl extends React.Component<IProps, IState> {
               <label className={styles.semiBold}>
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
-                    <h6>
-                      {this.props.label}
-                      {this.props.required && <Container className={styles.required}>*</Container>}
-                    </h6>
-                  )}
-                  {typeof this.props.label !== 'string' && (
                     <>
-                      {this.props.label}
+                      <h6>{this.props.label}</h6>
                       {this.props.required && <Container className={styles.required}>*</Container>}
                     </>
                   )}
+                  {typeof this.props.label !== 'string' && <>{this.props.label}</>}
                 </Container>
               </label>
             )}
