@@ -1129,7 +1129,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                // horizontal
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1271,7 +1271,8 @@ class Main extends Controls.MyComponent<
                   type={'numberfields'}
                   separator={<span>&nbsp;&nbsp;</span>}
                   required
-                  loading={this.state.loading}
+                  loading={true}
+                  // loading={this.state.loading}
                   onSendCode={(processing: boolean) => {
                     if (processing) {
                       this.setState({ loading: true });
@@ -1316,9 +1317,12 @@ class Main extends Controls.MyComponent<
                   required={true}
                   name={'dateformat'}
                   label={
-                    <h6>
-                      Date <br /> (DD-MM-YYYY)
-                    </h6>
+                    <>
+                      <h6>
+                        Date <br /> (DD-MM-YYYY)
+                      </h6>
+                      <Controls.Container className='required'>*</Controls.Container>
+                    </>
                   }
                   placeholder='Only DD-MM-YYYY format is allowed'
                   type={'date'}
@@ -1534,7 +1538,7 @@ class Main extends Controls.MyComponent<
                   label={'Static'}
                   name='test_static'
                   static={true}
-                  oldValue={'9876543'}
+                  oldValue={'1234567'}
                   type='number'
                 />
                 <Controls.FormControl
