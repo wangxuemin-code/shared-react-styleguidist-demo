@@ -56,7 +56,7 @@ export class Formatter {
   }
 
   public static date(input?: string | Date): string {
-    return moment(input).format('DD MMM');
+    return moment(input).format('DD MMMM YYYY');
   }
 
   public static time(input?: string | Date): string {

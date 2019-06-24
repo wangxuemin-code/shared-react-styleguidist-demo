@@ -1065,6 +1065,11 @@ class Main extends Controls.MyComponent<
             />
             <Controls.Divider visibility={'hidden'} />
             <Controls.Table
+              selectable={true}
+              selectedItemIds={['2', '3', '4']}
+              onSelectedItemsChanged={(selectedItemIds) => {
+                console.log(`Selected id changed: ${selectedItemIds.join(', ')}`);
+              }}
               columnHeaders={[
                 { title: 'Code' },
                 { title: 'Date Created' },
@@ -1074,13 +1079,19 @@ class Main extends Controls.MyComponent<
                 }
               ]}
               rows={[
-                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
+                  itemId: '1'
+                },
+                { rowHeaderContents: ['Header1', '', 'Header2', ''], groupId: '1' },
                 {
                   rowContents: [
                     'Super Admin',
                     'This is another not very long content.',
                     'DDMMYYYY'
                   ],
+                  itemId: '2',
+                  groupId: '1',
                   rowActions: [
                     {
                       icon: faAddressBook,
@@ -1096,13 +1107,19 @@ class Main extends Controls.MyComponent<
                     }
                   ]
                 },
-                { rowContents: ['Super Admin', 'This is another not very long content.', ''] },
+                {
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
+                  itemId: '3',
+                  groupId: '1'
+                },
                 {
                   rowContents: [
                     'Super Admin',
                     'This is another not very long content.',
                     'DDMMYYYY'
                   ],
+                  itemId: '4',
+                  groupId: '1',
                   rowActions: [{ loading: true }]
                 }
               ]}

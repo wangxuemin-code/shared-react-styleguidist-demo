@@ -163,8 +163,16 @@ export class FormControl extends React.Component<IProps, IState> {
                   <label className={styles.semiBold}>
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
+                        <h6>
+                          {this.props.label} {this.props.oldValue && '(Old)'}
+                          {this.props.required && (
+                            <Container className={styles.required}>*</Container>
+                          )}
+                        </h6>
+                      )}
+                      {typeof this.props.label !== 'string' && (
                         <>
-                          <h6>{this.props.label}</h6>
+                          {this.props.label} {this.props.oldValue && '(Old)'}
                           {this.props.required && (
                             <Container className={styles.required}>*</Container>
                           )}
@@ -189,8 +197,16 @@ export class FormControl extends React.Component<IProps, IState> {
               <label className={styles.semiBold}>
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
+                    <h6>
+                      {this.props.label}{' '}
+                      {this.props.oldValue !== this.props.value && this.props.oldValue && '(New)'}
+                      {this.props.required && <Container className={styles.required}>*</Container>}
+                    </h6>
+                  )}
+                  {typeof this.props.label !== 'string' && (
                     <>
-                      <h6>{this.props.label}</h6>
+                      {this.props.label}{' '}
+                      {this.props.oldValue !== this.props.value && this.props.oldValue && '(New)'}
                       {this.props.required && <Container className={styles.required}>*</Container>}
                     </>
                   )}
@@ -853,7 +869,7 @@ export class FormControl extends React.Component<IProps, IState> {
       },
       () => {
         if (this.props.onInputChanged) {
-          this.props.onInputChanged(value, this.props.name || '');
+          this.props.onInputChanged(checked ? value : null, this.props.name || '');
         }
       }
     );
