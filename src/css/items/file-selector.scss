@@ -91,3 +91,10 @@
     margin: 0.5rem;
   }
 }
+
+.error {
+  .uploader {
+    border: 3px dashed map-get($colors, danger);
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+}

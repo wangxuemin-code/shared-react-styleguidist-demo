@@ -1182,9 +1182,11 @@ class Main extends Controls.MyComponent<
                           console.log(this.form.getInputValue('dropdown'));
                           console.log(this.form.getFormData());
                           console.log(this.form.getInputValue('areacode'));
+                          console.log('email', this.form.getInputValue('email'));
                           this.setState({
                             error: 'yes'
                           });
+                          this.form.onSaved();
                         }}
                       >
                         Submit
@@ -1200,6 +1202,7 @@ class Main extends Controls.MyComponent<
                   label='Image'
                   name='image'
                   type='uploader'
+                  value='https://v.fastcdn.co/t/fb1fdb8c/bb03cafd/1558938078-42717848-212x56-iSTOX-Logo.png'
                   uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
                 />
                 <Controls.FormControl
@@ -1276,6 +1279,9 @@ class Main extends Controls.MyComponent<
                   onSendCode={(processing: boolean) => {
                     if (processing) {
                       this.setState({ loading: true });
+                      // setTimeout(() => {
+                      //   this.setState({ email: 'hahahaha@gmail.com' });
+                      // }, 5000);
                     } else {
                       this.setState({ loading: false });
                     }

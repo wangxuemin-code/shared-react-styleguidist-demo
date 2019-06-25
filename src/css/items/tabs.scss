@@ -240,6 +240,10 @@
             font-weight: bold;
           }
         }
+
+        &.disabled {
+          cursor: default;
+        }
       }
     }
 

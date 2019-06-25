@@ -119,22 +119,24 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public openViewer() {
-    console.log(1);
     this.setState({ showViewer: true });
   }
 
   public hideViewer() {
-    console.log(2);
     this.setState({ showViewer: false });
   }
 
   public getValue() {
-    return JSON.stringify({
-      file: {
-        data: this.state.src,
-        uploaded: this.state.uploaded
-      }
-    });
+    if (this.state.src) {
+      return JSON.stringify({
+        file: {
+          data: this.state.src,
+          uploaded: this.state.uploaded
+        }
+      });
+    } else {
+      return '';
+    }
   }
 
   public onSaved() {

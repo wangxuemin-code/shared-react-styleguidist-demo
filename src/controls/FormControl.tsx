@@ -207,10 +207,8 @@ export class FormControl extends React.Component<IProps, IState> {
                     <>
                       {this.props.label}{' '}
                       {this.props.oldValue !== this.props.value && this.props.oldValue && '(New)'}
-                      {this.props.required && <Container className={styles.required}>*</Container>}
                     </>
                   )}
-                  {typeof this.props.label !== 'string' && <>{this.props.label}</>}
                 </Container>
               </label>
             )}
@@ -345,7 +343,11 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public reset() {
-    this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
+    if (this.props.type !== 'uploader') {
+      this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
+    } else {
+      this.onValueChanged(false, String(this.props.defaultValue || ''));
+    }
   }
 
   public onSaved() {
@@ -1085,9 +1087,17 @@ export class FormControl extends React.Component<IProps, IState> {
       //   displayValue: result.displayValue,
       //   value: result.value
       // };
-      this.setState({ displayValue: result.displayValue, value: result.value });
+      this.setState({
+        displayValue: result.displayValue,
+        value: result.value,
+        showError: false
+      });
     } else {
-      this.setState({ displayValue: result.displayValue, value: result.value });
+      this.setState({
+        displayValue: result.displayValue,
+        value: result.value,
+        showError: false
+      });
     }
   }
 

@@ -61,14 +61,19 @@ export class Button extends React.Component<IButton, any> {
   }
 
   private getButtonDesign(style: React.CSSProperties, classes: string[]) {
-    let filteredProps = { ...this.props, ...{ classNames: undefined }, ...{ class: undefined } };
+    let filteredProps = {
+      ...this.props,
+      ...{ classNames: undefined },
+      ...{ class: undefined },
+      ...{ onClick: undefined }
+    };
     return (
       <Container {...filteredProps} display='inline-grid' position='relative'>
         <button
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={!this.props.disabled ? this.props.onPress : undefined}
+          onClick={!this.props.disabled ? this.props.onPress || this.props.onClick : undefined}
           disabled={this.props.loading || this.props.disabled}
         >
           {this.props.loading && (

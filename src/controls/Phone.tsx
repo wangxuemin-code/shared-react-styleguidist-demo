@@ -111,6 +111,7 @@ export class Phone extends React.Component<IProps, IState> {
             </label>
             <Select
               // componentClass='select'
+              // defaultMenuIsOpen
               className={'select'}
               value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
               filterOption={customFilter}
