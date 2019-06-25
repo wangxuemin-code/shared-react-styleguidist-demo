@@ -58,6 +58,12 @@ export class Table extends React.Component<IProps, IState> {
     this.state = { selectedIds: this.props.selectedItemIds || [] };
   }
 
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.selectedItemIds !== this.props.selectedItemIds) {
+      this.setState({ selectedIds: this.props.selectedItemIds || [] });
+    }
+  }
+
   public render() {
     let classes: string[] = [
       styles.istoxTable,
