@@ -18,15 +18,15 @@ export interface TableRowModel {
   rowActions?: TableActionsModel[];
   rowColSpans?: number[];
   onClick?: () => void;
-  groupId?: String;
-  itemId?: String;
+  groupId?: string;
+  itemId?: string;
 }
 
 export interface TableRowHeaderModel {
   rowHeaderContents?: any[];
   rowColSpans?: number[];
   rawRowHeaderContent?: any;
-  groupId?: String;
+  groupId?: string;
 }
 
 export interface TableActionsModel {
@@ -43,12 +43,12 @@ interface IProps extends IContainer {
   rows?: (TableRowModel | TableRowHeaderModel)[];
   basic?: boolean;
   selectable?: boolean;
-  onSelectedItemsChanged?: (selectedItemIds: String[]) => void;
-  selectedItemIds?: String[];
+  onSelectedItemsChanged?: (selectedItemIds: string[]) => void;
+  selectedItemIds?: string[];
 }
 
 interface IState {
-  selectedIds: String[];
+  selectedIds: string[];
 }
 
 export class Table extends React.Component<IProps, IState> {
@@ -277,7 +277,7 @@ export class Table extends React.Component<IProps, IState> {
     return result;
   }
 
-  private isGroupSelected(checkGroupId?: String) {
+  private isGroupSelected(checkGroupId?: string) {
     let result = true;
     if (this.props.rows) {
       this.props.rows.map((tableRowModel, i) => {
@@ -300,10 +300,10 @@ export class Table extends React.Component<IProps, IState> {
 
   private onCheckboxChanged = (
     type: 'single' | 'group' | 'all',
-    idOption: { itemId?: string; groupId?: String } = {},
+    idOption: { itemId?: string; groupId?: string } = {},
     value: string
   ) => {
-    let selectedIds: String[] = this.state.selectedIds;
+    let selectedIds: string[] = this.state.selectedIds;
     if (this.props.rows) {
       if (type === 'all') {
         selectedIds = [];
