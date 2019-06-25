@@ -13,13 +13,19 @@ export class Formatter {
       input = parseFloat(input);
     }
 
+    const isNegative = input < 0;
+
+    if (isNegative) {
+      input = Math.abs(input as number);
+    }
+
     if (input < 0.000001) {
       input = 0;
     }
 
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
 
-    return `${options.symbol || '$ '}${input.toLocaleString(undefined, {
+    return `${options.symbol || '$ '}${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
       maximumFractionDigits: options.decimalPlace || 4
     })}`;
   }
@@ -36,19 +42,28 @@ export class Formatter {
       input = parseFloat(input);
     }
 
+    const isNegative = input < 0;
+
+    if (isNegative) {
+      input = Math.abs(input as number);
+    }
+
     if (input < 0.000001) {
       input = 0;
     }
 
     input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
 
-    return `${input.toLocaleString(undefined, {
+    return `${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
       maximumFractionDigits: options.decimalPlace || 4
     })}`;
   }
 
   public static stripSymbol(input: string): string {
-    return input.replace('$', '').replace(/,/g, '');
+    return input
+      .replace('$', '')
+      .replace(/,/g, '')
+      .trim();
   }
 
   public static datetime(input?: string | Date): string {

@@ -1083,7 +1083,7 @@ class Main extends Controls.MyComponent<
                   rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
-                { rowHeaderContents: ['Header1', '', 'Header2', ''], groupId: '1' },
+                { rowHeaderContents: ['Header1', 'Header2', ''], groupId: '1', rowColSpans: [2] },
                 {
                   rowContents: [
                     'Super Admin',
@@ -1129,7 +1129,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                horizontal
+                // horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1777,6 +1777,17 @@ class Main extends Controls.MyComponent<
               }}
             >
               Sample tooltip open on hover
+            </Controls.Container>
+            <Controls.Divider />
+            <h4>Label</h4>
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+              {this.variantStates.map((message: any) => (
+                <Controls.Label
+                  key={uniqid().toString()}
+                  variant={message}
+                  text={`Hello i am a ${message}`}
+                />
+              ))}
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>

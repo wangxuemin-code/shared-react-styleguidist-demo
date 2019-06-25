@@ -226,7 +226,7 @@ export class OtpInput extends React.Component<IProps, IState> {
             <label className={styles.semiBold}>
               <h6>
                 Enter Code
-                {this.props.required && <Container className={styles.required}>*</Container>}
+                {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
               </h6>
             </label>
           </>

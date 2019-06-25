@@ -32,7 +32,7 @@ exports.stylings = {
         info: 'rgba(23, 162, 184, 1)' /* 17a2b8 */,
         success: 'rgba(40, 167, 69, 1)' /* 28A745 */,
         danger: 'rgba(220, 53, 69, 1)' /* DC3545 */,
-        warning: 'rgba(255, 193, 7, 1)' /* FFC107 */,
+        warning: 'rgb(214, 162, 6, 1)' /* FFC107 */,
         primaryBackground: 'rgba(28, 66, 103, 0.1)',
         primaryAltBackground: 'rgba(255, 255, 255, 0.1)',
         primaryLightBackground: 'rgba(28, 66, 103, 0.1)',

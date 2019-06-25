@@ -16,15 +16,17 @@ export interface TableRowModel {
   rowContents?: any[];
   rawRowContent?: any;
   rowActions?: TableActionsModel[];
+  rowColSpans?: number[];
   onClick?: () => void;
-  groupId?: String;
-  itemId?: String;
+  groupId?: string;
+  itemId?: string;
 }
 
 export interface TableRowHeaderModel {
   rowHeaderContents?: any[];
+  rowColSpans?: number[];
   rawRowHeaderContent?: any;
-  groupId?: String;
+  groupId?: string;
 }
 
 export interface TableActionsModel {
@@ -41,12 +43,12 @@ interface IProps extends IContainer {
   rows?: (TableRowModel | TableRowHeaderModel)[];
   basic?: boolean;
   selectable?: boolean;
-  onSelectedItemsChanged?: (selectedItemIds: String[]) => void;
-  selectedItemIds?: String[];
+  onSelectedItemsChanged?: (selectedItemIds: string[]) => void;
+  selectedItemIds?: string[];
 }
 
 interface IState {
-  selectedIds: String[];
+  selectedIds: string[];
 }
 
 export class Table extends React.Component<IProps, IState> {
@@ -54,6 +56,12 @@ export class Table extends React.Component<IProps, IState> {
     super(props);
 
     this.state = { selectedIds: this.props.selectedItemIds || [] };
+  }
+
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.selectedItemIds !== this.props.selectedItemIds) {
+      this.setState({ selectedIds: this.props.selectedItemIds || [] });
+    }
   }
 
   public render() {
@@ -77,7 +85,7 @@ export class Table extends React.Component<IProps, IState> {
           <thead>
             <tr>
               {this.props.selectable && (
-                <td>
+                <th>
                   <Controls.FormControl
                     type={'checkbox'}
                     selectOptions={[
@@ -89,7 +97,7 @@ export class Table extends React.Component<IProps, IState> {
                     value={this.isAllSelected() ? '1' : ''}
                     onInputChanged={this.onCheckboxChanged.bind(this, 'all', {})}
                   />
-                </td>
+                </th>
               )}
 
               {this.props.columnHeaders &&
@@ -143,11 +151,17 @@ export class Table extends React.Component<IProps, IState> {
                 />
               </td>
             )}
-            {rowHeaderModel.rowHeaderContents.map((rowHeaderContent) => (
-              <td key={uniqid().toString()}>
-                <Container>{rowHeaderContent}</Container>
-              </td>
-            ))}
+            {rowHeaderModel.rowHeaderContents.map((rowHeaderContent, i) => {
+              let colspan = 1;
+              if (rowHeaderModel.rowColSpans && rowHeaderModel.rowColSpans.length >= i) {
+                colspan = rowHeaderModel.rowColSpans[i];
+              }
+              return (
+                <td key={uniqid().toString()} colSpan={colspan}>
+                  <Container>{rowHeaderContent}</Container>
+                </td>
+              );
+            })}
           </tr>
         );
       } else {
@@ -185,6 +199,10 @@ export class Table extends React.Component<IProps, IState> {
             )}
 
             {rowModel.rowContents.map((content, columnIndex) => {
+              let colspan = 1;
+              if (rowModel.rowColSpans && rowModel.rowColSpans.length >= columnIndex) {
+                colspan = rowModel.rowColSpans[columnIndex];
+              }
               if (content.icon) {
                 <Container>
                   {rowModel.rowActions &&
@@ -199,7 +217,7 @@ export class Table extends React.Component<IProps, IState> {
                 }
 
                 return (
-                  <td key={uniqid().toString()} className={min ? styles.min : ''}>
+                  <td key={uniqid().toString()} className={min ? styles.min : ''} colSpan={colspan}>
                     <Container>{content}</Container>
                   </td>
                 );
@@ -251,6 +269,7 @@ export class Table extends React.Component<IProps, IState> {
 
   private isAllSelected() {
     let result = true;
+
     if (this.props.rows) {
       this.props.rows.map((tableRowModel, i) => {
         if (!this.isRowHeader(tableRowModel)) {
@@ -264,7 +283,7 @@ export class Table extends React.Component<IProps, IState> {
     return result;
   }
 
-  private isGroupSelected(checkGroupId?: String) {
+  private isGroupSelected(checkGroupId?: string) {
     let result = true;
     if (this.props.rows) {
       this.props.rows.map((tableRowModel, i) => {
@@ -287,10 +306,10 @@ export class Table extends React.Component<IProps, IState> {
 
   private onCheckboxChanged = (
     type: 'single' | 'group' | 'all',
-    idOption: { itemId?: string; groupId?: String } = {},
+    idOption: { itemId?: string; groupId?: string } = {},
     value: string
   ) => {
-    let selectedIds: String[] = this.state.selectedIds;
+    let selectedIds: string[] = this.state.selectedIds;
     if (this.props.rows) {
       if (type === 'all') {
         selectedIds = [];

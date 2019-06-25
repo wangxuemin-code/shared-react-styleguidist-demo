@@ -83,8 +83,8 @@ interface IProps extends IContainer {
     viewer?: boolean;
   };
   onInputChanged?: (value: string | number, name: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  onFocus?: (formControl: FormControl) => void;
+  onBlur?: (formControl: FormControl) => void;
   onKeyPress?: () => void;
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
@@ -164,21 +164,22 @@ export class FormControl extends React.Component<IProps, IState> {
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
                         <h6>
-                          {this.props.label} {this.props.oldValue && '(Old)'}
+                          {this.props.label}
+                          {this.props.oldValue && '&nbsp;(Old)'}
                           {this.props.required && (
-                            <Container className={styles.required}>*</Container>
+                            <Container className={styles.required}>&nbsp;*</Container>
                           )}
                         </h6>
                       )}
                       {typeof this.props.label !== 'string' && (
                         <>
-                          {this.props.label} {this.props.oldValue && '(Old)'}
+                          {this.props.label}
+                          {this.props.oldValue && '&nbsp;(Old)'}
                           {this.props.required && (
-                            <Container className={styles.required}>*</Container>
+                            <Container className={styles.required}>&nbsp;*</Container>
                           )}
                         </>
                       )}
-                      {typeof this.props.label !== 'string' && <>{this.props.label}</>}
                     </Container>
                   </label>
                 )}
@@ -198,15 +199,21 @@ export class FormControl extends React.Component<IProps, IState> {
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
                     <h6>
-                      {this.props.label}{' '}
-                      {this.props.oldValue !== this.props.value && this.props.oldValue && '(New)'}
-                      {this.props.required && <Container className={styles.required}>*</Container>}
+                      {this.props.label}
+                      {this.props.oldValue !== this.props.value &&
+                        this.props.oldValue &&
+                        '&nbsp;(New)'}
+                      {this.props.required && (
+                        <Container className={styles.required}>&nbsp;*</Container>
+                      )}
                     </h6>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>
-                      {this.props.label}{' '}
-                      {this.props.oldValue !== this.props.value && this.props.oldValue && '(New)'}
+                      {this.props.label}
+                      {this.props.oldValue !== this.props.value &&
+                        this.props.oldValue &&
+                        '&nbsp;(New)'}
                     </>
                   )}
                 </Container>
@@ -644,7 +651,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
-          onBlur={this.props.onBlur}
+          onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
         />
       );
     } else if (this.props.type === 'date') {
@@ -748,7 +755,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
-          onBlur={this.props.onBlur}
+          onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
         />
       );
     }
