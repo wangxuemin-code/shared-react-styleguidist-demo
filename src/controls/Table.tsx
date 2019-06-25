@@ -79,7 +79,7 @@ export class Table extends React.Component<IProps, IState> {
           <thead>
             <tr>
               {this.props.selectable && (
-                <td>
+                <th>
                   <Controls.FormControl
                     type={'checkbox'}
                     selectOptions={[
@@ -91,7 +91,7 @@ export class Table extends React.Component<IProps, IState> {
                     value={this.isAllSelected() ? '1' : ''}
                     onInputChanged={this.onCheckboxChanged.bind(this, 'all', {})}
                   />
-                </td>
+                </th>
               )}
 
               {this.props.columnHeaders &&
@@ -263,6 +263,7 @@ export class Table extends React.Component<IProps, IState> {
 
   private isAllSelected() {
     let result = true;
+
     if (this.props.rows) {
       this.props.rows.map((tableRowModel, i) => {
         if (!this.isRowHeader(tableRowModel)) {
