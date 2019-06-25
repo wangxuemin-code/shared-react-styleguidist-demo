@@ -1083,7 +1083,7 @@ class Main extends Controls.MyComponent<
                   rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
-                { rowHeaderContents: ['Header1', '', 'Header2', ''], groupId: '1' },
+                { rowHeaderContents: ['Header1', 'Header2', ''], groupId: '1', rowColSpans: [2] },
                 {
                   rowContents: [
                     'Super Admin',

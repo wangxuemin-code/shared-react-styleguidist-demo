@@ -16,6 +16,7 @@ export interface TableRowModel {
   rowContents?: any[];
   rawRowContent?: any;
   rowActions?: TableActionsModel[];
+  rowColSpans?: number[];
   onClick?: () => void;
   groupId?: String;
   itemId?: String;
@@ -23,6 +24,7 @@ export interface TableRowModel {
 
 export interface TableRowHeaderModel {
   rowHeaderContents?: any[];
+  rowColSpans?: number[];
   rawRowHeaderContent?: any;
   groupId?: String;
 }
@@ -143,11 +145,17 @@ export class Table extends React.Component<IProps, IState> {
                 />
               </td>
             )}
-            {rowHeaderModel.rowHeaderContents.map((rowHeaderContent) => (
-              <td key={uniqid().toString()}>
-                <Container>{rowHeaderContent}</Container>
-              </td>
-            ))}
+            {rowHeaderModel.rowHeaderContents.map((rowHeaderContent, i) => {
+              let colspan = 1;
+              if (rowHeaderModel.rowColSpans && rowHeaderModel.rowColSpans.length >= i) {
+                colspan = rowHeaderModel.rowColSpans[i];
+              }
+              return (
+                <td key={uniqid().toString()} colSpan={colspan}>
+                  <Container>{rowHeaderContent}</Container>
+                </td>
+              );
+            })}
           </tr>
         );
       } else {
@@ -185,6 +193,10 @@ export class Table extends React.Component<IProps, IState> {
             )}
 
             {rowModel.rowContents.map((content, columnIndex) => {
+              let colspan = 1;
+              if (rowModel.rowColSpans && rowModel.rowColSpans.length >= columnIndex) {
+                colspan = rowModel.rowColSpans[columnIndex];
+              }
               if (content.icon) {
                 <Container>
                   {rowModel.rowActions &&
@@ -199,7 +211,7 @@ export class Table extends React.Component<IProps, IState> {
                 }
 
                 return (
-                  <td key={uniqid().toString()} className={min ? styles.min : ''}>
+                  <td key={uniqid().toString()} className={min ? styles.min : ''} colSpan={colspan}>
                     <Container>{content}</Container>
                   </td>
                 );
