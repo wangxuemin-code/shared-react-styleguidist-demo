@@ -1129,7 +1129,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                // horizontal
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1251,7 +1251,7 @@ class Main extends Controls.MyComponent<
                   required
                   label={'Alpha only'}
                   name='alphabet'
-                  placeholder={'Only alphbet allowed'}
+                  placeholder={'Only alphabet allowed'}
                   type={'alphabet'}
                 />
                 <Controls.FormControl

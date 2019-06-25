@@ -165,7 +165,7 @@ export class FormControl extends React.Component<IProps, IState> {
                       {typeof this.props.label === 'string' && (
                         <h6>
                           {this.props.label}
-                          {this.props.oldValue && '&nbsp;(Old)'}
+                          {this.props.oldValue && <>&nbsp;(Old)</>}
                           {this.props.required && (
                             <Container className={styles.required}>&nbsp;*</Container>
                           )}
@@ -174,10 +174,7 @@ export class FormControl extends React.Component<IProps, IState> {
                       {typeof this.props.label !== 'string' && (
                         <>
                           {this.props.label}
-                          {this.props.oldValue && '&nbsp;(Old)'}
-                          {this.props.required && (
-                            <Container className={styles.required}>&nbsp;*</Container>
-                          )}
+                          {this.props.oldValue && <>&nbsp;(Old)</>}
                         </>
                       )}
                     </Container>
@@ -200,9 +197,9 @@ export class FormControl extends React.Component<IProps, IState> {
                   {typeof this.props.label === 'string' && (
                     <h6>
                       {this.props.label}
-                      {this.props.oldValue !== this.props.value &&
-                        this.props.oldValue &&
-                        '&nbsp;(New)'}
+                      {this.props.oldValue !== this.props.value && this.props.oldValue && (
+                        <>&nbsp;(New)</>
+                      )}
                       {this.props.required && (
                         <Container className={styles.required}>&nbsp;*</Container>
                       )}
@@ -211,9 +208,9 @@ export class FormControl extends React.Component<IProps, IState> {
                   {typeof this.props.label !== 'string' && (
                     <>
                       {this.props.label}
-                      {this.props.oldValue !== this.props.value &&
-                        this.props.oldValue &&
-                        '&nbsp;(New)'}
+                      {this.props.oldValue !== this.props.value && this.props.oldValue && (
+                        <>&nbsp;(New)</>
+                      )}
                     </>
                   )}
                 </Container>

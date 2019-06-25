@@ -139,7 +139,7 @@ export class Phone extends React.Component<IProps, IState> {
             <label className={styles.semiBold}>
               <h6>
                 Phone Number
-                {this.props.required && <Container className={styles.required}>*</Container>}
+                {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
               </h6>
             </label>
             <Container display={'flex'}>
