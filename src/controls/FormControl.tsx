@@ -83,8 +83,8 @@ interface IProps extends IContainer {
     viewer?: boolean;
   };
   onInputChanged?: (value: string | number, name: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
+  onFocus?: (formControl: FormControl) => void;
+  onBlur?: (formControl: FormControl) => void;
   onKeyPress?: () => void;
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
@@ -642,7 +642,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
-          onBlur={this.props.onBlur}
+          onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
         />
       );
     } else if (this.props.type === 'date') {
@@ -746,7 +746,7 @@ export class FormControl extends React.Component<IProps, IState> {
           value={this.state.displayValue || ''}
           onChange={this.onChange}
           disabled={this.props.disabled}
-          onBlur={this.props.onBlur}
+          onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
         />
       );
     }
