@@ -1,0 +1,54 @@
+.istox-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  border-radius: 0.429rem;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+
+  > div {
+    color: map-get($colors, primary);
+  }
+
+  &.primary {
+    color: map-get($colors, primary);
+    background-color: rgba(28, 66, 103, 0.1);
+  }
+
+  &.secondary {
+    color: map-get($colors, primaryGreyDark);
+    background-color: rgba(51, 51, 51, 0.1);
+  }
+
+  &.disabled {
+    color: map-get($colors, primary);
+    background-color: rgba(28, 66, 103, 0.1);
+  }
+
+  &.success {
+    color: map-get($colors, success);
+    background-color: rgba(40, 167, 69, 0.1);
+  }
+
+  &.warning {
+    color: map-get($colors, warning);
+    background-color: rgba(255, 193, 7, 0.2);
+  }
+
+  &.info {
+    color: map-get($colors, info);
+    background-color: rgba(23, 162, 184, 0.1);
+  }
+
+  &.danger {
+    color: map-get($colors, danger);
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+
+  &.small-message {
+    font-size: 0.85rem;
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.5rem;
+  }
+}
