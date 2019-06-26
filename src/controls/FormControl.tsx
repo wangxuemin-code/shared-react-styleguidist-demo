@@ -219,6 +219,7 @@ export class FormControl extends React.Component<IProps, IState> {
             <Container
               classNames={[styles.formControlsInner]}
               position={this.props.prepend ? 'relative' : undefined}
+              id={this.props.name}
             >
               {this.getInputPrependDesign(this.props.prepend)}
               {this.getControlDesign(false)}

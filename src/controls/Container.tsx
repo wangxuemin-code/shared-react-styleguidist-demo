@@ -92,6 +92,7 @@ export interface IContainer {
     | 'space-around'
     | 'space-evenly';
   overflow?: 'hidden' | 'auto';
+  id?: string;
 }
 
 export class Container extends React.Component<IContainer, any> {
@@ -259,6 +260,7 @@ export class Container extends React.Component<IContainer, any> {
 
     return (
       <div
+        id={this.props.id}
         style={style}
         className={classes.join(' ')}
         onMouseEnter={this.props.onMouseEnter}
