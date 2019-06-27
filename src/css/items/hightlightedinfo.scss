@@ -12,8 +12,8 @@
   }
 
   &.secondary {
-    background-color: map-get($colors, primaryGreyDarkBackground);
-    border: 2px solid map-get($colors, primaryGreyDark);
+    background-color: map-get($colors, secondaryBackground);
+    border: 2px solid map-get($colors, secondary);
   }
 
   &.info {
@@ -63,8 +63,8 @@
   }
 
   &.secondary {
-    background-color: map-get($colors, primaryGreyDark);
-    border: 2px solid map-get($colors, primaryGreyDark);
+    background-color: map-get($colors, secondary);
+    border: 2px solid map-get($colors, secondary);
   }
 
   &.info {

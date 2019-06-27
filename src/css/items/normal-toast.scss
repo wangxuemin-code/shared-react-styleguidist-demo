@@ -9,7 +9,6 @@
   background: map-get($colors, primaryDark) !important;
 }
 
-
 .istox-normal-toast {
   min-height: auto !important;
   padding: 1rem !important;
@@ -21,8 +20,8 @@
   }
 
   &.secondary {
-    background-color: map-get($colors, primaryGrey) !important;
-    color: map-get($colors, primaryDark) !important;
+    background-color: map-get($colors, secondary) !important;
+    color: map-get($colors, secondary) !important;
     opacity: 0.8;
   }
 
@@ -81,7 +80,7 @@
   }
 
   .column {
-    float:left;
+    float: left;
   }
 
   .left {

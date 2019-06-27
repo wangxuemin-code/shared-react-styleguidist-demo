@@ -181,9 +181,11 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider direction={'vertical'} />
                 <Controls.Container padding={{ leftPx: 15 }} className={'flex-50'}>
                   <p>Paragraph</p>
+                  <p className='light-bold'>Light Bold</p>
                   <p className='semi-bold'>Semi Bold</p>
                   <b>Bold</b>
                   <p className='extra-bold'>Extra Bold</p>
+                  <br />
                   <i>Italic</i>
                   <br />
                   <u>Underline</u>
@@ -1083,7 +1085,11 @@ class Main extends Controls.MyComponent<
                   rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
-                { rowHeaderContents: ['Header1', 'Header2', ''], groupId: '1', rowColSpans: [2] },
+                {
+                  rowHeaderContents: ['Header1', 'Header2', ''],
+                  groupId: '1',
+                  rowColSpans: [2]
+                },
                 {
                   rowContents: [
                     'Super Admin',

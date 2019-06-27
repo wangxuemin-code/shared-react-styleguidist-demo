@@ -1,4 +1,4 @@
-$borderRadius: 6.25rem;
+$borderRadius: 0;
 
 .fluid {
   width: 100%;
@@ -11,7 +11,7 @@ $borderRadius: 6.25rem;
   .button {
     background-color: map-get($colors, primaryAlt);
     color: map-get($colors, primaryGreyDark);
-    border-radius: 50%;
+    border-radius: $borderRadius;
     font-size: inherit;
     box-shadow: none;
     line-height: 0;
@@ -40,6 +40,8 @@ $borderRadius: 6.25rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 0;
+  font-weight: 600;
 
   &.tiny {
     padding: 0.571rem;
@@ -68,33 +70,38 @@ $borderRadius: 6.25rem;
     position: relative;
   }
 
-  &.primary {
-    background-color: map-get($colors, primary);
+  &.disabled {
+    background-color: map-get($colors, primaryGreyLighter);
     background-image: none;
-    color: map-get($colors, primaryAlt);
+    opacity: 0.7;
+    cursor: default;
+    color: map-get($colors, primaryGreyDarker);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primary);
-      color: map-get($colors, primary);
+      border: 2px solid map-get($colors, primaryGreyLighter);
 
       &.loading {
         > div {
-          border-color: map-get($colors, primary);
+          border-color: map-get($colors, primaryGreyDarker);
           border-bottom-color: transparent;
         }
       }
     }
   }
 
-  &.disabled {
+  &.primary {
     background-color: map-get($colors, primary);
     background-image: none;
-    opacity: 0.7;
+    color: map-get($colors, primaryAlt);
+
+    &.disabled {
+      background-color: map-get($colors, primary);
+    }
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primary);
+      border: 2px solid map-get($colors, primary);
       color: map-get($colors, primary);
 
       &.loading {
@@ -107,18 +114,18 @@ $borderRadius: 6.25rem;
   }
 
   &.secondary {
-    background-color: map-get($colors, primaryGrey);
+    background-color: map-get($colors, secondary);
     background-image: none;
-    color: map-get($colors, primaryDark);
+    color: map-get($colors, primary);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primaryDark);
-      color: map-get($colors, primaryDark);
+      border: 2px solid map-get($colors, secondary);
+      color: map-get($colors, primary);
 
       &.loading {
         > div {
-          border-color: map-get($colors, primaryDark);
+          border-color: map-get($colors, secondary);
           border-bottom-color: transparent;
         }
       }
@@ -131,7 +138,7 @@ $borderRadius: 6.25rem;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, info);
+      border: 2px solid map-get($colors, info);
       color: map-get($colors, info);
 
       &.loading {
@@ -149,7 +156,7 @@ $borderRadius: 6.25rem;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, success);
+      border: 2px solid map-get($colors, success);
       color: map-get($colors, success);
 
       &.loading {
@@ -167,7 +174,7 @@ $borderRadius: 6.25rem;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, warning);
+      border: 2px solid map-get($colors, warning);
       color: map-get($colors, warning);
 
       &.loading {
@@ -185,7 +192,7 @@ $borderRadius: 6.25rem;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, danger);
+      border: 2px solid map-get($colors, danger);
       color: map-get($colors, danger);
 
       &.loading {

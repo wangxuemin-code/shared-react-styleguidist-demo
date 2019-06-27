@@ -76,7 +76,7 @@
   }
 
   &.secondary {
-    color: map-get($colors, primaryGreyDark);
+    color: map-get($colors, secondary);
   }
 
   &.success {

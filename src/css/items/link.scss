@@ -47,12 +47,11 @@
   }
 
   &.secondary {
-    color: map-get($colors, primaryGreyDark);
+    color: map-get($colors, secondary);
   }
 
   &.disabled {
-    color: map-get($colors, primary);
-    opacity: 0.5;
+    color: map-get($colors, primaryGrey);
   }
 
   &.info {

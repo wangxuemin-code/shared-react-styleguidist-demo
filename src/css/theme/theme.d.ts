@@ -21,23 +21,22 @@ export declare const stylings: {
     transitionDuration: string;
     colors: {
         primary: string;
+        secondary: string;
         primaryAlt: string;
         primaryLight: string;
         primaryDark: string;
+        primaryGreyDarker: string;
         primaryGreyDark: string;
         primaryGrey: string;
         primaryGreyLight: string;
+        primaryGreyLighter: string;
         info: string;
         success: string;
         danger: string;
         warning: string;
         primaryBackground: string;
+        secondaryBackground: string;
         primaryAltBackground: string;
-        primaryLightBackground: string;
-        primaryDarkBackground: string;
-        primaryGreyDarkBackground: string;
-        primaryGreyBackground: string;
-        primaryGreyLightBackground: string;
         infoBackground: string;
         successBackground: string;
         dangerBackground: string;
