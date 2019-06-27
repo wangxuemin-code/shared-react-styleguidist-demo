@@ -14,7 +14,11 @@ export class Label extends React.Component<ILabel, any> {
     size: 'normal'
   };
   public render() {
-    let classes: string[] = [styles.istoxLabel, this.props.variant || ''];
+    let classes: string[] = [
+      styles.istoxLabel,
+      this.props.variant || '',
+      this.props.className || ''
+    ];
 
     classes = classes.filter(function(el) {
       return el != '';

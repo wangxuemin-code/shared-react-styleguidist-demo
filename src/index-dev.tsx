@@ -1494,6 +1494,8 @@ class Main extends Controls.MyComponent<
                             }}
                             currency={'SGD'}
                           />
+              
+<Controls.Label className={'html'} variant={'info'} text={'Creating'} />
                         </Controls.Container>
                       )
                     },

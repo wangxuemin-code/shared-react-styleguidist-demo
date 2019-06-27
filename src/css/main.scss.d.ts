@@ -215,6 +215,7 @@ export const required: string;
 export const oldValueActive: string;
 export const formControlsInner: string;
 export const select: string;
+export const html: string;
 export const selectOption: string;
 export const otp: string;
 export const otpControl: string;
