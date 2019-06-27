@@ -221,7 +221,7 @@ export class Table extends React.Component<IProps, IState> {
                   tdClass = this.props.columnHeaders[columnIndex].tdClass;
                 }
 
-                const className = (min ? styles.min : '') + (tdClass || '');
+                const className = (min ? styles.min : '') + ' ' + (tdClass || '');
 
                 return (
                   <td key={uniqid().toString()} className={`${className.trim()}`} colSpan={colspan}>
