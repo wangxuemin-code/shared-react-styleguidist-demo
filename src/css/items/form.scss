@@ -38,12 +38,11 @@ $borderRadius: 0.375rem;
   .select {
     cursor: pointer;
     width: 100%;
-    div:not(.html) {
+    div {
       margin: 0;
-      div:not(.html) {
-        padding: 0;
+      &.html {
+        margin: inherit;
       }
-
       .flag {
         display: inherit;
         padding-top: 2px;
