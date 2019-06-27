@@ -1075,7 +1075,8 @@ class Main extends Controls.MyComponent<
                 { title: 'Date Created' },
                 { title: 'Request Status' },
                 {
-                  title: 'Actions'
+                  title: 'Actions',
+                  tdClass: 'test-class'
                 }
               ]}
               rows={[
@@ -1494,8 +1495,8 @@ class Main extends Controls.MyComponent<
                             }}
                             currency={'SGD'}
                           />
-              
-<Controls.Label className={'html'} variant={'info'} text={'Creating'} />
+
+                          <Controls.Label className={'html'} variant={'info'} text={'Creating'} />
                         </Controls.Container>
                       )
                     },

@@ -10,6 +10,7 @@ var uniqid = require('uniqid');
 export interface TableHeaderModel {
   title: string;
   min?: boolean;
+  tdClass?: string;
 }
 
 export interface TableRowModel {
@@ -212,12 +213,16 @@ export class Table extends React.Component<IProps, IState> {
                 </Container>;
               } else {
                 let min: boolean | undefined = false;
+                let tdClass: string | undefined = '';
                 if (this.props.columnHeaders && this.props.columnHeaders.length > columnIndex) {
                   min = this.props.columnHeaders[columnIndex].min;
+                  tdClass = this.props.columnHeaders[columnIndex].tdClass;
                 }
 
+                const className = (min ? styles.min : '') + (tdClass || '');
+
                 return (
-                  <td key={uniqid().toString()} className={min ? styles.min : ''} colSpan={colspan}>
+                  <td key={uniqid().toString()} className={`${className.trim()}`} colSpan={colspan}>
                     <Container>{content}</Container>
                   </td>
                 );
