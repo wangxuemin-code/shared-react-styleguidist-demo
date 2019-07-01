@@ -745,17 +745,22 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     } else {
       return (
-        <BootstrapFormControl
-          className={this.props.prepend ? 'prepend' : ''}
-          autoComplete={'off'}
-          autoCorrect={'off'}
-          type={this.props.type === 'password' ? 'password' : 'text'}
-          placeholder={this.props.placeholder}
-          value={this.state.displayValue || ''}
-          onChange={this.onChange}
-          disabled={this.props.disabled}
-          onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
-        />
+        <>
+          <BootstrapFormControl
+            className={this.props.prepend ? 'prepend' : ''}
+            autoComplete={'off'}
+            autoCorrect={'off'}
+            type={this.props.type === 'password' ? 'password' : 'text'}
+            placeholder={this.props.placeholder}
+            value={this.state.displayValue || ''}
+            onChange={this.onChange}
+            disabled={this.props.disabled}
+            onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
+          />
+          {this.props.unit && (
+            <Container className={styles.unit}>&nbsp;{this.props.unit}</Container>
+          )}
+        </>
       );
     }
   }

@@ -18,6 +18,15 @@
   .form-controls-inner {
     flex: auto;
     display: flex;
+    position: relative;
+
+    .unit {
+      color: map-get($colors, primaryGreyDarker);
+      position: absolute;
+      right: 0;
+      bottom: 12px;
+      font-size: 0.857rem;
+    }
   }
   input,
   .select,
