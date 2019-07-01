@@ -1218,7 +1218,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                // horizontal
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1654,7 +1654,6 @@ class Main extends Controls.MyComponent<
                   name='test_static'
                   static={true}
                   oldValue={'1234567'}
-                  unit={'SGD'}
                   type='number'
                 />
                 <Controls.FormControl
