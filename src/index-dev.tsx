@@ -190,10 +190,10 @@ class Main extends Controls.MyComponent<
             logo={true}
             className={'istox-header'}
             mainLinks={[
-              { title: 'STO', path: 'sto', selected: false, useAnchorTag: false },
-              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: false }
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: true },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
             ]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
             username={this.state.email}
             userAction
           />
