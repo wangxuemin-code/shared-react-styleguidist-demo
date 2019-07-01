@@ -4,9 +4,15 @@
   background-color: map-get($colors, primaryGreyDark);
 }
 .istox-progress {
+  &.compact {
+    .progress {
+      height: 2px;
+    }
+  }
   .progress {
     height: 1rem;
     margin-bottom: 0;
+    border-radius: 0;
 
     &.gap {
       .progress-bar {

@@ -37,7 +37,6 @@ export class Button extends React.Component<IButton, any> {
       this.props.subText ? styles.subText : '',
       this.props.loading ? styles.verticalAlignMiddle : '',
       this.props.loading ? styles.loading : '',
-      this.props.loading ? styles.disabled : ''
     ];
 
     classes = classes.filter(function(el) {

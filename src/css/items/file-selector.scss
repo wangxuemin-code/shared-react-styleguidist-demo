@@ -18,8 +18,8 @@
 
 .uploader-viewer {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 0;
+  right: 0;
   color: map-get($colors, primaryGreyDark);
   cursor: pointer;
 }
@@ -28,25 +28,21 @@
 }
 .uploader {
   align-items: center;
-  background-color: rgba(23, 162, 184, 0.1);
   cursor: pointer;
   display: flex;
   height: 13rem;
   justify-content: center !important;
-  border: 3px dashed map-get($colors, primary);
+  border: 2px dashed map-get($colors, primaryGreyLight);
   position: relative;
   width: 15rem;
-  border-radius: 0.714rem;
 
   .uploader-label {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: map-get($colors, primaryGreyDark);
+    background-color: map-get($colors, primaryGreyDarker);
     padding: 0 0.5rem;
     color: map-get($colors, primaryAlt);
-    border-top-left-radius: 0.714rem;
-    border-bottom-right-radius: 0.714rem;
   }
 
   &.disabled {

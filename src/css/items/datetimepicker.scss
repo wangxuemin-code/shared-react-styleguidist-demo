@@ -17,12 +17,12 @@
 }
 
 :global(.react-datepicker__input-container) > input {
-  padding: 6px 27px 6px 12px;
+  padding: 12px 0;
 }
 
 .datepicker-calender-container {
   pointer-events: none;
   position: absolute;
-  right: 1rem;
+  right: 0rem;
   top: 0.82rem;
 }

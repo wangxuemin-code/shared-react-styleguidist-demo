@@ -59,10 +59,10 @@ a {
 }
 
 h1 {
-  font-size: 3.929rem; // 55px
+  font-size: 2.75rem; // 44px
 }
 h2 {
-  font-size: 2.857rem; // 40px
+  font-size: 1.875rem; // 30px
 }
 h3 {
   font-size: 1.786rem; // 25px
@@ -223,6 +223,14 @@ strong {
 
 .overflow-auto {
   overflow: auto;
+}
+
+.pagination {
+  border-radius: 0;
+  > li:first-child > a,
+  > li:last-child > a {
+    border-radius: 0;
+  }
 }
 
 @mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {

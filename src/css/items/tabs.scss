@@ -7,14 +7,95 @@
     border-bottom: 0;
     a {
       color: map-get($colors, primaryGreyDark);
+
+      &:hover {
+        color: map-get($colors, primaryDark);
+      }
     }
   }
 
-  .nav-tabs > li.active > a,
-  .nav-tabs > li.active > a:focus,
-  .nav-tabs > li.active > a:hover {
-    border: 1px solid map-get($colors, primary);
-    color: map-get($colors, primary);
+  .istox-tab {
+    color: map-get($colors, primaryDark);
+
+    &:not(.basic) {
+      li.active {
+        a,
+        a:focus,
+        a:hover {
+          border: 1px solid map-get($colors, primaryDark);
+        }
+      }
+
+      &.primary {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, primary);
+          }
+        }
+      }
+
+      &.secondary {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, secondary);
+          }
+        }
+      }
+
+      &.disabled {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, primaryGrey);
+          }
+        }
+      }
+
+      &.info {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, info);
+          }
+        }
+      }
+
+      &.success {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, success);
+          }
+        }
+      }
+
+      &.warning {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, warning);
+          }
+        }
+      }
+
+      &.danger {
+        li.active {
+          a,
+          a:focus,
+          a:hover {
+            border: 1px solid map-get($colors, danger);
+          }
+        }
+      }
+    }
   }
 
   #istox-tab,
@@ -92,20 +173,23 @@
     &.basic {
       ul {
         border: 0;
-        padding: 0 1rem;
-        background-color: map-get($colors, primaryAlt);
 
         li {
-          background-color: map-get($colors, primaryAlt);
           border: 1px solid transparent;
           height: 100%;
+
+          a {
+            &:hover {
+              background-color: map-get($colors, primaryAlt);
+              border: 1px solid transparent;
+            }
+          }
 
           &.active {
             a,
             a:focus,
             a:hover {
               border: 0;
-              color: map-get($colors, primary);
               background-color: transparent;
               font-size: 1rem;
 
@@ -113,8 +197,7 @@
                 width: 100%;
                 content: '';
                 display: block;
-                background-color: map-get($colors, primary);
-                height: 2px;
+                height: 3px;
                 position: absolute;
                 bottom: 0rem;
               }
@@ -129,6 +212,68 @@
 
       .tab-content {
         border: 0;
+      }
+
+      li.active {
+        a:after {
+          background-color: map-get($colors, primaryDark);
+        }
+      }
+
+      &.primary {
+        li.active {
+          a:after {
+            background-color: map-get($colors, primary);
+          }
+        }
+      }
+
+      &.secondary {
+        li.active {
+          a:after {
+            background-color: map-get($colors, secondary);
+          }
+        }
+      }
+
+      &.disabled {
+        li.active {
+          a:after {
+            background-color: map-get($colors, primaryGrey);
+          }
+        }
+      }
+
+      &.info {
+        li.active {
+          a:after {
+            background-color: map-get($colors, info);
+          }
+        }
+      }
+
+      &.success {
+        li.active {
+          a:after {
+            background-color: map-get($colors, success);
+          }
+        }
+      }
+
+      &.warning {
+        li.active {
+          a:after {
+            background-color: map-get($colors, warning);
+          }
+        }
+      }
+
+      &.danger {
+        li.active {
+          a:after {
+            background-color: map-get($colors, danger);
+          }
+        }
       }
 
       &.vertical {
@@ -146,20 +291,77 @@
                   display: none;
                 }
 
-                > div {
-                  > div {
-                    &:before {
-                      height: 70%;
-                      content: '';
-                      display: block;
-                      background-color: map-get($colors, primary);
-                      width: 3px;
-                      position: absolute;
-                      left: 5px;
-                    }
-                  }
+                &:before {
+                  height: 70%;
+                  content: '';
+                  display: block;
+                  width: 4px;
+                  position: absolute;
+                  left: 5px;
                 }
               }
+            }
+          }
+        }
+
+        li.active {
+          a:before {
+            background-color: map-get($colors, primaryDark);
+          }
+        }
+
+        &.primary {
+          li.active {
+            a:before {
+              background-color: map-get($colors, primary);
+            }
+          }
+        }
+
+        &.secondary {
+          li.active {
+            a:before {
+              background-color: map-get($colors, secondary);
+            }
+          }
+        }
+
+        &.disabled {
+          li.active {
+            a:before {
+              background-color: map-get($colors, primaryGrey);
+            }
+          }
+        }
+
+        &.info {
+          li.active {
+            a:before {
+              background-color: map-get($colors, info);
+            }
+          }
+        }
+
+        &.success {
+          li.active {
+            a:before {
+              background-color: map-get($colors, success);
+            }
+          }
+        }
+
+        &.warning {
+          li.active {
+            a:before {
+              background-color: map-get($colors, warning);
+            }
+          }
+        }
+
+        &.danger {
+          li.active {
+            a:before {
+              background-color: map-get($colors, danger);
             }
           }
         }

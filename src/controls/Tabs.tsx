@@ -19,6 +19,7 @@ interface ITab {
 }
 
 interface IProps extends IContainer {
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
   selectedIndex?: number;
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';
@@ -58,6 +59,7 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.orientation ? this.props.orientation : '',
       this.props.align ? this.props.align : '',
       this.props.basic ? styles.basic : '',
+      this.props.variant || '',
       this.props.tabsContentOrientation ? this.props.tabsContentOrientation : '',
       'istox-tab'
     ];

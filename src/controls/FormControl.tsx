@@ -72,6 +72,7 @@ interface IProps extends IContainer {
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
   decimalPlace?: number;
+  unit?: string;
   numInputs?: number;
   inputWidth?: string;
   separator?: any;

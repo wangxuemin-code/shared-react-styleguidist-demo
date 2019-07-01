@@ -14,45 +14,38 @@
   padding: 1rem !important;
 
   &.primary {
-    background-color: map-get($colors, primary) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, primaryBackground) !important;
+    color: map-get($colors, primary) !important;
   }
 
   &.secondary {
-    background-color: map-get($colors, secondary) !important;
+    background-color: map-get($colors, secondaryBackground) !important;
     color: map-get($colors, secondary) !important;
-    opacity: 0.8;
   }
 
   &.info {
-    background-color: map-get($colors, info) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, infoBackground) !important;
+    color: map-get($colors, info) !important;
   }
 
   &.disabled {
-    background-color: map-get($colors, primaryDark) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, primaryGreyLighter) !important;
+    color: map-get($colors, primaryGreyDarker) !important;
   }
 
   &.success {
-    background-color: map-get($colors, success) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, successBackground) !important;
+    color: map-get($colors, success) !important;
   }
 
   &.warning {
-    background-color: map-get($colors, warning) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, warningBackground) !important;
+    color: map-get($colors, warning) !important;
   }
 
   &.danger {
-    background-color: map-get($colors, danger) !important;
-    color: map-get($colors, primaryAlt) !important;
-    opacity: 0.8;
+    background-color: map-get($colors, dangerBackground) !important;
+    color: map-get($colors, danger) !important;
   }
 
   .main-title {

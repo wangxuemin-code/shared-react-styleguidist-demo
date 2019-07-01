@@ -51,7 +51,7 @@
   }
 
   &.disabled {
-    color: map-get($colors, primaryGrey);
+    color: map-get($colors, primaryGreyDark);
   }
 
   &.info {

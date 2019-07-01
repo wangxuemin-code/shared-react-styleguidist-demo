@@ -1,6 +1,6 @@
 .istox-table {
-  border: 1px solid map-get($colors, primaryGrey);
-  border-radius: 0.429rem;
+  border: 1px solid map-get($colors, primaryGreyLight);
+  border-radius: 0;
   background-color: map-get($colors, primaryAlt);
   width: 100%;
   overflow-x: auto;
@@ -10,10 +10,16 @@
     border-radius: 0;
   }
 
+  &.striped {
+    tr:not(:first-child) {
+      border-top: 1px solid map-get($colors, primaryGreyLight);
+    }
+  }
+
   table {
     width: 100%;
     thead {
-      background-color: map-get($colors, primaryGrey);
+      border-bottom: 1px solid map-get($colors, primaryGreyLight);
     }
   }
 
@@ -24,9 +30,10 @@
 }
 
 .istox-table th {
-  font-size: 0.85rem;
+  font-size: 0.8571rem;
   padding: 1rem;
-  color: map-get($colors, primaryGreyDark);
+  color: map-get($colors, primaryGreyDarker);
+  font-weight: 600;
 }
 
 .istox-table td {
@@ -34,49 +41,25 @@
   font-size: 1rem;
   color: map-get($colors, primaryGreyDark);
   font-weight: lighter;
-  border-top: 1px solid map-get($colors, primaryGrey);
 }
 
 .istox-table tbody tr {
   transition: background-color $transitionLinear;
 
   &.row-header {
-    background-color: map-get($colors, primaryGreyLight);
     color: map-get($colors, primaryGreyDark);
 
     td {
       padding: 4px 1rem;
       font-size: 0.8rem;
       font-weight: 600;
-      border-top: 1px solid map-get($colors, primaryGreyLight);
-      border-bottom: 1px solid map-get($colors, primaryGreyLight);
     }
   }
-}
-
-.istox-table tbody tr:hover {
-  // background-color: map-get($colors, primaryGrey);
-}
-
-.istox-table tbody tr:hover td {
-  // color: map-get($colors, primary);
-}
-
-.istox-table tbody tr:hover .action-container > div > .loading-container > div > div {
-  // background-color: white;
 }
 
 .istox-table .action-container {
   text-align: right;
   position: relative;
-}
-
-.istox-table .action {
-  // border: 1px solid map-get($colors, primaryGreyLight);
-  // border-radius: $borderRadius;
-  // padding: 5px 20px;
-  // transition: color $transitionLinear, background-color $transitionLinear;
-  // margin-left: 10px;
 }
 
 .istox-table tbody tr .action:hover {

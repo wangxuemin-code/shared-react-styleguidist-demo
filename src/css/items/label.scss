@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  border-radius: 0.429rem;
+  border-radius: 0;
   padding: 0.5rem 0.8rem;
   font-size: 0.9rem;
 
@@ -22,8 +22,8 @@
   }
 
   &.disabled {
-    color: map-get($colors, primaryGrey);
-    background-color: rgba(28, 66, 103, 0.1);
+    color: map-get($colors, primaryGreyDarker);
+    background-color: map-get($colors, primaryGreyLighter);
   }
 
   &.success {
@@ -49,6 +49,6 @@
   &.small-message {
     font-size: 0.85rem;
     padding: 0.1rem 0.3rem;
-    border-radius: 0.5rem;
+    border-radius: 0;
   }
 }

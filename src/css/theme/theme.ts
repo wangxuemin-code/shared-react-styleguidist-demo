@@ -31,15 +31,15 @@ export const stylings = {
     primaryGreyLight: 'rgba(125, 125, 125, 0.3)' /* #7D7D7D */,
     primaryGreyLighter: 'rgba(125, 125, 125, 0.1)' /* #7D7D7D */,
     info: 'rgba(23, 162, 184, 1)' /* #17a2b8 */,
-    success: 'rgba(40, 167, 69, 1)' /* #28A745 */,
-    danger: 'rgba(220, 53, 69, 1)' /* #DC3545 */,
-    warning: 'rgb(214, 162, 6, 1)' /* #FFC107 */,
+    success: 'rgba(101, 195, 102, 1)' /* #65C366 */,
+    danger: 'rgba(235, 77, 61, 1)' /* #EB4D3D */,
+    warning: 'rgba(255, 193, 7, 1)' /* #FFC107 */,
     primaryBackground: 'rgba(28, 66, 103, 0.1)',
     secondaryBackground: 'rgba(59, 228, 193, 0.1)' /* #3BE4C1 */,
     primaryAltBackground: 'rgba(255, 255, 255, 0.1)' /* #FFFFFF */,
     infoBackground: 'rgba(23, 162, 184, 0.1)' /* #17a2b8 */,
-    successBackground: 'rgba(40, 167, 69, 0.1)' /* #28A745 */,
-    dangerBackground: 'rgba(220, 53, 69, 0.1)' /* #DC3545 */,
+    successBackground: 'rgba(101, 195, 102, 0.1)' /* #65C366 */,
+    dangerBackground: 'rgba(235, 77, 61, 0.1)' /* #EB4D3D */,
     warningBackground: 'rgba(255, 193, 7, 0.1)' /* #FFC107 */
   }
 };

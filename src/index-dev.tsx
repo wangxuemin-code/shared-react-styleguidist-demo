@@ -67,6 +67,8 @@ class Main extends Controls.MyComponent<
   formControls: any[];
   variantStates: string[];
   tabsContent: any[];
+  tabsEmptyContent: any[];
+  tabsContentWithIcons: any[];
 
   public constructor(props: any) {
     super(props);
@@ -96,9 +98,47 @@ class Main extends Controls.MyComponent<
     ];
     this.tabsContent = [
       {
+        title: <Controls.Container>Account Info</Controls.Container>,
+        contents: 'ABCD'
+      },
+      {
+        title: <Controls.Container>Phone Number</Controls.Container>,
+        contents: 'EFGH'
+      },
+      {
+        title: <Controls.Container>Personal Info</Controls.Container>,
+        contents: 'IJKL'
+      },
+      {
+        title: <Controls.Container>Documents</Controls.Container>,
+        contents: 'MNOP'
+      }
+    ];
+
+    this.tabsEmptyContent = [
+      {
+        title: <Controls.Container>Account Info</Controls.Container>,
+        contents: ''
+      },
+      {
+        title: <Controls.Container>Phone Number</Controls.Container>,
+        contents: ''
+      },
+      {
+        title: <Controls.Container>Personal Info</Controls.Container>,
+        contents: ''
+      },
+      {
+        title: <Controls.Container>Documents</Controls.Container>,
+        contents: ''
+      }
+    ];
+
+    this.tabsContentWithIcons = [
+      {
         title: (
           <Controls.Container>
-            <Controls.Icon variant={'success'} icon={faCheckCircle} />
+            <Controls.Icon icon={faExclamationCircle} />
             Account Info
           </Controls.Container>
         ),
@@ -107,16 +147,16 @@ class Main extends Controls.MyComponent<
       {
         title: (
           <Controls.Container>
-            <Controls.Icon icon={faCheckCircle} />
+            <Controls.Icon icon={faExclamationCircle} />
             Phone Number
           </Controls.Container>
         ),
-        contents: 'EFGHsa'
+        contents: 'EFGH'
       },
       {
         title: (
           <Controls.Container>
-            <Controls.Icon icon={faCheckCircle} />
+            <Controls.Icon icon={faExclamationCircle} />
             Personal Info
           </Controls.Container>
         ),
@@ -210,8 +250,24 @@ class Main extends Controls.MyComponent<
               ref={(ref) => {
                 if (ref) this.tabs = ref;
               }}
-              tabs={this.tabsContent}
+              tabs={this.tabsEmptyContent}
             />
+            {this.variantStates.map((tab: any) => (
+              <Controls.Tabs
+                margin={{ topPx: 20 }}
+                basic
+                variant={tab}
+                orientation={'horizontal'}
+                onTabSelected={(tabName) => {
+                  console.log(tabName);
+                }}
+                selectedIndex={2}
+                ref={(ref) => {
+                  if (ref) this.tabs = ref;
+                }}
+                tabs={this.tabsEmptyContent}
+              />
+            ))}
             <Controls.Button
               onClick={() => {
                 this.tabs.goToPrevious();
@@ -226,7 +282,6 @@ class Main extends Controls.MyComponent<
             >
               Go to next Tab
             </Controls.Button>
-
             <Controls.Tabs
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
@@ -242,16 +297,16 @@ class Main extends Controls.MyComponent<
             <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
-              variant={'stacked'}
               tabsContentOrientation={'stacked'}
               align={'middle'}
-              tabs={this.tabsContent}
+              tabs={this.tabsContentWithIcons}
             />
             <Controls.Divider />
             <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               orientation={'vertical'}
+              variant={'secondary'}
               align={'middle'}
               tabs={this.tabsContent}
             />
@@ -322,11 +377,7 @@ class Main extends Controls.MyComponent<
               <Controls.Icon icon={faPlus} />
               Icon
             </Controls.Button>
-            <Controls.Button
-              size='large'
-              variant='primary'
-              subText={'Back to Residential / Mailing'}
-            >
+            <Controls.Button variant='primary' subText={'Back to Residential / Mailing'}>
               SubText
             </Controls.Button>
             <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
@@ -810,7 +861,7 @@ class Main extends Controls.MyComponent<
             >
               Modal
             </Controls.Button>
-            <Controls.Button outline variant='primary' tooltip={'tooltip!'} display='inline-block'>
+            <Controls.Button variant='primary' tooltip={'tooltip!'} display='inline-block'>
               ToolTip
             </Controls.Button>
             <Controls.Button
@@ -922,6 +973,7 @@ class Main extends Controls.MyComponent<
             </Controls.Button>
             <Controls.Divider />
             <h4>Progress</h4>
+            <Controls.ProgressBar compact margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
@@ -933,6 +985,12 @@ class Main extends Controls.MyComponent<
               label={'Strong Password'}
               variant={'success'}
             />
+            <Controls.ProgressBar compact margin={{ topPx: 20 }}>
+              <Controls.ProgressBar striped variant='success' value={25} order={1} />
+              <Controls.ProgressBar variant='info' value={25} order={2} />
+              <Controls.ProgressBar striped variant='warning' value={25} order={3} />
+              <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+            </Controls.ProgressBar>
             <Controls.ProgressBar margin={{ topPx: 20 }}>
               <Controls.ProgressBar striped variant='success' value={25} order={1} />
               <Controls.ProgressBar variant='info' value={25} order={2} />
@@ -1069,6 +1127,7 @@ class Main extends Controls.MyComponent<
             <Controls.Table
               selectable={true}
               selectedItemIds={['2', '3', '4']}
+              striped
               onSelectedItemsChanged={(selectedItemIds) => {
                 console.log(`Selected id changed: ${selectedItemIds.join(', ')}`);
               }}
@@ -1261,8 +1320,15 @@ class Main extends Controls.MyComponent<
                   type={'alphabet'}
                 />
                 <Controls.FormControl
+                  label={'Unit Field'}
+                  name='unit'
+                  type={'number'}
+                  decimalPlace={2}
+                  unit={'SGD'}
+                />
+                <Controls.FormControl
                   numInputs={6}
-                  inputWidth={'80px'}
+                  inputWidth={'60px'}
                   label={'OTP'}
                   name='numberfields'
                   type={'numberfields'}
@@ -1273,7 +1339,7 @@ class Main extends Controls.MyComponent<
                 />
                 <Controls.FormControl
                   numInputs={6}
-                  inputWidth={'80px'}
+                  inputWidth={'60px'}
                   label={'OTP with verification'}
                   verificationNumber={'+65-88234124'}
                   name='numberfields'
@@ -1495,7 +1561,6 @@ class Main extends Controls.MyComponent<
                               borderRadius: 50,
                               borderColor: '#FFF',
                               borderStyle: 'solid',
-                              fontSize: 100,
                               iconBackground: true
                             }}
                             currency={'SGD'}

@@ -42,6 +42,7 @@ interface IProps extends IContainer {
   columnHeaders?: TableHeaderModel[];
   rows?: (TableRowModel | TableRowHeaderModel)[];
   basic?: boolean;
+  striped?: boolean;
   selectable?: boolean;
   onSelectedItemsChanged?: (selectedItemIds: string[]) => void;
   selectedItemIds?: string[];
@@ -68,7 +69,8 @@ export class Table extends React.Component<IProps, IState> {
     let classes: string[] = [
       styles.istoxTable,
       this.props.className ? this.props.className : '',
-      this.props.basic ? styles.basic : ''
+      this.props.basic ? styles.basic : '',
+      this.props.striped ? styles.striped : ''
     ];
     classes = classes.filter(function(el) {
       return el != '';
