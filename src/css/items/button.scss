@@ -73,10 +73,10 @@ $borderRadius: 0;
     background-image: none;
     cursor: default;
     color: map-get($colors, primaryGreyDarker);
+    border: 2px solid map-get($colors, primaryGreyLighter);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primaryGreyLight);
     }
 
     &.loading {
@@ -91,6 +91,7 @@ $borderRadius: 0;
     background-color: map-get($colors, primary);
     background-image: none;
     color: map-get($colors, primaryAlt);
+    border: 2px solid map-get($colors, primary);
 
     &.disabled {
       background-color: map-get($colors, primary);
@@ -98,7 +99,6 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, primary);
       color: map-get($colors, primary);
 
       &.loading {
@@ -114,10 +114,10 @@ $borderRadius: 0;
     background-color: map-get($colors, secondary);
     background-image: none;
     color: map-get($colors, primary);
+    border: 2px solid map-get($colors, secondary);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, secondary);
       color: map-get($colors, primary);
 
       &.loading {
@@ -132,10 +132,10 @@ $borderRadius: 0;
   &.info {
     background-color: map-get($colors, info);
     background-image: none;
+    border: 2px solid map-get($colors, info);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, info);
       color: map-get($colors, info);
 
       &.loading {
@@ -150,10 +150,10 @@ $borderRadius: 0;
   &.success {
     background-color: map-get($colors, success);
     background-image: none;
+    border: 2px solid map-get($colors, success);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, success);
       color: map-get($colors, success);
 
       &.loading {
@@ -168,10 +168,10 @@ $borderRadius: 0;
   &.warning {
     background-color: map-get($colors, warning);
     background-image: none;
+    border: 2px solid map-get($colors, warning);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, warning);
       color: map-get($colors, warning);
 
       &.loading {
@@ -186,10 +186,10 @@ $borderRadius: 0;
   &.danger {
     background-color: map-get($colors, danger);
     background-image: none;
+    border: 2px solid map-get($colors, danger);
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 1px solid map-get($colors, danger);
       color: map-get($colors, danger);
 
       &.loading {
@@ -204,10 +204,6 @@ $borderRadius: 0;
   &.basic {
     background-color: transparent !important;
     border: none !important;
-  }
-
-  &.flat {
-    border: none;
   }
 }
 
