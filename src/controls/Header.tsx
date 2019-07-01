@@ -95,13 +95,13 @@ export class Header extends React.Component<IHeader, IState> {
   private getLinkDesign(title: string, href: string, selected?: boolean, useAnchorTag?: boolean) {
     return (
       <li key={href} className={selected ? 'selected' : ''}>
-        {useAnchorTag && (
+        {!useAnchorTag && (
           <Controls.Link href={href} underline={false}>
             {title}
             <div className={styles.underline} />
           </Controls.Link>
         )}
-        {!useAnchorTag && (
+        {useAnchorTag && (
           <Controls.Link useNormalAnchor href={href} underline={false}>
             {title}
             <div className={styles.underline} />
