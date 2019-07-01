@@ -216,6 +216,7 @@ export const required: string;
 export const oldValueActive: string;
 export const formControlsInner: string;
 export const formControl: string;
+export const unitPadding: string;
 export const unit: string;
 export const select: string;
 export const otp: string;

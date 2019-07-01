@@ -744,10 +744,18 @@ export class FormControl extends React.Component<IProps, IState> {
         );
       }
     } else {
+      let classes: string[] = [
+        this.props.prepend ? styles.prepend : '',
+        this.props.unit ? styles.unitPadding : ''
+      ];
+
+      classes = classes.filter(function(el) {
+        return el != '';
+      });
       return (
         <>
           <BootstrapFormControl
-            className={this.props.prepend ? 'prepend' : ''}
+            className={classes.join(' ')}
             autoComplete={'off'}
             autoCorrect={'off'}
             type={this.props.type === 'password' ? 'password' : 'text'}

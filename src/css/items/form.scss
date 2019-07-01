@@ -20,6 +20,11 @@
     display: flex;
     position: relative;
 
+    .unit-padding {
+      padding-right: 50px;
+      text-align: right;
+    }
+
     .unit {
       color: map-get($colors, primaryGreyDarker);
       position: absolute;
