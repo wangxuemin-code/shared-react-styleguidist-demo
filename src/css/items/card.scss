@@ -3,7 +3,6 @@
   background: map-get($colors, primaryAlt);
   display: inline-block;
   border-radius: 0;
-  box-shadow: $boxShadow;
   margin: 0 1rem 1rem 0;
   text-align: center;
   position: relative;
@@ -36,10 +35,6 @@
     padding-top: 1rem;
     font-size: 1.143rem;
     font-weight: 500;
-  }
-
-  &:hover {
-    border: 1px solid map-get($colors, primary);
   }
 
   img {

@@ -13,7 +13,6 @@ $borderRadius: 0;
     color: map-get($colors, primaryGreyDark);
     border-radius: $borderRadius;
     font-size: inherit;
-    box-shadow: none;
     line-height: 0;
     padding: 0.714rem;
     min-width: 0;
@@ -35,7 +34,6 @@ $borderRadius: 0;
   font-style: inherit;
   text-decoration: inherit;
   font-family: inherit;
-  box-shadow: $boxShadow;
   min-width: 8.571rem;
   display: flex;
   justify-content: center;
@@ -44,15 +42,15 @@ $borderRadius: 0;
   font-weight: 600;
 
   &.tiny {
-    padding: 0.714rem;
+    padding: 0.5rem;
   }
 
-  &.medium {
-    padding: 1rem;
+  &.small {
+    padding: 0.7143rem;
   }
 
   &.large {
-    padding: 1.143rem;
+    padding: 1rem;
   }
 
   &.loading {
@@ -203,18 +201,12 @@ $borderRadius: 0;
     }
   }
 
-  &.outline {
-    box-shadow: none;
-  }
-
   &.basic {
     background-color: transparent !important;
-    box-shadow: none;
     border: none !important;
   }
 
   &.flat {
-    box-shadow: none;
     border: none;
   }
 }
@@ -223,8 +215,4 @@ $borderRadius: 0;
 .button:active:focus,
 .button.active:focus {
   outline: none;
-}
-.button:active,
-.button.active {
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.1);
 }

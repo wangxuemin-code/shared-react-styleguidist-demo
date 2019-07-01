@@ -294,7 +294,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       } else if (this.state.type === 'pdf') {
         return (
           <Container position='relative' textAlign='center'>
-            <Icon icon={faFilePdf} />
+            <Icon size={'large'} icon={faFilePdf} />
             <Container className='normal-text' margin={{ topPx: 5 }}>
               {!this.state.uploaded ? 'Pending upload' : 'Saved'}
             </Container>

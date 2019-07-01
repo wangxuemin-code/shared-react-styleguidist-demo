@@ -48,7 +48,7 @@ export class Rating extends React.Component<IRating, IState> {
         if (childVariant == 'success') {
           ratings.push(
             <Container display={'inherit'} key={i}>
-              <Icon variant={'success'} icon={faCheckCircle} />
+              <Icon size={'tiny'} variant={'success'} icon={faCheckCircle} />
             </Container>
           );
         } else {

@@ -22,7 +22,8 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    type: 'button'
+    type: 'button',
+    size: 'medium'
   };
 
   public render() {
@@ -36,7 +37,7 @@ export class Button extends React.Component<IButton, any> {
       this.props.disabled ? styles.disabled : '',
       this.props.subText ? styles.subText : '',
       this.props.loading ? styles.verticalAlignMiddle : '',
-      this.props.loading ? styles.loading : '',
+      this.props.loading ? styles.loading : ''
     ];
 
     classes = classes.filter(function(el) {

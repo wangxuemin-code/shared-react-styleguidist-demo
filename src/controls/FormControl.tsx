@@ -164,13 +164,13 @@ export class FormControl extends React.Component<IProps, IState> {
                   <label className={styles.semiBold}>
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
-                        <h6>
+                        <p className={styles.semiBold}>
                           {this.props.label}
                           {this.props.oldValue && <>&nbsp;(Old)</>}
                           {this.props.required && (
                             <Container className={styles.required}>&nbsp;*</Container>
                           )}
-                        </h6>
+                        </p>
                       )}
                       {typeof this.props.label !== 'string' && (
                         <>
@@ -196,7 +196,7 @@ export class FormControl extends React.Component<IProps, IState> {
               <label className={styles.semiBold}>
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
-                    <h6>
+                    <p className={styles.semiBold}>
                       {this.props.label}
                       {this.props.oldValue !== this.props.value && this.props.oldValue && (
                         <>&nbsp;(New)</>
@@ -204,7 +204,7 @@ export class FormControl extends React.Component<IProps, IState> {
                       {this.props.required && (
                         <Container className={styles.required}>&nbsp;*</Container>
                       )}
-                    </h6>
+                    </p>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>

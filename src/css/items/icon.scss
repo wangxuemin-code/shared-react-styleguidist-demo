@@ -29,6 +29,12 @@
     width: 0.875em;
   }
 
+  &.tiny {
+    .svg {
+      font-size: 1rem !important;
+    }
+  }
+
   &.small {
     .svg {
       font-size: 1.286rem !important;

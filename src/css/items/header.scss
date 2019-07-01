@@ -7,7 +7,6 @@
   top: 0;
   left: 0;
   height: $headerHeight;
-  box-shadow: $boxShadow;
 
   .istox-wrapper {
     grid-template-columns: max-content auto max-content;
@@ -33,7 +32,6 @@
   &.alt {
     background-color: map-get($colors, primaryAlt);
     color: map-get($colors, primary);
-    box-shadow: none;
 
     ul.links {
       li.selected .underline {
@@ -47,7 +45,6 @@
 
   &.transparent {
     background-color: transparent;
-    box-shadow: none;
   }
 
   a.logo-anchor {
@@ -144,7 +141,6 @@
   background-color: white;
   text-align: center;
   border-radius: 0;
-  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
 }
 
 .istox-header .user-action .sub-menu a {

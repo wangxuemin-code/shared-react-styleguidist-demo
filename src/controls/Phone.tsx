@@ -104,10 +104,10 @@ export class Phone extends React.Component<IProps, IState> {
         <Container display={'flex'}>
           <Container width={120}>
             <label className={styles.semiBold}>
-              <h6>
+              <p className={styles.semiBold}>
                 Area Code
                 {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </h6>
+              </p>
             </label>
             <Select
               // componentClass='select'
@@ -136,11 +136,11 @@ export class Phone extends React.Component<IProps, IState> {
         &nbsp;&nbsp;
         <Container fluid display={'flex'} className={styles.flex1}>
           <Container fluid>
-            <label className={styles.semiBold}>
-              <h6>
+            <label>
+              <p className={styles.semiBold}>
                 Phone Number
                 {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </h6>
+              </p>
             </label>
             <Container display={'flex'}>
               <Container fluid>

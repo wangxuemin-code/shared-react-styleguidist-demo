@@ -27,7 +27,7 @@ interface IBadge {
 interface IProps extends IContainer {
   icon: any;
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
   onClick?: () => void;
   text?: string;
   badge?: IBadge;
