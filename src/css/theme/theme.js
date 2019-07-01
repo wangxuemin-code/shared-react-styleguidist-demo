@@ -6,13 +6,13 @@ exports.stylings = {
     borderRadius: '0',
     boxShadow: '0 5px 10px rgba(28, 66, 103, 0.3)',
     breakpoints: {
-        mini: '20rem' /* 280px */,
-        tiny: '22.857rem' /* 320px */,
-        small: '34.286rem' /* 480px */,
-        medium: '54.857rem' /* 768px */,
-        large: '70rem' /* 980px */,
-        big: '85.714rem' /* 1200px */,
-        huge: '100rem' /* 1400px */
+        mini: '280' /* 280px */,
+        tiny: '320' /* 320px */,
+        small: '480' /* 480px */,
+        medium: '768' /* 768px */,
+        large: '980' /* 980px */,
+        big: '1200' /* 1200px */,
+        huge: '1400' /* 1400px */
     },
     typography: {
         font: "'Open Sans', sans-serif",

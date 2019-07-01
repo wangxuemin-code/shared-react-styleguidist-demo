@@ -11,16 +11,16 @@
 }
 
 @mixin root($screenMinWidth, $rootWidth) {
-  @media (min-width: $screenMinWidth) {
+  @media (min-width: $screenMinWidth + 'px') {
     .istox-wrapper {
       max-width: $rootWidth;
     }
   }
 }
 
-@include root(map-get($breakpoints, tiny), map-get($breakpoints, tiny));
-@include root(map-get($breakpoints, small), map-get($breakpoints, small));
-@include root(map-get($breakpoints, medium), map-get($breakpoints, medium));
-@include root(map-get($breakpoints, large), map-get($breakpoints, medium));
-@include root(map-get($breakpoints, big), map-get($breakpoints, large));
-@include root(map-get($breakpoints, huge), map-get($breakpoints, big));
+@include root(map-get($breakpoints, tiny), 320px);
+@include root(map-get($breakpoints, small), 480px);
+@include root(map-get($breakpoints, medium), 768px);
+@include root(map-get($breakpoints, large), 980px);
+@include root(map-get($breakpoints, big), 1100px);
+@include root(map-get($breakpoints, huge), 1200px);

@@ -76,7 +76,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, primaryGreyLight);
+      border: 1px solid map-get($colors, primaryGreyLight);
     }
 
     &.loading {
@@ -98,7 +98,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, primary);
+      border: 1px solid map-get($colors, primary);
       color: map-get($colors, primary);
 
       &.loading {
@@ -117,7 +117,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, secondary);
+      border: 1px solid map-get($colors, secondary);
       color: map-get($colors, primary);
 
       &.loading {
@@ -135,7 +135,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, info);
+      border: 1px solid map-get($colors, info);
       color: map-get($colors, info);
 
       &.loading {
@@ -153,7 +153,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, success);
+      border: 1px solid map-get($colors, success);
       color: map-get($colors, success);
 
       &.loading {
@@ -171,7 +171,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, warning);
+      border: 1px solid map-get($colors, warning);
       color: map-get($colors, warning);
 
       &.loading {
@@ -189,7 +189,7 @@ $borderRadius: 0;
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      border: 2px solid map-get($colors, danger);
+      border: 1px solid map-get($colors, danger);
       color: map-get($colors, danger);
 
       &.loading {
