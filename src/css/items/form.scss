@@ -17,6 +17,18 @@ $borderRadius: 0.375rem;
   .form-controls-inner {
     flex: auto;
     display: flex;
+
+    .horizontal {
+      display: inline-flex;
+
+      .checkbox,
+      .radio {
+        display: inline-block;
+      }
+      > div {
+        margin: 0 1rem 0 0;
+      }
+    }
   }
   input,
   select,
@@ -131,6 +143,10 @@ $borderRadius: 0.375rem;
     cursor: pointer;
     min-width: 0 !important;
     min-height: 0 !important;
+    margin: 3px 0 0;
+  }
+
+  input[type='checkbox'] {
     margin: 4px 0 0;
   }
 
@@ -164,6 +180,10 @@ $borderRadius: 0.375rem;
   }
 
   &.form-horizontal {
+    .checkbox,
+    .radio {
+      min-height: auto;
+    }
     .old-value-active {
       margin-bottom: 0;
     }
@@ -180,14 +200,6 @@ $borderRadius: 0.375rem;
       .form-controls-inner {
         display: flex;
         align-items: center;
-
-        .horizontal {
-          display: inline-flex;
-
-          > div {
-            margin-right: 1rem;
-          }
-        }
 
         .select-option {
           display: flex;
@@ -212,7 +224,8 @@ $borderRadius: 0.375rem;
         margin-bottom: 0px;
       }
 
-      .checkbox {
+      .checkbox,
+      .radio {
         padding: 0;
 
         label {

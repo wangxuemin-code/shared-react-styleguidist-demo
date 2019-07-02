@@ -13,7 +13,8 @@ import {
   faSearch,
   faUser,
   faChevronCircleRight,
-  faCheck
+  faCheck,
+  faFilePdf
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -150,10 +151,10 @@ class Main extends Controls.MyComponent<
             logo={true}
             className={'istox-header'}
             mainLinks={[
-              { title: 'STO', path: 'sto', selected: false, useAnchorTag: false },
-              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: false }
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: true },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
             ]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: false }]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
             username={this.state.email}
             userAction
           />
@@ -198,6 +199,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Tabs</h4>
             <Controls.Tabs
+              id={'registration'}
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
@@ -226,6 +228,7 @@ class Main extends Controls.MyComponent<
             </Controls.Button>
 
             <Controls.Tabs
+              id={'personal-info'}
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
               tabs={this.tabsContent}
@@ -240,7 +243,6 @@ class Main extends Controls.MyComponent<
             <Controls.Tabs
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
-              variant={'stacked'}
               tabsContentOrientation={'stacked'}
               align={'middle'}
               tabs={this.tabsContent}
@@ -734,15 +736,42 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{
                       customAllowFileExtensions: ['.pdf'],
                       viewer: true,
-                      label: 'Front'
+                      label: 'Image'
                     }}
                   >
                     <Controls.Container>
                       <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
                         <Controls.Image
+                          height={100}
                           src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
-                          //src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
+                      </Controls.Container>
+                      <Controls.Container fluid verticalAlign={'center'}>
+                        <span className='tiny normal-text'>file-name-doc_1.jpg</span>
+                      </Controls.Container>
+                    </Controls.Container>
+                  </Controls.FormControl>
+                  <Controls.FormControl
+                    required
+                    label='Image uploader disabled '
+                    name='uploadviewer'
+                    type='uploader'
+                    disabled
+                    value='http://www.africau.edu/images/default/sample.pdf'
+                    uploaderConfigs={{
+                      customAllowFileExtensions: ['.pdf'],
+                      viewer: true,
+                      label: 'PDF'
+                    }}
+                  >
+                    <Controls.Container>
+                      <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                        <Controls.Container position='relative' textAlign='center'>
+                          <Controls.Icon icon={faFilePdf} />
+                          <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
+                            Saved
+                          </Controls.Container>
+                        </Controls.Container>
                       </Controls.Container>
                       <Controls.Container fluid verticalAlign={'center'}>
                         <span className='tiny normal-text'>file-name-doc_1.pdf</span>
@@ -980,7 +1009,7 @@ class Main extends Controls.MyComponent<
                     messageColor={'#000'}
                     message={
                       <Controls.Container>
-                        <p className='large bold '>Title</p>
+                        <h5>Title</h5>
                         <p>2 Fake document</p>
                       </Controls.Container>
                     }
@@ -994,7 +1023,7 @@ class Main extends Controls.MyComponent<
                     messageColor={'#000'}
                     message={
                       <Controls.Container>
-                        <p className='large bold '>Title</p>
+                        <h5>Title</h5>
                         <p>2 Fake document</p>
                       </Controls.Container>
                     }
@@ -1084,7 +1113,11 @@ class Main extends Controls.MyComponent<
                   rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
-                { rowHeaderContents: ['Header1', 'Header2', ''], groupId: '1', rowColSpans: [2] },
+                {
+                  rowHeaderContents: ['Header1', 'Header2', ''],
+                  groupId: '1',
+                  rowColSpans: [2]
+                },
                 {
                   rowContents: [
                     'Super Admin',
@@ -1372,6 +1405,55 @@ class Main extends Controls.MyComponent<
                   defaultValue='0'
                 />
                 <Controls.FormControl
+                  required
+                  label={'H Radio'}
+                  name='h_radio'
+                  type={'radio'}
+                  variant={'horizontal'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'option1'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
+                    }
+                  ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('h_radio'));
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'V Radio'}
+                  name='v_radio'
+                  type={'radio'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'option1'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
+                    }
+                  ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('v_radio'));
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
                   label={'H Checkbox'}
                   name='h_checkbox'
                   type={'checkbox'}
@@ -1380,6 +1462,10 @@ class Main extends Controls.MyComponent<
                     {
                       label: link,
                       value: '1'
+                    },
+                    {
+                      label: link,
+                      value: '2'
                     }
                   ]}
                   value={this.state.value || '1'}

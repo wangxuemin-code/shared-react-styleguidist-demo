@@ -10,6 +10,7 @@ interface ILink extends IContainer {
   disabled?: boolean;
   useNormalAnchor?: boolean;
   onClick?: () => void;
+  target?: '_blank' | '_self' | '_parent' | '_top';
 }
 
 export class Link extends React.Component<ILink> {
@@ -33,7 +34,7 @@ export class Link extends React.Component<ILink> {
     if (this.props.href) {
       if (useNormalAnchor) {
         return (
-          <a href={this.props.href}>
+          <a target={this.props.target} href={this.props.href}>
             <Container className={classes.join(' ')} {...linkProps}>
               {this.props.children}
             </Container>
@@ -50,7 +51,7 @@ export class Link extends React.Component<ILink> {
       }
     } else {
       return (
-        <a onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
+        <a target={this.props.target} onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
           <Container className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>

@@ -18,8 +18,7 @@
     color: map-get($colors, primaryAlt);
   }
 
-  #istox-tab,
-  .istox-tab {
+  > div {
     display: flex;
     flex-direction: column;
     align-self: stretch;

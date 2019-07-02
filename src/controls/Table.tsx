@@ -78,7 +78,7 @@ export class Table extends React.Component<IProps, IState> {
       <Container {...this.props} className={classes.join(' ')}>
         {typeof this.props.header === 'string' && (
           <Container padding={{ allRem: 1 }}>
-            <h5>{this.props.header}</h5>
+            <h6>{this.props.header}</h6>
           </Container>
         )}
         {typeof this.props.header !== 'string' && <Container>{this.props.header}</Container>}

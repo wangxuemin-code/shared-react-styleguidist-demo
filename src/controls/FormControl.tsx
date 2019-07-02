@@ -53,6 +53,7 @@ interface IProps extends IContainer {
     | 'phone'
     | 'countrycode'
     | 'switch'
+    | 'radio'
     | 'longtext'
     | 'date'
     | 'datetime'
@@ -114,6 +115,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onDateRangeChange = this.onDateRangeChange.bind(this);
     this.onPhoneChange = this.onPhoneChange.bind(this);
     this.onSwitchChanged = this.onSwitchChanged.bind(this);
+    this.onRadioChanged = this.onRadioChanged.bind(this);
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.reset = this.reset.bind(this);
@@ -419,7 +421,21 @@ export class FormControl extends React.Component<IProps, IState> {
         />
       );
     } else if (this.props.type === 'select') {
-      let Options = this.props.selectOptions || [];
+      const CustomOption = (innerProps: any) => {
+        return (
+          <components.Option {...innerProps}>
+            <Container>{innerProps.data.label}</Container>
+          </components.Option>
+        );
+      };
+      const DisplayOption = (innerProps: any) => {
+        return (
+          <components.SingleValue {...innerProps}>
+            <Container>{innerProps.data.label}</Container>
+          </components.SingleValue>
+        );
+      };
+      let Options: any = this.props.selectOptions || [];
       return (
         <Select
           // componentClass='select'
@@ -429,15 +445,17 @@ export class FormControl extends React.Component<IProps, IState> {
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
+          components={{ Option: CustomOption, SingleValue: DisplayOption }}
           styles={{
-            control: (base) => ({
+            control: (base: any) => ({
               ...base,
               height: '2.857rem',
               minHeight: '2.571rem',
               padding: '0 0.5rem'
             }),
-            option: (base: any) => ({
-              ...base
+            option: (base: any, state: any) => ({
+              ...base,
+              backgroundColor: state.isFocused ? 'rgba(28, 66, 103, 0.1) !important' : ''
             })
           }}
         />
@@ -467,14 +485,15 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           styles={{
-            control: (base) => ({
+            control: (base: any) => ({
               ...base,
               height: '2.857rem',
               minHeight: '2.571rem',
               padding: '0 0.5rem'
             }),
-            option: (base: any) => ({
-              ...base
+            option: (base: any, state: any) => ({
+              ...base,
+              backgroundColor: state.isFocused ? 'rgba(28, 66, 103, 0.1) !important' : ''
             })
           }}
           options={this.props.selectCustomOptions}
@@ -547,14 +566,15 @@ export class FormControl extends React.Component<IProps, IState> {
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
           styles={{
-            control: (base) => ({
+            control: (base: any) => ({
               ...base,
               height: '2.857rem',
               minHeight: '2.571rem',
               padding: '0 0.5rem'
             }),
-            option: (base: any) => ({
-              ...base
+            option: (base: any, state: any) => ({
+              ...base,
+              backgroundColor: state.isFocused ? 'rgba(28, 66, 103, 0.1) !important' : ''
             })
           }}
         />
@@ -616,14 +636,15 @@ export class FormControl extends React.Component<IProps, IState> {
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
           styles={{
-            control: (base) => ({
+            control: (base: any) => ({
               ...base,
               height: '2.857rem',
               minHeight: '2.571rem',
               padding: '0 0.5rem'
             }),
-            option: (base: any) => ({
-              ...base
+            option: (base: any, state: any) => ({
+              ...base,
+              backgroundColor: state.isFocused ? 'rgba(28, 66, 103, 0.1) !important' : ''
             })
           }}
         />
@@ -702,11 +723,41 @@ export class FormControl extends React.Component<IProps, IState> {
           >
             {this.props.children}
           </FileUploader>
-          {this.state.displayValue && (
+          {this.state.displayValue && !this.props.uploaderConfigs!.viewer && (
             <Icon onClick={this.reset} className={styles.clearUpload} icon={faTimes} />
           )}
         </Container>
       );
+    } else if (this.props.type === 'radio') {
+      let value: any = '';
+      if (this.state.value && this.state.value !== '') {
+        value = this.state.value;
+      } else {
+        value = false;
+      }
+      if (this.props.selectOptions) {
+        return (
+          <Container className={this.props.variant}>
+            {this.props.selectOptions.map((option, i) => {
+              return (
+                <Container
+                  key={uniqid().toString()}
+                  classNames={[styles.loadingContainerWrapper, styles.radio]}
+                >
+                  <input
+                    onChange={(e) => this.onRadioChanged(e)}
+                    type='radio'
+                    name={this.props.name}
+                    value={option.value}
+                    checked={value && value == option.value}
+                  />
+                  <Container className={styles.checkboxLabel}>{option.label}</Container>
+                </Container>
+              );
+            })}
+          </Container>
+        );
+      }
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
         return (
@@ -714,11 +765,8 @@ export class FormControl extends React.Component<IProps, IState> {
             {this.props.selectOptions.map((option, i) => {
               return (
                 <Container
-                  display={'block'}
                   key={uniqid().toString()}
-                  className={styles.loadingContainerWrapper}
-                  position={'relative'}
-                  textAlign={'justify'}
+                  classNames={[styles.loadingContainerWrapper, styles.checkbox]}
                 >
                   <input
                     onChange={(e) => this.onCheckChanged(e, i)}
@@ -851,6 +899,15 @@ export class FormControl extends React.Component<IProps, IState> {
     );
   }
 
+  private onRadioChanged(e: any) {
+    const value = e.target.value;
+    this.setState({ displayValue: value, value: value, showError: false }, () => {
+      if (this.props.onInputChanged) {
+        this.props.onInputChanged(value, this.props.name || '');
+      }
+    });
+  }
+
   private onCheckChanged(e: any, index: number) {
     const checked = e.target.checked;
     const value = e.target.value;
@@ -932,6 +989,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'countrycode' ||
       this.props.type === 'country' ||
       this.props.type === 'switch' ||
+      this.props.type === 'radio' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
       this.props.type === 'numberfields'

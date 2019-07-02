@@ -120,14 +120,15 @@ export class Phone extends React.Component<IProps, IState> {
               options={Options}
               isDisabled={this.props.loading}
               styles={{
-                control: (base) => ({
+                control: (base: any) => ({
                   ...base,
                   height: '2.857rem',
                   minHeight: '2.571rem',
                   padding: '0 0.5rem'
                 }),
-                option: (base: any) => ({
-                  ...base
+                option: (base: any, state: any) => ({
+                  ...base,
+                  backgroundColor: state.isFocused ? 'rgba(28, 66, 103, 0.1) !important' : ''
                 })
               }}
             />

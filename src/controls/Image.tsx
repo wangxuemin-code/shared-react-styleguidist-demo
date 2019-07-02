@@ -24,6 +24,11 @@ export class Image extends React.Component<IImage, IState> {
 
   public render() {
     const classes: string[] = [styles.imageResponsive];
+    let filteredProps = {
+      ...this.props,
+      ...{ height: undefined },
+      ...{ width: undefined }
+    };
     let src = this.props.src;
     if (this.props.variant) {
       switch (this.props.variant) {
@@ -45,8 +50,14 @@ export class Image extends React.Component<IImage, IState> {
           </Container>
         )}
         {!this.state.showAlt && !this.props.badge && (
-          <Container className={styles.image} {...this.props}>
-            <img onError={this.onError} className={classes.join(' ')} src={src} />
+          <Container className={styles.image} {...filteredProps}>
+            <img
+              width={this.props.width}
+              height={this.props.height}
+              onError={this.onError}
+              className={classes.join(' ')}
+              src={src}
+            />
           </Container>
         )}
         {!this.state.showAlt && this.props.badge && (

@@ -26,6 +26,7 @@ interface IProps extends IContainer {
   align?: 'left' | 'middle' | 'right';
   basic?: boolean;
   onTabSelected?: (tabName: string) => void;
+  id?: string;
 }
 
 interface IState {
@@ -58,8 +59,7 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.orientation ? this.props.orientation : '',
       this.props.align ? this.props.align : '',
       this.props.basic ? styles.basic : '',
-      this.props.tabsContentOrientation ? this.props.tabsContentOrientation : '',
-      'istox-tab'
+      this.props.tabsContentOrientation ? this.props.tabsContentOrientation : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -69,13 +69,17 @@ export class Tabs extends React.Component<IProps, IState> {
     if (this.props.classNames) {
       classes = classes.concat(this.props.classNames);
     }
+    let filteredProps = {
+      ...this.props,
+      ...{ id: undefined }
+    };
     return (
-      <Container {...this.props} className={styles.istoxTabsContainer}>
+      <Container {...filteredProps} className={styles.istoxTabsContainer}>
         {this.props.orientation === 'horizontal' && (
           <BootstrapTabs
+            id={this.props.id || 'istox-tabs'}
             className={classes.join(' ')}
             activeKey={this.state.selectedIndex}
-            id='istox-tab'
             onSelect={this.handleSelect}
           >
             {this.props.children && <Container>{this.props.children}</Container>}
@@ -87,7 +91,10 @@ export class Tabs extends React.Component<IProps, IState> {
           </BootstrapTabs>
         )}
         {this.props.orientation === 'vertical' && (
-          <BootstrapTab.Container id='istox-tab' defaultActiveKey={this.state.selectedIndex}>
+          <BootstrapTab.Container
+            id={this.props.id || 'istox-tabs'}
+            defaultActiveKey={this.state.selectedIndex}
+          >
             <Grid className={classes.join(' ')}>
               <Grid.Row fitted>
                 <Grid.Col col={3}>
