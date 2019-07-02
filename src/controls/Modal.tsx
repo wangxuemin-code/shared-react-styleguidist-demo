@@ -6,6 +6,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 interface IState {
   visible: boolean;
+  width?: number;
 }
 
 interface IProps {
@@ -21,13 +22,17 @@ export class Modal extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = { visible: this.props.visible };
+    this.state = { visible: this.props.visible, width: this.props.width };
     this.onModalHide = this.onModalHide.bind(this);
   }
 
   public componentWillReceiveProps(nextProps: IProps) {
     if (nextProps.visible !== this.state.visible) {
       this.setState({ visible: nextProps.visible });
+    }
+
+    if (nextProps.width !== this.state.width) {
+      this.setState({ width: nextProps.width });
     }
   }
 
@@ -41,11 +46,11 @@ export class Modal extends React.Component<IProps, IState> {
       >
         <span
           ref={(ref) => {
-            if (ref && this.props.width) {
+            if (ref && this.state.width) {
               const modalDialog = ref.closest('.modal-dialog');
 
               if (modalDialog) {
-                modalDialog.setAttribute('style', `width: ${this.props.width}px`);
+                modalDialog.setAttribute('style', `width: ${this.state.width}px`);
               }
             }
           }}

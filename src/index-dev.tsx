@@ -55,6 +55,7 @@ class Main extends Controls.MyComponent<
     error: string;
     loading: boolean;
     showModal: boolean;
+    modalWidth: number;
     value?: string | number;
     selectOptions: any[];
     email: string;
@@ -75,6 +76,7 @@ class Main extends Controls.MyComponent<
     this.state = {
       success: ['Success'],
       error: '',
+      modalWidth: 200,
       loading: false,
       showModal: false,
       selectOptions: [
@@ -834,7 +836,7 @@ class Main extends Controls.MyComponent<
             >
               Toast
             </Controls.Button>
-            <Controls.Modal visible={this.state.showModal} width={200}>
+            <Controls.Modal visible={this.state.showModal} width={this.state.modalWidth}>
               Modal
             </Controls.Modal>
             <Controls.Button
@@ -859,6 +861,11 @@ class Main extends Controls.MyComponent<
               loading={this.state.loading}
               onPress={() => {
                 this.setState({ showModal: true });
+                setTimeout(() => {
+                  this.setState({
+                    modalWidth: 100
+                  });
+                }, 3000);
               }}
             >
               Modal
