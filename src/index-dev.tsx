@@ -1863,6 +1863,17 @@ class Main extends Controls.MyComponent<
                 />
               ))}
             </Controls.Container>
+
+            <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
+              {this.variantStates.map((message: any) => (
+                <Controls.Label
+                  key={uniqid().toString()}
+                  variant={message}
+                  size='small'
+                  text={`Hello i am a small ${message}`}
+                />
+              ))}
+            </Controls.Container>
             <Controls.Divider />
             <Controls.Container>
               <h4>Pagination</h4>
