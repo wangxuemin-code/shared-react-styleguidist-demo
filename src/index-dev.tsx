@@ -18,13 +18,13 @@ import {
 import 'react-toastify/dist/ReactToastify.css';
 
 var uniqid = require('uniqid');
-const mqtt = new Mqtt({
-  host: 'localhost',
-  port: 35675,
-  onConnected: () => {
-    console.log('connected!');
-  }
-});
+// const mqtt = new Mqtt({
+//   host: 'localhost',
+//   port: 35675,
+//   onConnected: () => {
+//     console.log('connected!');
+//   }
+// });
 // const mqtt = new Mqtt({
 //   host: 'diligent-goat.rmq.cloudamqp.com',
 //   username: 'jxlsbgfq:jxlsbgfq',
@@ -834,7 +834,9 @@ class Main extends Controls.MyComponent<
             >
               Toast
             </Controls.Button>
-            <Controls.Modal visible={this.state.showModal}>Modal</Controls.Modal>
+            <Controls.Modal visible={this.state.showModal} width={200}>
+              Modal
+            </Controls.Modal>
             <Controls.Button
               variant='danger'
               onPress={() => {
@@ -866,15 +868,15 @@ class Main extends Controls.MyComponent<
             </Controls.Button>
             <Controls.Button
               variant='success'
-              onPress={() => {
-                Controls.BlockchainTransaction.show({
-                  mqttClient: mqtt,
-                  waitOptions: {
-                    queueName: 'test'
-                  },
-                  onSucess: () => {}
-                });
-              }}
+              // onPress={() => {
+              //   Controls.BlockchainTransaction.show({
+              //     mqttClient: mqtt,
+              //     waitOptions: {
+              //       queueName: 'test'
+              //     },
+              //     onSucess: () => {}
+              //   });
+              // }}
             >
               Bottom Toast
             </Controls.Button>

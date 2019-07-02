@@ -14,6 +14,7 @@ interface IProps {
   onModalHide?: () => void;
   onExited?: () => void;
   className?: string;
+  width?: number;
 }
 
 export class Modal extends React.Component<IProps, IState> {
@@ -38,6 +39,17 @@ export class Modal extends React.Component<IProps, IState> {
         className={[styles.myModal, this.props.className || ''].join(' ')}
         onExited={this.props.onExited}
       >
+        <span
+          ref={(ref) => {
+            if (ref && this.props.width) {
+              const modalDialog = ref.closest('.modal-dialog');
+
+              if (modalDialog) {
+                modalDialog.setAttribute('style', `width: ${this.props.width}px`);
+              }
+            }
+          }}
+        />
         <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
         <BootstrapModal.Body className={styles.myModalBody}>
           {this.props.children}
