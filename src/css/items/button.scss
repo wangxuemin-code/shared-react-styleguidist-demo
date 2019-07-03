@@ -26,7 +26,7 @@ $borderRadius: 0;
 .button {
   background-color: map-get($colors, primary);
   background-image: none;
-  padding: 0.7143rem;
+  padding: 0.4286rem;
   outline: none;
   color: map-get($colors, primaryAlt);
   cursor: pointer;
@@ -34,28 +34,27 @@ $borderRadius: 0;
   font-style: inherit;
   text-decoration: inherit;
   font-family: inherit;
-  min-width: 8.571rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 0;
+  min-width: 7.857rem;
+  border: 2px solid map-get($colors, primary);
   font-weight: 600;
 
   &.tiny {
-    padding: 0.4286rem;
+    padding: 0.1429rem;
   }
 
   &.small {
-    padding: 0.5714rem;
+    padding: 0.2857rem;
   }
 
   &.large {
-    padding: 0.8571rem;
+    padding: 0.5714rem;
   }
 
   &.loading {
     > div {
-      margin-right: 0.4rem;
+      margin: 0 0.4rem 0 0;
+      position: relative;
+      top: 3px;
     }
   }
 
@@ -71,7 +70,6 @@ $borderRadius: 0;
   &.disabled {
     background-color: map-get($colors, primaryGreyLighter);
     background-image: none;
-    cursor: default;
     color: map-get($colors, primaryGreyDarker);
     border: 2px solid map-get($colors, primaryGreyLighter);
 

@@ -98,8 +98,7 @@
     }
   }
 
-  #istox-tab,
-  .istox-tab {
+  > div {
     display: flex;
     flex-direction: column;
     align-self: stretch;
@@ -412,7 +411,7 @@
 
         &.active {
           a {
-            font-weight: bold;
+            font-weight: 600;
           }
         }
 

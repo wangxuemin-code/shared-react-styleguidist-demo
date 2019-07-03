@@ -18,8 +18,8 @@
 
 .uploader-viewer {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 3px;
+  right: 5px;
   color: map-get($colors, primaryGreyDark);
   cursor: pointer;
 }
@@ -36,10 +36,14 @@
   position: relative;
   width: 15rem;
 
+  .file-icon {
+    font-size: 5rem;
+  }
+
   .uploader-label {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 5px;
+    left: 5px;
     background-color: map-get($colors, primaryGreyDarker);
     padding: 0 0.5rem;
     color: map-get($colors, primaryAlt);

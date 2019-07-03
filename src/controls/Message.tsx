@@ -4,6 +4,7 @@ import { Container, IContainer } from './Container';
 import { Icon } from '.';
 
 interface IMessage extends IContainer {
+  labeled?: boolean;
   icon?: any;
   message?: any;
   flat?: boolean;
@@ -24,7 +25,8 @@ export class Message extends React.Component<IMessage, any> {
       this.props.variant || '',
       this.props.outline ? styles.outline : '',
       this.props.flat ? styles.flat : '',
-      this.props.size === 'small' ? styles.smallMessage : ''
+      this.props.size === 'small' ? styles.smallMessage : '',
+      this.props.labeled ? styles.labeled : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -39,9 +41,16 @@ export class Message extends React.Component<IMessage, any> {
 
     return (
       <Container {...this.props} className={classes.join(' ')}>
-        {this.props.icon && <Icon size={'small'} icon={this.props.icon} />}
+        {this.props.labeled && this.props.icon && (
+          <Container style={style} className={styles.label}>
+            <Icon size={'small'} icon={this.props.icon} />
+          </Container>
+        )}
         {this.props.message && (
-          <Container style={style} className={this.props.icon ? styles.iconText : ''}>
+          <Container style={style} className={styles.content}>
+            {!this.props.labeled && this.props.icon && (
+              <Icon size={'small'} icon={this.props.icon} />
+            )}
             {this.props.message}
           </Container>
         )}

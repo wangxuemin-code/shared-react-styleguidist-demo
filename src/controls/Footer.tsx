@@ -24,7 +24,7 @@ export class Footer extends React.Component<IProps, any> {
             {this.props.detailed && (
               <Grid.Row>
                 <Grid.Col col={3}>
-                  <Image width={120} variant={'logo alt'} />
+                  <Image float={'left'} width={120} variant={'logo alt'} />
                 </Grid.Col>
                 <Grid.Col col={6}>
                   <Grid.Row fitted>

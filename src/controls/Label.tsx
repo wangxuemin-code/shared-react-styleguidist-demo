@@ -17,13 +17,8 @@ export class Label extends React.Component<ILabel, any> {
     let classes: string[] = [
       styles.istoxLabel,
       this.props.variant || '',
-      this.props.className || '',
       this.props.size === 'small' ? styles.smallMessage : ''
     ];
-
-    classes = classes.filter(function(el) {
-      return el != '';
-    });
 
     let style: React.CSSProperties = this.props.style || {};
 

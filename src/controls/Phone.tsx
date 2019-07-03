@@ -100,7 +100,7 @@ export class Phone extends React.Component<IProps, IState> {
       }
     };
     return (
-      <Container fluid display={'flex'}>
+      <Container className={styles.phoneSendCode} fluid display={'flex'}>
         <Container display={'flex'}>
           <Container width={120}>
             <label className={styles.semiBold}>
@@ -120,14 +120,14 @@ export class Phone extends React.Component<IProps, IState> {
               options={Options}
               isDisabled={this.props.loading}
               styles={{
-                control: (base) => ({
+                control: (base: any) => ({
                   ...base,
-                  height: '2.857rem',
-                  minHeight: '2.571rem',
+                  minHeight: '2.357rem',
                   padding: '0 0.5rem'
                 }),
-                option: (base: any) => ({
-                  ...base
+                option: (base: any, state: any) => ({
+                  ...base,
+                  borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
                 })
               }}
             />

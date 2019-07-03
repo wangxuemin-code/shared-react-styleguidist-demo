@@ -1,6 +1,7 @@
 import * as React from 'react';
 interface IState {
     visible: boolean;
+    width?: number;
 }
 interface IProps {
     children?: any;
@@ -8,6 +9,7 @@ interface IProps {
     onModalHide?: () => void;
     onExited?: () => void;
     className?: string;
+    width?: number;
 }
 export declare class Modal extends React.Component<IProps, IState> {
     constructor(props: IProps);

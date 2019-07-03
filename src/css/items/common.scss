@@ -232,6 +232,14 @@ strong {
   }
 }
 
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
   $mq-media-query: 'screen and';
 

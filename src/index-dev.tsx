@@ -13,7 +13,8 @@ import {
   faSearch,
   faUser,
   faChevronCircleRight,
-  faCheck
+  faCheck,
+  faFilePdf
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -242,6 +243,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Tabs</h4>
             <Controls.Tabs
+              id={'registration'}
               margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
@@ -285,6 +287,7 @@ class Main extends Controls.MyComponent<
               Go to next Tab
             </Controls.Button>
             <Controls.Tabs
+              id={'personal-info'}
               margin={{ topPx: 20 }}
               orientation={'horizontal'}
               tabs={this.tabsContent}
@@ -375,14 +378,17 @@ class Main extends Controls.MyComponent<
             </Controls.Button>
             <Controls.Divider visibility={'hidden'} />
             <Controls.Icon icon={faUser} onClick={() => {}} />
-            <Controls.Button size='large' variant='primary'>
+            <Controls.Button variant='primary'>
               <Controls.Icon icon={faPlus} />
               Icon
             </Controls.Button>
-            <Controls.Button variant='primary' subText={'Back to Residential / Mailing'}>
+            <Controls.Button
+              variant='primary'
+              subText={<span className='small'>Back to Residential / Mailing</span>}
+            >
               SubText
             </Controls.Button>
-            <Controls.Button size='large' float={'right'} fontStyle={'italic'} variant='primary'>
+            <Controls.Button float={'right'} fontStyle={'italic'} variant='primary'>
               Italic
             </Controls.Button>
             <Controls.Divider visibility={'hidden'} />
@@ -466,6 +472,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Icon</h4>
             <Controls.Container display={'flex'}>
+              <Controls.Icon size='tiny' icon={faUser} text={'Tiny'} /> &nbsp; &nbsp;
               <Controls.Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
               <Controls.Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
               <Controls.Icon
@@ -773,7 +780,7 @@ class Main extends Controls.MyComponent<
                         margin={{ topPx: -50 }}
                         src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                       />
-                      <span className='normal-text'>
+                      <span className='normal-text small'>
                         Drag and drop or <br />
                         Click here to attached a file
                       </span>
@@ -789,15 +796,42 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{
                       customAllowFileExtensions: ['.pdf'],
                       viewer: true,
-                      label: 'Front'
+                      label: 'Image'
                     }}
                   >
                     <Controls.Container>
                       <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
                         <Controls.Image
+                          height={100}
                           src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
-                          //src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
+                      </Controls.Container>
+                      <Controls.Container fluid verticalAlign={'center'}>
+                        <span className='small normal-text'>file-name-doc_1.jpg</span>
+                      </Controls.Container>
+                    </Controls.Container>
+                  </Controls.FormControl>
+                  <Controls.FormControl
+                    required
+                    label='Image uploader disabled '
+                    name='uploadviewer'
+                    type='uploader'
+                    disabled
+                    value='http://www.africau.edu/images/default/sample.pdf'
+                    uploaderConfigs={{
+                      customAllowFileExtensions: ['.pdf'],
+                      viewer: true,
+                      label: 'PDF'
+                    }}
+                  >
+                    <Controls.Container>
+                      <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                        <Controls.Container position='relative' textAlign='center'>
+                          <Controls.Icon icon={faFilePdf} />
+                          <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
+                            Saved
+                          </Controls.Container>
+                        </Controls.Container>
                       </Controls.Container>
                       <Controls.Container fluid verticalAlign={'center'}>
                         <span className='tiny normal-text'>file-name-doc_1.pdf</span>
@@ -1049,7 +1083,7 @@ class Main extends Controls.MyComponent<
                     messageColor={'#000'}
                     message={
                       <Controls.Container>
-                        <p className='large bold '>Title</p>
+                        <h5>Title</h5>
                         <p>2 Fake document</p>
                       </Controls.Container>
                     }
@@ -1063,7 +1097,7 @@ class Main extends Controls.MyComponent<
                     messageColor={'#000'}
                     message={
                       <Controls.Container>
-                        <p className='large bold '>Title</p>
+                        <h5>Title</h5>
                         <p>2 Fake document</p>
                       </Controls.Container>
                     }
@@ -1204,7 +1238,7 @@ class Main extends Controls.MyComponent<
               <h4>Form Elements</h4>
               <Controls.Form
                 // display={'grid'}
-                // horizontal
+                horizontal
                 error={String(404)}
                 ref={(ref) => {
                   if (ref) {
@@ -1250,6 +1284,7 @@ class Main extends Controls.MyComponent<
                     }
                     append={
                       <Controls.Button
+                        size={'large'}
                         float={'left'}
                         textAlign={'center'}
                         type={'submit'}
@@ -1453,6 +1488,55 @@ class Main extends Controls.MyComponent<
                   defaultValue='0'
                 />
                 <Controls.FormControl
+                  required
+                  label={'H Radio'}
+                  name='h_radio'
+                  type={'radio'}
+                  variant={'horizontal'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'option1'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
+                    }
+                  ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('h_radio'));
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'V Radio'}
+                  name='v_radio'
+                  type={'radio'}
+                  selectOptions={[
+                    {
+                      label: 'Option1',
+                      value: 'option1'
+                    },
+                    {
+                      label: 'Option2',
+                      value: 'option2'
+                    },
+                    {
+                      label: 'Option3',
+                      value: 'option3'
+                    }
+                  ]}
+                  onInputChanged={(value) => {
+                    console.log(this.form.getInputValue('v_radio'));
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
                   label={'H Checkbox'}
                   name='h_checkbox'
                   type={'checkbox'}
@@ -1461,6 +1545,10 @@ class Main extends Controls.MyComponent<
                     {
                       label: link,
                       value: '1'
+                    },
+                    {
+                      label: link,
+                      value: '2'
                     }
                   ]}
                   value={this.state.value || '1'}
@@ -1816,16 +1904,31 @@ class Main extends Controls.MyComponent<
                   fluid
                   justifyContent={'left'}
                   outline
-                  icon={faInfoCircle}
+                  icon={faExclamationCircle}
                   variant={message}
                   message={`Hello i am a ${message}`}
                 />
               ))}
+              <Controls.Divider visibility={'hidden'} />
+              {this.variantStates.map((message: any) => (
+                <Controls.Message
+                  key={uniqid().toString()}
+                  fluid
+                  justifyContent={'left'}
+                  outline
+                  labeled
+                  icon={faExclamationCircle}
+                  variant={message}
+                  message={`Hello i am a ${message}`}
+                  messageColor={'#000'}
+                />
+              ))}
+              <Controls.Divider visibility={'hidden'} />
               <Controls.Message
                 fluid
                 justifyContent={'left'}
                 outline
-                icon={faInfoCircle}
+                icon={faExclamationCircle}
                 message={`Hello i am a  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum eget sem
               tortor. Nam eu bibendum nisi. In pellentesque consequat orci, at fermentum neque
               luctus in. Vestibulum quis magna porta, pulvinar ipsum ut, sollicitudin nibh.

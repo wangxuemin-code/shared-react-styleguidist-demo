@@ -4,6 +4,7 @@ import { Container } from '.';
 import * as styles from '../css/main.scss';
 import { Confirm } from './Confirm';
 import { Icon } from './Icon';
+import { Link } from './Link';
 import { Modal } from './Modal';
 
 export type FilePattern = 'audio' | 'video' | 'image';
@@ -83,7 +84,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       <>
         {this.props.viewer && this.props.children && (
           <Modal onModalHide={this.hideViewer.bind(this)} visible={this.state.showViewer}>
-            <Container fluid>{this.props.children}</Container>
+            {this.state.type !== 'pdf' && <Container fluid>{this.props.children}</Container>}
           </Modal>
         )}
         <Container position={'relative'}>
@@ -105,13 +106,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
             />
           </label>
-          {this.props.viewer && this.props.children && (
+          {this.props.viewer && this.props.children && this.state.type !== 'pdf' && (
             <Icon
               onClick={this.openViewer.bind(this)}
               size={'large'}
               className={styles.uploaderViewer}
               icon={faSearchPlus}
             />
+          )}
+          {this.props.viewer && this.props.children && this.state.type === 'pdf' && (
+            <Link target='_blank' href={this.props.value} useNormalAnchor={true}>
+              <Icon size={'large'} className={styles.uploaderViewer} icon={faSearchPlus} />
+            </Link>
           )}
         </Container>
       </>
@@ -294,8 +300,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
       } else if (this.state.type === 'pdf') {
         return (
           <Container position='relative' textAlign='center'>
-            <Icon size={'large'} icon={faFilePdf} />
-            <Container className='normal-text' margin={{ topPx: 5 }}>
+            <Icon className={styles.fileIcon} icon={faFilePdf} />
+            <Container classNames={[styles.normalText, styles.small]} margin={{ topPx: 5 }}>
               {!this.state.uploaded ? 'Pending upload' : 'Saved'}
             </Container>
           </Container>

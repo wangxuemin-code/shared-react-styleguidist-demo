@@ -13,7 +13,7 @@
   }
   .form-control {
     height: auto;
-    padding: 10px 0;
+    padding: 5px 0;
   }
   .form-controls-inner {
     flex: auto;
@@ -29,7 +29,7 @@
       color: map-get($colors, primaryGreyDarker);
       position: absolute;
       right: 0;
-      bottom: 12px;
+      bottom: 8px;
       font-size: 0.857rem;
     }
   }
@@ -45,7 +45,7 @@
   input:focus,
   .select:focus,
   textarea:focus {
-    border-bottom: 1px solid map-get($colors, primaryGreyDark);
+    border-bottom: 1px solid map-get($colors, secondary) !important;
     box-shadow: none;
   }
   .select {
@@ -54,6 +54,7 @@
       box-shadow: none;
       border-radius: 0;
       background-color: map-get($colors, primaryAlt);
+      justify-content: left;
     }
     > div {
       > div {
@@ -64,6 +65,16 @@
       }
     }
   }
+
+  .horizontal {
+    display: flex;
+
+    .checkbox,
+    .radio {
+      margin: 0.5rem 0;
+    }
+  }
+
   input.otp {
     padding: 1rem;
     border: 1px solid map-get($colors, primaryGrey);
@@ -132,6 +143,10 @@
     cursor: pointer;
     min-width: 0 !important;
     min-height: 0 !important;
+    margin: 3px 0 0;
+  }
+
+  input[type='checkbox'] {
     margin: 4px 0 0;
   }
 
@@ -151,8 +166,8 @@
 
     > div:nth-child(3) {
       padding: 0rem;
-      border: 1px solid map-get($colors, primaryGrey);
-      box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+      border: 1px solid map-get($colors, primaryGreyLighter);
+      border-bottom: 3px solid rgba(0, 0, 0, 0.15);
     }
 
     div[id*='select'] {
@@ -171,6 +186,10 @@
   }
 
   &.form-horizontal {
+    .checkbox,
+    .radio {
+      min-height: auto;
+    }
     .old-value-active {
       margin-bottom: 0;
     }
@@ -183,15 +202,6 @@
 
       .form-controls-inner {
         display: flex;
-        align-items: center;
-
-        .horizontal {
-          display: inline-flex;
-
-          > div {
-            margin-right: 1rem;
-          }
-        }
 
         .select-option {
           display: flex;
@@ -212,7 +222,8 @@
         margin-bottom: 0px;
       }
 
-      .checkbox {
+      .checkbox,
+      .radio {
         padding: 0;
 
         label {
@@ -241,10 +252,6 @@
   padding: 0 20px;
   margin-left: 1rem;
   width: 100%;
-
-  .button {
-    border: none;
-  }
 
   &.custom {
     padding: 0px;
@@ -296,6 +303,12 @@
 
 .react-toggle--checked .react-toggle-thumb {
   border-color: map-get($colors, primary);
+}
+
+.phone-send-code {
+  input {
+    height: 2.5rem !important;
+  }
 }
 
 // .react-toggle--focus .react-toggle-thumb {
