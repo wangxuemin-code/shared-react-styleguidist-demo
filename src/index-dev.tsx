@@ -155,6 +155,61 @@ class Main extends Controls.MyComponent<
               { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
             ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+            notificationUnread={true}
+            notifications={[
+              {
+                header: 'Notifications',
+                notifications: [
+                  {
+                    title: 'Earlier',
+                    // contents: 'adsad'
+                    contents: [
+                      {
+                        icon: (
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                        ),
+                        content: (
+                          <Controls.Container>
+                            <h6>Account Info</h6>
+                            <p>Desciption</p>
+                            <span>1 min ago</span>
+                          </Controls.Container>
+                        )
+                      },
+                      {
+                        icon: (
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                        ),
+                        content: (
+                          <Controls.Container>
+                            <h6>Account Info</h6>
+                            <p>Desciption</p>
+                            <span>1 min ago</span>
+                          </Controls.Container>
+                        )
+                      }
+                    ]
+                  },
+                  {
+                    title: 'Days ago',
+                    contents: [
+                      {
+                        icon: (
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                        ),
+                        content: (
+                          <Controls.Container>
+                            <h6>Account Info</h6>
+                            <p>Desciption</p>
+                            <span>1 min ago</span>
+                          </Controls.Container>
+                        )
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]}
             username={this.state.email}
             userAction
           />

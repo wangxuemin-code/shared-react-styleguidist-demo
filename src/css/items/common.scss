@@ -232,6 +232,10 @@ strong {
   cursor: pointer;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
 @mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
   $mq-media-query: 'screen and';
 

@@ -10,7 +10,130 @@
   box-shadow: $boxShadow;
 
   .istox-wrapper {
-    grid-template-columns: max-content auto max-content;
+    // grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+  }
+
+  .notification-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $headerHeight;
+    padding: 1px 0.5rem 0;
+    position: relative;
+    transition: 0.25s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: map-get($colors, primaryGreyLight);
+      color: map-get($colors, primary);
+      text-decoration: none;
+    }
+
+    .notification-unread {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: map-get($colors, success);
+      position: absolute;
+      right: 5px;
+      top: 20px;
+    }
+
+    .notification-menu {
+      position: absolute;
+      right: 0px;
+      top: $headerHeight;
+      width: 25rem;
+      background-color: white;
+      border-radius: 3px;
+      padding: 1rem;
+      box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+      color: map-get($colors, primaryGreyDark);
+      font-size: 1rem;
+      overflow: auto;
+      max-height: 80vh;
+
+      .notification {
+        padding: 1rem;
+        border-top: 1px solid map-get($colors, primaryGrey);
+      }
+      .notification:hover {
+        background-color: map-get($colors, primaryGreyLight);
+        color: map-get($colors, primaryGreyDark);
+      }
+    }
+  }
+
+  .user-action {
+    font-size: 1rem;
+    transition: 0.25s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 0.5rem;
+    position: relative;
+    height: $headerHeight;
+
+    .icon {
+      padding-top: 1px;
+    }
+    .text {
+      .icon {
+        padding-top: 2px;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: map-get($colors, primaryGreyLight);
+      color: map-get($colors, primary);
+      text-decoration: none;
+    }
+
+    &.after-login {
+      padding: 0px 0.5rem;
+      font-size: 2rem;
+    }
+
+    &.after-login .text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 0.5rem;
+      font-size: 1rem;
+      font-weight: lighter;
+      text-transform: capitalize;
+      max-width: 200px;
+    }
+
+    &.after-login .text span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .sub-menu {
+      position: absolute;
+      left: 0px;
+      top: $headerHeight;
+      min-width: 11.43rem;
+      background-color: white;
+      text-align: center;
+      border-radius: 3px;
+      box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+    }
+
+    .sub-menu a {
+      color: map-get($colors, primaryGreyDark);
+      font-size: 1rem;
+      display: block;
+      padding: 10px;
+    }
+
+    .sub-menu a:hover {
+      background-color: map-get($colors, primaryLight);
+      color: white;
+    }
   }
 
   ul.links {
@@ -18,7 +141,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
+    margin: auto;
     padding: 0;
 
     a {
@@ -90,72 +213,4 @@
   background-color: map-get($colors, primaryAlt);
   bottom: -3px;
   left: 0px;
-}
-
-.istox-header .user-action {
-  font-size: 1rem;
-  transition: 0.25s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 30px;
-  position: relative;
-  height: $headerHeight;
-
-  .icon {
-    padding-top: 2px;
-  }
-}
-
-.istox-header .user-action:hover {
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.65);
-  color: map-get($colors, primaryDark);
-  text-decoration: none;
-}
-
-.istox-header .user-action.after-login {
-  padding: 0px 1rem;
-  font-size: 28px;
-}
-
-.istox-header .user-action.after-login .text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 0.5rem;
-  font-size: 1rem;
-  font-weight: lighter;
-  text-transform: capitalize;
-  max-width: 200px;
-}
-
-.istox-header .user-action.after-login .text span {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.istox-header .user-action .sub-menu {
-  position: absolute;
-  left: 0px;
-  top: $headerHeight;
-  width: 150px;
-  background-color: white;
-  text-align: center;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
-}
-
-.istox-header .user-action .sub-menu a {
-  color: map-get($colors, primaryGreyDark);
-  font-size: 1rem;
-  display: block;
-  padding: 10px;
-}
-
-.istox-header .user-action .sub-menu a:hover {
-  // background-image: linear-gradient(45deg, #388ac4 0%, #1c4267 100%);
-  background-color: map-get($colors, primaryLight);
-  color: white;
 }
