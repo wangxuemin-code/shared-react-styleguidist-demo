@@ -125,7 +125,8 @@ export class OtpInput extends React.Component<IProps, IState> {
     if (
       (e.keyCode >= 48 && e.keyCode <= 57) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
-      e.keyCode == 13
+      e.keyCode == 13 ||
+      e.keyCode == 9
     ) {
       // 0-9 only and Enter
     } else {

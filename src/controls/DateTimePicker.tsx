@@ -53,7 +53,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (this.props.type === 'date' || this.props.type === 'datetime') {
       return (
         <React.Fragment>
-          <Container position={'relative'} display={'flex'} widthPercent={100}>
+          <Container position={'relative'} display={'flex'} fluid>
             <DatePicker
               selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
               onKeyDown={(e) => this.handleKeyDown(e)}
@@ -95,13 +95,8 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       );
     } else {
       return (
-        <React.Fragment>
-          <Container
-            position={'relative'}
-            display={'flex'}
-            widthPercent={49}
-            margin={{ rightPercent: 2 }}
-          >
+        <Container className={styles.dateGroup}>
+          <Container position={'relative'}>
             <DatePicker
               selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
               onChange={this.handleChangeStart.bind(this)}
@@ -130,7 +125,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               <Icon icon={faCalendarAlt} />
             </Container>
           </Container>
-          <Container position={'relative'} display={'flex'} widthPercent={49}>
+          <Container position={'relative'} display={'flex'}>
             <DatePicker
               selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
               onChange={this.handleChangeEnd.bind(this)}
@@ -159,7 +154,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               <Icon icon={faCalendarAlt} />
             </Container>
           </Container>
-        </React.Fragment>
+        </Container>
       );
     }
   }
@@ -210,6 +205,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (this.props.type === 'date') {
       const keyCodeArray: number[] = this.state.keyCodeArray || [];
 
+      if (e.keyCode === 13 || e.keyCode === 9) {
+        return;
+      }
       if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 191 || e.keyCode === 189) {
         if (keyCodeArray.length > 9) {
           e.preventDefault();
