@@ -14,7 +14,7 @@ body,
 #reactContainer {
   margin: 0;
   min-height: 100%;
-  background: map-get($colors, primaryGreyLight);
+  background: map-get($colors, primaryAlt);
   line-height: normal;
   font-size: $base;
   display: flex;
@@ -59,13 +59,13 @@ a {
 }
 
 h1 {
-  font-size: 2.857142857142857rem; // 40px
+  font-size: 2.75rem; // 44px
 }
 h2 {
-  font-size: 2.142857142857143rem; // 30px
+  font-size: 1.875rem; // 30px
 }
 h3 {
-  font-size: 1.7142857142857142rem; // 24px
+  font-size: 1.786rem; // 25px
 }
 h4 {
   font-size: 1.5rem; // 21px
@@ -78,20 +78,20 @@ h6 {
 }
 p,
 article {
-  font-size: 1rem; // 14px
+  font-size: 1rem;
   margin: 0;
 }
 .tiny {
-  font-size: 0.857rem !important; // 12px
+  font-size: 0.7143rem !important; // 10px
 }
 .small {
-  font-size: 1rem !important; // 14px
+  font-size: 0.857rem !important; // 12px
 }
 .medium {
-  font-size: 1.1428571428571428rem !important; // 16px
+  font-size: 1rem !important; // 14px
 }
 .large {
-  font-size: 1.2857142857142858rem !important; // 18px
+  font-size: 1.1428571428571428rem !important; // 16px
 }
 
 h1,
@@ -108,10 +108,11 @@ h6 {
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  display: inline-block;
+
   &.hidden {
     visibility: none;
   }
-  display: inline-block;
 }
 
 .header {
@@ -138,12 +139,17 @@ hr {
   font-weight: 300;
 }
 
-.light-bold,
+.light-bold {
+  font-weight: 500;
+}
+
 .semi-bold {
   font-weight: 600;
 }
 
-.bold {
+.bold,
+b,
+strong {
   font-weight: 700;
 }
 
@@ -218,6 +224,14 @@ hr {
   overflow: auto;
 }
 
+.cursor-default {
+  cursor: default;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
   $mq-media-query: 'screen and';
 
@@ -240,14 +254,26 @@ hr {
 @include mq(retina) {
 }
 
-@include mq(lg) {
+@include mq(huge) {
 }
 
-@include mq(md) {
+@include mq(big) {
 }
 
-@include mq(sm) {
+@include mq(large) {
 }
 
-@include mq(xs) {
+@include mq(medium) {
+  .display-flex {
+    display: grid;
+  }
+}
+
+@include mq(small) {
+}
+
+@include mq(tiny) {
+}
+
+@include mq(mini) {
 }

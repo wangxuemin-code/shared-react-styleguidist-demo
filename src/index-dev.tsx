@@ -597,14 +597,14 @@ class Main extends Controls.MyComponent<
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
               </Controls.Grid.Row>
-              <Controls.Grid.Row equalWidth>
-                <Controls.Grid.Col>
+              <Controls.Grid.Row>
+                <Controls.Grid.Col col={2}>
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
                 <Controls.Grid.Col col={8}>
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
-                <Controls.Grid.Col>
+                <Controls.Grid.Col col={2}>
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
               </Controls.Grid.Row>
@@ -635,6 +635,14 @@ class Main extends Controls.MyComponent<
                 <Controls.Grid.Col>
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+                <Controls.Grid.Col>
+                  <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
+                </Controls.Grid.Col>
+              </Controls.Grid.Row>
+              <Controls.Grid.Row fitted equalWidth>
                 <Controls.Grid.Col>
                   <Controls.Container height={50} backgroundColor={'#e1e1e1'} />
                 </Controls.Grid.Col>
@@ -705,7 +713,7 @@ class Main extends Controls.MyComponent<
                   console.log(this.imageForm.getInputValue('upload'));
                 }}
               >
-                <Controls.Container className={'form-group'} display={'flex'}>
+                <Controls.Container className={'form-group'}>
                   <Controls.FormControl
                     required
                     label='Image uploader'
@@ -1180,7 +1188,7 @@ class Main extends Controls.MyComponent<
                   });
                 }}
               >
-                <Controls.Container className={'form-group '} display={'flex'}>
+                <Controls.Container className={'form-group '}>
                   <Controls.FormControl
                     // required
                     placeholder={'Placeholder'}
@@ -1258,7 +1266,7 @@ class Main extends Controls.MyComponent<
                     console.log(this.form.getInputValue('email'));
                   }}
                 />
-                <Controls.Container className={'form-group'} display={'flex'}>
+                <Controls.Container className={'form-group'}>
                   <Controls.FormControl
                     required
                     label={'Password'}
@@ -1728,7 +1736,7 @@ class Main extends Controls.MyComponent<
             </Controls.Item>
             <Controls.Divider />
             <h4>Card</h4>
-            <Controls.Container display={'flex'}>
+            <Controls.Container className={'display-flex'}>
               <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}

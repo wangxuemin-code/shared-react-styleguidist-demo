@@ -39,6 +39,7 @@ interface IState {
 }
 
 export class Header extends React.Component<IHeader, IState> {
+  private subMenu?: any;
   public static defaultProps = {
     mainLinks: [],
     subLinks: []
@@ -50,15 +51,34 @@ export class Header extends React.Component<IHeader, IState> {
     this.showSubMenu = this.showSubMenu.bind(this);
   }
 
+  public componentWillMount() {
+    document.addEventListener('mousedown', this.handleClick, false);
+  }
+
+  public componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick, false);
+  }
+
   public componentDidUpdate(prevProps: IHeader) {
     if (prevProps.username !== this.props.username && this.props.username) {
       this.setState({ username: this.props.username });
     }
   }
 
+  handleClick = (e: any) => {
+    if (this.subMenu.contains(e.target)) {
+      return;
+    } else {
+      this.setState({ showSubMenu: false });
+    }
+  };
+
   toggleClass() {
-    const currentState = this.state.showSubMenu;
-    this.setState({ showSubMenu: !currentState });
+    if (this.state.showSubMenu) {
+      this.setState({ showSubMenu: false });
+    } else {
+      this.setState({ showSubMenu: true });
+    }
   }
 
   addDefaultSrc(ev: any) {
@@ -113,23 +133,25 @@ export class Header extends React.Component<IHeader, IState> {
 
   private getUserActionDesign() {
     return (
-      <Container
-        onClick={() => this.toggleClass()}
-        className={[styles.userAction, styles.afterLogin].join(' ')}
-      >
-        <Icon size='large' icon={faUserCircle} />
-        <Container className={styles.text}>
-          {this.props.username || this.state.username || this.getUsername()}
-          {((this.props.subLinks && this.props.subLinks.length) ||
-            Cookies.get('account') ||
-            this.state.username !== '') && (
-            <>
-              &nbsp; <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
-            </>
-          )}
+      <div ref={(node) => (this.subMenu = node)}>
+        <Container
+          onClick={() => this.toggleClass()}
+          className={[styles.userAction, styles.afterLogin].join(' ')}
+        >
+          <Icon size='large' icon={faUserCircle} />
+          <Container className={styles.text}>
+            {this.props.username || this.state.username || this.getUsername()}
+            {((this.props.subLinks && this.props.subLinks.length) ||
+              Cookies.get('account') ||
+              this.state.username !== '') && (
+              <>
+                &nbsp; <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
+              </>
+            )}
+          </Container>
+          {this.state.showSubMenu && this.getSubMenuDesign()}
         </Container>
-        {this.state.showSubMenu && this.getSubMenuDesign()}
-      </Container>
+      </div>
     );
   }
 

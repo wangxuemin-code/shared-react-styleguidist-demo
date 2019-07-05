@@ -22,7 +22,8 @@ interface IButton extends IContainer {
 
 export class Button extends React.Component<IButton, any> {
   public static defaultProps: IButton = {
-    type: 'button'
+    type: 'button',
+    size: 'small'
   };
 
   public render() {
@@ -34,10 +35,10 @@ export class Button extends React.Component<IButton, any> {
       this.props.outline ? styles.outline : '',
       this.props.flat ? styles.flat : '',
       this.props.disabled ? styles.disabled : '',
+      this.props.disabled ? styles.cursorDefault : styles.cursorPointer,
       this.props.subText ? styles.subText : '',
       this.props.loading ? styles.verticalAlignMiddle : '',
-      this.props.loading ? styles.loading : '',
-      this.props.loading ? styles.disabled : ''
+      this.props.loading ? styles.loading : ''
     ];
 
     classes = classes.filter(function(el) {
@@ -89,18 +90,14 @@ export class Button extends React.Component<IButton, any> {
                   ? 14
                   : this.props.size == 'tiny'
                   ? 12
-                  : 14
+                  : 16
               }
               loading
             />
           )}
           {this.props.children}
         </button>
-        {this.props.subText && (
-          <Container textAlign={'center'} padding={{ topRem: 0.3 }}>
-            {this.props.subText}
-          </Container>
-        )}
+        {this.props.subText && <Container textAlign={'center'}>{this.props.subText}</Container>}
       </Container>
     );
   }

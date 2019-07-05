@@ -25,12 +25,16 @@ interface IState {
     username: string;
 }
 export declare class Header extends React.Component<IHeader, IState> {
+    private subMenu?;
     static defaultProps: {
         mainLinks: never[];
         subLinks: never[];
     };
     constructor(props: IHeader);
+    componentWillMount(): void;
+    componentWillUnmount(): void;
     componentDidUpdate(prevProps: IHeader): void;
+    handleClick: (e: any) => void;
     toggleClass(): void;
     addDefaultSrc(ev: any): void;
     render(): JSX.Element;
