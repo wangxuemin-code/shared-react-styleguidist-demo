@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
-import { Controls } from './index-prod';
+import { Controls, Ant } from './index-prod';
 import {
   faAddressBook,
   faAdjust,
@@ -2108,6 +2108,11 @@ class Main extends Controls.MyComponent<
               ))}
               <Controls.Divider visibility={'hidden'} />
               <Controls.Divider visibility={'hidden'} />
+            </Controls.Container>
+
+            <Controls.Container>
+              <h4>Test Direct Ant Component Access</h4>
+              <Ant.Alert message={'Testing Ant component'} />
             </Controls.Container>
           </Controls.WrapperContainer>
         </Controls.RootContainer>
