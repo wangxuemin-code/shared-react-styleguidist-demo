@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
-import { Alert as ReactAlert } from 'react-bootstrap';
+import { Alert as ReactAlert } from 'antd';
 import { Icon } from '.';
 import { Transition } from './Transition';
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -83,14 +83,14 @@ export class Alert extends React.Component<IAlert, IState> {
 
   private getContent() {
     if (Array.isArray(this.state.error) && this.arrayNotEmpty(this.state.error)) {
-      return this.state.error.map((message: string) => this.getMessage('danger', message));
+      return this.state.error.map((message: string) => this.getMessage('error', message));
     } else if (Array.isArray(this.state.success) && this.arrayNotEmpty(this.state.success)) {
       return this.state.success.map((message: string) => this.getMessage('success', message));
     } else if (Array.isArray(this.state.info) && this.arrayNotEmpty(this.state.info)) {
       return this.state.info.map((message: string) => this.getMessage('info', message));
     } else {
       if (this.state.success) return this.getMessage('success', this.state.success);
-      if (this.state.error) return this.getMessage('danger', this.state.error);
+      if (this.state.error) return this.getMessage('error', this.state.error);
       if (this.state.info) return this.getMessage('info', this.state.info);
     }
   }
@@ -112,7 +112,7 @@ export class Alert extends React.Component<IAlert, IState> {
     }
   }
 
-  private getMessage(type: 'success' | 'danger' | 'info', message: string | string[]) {
+  private getMessage(type: 'success' | 'error' | 'info' | 'warning', message: string | string[]) {
     if (!message || 0 === message.length || Array.isArray(message)) {
       return null;
     }
@@ -122,7 +122,7 @@ export class Alert extends React.Component<IAlert, IState> {
       case 'success':
         icon = faCheckCircle;
         break;
-      case 'danger':
+      case 'error':
         icon = faInfoCircle;
         break;
       case 'info':
@@ -132,9 +132,8 @@ export class Alert extends React.Component<IAlert, IState> {
 
     return (
       <Container {...this.props} className={styles.istoxAlert}>
-        <ReactAlert bsStyle={type}>
+        <ReactAlert type={type} message={message}>
           <Icon icon={icon} />
-          {message}
         </ReactAlert>
       </Container>
     );

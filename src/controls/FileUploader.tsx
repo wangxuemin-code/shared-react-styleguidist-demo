@@ -83,7 +83,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
     return (
       <>
         {this.props.viewer && this.props.children && (
-          <Modal onModalHide={this.hideViewer.bind(this)} visible={this.state.showViewer}>
+          <Modal onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
             {this.state.type !== 'pdf' && <Container fluid>{this.props.children}</Container>}
           </Modal>
         )}
