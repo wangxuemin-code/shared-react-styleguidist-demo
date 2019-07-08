@@ -248,6 +248,12 @@ class Main extends Controls.MyComponent<
                   <span className='small'>Small</span> &nbsp;
                   <span className='medium'>Medium</span> &nbsp;
                   <span className='large'>Large</span>
+                  <br />
+                  {this.variantStates.map((color: any) => (
+                    <>
+                      <span className={`color-${color}`}>{color}</span> &nbsp;
+                    </>
+                  ))}
                 </Controls.Container>
               </Controls.Container>
             </Controls.Container>
@@ -497,6 +503,20 @@ class Main extends Controls.MyComponent<
                   borderRadius: 50,
                   borderColor: '#FFF',
                   borderStyle: 'solid'
+                }}
+                tooltip={
+                  <Controls.Container>
+                    <Controls.Container>dasdas</Controls.Container>
+                    <Controls.Container>dasdas</Controls.Container>
+                    <Controls.Container>dasdas</Controls.Container>
+                  </Controls.Container>
+                }
+                tooltipOptions={{
+                  event: 'click',
+                  clickable: true
+                  // delayShow: 500,
+                  // delayHide: 500,
+                  // delayUpdate: 500
                 }}
                 icon={'arrow-alt-right'}
                 text={''}

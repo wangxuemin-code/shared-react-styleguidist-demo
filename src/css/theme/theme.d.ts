@@ -20,6 +20,17 @@ export declare const stylings: {
     headerHeight: string;
     transitionDuration: string;
     colors: {
+        primaryActive: string;
+        primaryAltActive: string;
+        primaryLightActive: string;
+        primaryDarkActive: string;
+        primaryGreyDarkActive: string;
+        primaryGreyActive: string;
+        primaryGreyLightActive: string;
+        infoActive: string;
+        successActive: string;
+        dangerActive: string;
+        warningActive: string;
         primary: string;
         primaryAlt: string;
         primaryLight: string;
