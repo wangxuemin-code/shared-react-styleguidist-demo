@@ -39,14 +39,14 @@ export class Modal extends React.Component<IProps, IState> {
     return (
       <ReactModal
         visible={this.state.visible && this.props.visible}
-        wrapClassName={[this.props.className || ''].join(' ')}
+        wrapClassName={[styles.myModal, this.props.className || ''].join(' ')}
         afterClose={this.props.onExited}
         destroyOnClose={true}
         footer={null}
         closable={false}
         width={this.state.width}
       >
-        <Icon icon={faTimes} onClick={this.onModalHide} />
+        <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
         {this.props.children}
       </ReactModal>
     );

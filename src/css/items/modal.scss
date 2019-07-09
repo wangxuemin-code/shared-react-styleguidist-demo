@@ -1,3 +1,25 @@
 .ant-modal-content {
   border-radius: 0;
 }
+
+.my-modal .close-button {
+  .button {
+    background-color: transparent;
+    float: right;
+    border: none;
+    color: map-get($colors, primary);
+    padding: 0;
+    position: relative;
+  }
+  color: map-get($colors, primaryGreyDark);
+  position: absolute !important;
+  font-size: 1.1428571428571428rem;
+  right: 0.5rem;
+  top: 0.5rem;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.my-modal .close-button:hover {
+  color: map-get($colors, primary);
+}

@@ -2563,6 +2563,8 @@ export const cardTitle: string;
 export const item: string;
 export const itemTitle: string;
 export const itemInfo: string;
+export const myModal: string;
+export const closeButton: string;
 export const istoxAlert: string;
 export const alert: string;
 export const istoxMessage: string;
