@@ -1,6 +1,6 @@
 import { countries } from 'country-data';
 import * as React from 'react';
-import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import { Input as ReactInput } from 'antd';
 import Select, { components } from 'react-select';
 import { Button } from './Button';
 import { Container } from './Container';
@@ -144,7 +144,7 @@ export class Phone extends React.Component<IProps, IState> {
             </label>
             <Container display={'flex'}>
               <Container fluid>
-                <BootstrapFormControl
+                <ReactInput
                   autoComplete={'off'}
                   autoCorrect={'off'}
                   type={'text'}

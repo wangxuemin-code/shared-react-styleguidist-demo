@@ -21,10 +21,11 @@ interface IState {
 }
 
 export class Confirm extends React.Component<IProps, IState> {
+  private handled: boolean;
+
   public constructor(props: IProps) {
     super(props);
     this.state = { show: true };
-    this.onModalHide = this.onModalHide.bind(this);
     this.onPositivePressed = this.onPositivePressed.bind(this);
     this.onNegativePressed = this.onNegativePressed.bind(this);
     this.onExited = this.onExited.bind(this);
@@ -41,7 +42,7 @@ export class Confirm extends React.Component<IProps, IState> {
     }
 
     return (
-      <Modal visible={this.state.show} onModalHide={this.onModalHide} onExited={this.onExited}>
+      <Modal visible={this.state.show} onExited={this.onExited}>
         <Container className={styles.confirmContainer}>
           <Icon display='block' icon={this.getIcon()} classNames={[styles.iconContainer]} />
           <h2>{this.props.title || defaultMessage}</h2>
@@ -104,21 +105,24 @@ export class Confirm extends React.Component<IProps, IState> {
     }
   }
 
-  public onModalHide() {
-    this.onNegativePressed();
-  }
-
   public onPositivePressed() {
+    this.handled = true;
     this.setState({ show: false });
     if (this.props.onResult) this.props.onResult(true);
   }
 
   public onNegativePressed() {
+    this.handled = false;
     this.setState({ show: false });
     if (this.props.onResult) this.props.onResult(false);
   }
 
   private onExited() {
+    if (!this.handled) {
+      this.handled = true;
+      if (this.props.onResult) this.props.onResult(false);
+    }
+
     const target = document.getElementById('istox-confirm');
     if (target && target.parentNode) {
       unmountComponentAtNode(target);

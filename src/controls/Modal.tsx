@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Modal as BootstrapModal } from 'react-bootstrap';
+import { Modal as ReactModal } from 'antd';
 import * as styles from '../css/main.scss';
 import { Icon } from '.';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,6 @@ interface IState {
 interface IProps {
   children?: any;
   visible: boolean;
-  onModalHide?: () => void;
   onExited?: () => void;
   className?: string;
   width?: number;
@@ -31,40 +30,29 @@ export class Modal extends React.Component<IProps, IState> {
       this.setState({ visible: nextProps.visible });
     }
 
-    if (nextProps.width !== this.state.width) {
+    if (nextProps.width !== this.state.width && this.state.visible) {
       this.setState({ width: nextProps.width });
     }
   }
 
   public render() {
     return (
-      <BootstrapModal
-        show={this.state.visible && this.props.visible}
-        onHide={this.onModalHide}
-        className={[styles.myModal, this.props.className || ''].join(' ')}
-        onExited={this.props.onExited}
+      <ReactModal
+        visible={this.state.visible && this.props.visible}
+        wrapClassName={[styles.myModal, this.props.className || ''].join(' ')}
+        afterClose={this.props.onExited}
+        destroyOnClose={true}
+        footer={null}
+        closable={false}
+        width={this.state.width}
       >
-        <span
-          ref={(ref) => {
-            if (ref && this.state.width) {
-              const modalDialog = ref.closest('.modal-dialog');
-
-              if (modalDialog) {
-                modalDialog.setAttribute('style', `width: ${this.state.width}px`);
-              }
-            }
-          }}
-        />
         <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
-        <BootstrapModal.Body className={styles.myModalBody}>
-          {this.props.children}
-        </BootstrapModal.Body>
-      </BootstrapModal>
+        {this.props.children}
+      </ReactModal>
     );
   }
 
   private onModalHide() {
     this.setState({ visible: false });
-    if (this.props.onModalHide) this.props.onModalHide();
   }
 }

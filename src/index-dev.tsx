@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Fragment } from 'react';
 import { Mqtt, Formatter } from './helpers';
 import * as ReactDOM from 'react-dom';
-import { Controls } from './index-prod';
+import { Controls, Ant } from './index-prod';
 import {
   faAddressBook,
   faAdjust,
@@ -63,7 +63,7 @@ class Main extends Controls.MyComponent<
     imageUrl: string;
   }
 > {
-  tabs: Controls.Tabs;
+  tabs: any;
   form: any;
   imageForm: any;
   formControls: any[];
@@ -303,7 +303,7 @@ class Main extends Controls.MyComponent<
             </Controls.Container>
             <Controls.Divider />
             <h4>Tabs</h4>
-            <Controls.Tabs
+            {/* <Controls.Tabs
               id={'registration'}
               margin={{ topPx: 20 }}
               basic
@@ -403,7 +403,7 @@ class Main extends Controls.MyComponent<
                   <h6>All Transactions</h6>
                 </Controls.Container>
               </>
-            </Controls.Tabs>
+            </Controls.Tabs> */}
             <Controls.Divider />
             <h4>Button</h4>
             <Controls.Button size='tiny' variant='primary'>
@@ -965,9 +965,9 @@ class Main extends Controls.MyComponent<
             <Controls.Button
               variant='danger'
               onPress={() => {
-                this.setState({
-                  loading: true
-                });
+                // this.setState({
+                //   loading: true
+                // });
                 Controls.Confirm.show({
                   type: 'yesno',
                   message: 'hello',
@@ -1104,7 +1104,7 @@ class Main extends Controls.MyComponent<
               danger
             </Controls.Button>
             <Controls.Divider />
-            <h4>Progress</h4>
+            {/* <h4>Progress</h4>
             <Controls.ProgressBar compact margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
             <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
@@ -1141,7 +1141,7 @@ class Main extends Controls.MyComponent<
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
             </Controls.ProgressBar>
-            <Controls.Divider />
+            <Controls.Divider /> */}
             <h4>Rating</h4>
             <Controls.Rating defaultValue={2} maxValue={4} />
             <Controls.Rating defaultValue={3} maxValue={4} />
@@ -1878,7 +1878,7 @@ class Main extends Controls.MyComponent<
               }
             />
             <Controls.Divider visibility={'hidden'} />
-            <Controls.Item icon={faCheckCircle}>
+            {/* <Controls.Item icon={faCheckCircle}>
               <Controls.Container widthPercent={100} verticalAlign={'center'}>
                 <Controls.Card
                   leftIcon={faInfoCircle}
@@ -1897,7 +1897,7 @@ class Main extends Controls.MyComponent<
                 </Controls.Button>
               </Controls.Container>
             </Controls.Item>
-            <Controls.Divider />
+            <Controls.Divider /> */}
             <h4>Card</h4>
             <Controls.Container className={'display-flex'}>
               <Controls.Card
@@ -2134,6 +2134,11 @@ class Main extends Controls.MyComponent<
               ))}
               <Controls.Divider visibility={'hidden'} />
               <Controls.Divider visibility={'hidden'} />
+            </Controls.Container>
+
+            <Controls.Container>
+              <h4>Test Direct Ant Component Access</h4>
+              <Ant.Alert message={'Testing Ant component'} />
             </Controls.Container>
           </Controls.WrapperContainer>
         </Controls.RootContainer>

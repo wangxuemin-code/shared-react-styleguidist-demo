@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { DetailedReactHTMLElement } from 'react';
-import { Form as BootstrapForm } from 'react-bootstrap';
+import { Form as ReactForm } from 'antd';
 import * as styles from '../css/main.scss';
 import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
@@ -33,13 +33,13 @@ export class Form extends React.Component<IProps> {
       <Container {...this.props}>
         <Loading loading={this.props.loading} />
         <Alert success={this.props.success} info={this.props.info} error={this.props.error} />
-        <BootstrapForm
-          horizontal={this.props.horizontal}
+        <ReactForm
+          layout={this.props.horizontal ? 'horizontal' : 'vertical'}
           className={styles.istoxForm}
           onSubmit={this._onSubmit.bind(this)}
         >
           {this.recursiveCloneChildren(this.props.children)}
-        </BootstrapForm>
+        </ReactForm>
       </Container>
     );
   }

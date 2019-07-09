@@ -1,7 +1,7 @@
 import { countries } from 'country-data';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { FormControl as BootstrapFormControl } from 'react-bootstrap';
+import { Input as ReactInput } from 'antd';
 import Select, { components } from 'react-select';
 import TextareaAutosize from 'react-textarea-autosize';
 import Toggle from 'react-toggle';
@@ -798,7 +798,7 @@ export class FormControl extends React.Component<IProps, IState> {
       });
       return (
         <>
-          <BootstrapFormControl
+          <ReactInput
             className={classes.join(' ')}
             autoComplete={'off'}
             autoCorrect={'off'}
