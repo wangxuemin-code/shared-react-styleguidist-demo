@@ -137,13 +137,13 @@ $borderRadius: 0;
   }
 
   &.disabled {
-    background-color: map-get($colors, primaryAltBackground);
+    background-color: map-get($colors, primaryGreyLighter);
     background-image: none;
     color: map-get($colors, primaryGreyDarker);
     border: 2px solid map-get($colors, primaryGreyLight);
 
     &:not([disabled]):hover {
-      background-color: map-get($colors, primaryGreyLighter);
+      background-color: map-get($colors, primaryAltBackground);
       color: map-get($colors, primaryGreyDark);
     }
 

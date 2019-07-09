@@ -1140,8 +1140,8 @@ class Main extends Controls.MyComponent<
               <Controls.ProgressBar variant='info' value={25} order={2} />
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
-            </Controls.ProgressBar>
-            <Controls.Divider /> */}
+            </Controls.ProgressBar> */}
+            <Controls.Divider />
             <h4>Rating</h4>
             <Controls.Rating defaultValue={2} maxValue={4} />
             <Controls.Rating defaultValue={3} maxValue={4} />

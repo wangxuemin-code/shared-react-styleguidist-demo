@@ -44,6 +44,14 @@
     border-bottom: 1px solid map-get($colors, primaryGrey);
     box-shadow: none;
     border-radius: 0;
+    height: auto;
+    padding: 0;
+  }
+  input:hover,
+  .select:hover,
+  textarea:hover {
+    border-bottom: 1px solid map-get($colors, primaryGreyDark) !important;
+    box-shadow: none;
   }
   input:focus,
   .select:focus,
@@ -69,13 +77,18 @@
     }
   }
 
-  .horizontal {
+  .radio,
+  .checkbox {
     display: flex;
 
-    .checkbox,
-    .radio {
-      margin: 0.5rem 0;
+    input[type='radio'],
+    input[type='checkbox'] {
+      margin-top: 4px;
     }
+  }
+
+  .horizontal {
+    display: flex;
   }
 
   input.otp {
@@ -137,20 +150,6 @@
     &.prepend {
       padding-left: 1.5rem;
     }
-  }
-  input[type='checkbox'],
-  input[type='radio'] {
-    position: absolute;
-    left: 0px;
-    top: 0;
-    cursor: pointer;
-    min-width: 0 !important;
-    min-height: 0 !important;
-    margin: 3px 0 0;
-  }
-
-  input[type='checkbox'] {
-    margin: 4px 0 0;
   }
 
   .react-toggle-screenreader-only {
@@ -224,19 +223,6 @@
         justify-content: start;
         margin-bottom: 0px;
       }
-
-      .checkbox,
-      .radio {
-        padding: 0;
-
-        label {
-          min-height: 1rem;
-        }
-
-        input[type='checkbox'] {
-          cursor: pointer;
-        }
-      }
     }
   }
 }
@@ -286,7 +272,7 @@
 
 .istox-form {
   .checkbox-label {
-    padding: 0 1.5rem;
+    padding: 0 0.5rem;
   }
 }
 
