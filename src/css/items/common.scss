@@ -94,6 +94,52 @@ article {
   font-size: 1.1428571428571428rem !important; // 16px
 }
 
+.color-primary {
+  color: map-get($colors, primary);
+}
+.color-secondary {
+  color: map-get($colors, primaryGreyDark);
+}
+.color-disabled {
+  color: map-get($colors, primary);
+  opacity: 0.7;
+}
+.color-info {
+  color: map-get($colors, info);
+}
+.color-success {
+  color: map-get($colors, success);
+}
+.color-warning {
+  color: map-get($colors, warning);
+}
+.color-danger {
+  color: map-get($colors, danger);
+}
+
+.bg-primary {
+  color: map-get($colors, primaryBackground);
+}
+.bg-secondary {
+  color: map-get($colors, primaryGreyDarkBackground);
+}
+.bg-disabled {
+  color: map-get($colors, primaryBackground);
+  opacity: 0.7;
+}
+.bg-info {
+  color: map-get($colors, infoBackground);
+}
+.bg-success {
+  color: map-get($colors, successBackground);
+}
+.bg-warning {
+  color: map-get($colors, warningBackground);
+}
+.bg-danger {
+  color: map-get($colors, dangerBackground);
+}
+
 h1,
 h2,
 h3,

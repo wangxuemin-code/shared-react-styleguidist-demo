@@ -167,7 +167,13 @@ export class Header extends React.Component<IHeader, IState> {
   private getNotificationDesign() {
     return (
       <div ref={(node) => (this.notificationMenu = node)}>
-        <Container onClick={() => this.toggleNotification()} className={styles.notificationIcon}>
+        <Container
+          onClick={() => this.toggleNotification()}
+          classNames={[
+            styles.notificationIcon,
+            this.state.showNotificationMenu ? styles.active : ''
+          ]}
+        >
           <Icon size='large' icon={faBell} />
           {this.props.notificationUnread && <Container className={styles.notificationUnread} />}
           {this.state.showNotificationMenu && this.getNotificationMenuDesign()}
@@ -228,7 +234,11 @@ export class Header extends React.Component<IHeader, IState> {
       <div ref={(node) => (this.subMenu = node)}>
         <Container
           onClick={() => this.toggleUserAction()}
-          className={[styles.userAction, styles.afterLogin].join(' ')}
+          classNames={[
+            styles.userAction,
+            styles.afterLogin,
+            this.state.showSubMenu ? styles.active : ''
+          ]}
         >
           <Icon size='large' icon={faUserCircle} />
           <Container className={styles.text}>

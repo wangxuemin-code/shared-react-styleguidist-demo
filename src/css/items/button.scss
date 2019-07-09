@@ -32,11 +32,13 @@ $borderRadius: 0;
   cursor: pointer;
   border-radius: $borderRadius;
   font-style: inherit;
+  font-weight: 600;
   text-decoration: inherit;
   font-family: inherit;
   min-width: 7.857rem;
   border: 2px solid map-get($colors, primary);
   font-weight: 600;
+  transition: 0.3s ease-in-out;
 
   &.tiny {
     padding: 0.1429rem;
@@ -67,22 +69,8 @@ $borderRadius: 0;
     position: relative;
   }
 
-  &.disabled {
-    background-color: map-get($colors, primaryGreyLighter);
-    background-image: none;
-    color: map-get($colors, primaryGreyDarker);
-    border: 2px solid map-get($colors, primaryGreyLighter);
-
-    &.outline {
-      background-color: map-get($colors, primaryAlt);
-    }
-
-    &.loading {
-      > div {
-        border-color: map-get($colors, primaryGreyDarker);
-        border-bottom-color: transparent;
-      }
-    }
+  &:hover {
+    background-color: map-get($colors, primaryActive);
   }
 
   &.primary {
@@ -95,9 +83,19 @@ $borderRadius: 0;
       background-color: map-get($colors, primary);
     }
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, primaryActive);
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, primary);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, primaryBackground);
+        border: 2px solid map-get($colors, primaryActive);
+        color: map-get($colors, primaryActive);
+      }
 
       &.loading {
         > div {
@@ -114,15 +112,56 @@ $borderRadius: 0;
     color: map-get($colors, primary);
     border: 2px solid map-get($colors, secondary);
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, secondaryActive);
+      color: map-get($colors, primaryActive);
+    }
+
+    &.loading {
+      > div {
+        border-color: map-get($colors, primary);
+        border-bottom-color: transparent;
+      }
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, primary);
 
-      &.loading {
-        > div {
-          border-color: map-get($colors, secondary);
-          border-bottom-color: transparent;
-        }
+      &:not([disabled]):hover {
+        background-color: map-get($colors, secondaryBackground);
+        border: 2px solid map-get($colors, secondaryActive);
+        color: map-get($colors, primaryActive);
+      }
+    }
+  }
+
+  &.disabled {
+    background-color: map-get($colors, primaryAltBackground);
+    background-image: none;
+    color: map-get($colors, primaryGreyDarker);
+    border: 2px solid map-get($colors, primaryGreyLight);
+
+    &:not([disabled]):hover {
+      background-color: map-get($colors, primaryGreyLighter);
+      color: map-get($colors, primaryGreyDark);
+    }
+
+    &.loading {
+      > div {
+        border-color: map-get($colors, primaryGreyDark);
+        border-bottom-color: transparent;
+      }
+    }
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      color: map-get($colors, primaryGreyDark);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, primaryAltBackground);
+        border: 2px solid map-get($colors, primaryGreyLight);
+        color: map-get($colors, primaryGreyDarker);
       }
     }
   }
@@ -132,9 +171,19 @@ $borderRadius: 0;
     background-image: none;
     border: 2px solid map-get($colors, info);
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, infoActive);
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, info);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, infoBackground);
+        border: 2px solid map-get($colors, infoActive);
+        color: map-get($colors, infoActive);
+      }
 
       &.loading {
         > div {
@@ -150,9 +199,19 @@ $borderRadius: 0;
     background-image: none;
     border: 2px solid map-get($colors, success);
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, successActive);
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, success);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, successBackground);
+        border: 2px solid map-get($colors, successActive);
+        color: map-get($colors, successActive);
+      }
 
       &.loading {
         > div {
@@ -168,9 +227,19 @@ $borderRadius: 0;
     background-image: none;
     border: 2px solid map-get($colors, warning);
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, warningActive);
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, warning);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, warningBackground);
+        border: 2px solid map-get($colors, warningActive);
+        color: map-get($colors, warningActive);
+      }
 
       &.loading {
         > div {
@@ -186,9 +255,19 @@ $borderRadius: 0;
     background-image: none;
     border: 2px solid map-get($colors, danger);
 
+    &:not([disabled]):hover {
+      background-color: map-get($colors, dangerActive);
+    }
+
     &.outline {
       background-color: map-get($colors, primaryAlt);
       color: map-get($colors, danger);
+
+      &:not([disabled]):hover {
+        background-color: map-get($colors, dangerBackground);
+        border: 2px solid map-get($colors, dangerActive);
+        color: map-get($colors, dangerActive);
+      }
 
       &.loading {
         > div {

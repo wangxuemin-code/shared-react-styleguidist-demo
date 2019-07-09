@@ -20,10 +20,17 @@ export declare const stylings: {
     headerHeight: string;
     transitionDuration: string;
     colors: {
+        primaryActive: string;
+        secondaryActive: string;
+        primaryAltActive: string;
+        primaryDarkActive: string;
+        infoActive: string;
+        successActive: string;
+        dangerActive: string;
+        warningActive: string;
         primary: string;
         secondary: string;
         primaryAlt: string;
-        primaryLight: string;
         primaryDark: string;
         primaryGreyDarker: string;
         primaryGreyDark: string;
@@ -37,6 +44,7 @@ export declare const stylings: {
         primaryBackground: string;
         secondaryBackground: string;
         primaryAltBackground: string;
+        primaryDarkBackground: string;
         infoBackground: string;
         successBackground: string;
         dangerBackground: string;

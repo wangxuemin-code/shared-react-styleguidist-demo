@@ -1,5 +1,5 @@
 .istox-header {
-  background-color: map-get($colors, primary);
+  background-color: map-get($colors, primaryActive);
   color: map-get($colors, primaryAlt);
   width: 100%;
   z-index: 999;
@@ -31,7 +31,8 @@
       top: 20px;
     }
 
-    &:hover {
+    &:hover,
+    &.active {
       cursor: pointer;
       background-color: map-get($colors, secondary);
       color: map-get($colors, primary);
@@ -47,11 +48,11 @@
       right: 0px;
       top: $headerHeight;
       width: 25rem;
-      background-color: white;
+      background-color: map-get($colors, primaryAlt);
       border-radius: 3px;
       padding: 1rem;
       box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
-      color: map-get($colors, primaryGreyDark);
+      color: map-get($colors, primaryDark);
       font-size: 1rem;
       overflow: auto;
       max-height: 80vh;
@@ -61,8 +62,8 @@
         border-top: 1px solid map-get($colors, primaryGrey);
       }
       .notification:hover {
-        background-color: map-get($colors, primaryGreyLight);
-        color: map-get($colors, primaryGreyDark);
+        background-color: map-get($colors, primaryBackground);
+        color: map-get($colors, primary);
       }
     }
   }
@@ -86,7 +87,8 @@
       }
     }
 
-    &:hover {
+    &:hover,
+    &.active {
       cursor: pointer;
       background-color: map-get($colors, secondary);
       color: map-get($colors, primary);
@@ -120,22 +122,22 @@
       left: 0px;
       top: $headerHeight;
       min-width: 11.43rem;
-      background-color: white;
+      background-color: map-get($colors, primaryAlt);
       text-align: center;
       border-radius: 3px;
       box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
     }
 
     .sub-menu a {
-      color: map-get($colors, primaryGreyDark);
+      color: map-get($colors, primaryDark);
       font-size: 1rem;
       display: block;
       padding: 10px;
     }
 
     .sub-menu a:hover {
-      background-color: map-get($colors, primaryLight);
-      color: white;
+      background-color: map-get($colors, primaryBackground);
+      color: map-get($colors, primary);
     }
   }
 
@@ -157,12 +159,12 @@
   }
 
   &.alt {
-    background-color: map-get($colors, primaryAlt);
+    background-color: map-get($colors, primaryAltActive);
     color: map-get($colors, primary);
 
     ul.links {
       li.selected .underline {
-        background-color: map-get($colors, primaryLight);
+        background-color: map-get($colors, primaryBackground);
       }
       a {
         color: map-get($colors, primary);

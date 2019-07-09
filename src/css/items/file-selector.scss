@@ -57,7 +57,7 @@
     position: absolute;
     text-align: center;
     bottom: 0.5rem;
-    color: map-get($colors, primaryLight);
+    color: map-get($colors, primary);
   }
 
   input {
