@@ -83,6 +83,7 @@ interface IProps extends IContainer {
     customAllowFileExtensions?: string[];
     viewer?: boolean;
   };
+  singleCheckbox?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
   onFocus?: (formControl: FormControl) => void;
   onBlur?: (formControl: FormControl) => void;
@@ -910,7 +911,14 @@ export class FormControl extends React.Component<IProps, IState> {
       },
       () => {
         if (this.props.onInputChanged) {
-          this.props.onInputChanged(checkedValues, this.props.name || '');
+          if (this.props.singleCheckbox) {
+            this.props.onInputChanged(
+              checkedValues.length == 1 ? checkedValues[0] : '0',
+              this.props.name || ''
+            );
+          } else {
+            this.props.onInputChanged(checkedValues, this.props.name || '');
+          }
         }
       }
     );

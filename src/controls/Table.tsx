@@ -91,6 +91,7 @@ export class Table extends React.Component<IProps, IState> {
                 <th>
                   <Controls.FormControl
                     type={'checkbox'}
+                    singleCheckbox={true}
                     selectOptions={[
                       {
                         label: '',
@@ -141,6 +142,7 @@ export class Table extends React.Component<IProps, IState> {
               <td className={styles.min}>
                 <Controls.FormControl
                   type={'checkbox'}
+                  singleCheckbox={true}
                   selectOptions={[
                     {
                       label: '',
@@ -181,6 +183,7 @@ export class Table extends React.Component<IProps, IState> {
               <td className={styles.min}>
                 <Controls.FormControl
                   type={'checkbox'}
+                  singleCheckbox={true}
                   selectOptions={[
                     {
                       label: '',
