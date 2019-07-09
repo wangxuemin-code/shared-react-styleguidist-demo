@@ -1,60 +1,58 @@
-.progress-bar {
+.ant-progress-bg {
   line-height: 1rem;
   transition: width 0.3s ease-in-out;
   background-color: map-get($colors, primaryGreyDark);
 }
 .istox-progress {
-  &.compact {
-    .progress {
-      height: 2px;
+  .ant-progress-bg {
+    border-radius: 0 !important;
+  }
+  &.multi {
+    display: flex;
+
+    .ant-progress-show-info .ant-progress-outer {
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    .ant-progress-text {
+      display: none;
     }
   }
-  .progress {
-    height: 1rem;
-    margin-bottom: 0;
-    border-radius: 0;
 
-    &.gap {
-      .progress-bar {
-        border-right: 2px solid map-get($colors, primaryAlt);
+  &.compact {
+    .ant-progress-bg {
+      height: 2px !important;
+    }
+  }
 
-        &:last-of-type {
-          border-right: 0;
-        }
-      }
-    }
+  &.gap {
+    .ant-progress-bg {
+      border-right: 2px solid map-get($colors, primaryAlt);
 
-    &.success {
-      .progress-bar {
-        background-color: map-get($colors, success);
+      &:last-of-type {
+        border-right: 0;
       }
     }
-    &.info {
-      .progress-bar {
-        background-color: map-get($colors, info);
-      }
-    }
-    &.warning {
-      .progress-bar {
-        background-color: map-get($colors, warning);
-      }
-    }
-    &.danger {
-      .progress-bar {
-        background-color: map-get($colors, danger);
-      }
-    }
+  }
 
-    .success {
+  .success {
+    .ant-progress-bg {
       background-color: map-get($colors, success);
     }
-    .info {
+  }
+  .info {
+    .ant-progress-bg {
       background-color: map-get($colors, info);
     }
-    .warning {
+  }
+  .warning {
+    .ant-progress-bg {
       background-color: map-get($colors, warning);
     }
-    .danger {
+  }
+  .danger {
+    .ant-progress-bg {
       background-color: map-get($colors, danger);
     }
   }

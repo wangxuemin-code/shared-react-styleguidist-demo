@@ -55,6 +55,10 @@ html {
 }
 
 a {
+  color: map-get($colors, primaryDark);
+}
+
+a:hover {
   color: map-get($colors, primary);
 }
 
@@ -80,6 +84,7 @@ p,
 article {
   font-size: 1rem;
   margin: 0;
+  font-weight: 300;
 }
 .tiny {
   font-size: 0.7143rem !important; // 10px
@@ -155,6 +160,7 @@ hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
   display: inline-block;
+  border: 0;
 
   &.hidden {
     visibility: none;

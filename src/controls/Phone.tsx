@@ -104,10 +104,10 @@ export class Phone extends React.Component<IProps, IState> {
         <Container display={'flex'}>
           <Container width={120}>
             <label className={styles.semiBold}>
-              <p className={styles.semiBold}>
+              <Container className={styles.semiBold}>
                 Area Code
                 {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </p>
+              </Container>
             </label>
             <Select
               // componentClass='select'
@@ -137,10 +137,10 @@ export class Phone extends React.Component<IProps, IState> {
         <Container fluid display={'flex'} className={styles.flex1}>
           <Container fluid>
             <label>
-              <p className={styles.semiBold}>
+              <Container className={styles.semiBold}>
                 Phone Number
                 {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </p>
+              </Container>
             </label>
             <Container display={'flex'}>
               <Container fluid>
@@ -174,7 +174,9 @@ export class Phone extends React.Component<IProps, IState> {
                         : 150
                     }
                     float={'right'}
-                    variant='primary'
+                    variant={
+                      !this.state.phoneCode || !this.state.phoneNumber ? 'disabled' : 'primary'
+                    }
                     onPress={this.sendPhoneCode}
                   >
                     {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60

@@ -162,7 +162,7 @@ module.exports = {
         ]
       },
       {
-        test: /(\.bootstrap\.css$|bootstrap-theme.css|bootstrap.css|istox.css|ReactToastify.css)/,
+        test: /(istox.css|ReactToastify.css)/,
         use: [
           {
             loader: 'style-loader'

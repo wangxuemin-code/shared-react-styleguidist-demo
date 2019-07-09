@@ -1,7 +1,7 @@
 import { countries } from 'country-data';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { Input as ReactInput } from 'antd';
+import { Input as ReactInput, Checkbox as ReactCheckbox, Radio as ReactRadio } from 'antd';
 import Select, { components } from 'react-select';
 import TextareaAutosize from 'react-textarea-autosize';
 import Toggle from 'react-toggle';
@@ -19,7 +19,6 @@ import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
-var uniqid = require('uniqid');
 
 interface IState {
   oldDisplayValue?: string;
@@ -139,9 +138,6 @@ export class FormControl extends React.Component<IProps, IState> {
       (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
         prevProps.selectCustomOptions == undefined)
     ) {
-      if (this.props.type === 'checkbox' && this.props.value == undefined) {
-        return false;
-      }
       this.onValueChanged(false, String(this.props.value || ''));
     }
 
@@ -166,13 +162,13 @@ export class FormControl extends React.Component<IProps, IState> {
                   <label className={styles.semiBold}>
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
-                        <p className={styles.semiBold}>
+                        <Container className={styles.semiBold}>
                           {this.props.label}
                           {this.props.oldValue && <>&nbsp;(Old)</>}
                           {this.props.required && (
                             <Container className={styles.required}>&nbsp;*</Container>
                           )}
-                        </p>
+                        </Container>
                       )}
                       {typeof this.props.label !== 'string' && (
                         <>
@@ -198,7 +194,7 @@ export class FormControl extends React.Component<IProps, IState> {
               <label className={styles.semiBold}>
                 <Container className={styles.displayFlex}>
                   {typeof this.props.label === 'string' && (
-                    <p className={styles.semiBold}>
+                    <Container className={styles.semiBold}>
                       {this.props.label}
                       {this.props.oldValue !== this.props.value && this.props.oldValue && (
                         <>&nbsp;(New)</>
@@ -206,7 +202,7 @@ export class FormControl extends React.Component<IProps, IState> {
                       {this.props.required && (
                         <Container className={styles.required}>&nbsp;*</Container>
                       )}
-                    </p>
+                    </Container>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>
@@ -733,25 +729,24 @@ export class FormControl extends React.Component<IProps, IState> {
         value = false;
       }
       if (this.props.selectOptions) {
+        const radioStyle = {
+          display: 'block'
+        };
         return (
           <Container className={this.props.variant}>
-            {this.props.selectOptions.map((option, i) => {
-              return (
-                <Container
-                  key={uniqid().toString()}
-                  classNames={[styles.loadingContainerWrapper, styles.radio]}
-                >
-                  <input
-                    onChange={(e) => this.onRadioChanged(e)}
-                    type='radio'
-                    name={this.props.name}
+            <ReactRadio.Group value={this.state.value} onChange={this.onRadioChanged}>
+              {this.props.selectOptions.map((option, i) => {
+                return (
+                  <ReactRadio
+                    style={this.props.variant == 'horizontal' ? undefined : radioStyle}
+                    key={i}
                     value={option.value}
-                    checked={value && value == option.value}
-                  />
-                  <Container className={styles.checkboxLabel}>{option.label}</Container>
-                </Container>
-              );
-            })}
+                  >
+                    {option.label}
+                  </ReactRadio>
+                );
+              })}
+            </ReactRadio.Group>
           </Container>
         );
       }
@@ -759,31 +754,11 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.selectOptions) {
         return (
           <Container className={this.props.variant}>
-            {this.props.selectOptions.map((option, i) => {
-              return (
-                <Container
-                  key={uniqid().toString()}
-                  classNames={[styles.loadingContainerWrapper, styles.checkbox]}
-                >
-                  <input
-                    onChange={(e) => this.onCheckChanged(e, i)}
-                    checked={
-                      this.state.value && this.state.value.toString().indexOf(option.value) !== -1
-                        ? true
-                        : this.state.valueArray
-                        ? this.state.valueArray.indexOf(option.value) !== -1
-                          ? true
-                          : false
-                        : false
-                    }
-                    type='checkbox'
-                    value={option.value}
-                  />
-                  <Container className={styles.checkboxLabel}>{option.label}</Container>
-                  {/* <Checkbox type='checkbox' label={option.label} value={option.value} /> */}
-                </Container>
-              );
-            })}
+            <ReactCheckbox.Group
+              options={this.props.selectOptions}
+              value={this.state.valueArray}
+              onChange={this.onCheckChanged}
+            />
           </Container>
         );
       }
@@ -911,39 +886,31 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onRadioChanged(e: any) {
     const value = e.target.value;
-    this.setState({ displayValue: value, value: value, showError: false }, () => {
-      if (this.props.onInputChanged) {
-        this.props.onInputChanged(value, this.props.name || '');
+    const result = this.processValue(value);
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(value, this.props.name || '');
+        }
       }
-    });
+    );
   }
 
-  private onCheckChanged(e: any, index: number) {
-    const checked = e.target.checked;
-    const value = e.target.value;
-    let valueArray = this.state.valueArray || [];
-    valueArray = valueArray.filter(function(x) {
-      return x !== (undefined || null || '');
-    });
-    if (checked) {
-      valueArray.push(value);
-    } else {
-      var index = valueArray.indexOf(value);
-      if (index > -1) {
-        valueArray.splice(index, 1);
-      }
-    }
-    const result = this.processValue(String(valueArray.join()));
+  private onCheckChanged(checkedValues: any) {
+    console.log(checkedValues);
+    const checkArray = checkedValues;
+    const result = this.processValue(String(checkArray.join()));
     this.setState(
       {
-        valueArray: valueArray,
+        valueArray: checkedValues,
         displayValue: result.displayValue,
         value: result.value,
         showError: false
       },
       () => {
         if (this.props.onInputChanged) {
-          this.props.onInputChanged(checked ? value : null, this.props.name || '');
+          this.props.onInputChanged(checkedValues, this.props.name || '');
         }
       }
     );
@@ -983,6 +950,7 @@ export class FormControl extends React.Component<IProps, IState> {
       value = value.toUpperCase();
     }
     if (this.props.type === 'checkbox') {
+      console.log(value);
       if (value) {
         this.setState({ valueArray: value.split(',') });
       } else {

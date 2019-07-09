@@ -140,36 +140,32 @@ class Main extends Controls.MyComponent<
     this.tabsContentWithIcons = [
       {
         title: (
-          <Controls.Container>
-            <Controls.Icon icon={faExclamationCircle} />
-            Account Info
+          <Controls.Container verticalAlign={'center'}>
+            <Controls.Icon icon={faExclamationCircle} /> &nbsp; Account Info
           </Controls.Container>
         ),
         contents: 'ABCD'
       },
       {
         title: (
-          <Controls.Container>
-            <Controls.Icon icon={faExclamationCircle} />
-            Phone Number
+          <Controls.Container verticalAlign={'center'}>
+            <Controls.Icon icon={faExclamationCircle} /> &nbsp; Phone Number
           </Controls.Container>
         ),
         contents: 'EFGH'
       },
       {
         title: (
-          <Controls.Container>
-            <Controls.Icon icon={faExclamationCircle} />
-            Personal Info
+          <Controls.Container verticalAlign={'center'}>
+            <Controls.Icon icon={faExclamationCircle} /> &nbsp; Personal Info
           </Controls.Container>
         ),
         contents: 'IJKL'
       },
       {
         title: (
-          <Controls.Container>
-            <Controls.Icon icon={faExclamationCircle} />
-            Documents
+          <Controls.Container verticalAlign={'center'}>
+            <Controls.Icon icon={faExclamationCircle} /> &nbsp; Documents
           </Controls.Container>
         ),
         contents: 'MNOP'
@@ -294,18 +290,17 @@ class Main extends Controls.MyComponent<
                   <span className='large'>Large</span>
                   <br />
                   {this.variantStates.map((color: any) => (
-                    <>
+                    <Controls.Container display={'inline-block'} key={uniqid().toString()}>
                       <span className={`color-${color}`}>{color}</span> &nbsp;
-                    </>
+                    </Controls.Container>
                   ))}
                 </Controls.Container>
               </Controls.Container>
             </Controls.Container>
             <Controls.Divider />
             <h4>Tabs</h4>
-            {/* <Controls.Tabs
+            <Controls.Tabs
               id={'registration'}
-              margin={{ topPx: 20 }}
               basic
               orientation={'horizontal'}
               onTabSelected={(tabName) => {
@@ -316,9 +311,11 @@ class Main extends Controls.MyComponent<
                 if (ref) this.tabs = ref;
               }}
               tabs={this.tabsEmptyContent}
+              extraControls={<Controls.Button>Extra Action</Controls.Button>}
             />
             {this.variantStates.map((tab: any) => (
               <Controls.Tabs
+                key={uniqid().toString()}
                 margin={{ topPx: 20 }}
                 basic
                 variant={tab}
@@ -379,13 +376,13 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <Controls.Tabs
               basic
+              variant={'secondary'}
               margin={{ topPx: 20 }}
               className={'istox-tabs'}
               orientation={'vertical'}
               align={'middle'}
               tabs={this.tabsContent}
-            >
-              <>
+              extraControls={
                 <Controls.Container padding={{ topRem: 0, leftRem: 0.5, rightRem: 0.5 }}>
                   <Controls.Form>
                     <Controls.FormControl
@@ -399,11 +396,8 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Form>
                 </Controls.Container>
-                <Controls.Container padding={{ leftRem: 1, rightRem: 2 }}>
-                  <h6>All Transactions</h6>
-                </Controls.Container>
-              </>
-            </Controls.Tabs> */}
+              }
+            />
             <Controls.Divider />
             <h4>Button</h4>
             <Controls.Button size='tiny' variant='primary'>
@@ -1104,43 +1098,38 @@ class Main extends Controls.MyComponent<
               danger
             </Controls.Button>
             <Controls.Divider />
-            {/* <h4>Progress</h4>
-            <Controls.ProgressBar compact margin={{ topPx: 20 }} value={20} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'success'} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} label variant={'info'} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} striped variant={'warning'} />
-            <Controls.ProgressBar margin={{ topPx: 20 }} value={20} variant={'danger'} />
-            <Controls.ProgressBar
-              margin={{ topPx: 20 }}
-              value={20}
-              label={'Strong Password'}
-              variant={'success'}
-            />
-            <Controls.ProgressBar compact margin={{ topPx: 20 }}>
+            <h4>Progress</h4>
+            <Controls.ProgressBar compact value={20} />
+            <Controls.ProgressBar value={20} />
+            <Controls.ProgressBar value={20} variant={'success'} />
+            <Controls.ProgressBar value={21} label variant={'info'} />
+            <Controls.ProgressBar value={20} striped variant={'warning'} />
+            <Controls.ProgressBar value={20} variant={'danger'} />
+            <Controls.ProgressBar value={20} label={'Strong Password'} variant={'success'} />
+            <Controls.ProgressBar compact>
               <Controls.ProgressBar striped variant='success' value={25} order={1} />
               <Controls.ProgressBar variant='info' value={25} order={2} />
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
             </Controls.ProgressBar>
-            <Controls.ProgressBar margin={{ topPx: 20 }}>
+            <Controls.ProgressBar>
               <Controls.ProgressBar striped variant='success' value={25} order={1} />
               <Controls.ProgressBar variant='info' value={25} order={2} />
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
             </Controls.ProgressBar>
-            <Controls.ProgressBar width={200} margin={{ topPx: 20 }}>
+            <Controls.ProgressBar>
               <Controls.ProgressBar striped variant='success' value={25} order={1} />
               <Controls.ProgressBar variant='info' value={25} order={2} />
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
             </Controls.ProgressBar>
-            <Controls.ProgressBar gap width={200} margin={{ topPx: 20 }}>
+            <Controls.ProgressBar gap width={200}>
               <Controls.ProgressBar striped variant='success' value={25} order={1} />
               <Controls.ProgressBar variant='info' value={25} order={2} />
               <Controls.ProgressBar striped variant='warning' value={25} order={3} />
               <Controls.ProgressBar striped variant='danger' value={25} order={4} />
-            </Controls.ProgressBar> */}
+            </Controls.ProgressBar>
             <Controls.Divider />
             <h4>Rating</h4>
             <Controls.Rating defaultValue={2} maxValue={4} />
@@ -2078,16 +2067,8 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <Controls.Container>
               <h4>Pagination</h4>
-              <Controls.Pagination
-                previousLabel={'previous'}
-                nextLabel={'next'}
-                breakLabel={'...'}
-                pageCount={7}
-                marginPagesDisplayed={2}
-                pageRangeDisplayed={3}
-              />
+              <Controls.Pagination current={2} total={50} />
               <br />
-              <Controls.Pagination pageCount={7} marginPagesDisplayed={2} pageRangeDisplayed={3} />
             </Controls.Container>
             <Controls.Divider />
             <Controls.Container>

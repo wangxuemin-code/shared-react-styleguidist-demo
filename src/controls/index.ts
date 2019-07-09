@@ -25,7 +25,7 @@ export * from './Table';
 export * from './Confirm';
 export * from './BlockchainTransaction';
 export * from './LineChart';
-// export * from './Tabs';
+export * from './Tabs';
 export * from './Footer';
 export * from './ProgressBar';
 export * from './Toast';

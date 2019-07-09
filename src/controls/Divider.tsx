@@ -11,8 +11,8 @@ interface IDivider extends IContainer {
 export class Divider extends React.Component<IDivider, any> {
   public static defaultProps: IDivider = {
     direction: 'horizontal',
-    size: 0,
-    color: stylings.colors.primaryGreyLighter
+    size: 1,
+    color: stylings.colors.primaryGreyLight
   };
 
   public render() {

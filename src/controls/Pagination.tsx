@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { IContainer } from './Container';
-import ReactPaginate from 'react-paginate';
+import { Container } from './Container';
+import * as styles from '../css/main.scss';
+import { Pagination as ReactPagination } from 'antd';
 
-interface IProps extends IContainer {
-  pageCount: number;
-  pageRangeDisplayed: number;
-  marginPagesDisplayed: number;
-  previousLabel?: string;
-  nextLabel?: string;
-  breakLabel?: string;
+interface IProps {
+  current: number;
+  total: number;
 }
 
 export class Pagination extends React.Component<IProps> {
@@ -17,21 +14,10 @@ export class Pagination extends React.Component<IProps> {
   }
 
   public render() {
-    var previousLabel = this.props.previousLabel == null ? '<<' : this.props.previousLabel;
-    var nextLabel = this.props.nextLabel == null ? '>>' : this.props.nextLabel;
-    var breakLabel = this.props.breakLabel == null ? '...' : this.props.breakLabel;
     return (
-      <ReactPaginate
-        pageCount={this.props.pageCount}
-        pageRangeDisplayed={this.props.pageRangeDisplayed}
-        marginPagesDisplayed={this.props.marginPagesDisplayed}
-        previousLabel={previousLabel}
-        nextLabel={nextLabel}
-        breakLabel={breakLabel}
-        breakClassName={'break-me'}
-        containerClassName={'pagination'}
-        activeClassName={'active'}
-      />
+      <Container className={styles.istoxPagination}>
+        <ReactPagination current={this.props.current} total={this.props.total} />
+      </Container>
     );
   }
 }

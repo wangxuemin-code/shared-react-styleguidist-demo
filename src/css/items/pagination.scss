@@ -1,0 +1,9 @@
+.istox-pagination {
+  :global(.ant-pagination-item-active) {
+    border-color: map-get($colors, primary);
+  }
+
+  :global(.ant-pagination-item-active a) {
+    color: map-get($colors, primary);
+  }
+}

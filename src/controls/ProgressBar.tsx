@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Progress } from 'antd';
 import { IContainer, Container } from './Container';
 import * as styles from '../css/main.scss';
+var uniqid = require('uniqid');
 
 interface IProps extends IContainer {
   children?: any;
@@ -38,18 +39,21 @@ export class ProgressBar extends React.Component<IProps, IState> {
   }
 
   public render() {
-    let classes: string[] = [styles.istoxProgress, this.props.compact ? styles.compact : ''];
+    let classes: string[] = [
+      styles.istoxProgress,
+      this.props.compact ? styles.compact : '',
+      this.props.gap ? styles.gap : '',
+      this.props.children ? styles.multi : ''
+    ];
     classes = classes.filter(function(el) {
       return el != '';
     });
     if (this.props.children) {
       return (
         <Container {...this.props} className={classes.join(' ')}>
-          <Container className={this.props.gap ? 'gap' : ''}>
-            {this.props.children.map((child: any) => {
-              return this.getProgressBarDesign(child.props);
-            })}
-          </Container>
+          {this.props.children.map((child: any) => {
+            return this.getProgressBarDesign(child.props);
+          })}
         </Container>
       );
     } else {
@@ -76,12 +80,18 @@ export class ProgressBar extends React.Component<IProps, IState> {
         : `${IProps.value}%`
       : '';
     return (
-      <Progress percent={IProps.value} showInfo={false} />
-      // label={IProps.compact ? '' : label}
-      // striped={IProps.striped}
-      // className={classes.join(' ')}
-      // key={IProps.order}
-      // />
+      <Container
+        widthPercent={this.props.children ? IProps.value : undefined}
+        {...this.props}
+        className={classes.join(' ')}
+        key={uniqid().toString()}
+      >
+        <Progress
+          percent={this.props.children ? 100 : IProps.value}
+          showInfo={IProps.compact ? false : true}
+          format={() => (IProps.compact ? '' : label)}
+        />
+      </Container>
     );
   }
 }

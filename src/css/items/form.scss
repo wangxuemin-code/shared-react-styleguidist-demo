@@ -1,3 +1,20 @@
+.ant-radio-checked .ant-radio-inner {
+  border-color: map-get($colors, secondary);
+
+  &::after {
+    background-color: map-get($colors, secondary);
+  }
+}
+
+.ant-checkbox-checked .ant-checkbox-inner {
+  border-color: map-get($colors, secondary);
+  background-color: map-get($colors, secondary);
+}
+
+.ant-checkbox-group-item {
+  display: block;
+}
+
 .istox-form {
   margin: auto;
   .required {
@@ -14,6 +31,11 @@
   .form-control {
     height: auto;
     padding: 5px 0;
+  }
+
+  .ant-form label {
+    display: flex;
+    align-items: center;
   }
   .form-group {
     display: flex;
@@ -46,6 +68,7 @@
     border-radius: 0;
     height: auto;
     padding: 0;
+    min-height: 20px;
   }
   input:hover,
   .select:hover,
@@ -74,16 +97,6 @@
           background-color: transparent;
         }
       }
-    }
-  }
-
-  .radio,
-  .checkbox {
-    display: flex;
-
-    input[type='radio'],
-    input[type='checkbox'] {
-      margin-top: 4px;
     }
   }
 
@@ -187,11 +200,14 @@
     }
   }
 
-  &.form-horizontal {
-    .checkbox,
-    .radio {
-      min-height: auto;
+  .horizontal {
+    width: 100%;
+    .ant-checkbox-group-item {
+      display: inline-block;
     }
+  }
+
+  &.ant-form-horizontal {
     .old-value-active {
       margin-bottom: 0;
     }
@@ -201,10 +217,9 @@
     .form-controls-wrapper {
       display: grid;
       grid-template-columns: 10rem auto;
+      align-items: center;
 
       .form-controls-inner {
-        display: flex;
-
         .select-option {
           display: flex;
           align-items: center;
@@ -215,13 +230,6 @@
           display: flex;
           align-items: center;
         }
-      }
-
-      label {
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        margin-bottom: 0px;
       }
     }
   }
@@ -270,12 +278,6 @@
   margin: 0.2rem 1px;
 }
 
-.istox-form {
-  .checkbox-label {
-    padding: 0 0.5rem;
-  }
-}
-
 .fluid {
   input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
     min-width: 100%;
@@ -306,7 +308,7 @@
 
 @include mq(medium) {
   .istox-form {
-    &.form-horizontal {
+    &.ant-form-horizontal {
       .form-controls-wrapper {
         display: block;
       }
