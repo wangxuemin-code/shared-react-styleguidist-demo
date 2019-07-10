@@ -139,29 +139,29 @@ $borderRadius: 0;
   &.disabled {
     background-color: map-get($colors, primaryGreyLighter);
     background-image: none;
-    color: map-get($colors, primaryGreyDarker);
-    border: 2px solid map-get($colors, primaryGreyLight);
+    color: map-get($colors, primaryDark);
+    border: 2px solid map-get($colors, primaryGreyLighter);
 
     &:not([disabled]):hover {
       background-color: map-get($colors, primaryAltBackground);
-      color: map-get($colors, primaryGreyDark);
+      color: map-get($colors, primaryDark);
     }
 
     &.loading {
       > div {
-        border-color: map-get($colors, primaryGreyDark);
+        border-color: map-get($colors, primaryDark);
         border-bottom-color: transparent;
       }
     }
 
     &.outline {
       background-color: map-get($colors, primaryAlt);
-      color: map-get($colors, primaryGreyDark);
+      color: map-get($colors, primaryDark);
 
       &:not([disabled]):hover {
         background-color: map-get($colors, primaryAltBackground);
-        border: 2px solid map-get($colors, primaryGreyLight);
-        color: map-get($colors, primaryGreyDarker);
+        border: 2px solid map-get($colors, primaryGreyLighter);
+        color: map-get($colors, primaryDark);
       }
     }
   }
@@ -282,6 +282,10 @@ $borderRadius: 0;
     background-color: transparent !important;
     border: none !important;
   }
+}
+
+.button[disabled] {
+  opacity: 0.9;
 }
 
 .button:focus,

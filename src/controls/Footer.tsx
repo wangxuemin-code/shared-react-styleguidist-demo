@@ -14,12 +14,13 @@ library.add(faFacebookSquare as any);
 
 interface IProps extends IContainer {
   detailed?: boolean;
+  noWrapper?: boolean;
 }
 export class Footer extends React.Component<IProps, any> {
   public render() {
     return (
       <Container display={'flex'} {...this.props} className={styles.istoxFooterContainer}>
-        <WrapperContainer verticalAlign='center'>
+        {this.getFooterWrapper(
           <Grid>
             {this.props.detailed && (
               <Grid.Row>
@@ -91,14 +92,13 @@ export class Footer extends React.Component<IProps, any> {
                 </Grid.Col>
               </Grid.Row>
             )}
-            <Grid.Row padding={{ topRem: 2 }}>
-              <Grid.Col col={3}>
+            <Grid.Row padding={{ topRem: this.props.detailed ? 2 : 0 }}>
+              <Grid.Col col={6}>
                 <Container className={'small'} float={'left'}>
                   © iSTOX 2019. All rights reserved.
                 </Container>
               </Grid.Col>
-              <Grid.Col col={5} />
-              <Grid.Col col={4}>
+              <Grid.Col col={6}>
                 <Container className={'small'} float={'right'}>
                   <Link
                     padding={{ rightRem: 1 }}
@@ -121,8 +121,16 @@ export class Footer extends React.Component<IProps, any> {
               </Grid.Col>
             </Grid.Row>
           </Grid>
-        </WrapperContainer>
+        )}
       </Container>
     );
+  }
+
+  private getFooterWrapper(children: any) {
+    if (this.props.noWrapper) {
+      return children;
+    } else {
+      return <WrapperContainer verticalAlign='center'>{children}</WrapperContainer>;
+    }
   }
 }

@@ -34,8 +34,7 @@ export class Button extends React.Component<IButton, any> {
       this.props.variant || '',
       this.props.outline ? styles.outline : '',
       this.props.flat ? styles.flat : '',
-      this.props.disabled ? styles.disabled : '',
-      this.props.disabled ? styles.cursorDefault : styles.cursorPointer,
+      this.props.disabled || this.props.loading ? styles.cursorDefault : styles.cursorPointer,
       this.props.subText ? styles.subText : '',
       this.props.loading ? styles.verticalAlignMiddle : '',
       this.props.loading ? styles.loading : ''
@@ -75,7 +74,7 @@ export class Button extends React.Component<IButton, any> {
           style={style}
           className={classes.join(' ')}
           onClick={!this.props.disabled ? this.props.onPress || this.props.onClick : undefined}
-          disabled={this.props.loading || this.props.disabled}
+          disabled={this.props.disabled}
         >
           {this.props.loading && (
             <ClipLoader

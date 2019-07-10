@@ -458,13 +458,13 @@ class Main extends Controls.MyComponent<
             ))}
             <Controls.Divider visibility={'hidden'} />
             {this.variantStates.map((button: any) => (
-              <Controls.Button key={uniqid().toString()} flat variant={button}>
+              <Controls.Button key={uniqid().toString()} loading variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
             <Controls.Divider visibility={'hidden'} />
             {this.variantStates.map((button: any) => (
-              <Controls.Button key={uniqid().toString()} loading flat variant={button}>
+              <Controls.Button disabled={true} key={uniqid().toString()} variant={button}>
                 {button.toUpperCase()}
               </Controls.Button>
             ))}
@@ -2116,11 +2116,11 @@ class Main extends Controls.MyComponent<
               <Controls.Divider visibility={'hidden'} />
               <Controls.Divider visibility={'hidden'} />
             </Controls.Container>
-
             <Controls.Container>
               <h4>Test Direct Ant Component Access</h4>
               <Ant.Alert message={'Testing Ant component'} />
             </Controls.Container>
+            <Controls.Divider visibility={'hidden'} />
           </Controls.WrapperContainer>
         </Controls.RootContainer>
         <Controls.Footer detailed />
