@@ -19,7 +19,6 @@ import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
-import { faEye } from '@fortawesome/free-regular-svg-icons';
 
 interface IState {
   oldDisplayValue?: string;
