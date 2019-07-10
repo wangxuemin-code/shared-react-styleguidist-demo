@@ -8,8 +8,8 @@
   left: 0;
   height: $headerHeight;
 
-  .istox-wrapper {
-    // grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+  .user-icon {
+    font-size: 2rem;
   }
 
   .notification-icon {
@@ -17,17 +17,17 @@
     justify-content: center;
     align-items: center;
     height: $headerHeight;
-    padding: 1px 0.5rem 0;
+    padding: 2px 1.071rem 0;
     position: relative;
     transition: 0.25s;
 
     .notification-unread {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background-color: map-get($colors, secondary);
       position: absolute;
-      right: 5px;
+      right: 12px;
       top: 20px;
     }
 
@@ -74,7 +74,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 0.5rem;
+    padding: 0px 0.7143rem;
     position: relative;
     height: $headerHeight;
 
@@ -96,7 +96,7 @@
     }
 
     &.after-login {
-      padding: 0px 0.5rem;
+      padding: 0 1.429rem;
       font-size: 2rem;
     }
 
@@ -104,11 +104,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 0.5rem;
+      padding: 0 0.3571rem;
       font-size: 1rem;
       font-weight: lighter;
       text-transform: capitalize;
       max-width: 200px;
+      line-height: 1.071rem;
     }
 
     &.after-login .text span {
@@ -164,7 +165,7 @@
 
     ul.links {
       li.selected .underline {
-        background-color: map-get($colors, primaryBackground);
+        background-color: map-get($colors, primary);
       }
       a {
         color: map-get($colors, primary);

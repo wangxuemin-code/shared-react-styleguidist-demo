@@ -50,7 +50,8 @@ export declare class Header extends React.Component<IHeader, IState> {
     componentWillMount(): void;
     componentWillUnmount(): void;
     componentDidUpdate(prevProps: IHeader): void;
-    handleClick: (e: any) => void;
+    handleClickNotification: (e: any) => void;
+    handleClickSubMenu: (e: any) => void;
     toggleNotification(): void;
     toggleUserAction(): void;
     addDefaultSrc(ev: any): void;
@@ -62,6 +63,7 @@ export declare class Header extends React.Component<IHeader, IState> {
     private getNotificationItemDesign;
     private getUserActionDesign;
     private getUsername;
+    private getUserEmail;
     private getSubMenuDesign;
 }
 export {};

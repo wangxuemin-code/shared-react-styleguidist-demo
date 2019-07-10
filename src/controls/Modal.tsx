@@ -12,6 +12,7 @@ interface IState {
 interface IProps {
   children?: any;
   visible: boolean;
+  onModalHide?: () => void;
   onExited?: () => void;
   className?: string;
   width?: number;

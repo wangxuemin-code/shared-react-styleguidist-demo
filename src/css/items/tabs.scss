@@ -2,6 +2,10 @@
   line-height: inherit;
 }
 
+// :global(.ant-tabs-ink-bar-animated) {
+//   min-width: 68px;
+// }
+
 .istox-tabs {
   .ant-tabs-nav {
     color: map-get($colors, primaryGrey);

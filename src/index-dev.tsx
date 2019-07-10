@@ -392,7 +392,9 @@ class Main extends Controls.MyComponent<
                       type={'text'}
                       placeholder={'Search'}
                       value=''
-                      prepend={<Controls.Icon icon={faSearch} />}
+                      prepend={
+                        <Controls.Icon icon={faSearch} />
+                      }
                     />
                   </Controls.Form>
                 </Controls.Container>

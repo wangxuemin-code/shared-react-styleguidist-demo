@@ -19,6 +19,7 @@ import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
+import { faEye } from '@fortawesome/free-regular-svg-icons';
 
 interface IState {
   oldDisplayValue?: string;
@@ -180,11 +181,7 @@ export class FormControl extends React.Component<IProps, IState> {
                     </Container>
                   </label>
                 )}
-                <Container
-                  classNames={[styles.formControlsInner, styles.oldValueActive]}
-                  position={this.props.prepend ? 'relative' : undefined}
-                >
-                  {this.getInputPrependDesign(this.props.prepend)}
+                <Container classNames={[styles.formControlsInner, styles.oldValueActive]}>
                   {this.getControlDesign(true)}
                   {this.getInputAppendDesign(this.props.append)}
                   <input type='hidden' name={this.props.name} value={this.state.value || ''} />
@@ -216,12 +213,7 @@ export class FormControl extends React.Component<IProps, IState> {
                 </Container>
               </label>
             )}
-            <Container
-              classNames={[styles.formControlsInner]}
-              position={this.props.prepend ? 'relative' : undefined}
-              id={this.props.name}
-            >
-              {this.getInputPrependDesign(this.props.prepend)}
+            <Container classNames={[styles.formControlsInner]} id={this.props.name}>
               {this.getControlDesign(false)}
               {this.getInputAppendDesign(this.props.append)}
               <input type='hidden' name={this.props.name} value={this.state.value || ''} />
@@ -764,27 +756,39 @@ export class FormControl extends React.Component<IProps, IState> {
         );
       }
     } else {
-      let classes: string[] = [
-        this.props.prepend ? styles.prepend : '',
-        this.props.unit ? styles.unitPadding : ''
-      ];
+      let classes: string[] = [this.props.unit ? styles.unitPadding : ''];
 
       classes = classes.filter(function(el) {
         return el != '';
       });
       return (
         <>
-          <ReactInput
-            className={classes.join(' ')}
-            autoComplete={'off'}
-            autoCorrect={'off'}
-            type={this.props.type === 'password' ? 'password' : 'text'}
-            placeholder={this.props.placeholder}
-            value={this.state.displayValue || ''}
-            onChange={this.onChange}
-            disabled={this.props.disabled}
-            onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
-          />
+          {this.props.type === 'password' && (
+            <ReactInput.Password
+              prefix={this.props.prepend || ''}
+              className={classes.join(' ')}
+              autoComplete={'off'}
+              autoCorrect={'off'}
+              placeholder={this.props.placeholder}
+              value={this.state.displayValue || ''}
+              onChange={this.onChange}
+              disabled={this.props.disabled}
+              onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
+            />
+          )}
+          {this.props.type !== 'password' && (
+            <ReactInput
+              prefix={this.props.prepend || ''}
+              className={classes.join(' ')}
+              autoComplete={'off'}
+              autoCorrect={'off'}
+              placeholder={this.props.placeholder}
+              value={this.state.displayValue || ''}
+              onChange={this.onChange}
+              disabled={this.props.disabled}
+              onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
+            />
+          )}
           {this.props.unit && (
             <Container className={styles.unit}>&nbsp;{this.props.unit}</Container>
           )}
@@ -899,7 +903,6 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private onCheckChanged(checkedValues: any) {
-    console.log(checkedValues);
     const checkArray = checkedValues;
     const result = this.processValue(String(checkArray.join()));
     this.setState(
@@ -958,7 +961,6 @@ export class FormControl extends React.Component<IProps, IState> {
       value = value.toUpperCase();
     }
     if (this.props.type === 'checkbox') {
-      console.log(value);
       if (value) {
         this.setState({ valueArray: value.split(',') });
       } else {
@@ -1162,19 +1164,5 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     return <Container className={classes.join(' ')}>{append}</Container>;
-  }
-
-  private getInputPrependDesign(prepend?: any) {
-    if (!prepend) {
-      return null;
-    }
-
-    const classes = [styles.inputPrepend];
-
-    if (!(prepend instanceof SVGElement) && typeof prepend !== 'string') {
-      classes.push(styles.svg);
-    }
-
-    return <Container className={classes.join(' ')}>{prepend}</Container>;
   }
 }

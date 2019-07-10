@@ -45,8 +45,8 @@ export class Tabs extends React.Component<IProps, IState> {
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ selectedIndex: 0 });
-    }, 500);
+      this.setState({ selectedIndex: this.state.selectedIndex });
+    }, 1000);
   }
 
   componentDidUpdate(prevProps: IProps) {

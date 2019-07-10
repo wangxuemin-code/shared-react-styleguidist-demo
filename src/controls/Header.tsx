@@ -4,12 +4,14 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { WrapperContainer } from './WrapperContainer';
+import { Button } from './Button';
 import { Icon } from './Icon';
 import { Image } from './Image';
 import { Link } from './Link';
 import { Divider } from './Divider';
 import { Transition } from './Transition';
 import { Controls } from '../index-prod';
+var uniqid = require('uniqid');
 
 interface IMainLink {
   title: string;
@@ -71,11 +73,13 @@ export class Header extends React.Component<IHeader, IState> {
   }
 
   public componentWillMount() {
-    document.addEventListener('mousedown', this.handleClick, false);
+    document.addEventListener('mousedown', this.handleClickNotification, false);
+    document.addEventListener('mousedown', this.handleClickSubMenu, false);
   }
 
   public componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClick, false);
+    document.addEventListener('mousedown', this.handleClickNotification, false);
+    document.addEventListener('mousedown', this.handleClickSubMenu, false);
   }
 
   public componentDidUpdate(prevProps: IHeader) {
@@ -84,16 +88,23 @@ export class Header extends React.Component<IHeader, IState> {
     }
   }
 
-  handleClick = (e: any) => {
-    if (this.subMenu.contains(e.target)) {
-      return;
-    } else {
-      this.setState({ showSubMenu: false });
+  handleClickNotification = (e: any) => {
+    if (e && e.target && this.notificationMenu) {
+      if (this.notificationMenu.contains(e.target)) {
+        return;
+      } else {
+        this.setState({ showNotificationMenu: false });
+      }
     }
-    if (this.notificationMenu.contains(e.target)) {
-      return;
-    } else {
-      this.setState({ showNotificationMenu: false });
+  };
+
+  handleClickSubMenu = (e: any) => {
+    if (e && e.target && this.subMenu) {
+      if (this.subMenu.contains(e.target)) {
+        return;
+      } else {
+        this.setState({ showSubMenu: false });
+      }
     }
   };
 
@@ -122,24 +133,38 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container display={'flex'} {...this.props}>
         <WrapperContainer display={'flex'}>
-          {this.props.children}
+          <a href='/' className={styles.logoAnchor}>
+            {this.props.logo && (
+              <Image
+                variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
+                className={styles.icon}
+              />
+            )}
+          </a>
           {!this.props.children && (
-            <a href='/' className={styles.logoAnchor}>
-              {this.props.logo && (
-                <Image
-                  variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
-                  className={styles.icon}
-                />
-              )}
-            </a>
+            <ul className={styles.links}>
+              {this.props.mainLinks!.map((link, i) => {
+                return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
+              })}
+            </ul>
           )}
-          <ul className={styles.links}>
-            {this.props.mainLinks!.map((link, i) => {
-              return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
-            })}
-          </ul>
-          {this.props.notifications && this.getNotificationDesign()}
-          {this.props.userAction && this.getUserActionDesign()}
+          {this.props.children}
+          {!this.getUsername() && (
+            <Container className={styles.right} verticalAlign='center'>
+              {this.props.notifications && this.getNotificationDesign()}
+              {this.props.userAction && this.getUserActionDesign()}
+            </Container>
+          )}
+          {this.getUsername() && (
+            <Container className={styles.right} verticalAlign='center'>
+              Already have an account? &nbsp; &nbsp;
+              <a href='/login'>
+                <Button variant={'secondary'} outline={className.includes('alt')}>
+                  Sign In
+                </Button>
+              </a>
+            </Container>
+          )}
         </WrapperContainer>
       </Container>
     );
@@ -174,7 +199,7 @@ export class Header extends React.Component<IHeader, IState> {
             this.state.showNotificationMenu ? styles.active : ''
           ]}
         >
-          <Icon size='large' icon={faBell} />
+          <Icon size='small' icon={faBell} />
           {this.props.notificationUnread && <Container className={styles.notificationUnread} />}
           {this.state.showNotificationMenu && this.getNotificationMenuDesign()}
         </Container>
@@ -206,7 +231,7 @@ export class Header extends React.Component<IHeader, IState> {
         <h6>{singleNotification.header}</h6>
         {singleNotification &&
           singleNotification.notifications.map((notification: any) => (
-            <Container>
+            <Container key={uniqid().toString()}>
               <Container padding={{ topRem: 0.5 }} className={styles.uppercase}>
                 <p>{notification.title}</p>
               </Container>
@@ -222,7 +247,10 @@ export class Header extends React.Component<IHeader, IState> {
 
   private getNotificationItemDesign(icon: any, content: any) {
     return (
-      <Container classNames={[styles.notification, styles.item, styles.basic]}>
+      <Container
+        key={uniqid().toString()}
+        classNames={[styles.notification, styles.item, styles.basic]}
+      >
         {icon}
         <Container className={styles.itemInfo}>{content}</Container>
       </Container>
@@ -240,9 +268,10 @@ export class Header extends React.Component<IHeader, IState> {
             this.state.showSubMenu ? styles.active : ''
           ]}
         >
-          <Icon size='large' icon={faUserCircle} />
+          <Icon className={styles.userIcon} icon={faUserCircle} />
           <Container className={styles.text}>
-            {this.props.username || this.state.username || this.getUsername()}
+            {this.getUsername()} <br />
+            {this.getUserEmail()}
             {((this.props.subLinks && this.props.subLinks.length) ||
               Cookies.get('account') ||
               this.state.username !== '') && (
@@ -264,7 +293,16 @@ export class Header extends React.Component<IHeader, IState> {
     } else if (this.state.username !== '') {
       return this.state.username;
     } else {
-      return 'Guest';
+      return false;
+    }
+  }
+
+  private getUserEmail() {
+    const accountEmail = Cookies.get('account');
+    if (accountEmail) {
+      return accountEmail;
+    } else {
+      return false;
     }
   }
 
@@ -284,7 +322,7 @@ export class Header extends React.Component<IHeader, IState> {
               </Link>
             ))}
           {Cookies.get('account') && (
-            <Link underline={false} useNormalAnchor href='/logout'>
+            <Link className={styles.colorDanger} underline={false} useNormalAnchor href='/logout'>
               Logout
             </Link>
           )}
