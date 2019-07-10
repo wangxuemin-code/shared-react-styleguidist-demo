@@ -1774,7 +1774,7 @@ class Main extends Controls.MyComponent<
                 />
                 <Controls.FormControl
                   label={'Phone With Send Code'}
-                  name='phone'
+                  name='phonewithsendcode'
                   type={'phone'}
                   placeholder={'+65-88234124'}
                   loading={this.state.loading}
@@ -1787,7 +1787,7 @@ class Main extends Controls.MyComponent<
                     }
                   }}
                   onInputChanged={() => {
-                    console.log(this.form.getInputValue('phone'));
+                    console.log(this.form.getInputValue('phonewithsendcode'));
                   }}
                 />
                 <Controls.FormControl

@@ -3,6 +3,14 @@
     border-color: map-get($colors, primary);
   }
 
+  :global(.ant-pagination-item:hover) {
+    border-color: map-get($colors, primary);
+  }
+
+  :global(.ant-pagination-item a) {
+    color: map-get($colors, primary);
+  }
+
   :global(.ant-pagination-item-active a) {
     color: map-get($colors, primary);
   }

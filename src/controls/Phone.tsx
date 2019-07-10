@@ -221,7 +221,7 @@ export class Phone extends React.Component<IProps, IState> {
     if (this.validateValueCanChanged(newValue)) {
       const phoneCode = this.state.phoneCode;
       let value = '';
-      if (phoneCode && newValue) {
+      if (phoneCode) {
         value = phoneCode + '-' + newValue;
       }
       this.setState({ phoneNumber: newValue, value: value });
