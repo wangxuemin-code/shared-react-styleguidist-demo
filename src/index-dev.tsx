@@ -201,7 +201,6 @@ class Main extends Controls.MyComponent<
                 notifications: [
                   {
                     title: 'Earlier',
-                    // contents: 'adsad'
                     contents: [
                       {
                         icon: (
@@ -213,7 +212,8 @@ class Main extends Controls.MyComponent<
                             <p>Desciption</p>
                             <span>1 min ago</span>
                           </Controls.Container>
-                        )
+                        ),
+                        link: '/login'
                       },
                       {
                         icon: (
@@ -307,6 +307,7 @@ class Main extends Controls.MyComponent<
               onTabSelected={(tabName) => {
                 console.log(tabName);
               }}
+              animated={{ inkBar: true, tabPane: false }}
               selectedIndex={2}
               ref={(ref) => {
                 if (ref) this.tabs = ref;

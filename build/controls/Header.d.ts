@@ -22,6 +22,7 @@ interface INotification {
 interface INotificationItem {
     icon?: any;
     content?: any;
+    link?: string;
 }
 interface IHeader extends IContainer {
     fullWidth?: boolean;
@@ -35,25 +36,15 @@ interface IHeader extends IContainer {
     username?: string;
 }
 interface IState {
-    showSubMenu: boolean;
-    showNotificationMenu: boolean;
     username: string;
 }
 export declare class Header extends React.Component<IHeader, IState> {
-    private subMenu?;
-    private notificationMenu?;
     static defaultProps: {
         mainLinks: never[];
         subLinks: never[];
     };
     constructor(props: IHeader);
-    componentWillMount(): void;
-    componentWillUnmount(): void;
     componentDidUpdate(prevProps: IHeader): void;
-    handleClickNotification: (e: any) => void;
-    handleClickSubMenu: (e: any) => void;
-    toggleNotification(): void;
-    toggleUserAction(): void;
     addDefaultSrc(ev: any): void;
     render(): JSX.Element;
     private getLinkDesign;

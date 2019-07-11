@@ -23,7 +23,7 @@ interface IProps extends IContainer {
   onTabSelected?: (tabName: string) => void;
   id?: string;
   extraControls?: any;
-  animated?: boolean;
+  animated?: boolean | { inkBar: boolean; tabPane: boolean };
 }
 
 interface IState {

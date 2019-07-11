@@ -1,3 +1,52 @@
+.sub-menu {
+  min-width: 11.43rem;
+  background-color: map-get($colors, primaryAlt);
+  text-align: center;
+  border-radius: 0;
+  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+}
+
+.sub-menu a {
+  color: map-get($colors, primaryDark);
+  font-size: 1rem;
+  display: block;
+  padding: 10px;
+}
+
+.sub-menu a:hover {
+  background-color: map-get($colors, primaryBackground);
+  color: map-get($colors, primary);
+}
+
+.notification-menu {
+  width: 25rem;
+  background-color: map-get($colors, primaryAlt);
+  border-radius: 0;
+  padding: 1rem;
+  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+  color: map-get($colors, primaryDark);
+  font-size: 1rem;
+  overflow: auto;
+  max-height: 80vh;
+
+  .notification {
+    padding: 1rem;
+    border-top: 1px solid map-get($colors, primaryGrey);
+    background: map-get($colors, primaryAlt);
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+    margin-bottom: 1rem;
+  }
+  .notification-info {
+    padding-left: 1rem;
+  }
+  .notification:hover {
+    background-color: map-get($colors, primaryBackground);
+    color: map-get($colors, primary);
+  }
+}
+
 .istox-header {
   background-color: map-get($colors, primaryActive);
   color: map-get($colors, primaryAlt);
@@ -42,30 +91,6 @@
         background-color: map-get($colors, primaryAlt);
       }
     }
-
-    .notification-menu {
-      position: absolute;
-      right: 0px;
-      top: $headerHeight;
-      width: 25rem;
-      background-color: map-get($colors, primaryAlt);
-      border-radius: 3px;
-      padding: 1rem;
-      box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
-      color: map-get($colors, primaryDark);
-      font-size: 1rem;
-      overflow: auto;
-      max-height: 80vh;
-
-      .notification {
-        padding: 1rem;
-        border-top: 1px solid map-get($colors, primaryGrey);
-      }
-      .notification:hover {
-        background-color: map-get($colors, primaryBackground);
-        color: map-get($colors, primary);
-      }
-    }
   }
 
   .user-action {
@@ -77,6 +102,15 @@
     padding: 0px 0.7143rem;
     position: relative;
     height: $headerHeight;
+
+    .header-username {
+      font-size: 0.857rem;
+      font-weight: 600;
+    }
+
+    .header-email {
+      font-size: 0.7143rem;
+    }
 
     .icon {
       padding-top: 1px;
@@ -116,29 +150,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-    }
-
-    .sub-menu {
-      position: absolute;
-      left: 0px;
-      top: $headerHeight;
-      min-width: 11.43rem;
-      background-color: map-get($colors, primaryAlt);
-      text-align: center;
-      border-radius: 3px;
-      box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
-    }
-
-    .sub-menu a {
-      color: map-get($colors, primaryDark);
-      font-size: 1rem;
-      display: block;
-      padding: 10px;
-    }
-
-    .sub-menu a:hover {
-      background-color: map-get($colors, primaryBackground);
-      color: map-get($colors, primary);
     }
   }
 
