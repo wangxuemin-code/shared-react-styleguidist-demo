@@ -37,14 +37,14 @@
 .istox-table th {
   font-size: 0.8571rem;
   padding: 1rem;
-  color: map-get($colors, primaryGreyDarker);
+  color: map-get($colors, primaryDark);
   font-weight: 600;
 }
 
 .istox-table td {
   padding: 1rem;
   font-size: 1rem;
-  color: map-get($colors, primaryGreyDark);
+  color: map-get($colors, primaryGreyDarker);
   font-weight: lighter;
 }
 

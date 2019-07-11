@@ -24,17 +24,11 @@
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, primary);
     }
-    .ant-tabs-tab-active {
-      color: map-get($colors, primary) !important;
-    }
   }
 
   &.secondary {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, secondary);
-    }
-    .ant-tabs-tab-active {
-      color: map-get($colors, secondary) !important;
     }
   }
 
@@ -42,17 +36,11 @@
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, primaryGrey);
     }
-    .ant-tabs-tab-active {
-      color: map-get($colors, primaryGreyDark) !important;
-    }
   }
 
   &.info {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, info);
-    }
-    .ant-tabs-tab-active {
-      color: map-get($colors, info) !important;
     }
   }
 
@@ -60,26 +48,17 @@
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, success);
     }
-    .ant-tabs-tab-active {
-      color: map-get($colors, success) !important;
-    }
   }
 
   &.warning {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, warning);
     }
-    .ant-tabs-tab-active {
-      color: map-get($colors, warning) !important;
-    }
   }
 
   &.danger {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, danger);
-    }
-    .ant-tabs-tab-active {
-      color: map-get($colors, danger) !important;
     }
   }
 }

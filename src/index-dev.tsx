@@ -14,7 +14,8 @@ import {
   faUser,
   faChevronCircleRight,
   faCheck,
-  faFilePdf
+  faFilePdf,
+  faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -392,9 +393,7 @@ class Main extends Controls.MyComponent<
                       type={'text'}
                       placeholder={'Search'}
                       value=''
-                      prepend={
-                        <Controls.Icon icon={faSearch} />
-                      }
+                      prepend={<Controls.Icon icon={faSearch} />}
                     />
                   </Controls.Form>
                 </Controls.Container>
@@ -541,7 +540,7 @@ class Main extends Controls.MyComponent<
             </Controls.Container>
             <Controls.Container display={'flex'}>
               <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
-              <Controls.Icon icon={'mobile'} text={'Passing ICON as a string'} />
+              {/* <Controls.Icon icon={'mobile'} text={'Passing ICON as a string'} /> */}
             </Controls.Container>
             <Controls.Container display={'flex'}>
               <Controls.Icon currency={'SGD'} /> &nbsp; &nbsp;
@@ -580,7 +579,7 @@ class Main extends Controls.MyComponent<
                   // delayHide: 500,
                   // delayUpdate: 500
                 }}
-                icon={'arrow-alt-right'}
+                icon={faLongArrowAltRight}
                 text={''}
                 color={'#DC3545'}
                 onClick={() => {
@@ -803,43 +802,6 @@ class Main extends Controls.MyComponent<
                 padding={{ allPx: 15 }}
                 variant={'logo alt'}
               />
-              {/*  <Controls.Image
-            display={'inline-flex'}
-            margin={{ allPx: 15 }}
-            border={{
-              borderSize: 1,
-              borderRadius: 20,
-              borderColor: '#000',
-              borderStyle: 'solid'
-            }}
-            width={100}
-            height={100}
-            backgroundColor={'#000'}
-            variant={'logo'}
-            padding={{ allPx: 15 }}
-          />
-            <Controls.Image
-            display={'inline-flex'}
-            margin={{ allPx: 15 }}
-            width={100}
-            height={100}
-            badge
-            variant={'logo alt'}
-          />
-            <Controls.Image
-            display={'inline-flex'}
-            margin={{ allPx: 15 }}
-            border={{
-              borderSize: 1,
-              borderRadius: 50,
-              borderColor: '#000',
-              borderStyle: 'solid'
-            }}
-            width={100}
-            height={100}
-            badge
-            src={'/images/ISTOX_Logo.png'}
-          /> */}
             </Controls.Container>
             <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
               <Controls.Form
@@ -1751,7 +1713,7 @@ class Main extends Controls.MyComponent<
                     {
                       label: 'Option2',
                       value: 'abcl',
-                      html: <Controls.Image fullWidth src={'/images/ISTOX_Logo.png'} />
+                      html: <Controls.Image fullWidth src={'/images/favicon.png'} />
                     }
                   ]}
                 />
@@ -1854,7 +1816,7 @@ class Main extends Controls.MyComponent<
             />
             <Controls.Item
               icon={faCheckCircle}
-              image={'/images/ISTOX_Logo.png'}
+              image={'/images/favicon.png'}
               title={'Title'}
               description={
                 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
@@ -1900,7 +1862,7 @@ class Main extends Controls.MyComponent<
               <Controls.Card
                 leftIcon={faInfoCircle}
                 rightIcon={faCheckCircle}
-                image={'/images/ISTOX_Logo.png'}
+                image={'/images/favicon.png'}
                 title={'Title'}
               />
               <Controls.Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>

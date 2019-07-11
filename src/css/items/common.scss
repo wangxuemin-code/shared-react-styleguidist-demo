@@ -26,6 +26,7 @@ body,
 #reactContainer {
   height: 100%;
   font-family: map-get($typography, font);
+  color: map-get($colors, primaryDark);
 }
 
 #reactContainer {
@@ -60,6 +61,11 @@ a {
 
 a:hover {
   color: map-get($colors, primary);
+}
+
+label {
+  font-weight: 300;
+  color: map-get($colors, primaryDark);
 }
 
 h1 {
