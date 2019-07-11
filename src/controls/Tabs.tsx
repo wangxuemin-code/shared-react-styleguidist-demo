@@ -23,6 +23,7 @@ interface IProps extends IContainer {
   onTabSelected?: (tabName: string) => void;
   id?: string;
   extraControls?: any;
+  animated?: boolean;
 }
 
 interface IState {
@@ -90,6 +91,7 @@ export class Tabs extends React.Component<IProps, IState> {
           onChange={this.handleSelect}
           tabBarGutter={0}
           type={this.props.basic ? 'line' : 'card'}
+          animated={this.props.animated}
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (

@@ -311,7 +311,7 @@ class Main extends Controls.MyComponent<
               ref={(ref) => {
                 if (ref) this.tabs = ref;
               }}
-              tabs={this.tabsEmptyContent}
+              tabs={this.tabsContent}
               extraControls={<Controls.Button>Extra Action</Controls.Button>}
             />
             {this.variantStates.map((tab: any) => (
