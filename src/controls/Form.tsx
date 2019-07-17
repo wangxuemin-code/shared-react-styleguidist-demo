@@ -109,7 +109,7 @@ export class Form extends React.Component<IProps> {
     return formData;
   }
 
-  public getFormJson(): String {
+  public getFormJson(): string {
     const formData = this.getFormData();
     var object: any = {};
     formData.forEach((value, key) => {
