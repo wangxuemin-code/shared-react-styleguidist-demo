@@ -102,11 +102,20 @@ export class Form extends React.Component<IProps> {
   public getFormData(): FormData {
     const formData = new FormData();
     this.formControls.forEach((formControl: any) => {
-      if (formControl.getName && formControl.getValue) {
+      if (formControl.getName && formControl.getValue && formControl.isIncludeInFormData) {
         formData.append(formControl.getName(), formControl.getValue());
       }
     });
     return formData;
+  }
+
+  public getFormJson(): String {
+    const formData = this.getFormData();
+    var object: any = {};
+    formData.forEach((value, key) => {
+      object[key] = value;
+    });
+    return JSON.stringify(object);
   }
 
   public reset() {

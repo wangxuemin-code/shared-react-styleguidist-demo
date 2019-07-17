@@ -90,6 +90,7 @@ interface IProps extends IContainer {
   onKeyPress?: () => void;
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
+  includeInFormData?: boolean;
 }
 
 interface IProcessResult {
@@ -104,7 +105,8 @@ export class FormControl extends React.Component<IProps, IState> {
     type: 'text',
     name: '',
     decimalPlace: 4,
-    uploaderConfigs: {}
+    uploaderConfigs: {},
+    includeInFormData: true
   };
 
   constructor(props: IProps) {
@@ -1164,4 +1166,8 @@ export class FormControl extends React.Component<IProps, IState> {
 
     return <Container className={classes.join(' ')}>{append}</Container>;
   }
+
+  public isIncludeInFormData = () => {
+    return this.props.includeInFormData;
+  };
 }
