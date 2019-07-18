@@ -817,78 +817,85 @@ class Main extends Controls.MyComponent<
                 }}
               >
                 <Controls.Container className={'form-group'}>
-                  <Controls.FormControl
-                    required
-                    label='Image uploader'
-                    name='upload'
-                    type='uploader'
-                    value={this.state.imageUrl}
-                    uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
-                  >
-                    <Controls.Container fluid verticalAlign={'center'}>
-                      <Controls.Image
-                        height={100}
-                        margin={{ topPx: -50 }}
-                        src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
-                      />
-                      <span className='normal-text small'>
-                        Drag and drop or <br />
-                        Click here to attached a file
-                      </span>
-                    </Controls.Container>
-                  </Controls.FormControl>
-                  <Controls.FormControl
-                    required
-                    label='Image uploader disabled '
-                    name='uploadviewer'
-                    type='uploader'
-                    disabled
-                    value={''}
-                    uploaderConfigs={{
-                      customAllowFileExtensions: ['.pdf'],
-                      viewer: true,
-                      label: 'Image'
-                    }}
-                  >
-                    <Controls.Container>
-                      <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                  <Controls.Container height={200} width={200}>
+                    <Controls.FormControl
+                      required
+                      label='Image uploader'
+                      name='upload'
+                      type='uploader'
+                      value={this.state.imageUrl}
+                      uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                    >
+                      <Controls.Container fluid verticalAlign={'center'}>
                         <Controls.Image
                           height={100}
-                          src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
+                          margin={{ topPx: -50 }}
+                          src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
+                        <span className='normal-text small'>
+                          Drag and drop or <br />
+                          Click here to attached a file
+                        </span>
                       </Controls.Container>
-                      <Controls.Container fluid verticalAlign={'center'}>
-                        <span className='small normal-text'>file-name-doc_1.jpg</span>
-                      </Controls.Container>
-                    </Controls.Container>
-                  </Controls.FormControl>
-                  <Controls.FormControl
-                    required
-                    label='Image uploader disabled '
-                    name='uploadviewer'
-                    type='uploader'
-                    disabled
-                    value='http://www.africau.edu/images/default/sample.pdf'
-                    uploaderConfigs={{
-                      customAllowFileExtensions: ['.pdf'],
-                      viewer: true,
-                      label: 'PDF'
-                    }}
-                  >
-                    <Controls.Container>
-                      <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
-                        <Controls.Container position='relative' textAlign='center'>
-                          <Controls.Icon icon={faFilePdf} />
-                          <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
-                            Saved
-                          </Controls.Container>
+                    </Controls.FormControl>
+                  </Controls.Container>
+                  <Controls.Container height={200} width={200}>
+                    <Controls.FormControl
+                      required
+                      label='Image uploader disabled '
+                      name='uploadviewer'
+                      type='uploader'
+                      disabled
+                      value={''}
+                      uploaderConfigs={{
+                        customAllowFileExtensions: ['.pdf'],
+                        viewer: true,
+                        label: 'Image'
+                      }}
+                    >
+                      <Controls.Container>
+                        <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                          <Controls.Image
+                            height={100}
+                            src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
+                          />
+                        </Controls.Container>
+                        <Controls.Container fluid verticalAlign={'center'}>
+                          <span className='small normal-text'>file-name-doc_1.jpg</span>
                         </Controls.Container>
                       </Controls.Container>
-                      <Controls.Container fluid verticalAlign={'center'}>
-                        <span className='tiny normal-text'>file-name-doc_1.pdf</span>
+                    </Controls.FormControl>
+                  </Controls.Container>
+                  <Controls.Container height={200} width={200}>
+                    <Controls.FormControl
+                      required
+                      label='Image uploader disabled '
+                      name='uploadviewer'
+                      type='uploader'
+                      disabled
+                      value='http://www.africau.edu/images/default/sample.pdf'
+                      uploaderConfigs={{
+                        customAllowFileExtensions: ['.pdf'],
+                        viewer: true,
+                        label: 'PDF'
+                      }}
+                    >
+                      <Controls.Container>
+                        <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                          <Controls.Container position='relative' textAlign='center'>
+                            <Controls.Icon icon={faFilePdf} />
+                            <Controls.Container className='normal-text' margin={{ topPx: 5 }}>
+                              Saved
+                            </Controls.Container>
+                          </Controls.Container>
+                        </Controls.Container>
+                        <Controls.Container fluid verticalAlign={'center'}>
+                          <span className='tiny normal-text'>file-name-doc_1.pdf</span>
+                        </Controls.Container>
                       </Controls.Container>
-                    </Controls.Container>
-                  </Controls.FormControl>
+                    </Controls.FormControl>
+                  </Controls.Container>
+                  
                 </Controls.Container>
                 <Controls.Button
                   type='submit'

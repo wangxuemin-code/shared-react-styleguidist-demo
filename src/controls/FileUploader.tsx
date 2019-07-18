@@ -87,7 +87,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
             {this.state.type !== 'pdf' && <Container fluid>{this.props.children}</Container>}
           </Modal>
         )}
-        <Container position={'relative'}>
+        <Container position={'relative'} widthPercent={100} heightPercent={100}>
           <label
             onDragEnter={this.onDragEnter}
             onDragLeave={this.onDragLeave}
