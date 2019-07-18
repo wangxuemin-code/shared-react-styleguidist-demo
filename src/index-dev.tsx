@@ -195,6 +195,7 @@ class Main extends Controls.MyComponent<
             ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
             notificationUnread={true}
+            onNotificationVisibleChanged={() => { console.log("on show notification"); }}
             notifications={[
               {
                 header: 'Notifications',
@@ -213,7 +214,7 @@ class Main extends Controls.MyComponent<
                             <span>1 min ago</span>
                           </Controls.Container>
                         ),
-                        link: '/login'
+                        onClick: () => { console.log("notification on click"); }
                       },
                       {
                         icon: (
@@ -225,7 +226,8 @@ class Main extends Controls.MyComponent<
                             <p>Desciption</p>
                             <span>1 min ago</span>
                           </Controls.Container>
-                        )
+                        ),
+                        onClick: () => { console.log("notification on click"); }
                       }
                     ]
                   },
@@ -242,7 +244,8 @@ class Main extends Controls.MyComponent<
                             <p>Desciption</p>
                             <span>1 min ago</span>
                           </Controls.Container>
-                        )
+                        ),
+                        onClick: () => { console.log("notification on click"); }
                       }
                     ]
                   }

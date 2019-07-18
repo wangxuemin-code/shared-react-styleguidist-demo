@@ -1,4 +1,8 @@
-import { faUserCircle, faChevronDown, faBell } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUserCircle,
+  faChevronDown,
+  faBell
+} from '@fortawesome/free-solid-svg-icons';
 import * as Cookies from 'js-cookie';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
@@ -41,6 +45,7 @@ interface INotificationItem {
   icon?: any;
   content?: any;
   link?: string;
+  onClick?: () => void;
 }
 
 interface IHeader extends IContainer {
@@ -53,6 +58,7 @@ interface IHeader extends IContainer {
   notifications?: INotifications[];
   userAction?: boolean;
   username?: string;
+  onNotificationVisibleChanged?: (visible: boolean) => void;
 }
 
 interface IState {
@@ -88,7 +94,9 @@ export class Header extends React.Component<IHeader, IState> {
           <a href='/' className={styles.logoAnchor}>
             {this.props.logo && (
               <Image
-                variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
+                variant={
+                  className && className.includes('alt') ? 'logo alt' : 'logo'
+                }
                 className={styles.icon}
               />
             )}
@@ -96,22 +104,35 @@ export class Header extends React.Component<IHeader, IState> {
           {!this.props.children && (
             <ul className={styles.links}>
               {this.props.mainLinks!.map((link, i) => {
-                return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
+                return this.getLinkDesign(
+                  link.title,
+                  link.path,
+                  link.selected,
+                  link.useAnchorTag
+                );
               })}
             </ul>
           )}
           {this.props.children}
-          {this.getUsername() && (
-            <Container className={styles.right} verticalAlign='center'>
+          {
+            /*this.getUsername() && */ <Container
+              className={styles.right}
+              verticalAlign='center'
+            >
               {this.props.notifications && this.getNotificationDesign()}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
-          )}
+          }
           {!this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
-              <div className='small'>Already have an account? </div>&nbsp; &nbsp;
+              <div className='small'>Already have an account? </div>&nbsp;
+              &nbsp;
               <a href='/login'>
-                <Button size='small' variant={'secondary'} outline={className.includes('alt')}>
+                <Button
+                  size='small'
+                  variant={'secondary'}
+                  outline={className.includes('alt')}
+                >
                   Sign In
                 </Button>
               </a>
@@ -122,7 +143,12 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private getLinkDesign(title: string, href: string, selected?: boolean, useAnchorTag?: boolean) {
+  private getLinkDesign(
+    title: string,
+    href: string,
+    selected?: boolean,
+    useAnchorTag?: boolean
+  ) {
     return (
       <li key={href} className={selected ? 'selected' : ''}>
         {!useAnchorTag && (
@@ -148,10 +174,15 @@ export class Header extends React.Component<IHeader, IState> {
           overlay={this.getNotificationMenuDesign()}
           trigger={['click']}
           getPopupContainer={(trigger: any) => trigger.parentNode}
+          onVisibleChange={this.props.onNotificationVisibleChanged}
         >
-          <Container classNames={[styles.notificationIcon, 'ant-dropdown-link']}>
+          <Container
+            classNames={[styles.notificationIcon, 'ant-dropdown-link']}
+          >
             <Icon size='small' icon={faBell} />
-            {this.props.notificationUnread && <Container className={styles.notificationUnread} />}
+            {this.props.notificationUnread && (
+              <Container className={styles.notificationUnread} />
+            )}
           </Container>
         </Dropdown>
       </>
@@ -176,7 +207,10 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private getSingleNotificationDesign(singleNotification: any, showDivider: boolean) {
+  private getSingleNotificationDesign(
+    singleNotification: any,
+    showDivider: boolean
+  ) {
     return (
       <Container>
         <h6>{singleNotification.header}</h6>
@@ -186,8 +220,13 @@ export class Header extends React.Component<IHeader, IState> {
               <Container padding={{ topRem: 0.5 }} className={styles.uppercase}>
                 <p>{notification.title}</p>
               </Container>
-              {notification.contents!.map((item: any) => {
-                return this.getNotificationItemDesign(item.icon, item.content, item.link);
+              {notification.contents!.map((item: INotificationItem) => {
+                return this.getNotificationItemDesign(
+                  item.icon,
+                  item.content,
+                  item.link,
+                  item.onClick
+                );
               })}
             </Container>
           ))}
@@ -196,19 +235,21 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private getNotificationItemDesign(icon: any, content: any, link: string) {
+  private getNotificationItemDesign(
+    icon: any,
+    content: any,
+    link?: string,
+    onClick?: () => void
+  ) {
     return (
-      <Link
-        underline={false}
-        fluid
-        useNormalAnchor
-        href={link}
+      <Container
         key={uniqid().toString()}
         classNames={[styles.notification, styles.item, styles.basic]}
+        onClick={onClick}
       >
         {icon}
         <Container className={styles.itemInfo}>{content}</Container>
-      </Link>
+      </Container>
     );
   }
 
@@ -219,12 +260,22 @@ export class Header extends React.Component<IHeader, IState> {
         trigger={['click']}
         getPopupContainer={(trigger: any) => trigger.parentNode}
       >
-        <Container classNames={[styles.userAction, styles.afterLogin, 'ant-dropdown-link']}>
+        <Container
+          classNames={[
+            styles.userAction,
+            styles.afterLogin,
+            'ant-dropdown-link'
+          ]}
+        >
           <Icon className={styles.userIcon} icon={faUserCircle} />
           <Container className={styles.text}>
             <Container>
-              <Container className={styles.headerUsername}>{this.getUsername()}</Container>
-              <Container className={styles.headerEmail}>{this.getUserEmail()}</Container>
+              <Container className={styles.headerUsername}>
+                {this.getUsername()}
+              </Container>
+              <Container className={styles.headerEmail}>
+                {this.getUserEmail()}
+              </Container>
             </Container>
             {((this.props.subLinks && this.props.subLinks.length) ||
               Cookies.get('account') ||
@@ -275,7 +326,12 @@ export class Header extends React.Component<IHeader, IState> {
               </Link>
             ))}
           {Cookies.get('account') && (
-            <Link className={styles.colorDanger} underline={false} useNormalAnchor href='/logout'>
+            <Link
+              className={styles.colorDanger}
+              underline={false}
+              useNormalAnchor
+              href='/logout'
+            >
               Logout
             </Link>
           )}
