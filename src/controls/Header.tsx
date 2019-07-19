@@ -115,7 +115,7 @@ export class Header extends React.Component<IHeader, IState> {
           )}
           {this.props.children}
           {
-            /*this.getUsername() && */ <Container
+            this.getUsername() &&  <Container
               className={styles.right}
               verticalAlign='center'
             >
