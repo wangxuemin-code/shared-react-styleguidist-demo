@@ -15,6 +15,7 @@ interface IProps {
   required?: boolean;
   onSendCode?: (processing: boolean) => void;
   loading?: boolean;
+  showPhoneLabel?: boolean;
 }
 
 interface IState {
@@ -100,15 +101,20 @@ export class Phone extends React.Component<IProps, IState> {
       }
     };
     return (
-      <Container className={styles.phoneSendCode} fluid display={'flex'}>
+      <Container fluid display={'flex'}>
         <Container display={'flex'}>
           <Container width={120}>
-            <label className={styles.semiBold}>
-              <Container className={styles.semiBold}>
-                Area Code
-                {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </Container>
-            </label>
+            {this.props.showPhoneLabel && (
+              <label className={styles.semiBold}>
+                <Container className={styles.semiBold}>
+                  Area Code
+                  {this.props.required && (
+                    <Container className={styles.required}>&nbsp;*</Container>
+                  )}
+                </Container>
+              </label>
+            )}
+
             <Select
               // componentClass='select'
               // defaultMenuIsOpen
@@ -136,12 +142,17 @@ export class Phone extends React.Component<IProps, IState> {
         &nbsp;&nbsp;
         <Container fluid display={'flex'} className={styles.flex1}>
           <Container fluid>
-            <label>
-              <Container className={styles.semiBold}>
-                Phone Number
-                {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </Container>
-            </label>
+            {this.props.showPhoneLabel && (
+              <label>
+                <Container className={styles.semiBold}>
+                  Phone Number
+                  {this.props.required && (
+                    <Container className={styles.required}>&nbsp;*</Container>
+                  )}
+                </Container>
+              </label>
+            )}
+
             <Container display={'flex'}>
               <Container fluid>
                 <ReactInput

@@ -1744,6 +1744,7 @@ class Main extends Controls.MyComponent<
                   onInputChanged={() => {
                     console.log(this.form.getInputValue('phone'));
                   }}
+                  showPhoneLabel={false}
                 />
                 <Controls.FormControl
                   label={'Phone With Send Code'}

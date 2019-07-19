@@ -91,6 +91,7 @@ interface IProps extends IContainer {
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
   includeInFormData?: boolean;
+  showPhoneLabel?: boolean;
 }
 
 interface IProcessResult {
@@ -106,7 +107,8 @@ export class FormControl extends React.Component<IProps, IState> {
     name: '',
     decimalPlace: 4,
     uploaderConfigs: {},
-    includeInFormData: true
+    includeInFormData: true,
+    showPhoneLabel: true
   };
 
   constructor(props: IProps) {
@@ -497,6 +499,7 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onPhoneChange}
           onSendCode={this.props.onSendCode}
           loading={this.props.loading}
+          showPhoneLabel={this.props.showPhoneLabel}
         />
       );
     } else if (this.props.type === 'country') {

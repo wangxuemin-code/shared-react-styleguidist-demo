@@ -2620,7 +2620,6 @@ export const loadingContainerWrapper: string;
 export const error: string;
 export const inputAppend: string;
 export const custom: string;
-export const phoneSendCode: string;
 export const errorPage: string;
 export const message: string;
 export const altIcon: string;

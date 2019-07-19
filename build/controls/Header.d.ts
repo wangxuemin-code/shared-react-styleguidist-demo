@@ -23,6 +23,7 @@ interface INotificationItem {
     icon?: any;
     content?: any;
     link?: string;
+    onClick?: () => void;
 }
 interface IHeader extends IContainer {
     fullWidth?: boolean;
@@ -34,6 +35,7 @@ interface IHeader extends IContainer {
     notifications?: INotifications[];
     userAction?: boolean;
     username?: string;
+    onNotificationVisibleChanged?: (visible: boolean) => void;
 }
 interface IState {
     username: string;
