@@ -70,7 +70,7 @@ export class Form extends React.Component<IProps> {
     this.formControls.forEach((formControl: any) => {
       if (formControl.getName && formControl.getValue) {
         if (formControl.getName() === name) {
-          value = formControl.getValue();
+          value = formControl.getValue(true);
         }
       }
     });
@@ -103,18 +103,20 @@ export class Form extends React.Component<IProps> {
     const formData = new FormData();
     this.formControls.forEach((formControl: any) => {
       if (formControl.getName && formControl.getValue && formControl.isIncludeInFormData) {
-        formData.append(formControl.getName(), formControl.getValue());
+        formData.append(formControl.getName(), formControl.getValue(false));
       }
     });
     return formData;
   }
 
   public getFormJson(): string {
-    const formData = this.getFormData();
     var object: any = {};
-    formData.forEach((value, key) => {
-      object[key] = value;
+    this.formControls.forEach((formControl: any) => {
+      if (formControl.getName && formControl.getValue && formControl.isIncludeInFormData) {
+        object[formControl.getName()] = formControl.getValue(false);
+      }
     });
+
     return JSON.stringify(object);
   }
 

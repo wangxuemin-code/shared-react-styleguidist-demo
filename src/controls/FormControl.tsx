@@ -38,27 +38,27 @@ interface IProps extends IContainer {
   oldValue?: string | number | null;
   placeholder?: any;
   type?:
-    | 'alphabet'
-    | 'text'
-    | 'number'
-    | 'numberfields'
-    | 'numeric'
-    | 'money'
-    | 'email'
-    | 'password'
-    | 'select'
-    | 'customselect'
-    | 'country'
-    | 'phone'
-    | 'countrycode'
-    | 'switch'
-    | 'radio'
-    | 'longtext'
-    | 'date'
-    | 'datetime'
-    | 'daterange'
-    | 'uploader'
-    | 'checkbox';
+  | 'alphabet'
+  | 'text'
+  | 'number'
+  | 'numberfields'
+  | 'numeric'
+  | 'money'
+  | 'email'
+  | 'password'
+  | 'select'
+  | 'customselect'
+  | 'country'
+  | 'phone'
+  | 'countrycode'
+  | 'switch'
+  | 'radio'
+  | 'longtext'
+  | 'date'
+  | 'datetime'
+  | 'daterange'
+  | 'uploader'
+  | 'checkbox';
   name?: string;
   disabled?: boolean;
   static?: boolean;
@@ -372,7 +372,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private getControlDesign(oldValue: boolean) {
-    if (this.props.static) {
+    if (this.props.static || this.props.oldValue) {
       if (this.props.type === 'uploader') {
         return (
           <Container>
@@ -762,7 +762,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else {
       let classes: string[] = [this.props.unit ? styles.unitPadding : ''];
 
-      classes = classes.filter(function(el) {
+      classes = classes.filter(function (el) {
         return el != '';
       });
       return (
@@ -1035,10 +1035,10 @@ export class FormControl extends React.Component<IProps, IState> {
         ? this.props.dateOptions.dateFormat
           ? this.props.dateOptions.dateFormat
           : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
-          ? 'DD/MM/YYYY hh:mm A'
-          : 'DD/MM/YYYY'
+            ? 'DD/MM/YYYY hh:mm A'
+            : 'DD/MM/YYYY'
         : 'DD/MM/YYYY';
-      if (this.props.static) {
+      if (this.props.static || this.props.oldValue) {
         this.setState({
           oldDisplayValue: moment.unix(Number(oldDisplayValue)).format(dateFormat)
         });
@@ -1046,13 +1046,13 @@ export class FormControl extends React.Component<IProps, IState> {
           displayValue: !re.test(value)
             ? ''
             : Formatter.unixTimestampToDate(Number(value))
-            ? moment.unix(Number(value)).format(dateFormat)
-            : '',
+              ? moment.unix(Number(value)).format(dateFormat)
+              : '',
           value: !re.test(value)
             ? ''
             : Formatter.unixTimestampToDate(Number(value))
-            ? moment.unix(Number(value)).format(dateFormat)
-            : ''
+              ? moment.unix(Number(value)).format(dateFormat)
+              : ''
         };
       } else {
         return {
@@ -1082,8 +1082,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.money(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
+                decimalPlace: this.props.decimalPlace
+              }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
@@ -1100,8 +1100,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.number(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
+                decimalPlace: this.props.decimalPlace
+              }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         }

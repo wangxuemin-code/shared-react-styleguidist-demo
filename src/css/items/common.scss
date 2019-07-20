@@ -37,6 +37,7 @@ body,
 .istox-root {
   flex: 1 0 auto;
   padding-top: $headerHeight;
+  min-height: 100vh;
 }
 
 .istox-wrapper {
