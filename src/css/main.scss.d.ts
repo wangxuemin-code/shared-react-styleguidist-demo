@@ -2548,6 +2548,7 @@ export const info: string;
 export const danger: string;
 export const link: string;
 export const underline: string;
+export const showUnderline: string;
 export const list: string;
 export const listHeader: string;
 export const listContent: string;

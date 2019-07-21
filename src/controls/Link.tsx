@@ -6,6 +6,7 @@ import { IContainer, Container } from './Container';
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
   underline?: boolean;
+  showUnderline?: boolean;
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;
@@ -24,7 +25,8 @@ export class Link extends React.Component<ILink> {
       styles.link,
       this.props.variant || '',
       this.props.disabled ? styles.disabled : '',
-      this.props.underline ? styles.underline : ''
+      this.props.underline ? styles.underline : '',
+      this.props.showUnderline ? styles.showUnderline : ''
     ];
 
     classes = classes.filter(function(el) {
