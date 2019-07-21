@@ -207,7 +207,11 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                          <Controls.Icon
+                            size={'large'}
+                            variant={'success'}
+                            icon={faCheckCircle}
+                          />
                         ),
                         content: (
                           <Controls.Container>
@@ -222,7 +226,11 @@ class Main extends Controls.MyComponent<
                       },
                       {
                         icon: (
-                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                          <Controls.Icon
+                            size={'large'}
+                            variant={'success'}
+                            icon={faCheckCircle}
+                          />
                         ),
                         content: (
                           <Controls.Container>
@@ -242,7 +250,11 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
+                          <Controls.Icon
+                            size={'large'}
+                            variant={'success'}
+                            icon={faCheckCircle}
+                          />
                         ),
                         content: (
                           <Controls.Container>
@@ -525,9 +537,30 @@ class Main extends Controls.MyComponent<
                 </Controls.Container>
               ))}
             </Controls.Container>
+            <Controls.Container display={'flex'}>
+              {this.variantStates.map((link: any) => (
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link
+                    showUnderline={true}
+                    linkColor={'#000'}
+                    variant={link}
+                    useNormalAnchor
+                  >
+                    {link.toUpperCase()}
+                  </Controls.Link>
+                  &nbsp; &nbsp;
+                </Controls.Container>
+              ))}
+            </Controls.Container>
             <Controls.Container>
               There is a&nbsp;
-              <Controls.Link href='/' useNormalAnchor>
+              <Controls.Link
+                showUnderline={true}
+                linkColor={'#000'}
+                variant={'secondary'}
+                href='/'
+                useNormalAnchor
+              >
                 Link
               </Controls.Link>
               &nbsp;in this sentence
@@ -849,10 +882,13 @@ class Main extends Controls.MyComponent<
                         });
                       }}
                     >
-                      <Controls.Container fluid verticalAlign={'center'}>
+                      <Controls.Container
+                        padding={{ bottomRem: 3 }}
+                        fluid
+                        verticalAlign={'center'}
+                      >
                         <Controls.Image
                           height={100}
-                          margin={{ topPx: -50 }}
                           src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
                         <span className='normal-text small'>
@@ -877,7 +913,9 @@ class Main extends Controls.MyComponent<
                       }}
                     >
                       <Controls.Container>
-                        <Controls.Container padding={{ leftRem: 1, rightRem: 1 }}>
+                        <Controls.Container
+                          padding={{ topRem: 1, leftRem: 1, rightRem: 1, bottomRem: 2 }}
+                        >
                           <Controls.Image
                             height={100}
                             src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
@@ -1135,7 +1173,11 @@ class Main extends Controls.MyComponent<
             <Controls.Rating defaultValue={3} maxValue={3} />
             <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
             {this.variantStates.map((rating: any) => (
-              <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
+              <Controls.Container
+                key={uniqid().toString()}
+                display={'flex'}
+                alignItems={'center'}
+              >
                 <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                 &nbsp;&nbsp; {rating}
               </Controls.Container>
@@ -1260,7 +1302,12 @@ class Main extends Controls.MyComponent<
               ]}
               rows={[
                 {
-                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    '',
+                    ''
+                  ],
                   itemId: '1'
                 },
                 {
@@ -1292,7 +1339,12 @@ class Main extends Controls.MyComponent<
                   ]
                 },
                 {
-                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
+                  rowContents: [
+                    'Super Admin',
+                    'This is another not very long content.',
+                    '',
+                    ''
+                  ],
                   itemId: '3',
                   groupId: '1'
                 },
@@ -1430,8 +1482,17 @@ class Main extends Controls.MyComponent<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
-                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
-                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
+                <Controls.FormControl
+                  label={'Numbers with commas'}
+                  name='number'
+                  type={'number'}
+                />
+                <Controls.FormControl
+                  label={'$$$'}
+                  name='money'
+                  type={'money'}
+                  decimalPlace={2}
+                />
                 <Controls.FormControl
                   required
                   label={'Alpha only'}
@@ -1738,7 +1799,11 @@ class Main extends Controls.MyComponent<
                             currency={'SGD'}
                           />
 
-                          <Controls.Label className={'html'} variant={'info'} text={'Creating'} />
+                          <Controls.Label
+                            className={'html'}
+                            variant={'info'}
+                            text={'Creating'}
+                          />
                         </Controls.Container>
                       )
                     },
@@ -1749,7 +1814,12 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
+                <Controls.FormControl
+                  label={'Country'}
+                  name='country'
+                  type={'country'}
+                  required
+                />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'

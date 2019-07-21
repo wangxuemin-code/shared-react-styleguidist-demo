@@ -7,48 +7,72 @@
   display: inline-block;
   // position: relative;
 
-  &:hover {
-    text-decoration: none;
-  }
-
   &.underline {
-    &:hover {
-      text-decoration: underline;
+    border-bottom-style: solid;
+    border-width: 2px;
+    border-color: transparent;
+
+    &:hover,
+    &.show-underline {
+      border-bottom-style: solid;
+      border-width: 2px;
+      border-color: inherit;
+
+      &.primary {
+        border-color: map-get($colors, primary) !important;
+      }
+
+      &.secondary {
+        border-color: map-get($colors, secondary) !important;
+      }
+
+      &.disabled {
+        border-color: map-get($colors, primaryGreyDark) !important;
+      }
+
+      &.info {
+        border-color: map-get($colors, info) !important;
+      }
+
+      &.success {
+        border-color: map-get($colors, success) !important;
+      }
+
+      &.warning {
+        border-color: map-get($colors, warning) !important;
+      }
+
+      &.danger {
+        border-color: map-get($colors, danger) !important;
+      }
     }
   }
 
   &.primary {
     color: map-get($colors, primary);
-    text-decoration-color: map-get($colors, primary) !important;
   }
 
   &.secondary {
     color: map-get($colors, secondary);
-    text-decoration-color: map-get($colors, secondary) !important;
   }
 
   &.disabled {
     color: map-get($colors, primaryGreyDark);
-    text-decoration-color: map-get($colors, primaryGreyDark) !important;
   }
 
   &.info {
     color: map-get($colors, info);
-    text-decoration-color: map-get($colors, info) !important;
   }
 
   &.success {
     color: map-get($colors, success);
-    text-decoration-color: map-get($colors, success) !important;
   }
 
   &.warning {
     color: map-get($colors, warning);
-    text-decoration-color: map-get($colors, warning) !important;
   }
 
   &.danger {
     color: map-get($colors, danger);
-    text-decoration-color: map-get($colors, danger) !important;
   }
 }

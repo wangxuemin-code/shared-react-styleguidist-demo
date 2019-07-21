@@ -18,6 +18,10 @@
   color: map-get($colors, primaryGreyDarker);
 }
 
+textarea[disabled] {
+  color: map-get($colors, primaryGreyDarker);
+}
+
 .ant-checkbox-checked .ant-checkbox-inner {
   border-color: map-get($colors, secondary);
   background-color: map-get($colors, secondary);
@@ -193,10 +197,8 @@
   }
   .main-form-controls-wrapper {
     margin: 0 0 3rem 0;
-    height: 100%;
 
     .form-controls-wrapper {
-      height: 100%;
       display: flex;
       flex-direction: column;
     }
@@ -265,7 +267,6 @@
       display: grid;
       grid-template-columns: 10rem auto;
       align-items: center;
-      height: 100%;
 
       .form-controls-inner {
         .select-option {
