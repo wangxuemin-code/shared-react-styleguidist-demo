@@ -2599,7 +2599,6 @@ export const selected: string;
 export const transparent: string;
 export const logoAnchor: string;
 export const istoxForm: string;
-export const required: string;
 export const oldValueActive: string;
 export const formControlsInner: string;
 export const formControl: string;

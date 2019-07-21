@@ -38,27 +38,27 @@ interface IProps extends IContainer {
   oldValue?: string | number | null;
   placeholder?: any;
   type?:
-  | 'alphabet'
-  | 'text'
-  | 'number'
-  | 'numberfields'
-  | 'numeric'
-  | 'money'
-  | 'email'
-  | 'password'
-  | 'select'
-  | 'customselect'
-  | 'country'
-  | 'phone'
-  | 'countrycode'
-  | 'switch'
-  | 'radio'
-  | 'longtext'
-  | 'date'
-  | 'datetime'
-  | 'daterange'
-  | 'uploader'
-  | 'checkbox';
+    | 'alphabet'
+    | 'text'
+    | 'number'
+    | 'numberfields'
+    | 'numeric'
+    | 'money'
+    | 'email'
+    | 'password'
+    | 'select'
+    | 'customselect'
+    | 'country'
+    | 'phone'
+    | 'countrycode'
+    | 'switch'
+    | 'radio'
+    | 'longtext'
+    | 'date'
+    | 'datetime'
+    | 'daterange'
+    | 'uploader'
+    | 'checkbox';
   name?: string;
   disabled?: boolean;
   static?: boolean;
@@ -170,9 +170,6 @@ export class FormControl extends React.Component<IProps, IState> {
                         <Container className={styles.semiBold}>
                           {this.props.label}
                           {this.props.oldValue && <>&nbsp;(Old)</>}
-                          {this.props.required && (
-                            <Container className={styles.required}>&nbsp;*</Container>
-                          )}
                         </Container>
                       )}
                       {typeof this.props.label !== 'string' && (
@@ -199,9 +196,6 @@ export class FormControl extends React.Component<IProps, IState> {
                       {this.props.label}
                       {this.props.oldValue !== this.props.value && this.props.oldValue && (
                         <>&nbsp;(New)</>
-                      )}
-                      {this.props.required && (
-                        <Container className={styles.required}>&nbsp;*</Container>
                       )}
                     </Container>
                   )}
@@ -433,6 +427,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <Select
           // componentClass='select'
           // defaultMenuIsOpen
+          isDisabled={this.props.disabled}
           className={'select'}
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
@@ -440,9 +435,12 @@ export class FormControl extends React.Component<IProps, IState> {
           options={this.props.selectOptions}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           styles={{
+            placeholder: (base: any) => ({
+              ...base,
+              color: 'rgba(125, 125, 125, 0.9)'
+            }),
             control: (base: any) => ({
               ...base,
-              minHeight: '2.357rem',
               padding: '0 0.5rem'
             }),
             option: (base: any, state: any) => ({
@@ -470,6 +468,7 @@ export class FormControl extends React.Component<IProps, IState> {
       let Options = this.props.selectCustomOptions || [];
       return (
         <Select
+          isDisabled={this.props.disabled}
           className={'select'}
           // defaultMenuIsOpen
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
@@ -477,9 +476,12 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           styles={{
+            placeholder: (base: any) => ({
+              ...base,
+              color: 'rgba(125, 125, 125, 0.9)'
+            }),
             control: (base: any) => ({
               ...base,
-              minHeight: '2.357rem',
               padding: '0 0.5rem'
             }),
             option: (base: any, state: any) => ({
@@ -550,6 +552,7 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          isDisabled={this.props.disabled}
           className={'select'}
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
@@ -558,9 +561,12 @@ export class FormControl extends React.Component<IProps, IState> {
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
           styles={{
+            placeholder: (base: any) => ({
+              ...base,
+              color: 'rgba(125, 125, 125, 0.9)'
+            }),
             control: (base: any) => ({
               ...base,
-              minHeight: '2.357rem',
               padding: '0 0.5rem'
             }),
             option: (base: any, state: any) => ({
@@ -619,6 +625,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           // defaultMenuIsOpen
+          isDisabled={this.props.disabled}
           className={'select'}
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
@@ -627,9 +634,12 @@ export class FormControl extends React.Component<IProps, IState> {
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
           options={Options}
           styles={{
+            placeholder: (base: any) => ({
+              ...base,
+              color: 'rgba(125, 125, 125, 0.9)'
+            }),
             control: (base: any) => ({
               ...base,
-              minHeight: '2.357rem',
               padding: '0 0.5rem'
             }),
             option: (base: any, state: any) => ({
@@ -735,6 +745,7 @@ export class FormControl extends React.Component<IProps, IState> {
               {this.props.selectOptions.map((option, i) => {
                 return (
                   <ReactRadio
+                    disabled={this.props.disabled}
                     style={this.props.variant == 'horizontal' ? undefined : radioStyle}
                     key={i}
                     value={option.value}
@@ -752,6 +763,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <Container className={this.props.variant}>
             <ReactCheckbox.Group
+              disabled={this.props.disabled}
               options={this.props.selectOptions}
               value={this.state.valueArray}
               onChange={this.onCheckChanged}
@@ -762,7 +774,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else {
       let classes: string[] = [this.props.unit ? styles.unitPadding : ''];
 
-      classes = classes.filter(function (el) {
+      classes = classes.filter(function(el) {
         return el != '';
       });
       return (
@@ -1035,8 +1047,8 @@ export class FormControl extends React.Component<IProps, IState> {
         ? this.props.dateOptions.dateFormat
           ? this.props.dateOptions.dateFormat
           : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
-            ? 'DD/MM/YYYY hh:mm A'
-            : 'DD/MM/YYYY'
+          ? 'DD/MM/YYYY hh:mm A'
+          : 'DD/MM/YYYY'
         : 'DD/MM/YYYY';
       if (this.props.static || this.props.oldValue) {
         this.setState({
@@ -1046,13 +1058,13 @@ export class FormControl extends React.Component<IProps, IState> {
           displayValue: !re.test(value)
             ? ''
             : Formatter.unixTimestampToDate(Number(value))
-              ? moment.unix(Number(value)).format(dateFormat)
-              : '',
+            ? moment.unix(Number(value)).format(dateFormat)
+            : '',
           value: !re.test(value)
             ? ''
             : Formatter.unixTimestampToDate(Number(value))
-              ? moment.unix(Number(value)).format(dateFormat)
-              : ''
+            ? moment.unix(Number(value)).format(dateFormat)
+            : ''
         };
       } else {
         return {
@@ -1082,8 +1094,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.money(parseFloat(originalValue), {
-                decimalPlace: this.props.decimalPlace
-              }) + appendDot,
+                  decimalPlace: this.props.decimalPlace
+                }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         } else if (this.props.type === 'number') {
@@ -1100,8 +1112,8 @@ export class FormControl extends React.Component<IProps, IState> {
             displayValue: isNaN(parseFloat(originalValue))
               ? ''
               : Formatter.number(parseFloat(originalValue), {
-                decimalPlace: this.props.decimalPlace
-              }) + appendDot,
+                  decimalPlace: this.props.decimalPlace
+                }) + appendDot,
             value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
           };
         }

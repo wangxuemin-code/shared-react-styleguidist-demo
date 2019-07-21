@@ -11,6 +11,7 @@ interface ILink extends IContainer {
   useNormalAnchor?: boolean;
   onClick?: () => void;
   target?: '_blank' | '_self' | '_parent' | '_top';
+  linkColor?: string;
 }
 
 export class Link extends React.Component<ILink> {
@@ -30,12 +31,18 @@ export class Link extends React.Component<ILink> {
       return el != '';
     });
 
+    let style: React.CSSProperties = this.props.style || {};
+
+    if (this.props.linkColor) {
+      style.color = this.props.linkColor;
+    }
+
     var { useNormalAnchor, ...linkProps } = this.props;
     if (this.props.href) {
       if (useNormalAnchor) {
         return (
           <a target={this.props.target} href={this.props.href}>
-            <Container className={classes.join(' ')} {...linkProps}>
+            <Container style={style} className={classes.join(' ')} {...linkProps}>
               {this.props.children}
             </Container>
           </a>
@@ -43,7 +50,7 @@ export class Link extends React.Component<ILink> {
       } else {
         return (
           <ReactRouterLink to={this.props.href}>
-            <Container className={classes.join(' ')} {...linkProps}>
+            <Container style={style} className={classes.join(' ')} {...linkProps}>
               {this.props.children}
             </Container>
           </ReactRouterLink>
@@ -52,7 +59,7 @@ export class Link extends React.Component<ILink> {
     } else {
       return (
         <a target={this.props.target} onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
-          <Container className={classes.join(' ')} {...linkProps}>
+          <Container style={style} className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>
         </a>

@@ -195,7 +195,9 @@ class Main extends Controls.MyComponent<
             ]}
             subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
             notificationUnread={true}
-            onNotificationVisibleChanged={() => { console.log("on show notification"); }}
+            onNotificationVisibleChanged={() => {
+              console.log('on show notification');
+            }}
             notifications={[
               {
                 header: 'Notifications',
@@ -214,7 +216,9 @@ class Main extends Controls.MyComponent<
                             <span>1 min ago</span>
                           </Controls.Container>
                         ),
-                        onClick: () => { console.log("notification on click"); }
+                        onClick: () => {
+                          console.log('notification on click');
+                        }
                       },
                       {
                         icon: (
@@ -227,7 +231,9 @@ class Main extends Controls.MyComponent<
                             <span>1 min ago</span>
                           </Controls.Container>
                         ),
-                        onClick: () => { console.log("notification on click"); }
+                        onClick: () => {
+                          console.log('notification on click');
+                        }
                       }
                     ]
                   },
@@ -245,7 +251,9 @@ class Main extends Controls.MyComponent<
                             <span>1 min ago</span>
                           </Controls.Container>
                         ),
-                        onClick: () => { console.log("notification on click"); }
+                        onClick: () => {
+                          console.log('notification on click');
+                        }
                       }
                     ]
                   }
@@ -501,6 +509,16 @@ class Main extends Controls.MyComponent<
               {this.variantStates.map((link: any) => (
                 <Controls.Container key={uniqid().toString()}>
                   <Controls.Link underline={false} variant={link} useNormalAnchor>
+                    {link.toUpperCase()}
+                  </Controls.Link>
+                  &nbsp; &nbsp;
+                </Controls.Container>
+              ))}
+            </Controls.Container>
+            <Controls.Container display={'flex'}>
+              {this.variantStates.map((link: any) => (
+                <Controls.Container key={uniqid().toString()}>
+                  <Controls.Link linkColor={'#000'} variant={link} useNormalAnchor>
                     {link.toUpperCase()}
                   </Controls.Link>
                   &nbsp; &nbsp;
@@ -825,6 +843,11 @@ class Main extends Controls.MyComponent<
                       type='uploader'
                       value={this.state.imageUrl}
                       uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                      onInputChanged={(value: any) => {
+                        this.setState({
+                          imageUrl: value
+                        });
+                      }}
                     >
                       <Controls.Container fluid verticalAlign={'center'}>
                         <Controls.Image
@@ -895,7 +918,6 @@ class Main extends Controls.MyComponent<
                       </Controls.Container>
                     </Controls.FormControl>
                   </Controls.Container>
-                  
                 </Controls.Container>
                 <Controls.Button
                   type='submit'
@@ -1497,7 +1519,6 @@ class Main extends Controls.MyComponent<
                       <h6>
                         Date <br /> (DD-MM-YYYY)
                       </h6>
-                      <Controls.Container className='required'>*</Controls.Container>
                     </>
                   }
                   placeholder='Only DD-MM-YYYY format is allowed'
