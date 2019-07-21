@@ -1,9 +1,21 @@
+::placeholder {
+  color: map-get($colors, primaryGreyDarker);
+}
+
+.ant-input::placeholder {
+  color: map-get($colors, primaryGreyDarker);
+}
+
 .ant-radio-checked .ant-radio-inner {
   border-color: map-get($colors, secondary);
 
   &::after {
     background-color: map-get($colors, secondary);
   }
+}
+
+.ant-input[disabled] {
+  color: map-get($colors, primaryGreyDarker);
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
@@ -21,7 +33,16 @@
 }
 
 .ant-input-prefix {
+  left: 0.5rem !important;
   color: map-get($colors, primaryGrey) !important;
+}
+
+.ant-input-affix-wrapper .ant-input-suffix {
+  right: 0.5rem !important;
+}
+
+.ant-input-affix-wrapper .ant-input:not(:first-child) {
+  padding-left: 2rem;
 }
 
 .ant-checkbox-group-item {
@@ -30,10 +51,6 @@
 
 .istox-form {
   margin: auto;
-  .required {
-    color: map-get($colors, danger);
-    display: inline-block;
-  }
   .old-value-active {
     opacity: 0.5;
 
@@ -56,9 +73,13 @@
   .form-controls-inner {
     flex: 1;
     position: relative;
+    display: flex;
 
     .unit-padding {
-      padding-right: 50px;
+      input {
+        padding-right: 50px;
+      }
+
       text-align: right;
     }
 
@@ -80,12 +101,8 @@
     border-radius: 0;
     height: auto;
     padding: 0;
-    min-height: 31px;
+    min-height: 37px !important;
     font-size: 1.143rem;
-  }
-  input,
-  .select {
-    height: 31px;
   }
 
   input:hover,
@@ -109,8 +126,8 @@
     }
     > div {
       min-height: auto;
-      height: 31px;
-      border-bottom: 1px solid map-get($colors, primaryGrey);
+      height: 36px;
+      background-color: transparent !important;
 
       > div {
         height: auto !important;
@@ -187,6 +204,10 @@
   .form-group {
     margin-bottom: 0;
 
+    > div {
+      margin-right: 1rem;
+      width: 100%;
+    }
     > div:last-child {
       margin-right: 0;
     }

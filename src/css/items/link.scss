@@ -9,15 +9,6 @@
 
   &:hover {
     text-decoration: none;
-    // &:after {
-    //   width: 100%;
-    //   content: '';
-    //   display: block;
-    //   border-bottom: 1px solid map-get($colors, primary);
-    //   position: absolute;
-    //   top: 1.2rem;
-    //   left: 0;
-    // }
   }
 
   &.underline {
@@ -26,47 +17,38 @@
     }
   }
 
-  // &.medium {
-  //   &:hover {
-  //     &:after {
-  //       top: 1.3rem;
-  //     }
-  //   }
-  // }
-
-  // &.large {
-  //   &:hover {
-  //     &:after {
-  //       top: 1.5rem;
-  //     }
-  //   }
-  // }
-
   &.primary {
     color: map-get($colors, primary);
+    text-decoration-color: map-get($colors, primary) !important;
   }
 
   &.secondary {
     color: map-get($colors, secondary);
+    text-decoration-color: map-get($colors, secondary) !important;
   }
 
   &.disabled {
     color: map-get($colors, primaryGreyDark);
+    text-decoration-color: map-get($colors, primaryGreyDark) !important;
   }
 
   &.info {
     color: map-get($colors, info);
+    text-decoration-color: map-get($colors, info) !important;
   }
 
   &.success {
     color: map-get($colors, success);
+    text-decoration-color: map-get($colors, success) !important;
   }
 
   &.warning {
     color: map-get($colors, warning);
+    text-decoration-color: map-get($colors, warning) !important;
   }
 
   &.danger {
     color: map-get($colors, danger);
+    text-decoration-color: map-get($colors, danger) !important;
   }
 }

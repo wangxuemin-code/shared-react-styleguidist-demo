@@ -102,16 +102,11 @@ export class Phone extends React.Component<IProps, IState> {
     };
     return (
       <Container fluid display={'flex'}>
-        <Container display={'flex'}>
+        <Container display={'flex'} margin={{ rightRem: 1 }}>
           <Container width={120}>
             {this.props.showPhoneLabel && (
               <label className={styles.semiBold}>
-                <Container className={styles.semiBold}>
-                  Area Code
-                  {this.props.required && (
-                    <Container className={styles.required}>&nbsp;*</Container>
-                  )}
-                </Container>
+                <Container className={styles.semiBold}>Area Code</Container>
               </label>
             )}
 
@@ -126,9 +121,12 @@ export class Phone extends React.Component<IProps, IState> {
               options={Options}
               isDisabled={this.props.loading}
               styles={{
+                placeholder: (base: any) => ({
+                  ...base,
+                  color: 'rgba(125, 125, 125, 0.9)'
+                }),
                 control: (base: any) => ({
                   ...base,
-                  minHeight: '2.357rem',
                   padding: '0 0.5rem'
                 }),
                 option: (base: any, state: any) => ({
@@ -139,20 +137,13 @@ export class Phone extends React.Component<IProps, IState> {
             />
           </Container>
         </Container>
-        &nbsp;&nbsp;
         <Container fluid display={'flex'} className={styles.flex1}>
           <Container fluid>
             {this.props.showPhoneLabel && (
               <label>
-                <Container className={styles.semiBold}>
-                  Phone Number
-                  {this.props.required && (
-                    <Container className={styles.required}>&nbsp;*</Container>
-                  )}
-                </Container>
+                <Container className={styles.semiBold}>Phone Number</Container>
               </label>
             )}
-
             <Container display={'flex'}>
               <Container fluid>
                 <ReactInput
@@ -165,9 +156,9 @@ export class Phone extends React.Component<IProps, IState> {
                   onChange={this.onChange}
                 />
               </Container>
-              &nbsp;&nbsp;
-              <Container>
-                {this.props.onSendCode && (
+
+              {this.props.onSendCode && (
+                <Container margin={{ leftRem: 1 }}>
                   <Button
                     disabled={!this.state.phoneCode || !this.state.phoneNumber}
                     loading={
@@ -198,8 +189,8 @@ export class Phone extends React.Component<IProps, IState> {
                       ? 'Resend Code'
                       : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
                   </Button>
-                )}
-              </Container>
+                </Container>
+              )}
             </Container>
           </Container>
         </Container>

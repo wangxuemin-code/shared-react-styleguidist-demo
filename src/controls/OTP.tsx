@@ -229,10 +229,7 @@ export class OtpInput extends React.Component<IProps, IState> {
             </Item>
             <Divider visibility={'hidden'} />
             <label>
-              <Container className={styles.semiBold}>
-                Enter Code
-                {this.props.required && <Container className={styles.required}>&nbsp;*</Container>}
-              </Container>
+              <Container className={styles.semiBold}>Enter Code</Container>
             </label>
           </>
         )}
