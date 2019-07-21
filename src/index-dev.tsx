@@ -207,11 +207,7 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -226,11 +222,7 @@ class Main extends Controls.MyComponent<
                       },
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -250,11 +242,7 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -1147,11 +1135,7 @@ class Main extends Controls.MyComponent<
             <Controls.Rating defaultValue={3} maxValue={3} />
             <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
             {this.variantStates.map((rating: any) => (
-              <Controls.Container
-                key={uniqid().toString()}
-                display={'flex'}
-                alignItems={'center'}
-              >
+              <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
                 <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                 &nbsp;&nbsp; {rating}
               </Controls.Container>
@@ -1276,12 +1260,7 @@ class Main extends Controls.MyComponent<
               ]}
               rows={[
                 {
-                  rowContents: [
-                    'Super Admin',
-                    'This is another not very long content.',
-                    '',
-                    ''
-                  ],
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
                 {
@@ -1313,12 +1292,7 @@ class Main extends Controls.MyComponent<
                   ]
                 },
                 {
-                  rowContents: [
-                    'Super Admin',
-                    'This is another not very long content.',
-                    '',
-                    ''
-                  ],
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '3',
                   groupId: '1'
                 },
@@ -1456,17 +1430,8 @@ class Main extends Controls.MyComponent<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
-                <Controls.FormControl
-                  label={'Numbers with commas'}
-                  name='number'
-                  type={'number'}
-                />
-                <Controls.FormControl
-                  label={'$$$'}
-                  name='money'
-                  type={'money'}
-                  decimalPlace={2}
-                />
+                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
+                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl
                   required
                   label={'Alpha only'}
@@ -1773,11 +1738,7 @@ class Main extends Controls.MyComponent<
                             currency={'SGD'}
                           />
 
-                          <Controls.Label
-                            className={'html'}
-                            variant={'info'}
-                            text={'Creating'}
-                          />
+                          <Controls.Label className={'html'} variant={'info'} text={'Creating'} />
                         </Controls.Container>
                       )
                     },
@@ -1788,12 +1749,7 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl
-                  label={'Country'}
-                  name='country'
-                  type={'country'}
-                  required
-                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
