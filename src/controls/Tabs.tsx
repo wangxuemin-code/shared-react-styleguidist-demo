@@ -24,6 +24,7 @@ interface IProps extends IContainer {
   id?: string;
   extraControls?: any;
   animated?: boolean | { inkBar: boolean; tabPane: boolean };
+  lazyLoad?: boolean;
 }
 
 interface IState {
@@ -34,7 +35,8 @@ export class Tabs extends React.Component<IProps, IState> {
   public static defaultProps = {
     selectedIndex: 0,
     orientation: 'horizontal',
-    tabsContentOrientation: 'inline'
+    tabsContentOrientation: 'inline',
+    lazyLoad: false
   };
 
   constructor(props: IProps) {
@@ -95,7 +97,12 @@ export class Tabs extends React.Component<IProps, IState> {
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (
-            <TabPane key={i.toString()} tab={tab.title} disabled={tab.disabled}>
+            <TabPane
+              key={i.toString()}
+              tab={tab.title}
+              disabled={tab.disabled}
+              forceRender={!this.props.lazyLoad}
+            >
               {tab.contents}
             </TabPane>
           ))}
