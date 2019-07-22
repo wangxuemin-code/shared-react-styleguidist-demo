@@ -437,11 +437,12 @@ export class FormControl extends React.Component<IProps, IState> {
           styles={{
             placeholder: (base: any) => ({
               ...base,
-              color: 'rgba(125, 125, 125, 0.9)'
+              color: 'rgba(125, 125, 125, 1)'
             }),
             control: (base: any) => ({
               ...base,
-              padding: '0 0.5rem'
+              padding: '0 0.5rem',
+              color: 'rgba(0, 0, 0, 0.9)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -478,11 +479,12 @@ export class FormControl extends React.Component<IProps, IState> {
           styles={{
             placeholder: (base: any) => ({
               ...base,
-              color: 'rgba(125, 125, 125, 0.9)'
+              color: 'rgba(125, 125, 125, 1)'
             }),
             control: (base: any) => ({
               ...base,
-              padding: '0 0.5rem'
+              padding: '0 0.5rem',
+              color: 'rgba(0, 0, 0, 0.9)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -563,11 +565,12 @@ export class FormControl extends React.Component<IProps, IState> {
           styles={{
             placeholder: (base: any) => ({
               ...base,
-              color: 'rgba(125, 125, 125, 0.9)'
+              color: 'rgba(125, 125, 125, 1)'
             }),
             control: (base: any) => ({
               ...base,
-              padding: '0 0.5rem'
+              padding: '0 0.5rem',
+              color: 'rgba(0, 0, 0, 0.9)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -636,11 +639,12 @@ export class FormControl extends React.Component<IProps, IState> {
           styles={{
             placeholder: (base: any) => ({
               ...base,
-              color: 'rgba(125, 125, 125, 0.9)'
+              color: 'rgba(125, 125, 125, 1)'
             }),
             control: (base: any) => ({
               ...base,
-              padding: '0 0.5rem'
+              padding: '0 0.5rem',
+              color: 'rgba(0, 0, 0, 0.9)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -720,6 +724,7 @@ export class FormControl extends React.Component<IProps, IState> {
             viewer={this.props.uploaderConfigs!.viewer}
             filePatterns={this.props.uploaderConfigs!.filePatterns}
             customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
+            resetFormControl={this.reset}
           >
             {this.props.children}
           </FileUploader>
@@ -946,6 +951,12 @@ export class FormControl extends React.Component<IProps, IState> {
   private validateValueCanChanged(value: string): boolean {
     if (this.props.type == 'password') {
       if (/\s/.test(value)) {
+        return false;
+      }
+    }
+    if (this.props.type === 'numeric') {
+      const re = /^\d+$/;
+      if (value && !re.test(String(value))) {
         return false;
       }
     }

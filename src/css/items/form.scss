@@ -36,6 +36,13 @@ textarea[disabled] {
   border-color: map-get($colors, secondary);
 }
 
+// .ant-checkbox-group,
+// .ant-radio-group {
+//   label {
+//     font-size: 1.143rem;
+//   }
+// }
+
 .ant-input-prefix {
   left: 0.5rem !important;
   color: map-get($colors, primaryGrey) !important;

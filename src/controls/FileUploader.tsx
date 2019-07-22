@@ -1,11 +1,11 @@
-import { faFilePdf, faSearchPlus } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { Container } from '.';
 import * as styles from '../css/main.scss';
 import { Confirm } from './Confirm';
-import { Icon } from './Icon';
+import { Image } from './Image';
 import { Link } from './Link';
 import { Modal } from './Modal';
+import { Spin as ReactSpin, Icon as ReactIcon } from 'antd';
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
@@ -19,6 +19,7 @@ interface IProps {
   disabled?: boolean;
   filePatterns?: FilePattern[];
   customAllowFileExtensions?: string[];
+  resetFormControl?: () => void;
 }
 
 interface IState {
@@ -28,6 +29,9 @@ interface IState {
   fileData?: any;
   uploaded: boolean;
   showViewer: boolean;
+  fileName?: string;
+  dragOver?: boolean;
+  loading?: boolean;
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
@@ -55,71 +59,31 @@ export default class FileUploader extends React.Component<IProps, IState> {
         if (extension == 'pdf') {
           this.setState({
             src: value,
-            type: 'pdf'
+            type: 'pdf',
+            fileName: ''
           });
         } else {
           this.setState({
             src: value,
-            type: 'image'
+            type: 'image',
+            fileName: ''
           });
         }
       } else if (value === undefined) {
         this.setState({
           src: '',
-          type: this.getExtensionType()
+          type: this.getExtensionType(),
+          fileName: ''
         });
       }
     }
   }
 
   public render() {
-    let state = this.state;
-    let labelClass = `uploader ${state.src && 'loaded'}`;
-    let classes: string[] = [labelClass, this.props.disabled ? styles.disabled : ''];
-    classes = classes.filter(function(el) {
-      return el != '';
-    });
-
     return (
       <>
-        {this.props.viewer && this.props.children && (
-          <Modal onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
-            {this.state.type !== 'pdf' && <Container fluid>{this.props.children}</Container>}
-          </Modal>
-        )}
-        <Container position={'relative'} widthPercent={100} heightPercent={100}>
-          <label
-            onDragEnter={this.onDragEnter}
-            onDragLeave={this.onDragLeave}
-            onDragOver={this.onDragOver}
-            onDrop={this.onDrop}
-            className={classes.join(' ')}
-          >
-            {this.props.uploaderLabel && (
-              <Container className={styles.uploaderLabel}>{this.props.uploaderLabel}</Container>
-            )}
-            {this.getContentDesign()}
-            <input
-              type='file'
-              accept={this.getAllowFileRules().join(',')}
-              onChange={this.onFileChange}
-              disabled={this.props.disabled}
-            />
-          </label>
-          {this.props.viewer && this.props.children && this.state.type !== 'pdf' && (
-            <Icon
-              onClick={this.openViewer.bind(this)}
-              size={'large'}
-              className={styles.uploaderViewer}
-              icon={faSearchPlus}
-            />
-          )}
-          {this.props.viewer && this.props.children && this.state.type === 'pdf' && (
-            <Link target='_blank' href={this.props.value} useNormalAnchor={true}>
-              <Icon size={'large'} className={styles.uploaderViewer} icon={faSearchPlus} />
-            </Link>
-          )}
-        </Container>
+        {this.state.loading && this.isLoading(this.getUploaderDesign())}
+        {!this.state.loading && this.getUploaderDesign()}
       </>
     );
   }
@@ -166,11 +130,11 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   private onDragEnter = () => {
-    // this.setState({ active: true });
+    this.setState({ dragOver: true });
   };
 
   private onDragLeave = () => {
-    // this.setState({ active: false });
+    this.setState({ dragOver: false });
   };
 
   private onDragOver = (e: any) => {
@@ -182,59 +146,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
     this.onFileChange(e, e.dataTransfer.files[0]);
   };
 
-  private onFileChange = (e: React.FormEvent<HTMLInputElement>, inputFile?: File) => {
-    let file = inputFile || (e.target as any).files[0],
-      pattern = this.getAllowFileRules().join('|'),
-      reader = new FileReader();
-
-    if (file) {
-      if (!file.type.match(pattern)) {
-        Confirm.show({
-          type: 'okonly',
-          message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
-          onResult: (result) => {
-            // console.log(result);
-          }
-        });
-        return;
-      }
-
-      if (file.size > 10485760) {
-        Confirm.show({
-          type: 'okonly',
-          message: 'The maximum file size for upload is 10MB',
-          onResult: (result) => {
-            // console.log(result);
-          }
-        });
-        return;
-      }
-
-      reader.onload = (e) => {
-        if (file.type.split('/')[0] === 'image') {
-          this.setState(
-            {
-              src: reader.result as string,
-              type: 'image',
-              extension: this.getExtension(file.name),
-              uploaded: false
-            },
-            this.onValueChanged
-          );
-        } else if (file.type === 'application/pdf') {
-          this.setState(
-            {
-              src: reader.result as string,
-              type: 'pdf',
-              extension: this.getExtension(file.name),
-              uploaded: false
-            },
-            this.onValueChanged
-          );
-        }
-      };
-      reader.readAsDataURL(file);
-    }
+  private isLoading = (children: any) => {
+    const spinnerIcon = <ReactIcon type='sync' style={{ fontSize: 24 }} spin />;
+    return (
+      <ReactSpin style={{ color: '#000' }} indicator={spinnerIcon} tip='uploading'>
+        {children}
+      </ReactSpin>
+    );
   };
 
   private onValueChanged = () => {
@@ -289,20 +207,104 @@ export default class FileUploader extends React.Component<IProps, IState> {
       .toLowerCase();
   }
 
+  private getUploaderDesign() {
+    let state = this.state;
+    let labelClass = `uploader ${state.src && 'loaded'}`;
+    let classes: string[] = [
+      labelClass,
+      this.props.disabled ? styles.disabled : '',
+      this.state.dragOver ? styles.dragOver : ''
+    ];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+    return (
+      <>
+        {this.props.viewer && (
+          <Modal onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
+            {this.state.type !== 'pdf' && (
+              <Container fluid>{this.props.children || <Image src={this.props.value} />}</Container>
+            )}
+          </Modal>
+        )}
+        <Container position={'relative'} widthPercent={100} heightPercent={100}>
+          <label
+            onDragEnter={this.onDragEnter}
+            onDragLeave={this.onDragLeave}
+            onDragOver={this.onDragOver}
+            onDrop={this.onDrop}
+            className={classes.join(' ')}
+          >
+            {this.props.uploaderLabel && (
+              <Container className={styles.uploaderLabel}>{this.props.uploaderLabel}</Container>
+            )}
+            {this.getContentDesign()}
+            <input
+              type='file'
+              accept={this.getAllowFileRules().join(',')}
+              onChange={this.onFileChange}
+              disabled={this.props.disabled}
+            />
+          </label>
+          {this.props.viewer && this.state.type !== 'pdf' && (
+            <ReactIcon
+              onClick={this.openViewer.bind(this)}
+              className={styles.uploaderViewer}
+              style={{ fontSize: 24 }}
+              type={'eye'}
+            />
+          )}
+          {this.props.viewer && this.state.type === 'pdf' && (
+            <Link target='_blank' href={this.props.value} useNormalAnchor={true}>
+              <ReactIcon className={styles.uploaderViewer} style={{ fontSize: 24 }} type={'eye'} />
+            </Link>
+          )}
+        </Container>
+      </>
+    );
+  }
+
   private getContentDesign() {
     if (this.state.src) {
       if (this.state.type === 'image') {
         return (
-          <>
-            <img src={this.state.src} />
-          </>
+          <Container>
+            <Container
+              position='relative'
+              textAlign='center'
+              padding={{
+                topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
+                bottomRem: 1,
+                leftRightRem: 1
+              }}
+            >
+              <img src={this.state.src} />
+              <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
+                <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+                  {this.state.fileName}
+                  {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+                </Container>
+              </Container>
+            </Container>
+          </Container>
         );
       } else if (this.state.type === 'pdf') {
         return (
-          <Container position='relative' textAlign='center'>
-            <Icon className={styles.fileIcon} icon={faFilePdf} />
-            <Container classNames={[styles.normalText, styles.small]} margin={{ topPx: 5 }}>
-              {!this.state.uploaded ? 'Pending upload' : 'Saved'}
+          <Container
+            position='relative'
+            textAlign='center'
+            padding={{
+              topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
+              bottomRem: 1,
+              leftRightRem: 1
+            }}
+          >
+            <ReactIcon className={styles.fileIcon} type={'file-pdf'} />
+            <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
+              <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+                {this.state.fileName}
+                {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+              </Container>
             </Container>
           </Container>
         );
@@ -310,6 +312,75 @@ export default class FileUploader extends React.Component<IProps, IState> {
     } else {
       return this.props.children;
     }
+  }
+
+  private handleFileChange = async (file: any) => {
+    this.props.resetFormControl!;
+    file.preview = await this.getBase64(file);
+    if (file.type.split('/')[0] === 'image') {
+      this.setState(
+        {
+          src: file.preview as string,
+          type: 'image',
+          extension: this.getExtension(file.name),
+          uploaded: false,
+          fileName: file.name
+        },
+        this.onValueChanged
+      );
+    } else if (file.type === 'application/pdf') {
+      this.setState(
+        {
+          src: file.preview as string,
+          type: 'pdf',
+          extension: this.getExtension(file.name),
+          uploaded: false,
+          fileName: file.name
+        },
+        this.onValueChanged
+      );
+    }
+  };
+
+  private onFileChange = (e: any, inputFile?: File) => {
+    let file = inputFile || (e.target as any).files[0],
+      pattern = this.getAllowFileRules().join('|');
+    if (file) {
+      this.setState({ loading: true });
+      if (!file.type.match(pattern)) {
+        this.setState({ loading: false });
+        Confirm.show({
+          type: 'okonly',
+          message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
+          onResult: (result) => {}
+        });
+        e.target.value = '';
+        return false;
+      }
+      if (file.size > 10485760) {
+        this.setState({ loading: false });
+        Confirm.show({
+          type: 'okonly',
+          message: 'The maximum file size for upload is 10MB',
+          onResult: (result) => {}
+        });
+        e.target.value = '';
+        return false;
+      }
+      this.handleFileChange(file);
+    }
+  };
+
+  private getBase64(file: any) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        resolve(reader.result);
+        this.setState({ loading: false });
+      };
+      reader.onerror = (error) => reject(error);
+    });
   }
 
   private validURL(str: any) {

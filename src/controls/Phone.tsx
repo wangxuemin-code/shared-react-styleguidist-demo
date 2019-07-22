@@ -127,7 +127,8 @@ export class Phone extends React.Component<IProps, IState> {
                 }),
                 control: (base: any) => ({
                   ...base,
-                  padding: '0 0.5rem'
+                  padding: '0 0.5rem',
+                  color: 'rgba(0, 0, 0, 0.9)'
                 }),
                 option: (base: any, state: any) => ({
                   ...base,

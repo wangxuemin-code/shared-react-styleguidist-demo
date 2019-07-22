@@ -1,6 +1,6 @@
 .ant-progress-bg {
   line-height: 1rem;
-  transition: width 0.3s ease-in-out;
+  transition: width $transitionLinear;
   background-color: map-get($colors, primaryGreyDark);
 }
 .istox-progress {

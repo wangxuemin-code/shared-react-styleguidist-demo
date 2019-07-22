@@ -462,6 +462,9 @@ class Main extends Controls.MyComponent<
               <Controls.Icon icon={faPlus} />
               Icon
             </Controls.Button>
+            <Controls.Button href={'https://istox.com'} variant='primary'>
+              Button Link
+            </Controls.Button>
             <Controls.Button
               variant='primary'
               subText={<span className='small'>Back to Residential / Mailing</span>}
@@ -901,31 +904,18 @@ class Main extends Controls.MyComponent<
                   <Controls.Container height={200} width={200}>
                     <Controls.FormControl
                       required
-                      label='Image uploader disabled '
+                      label='Image uploader'
                       name='uploadviewer'
                       type='uploader'
-                      disabled
-                      value={''}
+                      value={
+                        'https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
+                      }
                       uploaderConfigs={{
                         customAllowFileExtensions: ['.pdf'],
                         viewer: true,
                         label: 'Image'
                       }}
-                    >
-                      <Controls.Container>
-                        <Controls.Container
-                          padding={{ topRem: 1, leftRem: 1, rightRem: 1, bottomRem: 2 }}
-                        >
-                          <Controls.Image
-                            height={100}
-                            src='https://v.fastcdn.co/t/fb1fdb8c/ebe0efb9/1559806595-42933764-ghost-shutterstock-1898204.jpg'
-                          />
-                        </Controls.Container>
-                        <Controls.Container fluid verticalAlign={'center'}>
-                          <span className='small normal-text'>file-name-doc_1.jpg</span>
-                        </Controls.Container>
-                      </Controls.Container>
-                    </Controls.FormControl>
+                    />
                   </Controls.Container>
                   <Controls.Container height={200} width={200}>
                     <Controls.FormControl
@@ -1565,7 +1555,7 @@ class Main extends Controls.MyComponent<
                       textAlign={'center'}
                       type={'submit'}
                       onPress={() => {
-                        this.setState({ value: 770169600, loading: false });
+                        this.setState({ value: 946656000, loading: false });
                       }}
                     >
                       Change Date

@@ -38,7 +38,7 @@ $borderRadius: 0;
   min-width: 7.857rem;
   border: 2px solid map-get($colors, primary);
   font-weight: 600;
-  transition: 0.3s ease-in-out;
+  transition: $transitionLinear;
 
   &.tiny {
     padding: 0.1429rem;

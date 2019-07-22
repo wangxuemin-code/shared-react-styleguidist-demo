@@ -7,7 +7,7 @@
     position: absolute;
     right: 5px;
     top: 1px;
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: none;
     color: map-get($colors, primary);
     cursor: pointer;
@@ -21,13 +21,18 @@
 
 .uploader-viewer {
   position: absolute;
-  top: 3px;
+  top: 5px;
   right: 5px;
   color: map-get($colors, primaryGreyDark);
   cursor: pointer;
 }
 .uploader-viewer:hover {
   color: map-get($colors, primary);
+}
+
+:global(.ant-spin-nested-loading > div > .ant-spin) {
+  background: #fff;
+  border: 2px dashed map-get($colors, primaryGreyLight);
 }
 .uploader {
   align-items: center;
@@ -50,6 +55,7 @@
     background-color: map-get($colors, primaryGreyDarker);
     padding: 0 0.5rem;
     color: map-get($colors, primaryAlt);
+    z-index: 999;
   }
 
   &.disabled {
@@ -90,7 +96,6 @@
     opacity: 1;
     max-height: 100%;
     max-width: 100%;
-    margin: 0.5rem;
   }
 }
 

@@ -1,6 +1,6 @@
 .sub-menu {
   min-width: 11.43rem;
-  background-color: map-get($colors, primaryAlt);
+  background-color: map-get($colors, primaryAltActive);
   text-align: center;
   border-radius: 0;
   box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
@@ -32,7 +32,7 @@
   .notification {
     padding: 1rem;
     border-top: 1px solid map-get($colors, primaryGrey);
-    background: map-get($colors, primaryAlt);
+    background: map-get($colors, primaryAltActive);
     display: flex;
     align-items: center;
     border-radius: 0;
@@ -68,7 +68,7 @@
     height: $headerHeight;
     padding: 2px 1.071rem 0;
     position: relative;
-    transition: 0.25s;
+    transition: $transitionLinear;
 
     .notification-unread {
       width: 8px;
@@ -95,7 +95,7 @@
 
   .user-action {
     font-size: 1rem;
-    transition: 0.25s;
+    transition: $transitionLinear;
     display: flex;
     justify-content: center;
     align-items: center;

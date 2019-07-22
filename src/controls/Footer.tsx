@@ -74,6 +74,7 @@ export class Footer extends React.Component<IProps, any> {
                 <Grid.Col col={3}>
                   <Container float={'right'}>
                     <Link
+                      underline={false}
                       padding={{ rightRem: 1 }}
                       target='_blank'
                       href='https://www.linkedin.com/company/istox/'
@@ -82,6 +83,7 @@ export class Footer extends React.Component<IProps, any> {
                       <Icon size='small' icon={faLinkedin} />
                     </Link>
                     <Link
+                      underline={false}
                       target='_blank'
                       href='https://twitter.com/istoxexchange'
                       useNormalAnchor={true}
@@ -101,14 +103,14 @@ export class Footer extends React.Component<IProps, any> {
               <Grid.Col col={6}>
                 <Container className={'small'} float={'right'}>
                   <Link
-                    padding={{ rightRem: 1 }}
+                    margin={{ rightRem: 1 }}
                     href='https://www.istox.com/legal#terms'
                     useNormalAnchor={true}
                   >
                     Terms and Condition
                   </Link>
                   <Link
-                    padding={{ rightRem: 1 }}
+                    margin={{ rightRem: 1 }}
                     href='https://www.istox.com/legal#privacy'
                     useNormalAnchor={true}
                   >

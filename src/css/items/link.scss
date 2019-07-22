@@ -5,7 +5,7 @@
   font-weight: inherit;
   font-family: inherit;
   display: inline-block;
-  // position: relative;
+  transition: $transitionLinear;
 
   &.underline {
     border-bottom-style: solid;

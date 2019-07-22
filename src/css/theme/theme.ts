@@ -32,7 +32,7 @@ export const stylings = {
     secondary: 'rgba(59, 228, 193, 0.9)' /* #3BE4C1 */,
     primaryAlt: 'rgba(255, 255, 255, 0.9)' /* #FFFFFF */,
     primaryDark: 'rgba(0, 0, 0, 0.9)' /* #000000 */,
-    primaryGreyDarker: 'rgba(125, 125, 125, 0.9)' /* #7D7D7D */,
+    primaryGreyDarker: 'rgba(125, 125, 125, 1)' /* #7D7D7D */,
     primaryGreyDark: 'rgba(125, 125, 125, 0.7)' /* #7D7D7D */,
     primaryGrey: 'rgba(125, 125, 125, 0.5)' /* #7D7D7D */,
     primaryGreyLight: 'rgba(125, 125, 125, 0.3)' /* #7D7D7D */,

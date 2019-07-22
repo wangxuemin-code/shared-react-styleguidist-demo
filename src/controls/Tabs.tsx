@@ -148,7 +148,7 @@ export class Tabs extends React.Component<IProps, IState> {
   }
 
   private handleSelect = (index: any) => {
-    console.log(this.state.selectedIndex, index);
+    // console.log(this.state.selectedIndex, index);
     if (this.state.selectedIndex != index) {
       this.setState({ selectedIndex: index });
     }

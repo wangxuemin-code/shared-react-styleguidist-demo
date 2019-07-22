@@ -40,7 +40,7 @@ export class Button extends React.Component<IButton, any> {
       this.props.loading ? styles.loading : ''
     ];
 
-    classes = classes.filter(function (el) {
+    classes = classes.filter(function(el) {
       return el != '';
     });
 
@@ -51,7 +51,11 @@ export class Button extends React.Component<IButton, any> {
     }
 
     if (this.props.href && !this.props.disabled) {
-      return <Link href={this.props.href}>{this.getButtonDesign(style, classes)}</Link>;
+      return (
+        <Link underline={false} useNormalAnchor href={this.props.href}>
+          {this.getButtonDesign(style, classes)}
+        </Link>
+      );
     } else {
       if (this.props.classNames) {
         classes = classes.concat(this.props.classNames);
@@ -84,12 +88,12 @@ export class Button extends React.Component<IButton, any> {
                 this.props.size == 'large'
                   ? 18
                   : this.props.size == 'medium'
-                    ? 16
-                    : this.props.size == 'small'
-                      ? 14
-                      : this.props.size == 'tiny'
-                        ? 12
-                        : 16
+                  ? 16
+                  : this.props.size == 'small'
+                  ? 14
+                  : this.props.size == 'tiny'
+                  ? 12
+                  : 16
               }
               loading
             />
