@@ -19,6 +19,7 @@ interface IProps extends IContainer {
   deleteControl?: any;
   cloneLabel?: boolean;
   isIncludeInFormData?: boolean;
+  minItem?: number;
 }
 
 interface IState {
@@ -32,7 +33,8 @@ export class Clone extends React.Component<IProps, IState> {
     deleteControlPosition: 'right',
     addControlPosition: 'bottom',
     cloneLabel: false,
-    index: 0
+    index: 0,
+    minItem: 1
   };
 
   public constructor(props: IProps) {
@@ -221,7 +223,7 @@ export class Clone extends React.Component<IProps, IState> {
   }
 
   private getDeleteControl(index: number) {
-    if (this.props.oldValue) return null;
+    if (this.props.oldValue || this.state.value.length <= this.props.minItem!) return null;
 
     let component = null;
     if (!this.props.deleteControl) {
@@ -242,6 +244,10 @@ export class Clone extends React.Component<IProps, IState> {
 
   private onDeleteButtonPressed(index: number) {
     const value = this.state.value;
+    this.innerClones.map((clone: Clone) => {
+      value[clone.getIndex()!] = Object.assign({}, value[clone.getIndex()!], clone.getValue(true));
+    });
+
     value.splice(index, 1);
     const newValue = this.maintainMinItems(value);
 
@@ -269,7 +275,11 @@ export class Clone extends React.Component<IProps, IState> {
     if (value && value.length > 0) {
       return value;
     } else {
-      return [{}];
+      const results = [];
+      for (let i = 0; i < this.props.minItem!; i++) {
+        results.push({});
+      }
+      return results;
     }
   }
 }

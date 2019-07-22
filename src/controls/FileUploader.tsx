@@ -376,7 +376,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = (e) => {
-        resolve(reader.result);
+        resolve(reader.result!);
         this.setState({ loading: false });
       };
       reader.onerror = (error) => reject(error);

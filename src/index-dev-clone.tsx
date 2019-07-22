@@ -48,12 +48,7 @@ class Main extends Controls.MyComponent {
                       ]
                     },
                     {
-                      email: 'cde@gmail.com',
-                      socials: [
-                        {
-                          social: 'snapchat'
-                        }
-                      ]
+                      email: 'cde@gmail.com'
                     }
                   ]}
                   addControlPosition={'top'}
@@ -72,8 +67,9 @@ class Main extends Controls.MyComponent {
 
                     <Controls.Clone
                       name='socials'
-                      addControlPosition={'top'}
-                      deleteControlPosition={'bottom'}
+                      addControlPosition={'bottom'}
+                      deleteControlPosition={'right'}
+                      minItem={0}
                     >
                       <Controls.Container className={'hoho'}>
                         <Controls.FormControl
