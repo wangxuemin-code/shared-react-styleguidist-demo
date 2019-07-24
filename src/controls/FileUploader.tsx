@@ -272,6 +272,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
             <Container
               position='relative'
               textAlign='center'
+              className='image-container'
               padding={{
                 topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
                 bottomRem: 1,
@@ -279,12 +280,14 @@ export default class FileUploader extends React.Component<IProps, IState> {
               }}
             >
               <img src={this.state.src} />
-              <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
-                <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
-                  {this.state.fileName}
-                  {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+              {this.state.fileName && (
+                <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
+                  <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+                    {this.state.fileName}
+                    {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+                  </Container>
                 </Container>
-              </Container>
+              )}
             </Container>
           </Container>
         );
@@ -293,6 +296,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           <Container
             position='relative'
             textAlign='center'
+            className='image-container'
             padding={{
               topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
               bottomRem: 1,
@@ -300,12 +304,14 @@ export default class FileUploader extends React.Component<IProps, IState> {
             }}
           >
             <ReactIcon className={styles.fileIcon} type={'file-pdf'} />
-            <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
-              <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
-                {this.state.fileName}
-                {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+            {this.state.fileName && (
+              <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
+                <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+                  {this.state.fileName}
+                  {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
+                </Container>
               </Container>
-            </Container>
+            )}
           </Container>
         );
       }
