@@ -17,14 +17,13 @@ interface IBarChart extends IContainer {
     data: number[];
   }[];
   colors?: string[];
-  isYAxis?: boolean;
   categories: string[];
   plotOptions?: {
     column?: {
-      pointPadding?: 0.2,
-      borderWidth?: 0
-    }
-  },
+      pointPadding?: 0.2;
+      borderWidth?: 0;
+    };
+  };
 }
 
 export class BarChart extends React.Component<IBarChart, any> {
@@ -59,7 +58,7 @@ export class BarChart extends React.Component<IBarChart, any> {
       yAxis: {
         min: 0,
         title: {
-          text: ''
+          text: this.props.yTitle
         },
         labels: {
           enabled: true,
