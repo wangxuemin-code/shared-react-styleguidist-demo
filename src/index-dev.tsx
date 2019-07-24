@@ -2156,6 +2156,41 @@ class Main extends Controls.MyComponent<
                 ]}
               />
             </Controls.Container>
+            <Controls.Container>
+              <h4>Bar chart</h4>
+              <Controls.BarChart
+                width={300}
+                height={300}
+                title='
+                  <div style="margin-top: -40px; text-align: center;">
+                    <h3>Fail</h3>
+                    <span>Statement</span>
+                  </div>'
+                type={'column'}
+                colors={['rgba(0, 27, 86, 0.9)', 'rgba(101, 195, 102, 0.9)', 'rgba(59, 228, 193, 1)']}
+                categories={['2016', '2017', '2018']}
+                plotOptions={{
+                  column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                  }
+                }}
+                series={[
+                  {
+                    name: 'fake data',
+                    data: [2, 8, 14]
+                  },
+                  {
+                    name: 'blurred documents/data',
+                    data: [3, 16, 9]
+                  },
+                  {
+                    name: 'verified documents',
+                    data: [10, 6, 12]
+                  }
+                ]}
+              />
+            </Controls.Container>
             <Controls.Divider />
             <Controls.Container>
               <h4>Highlighted Information</h4>
