@@ -69,6 +69,27 @@ export default class FileUploader extends React.Component<IProps, IState> {
             fileName: ''
           });
         }
+      } else if (value && this.tryParseJsonValue(value)) {
+        const obj: any = this.tryParseJsonValue(value);
+
+        if (
+          obj.src
+            .split(',')[0]
+            .toLowerCase()
+            .indexOf('pdf') > 0
+        ) {
+          this.setState({
+            src: obj.src,
+            type: 'pdf',
+            fileName: ''
+          });
+        } else {
+          this.setState({
+            src: obj.src,
+            type: 'image',
+            fileName: ''
+          });
+        }
       } else if (value === undefined) {
         this.setState({
           src: '',
@@ -94,6 +115,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   public hideViewer() {
     this.setState({ showViewer: false });
+  }
+
+  public tryParseJsonValue(value: any) {
+    try {
+      const object = JSON.parse(value);
+      const data = object.file.data;
+      return {
+        src: data
+      };
+    } catch (e) {
+      return false;
+    }
   }
 
   public getValue() {

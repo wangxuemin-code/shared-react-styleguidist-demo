@@ -209,7 +209,15 @@ textarea[disabled] {
       display: flex;
       flex-direction: column;
     }
+
+    &.image-wrapper {
+      height: 100%;
+      .form-controls-wrapper {
+        height: 100%;
+      }
+    }
   }
+
   .form-group {
     margin-bottom: 0;
 

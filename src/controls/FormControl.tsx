@@ -158,7 +158,7 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     return (
-      <Container {...this.props} className={styles.mainFormControlsWrapper}>
+      <Container {...this.props} classNames={[styles.mainFormControlsWrapper, this.props.type === 'uploader' ? styles.imageWrapper : '']}>
         <Container className={classes.join(' ')}>
           <>
             {this.props.oldValue !== this.props.value && this.props.oldValue && (
