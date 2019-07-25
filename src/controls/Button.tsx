@@ -52,7 +52,7 @@ export class Button extends React.Component<IButton, any> {
 
     if (this.props.href && !this.props.disabled) {
       return (
-        <Link underline={false} useNormalAnchor href={this.props.href}>
+        <Link underline={false} href={this.props.href}>
           {this.getButtonDesign(style, classes)}
         </Link>
       );
