@@ -1054,6 +1054,11 @@ export class FormControl extends React.Component<IProps, IState> {
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       const re = /^[0-9-]+$/;
+
+      if (value && !re.test(value)) {
+        value = moment(value).unix().toString();
+      }
+
       const dateFormat = this.props.dateOptions
         ? this.props.dateOptions.dateFormat
           ? this.props.dateOptions.dateFormat
