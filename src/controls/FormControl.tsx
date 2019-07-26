@@ -429,7 +429,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // defaultMenuIsOpen
           isDisabled={this.props.disabled}
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+          value={Options.filter((obj: any) => obj.value.toString() === (this.state.value ? this.state.value.toString() : ''))[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
