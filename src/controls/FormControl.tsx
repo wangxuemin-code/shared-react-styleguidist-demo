@@ -436,7 +436,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // defaultMenuIsOpen
           isDisabled={this.props.disabled}
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+          value={Options.filter((obj: any) => obj.value.toString() === ((this.state.value !== null && this.state.value !== undefined) ? this.state.value.toString() : ''))[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -479,7 +479,7 @@ export class FormControl extends React.Component<IProps, IState> {
           isDisabled={this.props.disabled}
           className={'select'}
           // defaultMenuIsOpen
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+          value={Options.filter((obj: any) => obj.value.toString() === ((this.state.value !== null && this.state.value !== undefined) ? this.state.value.toString() : ''))[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
@@ -1061,6 +1061,11 @@ export class FormControl extends React.Component<IProps, IState> {
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       const re = /^[0-9-]+$/;
+
+      if (value && !re.test(value)) {
+        value = moment(value).unix().toString();
+      }
+
       const dateFormat = this.props.dateOptions
         ? this.props.dateOptions.dateFormat
           ? this.props.dateOptions.dateFormat
