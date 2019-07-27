@@ -280,7 +280,11 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (this.props.required) {
-      if (!this.state.value || !this.state.value.toString().trim()) {
+      if (
+        this.state.value === undefined ||
+        this.state.value === null ||
+        this.state.value.toString().trim() === ''
+      ) {
         if (setErrorState) this.setState({ error: 'Cannot be empty.', showError: true });
         return false;
       }
@@ -294,7 +298,7 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     }
 
-    if (this.props.type === 'date') {
+    if (this.props.type === 'date' && !this.props.oldValue) {
       if (this.props.required || (!this.props.required && this.state.value)) {
         const re = /^\d\d[./-]\d\d[./-]\d\d\d\d$/;
         const value = moment.unix(Number(this.state.value)).format('DD-MM-YYYY');
@@ -1106,7 +1110,6 @@ export class FormControl extends React.Component<IProps, IState> {
 
       const appendDot = this.processNumber(originalValue);
       const appendOldDot = this.processNumber(originalOldValue);
-
       if (originalValue) {
         if (this.props.type === 'money') {
           if (isNaN(parseFloat(originalOldValue))) {
