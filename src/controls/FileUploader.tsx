@@ -11,9 +11,9 @@ export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
 
 interface IProps {
-  label?: any;
   uploaderLabel?: any;
-  viewer?: boolean;
+  uploaderFooter?: any;
+  uploaderViewer?: boolean;
   value?: string;
   onChange?: (newImageSrc: string) => void;
   disabled?: boolean;
@@ -109,7 +109,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
     );
   }
 
-  public openViewer() {
+  public openViewer(e: any) {
+    this.preventPropation(e);
     this.setState({ showViewer: true });
   }
 
@@ -253,10 +254,15 @@ export default class FileUploader extends React.Component<IProps, IState> {
     });
     return (
       <>
-        {this.props.viewer && (
+        {this.props.uploaderViewer && (
           <Modal onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
             {this.state.type !== 'pdf' && (
               <Container fluid>{this.props.children || <Image src={this.props.value} />}</Container>
+            )}
+            {this.state.type === 'pdf' && (
+              <Container fluid>
+                {this.props.children || <iframe src={this.props.value} />}
+              </Container>
             )}
           </Modal>
         )}
@@ -279,7 +285,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
             />
           </label>
-          {this.props.viewer && this.state.type !== 'pdf' && (
+          {this.props.uploaderViewer && this.state.type !== 'pdf' && (
             <ReactIcon
               onClick={this.openViewer.bind(this)}
               className={styles.uploaderViewer}
@@ -287,7 +293,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
               type={'eye'}
             />
           )}
-          {this.props.viewer && this.state.type === 'pdf' && (
+          {this.props.uploaderViewer && this.state.type === 'pdf' && (
             <Link target='_blank' href={this.props.value} useNormalAnchor={true}>
               <ReactIcon className={styles.uploaderViewer} style={{ fontSize: 24 }} type={'eye'} />
             </Link>
@@ -299,44 +305,28 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   private getContentDesign() {
     if (this.state.src) {
-      if (this.state.type === 'image') {
-        return (
-          <Container>
-            <Container
-              position='relative'
-              textAlign='center'
-              className='image-container'
-              padding={{
-                topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
-                bottomRem: 1,
-                leftRightRem: 1
-              }}
-            >
-              <img src={this.state.src} />
-              {this.state.fileName && (
-                <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
-                  <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
-                    {this.state.fileName}
-                    {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
-                  </Container>
-                </Container>
-              )}
-            </Container>
-          </Container>
-        );
-      } else if (this.state.type === 'pdf') {
-        return (
+      return (
+        <Container>
           <Container
             position='relative'
             textAlign='center'
             className='image-container'
             padding={{
-              topRem: this.props.uploaderLabel || this.props.viewer ? 2 : 1,
+              topRem: this.props.uploaderLabel || this.props.uploaderViewer ? 2 : 1,
               bottomRem: 1,
               leftRightRem: 1
             }}
           >
-            <ReactIcon className={styles.fileIcon} type={'file-pdf'} />
+            {this.state.type !== 'pdf' && (
+              <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
+            )}
+            {this.state.type == 'pdf' && (
+              <ReactIcon
+                onClick={this.openViewer.bind(this)}
+                className={styles.fileIcon}
+                type={'file-pdf'}
+              />
+            )}
             {this.state.fileName && (
               <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
                 <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
@@ -345,13 +335,29 @@ export default class FileUploader extends React.Component<IProps, IState> {
                 </Container>
               </Container>
             )}
+            {this.props.uploaderFooter && (
+              <Container className={styles.uploaderFooter}>{this.props.uploaderFooter}</Container>
+            )}
           </Container>
-        );
-      }
+        </Container>
+      );
     } else {
-      return this.props.children;
+      return (
+        <>
+          {this.props.children}
+          {this.props.uploaderFooter && (
+            <Container className={styles.uploaderFooter}>{this.props.uploaderFooter}</Container>
+          )}
+        </>
+      );
     }
   }
+
+  private preventPropation = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+    e.nativeEvent.stopImmediatePropagation();
+  };
 
   private handleFileChange = async (file: any) => {
     this.props.resetFormControl!;

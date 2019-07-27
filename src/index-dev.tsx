@@ -462,9 +462,6 @@ class Main extends Controls.MyComponent<
               <Controls.Icon icon={faPlus} />
               Icon
             </Controls.Button>
-            <Controls.Button href={'https://istox.com'} variant='primary'>
-              Button Link
-            </Controls.Button>
             <Controls.Button
               variant='primary'
               subText={<span className='small'>Back to Residential / Mailing</span>}
@@ -878,7 +875,15 @@ class Main extends Controls.MyComponent<
                       name='upload'
                       type='uploader'
                       value={this.state.imageUrl}
-                      uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                      uploaderConfigs={{
+                        customAllowFileExtensions: ['.pdf'],
+                        footer: (
+                          <p className='text-center normal-text small'>
+                            Drag and drop or <br />
+                            Click here to attached a file
+                          </p>
+                        )
+                      }}
                       onInputChanged={(value: any) => {
                         this.setState({
                           imageUrl: value
@@ -886,18 +891,12 @@ class Main extends Controls.MyComponent<
                       }}
                     >
                       <Controls.Container
-                        padding={{ bottomRem: 3 }}
                         fluid
-                        verticalAlign={'center'}
                       >
                         <Controls.Image
                           height={100}
                           src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
                         />
-                        <span className='normal-text small'>
-                          Drag and drop or <br />
-                          Click here to attached a file
-                        </span>
                       </Controls.Container>
                     </Controls.FormControl>
                   </Controls.Container>
@@ -913,7 +912,13 @@ class Main extends Controls.MyComponent<
                       uploaderConfigs={{
                         customAllowFileExtensions: ['.pdf'],
                         viewer: true,
-                        label: 'Image'
+                        label: 'Image',
+                        footer: (
+                          <p className='text-center normal-text small'>
+                            Drag and drop or <br />
+                            Click here to attached a file
+                          </p>
+                        )
                       }}
                     />
                   </Controls.Container>
@@ -2167,7 +2172,11 @@ class Main extends Controls.MyComponent<
                     <span>Statement</span>
                   </div>'
                 type={'column'}
-                colors={['rgba(0, 27, 86, 0.9)', 'rgba(101, 195, 102, 0.9)', 'rgba(59, 228, 193, 1)']}
+                colors={[
+                  'rgba(0, 27, 86, 0.9)',
+                  'rgba(101, 195, 102, 0.9)',
+                  'rgba(59, 228, 193, 1)'
+                ]}
                 categories={['2016', '2017', '2018']}
                 plotOptions={{
                   column: {

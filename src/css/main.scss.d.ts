@@ -2670,6 +2670,7 @@ export const clearUpload: string;
 export const uploaderViewer: string;
 export const uploader: string;
 export const fileIcon: string;
+export const uploaderFooter: string;
 export const uploaderLabel: string;
 export const check: string;
 export const rating: string;

@@ -82,6 +82,7 @@ interface IProps extends IContainer {
     filePatterns?: FilePattern[];
     customAllowFileExtensions?: string[];
     viewer?: boolean;
+    footer?: any;
   };
   singleCheckbox?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -158,7 +159,13 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     return (
-      <Container {...this.props} classNames={[styles.mainFormControlsWrapper, this.props.type === 'uploader' ? styles.imageWrapper : '']}>
+      <Container
+        {...this.props}
+        classNames={[
+          styles.mainFormControlsWrapper,
+          this.props.type === 'uploader' ? styles.imageWrapper : ''
+        ]}
+      >
         <Container className={classes.join(' ')}>
           <>
             {this.props.oldValue !== this.props.value && this.props.oldValue && (
@@ -716,12 +723,12 @@ export class FormControl extends React.Component<IProps, IState> {
                 this.control = ref;
               }
             }}
-            label={this.props.label}
             uploaderLabel={this.props.uploaderConfigs!.label}
+                        uploaderViewer={this.props.uploaderConfigs!.viewer}
+            uploaderFooter={this.props.uploaderConfigs!.footer}
             value={this.state.displayValue || undefined}
             onChange={this.onUploaderChanged}
             disabled={this.props.disabled}
-            viewer={this.props.uploaderConfigs!.viewer}
             filePatterns={this.props.uploaderConfigs!.filePatterns}
             customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
             resetFormControl={this.reset}
