@@ -66,7 +66,7 @@ interface IProps extends IContainer {
   append?: any;
   label?: any;
   required?: boolean;
-  selectOptions?: { label: any; value: string }[];
+  selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
   extraControls?: any;
   dateOptions?: IDateOption;
@@ -83,6 +83,7 @@ interface IProps extends IContainer {
     customAllowFileExtensions?: string[];
     viewer?: boolean;
     footer?: any;
+    showFileName?: boolean;
   };
   singleCheckbox?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -131,7 +132,7 @@ export class FormControl extends React.Component<IProps, IState> {
   public componentWillMount() {
     this.onValueChanged(
       true,
-      String(this.props.value ? this.props.value : this.props.defaultValue || '')
+      String(this.props.value !== undefined ? this.props.value : this.props.defaultValue || '')
     );
     this.setState({ extraControls: this.props.extraControls });
   }
@@ -144,7 +145,7 @@ export class FormControl extends React.Component<IProps, IState> {
       (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
         prevProps.selectCustomOptions == undefined)
     ) {
-      this.onValueChanged(false, String(this.props.value || ''));
+      this.onValueChanged(false, String(this.props.value !== undefined || ''));
     }
 
     if (prevProps.extraControls !== this.props.extraControls) {
@@ -168,7 +169,7 @@ export class FormControl extends React.Component<IProps, IState> {
       >
         <Container className={classes.join(' ')}>
           <>
-            {this.props.oldValue !== this.props.value && this.props.oldValue && (
+            {this.props.oldValue && (
               <>
                 {this.props.label && (
                   <label className={styles.semiBold}>
@@ -201,17 +202,13 @@ export class FormControl extends React.Component<IProps, IState> {
                   {typeof this.props.label === 'string' && (
                     <Container className={styles.semiBold}>
                       {this.props.label}
-                      {this.props.oldValue !== this.props.value && this.props.oldValue && (
-                        <>&nbsp;(New)</>
-                      )}
+                      {this.props.oldValue && <>&nbsp;(New)</>}
                     </Container>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>
                       {this.props.label}
-                      {this.props.oldValue !== this.props.value && this.props.oldValue && (
-                        <>&nbsp;(New)</>
-                      )}
+                      {this.props.oldValue && <>&nbsp;(New)</>}
                     </>
                   )}
                 </Container>
@@ -436,7 +433,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // defaultMenuIsOpen
           isDisabled={this.props.disabled}
           className={'select'}
-          value={Options.filter((obj: any) => obj.value.toString() === ((this.state.value !== null && this.state.value !== undefined) ? this.state.value.toString() : ''))[0] || ''}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           options={this.props.selectOptions}
@@ -479,7 +476,7 @@ export class FormControl extends React.Component<IProps, IState> {
           isDisabled={this.props.disabled}
           className={'select'}
           // defaultMenuIsOpen
-          value={Options.filter((obj: any) => obj.value.toString() === ((this.state.value !== null && this.state.value !== undefined) ? this.state.value.toString() : ''))[0] || ''}
+          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
           components={{ Option: CustomOption, SingleValue: DisplayOption }}
@@ -540,13 +537,19 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.name,
             value: option.name,
-            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
           Options.push(obj);
         }
       });
+      var obj = {
+        label: 'Others',
+        value: 'Others',
+        country: 'Others',
+        code: 'Others'
+      };
+      Options.push(obj);
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -613,13 +616,19 @@ export class FormControl extends React.Component<IProps, IState> {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,
-            // image: option.emoji,
             country: option.name,
             code: option.alpha2
           };
           Options.push(obj);
         }
       });
+      var obj = {
+        label: 'Others',
+        value: 'Others',
+        country: 'Others',
+        code: 'Others'
+      };
+      Options.push(obj);
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -724,8 +733,9 @@ export class FormControl extends React.Component<IProps, IState> {
               }
             }}
             uploaderLabel={this.props.uploaderConfigs!.label}
-                        uploaderViewer={this.props.uploaderConfigs!.viewer}
+            uploaderViewer={this.props.uploaderConfigs!.viewer}
             uploaderFooter={this.props.uploaderConfigs!.footer}
+            showFileName={this.props.uploaderConfigs!.showFileName}
             value={this.state.displayValue || undefined}
             onChange={this.onUploaderChanged}
             disabled={this.props.disabled}
@@ -989,13 +999,13 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private processValue(value: string): IProcessResult {
-    let oldDisplayValue = this.props.oldValue ? this.props.oldValue.toString() : '';
+    let oldDisplayValue = this.props.oldValue ? String(this.props.oldValue) : '';
     this.setState({ oldDisplayValue: oldDisplayValue });
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
     if (this.props.type === 'checkbox') {
-      if (value) {
+      if (value !== undefined) {
         this.setState({ valueArray: value.split(',') });
       } else {
         this.setState({ valueArray: [] });
@@ -1021,10 +1031,10 @@ export class FormControl extends React.Component<IProps, IState> {
       let displayValue = '';
       if (
         this.props.selectOptions!.map((item) => {
-          if (item.value === value) {
+          if (String(item.value) === String(value)) {
             displayValue = item.label;
           }
-          if (item.value === this.props.oldValue) {
+          if (String(item.value) === String(this.props.oldValue)) {
             oldDisplayValue = item.label;
           }
         })
@@ -1036,10 +1046,10 @@ export class FormControl extends React.Component<IProps, IState> {
       let displayValue = '';
       if (
         this.props.selectCustomOptions!.map((item) => {
-          if (item.value === value) {
+          if (String(item.value) === String(value)) {
             displayValue = item.label;
           }
-          if (item.value === this.props.oldValue) {
+          if (String(item.value) === String(this.props.oldValue)) {
             oldDisplayValue = item.label;
           }
         })
@@ -1061,11 +1071,6 @@ export class FormControl extends React.Component<IProps, IState> {
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       const re = /^[0-9-]+$/;
-
-      if (value && !re.test(value)) {
-        value = moment(value).unix().toString();
-      }
-
       const dateFormat = this.props.dateOptions
         ? this.props.dateOptions.dateFormat
           ? this.props.dateOptions.dateFormat
@@ -1173,10 +1178,6 @@ export class FormControl extends React.Component<IProps, IState> {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(String(newValue || ''));
     if (firstCall) {
-      // this.state = {
-      //   displayValue: result.displayValue,
-      //   value: result.value
-      // };
       this.setState({
         displayValue: result.displayValue,
         value: result.value,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BounceLoader } from 'react-spinners';
+import { Image } from './Image';
 import * as styles from '../css/main.scss';
 import { stylings } from '../css/theme';
 
@@ -31,12 +31,7 @@ export class Loading extends React.Component<IProps, any> {
 
     return (
       <div className={styles.loadingContainer} style={style}>
-        <BounceLoader
-          sizeUnit={'px'}
-          size={30}
-          color={stylings.colors.primary}
-          loading={this.props.loading}
-        />
+        <Image width={150} src={'/images/iSTOX_Loading-black.gif'} />
       </div>
     );
   }

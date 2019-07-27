@@ -1,9 +1,9 @@
 import * as React from 'react';
+import Iframe from 'react-iframe';
 import { Container } from '.';
 import * as styles from '../css/main.scss';
 import { Confirm } from './Confirm';
 import { Image } from './Image';
-import { Link } from './Link';
 import { Modal } from './Modal';
 import { Spin as ReactSpin, Icon as ReactIcon } from 'antd';
 
@@ -14,11 +14,12 @@ interface IProps {
   uploaderLabel?: any;
   uploaderFooter?: any;
   uploaderViewer?: boolean;
-  value?: string;
+  value: string;
   onChange?: (newImageSrc: string) => void;
   disabled?: boolean;
   filePatterns?: FilePattern[];
   customAllowFileExtensions?: string[];
+  showFileName?: boolean;
   resetFormControl?: () => void;
 }
 
@@ -36,6 +37,7 @@ interface IState {
 
 export default class FileUploader extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
+    value: '',
     filePatterns: ['image'],
     customAllowFileExtensions: []
   };
@@ -71,7 +73,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
         }
       } else if (value && this.tryParseJsonValue(value)) {
         const obj: any = this.tryParseJsonValue(value);
-
         if (
           obj.src
             .split(',')[0]
@@ -80,17 +81,15 @@ export default class FileUploader extends React.Component<IProps, IState> {
         ) {
           this.setState({
             src: obj.src,
-            type: 'pdf',
-            fileName: ''
+            type: 'pdf'
           });
         } else {
           this.setState({
             src: obj.src,
-            type: 'image',
-            fileName: ''
+            type: 'image'
           });
         }
-      } else if (value === undefined) {
+      } else if (value === undefined || value == '') {
         this.setState({
           src: '',
           type: this.getExtensionType(),
@@ -110,8 +109,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public openViewer(e: any) {
-    this.preventPropation(e);
     this.setState({ showViewer: true });
+    this.preventPropation(e);
   }
 
   public hideViewer() {
@@ -172,11 +171,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
   };
 
   private onDragOver = (e: any) => {
+    this.setState({ dragOver: true });
     e.preventDefault();
   };
 
   private onDrop = (e: any) => {
     e.preventDefault();
+    this.setState({ dragOver: false });
     this.onFileChange(e, e.dataTransfer.files[0]);
   };
 
@@ -254,18 +255,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
     });
     return (
       <>
-        {this.props.uploaderViewer && (
-          <Modal onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
-            {this.state.type !== 'pdf' && (
-              <Container fluid>{this.props.children || <Image src={this.props.value} />}</Container>
-            )}
-            {this.state.type === 'pdf' && (
-              <Container fluid>
-                {this.props.children || <iframe src={this.props.value} />}
-              </Container>
-            )}
-          </Modal>
-        )}
+        <Modal width={800} onExited={this.hideViewer.bind(this)} visible={this.state.showViewer}>
+          {this.state.type !== 'pdf' && (
+            <Container fluid>
+              <Image src={this.state.src} />
+            </Container>
+          )}
+          {this.state.type === 'pdf' && (
+            <Container fluid>
+              <Iframe width={'100%'} height={'500px'} url={this.state.src} />
+            </Container>
+          )}
+        </Modal>
         <Container position={'relative'} widthPercent={100} heightPercent={100}>
           <label
             onDragEnter={this.onDragEnter}
@@ -285,18 +286,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
             />
           </label>
-          {this.props.uploaderViewer && this.state.type !== 'pdf' && (
+          {this.props.uploaderViewer && (
             <ReactIcon
               onClick={this.openViewer.bind(this)}
               className={styles.uploaderViewer}
               style={{ fontSize: 24 }}
               type={'eye'}
             />
-          )}
-          {this.props.uploaderViewer && this.state.type === 'pdf' && (
-            <Link target='_blank' href={this.props.value} useNormalAnchor={true}>
-              <ReactIcon className={styles.uploaderViewer} style={{ fontSize: 24 }} type={'eye'} />
-            </Link>
           )}
         </Container>
       </>
@@ -327,11 +323,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
                 type={'file-pdf'}
               />
             )}
-            {this.state.fileName && (
+            {this.props.showFileName && (
               <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
                 <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
                   {this.state.fileName}
-                  {/* {!this.state.uploaded ? 'Pending upload' : 'Saved'} */}
                 </Container>
               </Container>
             )}

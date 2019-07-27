@@ -61,7 +61,7 @@ export class Link extends React.Component<ILink> {
       }
     } else {
       return (
-        <a target={this.props.target} onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
+        <a target={this.props.target} onClick={this.onClick} style={{ cursor: 'pointer' }}>
           <Container style={style} className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>
@@ -69,4 +69,9 @@ export class Link extends React.Component<ILink> {
       );
     }
   }
+
+  private onClick = (e: any) => {
+    e.preventDefault();
+    this.props.onClick;
+  };
 }

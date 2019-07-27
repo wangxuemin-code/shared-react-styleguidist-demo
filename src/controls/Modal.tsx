@@ -46,6 +46,7 @@ export class Modal extends React.Component<IProps, IState> {
         footer={null}
         closable={false}
         width={this.state.width}
+        maskClosable={true}
       >
         <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
         {this.props.children}

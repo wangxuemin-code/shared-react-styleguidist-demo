@@ -31,7 +31,7 @@
 }
 
 :global(.ant-spin-nested-loading > div > .ant-spin) {
-  background: #fff;
+  background-color: #fff;
   border: 2px dashed map-get($colors, primaryGreyLight);
 }
 .uploader {
@@ -41,6 +41,10 @@
   border: 2px dashed map-get($colors, primaryGreyLight);
   position: relative;
   width: 100%;
+
+  &.drag-over {
+    background-color: map-get($colors, secondaryBackground);
+  }
 
   .file-icon {
     font-size: 5rem;

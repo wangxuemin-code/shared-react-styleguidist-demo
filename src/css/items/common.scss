@@ -337,6 +337,27 @@ strong {
   text-transform: uppercase;
 }
 
+.rotate {
+  animation: rotate 0.8s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+  -ms-transform-origin: center;
+  -webkit-transform-origin: center;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}
+
 @mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
   $mq-media-query: 'screen and';
 

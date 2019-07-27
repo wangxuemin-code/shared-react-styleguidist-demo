@@ -29,7 +29,7 @@ interface IProps extends IContainer {
 interface ISingleOtpInput extends IContainer {
   value: string;
   maxLength: number;
-  shouldAutoFocus: boolean;
+  shouldAutoFocus?: boolean;
   inputWidth: string;
   isInputNum?: boolean;
   onChange: any;
@@ -135,11 +135,12 @@ export class OtpInput extends React.Component<IProps, IState> {
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
-        this.changeCodeAtFocus('');
         this.focusPrevInput();
+        this.changeCodeAtFocus('');
         break;
       case DELETE:
         e.preventDefault();
+        this.focusPrevInput();
         this.changeCodeAtFocus('');
         break;
       case LEFT_ARROW:
