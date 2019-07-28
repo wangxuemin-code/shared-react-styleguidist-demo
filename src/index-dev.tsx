@@ -207,11 +207,7 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -226,11 +222,7 @@ class Main extends Controls.MyComponent<
                       },
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -250,11 +242,7 @@ class Main extends Controls.MyComponent<
                     contents: [
                       {
                         icon: (
-                          <Controls.Icon
-                            size={'large'}
-                            variant={'success'}
-                            icon={faCheckCircle}
-                          />
+                          <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />
                         ),
                         content: (
                           <Controls.Container>
@@ -885,11 +873,7 @@ class Main extends Controls.MyComponent<
                         });
                       }}
                     >
-                      <Controls.Container
-                        padding={{ bottomRem: 3 }}
-                        fluid
-                        verticalAlign={'center'}
-                      >
+                      <Controls.Container padding={{ bottomRem: 3 }} fluid verticalAlign={'center'}>
                         <Controls.Image
                           height={100}
                           src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/LACMTA_Square_Orange_Line.svg/1024px-LACMTA_Square_Orange_Line.svg.png'
@@ -1163,11 +1147,7 @@ class Main extends Controls.MyComponent<
             <Controls.Rating defaultValue={3} maxValue={3} />
             <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
             {this.variantStates.map((rating: any) => (
-              <Controls.Container
-                key={uniqid().toString()}
-                display={'flex'}
-                alignItems={'center'}
-              >
+              <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
                 <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                 &nbsp;&nbsp; {rating}
               </Controls.Container>
@@ -1292,12 +1272,7 @@ class Main extends Controls.MyComponent<
               ]}
               rows={[
                 {
-                  rowContents: [
-                    'Super Admin',
-                    'This is another not very long content.',
-                    '',
-                    ''
-                  ],
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '1'
                 },
                 {
@@ -1329,12 +1304,7 @@ class Main extends Controls.MyComponent<
                   ]
                 },
                 {
-                  rowContents: [
-                    'Super Admin',
-                    'This is another not very long content.',
-                    '',
-                    ''
-                  ],
+                  rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                   itemId: '3',
                   groupId: '1'
                 },
@@ -1472,17 +1442,8 @@ class Main extends Controls.MyComponent<
                   alwaysCapitalize={true}
                 />
                 <Controls.FormControl label={'Numbers only'} name='numeric' type={'numeric'} />
-                <Controls.FormControl
-                  label={'Numbers with commas'}
-                  name='number'
-                  type={'number'}
-                />
-                <Controls.FormControl
-                  label={'$$$'}
-                  name='money'
-                  type={'money'}
-                  decimalPlace={2}
-                />
+                <Controls.FormControl label={'Numbers with commas'} name='number' type={'number'} />
+                <Controls.FormControl label={'$$$'} name='money' type={'money'} decimalPlace={2} />
                 <Controls.FormControl
                   required
                   label={'Alpha only'}
@@ -1789,11 +1750,7 @@ class Main extends Controls.MyComponent<
                             currency={'SGD'}
                           />
 
-                          <Controls.Label
-                            className={'html'}
-                            variant={'info'}
-                            text={'Creating'}
-                          />
+                          <Controls.Label className={'html'} variant={'info'} text={'Creating'} />
                         </Controls.Container>
                       )
                     },
@@ -1804,12 +1761,7 @@ class Main extends Controls.MyComponent<
                     }
                   ]}
                 />
-                <Controls.FormControl
-                  label={'Country'}
-                  name='country'
-                  type={'country'}
-                  required
-                />
+                <Controls.FormControl label={'Country'} name='country' type={'country'} required />
                 <Controls.FormControl
                   label={'Country Code'}
                   name='countrycode'
@@ -2078,6 +2030,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider />
             <h4>Breadcrumbs</h4>
             <Controls.Breadcrumbs
+              useNormalAnchor={true}
               links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]}
             />
             <Controls.Divider />
@@ -2167,7 +2120,11 @@ class Main extends Controls.MyComponent<
                     <span>Statement</span>
                   </div>'
                 type={'column'}
-                colors={['rgba(0, 27, 86, 0.9)', 'rgba(101, 195, 102, 0.9)', 'rgba(59, 228, 193, 1)']}
+                colors={[
+                  'rgba(0, 27, 86, 0.9)',
+                  'rgba(101, 195, 102, 0.9)',
+                  'rgba(59, 228, 193, 1)'
+                ]}
                 categories={['2016', '2017', '2018']}
                 plotOptions={{
                   column: {

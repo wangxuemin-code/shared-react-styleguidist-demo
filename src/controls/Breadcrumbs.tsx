@@ -11,6 +11,7 @@ type BreadcrumbType = {
 
 interface IBreadcrumbs extends IContainer {
   links: BreadcrumbType[];
+  useNormalAnchor?: boolean;
 }
 
 export class Breadcrumbs extends React.Component<IBreadcrumbs, any> {
@@ -20,7 +21,11 @@ export class Breadcrumbs extends React.Component<IBreadcrumbs, any> {
         {this.props.links.map((link, index) => {
           const result = [];
           result.push(
-            <Link key={uniqid().toString()} href={link.href} useNormalAnchor>
+            <Link
+              key={uniqid().toString()}
+              href={link.href}
+              useNormalAnchor={this.props.useNormalAnchor}
+            >
               {link.title}
             </Link>
           );
