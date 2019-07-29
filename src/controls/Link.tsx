@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Link as ReactRouterLink } from 'react-router-dom';
 import { IContainer, Container } from './Container';
+import { MouseEventHandler } from 'react';
 
 interface ILink extends IContainer {
   variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
@@ -10,7 +11,7 @@ interface ILink extends IContainer {
   href?: string;
   disabled?: boolean;
   useNormalAnchor?: boolean;
-  onClick?: () => void;
+  onClick?: MouseEventHandler;
   target?: '_blank' | '_self' | '_parent' | '_top';
   linkColor?: string;
 }
@@ -60,7 +61,7 @@ export class Link extends React.Component<ILink> {
       }
     } else {
       return (
-        <a target={this.props.target} onClick={this.props.onClick} style={{ cursor: 'pointer' }}>
+        <a target={this.props.target} onClick={this.onClick} style={{ cursor: 'pointer' }}>
           <Container style={style} className={classes.join(' ')} {...linkProps}>
             {this.props.children}
           </Container>
@@ -68,4 +69,9 @@ export class Link extends React.Component<ILink> {
       );
     }
   }
+
+  private onClick = (e: any) => {
+    e.preventDefault();
+    this.props.onClick;
+  };
 }
