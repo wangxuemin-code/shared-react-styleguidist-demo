@@ -22,6 +22,7 @@ interface IProps extends IContainer {
   options: IDateOption;
   startDate?: Date;
   endDate?: Date;
+  disabled?: boolean;
 }
 
 interface IState {
@@ -55,6 +56,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         <React.Fragment>
           <Container position={'relative'} display={'flex'} fluid>
             <DatePicker
+              readOnly={this.props.disabled}
               selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
               onKeyDown={(e) => this.handleKeyDown(e)}
               onChange={this.handleChange.bind(this)}
@@ -98,6 +100,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         <Container className={styles.dateGroup}>
           <Container position={'relative'}>
             <DatePicker
+              readOnly={this.props.disabled}
               selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
               onChange={this.handleChangeStart.bind(this)}
               onChangeRaw={this.handleChangeRawStart.bind(this)}
@@ -127,6 +130,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           </Container>
           <Container position={'relative'} display={'flex'}>
             <DatePicker
+              readOnly={this.props.disabled}
               selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
               onChange={this.handleChangeEnd.bind(this)}
               onChangeRaw={this.handleChangeRawEnd.bind(this)}
@@ -262,7 +266,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   private handleChange(date: Date) {
-    console.log('date', date);
     if (date) {
       const unixTimestamp = Formatter.dateToUnixTimestamp(date);
       if (date) {

@@ -2091,6 +2091,7 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <h4>Breadcrumbs</h4>
               <Controls.Breadcrumbs
+                useNormalAnchor
                 links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]}
               />
               <Controls.Divider />

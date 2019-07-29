@@ -703,6 +703,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'date') {
       return (
         <DateTimePicker
+          disabled={this.props.disabled}
           type={'date'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
@@ -713,6 +714,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'datetime') {
       return (
         <DateTimePicker
+          disabled={this.props.disabled}
           type={'datetime'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
@@ -723,6 +725,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'daterange') {
       return (
         <DateTimePicker
+          disabled={this.props.disabled}
           type={'daterange'}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
