@@ -1085,10 +1085,6 @@ export class FormControl extends React.Component<IProps, IState> {
           : 'DD/MM/YYYY'
         : 'DD/MM/YYYY';
       if (this.props.static || this.props.oldValue) {
-        console.log(
-          moment.unix(Number(oldDisplayValue)).format(dateFormat),
-          moment(oldDisplayValue).format(dateFormat)
-        );
         this.setState({
           oldDisplayValue: Formatter.unixTimestampToDate(Number(oldDisplayValue))
             ? moment.unix(Number(oldDisplayValue)).format(dateFormat)
