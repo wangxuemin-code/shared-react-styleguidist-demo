@@ -213,7 +213,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           e.preventDefault();
         } else {
           if (keyCodeArray.length == 2 || keyCodeArray.length == 5) {
-            if (this.props.options.dateFormat === 'dd-MM-yyyy') {
+            if (this.props.options.dateFormat === 'DD-MM-YYYY') {
               if (e.keyCode === 189) {
                 keyCodeArray.push(e.keyCode);
                 this.setState({ keyCodeArray: keyCodeArray });
@@ -262,6 +262,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   private handleChange(date: Date) {
+    console.log('date', date);
     if (date) {
       const unixTimestamp = Formatter.dateToUnixTimestamp(date);
       if (date) {

@@ -145,7 +145,10 @@ export class FormControl extends React.Component<IProps, IState> {
       (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
         prevProps.selectCustomOptions == undefined)
     ) {
-      this.onValueChanged(false, String(this.props.value !== undefined || ''));
+      this.onValueChanged(
+        false,
+        String(this.props.value !== undefined ? this.props.value : this.props.defaultValue || '')
+      );
     }
 
     if (prevProps.extraControls !== this.props.extraControls) {
@@ -1074,34 +1077,37 @@ export class FormControl extends React.Component<IProps, IState> {
         value: !re.test(value) ? '' : value
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
-      const re = /^[0-9-]+$/;
       const dateFormat = this.props.dateOptions
         ? this.props.dateOptions.dateFormat
-          ? this.props.dateOptions.dateFormat
+          ? this.props.dateOptions.dateFormat.toUpperCase()
           : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
           ? 'DD/MM/YYYY hh:mm A'
           : 'DD/MM/YYYY'
         : 'DD/MM/YYYY';
       if (this.props.static || this.props.oldValue) {
+        console.log(
+          moment.unix(Number(oldDisplayValue)).format(dateFormat),
+          moment(oldDisplayValue).format(dateFormat)
+        );
         this.setState({
-          oldDisplayValue: moment.unix(Number(oldDisplayValue)).format(dateFormat)
+          oldDisplayValue: Formatter.unixTimestampToDate(Number(oldDisplayValue))
+            ? moment.unix(Number(oldDisplayValue)).format(dateFormat)
+            : moment(oldDisplayValue).format(dateFormat)
         });
         return {
-          displayValue: !re.test(value)
-            ? ''
-            : Formatter.unixTimestampToDate(Number(value))
+          displayValue: Formatter.unixTimestampToDate(Number(value))
             ? moment.unix(Number(value)).format(dateFormat)
-            : '',
-          value: !re.test(value)
-            ? ''
-            : Formatter.unixTimestampToDate(Number(value))
-            ? moment.unix(Number(value)).format(dateFormat)
-            : ''
+            : moment(value).format(dateFormat),
+          value: Formatter.unixTimestampToDate(Number(value))
+            ? value
+            : moment(value).format(dateFormat)
         };
       } else {
         return {
-          displayValue: !re.test(value) ? '' : value,
-          value: !re.test(value) ? '' : value
+          displayValue: Formatter.unixTimestampToDate(Number(value))
+            ? value
+            : moment(value).format('X'),
+          value: Formatter.unixTimestampToDate(Number(value)) ? value : moment(value).format('X')
         };
       }
     } else {
