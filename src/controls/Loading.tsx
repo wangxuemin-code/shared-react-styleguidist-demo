@@ -31,7 +31,7 @@ export class Loading extends React.Component<IProps, any> {
 
     return (
       <div className={styles.loadingContainer} style={style}>
-        <Image width={150} src={'/images/iSTOX_Loading-black.gif'} />
+        <Image width={125} src={'/images/iSTOX_Loading-black.gif'} />
       </div>
     );
   }
