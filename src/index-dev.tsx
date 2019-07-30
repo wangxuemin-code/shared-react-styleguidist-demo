@@ -1559,6 +1559,7 @@ class Main extends Controls.MyComponent<
                     // value={'07/17/1999'}
                     onInputChanged={(value) => {
                       console.log(value);
+                      console.log('date', this.form.getInputValue('date'));
                     }}
                     append={
                       <Controls.Button
@@ -1873,12 +1874,12 @@ class Main extends Controls.MyComponent<
                       endDate: new Date()
                       // dateFormat: 'DD-MM-YYYY'
                     }}
-                    oldValue={'2019-07-28T17:58:18.000Z'}
-                    value={'2019-07-28T17:58:18.000Z'}
+                    // oldValue={'2019-07-28T17:58:18.000Z'}
+                    // value={'2019-07-28T17:58:18.000Z'}
                     // oldValue={1563552000} // 20/07/2019
                     // value={1564156800} // 27/07/2019
-                    // oldValue={'07/20/2019'}
-                    // value={'07/23/2019'}
+                    oldValue={'07/20/2019'}
+                    value={'07/23/2019'}
                   />
                   <Controls.FormControl
                     required

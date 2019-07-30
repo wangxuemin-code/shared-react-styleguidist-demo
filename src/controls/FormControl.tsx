@@ -1080,34 +1080,38 @@ export class FormControl extends React.Component<IProps, IState> {
         value: !re.test(value) ? '' : value
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
-      const dateFormat = this.props.dateOptions
-        ? this.props.dateOptions.dateFormat
-          ? this.props.dateOptions.dateFormat.toUpperCase()
-          : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
-          ? 'DD/MM/YYYY hh:mm A'
-          : 'DD/MM/YYYY'
-        : 'DD/MM/YYYY';
-      if (this.props.static || this.props.oldValue) {
-        this.setState({
-          oldDisplayValue: Formatter.unixTimestampToDate(Number(oldDisplayValue))
-            ? moment.unix(Number(oldDisplayValue)).format(dateFormat)
-            : moment(oldDisplayValue).format(dateFormat)
-        });
-        return {
-          displayValue: Formatter.unixTimestampToDate(Number(value))
-            ? moment.unix(Number(value)).format(dateFormat)
-            : moment(value).format(dateFormat),
-          value: Formatter.unixTimestampToDate(Number(value))
-            ? value
-            : moment(value).format(dateFormat)
-        };
+      if (value) {
+        const dateFormat = this.props.dateOptions
+          ? this.props.dateOptions.dateFormat
+            ? this.props.dateOptions.dateFormat.toUpperCase()
+            : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
+            ? 'DD/MM/YYYY hh:mm A'
+            : 'DD/MM/YYYY'
+          : 'DD/MM/YYYY';
+        if (this.props.static || this.props.oldValue) {
+          this.setState({
+            oldDisplayValue: Formatter.unixTimestampToDate(Number(oldDisplayValue))
+              ? moment.unix(Number(oldDisplayValue)).format(dateFormat)
+              : moment(oldDisplayValue).format(dateFormat)
+          });
+          return {
+            displayValue: Formatter.unixTimestampToDate(Number(value))
+              ? moment.unix(Number(value)).format(dateFormat)
+              : moment(value).format(dateFormat),
+            value: Formatter.unixTimestampToDate(Number(value))
+              ? value
+              : moment(value).format(dateFormat)
+          };
+        } else {
+          return {
+            displayValue: Formatter.unixTimestampToDate(Number(value))
+              ? value
+              : moment(value).format('X'),
+            value: Formatter.unixTimestampToDate(Number(value)) ? value : moment(value).format('X')
+          };
+        }
       } else {
-        return {
-          displayValue: Formatter.unixTimestampToDate(Number(value))
-            ? value
-            : moment(value).format('X'),
-          value: Formatter.unixTimestampToDate(Number(value)) ? value : moment(value).format('X')
-        };
+        return { displayValue: '', value: '' };
       }
     } else {
       const originalValue = Formatter.stripSymbol(value).trim();
