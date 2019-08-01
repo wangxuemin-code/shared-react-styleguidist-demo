@@ -2208,6 +2208,7 @@ class Main extends Controls.MyComponent<
                       data: [10, 6, 12]
                     }
                   ]}
+                  columnWidth={3}
                 />
               </Controls.Container>
               <Controls.Divider />

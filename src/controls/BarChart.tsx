@@ -3,6 +3,7 @@ import HighchartsReact from 'highcharts-react-official';
 import { Container, IContainer } from '.';
 import * as theme from '../css/theme/theme';
 import React = require('react');
+import { SeriesChart } from 'highcharts';
 
 interface IBarChart extends IContainer {
   type?: 'column' | 'bar';
@@ -20,10 +21,11 @@ interface IBarChart extends IContainer {
   categories: string[];
   plotOptions?: {
     column?: {
-      pointPadding?: 0.2;
-      borderWidth?: 0;
+      pointPadding?: number;
+      borderWidth?: number;
     };
   };
+  columnWidth?: number;
 }
 
 export class BarChart extends React.Component<IBarChart, any> {
@@ -86,6 +88,11 @@ export class BarChart extends React.Component<IBarChart, any> {
         enabled: false
       },
       series: this.props.series
+    };
+
+    options.plotOptions = {
+      ...options.plotOptions,
+      ...{ series: { pointWidth: this.props.columnWidth } }
     };
 
     return (
