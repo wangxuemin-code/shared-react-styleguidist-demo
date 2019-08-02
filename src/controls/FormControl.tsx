@@ -84,6 +84,9 @@ interface IProps extends IContainer {
     viewer?: boolean;
     footer?: any;
     showFileName?: boolean;
+    path?: string;
+    bucketName?: string;
+    fixedFileName?: string;
   };
   singleCheckbox?: boolean;
   onInputChanged?: (value: string | number, name: string) => void;
@@ -358,6 +361,12 @@ export class FormControl extends React.Component<IProps, IState> {
   public onSaved() {
     if (this.control && this.control.onSaved) {
       this.control.onSaved();
+    }
+  }
+
+  public onUpload() {
+    if (this.control && this.control.onUpload) {
+      return this.control.onUpload();
     }
   }
 
@@ -746,12 +755,15 @@ export class FormControl extends React.Component<IProps, IState> {
             uploaderViewer={this.props.uploaderConfigs!.viewer}
             uploaderFooter={this.props.uploaderConfigs!.footer}
             showFileName={this.props.uploaderConfigs!.showFileName}
+            path={this.props.uploaderConfigs!.path}
+            bucketName={this.props.uploaderConfigs!.bucketName}
             value={this.state.displayValue || undefined}
             onChange={this.onUploaderChanged}
             disabled={this.props.disabled}
             filePatterns={this.props.uploaderConfigs!.filePatterns}
             customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
             resetFormControl={this.reset}
+            fixedFileName={this.props.uploaderConfigs!.fixedFileName}
           >
             {this.props.children}
           </FileUploader>

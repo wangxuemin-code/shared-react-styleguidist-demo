@@ -6,11 +6,16 @@ import { Confirm } from './Confirm';
 import { Image } from './Image';
 import { Modal } from './Modal';
 import { Spin as ReactSpin, Icon as ReactIcon } from 'antd';
+import * as AWS from 'aws-sdk';
+import { AwsHelper } from '../helpers/AwsHelper';
+import { Cookie, UuidGenerator } from '../helpers';
+declare const Buffer: { from: new (arg0: any, arg1: string) => any };
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
 
 interface IProps {
+  path?: string;
   uploaderLabel?: any;
   uploaderFooter?: any;
   uploaderViewer?: boolean;
@@ -21,6 +26,8 @@ interface IProps {
   customAllowFileExtensions?: string[];
   showFileName?: boolean;
   resetFormControl?: () => void;
+  bucketName?: string;
+  fixedFileName?: string;
 }
 
 interface IState {
@@ -131,12 +138,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   public getValue() {
     if (this.state.src) {
-      return JSON.stringify({
-        file: {
-          data: this.state.src,
-          uploaded: this.state.uploaded
-        }
-      });
+      return this.state.src;
     } else {
       return '';
     }
@@ -435,4 +437,68 @@ export default class FileUploader extends React.Component<IProps, IState> {
     ); // fragment locator
     return !!pattern.test(str);
   }
+
+  public onUpload = async () => {
+    if (!this.state.uploaded) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const credentials = await AwsHelper.getSTS();
+
+          var options = {
+            accessKeyId: credentials.accessKey,
+            secretAccessKey: credentials.secretKey,
+            sessionToken: credentials.sessionToken,
+            region: 'ap-southeast-1'
+          };
+
+          const s3 = new AWS.S3(options);
+
+          const base64result = this.state.src.split(',')[1];
+
+          const base64Data = new Buffer.from(base64result, 'base64');
+
+          // Getting the file type, ie: jpeg, png or gif
+          const contentType = this.state.src.split(';')[0].split(':')[1];
+
+          const bucket = this.props.bucketName;
+          const key = `${this.props.path}/${this.props.fixedFileName || UuidGenerator.generate()}.${
+            this.state.extension
+          }`;
+
+          const params = {
+            Bucket: this.props.bucketName!,
+            Key: key,
+            Body: base64Data,
+            ContentEncoding: 'base64', // required
+            ContentType: `${contentType}` // required. Notice the back ticks
+          };
+
+          // The upload() is used instead of putObject() as we'd need the location url and assign that to our user profile/database
+          // see: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
+
+          s3.putObject(params, (err, data) => {
+            if (err) {
+              reject(err);
+            } else {
+              const result = `ISTOXBUCKET|${bucket}|${key}`;
+
+              this.setState({ src: result, uploaded: true }, () => {
+                this.onValueChanged();
+                resolve();
+              });
+            }
+          });
+
+          // Save the Location (url) to your database and Key if needs be.
+          // As good developers, we should return the url and let other function do the saving to database etc
+
+          // make sure state is set before return
+        } catch (e) {
+          reject(e);
+        }
+      });
+    } else {
+      return null;
+    }
+  };
 }

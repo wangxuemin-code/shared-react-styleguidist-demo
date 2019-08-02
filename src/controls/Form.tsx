@@ -6,11 +6,13 @@ import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
 import { FormControl } from './FormControl';
 import { Loading } from './Loading';
+import { Controls } from '../index-prod';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
   onSubmit?: () => void;
   horizontal?: boolean;
+  onUploadError?: (e: any) => void;
 }
 
 export class Form extends React.Component<IProps> {
@@ -132,7 +134,15 @@ export class Form extends React.Component<IProps> {
     e.preventDefault();
 
     if (this.validate(true) && this.props.onSubmit) {
-      this.props.onSubmit();
+      this.handleFormControlsUpload()
+        .then(() => {
+          this.props.onSubmit!();
+        })
+        .catch((e) => {
+          if (this.props.onUploadError) {
+            this.props.onUploadError(e);
+          }
+        });
     }
   }
 
@@ -148,5 +158,34 @@ export class Form extends React.Component<IProps> {
     });
 
     return validated;
+  }
+
+  public handleFormControlsUpload() {
+    return new Promise((resolve, reject) => {
+      const promises: any[] = [];
+      this.formControls.forEach(async (formControl: any) => {
+        if (formControl.onUpload) {
+          const promise = formControl.onUpload();
+          if (promise) {
+            promises.push(promise);
+          }
+        }
+      });
+
+      if (promises.length > 0) {
+        Controls.Confirm.show({ type: 'blocking-load', message: 'Uploading...' });
+        Promise.all(promises)
+          .then(() => {
+            Controls.Confirm.destroy();
+            resolve();
+          })
+          .catch((e) => {
+            Controls.Confirm.destroy();
+            reject(e);
+          });
+      } else {
+        resolve();
+      }
+    });
   }
 }
