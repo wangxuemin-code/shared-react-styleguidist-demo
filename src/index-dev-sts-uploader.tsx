@@ -12,11 +12,11 @@ class Main extends Controls.MyComponent {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZ7AHP7WMBRWWSIJC',
-        secret_access_key: 'H6HWQK57ZeVyGqHi5lK39kM+rIcdljpYxTGa97v4',
+        access_key_id: 'ASIAZ7AHP7WMFYPLD6GM',
+        secret_access_key: 'TRQIvK1MN9jZGCg02LfKfvMcsV7olTglJTg4YgvK',
         session_token:
-          'FQoGZXIvYXdzEHAaDD/zkhplP0/2BCWmTSKlA0SSLhFxCDh10RPj7mQgXUjP11/oUHA+jkbVTAxhx5NbKzhb2UKflP8OqB4IZ5CPV4h3MpM2/1mEJwsWQ7vPV+9o/fXNDDmkJLJqcH+Q0GbV+E6iaRv3bbFjwHeph/t1mkAbb02JRcLTnhQDx0EmY5hTRgZl7XDJir4t4kye9O0KJrBEue98fGfYEnUVP9s86j8fwYRqvWWb7s9wd3iQiTWM3zBvtpcCRhXZqWtVZF0QXNBGqz/iePuQ6wjDSr2hP4ZFxk8muv46v/aHFBIfBs7pR1UuOJXKmuzJ58yHXYKkVYUBnhIhOvRxKCGkWi6Rtq9vvG3atTQtkRzxAvk6chjfQhK7IzP4OlnWAHTqncKy5/omj7bbOzTXeLqH0ICwzSbeaf/Q1sSZmIkWpNmmF0IuIs8Y405Z0z0gi0LfJMZDrBGujdT88uRtpTF0bIvqWuPSdSdorIngCikamSlqHDB/upkzU2Pss0D9KbXi3yMEgQctZPwnWK1g8aihiOd2cQzu8myJfrG61qwXuMqGDqXa6q1mqq/klZF0IcfN4s1CTax3KLoo9YWR6gU=',
-        expiration: '2019-08-02T09:11:42.000Z'
+          'FQoGZXIvYXdzEIj//////////wEaDKQQUSs3DnStepHABSKsAz2n9chy2oRcF5whFKyQUkeXUKv1Ccv7OIq59kDreqIyYzMWpH4jajkV4dHsm+3PP09MaXJlOF7O83KafDwGylj/6RlPyo+XuXOg6FivRZ7O8DO3yyubI2fD9Z5Og6yNk1BnX1yBKn/QfOkIErkIS4leGMHq/2FWWqgX4901Ax2B3ZgpeKh2ujSxR99urMzu34abGw+qNun8jGMc8m3IMQ0lql92QZe63LOI4aWyH90QMkSNPjtEC9Bfn8h79WMJ3nrtf8thZNlcAT+lyuhtO3j5i8IAkV4BlYLpETOK5raFBlLVnf9d2HSakKenY/9o4N69EUqyN9bEMJJa5xKQulBR5+86S/oN7W+0eMDEuBTPJZaf2glXjFNSKNpCUqqWxwKyDHQ4Ftwr2tfuHXOdGRdDIlcpFjqWNWjo7Vt2kLg5Psv/0ohNn7CzZfGuK3O6e6SWbHQSYz4jfc2wRYQYURX//4z8ksxwZAR8XtTIPkpfqJeIsc5jc1oydzM0K9ckuPK4O7Lo1CBn6LssqJEkUeBWQXsnMn5+hBycrp8AVpvkAutSvMqhWHejgejdKKqzluoF',
+        expiration: '2019-08-03T15:26:50.000Z'
       };
     };
   }
@@ -55,6 +55,9 @@ class Main extends Controls.MyComponent {
                   label={'Uploader'}
                   name='uploader'
                   required={true}
+                  value={
+                    'ISTOXBUCKET|istoxkyc|ID35126761M/93a9dd4a-2e9f-4536-9ab3-3ba5552f397b.png'
+                  }
                   uploaderConfigs={{
                     bucketName: 'istoxkyc',
                     path: 'ID0000001',

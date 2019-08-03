@@ -2,7 +2,6 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { AwsHelper } from '../helpers';
-import AWS = require('aws-sdk');
 
 interface IImage extends IContainer {
   badge?: boolean;
@@ -29,11 +28,12 @@ export class Image extends React.Component<IImage, IState> {
     this.processSrcAndSetState(this.props.src);
   }
 
-  public componentDidUpdate(prevProps: IImage) {
-    if (prevProps.src !== this.props.src) {
-      this.processSrcAndSetState(this.props.src);
-    }
-  }
+  // public componentDidUpdate(prevProps: IImage) {
+  //   console.log(prevProps.src, this.props.src);
+  //   if (prevProps.src !== this.props.src) {
+  //     this.processSrcAndSetState(this.props.src);
+  //   }
+  // }
 
   public render() {
     const classes: string[] = [styles.imageResponsive];
@@ -94,38 +94,8 @@ export class Image extends React.Component<IImage, IState> {
   }
 
   private processSrcAndSetState(input?: string) {
-    if (input) {
-      if (input.indexOf('ISTOXBUCKET') === 0) {
-        const arr = input.split('|');
-        if (arr.length >= 3) {
-          AwsHelper.getSTS().then((credentials) => {
-            var options = {
-              accessKeyId: credentials.accessKey,
-              secretAccessKey: credentials.secretKey,
-              sessionToken: credentials.sessionToken,
-              region: 'ap-southeast-1'
-            };
-
-            const s3 = new AWS.S3(options);
-
-            const myBucket = arr[1];
-            const myKey = arr[2];
-            const signedUrlExpireSeconds = 60 * 10;
-
-            const url = s3.getSignedUrl('getObject', {
-              Bucket: myBucket,
-              Key: myKey,
-              Expires: signedUrlExpireSeconds
-            });
-
-            this.setState({ processedSrc: url });
-          });
-
-          return;
-        }
-      }
-    }
-
-    this.setState({ processedSrc: input });
+    AwsHelper.processSrcFromAWS(input).then((processedSrc: any) => {
+      this.setState({ processedSrc });
+    });
   }
 }

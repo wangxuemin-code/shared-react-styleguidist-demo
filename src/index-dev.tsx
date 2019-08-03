@@ -986,7 +986,16 @@ class Main extends Controls.MyComponent<
               >
                 Toast
               </Controls.Button>
-              <Controls.Modal visible={this.state.showModal} width={this.state.modalWidth}>
+              <Controls.Modal
+                onModalHide={() => {
+                  console.log('modal hide');
+                }}
+                onExited={() => {
+                  console.log('modal exited');
+                }}
+                visible={this.state.showModal}
+                width={this.state.modalWidth}
+              >
                 Modal
               </Controls.Modal>
               <Controls.Button
@@ -1691,16 +1700,22 @@ class Main extends Controls.MyComponent<
                         value: '2'
                       }
                     ]}
-                    value={this.state.value || '1'}
+                    value={this.state.value}
                     append={
                       <Controls.Button
                         float={'left'}
                         textAlign={'center'}
                         type={'submit'}
                         onPress={() => {
-                          this.setState({
-                            value: '2'
-                          });
+                          if (this.form.getInputValue('h_checkbox') == '1') {
+                            this.setState({
+                              value: undefined
+                            });
+                          } else {
+                            this.setState({
+                              value: '1'
+                            });
+                          }
                         }}
                       >
                         Change Checkbox

@@ -60,6 +60,14 @@ export default class FileUploader extends React.Component<IProps, IState> {
     };
   }
 
+  public componentDidMount() {
+    if (this.getExtensionType() === 'pdf') {
+      AwsHelper.processSrcFromAWS(this.props.value).then((processedSrc: any) => {
+        this.setState({ src: processedSrc });
+      });
+    }
+  }
+
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
       const value = this.props.value;
@@ -265,7 +273,12 @@ export default class FileUploader extends React.Component<IProps, IState> {
           )}
           {this.state.type === 'pdf' && (
             <Container fluid>
-              <Iframe width={'100%'} height={'500px'} url={this.state.src} />
+              <Iframe
+                width={'100%'}
+                height={'500px'}
+                url={this.state.src}
+                // url={AwsHelper.processSrcFromAWS(this.state.src) || ""}
+              />
             </Container>
           )}
         </Modal>

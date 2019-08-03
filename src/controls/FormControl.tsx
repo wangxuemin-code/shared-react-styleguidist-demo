@@ -150,7 +150,9 @@ export class FormControl extends React.Component<IProps, IState> {
     ) {
       this.onValueChanged(
         false,
-        String(this.props.value !== undefined ? this.props.value : this.props.defaultValue || '')
+        String(
+          this.props.value !== undefined ? this.props.value : this.props.defaultValue || undefined // Has to be undefined for checkbox
+        )
       );
     }
 
