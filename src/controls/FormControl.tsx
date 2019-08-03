@@ -248,7 +248,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public getValue(): string {
-    if (!this.state.value) {
+    if (this.state.value === null || this.state.value === undefined) {
       return '';
     } else {
       if (typeof this.state.value === 'number') {
