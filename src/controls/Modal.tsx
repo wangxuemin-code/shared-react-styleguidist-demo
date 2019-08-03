@@ -16,6 +16,7 @@ interface IProps {
   onExited?: () => void;
   className?: string;
   width?: number;
+  disableClose?: boolean;
 }
 
 export class Modal extends React.Component<IProps, IState> {
@@ -46,9 +47,12 @@ export class Modal extends React.Component<IProps, IState> {
         footer={null}
         closable={false}
         width={this.state.width}
-        maskClosable={true}
+        maskClosable={false}
       >
-        <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
+        {!this.props.disableClose && (
+          <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
+        )}
+
         {this.props.children}
       </ReactModal>
     );
