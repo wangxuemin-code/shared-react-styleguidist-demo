@@ -12,11 +12,11 @@ class Main extends Controls.MyComponent {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZ7AHP7WMFYPLD6GM',
-        secret_access_key: 'TRQIvK1MN9jZGCg02LfKfvMcsV7olTglJTg4YgvK',
+        access_key_id: 'ASIAZ7AHP7WMJMOTH6GF',
+        secret_access_key: '8sYxtqKV8MEFJGsv8AVA8rxrufl/8sZtFS/3m68O',
         session_token:
-          'FQoGZXIvYXdzEIj//////////wEaDKQQUSs3DnStepHABSKsAz2n9chy2oRcF5whFKyQUkeXUKv1Ccv7OIq59kDreqIyYzMWpH4jajkV4dHsm+3PP09MaXJlOF7O83KafDwGylj/6RlPyo+XuXOg6FivRZ7O8DO3yyubI2fD9Z5Og6yNk1BnX1yBKn/QfOkIErkIS4leGMHq/2FWWqgX4901Ax2B3ZgpeKh2ujSxR99urMzu34abGw+qNun8jGMc8m3IMQ0lql92QZe63LOI4aWyH90QMkSNPjtEC9Bfn8h79WMJ3nrtf8thZNlcAT+lyuhtO3j5i8IAkV4BlYLpETOK5raFBlLVnf9d2HSakKenY/9o4N69EUqyN9bEMJJa5xKQulBR5+86S/oN7W+0eMDEuBTPJZaf2glXjFNSKNpCUqqWxwKyDHQ4Ftwr2tfuHXOdGRdDIlcpFjqWNWjo7Vt2kLg5Psv/0ohNn7CzZfGuK3O6e6SWbHQSYz4jfc2wRYQYURX//4z8ksxwZAR8XtTIPkpfqJeIsc5jc1oydzM0K9ckuPK4O7Lo1CBn6LssqJEkUeBWQXsnMn5+hBycrp8AVpvkAutSvMqhWHejgejdKKqzluoF',
-        expiration: '2019-08-03T15:26:50.000Z'
+          'FQoGZXIvYXdzEIr//////////wEaDKmrZlgS/MIaNIAF2CKsA4S8x2/83mmDl7BeGHPZtSKBQPCAqLbFpzFkpzMUVWv+0x4zjDnlUxZr/OX4CoXXl29HfIMyDZPT8HyM7nIZUpY8weJJ+GVYgUMdp9zChzyXTkoIaD7Jaf7op9571elrh+fUJx5DkNrFF6sYnRs+9qW7W8WDY8t4Nk2AAcmtPIfkU9s491du29v+xJnH6gyXKImw1FYcISJ8hLcvrD7/EYl9B+9+dov6QGrR19QhVR4ZYZN0xG458FHcHrs9TRShAlxL7PAyIo4rJRjCiWjW65SUrufhOYU8No6d8kjTlF2ODt8qiOeDj4cKNR3r6mzePHKRYsNFEJx+xYN9+F7gY5XdflWb8T0kn1tkb50+EVXp+Ae96gOehgiqxkIFxPAoNuRA8bOVeINVmozwxwUHt4l7J+O52HBpZSJMweoyPyUXQ8dcOCWCzP9mBC+Biyc7nIYssQRt0eiBE/ClI2vvpKnWAYtyNVbKDzEWIsANhOE1wqDQSDCNl8WyJcj0ToFg4W3mirplQAr3wgLox5AF0t4ZPqogKPoPb8xgbOegvJuC0NF8da3iQsa4WwkfKL3sluoF',
+        expiration: '2019-08-03T17:28:45.000Z'
       };
     };
   }
@@ -56,7 +56,7 @@ class Main extends Controls.MyComponent {
                   name='uploader'
                   required={true}
                   value={
-                    'ISTOXBUCKET|istoxkyc|ID35126761M/93a9dd4a-2e9f-4536-9ab3-3ba5552f397b.png'
+                    'ISTOXBUCKET|istoxkyc|ID35126761M/17eeddd4-b841-48d8-ac6f-47b1a8b0f33f.pdf'
                   }
                   uploaderConfigs={{
                     bucketName: 'istoxkyc',
