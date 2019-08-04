@@ -12,11 +12,11 @@ class Main extends Controls.MyComponent {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZ7AHP7WMJMOTH6GF',
-        secret_access_key: '8sYxtqKV8MEFJGsv8AVA8rxrufl/8sZtFS/3m68O',
+        access_key_id: 'ASIAZ7AHP7WMDSM76IUQ',
+        secret_access_key: 'mRX5hQmXg91opBlZ8hRTNFRUP0tnLPlZNj3BBg5R',
         session_token:
-          'FQoGZXIvYXdzEIr//////////wEaDKmrZlgS/MIaNIAF2CKsA4S8x2/83mmDl7BeGHPZtSKBQPCAqLbFpzFkpzMUVWv+0x4zjDnlUxZr/OX4CoXXl29HfIMyDZPT8HyM7nIZUpY8weJJ+GVYgUMdp9zChzyXTkoIaD7Jaf7op9571elrh+fUJx5DkNrFF6sYnRs+9qW7W8WDY8t4Nk2AAcmtPIfkU9s491du29v+xJnH6gyXKImw1FYcISJ8hLcvrD7/EYl9B+9+dov6QGrR19QhVR4ZYZN0xG458FHcHrs9TRShAlxL7PAyIo4rJRjCiWjW65SUrufhOYU8No6d8kjTlF2ODt8qiOeDj4cKNR3r6mzePHKRYsNFEJx+xYN9+F7gY5XdflWb8T0kn1tkb50+EVXp+Ae96gOehgiqxkIFxPAoNuRA8bOVeINVmozwxwUHt4l7J+O52HBpZSJMweoyPyUXQ8dcOCWCzP9mBC+Biyc7nIYssQRt0eiBE/ClI2vvpKnWAYtyNVbKDzEWIsANhOE1wqDQSDCNl8WyJcj0ToFg4W3mirplQAr3wgLox5AF0t4ZPqogKPoPb8xgbOegvJuC0NF8da3iQsa4WwkfKL3sluoF',
-        expiration: '2019-08-03T17:28:45.000Z'
+          'FQoGZXIvYXdzEJf//////////wEaDHWXlHqzvi4SY9QHgCKsA4uoZn+KQiB1ddQQDDqIBxmC4Pcf2hIeB6Jq0IZqlK7781n5UXKp71SP9IoIB7pKkeWp+oxhOnwJjkPX7VT/PXObyN0Js8SQtSAT6u28cbqDgZHs9Cxg57SGzIG56fdnYL7+nhGFZ5dz0Jrr/GrMxIN2DB+WzuFu3kN3Tgs2oXVzoHUbS5aj/EOUxEJ8PtLJqFJg+3fC1fwY6c0QbyZp0JpZ/seftmFVU9S7LJJfmRsq8NMWsf8QBSYxZqW4UmlEzYLmP66toTzE/tSW7TtCo15A/vSZ3GsEQrR82cwEkuUrWlEyruddcnp7ZKKenWaawcklLSyS+YSe36ztATul/4tBjcVDAraLO8R2RjHEkot8DO4pRExwwBjHIST5+pucO88zA8HtcuVAYqywIAi1mj0o71Jc3IxKhdHs/hHiIgyHzSFabG5jyKS6khSuEq9Fz1N5E3OL/0qKBS/oSDzZKQddWJILqn/MEh/fz/JweIYwSsN9tOFiNzkPwpO8aABvXzMn7t9PGDUVu7JgLlxFSN2cnhGEeO01NpwkNdXZGyxXgzKyCkprbGn2uRpCKIDUmeoF',
+        expiration: '2019-08-04T06:15:44.000Z'
       };
     };
   }
@@ -47,7 +47,6 @@ class Main extends Controls.MyComponent {
                 }}
                 onUploadError={(e) => {
                   console.log(e);
-                  console.log('dssads');
                 }}
               >
                 <Controls.FormControl
@@ -82,6 +81,7 @@ class Main extends Controls.MyComponent {
                   type='button'
                   onClick={() => {
                     console.log(this.form!.getFormJson());
+                    this.form!.onSaved();
                   }}
                 >
                   Test

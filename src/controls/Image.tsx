@@ -28,12 +28,11 @@ export class Image extends React.Component<IImage, IState> {
     this.processSrcAndSetState(this.props.src);
   }
 
-  // public componentDidUpdate(prevProps: IImage) {
-  //   console.log(prevProps.src, this.props.src);
-  //   if (prevProps.src !== this.props.src) {
-  //     this.processSrcAndSetState(this.props.src);
-  //   }
-  // }
+  public componentDidUpdate(prevProps: IImage) {
+    if (prevProps.src !== this.props.src) {
+      this.processSrcAndSetState(this.props.src);
+    }
+  }
 
   public render() {
     const classes: string[] = [styles.imageResponsive];

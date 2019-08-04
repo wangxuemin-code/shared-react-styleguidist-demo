@@ -40,6 +40,7 @@ interface IState {
   fileName?: string;
   dragOver?: boolean;
   loading?: boolean;
+  url: string;
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
@@ -56,14 +57,19 @@ export default class FileUploader extends React.Component<IProps, IState> {
       src: this.props.value || '',
       type: this.getExtensionType(),
       uploaded: true,
-      showViewer: false
+      showViewer: false,
+      url: ''
     };
   }
 
   public componentDidMount() {
     if (this.getExtensionType() === 'pdf') {
       AwsHelper.processSrcFromAWS(this.props.value).then((processedSrc: any) => {
-        this.setState({ src: processedSrc });
+        if (processedSrc) {
+          this.setState({ url: processedSrc });
+        } else {
+          this.setState({ url: this.props.value });
+        }
       });
     }
   }
@@ -273,12 +279,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           )}
           {this.state.type === 'pdf' && (
             <Container fluid>
-              <Iframe
-                width={'100%'}
-                height={'500px'}
-                url={this.state.src}
-                // url={AwsHelper.processSrcFromAWS(this.state.src) || ""}
-              />
+              <Iframe width={'100%'} height={'500px'} url={this.state.url} />
             </Container>
           )}
         </Modal>
