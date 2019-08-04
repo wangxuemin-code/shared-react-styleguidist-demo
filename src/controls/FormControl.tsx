@@ -68,6 +68,7 @@ interface IProps extends IContainer {
   required?: boolean;
   selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
+  excludeOptions?: string[];
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
@@ -140,8 +141,9 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState({ extraControls: this.props.extraControls });
   }
 
-  public componentDidUpdate(prevProps: IProps) {
+  public componentDidUpdate(prevProps: IProps, prevState: IState) {
     if (
+      // this.props.value !== this.state.value ||
       prevProps.value !== this.props.value ||
       (prevProps.selectOptions !== this.props.selectOptions &&
         prevProps.selectOptions == undefined) ||
@@ -548,8 +550,9 @@ export class FormControl extends React.Component<IProps, IState> {
         );
       };
       const Options: any = [];
+      const excludeOptions = this.props.excludeOptions || [];
       countries.all.map((option) => {
-        if (option.alpha3.length && option.emoji) {
+        if (option.alpha3.length && option.emoji && excludeOptions.indexOf(option.name) == -1) {
           var obj = {
             label: option.name,
             value: option.name,
@@ -559,13 +562,15 @@ export class FormControl extends React.Component<IProps, IState> {
           Options.push(obj);
         }
       });
-      var obj = {
-        label: 'Others',
-        value: 'Others',
-        country: 'Others',
-        code: 'Others'
-      };
-      Options.push(obj);
+      if (excludeOptions.indexOf('Others') == -1) {
+        var obj = {
+          label: 'Others',
+          value: 'Others',
+          country: 'Others',
+          code: 'Others'
+        };
+        Options.push(obj);
+      }
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -627,8 +632,9 @@ export class FormControl extends React.Component<IProps, IState> {
         );
       };
       const Options: any = [];
+      const excludeOptions = this.props.excludeOptions || [];
       countries.all.map((option) => {
-        if (option.alpha3.length && option.emoji) {
+        if (option.alpha3.length && option.emoji && excludeOptions.indexOf(option.alpha3) == -1) {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,
@@ -638,13 +644,15 @@ export class FormControl extends React.Component<IProps, IState> {
           Options.push(obj);
         }
       });
-      var obj = {
-        label: 'Others',
-        value: 'Others',
-        country: 'Others',
-        code: 'Others'
-      };
-      Options.push(obj);
+      if (excludeOptions.indexOf('Others') == -1) {
+        var obj = {
+          label: 'Others',
+          value: 'Others',
+          country: 'Others',
+          code: 'Others'
+        };
+        Options.push(obj);
+      }
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||

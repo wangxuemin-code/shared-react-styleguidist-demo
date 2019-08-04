@@ -12,11 +12,11 @@ class Main extends Controls.MyComponent {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZ7AHP7WMBRWWSIJC',
-        secret_access_key: 'H6HWQK57ZeVyGqHi5lK39kM+rIcdljpYxTGa97v4',
+        access_key_id: 'ASIAZ7AHP7WMAWUM4XXK',
+        secret_access_key: 'Lbbcc5fMGSgFp6uHA9LrUPWr+MXb7/0eL7onP9gb',
         session_token:
-          'FQoGZXIvYXdzEHAaDD/zkhplP0/2BCWmTSKlA0SSLhFxCDh10RPj7mQgXUjP11/oUHA+jkbVTAxhx5NbKzhb2UKflP8OqB4IZ5CPV4h3MpM2/1mEJwsWQ7vPV+9o/fXNDDmkJLJqcH+Q0GbV+E6iaRv3bbFjwHeph/t1mkAbb02JRcLTnhQDx0EmY5hTRgZl7XDJir4t4kye9O0KJrBEue98fGfYEnUVP9s86j8fwYRqvWWb7s9wd3iQiTWM3zBvtpcCRhXZqWtVZF0QXNBGqz/iePuQ6wjDSr2hP4ZFxk8muv46v/aHFBIfBs7pR1UuOJXKmuzJ58yHXYKkVYUBnhIhOvRxKCGkWi6Rtq9vvG3atTQtkRzxAvk6chjfQhK7IzP4OlnWAHTqncKy5/omj7bbOzTXeLqH0ICwzSbeaf/Q1sSZmIkWpNmmF0IuIs8Y405Z0z0gi0LfJMZDrBGujdT88uRtpTF0bIvqWuPSdSdorIngCikamSlqHDB/upkzU2Pss0D9KbXi3yMEgQctZPwnWK1g8aihiOd2cQzu8myJfrG61qwXuMqGDqXa6q1mqq/klZF0IcfN4s1CTax3KLoo9YWR6gU=',
-        expiration: '2019-08-02T09:11:42.000Z'
+          'FQoGZXIvYXdzEJr//////////wEaDI6Xqwl9TTWgqDqSxyKsA//NWyZehL2Xnq/YmqvJTWdlHw1c4yhiSsBr92sL5NM0w/K64wFUqB6GZdguLKvjzkq7Pk1hBp7Qw8K+YeBau7DXaaKMMDFxAyNo2fme7K4eak9+GH7ddTNoBBFLMXlLL2lH95BF5KjyjqT5EnMo2ZSQQVXezMfY43Vb4wF5F0PEElSQ6DySE5VIpAC1gthhIjr3CNdFkfMUpfDorAMLl4WOgluct4LtathvsQoRKiESEvlDTadOFlpkltNfsXhbeP+T4QTB02U78kRHC8PhNDTxEjgQ3B2HhHYP2e/213xoWciqhzglztz+aYH+c3ro6prNgj9Vim495S3c+ql1cGIe6M6RdAoiEx7kPACFOv2ui7O3ePRG3XBFaMOx+pF/UMtKfPeMisNCqs3yOwNnfKDg5IiAssTYWi/44kEbb8bt070THk1UrDunhUeNN1BQNYhfe6piOepsk2F1C4aebRKmNNnFhnDoNlsbf0NItCn3dVGGfmtCeUGV6nG4u+iw3g/yRRegND0+yodt2IMJMWsx4eGSI+N5tduFQp4smBZkmGXkAvT20LYAkXLbKP2tmuoF',
+        expiration: '2019-08-04T09:27:41.000Z'
       };
     };
   }
@@ -47,7 +47,6 @@ class Main extends Controls.MyComponent {
                 }}
                 onUploadError={(e) => {
                   console.log(e);
-                  console.log('dssads');
                 }}
               >
                 <Controls.FormControl
@@ -55,6 +54,10 @@ class Main extends Controls.MyComponent {
                   label={'Uploader'}
                   name='uploader'
                   required={true}
+                  value={
+                    // 'ISTOXBUCKET|istoxkyc|ID35126761M/6314f04e-76e6-4142-bdac-4a23cbf438ed.pdf'
+                    'ISTOXBUCKET|istoxkyc|ID35126761M/0222ce01-6b44-409c-a04f-f589c7189de8.jpg'
+                  }
                   uploaderConfigs={{
                     bucketName: 'istoxkyc',
                     path: 'ID0000001',
@@ -79,6 +82,7 @@ class Main extends Controls.MyComponent {
                   type='button'
                   onClick={() => {
                     console.log(this.form!.getFormJson());
+                    this.form!.onSaved();
                   }}
                 >
                   Test

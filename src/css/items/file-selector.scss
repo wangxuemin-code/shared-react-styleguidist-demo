@@ -32,13 +32,13 @@
 
 :global(.ant-spin-nested-loading > div > .ant-spin) {
   background-color: #fff;
-  border: 2px dashed map-get($colors, primaryGreyLight);
+  border: 2px dashed map-get($colors, primaryGreyLighter);
 }
 .uploader {
   display: block;
   cursor: pointer;
   height: 100%;
-  border: 2px dashed map-get($colors, primaryGreyLight);
+  border: 2px dashed map-get($colors, primaryGreyLighter);
   position: relative;
   width: 100%;
 
@@ -102,7 +102,7 @@
 
 .error {
   .uploader {
-    border: 3px dashed map-get($colors, danger);
+    border: 2px dashed map-get($colors, danger);
     background-color: rgba(220, 53, 69, 0.1);
   }
 }
