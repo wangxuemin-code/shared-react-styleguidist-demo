@@ -93,12 +93,14 @@ export class Image extends React.Component<IImage, IState> {
   }
 
   private processSrcAndSetState(input?: string) {
-    AwsHelper.processSrcFromAWS(input).then((processedSrc: any) => {
-      if (processedSrc) {
-        this.setState({ processedSrc });
-      } else {
-        this.setState({ processedSrc: input });
-      }
-    });
+    if (input) {
+      AwsHelper.processSrcFromAWS(input).then((processedSrc: any) => {
+        if (processedSrc) {
+          this.setState({ processedSrc });
+        } else {
+          this.setState({ processedSrc: input });
+        }
+      });
+    }
   }
 }

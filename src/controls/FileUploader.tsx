@@ -83,6 +83,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           this.setState({
             src: value,
             type: 'pdf',
+            url: value,
             fileName: ''
           });
         } else {
@@ -102,7 +103,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
         ) {
           this.setState({
             src: obj.src,
-            type: 'pdf'
+            type: 'pdf',
+            url: obj.src
           });
         } else {
           this.setState({
@@ -374,20 +376,23 @@ export default class FileUploader extends React.Component<IProps, IState> {
     this.props.resetFormControl!;
     file.preview = await this.getBase64(file);
     if (file.type.split('/')[0] === 'image') {
-      this.setState(
-        {
-          src: file.preview as string,
-          type: 'image',
-          extension: this.getExtension(file.name),
-          uploaded: false,
-          fileName: file.name
-        },
-        this.onValueChanged
-      );
+      setTimeout(() => {
+        this.setState(
+          {
+            src: file.preview as string,
+            type: 'image',
+            extension: this.getExtension(file.name),
+            uploaded: false,
+            fileName: file.name
+          },
+          this.onValueChanged
+        );
+      }, 100);
     } else if (file.type === 'application/pdf') {
       this.setState(
         {
           src: file.preview as string,
+          url: file.preview as string,
           type: 'pdf',
           extension: this.getExtension(file.name),
           uploaded: false,

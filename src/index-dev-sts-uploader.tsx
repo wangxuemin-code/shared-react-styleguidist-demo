@@ -12,11 +12,11 @@ class Main extends Controls.MyComponent {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZ7AHP7WMDSM76IUQ',
-        secret_access_key: 'mRX5hQmXg91opBlZ8hRTNFRUP0tnLPlZNj3BBg5R',
+        access_key_id: 'ASIAZ7AHP7WMAWUM4XXK',
+        secret_access_key: 'Lbbcc5fMGSgFp6uHA9LrUPWr+MXb7/0eL7onP9gb',
         session_token:
-          'FQoGZXIvYXdzEJf//////////wEaDHWXlHqzvi4SY9QHgCKsA4uoZn+KQiB1ddQQDDqIBxmC4Pcf2hIeB6Jq0IZqlK7781n5UXKp71SP9IoIB7pKkeWp+oxhOnwJjkPX7VT/PXObyN0Js8SQtSAT6u28cbqDgZHs9Cxg57SGzIG56fdnYL7+nhGFZ5dz0Jrr/GrMxIN2DB+WzuFu3kN3Tgs2oXVzoHUbS5aj/EOUxEJ8PtLJqFJg+3fC1fwY6c0QbyZp0JpZ/seftmFVU9S7LJJfmRsq8NMWsf8QBSYxZqW4UmlEzYLmP66toTzE/tSW7TtCo15A/vSZ3GsEQrR82cwEkuUrWlEyruddcnp7ZKKenWaawcklLSyS+YSe36ztATul/4tBjcVDAraLO8R2RjHEkot8DO4pRExwwBjHIST5+pucO88zA8HtcuVAYqywIAi1mj0o71Jc3IxKhdHs/hHiIgyHzSFabG5jyKS6khSuEq9Fz1N5E3OL/0qKBS/oSDzZKQddWJILqn/MEh/fz/JweIYwSsN9tOFiNzkPwpO8aABvXzMn7t9PGDUVu7JgLlxFSN2cnhGEeO01NpwkNdXZGyxXgzKyCkprbGn2uRpCKIDUmeoF',
-        expiration: '2019-08-04T06:15:44.000Z'
+          'FQoGZXIvYXdzEJr//////////wEaDI6Xqwl9TTWgqDqSxyKsA//NWyZehL2Xnq/YmqvJTWdlHw1c4yhiSsBr92sL5NM0w/K64wFUqB6GZdguLKvjzkq7Pk1hBp7Qw8K+YeBau7DXaaKMMDFxAyNo2fme7K4eak9+GH7ddTNoBBFLMXlLL2lH95BF5KjyjqT5EnMo2ZSQQVXezMfY43Vb4wF5F0PEElSQ6DySE5VIpAC1gthhIjr3CNdFkfMUpfDorAMLl4WOgluct4LtathvsQoRKiESEvlDTadOFlpkltNfsXhbeP+T4QTB02U78kRHC8PhNDTxEjgQ3B2HhHYP2e/213xoWciqhzglztz+aYH+c3ro6prNgj9Vim495S3c+ql1cGIe6M6RdAoiEx7kPACFOv2ui7O3ePRG3XBFaMOx+pF/UMtKfPeMisNCqs3yOwNnfKDg5IiAssTYWi/44kEbb8bt070THk1UrDunhUeNN1BQNYhfe6piOepsk2F1C4aebRKmNNnFhnDoNlsbf0NItCn3dVGGfmtCeUGV6nG4u+iw3g/yRRegND0+yodt2IMJMWsx4eGSI+N5tduFQp4smBZkmGXkAvT20LYAkXLbKP2tmuoF',
+        expiration: '2019-08-04T09:27:41.000Z'
       };
     };
   }
@@ -55,7 +55,8 @@ class Main extends Controls.MyComponent {
                   name='uploader'
                   required={true}
                   value={
-                    'ISTOXBUCKET|istoxkyc|ID35126761M/17eeddd4-b841-48d8-ac6f-47b1a8b0f33f.pdf'
+                    // 'ISTOXBUCKET|istoxkyc|ID35126761M/6314f04e-76e6-4142-bdac-4a23cbf438ed.pdf'
+                    'ISTOXBUCKET|istoxkyc|ID35126761M/0222ce01-6b44-409c-a04f-f589c7189de8.jpg'
                   }
                   uploaderConfigs={{
                     bucketName: 'istoxkyc',
