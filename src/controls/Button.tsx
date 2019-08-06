@@ -56,7 +56,11 @@ export class Button extends React.Component<IButton, any> {
     let style: React.CSSProperties = {};
 
     if (this.props.padding) {
-      style = { ...style, ...ControlsHelper.processPadding(this.props.padding) };
+      style = {
+        ...style,
+        ...ControlsHelper.processPadding(this.props.padding),
+        ...ControlsHelper.processMargin(this.props.margin)
+      };
     }
 
     if (this.props.href && !this.props.disabled) {
@@ -78,7 +82,9 @@ export class Button extends React.Component<IButton, any> {
       ...this.props,
       ...{ classNames: undefined },
       ...{ class: undefined },
-      ...{ onClick: undefined }
+      ...{ onClick: undefined },
+      ...{ padding: undefined },
+      ...{ margin: undefined }
     };
     return (
       <Container {...filteredProps} display='inline-grid' position='relative'>
