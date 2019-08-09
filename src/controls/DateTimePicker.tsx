@@ -197,10 +197,10 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           selectedUnixTimestamp: value
         });
       } else {
-        this.state = {
+        this.setState({
           selectedStartUnixTimestamp: parseInt(value.toString().split(',')[0]),
           selectedEndUnixTimestamp: parseInt(value.toString().split(',')[1])
-        };
+        });
       }
     }
   }
