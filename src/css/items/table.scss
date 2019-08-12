@@ -48,6 +48,19 @@
   font-weight: lighter;
 }
 
+.istox-table tr {
+  td,
+  th {
+    &:first-of-type {
+      padding-left: 0px;
+    }
+
+    &:last-of-type {
+      padding-right: 0px;
+    }
+  }
+}
+
 .istox-table tbody tr {
   transition: background-color $transitionLinear;
 
