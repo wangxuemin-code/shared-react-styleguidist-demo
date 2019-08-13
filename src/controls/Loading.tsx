@@ -1,19 +1,35 @@
 import * as React from 'react';
 import { Image } from './Image';
 import * as styles from '../css/main.scss';
-import { stylings } from '../css/theme';
 
 interface IProps {
   loading?: boolean;
   backDrop?: boolean;
   variant?: 'white' | 'black';
+  loadingTime?: number;
 }
 
-export class Loading extends React.Component<IProps, any> {
+interface IState {
+  showLoading: boolean;
+}
+
+export class Loading extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     backDrop: true,
-    variant: 'black'
+    variant: 'black',
+    loadingTime: 2000
   };
+
+  constructor(props: IProps) {
+    super(props);
+    this.state = { showLoading: false };
+  }
+
+  public componentDidMount() {
+    setTimeout(() => {
+      this.setState({ showLoading: true });
+    }, this.props.loadingTime);
+  }
 
   public render() {
     const style: React.CSSProperties = {};
@@ -31,7 +47,7 @@ export class Loading extends React.Component<IProps, any> {
 
     return (
       <div className={styles.loadingContainer} style={style}>
-        <Image width={125} src={'/images/iSTOX_Loading-black.gif'} />
+        {this.state.showLoading && <Image width={125} src={'/images/iSTOX_Loading-black.gif'} />}
       </div>
     );
   }

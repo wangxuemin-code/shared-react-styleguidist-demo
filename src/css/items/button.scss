@@ -39,6 +39,9 @@ $borderRadius: 0;
   border: 2px solid map-get($colors, primary);
   font-weight: 600;
   transition: $transitionLinear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &.tiny {
     padding: 0.1429rem;
@@ -62,7 +65,12 @@ $borderRadius: 0;
 
   .anticon {
     display: inline-block;
-    margin: 0 0.3rem 0 0;
+    margin: 0 0.1rem 0 0;
+  }
+
+  .icon {
+    display: inline-block;
+    margin: 0 0.4rem 0 0;
   }
 
   .sub-text {
@@ -159,7 +167,7 @@ $borderRadius: 0;
       color: map-get($colors, primaryDark);
 
       &:not([disabled]):hover {
-        background-color: map-get($colors, primaryAltBackground);
+        background-color: map-get($colors, primaryGreyLighter);
         border: 2px solid map-get($colors, primaryGreyLighter);
         color: map-get($colors, primaryDark);
       }

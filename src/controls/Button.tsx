@@ -55,7 +55,7 @@ export class Button extends React.Component<IButton, any> {
 
     let style: React.CSSProperties = {};
 
-    if (this.props.padding) {
+    if (this.props.padding || this.props.margin) {
       style = {
         ...style,
         ...ControlsHelper.processPadding(this.props.padding),
