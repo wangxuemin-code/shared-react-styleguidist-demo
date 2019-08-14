@@ -433,7 +433,13 @@ class Main extends Controls.MyComponent<
               />
               <Controls.Divider />
               <h4>Button</h4>
-              <Controls.Button size='tiny' variant='primary'>
+              <Controls.Button
+                size='tiny'
+                height={40}
+                width={250}
+                margin={{ rightPx: 30 }}
+                variant='primary'
+              >
                 Tiny
               </Controls.Button>
               <Controls.Button size='small' variant='primary'>
