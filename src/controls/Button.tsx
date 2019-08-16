@@ -57,8 +57,8 @@ export class Button extends React.Component<IButton, any> {
 
     if (this.props.padding || this.props.margin) {
       style = {
-        ...style
-        // ...ControlsHelper.processPadding(this.props.padding),
+        ...style,
+        ...ControlsHelper.processPadding(this.props.padding)
         // ...ControlsHelper.processMargin(this.props.margin)
       };
     }
@@ -82,8 +82,8 @@ export class Button extends React.Component<IButton, any> {
       ...this.props,
       ...{ classNames: undefined },
       ...{ class: undefined },
-      ...{ onClick: undefined }
-      // ...{ padding: undefined },
+      ...{ onClick: undefined },
+      ...{ padding: undefined }
       // ...{ margin: undefined }
     };
     return (
