@@ -1,0 +1,89 @@
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import 'react-toastify/dist/ReactToastify.css';
+import { Controls } from './index-prod';
+import { AwsHelper } from './helpers';
+
+class Main extends Controls.MyComponent {
+  private form?: Controls.Form;
+
+  public constructor(props: any) {
+    super(props);
+  }
+
+  public render() {
+    return (
+      <React.Fragment>
+        <Controls.RootContainer>
+          <Controls.Header
+            logo={true}
+            className={'istox-header'}
+            mainLinks={[
+              { title: 'STO', path: 'sto', selected: false, useAnchorTag: true },
+              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
+            ]}
+            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
+          />
+          <Controls.WrapperContainer>
+            <Controls.Container margin={{ topPx: 200 }}>
+              <Controls.Form
+                ref={(ref) => {
+                  if (ref) {
+                    this.form = ref;
+                  }
+                }}
+                onSubmit={() => {
+                  console.log('submitted');
+                }}
+                onUploadError={(e) => {
+                  console.log(e);
+                }}
+                comparing={true}
+              >
+                <Controls.FormControl
+                  type='number'
+                  label={'Name'}
+                  name='name'
+                  required={true}
+                  value={'100'}
+                  oldValue={'1000.92929'}
+                  unit={'SGD'}
+                />
+
+                <Controls.FormControl
+                  type='text'
+                  label={'Location'}
+                  name='location'
+                  required={true}
+                  value={'hahah'}
+                />
+
+                <Controls.Button type='submit'>Submit</Controls.Button>
+                <Controls.Button
+                  type='button'
+                  onClick={() => {
+                    console.log(this.form!.getFormJson());
+                    this.form!.onSaved();
+                  }}
+                >
+                  Test
+                </Controls.Button>
+              </Controls.Form>
+            </Controls.Container>
+          </Controls.WrapperContainer>
+        </Controls.RootContainer>
+        <Controls.Footer detailed />
+      </React.Fragment>
+    );
+  }
+
+  private function = () => {
+    console.log('this is a callback');
+  };
+}
+
+const render = () => {
+  ReactDOM.render(<Main />, document.getElementById('reactContainer'));
+};
+
+render();

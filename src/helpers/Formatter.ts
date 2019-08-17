@@ -3,7 +3,7 @@ import * as moment from 'moment';
 export class Formatter {
   public static money(
     input: number | string | undefined,
-    options: { decimalPlace?: number; symbol?: string } = {}
+    options: { decimalPlace?: number; symbol?: string; unit?: string } = {}
   ): string {
     if (!input) {
       input = 0;
@@ -23,11 +23,12 @@ export class Formatter {
       input = 0;
     }
 
-    input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
+    input = Formatter.toFixedTrunc(input, options.decimalPlace || 20);
 
-    return `${options.symbol || '$ '}${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
-      maximumFractionDigits: options.decimalPlace || 4
-    })}`;
+    return `${options.symbol || ''}${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
+      minimumFractionDigits: options.decimalPlace || 0,
+      maximumFractionDigits: options.decimalPlace || 20
+    })}${options.unit ? ` ${options.unit}` : ''}`;
   }
 
   public static number(
@@ -52,10 +53,11 @@ export class Formatter {
       input = 0;
     }
 
-    input = Formatter.toFixedTrunc(input, options.decimalPlace || 4);
+    input = Formatter.toFixedTrunc(input, options.decimalPlace || 20);
 
     return `${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
-      maximumFractionDigits: options.decimalPlace || 4
+      minimumFractionDigits: options.decimalPlace || 0,
+      maximumFractionDigits: options.decimalPlace || 20
     })}`;
   }
 

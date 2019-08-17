@@ -1435,7 +1435,7 @@ class Main extends Controls.MyComponent<
                         </Controls.Button>
                       }
                       name='hi'
-                      type={'money'}
+                      type={'number'}
                       decimalPlace={2}
                     />
                   </Controls.Container>
@@ -1502,8 +1502,9 @@ class Main extends Controls.MyComponent<
                     required
                     label={'$$$'}
                     name='money'
-                    type={'money'}
+                    type={'number'}
                     decimalPlace={2}
+                    unit={'SGD'}
                   />
                   <Controls.FormControl
                     required

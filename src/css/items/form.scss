@@ -92,6 +92,10 @@ textarea[disabled] {
       }
 
       text-align: right;
+
+      .ant-input-number-input {
+        text-align: right;
+      }
     }
 
     .unit {
@@ -100,6 +104,22 @@ textarea[disabled] {
       right: 0;
       bottom: 8px;
       font-size: 0.857rem;
+    }
+
+    .ant-input-number {
+      box-shadow: none !important;
+      height: inherit;
+      font-size: inherit;
+      color: inherit;
+      line-height: inherit;
+      background-color: inherit;
+      border: none !important;
+      width: 100%;
+      transition: none;
+
+      .ant-input-number-handler-wrap {
+        display: none !important;
+      }
     }
   }
   input,

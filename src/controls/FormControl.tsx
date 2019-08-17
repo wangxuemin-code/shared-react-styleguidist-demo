@@ -19,6 +19,7 @@ import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
+import { Ant } from '../index-prod';
 
 interface IState {
   oldDisplayValue?: string;
@@ -43,7 +44,6 @@ interface IProps extends IContainer {
     | 'number'
     | 'numberfields'
     | 'numeric'
-    | 'money'
     | 'email'
     | 'password'
     | 'select'
@@ -90,7 +90,7 @@ interface IProps extends IContainer {
     fixedFileName?: string;
   };
   singleCheckbox?: boolean;
-  onInputChanged?: (value: string | number, name: string) => void;
+  onInputChanged?: (value: string | number | undefined, name: string) => void;
   onFocus?: (formControl: FormControl) => void;
   onBlur?: (formControl: FormControl) => void;
   onKeyPress?: () => void;
@@ -101,8 +101,8 @@ interface IProps extends IContainer {
 }
 
 interface IProcessResult {
-  displayValue: string;
-  value: string | number;
+  displayValue?: string;
+  value?: string | number;
 }
 
 export class FormControl extends React.Component<IProps, IState> {
@@ -111,7 +111,6 @@ export class FormControl extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     type: 'text',
     name: '',
-    decimalPlace: 4,
     uploaderConfigs: {},
     includeInFormData: true,
     showPhoneLabel: true
@@ -130,15 +129,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onCheckChanged = this.onCheckChanged.bind(this);
     this.onUploaderChanged = this.onUploaderChanged.bind(this);
     this.reset = this.reset.bind(this);
-    this.state = { valueArray: [], displayValue: '', value: '', oldDisplayValue: '' };
-  }
-
-  public componentWillMount() {
-    this.onValueChanged(
-      true,
-      String(this.props.value !== undefined ? this.props.value : this.props.defaultValue || '')
-    );
-    this.setState({ extraControls: this.props.extraControls });
+    this.onValueChanged(true, this.props.value);
   }
 
   public componentDidUpdate(prevProps: IProps, prevState: IState) {
@@ -150,10 +141,7 @@ export class FormControl extends React.Component<IProps, IState> {
       (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
         prevProps.selectCustomOptions == undefined)
     ) {
-      this.onValueChanged(
-        false,
-        String(this.props.value !== undefined ? this.props.value : this.props.defaultValue || '')
-      );
+      this.onValueChanged(false, this.props.value);
     }
 
     if (prevProps.extraControls !== this.props.extraControls) {
@@ -177,23 +165,17 @@ export class FormControl extends React.Component<IProps, IState> {
       >
         <Container className={classes.join(' ')}>
           <>
-            {this.props.oldValue && (
+            {this.shouldShowOldValue() && (
               <>
                 {this.props.label && (
                   <label className={styles.semiBold}>
                     <Container classNames={[styles.displayFlex, styles.oldValueActive]}>
                       {typeof this.props.label === 'string' && (
                         <Container className={styles.semiBold}>
-                          {this.props.label}
-                          {this.props.oldValue && <>&nbsp;(Old)</>}
+                          {this.props.label} &nbsp;(Old)
                         </Container>
                       )}
-                      {typeof this.props.label !== 'string' && (
-                        <>
-                          {this.props.label}
-                          {this.props.oldValue && <>&nbsp;(Old)</>}
-                        </>
-                      )}
+                      {typeof this.props.label !== 'string' && <>{this.props.label} &nbsp;(Old)</>}
                     </Container>
                   </label>
                 )}
@@ -210,13 +192,13 @@ export class FormControl extends React.Component<IProps, IState> {
                   {typeof this.props.label === 'string' && (
                     <Container className={styles.semiBold}>
                       {this.props.label}
-                      {this.props.oldValue && <>&nbsp;(New)</>}
+                      {this.shouldShowOldValue() && <>&nbsp;(New)</>}
                     </Container>
                   )}
                   {typeof this.props.label !== 'string' && (
                     <>
                       {this.props.label}
-                      {this.props.oldValue && <>&nbsp;(New)</>}
+                      {this.shouldShowOldValue() && <>&nbsp;(New)</>}
                     </>
                   )}
                 </Container>
@@ -353,11 +335,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public reset() {
-    if (this.props.type !== 'uploader') {
-      this.onValueChanged(false, String(this.props.defaultValue || this.props.value || ''));
-    } else {
-      this.onValueChanged(false, String(this.props.defaultValue || ''));
-    }
+    this.onValueChanged(false, this.props.value);
   }
 
   public onSaved() {
@@ -377,7 +355,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState({ displayValue: result.displayValue, value: result.value }, () => {
       if (notify) {
         if (this.props.onInputChanged) {
-          this.props.onInputChanged(result.value, this.props.name || '');
+          this.props.onInputChanged(result.value || '', this.props.name || '');
         }
       }
     });
@@ -388,7 +366,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private getControlDesign(oldValue: boolean) {
-    if (this.props.static || this.props.oldValue) {
+    if (this.props.static) {
       if (this.props.type === 'uploader') {
         return (
           <Container>
@@ -401,6 +379,21 @@ export class FormControl extends React.Component<IProps, IState> {
                   : this.state.displayValue
               }
             />
+          </Container>
+        );
+      } else if (this.props.type === 'number') {
+        return (
+          <Container>
+            {oldValue
+              ? this.props.oldValue
+                ? Formatter.number(this.state.oldDisplayValue, {
+                    decimalPlace: this.props.decimalPlace
+                  })
+                : ''
+              : Formatter.number(this.state.displayValue, {
+                  decimalPlace: this.props.decimalPlace
+                })}
+            {this.props.unit ? ` ${this.props.unit}` : ''}
           </Container>
         );
       } else {
@@ -844,7 +837,29 @@ export class FormControl extends React.Component<IProps, IState> {
               onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
             />
           )}
-          {this.props.type !== 'password' && (
+
+          {this.props.type === 'number' && (
+            <Ant.InputNumber
+              prefix={this.props.prepend || ''}
+              className={classes.join(' ')}
+              autoComplete={'off'}
+              autoCorrect={'off'}
+              placeholder={this.props.placeholder}
+              value={
+                this.isNotEmpty(this.state.value) && String(this.state.value!).trim() !== ''
+                  ? Number(this.state.value)
+                  : undefined
+              }
+              onChange={this.onNumberChanged}
+              disabled={this.props.disabled}
+              formatter={this.numberWithCommas}
+              parser={(value) => (this.isNotEmpty(value) ? value!.replace(/\$\s?|(,*)/g, '') : '')}
+              onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : () => {}}
+              precision={this.props.decimalPlace}
+            />
+          )}
+
+          {this.props.type !== 'number' && this.props.type !== 'password' && (
             <ReactInput
               prefix={this.props.prepend || ''}
               className={classes.join(' ')}
@@ -892,6 +907,18 @@ export class FormControl extends React.Component<IProps, IState> {
       );
     }
   }
+
+  private onNumberChanged = (value: string | number | undefined) => {
+    const result = this.processValue(String(value || ''));
+    this.setState(
+      { displayValue: result.displayValue, value: result.value, showError: false },
+      () => {
+        if (this.props.onInputChanged) {
+          this.props.onInputChanged(result.value, this.props.name || '');
+        }
+      }
+    );
+  };
 
   private onSetOption = (selectedOption: any) => {
     let newValue = selectedOption.value;
@@ -1013,36 +1040,15 @@ export class FormControl extends React.Component<IProps, IState> {
         return false;
       }
     }
-    if (this.props.type === 'money' || this.props.type === 'number') {
-      const temp = value.split('.');
-      if (temp.length === 2) {
-        if (temp[1].length > this.props.decimalPlace!) {
-          return false;
-        }
-      }
-      const realValue = parseFloat(Formatter.stripSymbol(value).trim());
-      if (realValue > 999999999999) {
-        return false;
-      }
-    }
     return true;
   }
 
   private processValue(value: string): IProcessResult {
-    let oldDisplayValue = this.props.oldValue ? String(this.props.oldValue) : '';
-    this.setState({ oldDisplayValue: oldDisplayValue });
     if (this.props.alwaysCapitalize) {
       value = value.toUpperCase();
     }
-    if (this.props.type === 'checkbox') {
-      if (value !== undefined) {
-        this.setState({ valueArray: value.split(',') });
-      } else {
-        this.setState({ valueArray: [] });
-      }
-      return { displayValue: value || '', value };
-    }
     if (
+      this.props.type === 'checkbox' ||
       this.props.type === 'text' ||
       this.props.type === 'longtext' ||
       this.props.type === 'email' ||
@@ -1054,6 +1060,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.type === 'radio' ||
       this.props.type === 'daterange' ||
       this.props.type === 'uploader' ||
+      this.props.type === 'number' ||
       this.props.type === 'numberfields'
     ) {
       return { displayValue: value || '', value };
@@ -1061,30 +1068,22 @@ export class FormControl extends React.Component<IProps, IState> {
       let displayValue = '';
       if (
         this.props.selectOptions!.map((item) => {
-          if (String(item.value) === String(value)) {
+          if (this.isNotEmpty(value) && String(item.value) === String(value)) {
             displayValue = item.label;
-          }
-          if (String(item.value) === String(this.props.oldValue)) {
-            oldDisplayValue = item.label;
           }
         })
       ) {
-        this.setState({ oldDisplayValue: oldDisplayValue });
         return { displayValue: displayValue || '', value };
       }
     } else if (this.props.type === 'customselect') {
       let displayValue = '';
       if (
         this.props.selectCustomOptions!.map((item) => {
-          if (String(item.value) === String(value)) {
+          if (this.isNotEmpty(value) && String(item.value) === String(value)) {
             displayValue = item.label;
-          }
-          if (String(item.value) === String(this.props.oldValue)) {
-            oldDisplayValue = item.label;
           }
         })
       ) {
-        this.setState({ oldDisplayValue: oldDisplayValue });
         return { displayValue: displayValue || '', value };
       }
     } else if (this.props.type === 'numeric') {
@@ -1108,12 +1107,7 @@ export class FormControl extends React.Component<IProps, IState> {
             ? 'DD/MM/YYYY hh:mm A'
             : 'DD/MM/YYYY'
           : 'DD/MM/YYYY';
-        if (this.props.static || this.props.oldValue) {
-          this.setState({
-            oldDisplayValue: Formatter.unixTimestampToDate(Number(oldDisplayValue))
-              ? moment.unix(Number(oldDisplayValue)).format(dateFormat)
-              : moment(oldDisplayValue).format(dateFormat)
-          });
+        if (this.props.static) {
           return {
             displayValue: Formatter.unixTimestampToDate(Number(value))
               ? moment.unix(Number(value)).format(dateFormat)
@@ -1133,92 +1127,35 @@ export class FormControl extends React.Component<IProps, IState> {
       } else {
         return { displayValue: '', value: '' };
       }
-    } else {
-      const originalValue = Formatter.stripSymbol(value).trim();
-      const originalOldValue = Formatter.stripSymbol(oldDisplayValue).trim();
-
-      const appendDot = this.processNumber(originalValue);
-      const appendOldDot = this.processNumber(originalOldValue);
-      if (originalValue) {
-        if (this.props.type === 'money') {
-          if (isNaN(parseFloat(originalOldValue))) {
-            oldDisplayValue = '';
-          } else {
-            oldDisplayValue =
-              Formatter.money(parseFloat(originalOldValue), {
-                decimalPlace: this.props.decimalPlace
-              }) + appendOldDot;
-          }
-          this.setState({ oldDisplayValue: oldDisplayValue });
-          return {
-            displayValue: isNaN(parseFloat(originalValue))
-              ? ''
-              : Formatter.money(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
-            value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
-          };
-        } else if (this.props.type === 'number') {
-          if (isNaN(parseFloat(originalOldValue))) {
-            oldDisplayValue = '';
-          } else {
-            oldDisplayValue =
-              Formatter.number(parseFloat(originalOldValue), {
-                decimalPlace: this.props.decimalPlace
-              }) + appendOldDot;
-          }
-          this.setState({ oldDisplayValue: oldDisplayValue });
-          return {
-            displayValue: isNaN(parseFloat(originalValue))
-              ? ''
-              : Formatter.number(parseFloat(originalValue), {
-                  decimalPlace: this.props.decimalPlace
-                }) + appendDot,
-            value: isNaN(parseFloat(originalValue)) ? '' : parseFloat(originalValue)
-          };
-        }
-      }
     }
     return { displayValue: '', value: '' };
   }
 
-  private processNumber(value: string) {
-    const originalValue = Formatter.stripSymbol(value).trim();
-    let appendDot: string = '';
-    var dotsCount = (originalValue.match(/[\.]+/g) || []).length;
-
-    if (originalValue.length > 0 && dotsCount >= 1) {
-      if (originalValue[originalValue.length - 1] === '.') {
-        appendDot = originalValue.match(/[\.]+/g)![0];
-        appendDot = appendDot.replace('..', '.');
-      }
-    }
-
-    var dotZeroCount = (originalValue.match(/\.[0]+/g) || []).length;
-    if (originalValue.length > 1 && dotZeroCount === 1) {
-      const matched = originalValue.match(/\.[0]+/g)![0];
-      if (originalValue.indexOf(matched) + matched.length === originalValue.length) {
-        appendDot = originalValue.match(/\.[0]+/g)![0];
-        appendDot = appendDot.replace('.0000', '.000');
-      }
-    }
-
-    return appendDot;
-  }
-
-  private onValueChanged(firstCall: boolean, newValue: string) {
+  private onValueChanged(firstCall: boolean, newValue: string | undefined | null | number) {
     let result: IProcessResult = { displayValue: '', value: '' };
-    result = this.processValue(String(newValue || ''));
+    result = this.processValue(this.isNotEmpty(newValue) ? String(newValue) : '');
+
+    let oldValueResult: IProcessResult = { displayValue: undefined, value: undefined };
+    if (this.props.static && this.isNotEmpty(this.props.oldValue)) {
+      oldValueResult = this.processValue(
+        this.isNotEmpty(this.props.oldValue) ? String(this.props.oldValue) : ''
+      );
+    }
+
     if (firstCall) {
-      this.setState({
+      this.state = {
         displayValue: result.displayValue,
         value: result.value,
-        showError: false
-      });
+        oldDisplayValue: oldValueResult.displayValue,
+        showError: false,
+        extraControls: this.props.extraControls,
+        valueArray: []
+      };
     } else {
       this.setState({
         displayValue: result.displayValue,
         value: result.value,
+        oldDisplayValue: oldValueResult.displayValue,
         showError: false
       });
     }
@@ -1240,5 +1177,19 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public isIncludeInFormData = () => {
     return this.props.includeInFormData;
+  };
+
+  private isNotEmpty = (value: any) => {
+    return value !== undefined && value !== null;
+  };
+
+  private shouldShowOldValue = () => {
+    return this.props.static && this.props.value !== this.props.oldValue;
+  };
+
+  private numberWithCommas = (x: string) => {
+    var parts = x.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
   };
 }

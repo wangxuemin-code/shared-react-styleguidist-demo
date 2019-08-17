@@ -13,6 +13,7 @@ interface IProps extends IContainer, IAlert {
   onSubmit?: () => void;
   horizontal?: boolean;
   onUploadError?: (e: any) => void;
+  comparing?: boolean;
 }
 
 export class Form extends React.Component<IProps> {
@@ -55,6 +56,9 @@ export class Form extends React.Component<IProps> {
         }
       };
       childProps.children = this.recursiveCloneChildren((child.props as any).children);
+      if (this.props.comparing) {
+        childProps.static = this.props.comparing;
+      }
       return React.cloneElement(child, childProps);
     });
   }
