@@ -1184,7 +1184,13 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private shouldShowOldValue = () => {
-    return this.props.static && this.props.value !== this.props.oldValue;
+    if (this.props.static) {
+      if (this.isNotEmpty(this.props.value) && this.isNotEmpty(this.props.oldValue)) {
+        return String(this.props.value) !== String(this.props.oldValue);
+      } else {
+        return this.props.value !== this.props.oldValue;
+      }
+    }
   };
 
   private numberWithCommas = (x: string) => {

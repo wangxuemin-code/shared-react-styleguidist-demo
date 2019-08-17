@@ -58,6 +58,26 @@ class Main extends Controls.MyComponent {
                   value={'hahah'}
                 />
 
+                <Controls.FormControl
+                  type={'select'}
+                  name='gst'
+                  label='GST fee'
+                  defaultValue='7'
+                  selectOptions={[
+                    {
+                      label: 'Standard Rate 7%',
+                      value: '7'
+                    },
+                    {
+                      label: 'No fee 0%',
+                      value: '0'
+                    }
+                  ]}
+                  required={true}
+                  value={'0'}
+                  oldValue={0}
+                />
+
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'
