@@ -1196,6 +1196,8 @@ export class FormControl extends React.Component<IProps, IState> {
         } else {
           return String(this.props.value) !== String(this.props.oldValue);
         }
+      } else if (!this.isNotEmpty(this.props.value) && !this.isNotEmpty(this.props.oldValue)) {
+        return false;
       } else {
         return this.props.value !== this.props.oldValue;
       }
