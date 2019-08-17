@@ -137,6 +137,7 @@ export class FormControl extends React.Component<IProps, IState> {
     if (
       // this.props.value !== this.state.value ||
       prevProps.value !== this.props.value ||
+      prevProps.oldValue !== this.props.oldValue ||
       (prevProps.selectOptions !== this.props.selectOptions &&
         prevProps.selectOptions == undefined) ||
       (prevProps.selectCustomOptions !== this.props.selectCustomOptions &&
