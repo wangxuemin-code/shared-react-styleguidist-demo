@@ -20,6 +20,7 @@ import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
 import { Ant } from '../index-prod';
+import { DateTime } from '../helpers';
 
 interface IState {
   oldDisplayValue?: string;
@@ -1186,7 +1187,14 @@ export class FormControl extends React.Component<IProps, IState> {
   private shouldShowOldValue = () => {
     if (this.props.static) {
       if (this.isNotEmpty(this.props.value) && this.isNotEmpty(this.props.oldValue)) {
-        return String(this.props.value) !== String(this.props.oldValue);
+        if (this.props.type === 'date' || this.props.type === 'datetime') {
+          return (
+            DateTime.getMoment(this.props.value!).unix() !==
+            DateTime.getMoment(this.props.oldValue!).unix()
+          );
+        } else {
+          return String(this.props.value) !== String(this.props.oldValue);
+        }
       } else {
         return this.props.value !== this.props.oldValue;
       }

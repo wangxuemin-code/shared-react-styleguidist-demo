@@ -36,4 +36,12 @@ export class DateTime {
       return 'Starts ' + moment(startMoment).fromNow();
     }
   }
+
+  public static getMoment(input: string | number) {
+    if (isNaN(input as any)) {
+      return moment(input);
+    } else {
+      return moment.unix(Number(input));
+    }
+  }
 }

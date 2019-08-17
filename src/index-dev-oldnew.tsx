@@ -59,6 +59,15 @@ class Main extends Controls.MyComponent {
                 />
 
                 <Controls.FormControl
+                  type='date'
+                  label={'Date'}
+                  name='date'
+                  required={true}
+                  oldValue={'1566057600'}
+                  value={'2019-08-17T16:00:00.000Z'}
+                />
+
+                <Controls.FormControl
                   type={'select'}
                   name='gst'
                   label='GST fee'
