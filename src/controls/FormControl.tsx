@@ -911,7 +911,8 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   private onNumberChanged = (value: string | number | undefined) => {
-    const result = this.processValue(String(value || ''));
+    const result = this.processValue(String(this.isNotEmpty(value) ? value : ''));
+
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
