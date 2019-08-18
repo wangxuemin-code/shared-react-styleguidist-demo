@@ -41,6 +41,14 @@ class Main extends Controls.MyComponent {
                 comparing={true}
               >
                 <Controls.FormControl
+                  type='uploader'
+                  label={'File Name'}
+                  name='file'
+                  required={true}
+                  value={'https://oc2.ocstatic.com/images/logo_small.png'}
+                />
+
+                <Controls.FormControl
                   type='number'
                   label={'Name'}
                   name='name'

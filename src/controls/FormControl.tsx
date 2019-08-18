@@ -372,7 +372,23 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.type === 'uploader') {
         return (
           <Container>
-            <Image
+            <FileUploader
+              uploaderLabel={this.props.uploaderConfigs!.label}
+              uploaderViewer={this.props.uploaderConfigs!.viewer}
+              uploaderFooter={this.props.uploaderConfigs!.footer}
+              path={this.props.uploaderConfigs!.path}
+              bucketName={this.props.uploaderConfigs!.bucketName}
+              value={
+                oldValue
+                  ? this.props.oldValue
+                    ? this.state.oldDisplayValue
+                    : ''
+                  : this.state.displayValue
+              }
+              disabled={true}
+            />
+
+            {/* <Image
               src={
                 oldValue
                   ? this.props.oldValue
@@ -380,7 +396,7 @@ export class FormControl extends React.Component<IProps, IState> {
                     : ''
                   : this.state.displayValue
               }
-            />
+            /> */}
           </Container>
         );
       } else if (this.props.type === 'number') {
