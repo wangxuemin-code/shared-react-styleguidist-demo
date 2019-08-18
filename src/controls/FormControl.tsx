@@ -337,7 +337,7 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public reset() {
-    this.onValueChanged(false, this.props.value);
+    this.onValueChanged(false, undefined);
   }
 
   public onSaved() {
@@ -387,14 +387,16 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <Container>
             {oldValue
-              ? this.props.oldValue
+              ? this.isNotEmpty(this.props.oldValue)
                 ? Formatter.number(this.state.oldDisplayValue, {
                     decimalPlace: this.props.decimalPlace
                   })
                 : ''
-              : Formatter.number(this.state.displayValue, {
+              : this.isNotEmpty(this.state.displayValue)
+              ? Formatter.number(this.state.displayValue, {
                   decimalPlace: this.props.decimalPlace
-                })}
+                })
+              : ''}
             {this.props.unit ? ` ${this.props.unit}` : ''}
           </Container>
         );
@@ -1183,7 +1185,7 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private isNotEmpty = (value: any) => {
-    return value !== undefined && value !== null;
+    return value !== undefined && value !== null && value !== '';
   };
 
   private shouldShowOldValue = () => {

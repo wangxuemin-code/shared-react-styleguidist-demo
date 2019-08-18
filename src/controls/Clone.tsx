@@ -20,6 +20,7 @@ interface IProps extends IContainer {
   cloneLabel?: boolean;
   isIncludeInFormData?: boolean;
   minItem?: number;
+  static?: boolean;
 }
 
 interface IState {
@@ -210,7 +211,7 @@ export class Clone extends React.Component<IProps, IState> {
   };
 
   private getAddControl() {
-    if (this.props.oldValue) return null;
+    if (this.props.oldValue || this.props.static) return null;
 
     let component = null;
     if (!this.props.addControl) {
@@ -223,7 +224,8 @@ export class Clone extends React.Component<IProps, IState> {
   }
 
   private getDeleteControl(index: number) {
-    if (this.props.oldValue || this.state.value.length <= this.props.minItem!) return null;
+    if (this.props.oldValue || this.props.static || this.state.value.length <= this.props.minItem!)
+      return null;
 
     let component = null;
     if (!this.props.deleteControl) {
