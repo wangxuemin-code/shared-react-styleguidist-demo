@@ -63,62 +63,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   public componentDidMount() {
-    if (this.getExtensionType() === 'pdf') {
-      AwsHelper.processSrcFromAWS(this.props.value).then((processedSrc: any) => {
-        if (processedSrc) {
-          this.setState({ url: processedSrc });
-        } else {
-          this.setState({ url: this.props.value });
-        }
-      });
-    }
+    this.processValue(this.props.value);
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
       const value = this.props.value;
-      if (value && this.validURL(value)) {
-        const extension = value.split('.').pop();
-        if (extension == 'pdf') {
-          this.setState({
-            src: value,
-            type: 'pdf',
-            url: value,
-            fileName: ''
-          });
-        } else {
-          this.setState({
-            src: value,
-            type: 'image',
-            fileName: ''
-          });
-        }
-      } else if (value && this.tryParseJsonValue(value)) {
-        const obj: any = this.tryParseJsonValue(value);
-        if (
-          obj.src
-            .split(',')[0]
-            .toLowerCase()
-            .indexOf('pdf') > 0
-        ) {
-          this.setState({
-            src: obj.src,
-            type: 'pdf',
-            url: obj.src
-          });
-        } else {
-          this.setState({
-            src: obj.src,
-            type: 'image'
-          });
-        }
-      } else if (value === undefined || value == '') {
-        this.setState({
-          src: '',
-          type: this.getExtensionType(),
-          fileName: ''
-        });
-      }
+      this.processValue(value);
     }
   }
 
@@ -178,6 +129,69 @@ export default class FileUploader extends React.Component<IProps, IState> {
       },
       this.onValueChanged
     );
+  }
+
+  private processValue(value: string) {
+    if (value.indexOf('ISTOXBUCKET|') >= 0) {
+      const extension = value.split('.').pop();
+      AwsHelper.processSrcFromAWS(this.props.value).then((processedSrc: any) => {
+        if (extension == 'pdf') {
+          this.setState({
+            src: processedSrc,
+            type: 'pdf',
+            url: processedSrc,
+            fileName: ''
+          });
+        } else {
+          this.setState({
+            src: processedSrc,
+            type: 'image',
+            fileName: ''
+          });
+        }
+      });
+    } else if (value && this.validURL(value)) {
+      const extension = value.split('.').pop();
+      if (extension == 'pdf') {
+        this.setState({
+          src: value,
+          type: 'pdf',
+          url: value,
+          fileName: ''
+        });
+      } else {
+        this.setState({
+          src: value,
+          type: 'image',
+          fileName: ''
+        });
+      }
+    } else if (value && this.tryParseJsonValue(value)) {
+      const obj: any = this.tryParseJsonValue(value);
+      if (
+        obj.src
+          .split(',')[0]
+          .toLowerCase()
+          .indexOf('pdf') > 0
+      ) {
+        this.setState({
+          src: obj.src,
+          type: 'pdf',
+          url: obj.src
+        });
+      } else {
+        this.setState({
+          src: obj.src,
+          type: 'image'
+        });
+      }
+    } else if (value === undefined || value == '') {
+      this.setState({
+        src: '',
+        type: this.getExtensionType(),
+        fileName: ''
+      });
+    }
   }
 
   private onDragEnter = () => {
