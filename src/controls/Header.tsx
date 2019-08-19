@@ -98,13 +98,17 @@ export class Header extends React.Component<IHeader, IState> {
           </p>
           <Divider visibility={'hidden'} />
           <Divider visibility={'hidden'} />
-          <Container fluid={true} verticalAlign={'center'}>
-            <Container float={'left'} textAlign={'center'} widthPercent={50} fluid={true}>
+          <Container fluid={true}>
+            <Container
+              padding={{ allRem: 0.5714 }}
+              float={'left'}
+              textAlign={'center'}
+              widthPercent={50}
+            >
               <Link
                 onClick={() => {
                   this.setState({ showSignOutModal: false });
                 }}
-                margin={{ rightRem: 2 }}
               >
                 Cancel
               </Link>
@@ -112,11 +116,14 @@ export class Header extends React.Component<IHeader, IState> {
             <Button
               float={'right'}
               className={styles.logoutButton}
-              href='/logout'
               variant='disabled'
               outline
               widthPercent={50}
               size={'large'}
+              onClick={() => {
+                this.setState({ showSignOutModal: false });
+                window.location.href = '/logout';
+              }}
             >
               Sign Out
             </Button>
