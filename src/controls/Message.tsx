@@ -9,7 +9,15 @@ interface IMessage extends IContainer {
   message?: any;
   flat?: boolean;
   outline?: boolean;
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'error';
   messageColor?: string;
   size?: 'small' | 'normal';
 }
@@ -26,7 +34,8 @@ export class Message extends React.Component<IMessage, any> {
       this.props.outline ? styles.outline : '',
       this.props.flat ? styles.flat : '',
       this.props.size === 'small' ? styles.smallMessage : '',
-      this.props.labeled ? styles.labeled : ''
+      this.props.labeled ? styles.labeled : '',
+      this.props.variant === 'error' ? styles.danger : ''
     ];
 
     classes = classes.filter(function(el) {

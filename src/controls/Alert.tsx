@@ -3,6 +3,7 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Alert as ReactAlert } from 'antd';
 import { Icon } from '.';
+import { Message } from '.';
 import { Transition } from './Transition';
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -112,7 +113,10 @@ export class Alert extends React.Component<IAlert, IState> {
     }
   }
 
-  private getMessage(type: 'success' | 'error' | 'info' | 'warning', message: string | string[]) {
+  private getMessage(
+    type: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'error',
+    message: string | string[]
+  ) {
     if (!message || 0 === message.length || Array.isArray(message)) {
       return null;
     }
@@ -132,9 +136,7 @@ export class Alert extends React.Component<IAlert, IState> {
 
     return (
       <Container {...this.props} className={styles.istoxAlert}>
-        <ReactAlert type={type} message={message}>
-          <Icon icon={icon} />
-        </ReactAlert>
+        <Message justifyContent={'left'} flat fluid variant={type} icon={icon} message={message} />
       </Container>
     );
   }

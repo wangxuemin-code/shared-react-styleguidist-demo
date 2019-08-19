@@ -433,13 +433,7 @@ class Main extends Controls.MyComponent<
               />
               <Controls.Divider />
               <h4>Button</h4>
-              <Controls.Button
-                size='tiny'
-                height={40}
-                width={250}
-                margin={{ rightPx: 30 }}
-                variant='primary'
-              >
+              <Controls.Button size='tiny' variant='primary'>
                 Tiny
               </Controls.Button>
               <Controls.Button size='small' variant='primary'>
@@ -1712,7 +1706,7 @@ class Main extends Controls.MyComponent<
                       <Controls.Button
                         float={'left'}
                         textAlign={'center'}
-                        type={'submit'}
+                        // type={'submit'}
                         onPress={() => {
                           if (this.form.getInputValue('h_checkbox') == '1') {
                             this.setState({

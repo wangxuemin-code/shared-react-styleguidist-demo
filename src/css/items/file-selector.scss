@@ -62,7 +62,7 @@
     background-color: map-get($colors, primaryGreyDarker);
     padding: 0 0.5rem;
     color: map-get($colors, primaryAlt);
-    z-index: 999;
+    z-index: 99;
   }
 
   &.disabled {

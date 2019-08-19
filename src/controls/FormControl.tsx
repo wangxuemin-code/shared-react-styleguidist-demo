@@ -15,7 +15,6 @@ import { Loading } from './Loading';
 import { Message } from './Message';
 import { OtpInput } from './OTP';
 import { Transition } from './Transition';
-import { Image } from './Image';
 import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import moment = require('moment');
@@ -28,7 +27,6 @@ interface IState {
   value?: string | number | null;
   error?: string;
   showError?: boolean;
-  valueArray?: string[];
   extraControls?: string;
 }
 
@@ -133,9 +131,8 @@ export class FormControl extends React.Component<IProps, IState> {
     this.onValueChanged(true, this.props.value);
   }
 
-  public componentDidUpdate(prevProps: IProps, prevState: IState) {
+  public componentDidUpdate(prevProps: IProps) {
     if (
-      // this.props.value !== this.state.value ||
       prevProps.value !== this.props.value ||
       prevProps.oldValue !== this.props.oldValue ||
       (prevProps.selectOptions !== this.props.selectOptions &&
@@ -825,12 +822,15 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
+        if (this.props.name === 'h_checkbox') {
+          console.log(this.props.value);
+        }
         return (
           <Container className={this.props.variant}>
             <ReactCheckbox.Group
               disabled={this.props.disabled}
               options={this.props.selectOptions}
-              value={this.state.valueArray}
+              value={this.state.value ? String(this.state.value).split(',') : undefined}
               onChange={this.onCheckChanged}
             />
           </Container>
@@ -1023,7 +1023,6 @@ export class FormControl extends React.Component<IProps, IState> {
     const result = this.processValue(String(checkArray.join()));
     this.setState(
       {
-        valueArray: checkedValues,
         displayValue: result.displayValue,
         value: result.value,
         showError: false
@@ -1155,22 +1154,19 @@ export class FormControl extends React.Component<IProps, IState> {
   private onValueChanged(firstCall: boolean, newValue: string | undefined | null | number) {
     let result: IProcessResult = { displayValue: '', value: '' };
     result = this.processValue(this.isNotEmpty(newValue) ? String(newValue) : '');
-
     let oldValueResult: IProcessResult = { displayValue: undefined, value: undefined };
     if (this.props.static && this.isNotEmpty(this.props.oldValue)) {
       oldValueResult = this.processValue(
         this.isNotEmpty(this.props.oldValue) ? String(this.props.oldValue) : ''
       );
     }
-
     if (firstCall) {
       this.state = {
         displayValue: result.displayValue,
         value: result.value,
         oldDisplayValue: oldValueResult.displayValue,
         showError: false,
-        extraControls: this.props.extraControls,
-        valueArray: []
+        extraControls: this.props.extraControls
       };
     } else {
       this.setState({

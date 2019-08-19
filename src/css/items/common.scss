@@ -114,8 +114,7 @@ article {
   color: map-get($colors, secondary);
 }
 .color-disabled {
-  color: map-get($colors, primary);
-  opacity: 0.7;
+  color: map-get($colors, primaryGreyDark);
 }
 .color-dark {
   color: map-get($colors, primaryDark);
