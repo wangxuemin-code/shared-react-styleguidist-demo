@@ -822,9 +822,6 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     } else if (this.props.type === 'checkbox') {
       if (this.props.selectOptions) {
-        if (this.props.name === 'h_checkbox') {
-          console.log(this.props.value);
-        }
         return (
           <Container className={this.props.variant}>
             <ReactCheckbox.Group

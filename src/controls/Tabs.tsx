@@ -125,7 +125,7 @@ export class Tabs extends React.Component<IProps, IState> {
 
   public goToPrevious() {
     const index = Math.max(this.state.selectedIndex - 1, 0);
-    console.log(index);
+    // console.log(index);
     this.setState(
       {
         selectedIndex: index

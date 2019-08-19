@@ -6,7 +6,7 @@ interface IMessage extends IContainer {
     message?: any;
     flat?: boolean;
     outline?: boolean;
-    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger' | 'error';
     messageColor?: string;
     size?: 'small' | 'normal';
 }

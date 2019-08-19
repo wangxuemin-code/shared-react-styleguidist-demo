@@ -56,7 +56,8 @@ export interface IContainer {
     | 'grid'
     | 'inline-grid'
     | 'inline-flex'
-    | 'inherit';
+    | 'inherit'
+    | 'none';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
