@@ -9,6 +9,7 @@ import { Icon } from './Icon';
 import { Image } from './Image';
 import { Link } from './Link';
 import { Divider } from './Divider';
+import { Modal } from './Modal';
 import { Transition } from './Transition';
 import { Controls } from '../index-prod';
 import { Dropdown } from 'antd';
@@ -59,6 +60,7 @@ interface IHeader extends IContainer {
 
 interface IState {
   username: string;
+  showSignOutModal: boolean;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -69,7 +71,7 @@ export class Header extends React.Component<IHeader, IState> {
 
   constructor(props: IHeader) {
     super(props);
-    this.state = { username: '' };
+    this.state = { username: '', showSignOutModal: false };
   }
 
   public componentDidUpdate(prevProps: IHeader) {
@@ -86,6 +88,41 @@ export class Header extends React.Component<IHeader, IState> {
     const className: any = this.props.className;
     return (
       <Container display={'flex'} {...this.props}>
+        <Modal visible={this.state.showSignOutModal} width={600}>
+          <Divider visibility={'hidden'} />
+          <Divider visibility={'hidden'} />
+          <h3 className={'semi-bold color-dark text-center'}>Sign out iSTOX</h3>
+          <Divider visibility={'hidden'} />
+          <p className={'text-center large color-primary-grey-darker'}>
+            Are you sure you want to sign out iSTOX?
+          </p>
+          <Divider visibility={'hidden'} />
+          <Divider visibility={'hidden'} />
+          <Container fluid={true} verticalAlign={'center'}>
+            <Container float={'left'} textAlign={'center'} widthPercent={50} fluid={true}>
+              <Link
+                onClick={() => {
+                  this.setState({ showSignOutModal: false });
+                }}
+                margin={{ rightRem: 2 }}
+              >
+                Cancel
+              </Link>
+            </Container>
+            <Button
+              float={'right'}
+              className={styles.logoutButton}
+              href='/logout'
+              variant='disabled'
+              outline
+              widthPercent={50}
+              size={'large'}
+            >
+              Sign Out
+            </Button>
+          </Container>
+          <Divider visibility={'hidden'} />
+        </Modal>
         <WrapperContainer display={'flex'}>
           <a href='/' className={styles.logoAnchor}>
             {this.props.logo && (
@@ -103,13 +140,13 @@ export class Header extends React.Component<IHeader, IState> {
             </ul>
           )}
           {this.props.children}
-          {this.getUsername() && (
+          {!this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               {this.props.notifications && this.getNotificationDesign()}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
           )}
-          {!this.getUsername() && (
+          {this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               <div className='small'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
@@ -280,8 +317,16 @@ export class Header extends React.Component<IHeader, IState> {
               </Link>
             ))}
           {Cookies.get('account') && (
-            <Link className={styles.colorDanger} underline={false} useNormalAnchor href='/logout'>
-              Logout
+            <Link
+              textAlign='left'
+              className={styles.colorDanger}
+              underline={false}
+              // useNormalAnchor
+              onClick={() => {
+                this.setState({ showSignOutModal: true });
+              }}
+            >
+              Sign Out
             </Link>
           )}
         </Container>

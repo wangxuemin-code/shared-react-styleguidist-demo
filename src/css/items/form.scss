@@ -170,7 +170,9 @@ textarea[disabled] {
 
     div[class$='menu'] {
       > div {
-        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+        border: 1px solid rgba(125, 125, 125, 0.1);
+        background-color: map-get($colors, primaryAlt);
       }
       font-size: 0.9rem;
     }
@@ -274,8 +276,7 @@ textarea[disabled] {
       cursor: pointer;
       color: map-get($colors, primaryGreyDarker);
       border-left: 3px solid map-get($colors, primaryAlt);
-      padding: 0 0.5rem;
-      margin: 1rem 0;
+      padding: 0.5rem;
     }
 
     div[id*='select']:hover {

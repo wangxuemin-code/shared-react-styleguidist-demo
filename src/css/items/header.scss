@@ -1,16 +1,20 @@
+:global(.ant-dropdown) {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+  border: 1px solid rgba(125, 125, 125, 0.1);
+}
+
 .sub-menu {
   min-width: 11.43rem;
   background-color: map-get($colors, primaryAltActive);
-  text-align: center;
   border-radius: 0;
-  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
+  padding-bottom: 0.5rem;
 }
 
 .sub-menu a {
   color: map-get($colors, primaryDark);
   font-size: 1rem;
   display: block;
-  padding: 10px;
+  padding: 0.5rem 1rem;
 }
 
 .sub-menu a:hover {
@@ -23,7 +27,6 @@
   background-color: map-get($colors, primaryAlt);
   border-radius: 0;
   padding: 1rem;
-  box-shadow: 0 2px 4px 0 rgba(35, 36, 37, 0.3);
   color: map-get($colors, primaryDark);
   font-size: 1rem;
   overflow: auto;
@@ -236,3 +239,7 @@
 //   bottom: -15px;
 //   left: 0px;
 // }
+
+.logout-button .button {
+  color: map-get($colors, danger) !important;
+}

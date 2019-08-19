@@ -2605,6 +2605,7 @@ export const alt: string;
 export const selected: string;
 export const transparent: string;
 export const logoAnchor: string;
+export const logoutButton: string;
 export const istoxForm: string;
 export const oldValueActive: string;
 export const formControlsInner: string;
