@@ -39,6 +39,7 @@ interface IHeader extends IContainer {
 }
 interface IState {
     username: string;
+    showSignOutModal: boolean;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
