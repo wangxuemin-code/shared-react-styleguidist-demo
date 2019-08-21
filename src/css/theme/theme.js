@@ -22,7 +22,7 @@ exports.stylings = {
     headerHeight: '4rem',
     transitionDuration: '100ms',
     colors: {
-        primaryActive: '#000b24' /* #000b24 */,
+        primaryActive: '#080838' /* #080838 */,
         secondaryActive: '#1cceab' /* #1cceab */,
         primaryAltActive: '#FFFFFF' /* #FFFFFF */,
         primaryDarkActive: '#000000' /* #000000 */,
