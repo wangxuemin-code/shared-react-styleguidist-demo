@@ -1848,7 +1848,7 @@ class Main extends Controls.MyComponent<
                     required={true}
                     label={'Phone'}
                     name='phone'
-                    value={'+65-88234124'}
+                    value={'+65'}
                     type={'phone'}
                     onInputChanged={() => {
                       console.log(this.form.getInputValue('phone'));
