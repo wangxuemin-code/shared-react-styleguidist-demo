@@ -1,4 +1,5 @@
 import * as moment from 'moment';
+import BigNumber from 'bignumber.js';
 
 export class Formatter {
   public static money(
@@ -9,56 +10,21 @@ export class Formatter {
       input = 0;
     }
 
-    if (typeof input === 'string') {
-      input = parseFloat(input);
-    }
+    const resultBN = new BigNumber(input.toString());
 
-    const isNegative = input < 0;
-
-    if (isNegative) {
-      input = Math.abs(input as number);
-    }
-
-    if (input < 0.000001) {
-      input = 0;
-    }
-
-    input = Formatter.toFixedTrunc(input, options.decimalPlace || 20);
-
-    return `${options.symbol || ''}${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
-      minimumFractionDigits: options.decimalPlace || 0,
-      maximumFractionDigits: options.decimalPlace || 20
-    })}${options.unit ? ` ${options.unit}` : ''}`;
+    return `${options.symbol || ''}${resultBN.toFormat(options.decimalPlace || 0)}${
+      options.unit ? `${options.unit}` : ''
+    }`;
   }
 
-  public static number(
-    input: number | string | undefined,
-    options: { decimalPlace?: number } = {}
-  ): string {
+  public static number(input: number | string | undefined, options: { decimalPlace?: number } = {}): string {
     if (!input) {
       input = 0;
     }
 
-    if (typeof input === 'string') {
-      input = parseFloat(input);
-    }
+    const resultBN = new BigNumber(input.toString());
 
-    const isNegative = input < 0;
-
-    if (isNegative) {
-      input = Math.abs(input as number);
-    }
-
-    if (input < 0.000001) {
-      input = 0;
-    }
-
-    input = Formatter.toFixedTrunc(input, options.decimalPlace || 20);
-
-    return `${isNegative ? '-' : ''}${input.toLocaleString(undefined, {
-      minimumFractionDigits: options.decimalPlace || 0,
-      maximumFractionDigits: options.decimalPlace || 20
-    })}`;
+    return `${resultBN.toFormat(options.decimalPlace || 0)}`;
   }
 
   public static stripSymbol(input: string): string {
