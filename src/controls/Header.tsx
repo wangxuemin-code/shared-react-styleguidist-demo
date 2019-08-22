@@ -61,7 +61,7 @@ interface IHeader extends IContainer {
 
 interface IState {
   username: string;
-  showSignOutModal: boolean;
+  // showSignOutModal: boolean;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -72,7 +72,10 @@ export class Header extends React.Component<IHeader, IState> {
 
   constructor(props: IHeader) {
     super(props);
-    this.state = { username: '', showSignOutModal: false };
+    this.state = {
+      username: ''
+      // showSignOutModal: false
+    };
   }
 
   public componentDidUpdate(prevProps: IHeader) {
