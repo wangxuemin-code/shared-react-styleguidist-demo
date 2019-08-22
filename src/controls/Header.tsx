@@ -147,13 +147,13 @@ export class Header extends React.Component<IHeader, IState> {
             </ul>
           )}
           {this.props.children}
-          {!this.getUsername() && (
+          {this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               {this.props.notifications && this.getNotificationDesign()}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
           )}
-          {this.getUsername() && (
+          {!this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               <div className='small'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
