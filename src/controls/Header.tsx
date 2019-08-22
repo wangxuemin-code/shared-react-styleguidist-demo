@@ -22,11 +22,11 @@ interface IMainLink {
   useAnchorTag?: boolean;
 }
 
-interface ISubLink {
-  title: string;
-  path: string;
-  useAnchorTag?: boolean;
-}
+// interface ISubLink {
+//   title: string;
+//   path: string;
+//   useAnchorTag?: boolean;
+// }
 
 interface INotifications {
   header?: string;
@@ -48,7 +48,8 @@ interface INotificationItem {
 interface IHeader extends IContainer {
   fullWidth?: boolean;
   mainLinks?: IMainLink[];
-  subLinks?: ISubLink[];
+  subLinks?: any;
+  // subLinks?: ISubLink[];
   className?: string;
   logo?: string | boolean;
   notificationUnread?: boolean;
@@ -88,48 +89,6 @@ export class Header extends React.Component<IHeader, IState> {
     const className: any = this.props.className;
     return (
       <Container display={'flex'} {...this.props}>
-        <Modal visible={this.state.showSignOutModal} width={600}>
-          <Divider visibility={'hidden'} />
-          <Divider visibility={'hidden'} />
-          <h3 className={'semi-bold color-dark text-center'}>Sign out iSTOX</h3>
-          <Divider visibility={'hidden'} />
-          <p className={'text-center large color-primary-grey-darker'}>
-            Are you sure you want to sign out iSTOX?
-          </p>
-          <Divider visibility={'hidden'} />
-          <Divider visibility={'hidden'} />
-          <Container fluid={true}>
-            <Container
-              padding={{ allRem: 0.5714 }}
-              float={'left'}
-              textAlign={'center'}
-              widthPercent={50}
-            >
-              <Link
-                onClick={() => {
-                  this.setState({ showSignOutModal: false });
-                }}
-              >
-                Cancel
-              </Link>
-            </Container>
-            <Button
-              float={'right'}
-              className={styles.logoutButton}
-              variant='disabled'
-              outline
-              widthPercent={50}
-              size={'large'}
-              onClick={() => {
-                this.setState({ showSignOutModal: false });
-                window.location.href = '/logout';
-              }}
-            >
-              Sign Out
-            </Button>
-          </Container>
-          <Divider visibility={'hidden'} />
-        </Modal>
         <WrapperContainer display={'flex'}>
           <a href='/' className={styles.logoAnchor}>
             {this.props.logo && (
@@ -147,13 +106,13 @@ export class Header extends React.Component<IHeader, IState> {
             </ul>
           )}
           {this.props.children}
-          {this.getUsername() && (
+          {!this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               {this.props.notifications && this.getNotificationDesign()}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
           )}
-          {!this.getUsername() && (
+          {this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               <div className='small'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
@@ -320,18 +279,8 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Transition>
         <Container className={styles.subMenu}>
-          {this.props.subLinks &&
-            this.props.subLinks.map((sublink) => (
-              <Link
-                underline={false}
-                key={sublink.path}
-                useNormalAnchor={sublink.useAnchorTag}
-                href={sublink.path}
-              >
-                {sublink.title}
-              </Link>
-            ))}
-          {Cookies.get('account') && (
+          {this.props.subLinks && this.props.subLinks.map((sublink: any) => sublink)}
+          {/* {Cookies.get('account') && (
             <Container
               padding={{ topBottomRem: 0.5, leftRightRem: 1 }}
               textAlign='left'
@@ -342,7 +291,7 @@ export class Header extends React.Component<IHeader, IState> {
             >
               Sign Out
             </Container>
-          )}
+          )} */}
         </Container>
       </Transition>
     );
