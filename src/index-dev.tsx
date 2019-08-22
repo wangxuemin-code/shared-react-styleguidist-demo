@@ -588,6 +588,15 @@ class Main extends Controls.MyComponent<
                   Link
                 </Controls.Link>
               </Controls.Container>
+              <Controls.Resend
+                onPress={(processing: boolean) => {
+                  if (processing) {
+                    console.log(1);
+                  } else {
+                    console.log(2);
+                  }
+                }}
+              />
               <Controls.Divider />
               <h4>Icon</h4>
               <Controls.Container display={'flex'}>

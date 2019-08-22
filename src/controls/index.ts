@@ -38,3 +38,4 @@ export * from './Pagination';
 export * from './HightlightedInfo';
 export * from './Label';
 export * from './Clone';
+export * from './Resend';
