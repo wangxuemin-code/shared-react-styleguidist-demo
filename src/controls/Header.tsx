@@ -147,13 +147,13 @@ export class Header extends React.Component<IHeader, IState> {
             </ul>
           )}
           {this.props.children}
-          {this.getUsername() && (
+          {!this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               {this.props.notifications && this.getNotificationDesign()}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
           )}
-          {!this.getUsername() && (
+          {this.getUsername() && (
             <Container className={styles.right} verticalAlign='center'>
               <div className='small'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
@@ -262,6 +262,7 @@ export class Header extends React.Component<IHeader, IState> {
   }
 
   private getUserActionDesign() {
+    const className: any = this.props.className;
     return (
       <Dropdown
         overlay={this.getSubMenuDesign()}
@@ -269,7 +270,14 @@ export class Header extends React.Component<IHeader, IState> {
         getPopupContainer={(trigger: any) => trigger.parentNode}
       >
         <Container classNames={[styles.userAction, styles.afterLogin, 'ant-dropdown-link']}>
-          <Icon className={styles.userIcon} icon={faUserCircle} />
+          <Image
+            width={28}
+            src={
+              className.includes('alt')
+                ? '/images/User-Avatar-Onboarding.png'
+                : '/images/User-Avatar.png'
+            }
+          />
           <Container className={styles.text}>
             <Container>
               <Container className={styles.headerUsername}>{this.getUsername()}</Container>

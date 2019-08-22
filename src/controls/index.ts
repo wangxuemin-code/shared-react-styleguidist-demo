@@ -39,3 +39,4 @@ export * from './HightlightedInfo';
 export * from './Label';
 export * from './Clone';
 export * from './StoTimeLine';
+export * from './Resend';
