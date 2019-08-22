@@ -7,3 +7,4 @@ export * from './ErrorHandle';
 export * from './Cookie';
 export * from './AwsHelper';
 export * from './UuidGenerator';
+export * from './FMath';

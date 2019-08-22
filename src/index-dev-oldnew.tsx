@@ -59,12 +59,25 @@ class Main extends Controls.MyComponent {
                 />
 
                 <Controls.FormControl
-                  type='text'
-                  label={'Location'}
-                  name='location'
+                  type='select'
+                  label={'Gst'}
+                  name='gst'
                   required={true}
-                  value={'hahah'}
+                  value={'7'}
+                  oldValue={0}
+                  selectOptions={[
+                    {
+                      label: '7%',
+                      value: '7'
+                    },
+                    {
+                      label: '0%',
+                      value: '0'
+                    }
+                  ]}
                 />
+
+                <Controls.FormControl type='text' label={'Location'} name='location' required={true} value={'hahah'} />
 
                 <Controls.FormControl
                   type='date'
