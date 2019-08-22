@@ -111,6 +111,7 @@ export class Phone extends React.Component<IProps, IState> {
             )}
 
             <Select
+              ignoreAccents={false}
               // componentClass='select'
               // defaultMenuIsOpen
               className={'select'}
@@ -123,7 +124,7 @@ export class Phone extends React.Component<IProps, IState> {
               styles={{
                 placeholder: (base: any) => ({
                   ...base,
-                  color: 'rgba(125, 125, 125, 0.9)'
+                  color: 'rgba(125, 125, 125, 1)'
                 }),
                 control: (base: any) => ({
                   ...base,
@@ -133,6 +134,22 @@ export class Phone extends React.Component<IProps, IState> {
                 option: (base: any, state: any) => ({
                   ...base,
                   borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
+                }),
+                menu: (base: any, state: any) => ({
+                  ...base,
+                  padding: '0.5rem !important',
+                  backgroundColor: 'white !important',
+                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
+                  border: '1px solid rgba(125, 125, 125, 0.1) !important'
+                }),
+                dropdownIndicator: (base: any, state: any) => ({
+                  ...base,
+                  transition: 'all .2s ease',
+                  transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
+                }),
+                noOptionsMessageCSS: (base: any, state: any) => ({
+                  ...base,
+                  padding: '1rem !important'
                 })
               }}
             />

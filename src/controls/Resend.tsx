@@ -3,6 +3,7 @@ import { Container, IContainer } from './Container';
 import { Link } from './Link';
 
 interface IProps extends IContainer {
+  initTimer?: boolean;
   onPress?: (processing: boolean) => void;
   duration?: number;
 }
@@ -13,7 +14,8 @@ interface IState {
 export class Resend extends React.Component<IProps, IState> {
   private timer: any;
   public static defaultProps: IProps = {
-    duration: 60
+    duration: 60,
+    initTimer: false
   };
 
   constructor(props: IProps) {
@@ -23,6 +25,13 @@ export class Resend extends React.Component<IProps, IState> {
       timeRemainingInSeconds: this.props.duration
     };
   }
+
+  public componentDidMount() {
+    if (this.props.initTimer) {
+      this.resendCode();
+    }
+  }
+
   public render() {
     // let classes: string[] = [styles.resend];
 

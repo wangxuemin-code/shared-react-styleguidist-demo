@@ -137,18 +137,21 @@ textarea[disabled] {
   }
 
   input:hover,
-  .select:hover,
   textarea:hover {
     border-bottom: 1px solid map-get($colors, primaryGreyDark) !important;
     box-shadow: none;
   }
   input:focus,
-  .select:focus,
   textarea:focus {
     border-bottom: 1px solid map-get($colors, secondary) !important;
     box-shadow: none;
   }
   .select {
+    input:focus,
+    textarea:focus {
+      border-bottom: 0 !important;
+      box-shadow: none;
+    }
     div {
       border: 0;
       box-shadow: none;
@@ -157,8 +160,8 @@ textarea[disabled] {
     }
     > div {
       min-height: auto;
-      height: 36px;
-      background-color: transparent !important;
+      // height: 36px;
+      // background-color: transparent !important;
 
       > div {
         height: auto !important;
@@ -169,11 +172,6 @@ textarea[disabled] {
     }
 
     div[class$='menu'] {
-      > div {
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
-        border: 1px solid rgba(125, 125, 125, 0.1);
-        background-color: map-get($colors, primaryAlt);
-      }
       font-size: 0.9rem;
     }
   }
