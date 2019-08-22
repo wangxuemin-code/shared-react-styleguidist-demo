@@ -1093,6 +1093,35 @@ class Main extends Controls.MyComponent<
               >
                 danger
               </Controls.Button>
+              <br />
+              <br />
+              <h5>Blockchain Receiption Toast</h5>
+              <Controls.Button
+                variant={'success'}
+                onPress={() => {
+                  Controls.BlockchainToast.show({
+                    type: 'transaction_status_ok',
+                    blockchainTransactionOptions: {
+                      purpose: 'moved to allocation'
+                    }
+                  });
+                }}
+              >
+                Success
+              </Controls.Button>
+              <Controls.Button
+                variant={'danger'}
+                onPress={() => {
+                  Controls.BlockchainToast.show({
+                    type: 'transaction_status_fail',
+                    blockchainTransactionOptions: {
+                      purpose: 'moved to allocation'
+                    }
+                  });
+                }}
+              >
+                Fail
+              </Controls.Button>
               <Controls.Divider />
               <h4>Progress</h4>
               <Controls.ProgressBar compact value={20} />

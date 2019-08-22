@@ -8,16 +8,7 @@ interface IProps extends IContainer {
   icon?: any;
   title?: string;
   description?: string;
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
 }
 
 export class NormalToast extends React.Component {

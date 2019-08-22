@@ -30,6 +30,7 @@ export * from './Tabs';
 export * from './Footer';
 export * from './ProgressBar';
 export * from './Toast';
+export * from './BlockchainToast';
 export * from './Rating';
 export * from './Breadcrumbs';
 export * from './DoughnutChart';
