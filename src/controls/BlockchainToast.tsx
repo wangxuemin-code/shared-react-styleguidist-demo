@@ -85,15 +85,14 @@ export class BlockchainToast extends React.Component {
 
     toast(BlockchainToast.getTransactionDesign(props), {
       position: 'top-right',
-      transition: Fade,
       hideProgressBar: true,
       autoClose: 5000,
       pauseOnHover: true,
-      className: classes.join(' '),
-      bodyClassName: 'istox-blockchain-toast-body',
-      progressClassName: 'istox-blockchain-toast-progress',
+      draggable: false,
       closeOnClick: false,
-      draggable: false
+      className: classes.join(' '),
+      transition: Fade
     });
+
   }
 }

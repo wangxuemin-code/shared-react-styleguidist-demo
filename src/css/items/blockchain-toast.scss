@@ -1,6 +1,7 @@
 :global(.Toastify__toast-container--top-right) {
   top: 6em !important;
 }
+
 .istox-blockchain-toast-body {
   font-size: 1rem;
   margin: auto !important;
@@ -41,23 +42,23 @@
     padding-left: 1rem;
   }
 
-  .close-button {
-    .button {
-      background-color: transparent;
-      float: right;
-      border: none;
-      color: map-get($colors, primary);
-      padding: 0;
-      position: relative;
-    }
-    color: map-get($colors, primaryGreyDark);
-    position: absolute !important;
-    font-size: 1.1428571428571428rem;
-    right: 0.5rem;
-    top: 0.5rem;
-    cursor: pointer;
-    z-index: 1;
-  }
+  // .close-button {
+  //   .button {
+  //     background-color: transparent;
+  //     float: right;
+  //     border: none;
+  //     color: map-get($colors, primary);
+  //     padding: 0;
+  //     position: absolute;
+  //   }
+  //   color: map-get($colors, primaryGreyDark);
+  //   position: absolute !important;
+  //   font-size: 1.1428571428571428rem;
+  //   right: 0.5rem;
+  //   top: 0.5rem;
+  //   cursor: pointer;
+  //   z-index: 1;
+  // }
 
   .item {
     display: grid;
@@ -104,52 +105,6 @@
 }
 
 .istox-blockchain-toast button {
-  display: none !important;
-}
-
-/*
- * FadeIn animation
-*/
-@-webkit-keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.fade-in {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-/*
-* FadeOut animation
-*/
-@-webkit-keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-.fade-out {
-  -webkit-animation-name: fadeOut;
-  animation-name: fadeOut;
+  position: relative;
+  color: white;
 }
