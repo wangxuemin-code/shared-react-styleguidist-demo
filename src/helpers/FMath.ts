@@ -54,10 +54,13 @@ export class FMath {
   public static div(x: string | number, y: string | number) {
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
+
+    const r_y = this.FIXED_1.mul(this.FIXED_1).div(y1);
+
     return this.fromFixed(
       x1
-        .mul(this.FIXED_1)
-        .div(y1)
+        .mul(r_y)
+        .div(this.FIXED_1)
         .toString()
     );
   }
