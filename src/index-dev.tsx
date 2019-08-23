@@ -190,8 +190,23 @@ class Main extends Controls.MyComponent<
               logo={true}
               className={'istox-header'}
               mainLinks={[
-                { title: 'STO', path: 'sto', selected: false, useAnchorTag: true },
-                { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
+                <Controls.Link
+                  className={'bold'}
+                  padding={{ leftRightRem: 1 }}
+                  underline={false}
+                  useNormalAnchor={true}
+                  href={'sto'}
+                >
+                  STO
+                </Controls.Link>,
+                <Controls.Link
+                  padding={{ leftRightRem: 1 }}
+                  underline={false}
+                  useNormalAnchor={true}
+                  href={'wallet'}
+                >
+                  Wallet
+                </Controls.Link>
               ]}
               subLinks={[
                 <Controls.Link underline={false} useNormalAnchor={true} href={'transactions'}>
@@ -261,7 +276,8 @@ class Main extends Controls.MyComponent<
                   ]
                 }
               ]}
-              username={this.state.email}
+              name={this.state.email}
+              email={this.state.email}
               userAction
             />
             <Controls.WrapperContainer>
@@ -575,8 +591,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Icon size='large' color={'#3BE4C1'} icon={faChevronCircleRight} text={'Large'} />
               </Controls.Container>
               <Controls.Container display={'flex'}>
-                <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp;
-                &nbsp;
+                <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
                 {/* <Controls.Icon icon={'mobile'} text={'Passing ICON as a string'} /> */}
               </Controls.Container>
               <Controls.Container display={'flex'}>
@@ -826,11 +841,7 @@ class Main extends Controls.MyComponent<
               </Controls.Grid>
               <Controls.Divider />
               <h4>Image</h4>
-              <Controls.Container
-                display={'flex'}
-                alignItems={'center'}
-                margin={{ allPx: 15 }}
-              >
+              <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
                 <Controls.Image
                   backgroundColor={'#000'}
                   display={'inline-flex'}
@@ -844,11 +855,7 @@ class Main extends Controls.MyComponent<
                   variant={'logo alt'}
                 />
               </Controls.Container>
-              <Controls.Container
-                display={'flex'}
-                alignItems={'center'}
-                margin={{ allPx: 15 }}
-              >
+              <Controls.Container display={'flex'} alignItems={'center'} margin={{ allPx: 15 }}>
                 <Controls.Form
                   ref={(ref) => {
                     this.imageForm = ref;
@@ -879,8 +886,7 @@ class Main extends Controls.MyComponent<
                               {this.state.imageFooterChanged && (
                                 <p className='small normal-text color-primary-grey-darker text-center'>
                                   Drop or <br />
-                                  <a className='color-primary'>click here</a> to reupload
-                                  again
+                                  <a className='color-primary'>click here</a> to reupload again
                                 </p>
                               )}
                             </>
@@ -962,8 +968,7 @@ class Main extends Controls.MyComponent<
                     type: 'transaction_status_ok',
                     blockchainTransactionOptions: {
                       purpose: 'Hello',
-                      txHash:
-                        '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
+                      txHash: '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
                     }
                   });
                 }}
@@ -1131,11 +1136,7 @@ class Main extends Controls.MyComponent<
               <Controls.ProgressBar value={21} label variant={'info'} />
               <Controls.ProgressBar value={20} striped variant={'warning'} />
               <Controls.ProgressBar value={20} variant={'danger'} />
-              <Controls.ProgressBar
-                value={20}
-                label={'Strong Password'}
-                variant={'success'}
-              />
+              <Controls.ProgressBar value={20} label={'Strong Password'} variant={'success'} />
               <Controls.ProgressBar compact>
                 <Controls.ProgressBar striped variant='success' value={25} order={1} />
                 <Controls.ProgressBar variant='info' value={25} order={2} />
@@ -1287,12 +1288,7 @@ class Main extends Controls.MyComponent<
                 ]}
                 rows={[
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      '',
-                      ''
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                     itemId: '1'
                   },
                   {
@@ -1320,12 +1316,7 @@ class Main extends Controls.MyComponent<
                     ]
                   },
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      '',
-                      ''
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', '', ''],
                     itemId: '3',
                     groupId: '1'
                   },
@@ -1461,6 +1452,14 @@ class Main extends Controls.MyComponent<
                     name='alphabet'
                     placeholder={'Only alphabet allowed'}
                     type={'alphabet'}
+                    alphabetOnly={true}
+                  />
+                  <Controls.FormControl
+                    required
+                    label={'Capitalize only'}
+                    name='capitalize'
+                    placeholder={'Only capitalize allowed'}
+                    alwaysCapitalize={true}
                   />
                   <Controls.FormControl
                     required
@@ -1769,11 +1768,7 @@ class Main extends Controls.MyComponent<
                               currency={'SGD'}
                             />
 
-                            <Controls.Label
-                              className={'html'}
-                              variant={'info'}
-                              text={'Creating'}
-                            />
+                            <Controls.Label className={'html'} variant={'info'} text={'Creating'} />
                           </Controls.Container>
                         )
                       },

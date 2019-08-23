@@ -6,11 +6,6 @@ interface IMainLink {
     selected?: boolean;
     useAnchorTag?: boolean;
 }
-interface ISubLink {
-    title: string;
-    path: string;
-    useAnchorTag?: boolean;
-}
 interface INotifications {
     header?: string;
     notifications?: INotification[];
@@ -28,7 +23,7 @@ interface INotificationItem {
 interface IHeader extends IContainer {
     fullWidth?: boolean;
     mainLinks?: IMainLink[];
-    subLinks?: ISubLink[];
+    subLinks?: any;
     className?: string;
     logo?: string | boolean;
     notificationUnread?: boolean;
@@ -39,7 +34,6 @@ interface IHeader extends IContainer {
 }
 interface IState {
     username: string;
-    showSignOutModal: boolean;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
