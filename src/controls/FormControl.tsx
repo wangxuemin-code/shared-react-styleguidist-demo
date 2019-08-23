@@ -71,6 +71,7 @@ interface IProps extends IContainer {
   extraControls?: any;
   dateOptions?: IDateOption;
   alwaysCapitalize?: boolean;
+  alphabetOnly?: boolean;
   decimalPlace?: number;
   unit?: string;
   numInputs?: number;
@@ -292,12 +293,48 @@ export class FormControl extends React.Component<IProps, IState> {
         const re = /^\d\d[./-]\d\d[./-]\d\d\d\d$/;
         const value = moment.unix(Number(this.state.value)).format('DD-MM-YYYY');
         if (!re.test(value)) {
-          if (setErrorState)
+          if (setErrorState) {
             this.setState({
-              error: 'Date format is invalid, only DD-MM-YYYY is allowed',
+              error: 'Date format is invalid, only DD-MM-YYYY is allowed.',
               showError: true
             });
+          }
           return false;
+        }
+      }
+    }
+
+    if (this.props.type === 'daterange' && !this.props.oldValue) {
+      if (this.props.required || (!this.props.required && this.state.value)) {
+        if (this.state.value) {
+          const dateArray = String(this.state.value).split(',');
+          const dateStart = dateArray[0];
+          const dateEnd = dateArray[1];
+          if (dateStart === '0' && dateEnd === '0') {
+            if (setErrorState) {
+              this.setState({
+                error: 'Start date and End date are required.',
+                showError: true
+              });
+            }
+            return false;
+          } else if (dateStart === '0') {
+            if (setErrorState) {
+              this.setState({
+                error: 'Start date is required.',
+                showError: true
+              });
+            }
+            return false;
+          } else if (dateEnd === '0') {
+            if (setErrorState) {
+              this.setState({
+                error: 'End date is required.',
+                showError: true
+              });
+            }
+            return false;
+          }
         }
       }
     }
@@ -483,7 +520,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
-              padding: '0.5rem !important',
+              padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
               border: '1px solid rgba(125, 125, 125, 0.1) !important'
@@ -542,7 +579,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
-              padding: '0.5rem !important',
+              padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
               border: '1px solid rgba(125, 125, 125, 0.1) !important'
@@ -654,7 +691,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
-              padding: '0.5rem !important',
+              padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
               border: '1px solid rgba(125, 125, 125, 0.1) !important'
@@ -754,7 +791,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
-              padding: '0.5rem !important',
+              padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
               border: '1px solid rgba(125, 125, 125, 0.1) !important'
@@ -1119,7 +1156,7 @@ export class FormControl extends React.Component<IProps, IState> {
         return false;
       }
     }
-    if (this.props.type === 'alphabet') {
+    if (this.props.type === 'alphabet' || this.props.alphabetOnly) {
       const re = /^[A-Za-z]+$/;
       if (value && !re.test(String(value))) {
         return false;
@@ -1177,7 +1214,7 @@ export class FormControl extends React.Component<IProps, IState> {
         displayValue: !re.test(value) ? '' : value,
         value: !re.test(value) ? '' : value
       };
-    } else if (this.props.type === 'alphabet') {
+    } else if (this.props.type === 'alphabet' || this.props.alphabetOnly) {
       const re = /^[a-zA-Z]+$/;
       return {
         displayValue: !re.test(value) ? '' : value,

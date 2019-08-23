@@ -1,5 +1,4 @@
-import { faUserCircle, faChevronDown, faBell } from '@fortawesome/free-solid-svg-icons';
-import * as Cookies from 'js-cookie';
+import { faChevronDown, faBell } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
@@ -7,26 +6,11 @@ import { WrapperContainer } from './WrapperContainer';
 import { Button } from './Button';
 import { Icon } from './Icon';
 import { Image } from './Image';
-import { Link } from './Link';
 import { Divider } from './Divider';
-import { Modal } from './Modal';
 import { Transition } from './Transition';
 import { Controls } from '../index-prod';
 import { Dropdown } from 'antd';
 var uniqid = require('uniqid');
-
-interface IMainLink {
-  title: string;
-  path: string;
-  selected?: boolean;
-  useAnchorTag?: boolean;
-}
-
-// interface ISubLink {
-//   title: string;
-//   path: string;
-//   useAnchorTag?: boolean;
-// }
 
 interface INotifications {
   header?: string;
@@ -47,21 +31,21 @@ interface INotificationItem {
 
 interface IHeader extends IContainer {
   fullWidth?: boolean;
-  mainLinks?: IMainLink[];
+  mainLinks?: any;
   subLinks?: any;
-  // subLinks?: ISubLink[];
   className?: string;
   logo?: string | boolean;
   notificationUnread?: boolean;
   notifications?: INotifications[];
   userAction?: boolean;
-  username?: string;
+  name?: string;
+  email?: string;
   onNotificationVisibleChanged?: (visible: boolean) => void;
 }
 
 interface IState {
-  username: string;
-  // showSignOutModal: boolean;
+  name: string;
+  email: string;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -73,19 +57,18 @@ export class Header extends React.Component<IHeader, IState> {
   constructor(props: IHeader) {
     super(props);
     this.state = {
-      username: ''
-      // showSignOutModal: false
+      name: this.props.name!,
+      email: this.props.email!
     };
   }
 
   public componentDidUpdate(prevProps: IHeader) {
-    if (prevProps.username !== this.props.username && this.props.username) {
-      this.setState({ username: this.props.username });
+    if (prevProps.name !== this.props.name && this.props.name) {
+      this.setState({ name: this.props.name });
     }
-  }
-
-  addDefaultSrc(ev: any) {
-    ev.target.src = 'some default image url';
+    if (prevProps.email !== this.props.email && this.props.email) {
+      this.setState({ email: this.props.email });
+    }
   }
 
   public render() {
@@ -101,21 +84,14 @@ export class Header extends React.Component<IHeader, IState> {
               />
             )}
           </a>
-          {!this.props.children && (
-            <ul className={styles.links}>
-              {this.props.mainLinks!.map((link, i) => {
-                return this.getLinkDesign(link.title, link.path, link.selected, link.useAnchorTag);
-              })}
-            </ul>
-          )}
-          {this.props.children}
-          {this.getUsername() && (
+          <ul className={styles.links}>{this.props.mainLinks!.map((link: any) => link)}</ul>
+          {this.props.userAction && (
             <Container className={styles.right} verticalAlign='center'>
-              {this.props.notifications && this.getNotificationDesign()}
+              {/* {this.props.notifications && this.getNotificationDesign()} */}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
           )}
-          {!this.getUsername() && (
+          {!this.props.userAction && (
             <Container className={styles.right} verticalAlign='center'>
               <div className='small'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
@@ -241,41 +217,23 @@ export class Header extends React.Component<IHeader, IState> {
             }
           />
           <Container className={styles.text}>
-            <Container>
-              <Container className={styles.headerUsername}>{this.getUsername()}</Container>
-              <Container className={styles.headerEmail}>{this.getUserEmail()}</Container>
-            </Container>
-            {((this.props.subLinks && this.props.subLinks.length) ||
-              Cookies.get('account') ||
-              this.state.username !== '') && (
-              <>
-                &nbsp; <Icon icon={faChevronDown} padding={{ leftRem: 1 }} />
-              </>
+            {(this.state.name || this.state.email) && (
+              <Container>
+                {this.state.name && (
+                  <Container className={styles.headerName}>{this.state.name}</Container>
+                )}
+                {this.state.email && (
+                  <Container className={styles.headerEmail}>{this.state.email}</Container>
+                )}
+              </Container>
+            )}
+            {this.props.subLinks && this.props.subLinks.length && (
+              <Icon icon={faChevronDown} padding={{ leftRem: 0.5 }} />
             )}
           </Container>
         </Container>
       </Dropdown>
     );
-  }
-
-  private getUsername() {
-    const accountEmail = Cookies.get('account');
-    if (accountEmail) {
-      return accountEmail.split('@')[0];
-    } else if (this.state.username !== '') {
-      return this.state.username;
-    } else {
-      return false;
-    }
-  }
-
-  private getUserEmail() {
-    const accountEmail = Cookies.get('account');
-    if (accountEmail) {
-      return accountEmail.toLowerCase();
-    } else {
-      return false;
-    }
   }
 
   private getSubMenuDesign() {

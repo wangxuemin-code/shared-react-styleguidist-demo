@@ -107,7 +107,7 @@
     position: relative;
     height: $headerHeight;
 
-    .header-username {
+    .header-name {
       font-size: 0.857rem;
       font-weight: 600;
     }
@@ -117,17 +117,9 @@
       text-transform: lowercase;
     }
 
-    > .image {
+    > .image .image-responsive {
       margin-right: 0.5rem;
-    }
-
-    .icon {
-      padding-top: 1px;
-    }
-    .text {
-      .icon {
-        padding-top: 2px;
-      }
+      max-width: inherit;
     }
 
     &:hover,
@@ -170,6 +162,7 @@
     align-items: center;
     margin: auto;
     padding: 0;
+    // width: 100%;
 
     a {
       color: map-get($colors, primaryAlt);
