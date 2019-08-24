@@ -2026,6 +2026,20 @@ class Main extends Controls.MyComponent<
                   />
                 ))}
                 <Controls.Divider visibility={'hidden'} />
+                {this.variantStates.map((message: any) => (
+                  <Controls.Message
+                    key={uniqid().toString()}
+                    fluid
+                    outline
+                    labeled
+                    icon={faExclamationCircle}
+                    variant={message}
+                    title={'STO HALT'}
+                    content={'We will notify you when STO is up'}
+                    subContent={'2010 August 2018'}
+                  />
+                ))}
+                <Controls.Divider visibility={'hidden'} />
                 <Controls.Message
                   fluid
                   justifyContent={'left'}

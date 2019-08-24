@@ -22,6 +22,7 @@
     .icon {
       color: map-get($colors, primary);
     }
+
     .label {
       border: 1px solid map-get($colors, primary);
       background-color: map-get($colors, primary);
@@ -33,6 +34,7 @@
     .icon {
       color: map-get($colors, secondary);
     }
+
     .label {
       border: 1px solid map-get($colors, secondary);
       background-color: map-get($colors, secondary);
@@ -44,6 +46,7 @@
     .icon {
       color: map-get($colors, primaryGreyDarker);
     }
+
     .label {
       border: 1px solid map-get($colors, primaryGreyDarker);
       background-color: map-get($colors, primaryGreyDarker);
@@ -55,6 +58,7 @@
     .icon {
       color: map-get($colors, success);
     }
+
     .label {
       border: 1px solid map-get($colors, success);
       background-color: map-get($colors, success);
@@ -66,6 +70,7 @@
     .icon {
       color: map-get($colors, warning);
     }
+
     .label {
       border: 1px solid map-get($colors, warning);
       background-color: map-get($colors, warning);
@@ -77,6 +82,7 @@
     .icon {
       color: map-get($colors, info);
     }
+
     .label {
       border: 1px solid map-get($colors, info);
       background-color: map-get($colors, info);
@@ -88,6 +94,7 @@
     .icon {
       color: map-get($colors, danger);
     }
+
     .label {
       border: 1px solid map-get($colors, danger);
       background-color: map-get($colors, danger);
@@ -97,12 +104,14 @@
   &.flat {
     background-color: map-get($colors, primary);
     border-radius: 0;
+
     .content {
       padding: 0.5rem 0.8rem;
     }
 
     &.primary {
       background-color: map-get($colors, primaryBackground);
+
       > div,
       .icon {
         color: map-get($colors, primary);
@@ -111,6 +120,7 @@
 
     &.secondary {
       background-color: map-get($colors, secondaryBackground);
+
       > div,
       .icon {
         color: map-get($colors, primaryDark);
@@ -119,6 +129,7 @@
 
     &.disabled {
       background-color: map-get($colors, primaryGreyLighter);
+
       > div,
       .icon {
         color: map-get($colors, primaryGreyDarker);
@@ -127,6 +138,7 @@
 
     &.success {
       background-color: map-get($colors, successBackground);
+
       > div,
       .icon {
         color: map-get($colors, success);
@@ -135,6 +147,7 @@
 
     &.warning {
       background-color: map-get($colors, warningBackground);
+
       > div,
       .icon {
         color: map-get($colors, warning);
@@ -143,6 +156,7 @@
 
     &.info {
       background-color: map-get($colors, infoBackground);
+
       > div,
       .icon {
         color: map-get($colors, info);
@@ -151,6 +165,7 @@
 
     &.danger {
       background-color: map-get($colors, dangerBackground);
+
       > div,
       .icon {
         color: map-get($colors, danger);
@@ -160,15 +175,15 @@
 
   &.outline {
     background-color: map-get($colors, primaryGrey);
-    border-left: 3px solid map-get($colors, primaryGreyDark);
     border-radius: 0;
+
     .content {
       padding: 0.5rem 0.8rem;
     }
 
     &.primary {
       background-color: map-get($colors, primaryBackground);
-      border-left: 3px solid map-get($colors, primary);
+
       > div,
       .icon {
         color: map-get($colors, primary);
@@ -177,7 +192,7 @@
 
     &.secondary {
       background-color: map-get($colors, secondaryBackground);
-      border-left: 3px solid map-get($colors, secondary);
+
       > div,
       .icon {
         color: map-get($colors, primaryDark);
@@ -186,7 +201,7 @@
 
     &.disabled {
       background-color: map-get($colors, primaryGreyLighter);
-      border-left: 3px solid map-get($colors, primaryGrey);
+
       > div,
       .icon {
         color: map-get($colors, primaryGreyDarker);
@@ -195,7 +210,7 @@
 
     &.success {
       background-color: map-get($colors, successBackground);
-      border-left: 3px solid map-get($colors, success);
+
       > div,
       .icon {
         color: map-get($colors, success);
@@ -204,7 +219,7 @@
 
     &.warning {
       background-color: map-get($colors, warningBackground);
-      border-left: 3px solid map-get($colors, warning);
+
       > div,
       .icon {
         color: map-get($colors, warning);
@@ -213,7 +228,7 @@
 
     &.info {
       background-color: map-get($colors, infoBackground);
-      border-left: 3px solid map-get($colors, info);
+
       > div,
       .icon {
         color: map-get($colors, info);
@@ -222,7 +237,7 @@
 
     &.danger {
       background-color: map-get($colors, dangerBackground);
-      border-left: 3px solid map-get($colors, danger);
+
       > div,
       .icon {
         color: map-get($colors, danger);
@@ -238,7 +253,7 @@
 
   .label {
     background-color: map-get($colors, primary);
-    padding: 0.8rem 1rem;
+    padding: 0.6rem 0.6rem;
     border-radius: 0;
 
     .icon {
@@ -253,6 +268,7 @@
     .content {
       width: 100%;
       border: 1px solid map-get($colors, primaryGrey);
+      padding: 0.5rem 3rem;
     }
   }
 }
