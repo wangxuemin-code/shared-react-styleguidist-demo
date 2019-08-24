@@ -49,7 +49,7 @@ export class Button extends React.Component<IButton, any> {
       this.props.loading ? styles.loading : ''
     ];
 
-    classes = classes.filter(function(el) {
+    classes = classes.filter(function (el) {
       return el != '';
     });
 
@@ -63,7 +63,7 @@ export class Button extends React.Component<IButton, any> {
       };
     }
 
-    if (this.props.href && !this.props.disabled) {
+    if (this.props.href && !this.props.disabled && !this.props.loading) {
       return (
         <Link underline={false} href={this.props.href}>
           {this.getButtonDesign(style, classes)}
@@ -92,8 +92,8 @@ export class Button extends React.Component<IButton, any> {
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={!this.props.disabled ? this.props.onPress || this.props.onClick : undefined}
-          disabled={this.props.disabled}
+          onClick={(!this.props.disabled && !this.props.loading) ? this.props.onPress || this.props.onClick : undefined}
+          disabled={this.props.disabled || this.props.loading}
         >
           {this.props.loading && (
             <ReactIcon
@@ -103,12 +103,12 @@ export class Button extends React.Component<IButton, any> {
                   this.props.size == 'large'
                     ? 18
                     : this.props.size == 'medium'
-                    ? 16
-                    : this.props.size == 'small'
-                    ? 14
-                    : this.props.size == 'tiny'
-                    ? 12
-                    : 16
+                      ? 16
+                      : this.props.size == 'small'
+                        ? 14
+                        : this.props.size == 'tiny'
+                          ? 12
+                          : 16
               }}
               spin
             />
