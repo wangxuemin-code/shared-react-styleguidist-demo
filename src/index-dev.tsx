@@ -449,7 +449,9 @@ class Main extends Controls.MyComponent<
                 Large
               </Controls.Button>
               <Controls.Divider visibility={'hidden'} />
-              <Controls.Button loading size='tiny' variant='primary'>
+              <Controls.Button loading size='tiny' variant='primary' onClick={() => {
+                console.log('should not happen')
+              }}>
                 Tiny Loading
               </Controls.Button>
               <Controls.Button loading size='small' variant='primary'>

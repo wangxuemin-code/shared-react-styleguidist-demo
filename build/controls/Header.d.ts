@@ -1,11 +1,5 @@
 import * as React from 'react';
 import { IContainer } from './Container';
-interface IMainLink {
-    title: string;
-    path: string;
-    selected?: boolean;
-    useAnchorTag?: boolean;
-}
 interface INotifications {
     header?: string;
     notifications?: INotification[];
@@ -22,18 +16,20 @@ interface INotificationItem {
 }
 interface IHeader extends IContainer {
     fullWidth?: boolean;
-    mainLinks?: IMainLink[];
+    mainLinks?: any;
     subLinks?: any;
     className?: string;
     logo?: string | boolean;
     notificationUnread?: boolean;
     notifications?: INotifications[];
     userAction?: boolean;
-    username?: string;
+    name?: string;
+    email?: string;
     onNotificationVisibleChanged?: (visible: boolean) => void;
 }
 interface IState {
-    username: string;
+    name: string;
+    email: string;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
@@ -42,7 +38,6 @@ export declare class Header extends React.Component<IHeader, IState> {
     };
     constructor(props: IHeader);
     componentDidUpdate(prevProps: IHeader): void;
-    addDefaultSrc(ev: any): void;
     render(): JSX.Element;
     private getLinkDesign;
     private getNotificationDesign;
@@ -50,8 +45,6 @@ export declare class Header extends React.Component<IHeader, IState> {
     private getSingleNotificationDesign;
     private getNotificationItemDesign;
     private getUserActionDesign;
-    private getUsername;
-    private getUserEmail;
     private getSubMenuDesign;
 }
 export {};
