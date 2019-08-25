@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 export class Formatter {
   public static money(
     input: number | string | undefined,
-    options: { decimalPlace?: number; symbol?: string; unit?: string, rounding?: 'up' | 'down' } = {}
+    options: { decimalPlace?: number; symbol?: string; unit?: string; rounding?: 'up' | 'down' } = {}
   ): string {
     if (!input) {
       input = 0;
@@ -12,23 +12,26 @@ export class Formatter {
 
     const roundMode = options.rounding ? options.rounding : 'up';
 
-    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 })
+    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 });
 
     const resultBN = new BigNumber(input.toString());
 
-    return `${options.symbol + ' ' || ''}${resultBN.toFormat(options.decimalPlace || 0)}${
+    return `${options.symbol ? options.symbol + ' ' : ''}${resultBN.toFormat(options.decimalPlace || 0)}${
       options.unit ? ` ${options.unit}` : ''
-      }`;
+    }`;
   }
 
-  public static number(input: number | string | undefined, options: { decimalPlace?: number, rounding?: 'up' | 'down' } = {}): string {
+  public static number(
+    input: number | string | undefined,
+    options: { decimalPlace?: number; rounding?: 'up' | 'down' } = {}
+  ): string {
     if (!input) {
       input = 0;
     }
 
     const roundMode = options.rounding ? options.rounding : 'up';
 
-    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 })
+    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 });
 
     const resultBN = new BigNumber(input.toString());
 
