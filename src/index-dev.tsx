@@ -1176,6 +1176,12 @@ class Main extends Controls.MyComponent<
                   &nbsp;&nbsp; {rating}
                 </Controls.Container>
               ))}
+              {this.variantStates.map((rating: any) => (
+                <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
+                  <Controls.Rating filled variant={rating} defaultValue={3} maxValue={3} />
+                  &nbsp;&nbsp; {rating}
+                </Controls.Container>
+              ))}
               <Controls.Divider />
               <h4>List</h4>
               <Controls.List

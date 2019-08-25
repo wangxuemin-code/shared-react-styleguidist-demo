@@ -9,6 +9,7 @@ interface IRating extends IContainer {
   variant?: string;
   defaultValue?: number;
   maxValue?: number;
+  filled?: boolean;
 }
 
 interface IState {
@@ -21,7 +22,7 @@ export class Rating extends React.Component<IRating, IState> {
   }
 
   renderInputs = () => {
-    const { maxValue, defaultValue } = this.props;
+    const { maxValue, defaultValue, filled } = this.props;
     let { variant } = this.props;
     let childVariant = '';
     const value = defaultValue || 0;
@@ -36,6 +37,9 @@ export class Rating extends React.Component<IRating, IState> {
           } else {
             childVariant = variant ? variant : '';
           }
+        }
+        if (filled) {
+          childVariant = variant ? variant : '';
         }
         let classes: string[] = [
           styles.ratingSignal,
