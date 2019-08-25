@@ -16,7 +16,7 @@ export class ErrorPage extends MyComponent<IProps, any> {
     return (
       <Container className={styles.errorPage}>
         <Image
-          src={this.props.type === '404' ? 'images/404.gif' : 'images/500.png'}
+          src={this.props.type === '404' ? 'images/404.gif' : 'images/500.gif'}
           alt={<Icon className={styles.altIcon} icon={faExclamationTriangle} />}
         />
         <Container className={styles.message}>{this.props.message}</Container>

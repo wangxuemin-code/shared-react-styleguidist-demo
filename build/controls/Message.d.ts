@@ -9,6 +9,9 @@ interface IMessage extends IContainer {
     variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger' | 'error';
     messageColor?: string;
     size?: 'small' | 'normal';
+    title?: any;
+    content?: any;
+    subContent?: any;
 }
 export declare class Message extends React.Component<IMessage, any> {
     static defaultProps: IMessage;
