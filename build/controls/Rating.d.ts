@@ -5,6 +5,7 @@ interface IRating extends IContainer {
     variant?: string;
     defaultValue?: number;
     maxValue?: number;
+    filled?: boolean;
 }
 interface IState {
     value: number;
