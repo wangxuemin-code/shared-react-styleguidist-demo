@@ -49,7 +49,7 @@ export class Button extends React.Component<IButton, any> {
       this.props.loading ? styles.loading : ''
     ];
 
-    classes = classes.filter(function (el) {
+    classes = classes.filter(function(el) {
       return el != '';
     });
 
@@ -92,31 +92,42 @@ export class Button extends React.Component<IButton, any> {
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={(!this.props.disabled && !this.props.loading) ? this.props.onPress || this.props.onClick : undefined}
+          onClick={!this.props.disabled && !this.props.loading ? this.props.onPress || this.props.onClick : undefined}
           disabled={this.props.disabled || this.props.loading}
         >
-          {this.props.loading && (
-            <ReactIcon
-              component={SpinnerSVG}
-              style={{
-                fontSize:
-                  this.props.size == 'large'
-                    ? 18
-                    : this.props.size == 'medium'
-                      ? 16
-                      : this.props.size == 'small'
-                        ? 14
-                        : this.props.size == 'tiny'
-                          ? 12
-                          : 16
-              }}
-              spin
-            />
-          )}
-          {this.props.children}
+          <Container fontSizeRem={this.props.fontSizeRem} fontSizePx={this.props.fontSizePx}>
+            {this.props.loading && (
+              <ReactIcon
+                component={SpinnerSVG}
+                style={{
+                  fontSize: this.getLoadingIconSize()
+                }}
+                spin
+              />
+            )}
+            {this.props.children}
+          </Container>
         </button>
         {this.props.subText && <Container textAlign={'center'}>{this.props.subText}</Container>}
       </Container>
     );
+  }
+
+  private getLoadingIconSize() {
+    if (this.props.fontSizeRem) {
+      return `${this.props.fontSizeRem}rem`;
+    } else if (this.props.fontSizePx) {
+      return `${this.props.fontSizePx}px`;
+    } else {
+      return this.props.size == 'large'
+        ? 18
+        : this.props.size == 'medium'
+        ? 16
+        : this.props.size == 'small'
+        ? 14
+        : this.props.size == 'tiny'
+        ? 12
+        : 16;
+    }
   }
 }
