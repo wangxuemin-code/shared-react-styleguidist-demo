@@ -2023,7 +2023,6 @@ class Main extends Controls.MyComponent<
                     key={uniqid().toString()}
                     fluid
                     justifyContent={'left'}
-                    outline
                     labeled
                     icon={faExclamationCircle}
                     variant={message}
@@ -2033,10 +2032,10 @@ class Main extends Controls.MyComponent<
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
+                  <>
                   <Controls.Message
                     key={uniqid().toString()}
                     fluid
-                    outline
                     labeled
                     icon={faExclamationCircle}
                     variant={message}
@@ -2044,6 +2043,8 @@ class Main extends Controls.MyComponent<
                     content={'We will notify you when STO is up'}
                     subContent={'2010 August 2018'}
                   />
+                  <Controls.Divider />
+                  </>
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 <Controls.Message

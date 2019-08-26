@@ -3,7 +3,6 @@ import { Icon } from '.';
 import * as styles from '../css/main.scss';
 import { Theme } from '../index-prod';
 import { Container, IContainer } from './Container';
-import { faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 
 interface IMessage extends IContainer {
   labeled?: boolean;
@@ -12,14 +11,14 @@ interface IMessage extends IContainer {
   flat?: boolean;
   outline?: boolean;
   variant?:
-  | 'primary'
-  | 'secondary'
-  | 'info'
-  | 'disabled'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'error';
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'error';
   messageColor?: string;
   size?: 'small' | 'normal';
   title?: any;
@@ -29,7 +28,7 @@ interface IMessage extends IContainer {
 
 export class Message extends React.Component<IMessage, any> {
   public static defaultProps: IMessage = {
-    icon: faExclamationCircle,
+    icon: '',
     variant: 'primary',
     size: 'normal'
   };
@@ -44,7 +43,7 @@ export class Message extends React.Component<IMessage, any> {
       this.props.variant === 'error' ? styles.danger : ''
     ];
 
-    classes = classes.filter(function (el) {
+    classes = classes.filter(function(el) {
       return el != '';
     });
 
@@ -63,18 +62,37 @@ export class Message extends React.Component<IMessage, any> {
         )}
 
         <Container style={style} className={styles.content}>
-          {!this.props.labeled && this.props.icon && (
-            <Icon size={'small'} icon={this.props.icon} />
-          )}
+          {!this.props.labeled && this.props.icon && <Icon size={'small'} icon={this.props.icon} />}
           {this.props.message}
 
           <Container>
-            {this.props.title && <Container fontSizeRem={0.8} fontWeight={600} fontColor={'black'}>{this.props.title}</Container>}
-            {this.props.content && <Container fontSizeRem={0.85} fontWeight={200} margin={{ topPx: 2 }} fontColor={'black'}>{this.props.content}</Container>}
-            {this.props.subContent && <Container fontSizeRem={0.85} fontWeight={200} margin={{ topPx: 8 }} fontColor={Theme.stylings.colors.primaryGreyDark}>{this.props.subContent}</Container>}
+            {this.props.title && (
+              <Container fontSizeRem={0.8} fontWeight={600} fontColor={'black'}>
+                {this.props.title}
+              </Container>
+            )}
+            {this.props.content && (
+              <Container
+                fontSizeRem={0.85}
+                fontWeight={200}
+                margin={{ topPx: 2 }}
+                fontColor={'black'}
+              >
+                {this.props.content}
+              </Container>
+            )}
+            {this.props.subContent && (
+              <Container
+                fontSizeRem={0.85}
+                fontWeight={200}
+                margin={{ topPx: 8 }}
+                fontColor={Theme.stylings.colors.primaryGreyDark}
+              >
+                {this.props.subContent}
+              </Container>
+            )}
           </Container>
         </Container>
-
       </Container>
     );
   }
