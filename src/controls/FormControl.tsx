@@ -1027,9 +1027,9 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private setToEmpty = () => {
-    this.onValueChanged(false, undefined);
+    this.onValueChanged(false, '');
     if (this.props.onInputChanged) {
-      this.props.onInputChanged(undefined, this.props.name || '');
+      this.props.onInputChanged('', this.props.name || '');
     }
   };
 
