@@ -129,8 +129,10 @@ export class OtpInput extends React.Component<IProps, IState> {
       e.keyCode == 9
     ) {
       // 0-9 only and Enter
-      this.changeCodeAtFocus(e.key);
-      this.focusNextInput();
+      if (!isNaN(e.key)) {
+        this.changeCodeAtFocus(e.key);
+        this.focusNextInput();
+      }
     } else {
       e.preventDefault();
     }
