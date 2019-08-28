@@ -18,5 +18,6 @@ export declare class Button extends React.Component<IButton, any> {
     static defaultProps: IButton;
     render(): JSX.Element;
     private getButtonDesign;
+    private getLoadingIconSize;
 }
 export {};
