@@ -1,9 +1,13 @@
 ::placeholder {
-  color: map-get($colors, primaryGreyDarker);
+  color: map-get($colors, primaryGreyDark);
+}
+
+.ant-form {
+  color: map-get($colors, primaryDarkActive);
 }
 
 .ant-input::placeholder {
-  color: map-get($colors, primaryGreyDarker);
+  color: map-get($colors, primaryGreyDark);
 }
 
 .ant-radio-checked .ant-radio-inner {
@@ -142,7 +146,8 @@ textarea[disabled] {
     box-shadow: none;
   }
   input:focus,
-  textarea:focus {
+  textarea:focus,
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
     border-bottom: 1px solid map-get($colors, secondary) !important;
     box-shadow: none;
   }

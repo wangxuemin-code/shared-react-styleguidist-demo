@@ -71,7 +71,7 @@ export class Link extends React.Component<ILink> {
   }
 
   private onClick = (e: any) => {
-    e.preventDefault();
     this.props.onClick;
+    e.preventDefault();
   };
 }

@@ -18,7 +18,8 @@ body,
 #reactContainer {
   height: 100%;
   font-family: map-get($typography, font);
-  color: map-get($colors, primaryDark);
+  font-weight: 300;
+  color: map-get($colors, primaryDarkActive);
 }
 
 #reactContainer {
