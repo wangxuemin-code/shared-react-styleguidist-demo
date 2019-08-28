@@ -54,7 +54,7 @@ export class OtpInput extends React.Component<IProps, IState> {
     onChange: (otp: number) => {
       // console.log(otp);
     },
-    shouldAutoFocus: false,
+    shouldAutoFocus: true,
     inputWidth: '2rem',
     maxLength: 1
   };
@@ -117,8 +117,8 @@ export class OtpInput extends React.Component<IProps, IState> {
   };
 
   handleOnChange = (e: any) => {
-    this.changeCodeAtFocus(e.target.value);
-    this.focusNextInput();
+    // this.changeCodeAtFocus(e.target.value);
+    // this.focusNextInput();
   };
 
   handleOnKeyDown = (e: any) => {
@@ -129,19 +129,21 @@ export class OtpInput extends React.Component<IProps, IState> {
       e.keyCode == 9
     ) {
       // 0-9 only and Enter
+      this.changeCodeAtFocus(e.key);
+      this.focusNextInput();
     } else {
       e.preventDefault();
     }
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
-        this.focusPrevInput();
         this.changeCodeAtFocus('');
+        this.focusPrevInput();
         break;
       case DELETE:
         e.preventDefault();
-        this.focusPrevInput();
         this.changeCodeAtFocus('');
+        this.focusPrevInput();
         break;
       case LEFT_ARROW:
         e.preventDefault();
