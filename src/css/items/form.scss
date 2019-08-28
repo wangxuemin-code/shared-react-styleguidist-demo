@@ -2,10 +2,6 @@
   color: map-get($colors, primaryGreyDark);
 }
 
-.ant-form {
-  color: map-get($colors, primaryDarkActive);
-}
-
 .ant-input::placeholder {
   color: map-get($colors, primaryGreyDark);
 }
@@ -138,6 +134,7 @@ textarea[disabled] {
     padding: 0;
     min-height: 37px !important;
     font-size: 1.143rem;
+    color: map-get($colors, primaryDarkActive);
   }
 
   input:hover,
