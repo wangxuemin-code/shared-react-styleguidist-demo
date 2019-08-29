@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { toast, ToastContainer, cssTransition } from 'react-toastify';
 import { IContainer } from './Container';
-import { Icon } from '.';
-import Transition from 'react-transition-group/Transition';
+import { Icon, Transition } from '.';
+import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 import {
   faCheck,
   faTimes,
@@ -19,6 +19,7 @@ interface IProps extends IContainer {
   type: 'transaction_status_ok' | 'transaction_status_fail';
   blockchainTransactionOptions?: IBlockchainTransactionOptions;
   icon?: IconDefinition;
+  children?: React.ReactNode;
 }
 
 export class BlockchainToast extends React.Component {
@@ -72,15 +73,17 @@ export class BlockchainToast extends React.Component {
       variant = 'danger';
     }
     let classes: string[] = [styles.istoxBlockchainToast, variant];
+    console.log('classes: ' + classes.toString());
+    console.log('classes join: ' + classes.join(' ').toString());
 
     classes = classes.filter(function(el) {
       return el != '';
     });
 
-    const Fade = cssTransition({
-      enter: styles.fadeIn,
-      exit: styles.fadeOut,
-      duration: 2000
+    const FadeInAndOut = cssTransition({
+      enter: 'fadeIn',
+      exit: 'fadeOut',
+      duration: 1000
     });
 
     toast(BlockchainToast.getTransactionDesign(props), {
@@ -91,8 +94,7 @@ export class BlockchainToast extends React.Component {
       draggable: false,
       closeOnClick: false,
       className: classes.join(' '),
-      transition: Fade
+      transition: FadeInAndOut
     });
-
   }
 }
