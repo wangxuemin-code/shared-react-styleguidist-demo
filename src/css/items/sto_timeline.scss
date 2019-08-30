@@ -1,0 +1,126 @@
+.sto-main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-top: 80px;
+  margin-bottom: 30px;
+}
+
+.sto-timeline-container {
+  display: grid;
+  grid-template-columns: 0px repeat(6, auto);
+  padding: 0px 30px;
+
+  .point {
+    width: 100%;
+    height: 4px;
+    background-color: rgba(59, 228, 193, 1);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+
+    .inner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(241, 241, 241);
+    }
+
+    .dot {
+      background-color: rgb(241, 241, 241);
+      width: 16px;
+      height: 16px;
+      border-radius: 32px;
+      margin-right: -8px;
+      z-index: 1;
+      position: relative;
+
+      .text-container {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        left: -42px;
+        top: -42px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+
+        .date {
+          color: map-get($colors, primaryGreyDarker);
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin-top: -8px;
+        }
+
+        .time {
+          color: map-get($colors, primaryGreyDarker);
+          font-size: 0.8rem;
+        }
+
+        .title {
+          color: map-get($colors, primaryGreyDarker);
+          font-size: 0.9rem;
+          font-weight: 600;
+          margin-top: 60px;
+          text-align: center;
+        }
+      }
+
+      &.big {
+        width: 26px;
+        height: 26px;
+        border-radius: 52px;
+        margin-right: -13px;
+
+        .text-container {
+          top: -37px;
+          left: -37px;
+        }
+      }
+    }
+
+    &.half-active,
+    &.active {
+      .dot {
+        background-color: rgba(59, 228, 193, 1);
+      }
+    }
+
+    &.active {
+      .dot {
+        .text-container {
+          .date,
+          .title {
+            color: black;
+          }
+        }
+      }
+    }
+
+    &:first-child {
+      .dot {
+        margin-right: 0px;
+        position: absolute;
+        left: -8px;
+      }
+    }
+  }
+}
+.space-between {
+  justify-content: space-between;
+
+  .align-self-end {
+    align-self: flex-end;
+  }
+  .align-self-start {
+    align-self: flex-start;
+  }
+
+  :global(.image-responsive) {
+    max-width: 280px;
+  }
+  :global(.secondary) {
+    color: map-get($colors, secondary);
+  }
+}
