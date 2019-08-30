@@ -71,7 +71,7 @@ export class Formatter {
     } else if (isNaN(Number(input))) {
       return moment(input).toDate();
     } else {
-      return moment.unix(input).toDate();
+      return moment.unix(Number(input)).toDate();
     }
   }
 
@@ -120,7 +120,7 @@ export class Formatter {
     } else if (isNaN(Number(input))) {
       return moment(input).format(format);
     } else {
-      return moment.unix(input).format(format);
+      return moment.unix(Number(input)).format(format);
     }
   }
 }
