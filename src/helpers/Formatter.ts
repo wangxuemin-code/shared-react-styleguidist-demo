@@ -53,20 +53,26 @@ export class Formatter {
       .trim();
   }
 
-  public static datetime(input?: string | Date): string {
-    return moment(input).format('DD MMMM YYYY hh:mm A');
+  public static datetime(input?: string | number | Date): string {
+    return this.getMomentObject('DD MMMM YYYY hh:mm A', input);
   }
 
-  public static date(input?: string | Date): string {
-    return moment(input).format('DD MMMM YYYY');
+  public static date(input?: string | number | Date): string {
+    return this.getMomentObject('DD MMMM YYYY', input);
   }
 
-  public static time(input?: string | Date): string {
-    return moment(input).format('hh:mm A');
+  public static time(input?: string | number | Date): string {
+    return this.getMomentObject('hh:mm A', input);
   }
 
-  public static datetimeToDate(input?: string): Date {
-    return moment(input).toDate();
+  public static datetimeToDate(input?: string | number): Date {
+    if (typeof input === 'number') {
+      return moment.unix(input).toDate();
+    } else if (isNaN(Number(input))) {
+      return moment(input).toDate();
+    } else {
+      return moment.unix(input).toDate();
+    }
   }
 
   public static dateToUnixTimestamp(input: Date): number {
@@ -104,5 +110,17 @@ export class Formatter {
   public static countDecimals(value: number) {
     if (Math.floor(value.valueOf()) === value.valueOf()) return 0;
     return value.toString().split('.')[1].length || 0;
+  }
+
+  private static getMomentObject(format: string, input?: string | number | Date): string {
+    if (typeof input !== 'string' && typeof input !== 'number') {
+      return moment(input).format(format);
+    } else if (typeof input === 'number') {
+      return moment.unix(input).format(format);
+    } else if (isNaN(Number(input))) {
+      return moment(input).format(format);
+    } else {
+      return moment.unix(input).format(format);
+    }
   }
 }
