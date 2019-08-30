@@ -135,6 +135,7 @@ textarea[disabled] {
     min-height: 37px !important;
     font-size: 1.143rem;
     color: map-get($colors, primaryDarkActive);
+    font-weight: 300;
   }
 
   input:hover,

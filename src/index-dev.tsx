@@ -93,7 +93,15 @@ class Main extends Controls.MyComponent<
       imageUrl: '',
       imageFooterChanged: false
     };
-    this.variantStates = ['primary', 'secondary', 'disabled', 'info', 'success', 'warning', 'danger'];
+    this.variantStates = [
+      'primary',
+      'secondary',
+      'disabled',
+      'info',
+      'success',
+      'warning',
+      'danger'
+    ];
     this.tabsContent = [
       {
         title: <Controls.Container>Account Info</Controls.Container>,
@@ -212,9 +220,13 @@ class Main extends Controls.MyComponent<
                 <Controls.Link underline={false} useNormalAnchor={true} href={'transactions'}>
                   Transactions
                 </Controls.Link>,
-                <Controls.Link onClick={() => {
-                  this.setState({showModal: true })
-                }} variant={'danger'} underline={false}>
+                <Controls.Link
+                  onClick={() => {
+                    this.setState({ showModal: true });
+                  }}
+                  variant={'danger'}
+                  underline={false}
+                >
                   Sign Out
                 </Controls.Link>
               ]}
@@ -613,8 +625,8 @@ class Main extends Controls.MyComponent<
                 </Controls.Link>
               </Controls.Container>
               <Controls.Resend
-                duration={5}
-                initTimer={false}
+                duration={10}
+                initTimer={true}
                 onPress={(processing: boolean) => {
                   if (processing) {
                     console.log(1);

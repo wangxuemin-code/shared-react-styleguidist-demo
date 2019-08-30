@@ -114,11 +114,13 @@
     .header-name {
       font-size: 0.857rem;
       font-weight: 600;
+      color: map-get($colors, primaryDark);
     }
 
     .header-email {
       font-size: 0.7143rem;
       text-transform: lowercase;
+      color: map-get($colors, primaryDark);
     }
 
     > .image .image-responsive {

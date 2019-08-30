@@ -72,6 +72,9 @@
   }
 
   &:hover {
+    color: map-get($colors, primaryDark);
+    border-color: map-get($colors, primaryDark);
+
     &.primary {
       color: map-get($colors, primaryActive);
       border-color: map-get($colors, primaryActive);

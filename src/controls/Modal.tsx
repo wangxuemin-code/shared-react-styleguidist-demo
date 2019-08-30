@@ -48,6 +48,7 @@ export class Modal extends React.Component<IProps, IState> {
         closable={false}
         width={this.state.width}
         maskClosable={false}
+        centered={true}
       >
         {!this.props.disableClose && (
           <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
