@@ -2289,15 +2289,15 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
                 <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
-                <Controls.StoTimeLine 
+                <Controls.StoTimeLine
                   stoDateTime={{
-                    createdAt:"2019-07-29T01:36:48Z",
-                    bookbuildingStartTime:"2019-07-30T10:20:24Z",
-                    bookbuildingEndTime:"2019-07-31T10:20:24Z",
-                    preSaleStartTime:"2019-08-01T10:20:24Z",
-                    preSaleEndTime:"2019-08-02T10:20:24Z",
-                    publicSaleStartTime:"2019-08-03T10:20:24Z",
-                    publicSaleEndTime:"2019-08-04T10:20:24Z",
+                    createdAt:"2019-08-29T01:36:48Z",
+                    bookbuildingStartTime:"2019-09-01T10:20:24Z",
+                    bookbuildingEndTime:"2019-09-02T10:20:24Z",
+                    preSaleStartTime:"2019-09-09T10:20:24Z",
+                    preSaleEndTime:"2019-09-13T10:20:24Z",
+                    publicSaleStartTime:"2019-09-20T10:20:24Z",
+                    publicSaleEndTime:"2019-09-29T10:20:24Z",
                   }}
                   hideTitle
                 />
