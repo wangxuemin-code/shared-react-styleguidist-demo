@@ -12,12 +12,13 @@
   }
 
   .ant-tabs-ink-bar {
-    border: 1px solid map-get($colors, primaryDark);
+    border: 1px solid map-get($colors, primaryDarkActive);
+    background-color: map-get($colors, primaryAlt);
   }
 
   .ant-tabs-tab:hover,
   .ant-tabs-tab-active {
-    color: map-get($colors, primaryDark) !important;
+    color: map-get($colors, primaryDarkActive) !important;
   }
 
   &.primary {
@@ -35,6 +36,18 @@
   &.disabled {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, primaryGrey);
+    }
+  }
+
+  &.light {
+    .ant-tabs-ink-bar {
+      border: 1px solid map-get($colors, primaryGreyLight);
+    }
+  }
+
+  &.dark {
+    .ant-tabs-ink-bar {
+      border: 1px solid map-get($colors, primaryDarkActive);
     }
   }
 

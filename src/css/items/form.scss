@@ -191,6 +191,11 @@ textarea[disabled] {
     height: 45px;
   }
   .otp-control {
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
     .icon {
       font-size: 3.5rem !important;
     }

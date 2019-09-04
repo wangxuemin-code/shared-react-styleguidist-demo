@@ -49,6 +49,7 @@ interface IState {
 
 export class OtpInput extends React.Component<IProps, IState> {
   private timer: any;
+  private activeInput: number;
   public static defaultProps: IProps = {
     numInputs: 4,
     onChange: (otp: number) => {
@@ -90,24 +91,42 @@ export class OtpInput extends React.Component<IProps, IState> {
 
   focusInput = (input: number) => {
     const { numInputs } = this.props;
-    const activeInput = Math.max(Math.min(numInputs - 1, input), 0);
+    const activeInput = Math.max(Math.min(numInputs, input), 0);
     this.setState({
       activeInput
     });
   };
 
-  focusNextInput = () => {
-    const { activeInput } = this.state;
+  focusNextInput = (input?: number) => {
+    let activeInput = 0;
+    if (input !== undefined) {
+      activeInput = input;
+    } else {
+      activeInput = this.state.activeInput;
+    }
     this.focusInput(activeInput + 1);
   };
 
-  focusPrevInput = () => {
-    const { activeInput } = this.state;
+  focusPrevInput = (input?: number) => {
+    let activeInput = 0;
+    if (input !== undefined) {
+      activeInput = input;
+    } else {
+      activeInput = this.state.activeInput;
+    }
+    this.setState({
+      activeInput
+    });
     this.focusInput(activeInput - 1);
   };
 
-  changeCodeAtFocus = (value: string) => {
-    const activeInput = this.state.activeInput;
+  changeCodeAtFocus = (value: string, input?: number) => {
+    let activeInput = 0;
+    if (input !== undefined) {
+      activeInput = input;
+    } else {
+      activeInput = this.state.activeInput;
+    }
     const otp: string[] = this.state.otp;
     otp[activeInput] = value;
     this.setState({
@@ -121,7 +140,7 @@ export class OtpInput extends React.Component<IProps, IState> {
     // this.focusNextInput();
   };
 
-  handleOnKeyDown = (e: any) => {
+  handleOnKeyDown = (e: any, i: number) => {
     if (
       (e.keyCode >= 48 && e.keyCode <= 57) ||
       (e.keyCode >= 96 && e.keyCode <= 105) ||
@@ -130,30 +149,35 @@ export class OtpInput extends React.Component<IProps, IState> {
     ) {
       // 0-9 only and Enter
       if (!isNaN(e.key)) {
-        this.changeCodeAtFocus(e.key);
-        this.focusNextInput();
+        this.changeCodeAtFocus(e.key, i);
+        this.focusNextInput(i);
       }
     } else {
       e.preventDefault();
     }
+    const otp: string[] = this.state.otp;
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
-        this.changeCodeAtFocus('');
-        this.focusPrevInput();
+        if (otp[i] == '') {
+          this.focusPrevInput(i);
+        }
+        this.changeCodeAtFocus('', i);
         break;
       case DELETE:
         e.preventDefault();
-        this.changeCodeAtFocus('');
-        this.focusPrevInput();
+        if (otp[i] == '') {
+          this.focusPrevInput(i);
+        }
+        this.changeCodeAtFocus('', i);
         break;
       case LEFT_ARROW:
         e.preventDefault();
-        this.focusPrevInput();
+        this.focusPrevInput(i);
         break;
       case RIGHT_ARROW:
         e.preventDefault();
-        this.focusNextInput();
+        this.focusNextInput(i);
         break;
       default:
         break;
@@ -171,7 +195,7 @@ export class OtpInput extends React.Component<IProps, IState> {
             focus={activeInput === i}
             value={otp && otp[i]}
             onChange={this.handleOnChange}
-            onKeyDown={this.handleOnKeyDown}
+            onKeyDown={(e: any) => this.handleOnKeyDown(e, i)}
             onFocus={(e: any) => {
               this.setState({
                 activeInput: i
@@ -304,7 +328,7 @@ class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
         className='otp'
         onKeyDown={onKeyDown}
         onChange={onChange}
-        type={this.props.isInputNum ? 'text' : 'text'}
+        type={this.props.isInputNum ? 'number' : 'text'}
         maxLength={1}
         value={value ? value : ''}
       />

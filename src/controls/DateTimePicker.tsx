@@ -1,11 +1,9 @@
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import * as React from 'react';
-import DatePicker from 'react-datepicker';
 import * as styles from '../css/main.scss';
 import { IContainer, Container } from './Container';
-import { Icon } from './Icon';
-import { Formatter } from '../helpers';
 import moment = require('moment');
+import { Input as ReactInput, Icon as ReactIcon, DatePicker as ReactDatePicker } from 'antd';
+import MaskedInput from 'antd-mask-input';
 
 export interface IDateOption {
   endDate?: Date;
@@ -26,10 +24,16 @@ interface IProps extends IContainer {
 }
 
 interface IState {
-  selectedUnixTimestamp?: number;
   selectedStartUnixTimestamp?: number;
   selectedEndUnixTimestamp?: number;
   keyCodeArray?: any[];
+  showCalendar?: boolean;
+  showStartCalendar?: boolean;
+  showEndCalendar?: boolean;
+  displayValue?: string;
+  displayStartValue?: string;
+  displayEndValue?: string;
+  defaultValue?: any;
 }
 
 export class DateTimePicker extends React.Component<IProps, IState> {
@@ -45,6 +49,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   public componentDidUpdate(prevProps: IProps) {
+    console.log(this.props.value, prevProps.value);
     if (this.props.value !== prevProps.value) {
       this.updateStateWithProps(false, this.props.value ? this.props.value : 0, this.props.type);
     }
@@ -54,109 +59,145 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (this.props.type === 'date' || this.props.type === 'datetime') {
       return (
         <React.Fragment>
-          <Container position={'relative'} display={'flex'} fluid>
-            <DatePicker
-              readOnly={this.props.disabled}
-              selected={Formatter.unixTimestampToDate(this.state.selectedUnixTimestamp)}
-              onKeyDown={(e) => this.handleKeyDown(e)}
-              onChange={this.handleChange.bind(this)}
-              onChangeRaw={this.handleChangeRaw.bind(this)}
-              showTimeSelect={
-                this.props.type === 'datetime'
-                  ? true
-                  : this.props.options.showTimeSelect
-                  ? true
-                  : false
-              }
-              dateFormat={
-                this.props.options.dateFormat
-                  ? this.props.options.dateFormat
-                  : this.props.type === 'datetime' || this.props.options.showTimeSelect
-                  ? 'dd/MM/yyyy hh:mm aa'
-                  : 'dd/MM/yyyy'
-              }
-              placeholderText={this.props.placeholder}
-              minDate={this.props.options.startDate}
-              maxDate={this.props.options.endDate}
-              startDate={this.props.startDate}
-              endDate={this.props.endDate}
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode='select'
-              popperModifiers={{
-                flip: {
-                  enabled: false
-                }
-              }}
-            />
-            <Container className={styles.datepickerCalenderContainer}>
-              <Icon icon={faCalendarAlt} />
-            </Container>
-          </Container>
+          <MaskedInput
+            placeholderChar=' '
+            mask={this.props.type === 'date' ? '11/11/1111' : '11/11/1111 11:11:11'}
+            isRevealingMask={false}
+            disabled={this.props.disabled}
+            className={'date-input'}
+            value={this.state.displayValue}
+            suffix={
+              <ReactIcon
+                onClick={this.showCalendar}
+                type='calendar'
+                style={{ color: 'rgba(0,0,0)' }}
+              />
+            }
+            placeholder={this.props.placeholder}
+            onChange={this.handleChangeRaw.bind(this)}
+          />
+          {/* <ReactInput
+            disabled={this.props.disabled}
+            className={'date-input'}
+            value={this.state.displayValue}
+            suffix={
+              <ReactIcon
+                onClick={this.showCalendar}
+                type='calendar'
+                style={{ color: 'rgba(0,0,0)' }}
+              />
+            }
+            placeholder={this.props.placeholder}
+            onChange={this.handleChangeRaw.bind(this)}
+            // onBlur={this.showCalendar}
+          /> */}
+          <ReactDatePicker
+            value={this.state.defaultValue}
+            disabledDate={this.disabledDate}
+            disabled={this.props.disabled}
+            format={
+              this.props.type === 'datetime' || this.props.options.showTimeSelect
+                ? 'DD/MM/YYYY HH:mm:ss'
+                : 'DD/MM/YYYY'
+            }
+            style={{ visibility: 'hidden', width: 0 }}
+            onChange={this.handleChange.bind(this)}
+            onOk={this.showCalendar}
+            open={this.state.showCalendar}
+            showTime={
+              this.props.type === 'datetime' || this.props.options.showTimeSelect
+                ? { defaultValue: moment('00:00:00', 'HH:mm:ss') }
+                : false
+            }
+          />
         </React.Fragment>
       );
     } else {
       return (
         <Container className={styles.dateGroup}>
           <Container position={'relative'}>
-            <DatePicker
-              readOnly={this.props.disabled}
-              selected={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-              onChange={this.handleChangeStart.bind(this)}
-              onChangeRaw={this.handleChangeRawStart.bind(this)}
-              showTimeSelect={this.props.options.showTimeSelect}
-              dateFormat={
-                this.props.options.dateFormat ||
-                (this.props.options.showTimeSelect ? 'dd/MM/yyyy hh:mm aa' : 'dd/MM/yyyy')
+            <MaskedInput
+              placeholderChar=' '
+              mask={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? '11/11/1111 11:11:11'
+                  : '11/11/1111'
               }
-              placeholderText={this.props.placeholder}
-              minDate={this.props.options.startDate}
-              maxDate={this.props.options.endDate}
-              selectsStart
-              startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-              endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode='select'
-              popperModifiers={{
-                flip: {
-                  enabled: false
-                }
-              }}
+              isRevealingMask={false}
+              disabled={this.props.disabled}
+              className={'date-input'}
+              value={this.state.displayStartValue}
+              suffix={
+                <ReactIcon
+                  onClick={this.showStartCalendar}
+                  type='calendar'
+                  style={{ color: 'rgba(0,0,0)' }}
+                />
+              }
+              placeholder={this.props.placeholder}
+              onChange={this.handleChangeStartRaw.bind(this)}
             />
-            <Container className={styles.datepickerCalenderContainer}>
-              <Icon icon={faCalendarAlt} />
-            </Container>
+            <ReactDatePicker
+              value={moment(this.state.displayStartValue, this.getDateFormat())}
+              disabledDate={this.disabledStartDate}
+              disabled={this.props.disabled}
+              format={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? 'DD/MM/YYYY HH:mm:ss'
+                  : 'DD/MM/YYYY'
+              }
+              style={{ visibility: 'hidden', width: 0 }}
+              onChange={this.handleChangeStart.bind(this)}
+              onOk={this.showStartCalendar}
+              open={this.state.showStartCalendar}
+              showTime={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? { defaultValue: moment('00:00:00', 'HH:mm:ss') }
+                  : false
+              }
+            />
           </Container>
           <Container position={'relative'} display={'flex'}>
-            <DatePicker
-              readOnly={this.props.disabled}
-              selected={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-              onChange={this.handleChangeEnd.bind(this)}
-              onChangeRaw={this.handleChangeRawEnd.bind(this)}
-              showTimeSelect={this.props.options.showTimeSelect}
-              dateFormat={
-                this.props.options.dateFormat ||
-                (this.props.options.showTimeSelect ? 'dd/MM/yyyy hh:mm aa' : 'dd/MM/yyyy')
+            <MaskedInput
+              placeholderChar=' '
+              mask={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? '11/11/1111 11:11:11'
+                  : '11/11/1111'
               }
-              placeholderText={this.props.placeholder}
-              minDate={this.props.options.startDate}
-              maxDate={this.props.options.endDate}
-              selectsEnd
-              startDate={Formatter.unixTimestampToDate(this.state.selectedStartUnixTimestamp)}
-              endDate={Formatter.unixTimestampToDate(this.state.selectedEndUnixTimestamp)}
-              showMonthDropdown
-              showYearDropdown
-              dropdownMode='select'
-              popperModifiers={{
-                flip: {
-                  enabled: false
-                }
-              }}
+              isRevealingMask={false}
+              disabled={this.props.disabled}
+              className={'date-input'}
+              value={this.state.displayEndValue}
+              suffix={
+                <ReactIcon
+                  onClick={this.showEndCalendar}
+                  type='calendar'
+                  style={{ color: 'rgba(0,0,0)' }}
+                />
+              }
+              placeholder={this.props.placeholder}
+              onChange={this.handleChangeEndRaw.bind(this)}
             />
-            <Container className={styles.datepickerCalenderContainer}>
-              <Icon icon={faCalendarAlt} />
-            </Container>
+            <ReactDatePicker
+              value={moment(this.state.displayEndValue, this.getDateFormat())}
+              disabledDate={this.disabledEndDate}
+              disabled={this.props.disabled}
+              format={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? 'DD/MM/YYYY HH:mm:ss'
+                  : 'DD/MM/YYYY'
+              }
+              style={{ visibility: 'hidden', width: 0 }}
+              onChange={this.handleChangeEnd.bind(this)}
+              onOk={this.showEndCalendar}
+              open={this.state.showEndCalendar}
+              showTime={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? { defaultValue: moment('00:00:00', 'HH:mm:ss') }
+                  : false
+              }
+            />
           </Container>
         </Container>
       );
@@ -168,7 +209,37 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     newValue: number | string,
     type: string | undefined
   ) {
-    let value = newValue;
+    let value: any = '';
+    let displayValue: any = '';
+    let displayStartValue: any = '';
+    let displayEndValue: any = '';
+    value = newValue;
+    if (type === 'date' || type === 'datetime') {
+      if (value) {
+        displayValue = moment.unix(value).format('DD/MM/YYYY');
+        if (this.props.type === 'datetime' || this.props.options.showTimeSelect) {
+          displayValue = moment.unix(value).format('DD/MM/YYYY HH:mm:ss');
+        }
+      }
+    } else {
+      if (value) {
+        value = newValue.toString();
+        displayStartValue =
+          value.split(',')[0] !== '0' ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY') : '';
+        displayEndValue =
+          value.split(',')[1] !== '0' ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY') : '';
+        if (this.props.type === 'datetime' || this.props.options.showTimeSelect) {
+          displayStartValue =
+            value.split(',')[0] !== '0'
+              ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY HH:mm:ss')
+              : '';
+          displayEndValue =
+            value.split(',')[1] !== '0'
+              ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY HH:mm:ss')
+              : '';
+        }
+      }
+    }
     if (firstCall) {
       if (type === 'date' || type === 'datetime') {
         if (typeof newValue === 'string') {
@@ -177,13 +248,20 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           value = newValue;
         }
         this.state = {
-          selectedUnixTimestamp: value
+          displayValue,
+          defaultValue: this.getDefaultValue(displayValue)
         };
       } else {
         value = newValue.toString();
         this.state = {
-          selectedStartUnixTimestamp: parseInt(value.split(',')[0]),
+          selectedStartUnixTimestamp: parseInt(value.split(',')[0])
+            ? parseInt(value.split(',')[0])
+            : undefined,
           selectedEndUnixTimestamp: parseInt(value.split(',')[1])
+            ? parseInt(value.split(',')[1])
+            : undefined,
+          displayStartValue,
+          displayEndValue
         };
       }
     } else {
@@ -194,101 +272,66 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           value = newValue;
         }
         this.setState({
-          selectedUnixTimestamp: value
+          displayValue,
+          defaultValue: this.getDefaultValue(displayValue)
         });
       } else {
         this.setState({
-          selectedStartUnixTimestamp: parseInt(value.toString().split(',')[0]),
-          selectedEndUnixTimestamp: parseInt(value.toString().split(',')[1])
+          selectedStartUnixTimestamp: parseInt(value.split(',')[0])
+            ? parseInt(value.split(',')[0])
+            : undefined,
+          selectedEndUnixTimestamp: parseInt(value.split(',')[1])
+            ? parseInt(value.split(',')[1])
+            : undefined,
+          displayStartValue,
+          displayEndValue
         });
       }
-    }
-  }
-
-  private handleKeyDown(e: any) {
-    if (this.props.type === 'date') {
-      const keyCodeArray: number[] = this.state.keyCodeArray || [];
-
-      if (e.keyCode === 13 || e.keyCode === 9) {
-        return;
-      }
-      if ((e.keyCode >= 48 && e.keyCode <= 57) || e.keyCode === 191 || e.keyCode === 189) {
-        if (keyCodeArray.length > 9) {
-          e.preventDefault();
-        } else {
-          if (keyCodeArray.length == 2 || keyCodeArray.length == 5) {
-            if (this.props.options.dateFormat === 'DD-MM-YYYY') {
-              if (e.keyCode === 189) {
-                keyCodeArray.push(e.keyCode);
-                this.setState({ keyCodeArray: keyCodeArray });
-              } else {
-                e.preventDefault();
-              }
-            } else {
-              if (e.keyCode === 191) {
-                keyCodeArray.push(e.keyCode);
-                this.setState({ keyCodeArray: keyCodeArray });
-              } else {
-                e.preventDefault();
-              }
-            }
-          } else {
-            if (e.keyCode === 189 || e.keyCode === 191) {
-              e.preventDefault();
-            } else {
-              keyCodeArray.push(e.keyCode);
-              this.setState({ keyCodeArray: keyCodeArray });
-            }
-          }
-        }
-      } else if (e.keyCode === 8) {
-        keyCodeArray.pop();
-        this.setState({ keyCodeArray: keyCodeArray });
-      } else {
-        e.preventDefault();
-      }
-      // console.log(keyCodeArray);
     }
   }
 
   private handleChangeRaw(event: React.FocusEvent<HTMLInputElement>) {
-    if (this.props.type === 'date') {
-      const newMoment = moment(event.target.value, 'DD-MM-YYYY');
-      if (newMoment.isValid()) {
-        this.handleChange(newMoment.toDate());
-      }
-    } else {
-      const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
-      if (newMoment.isValid()) {
-        this.handleChange(newMoment.toDate());
-      }
+    this.setState({
+      displayValue: event.target.value
+    });
+    if (moment(event.target.value, this.getDateFormat(), true).isValid()) {
+      this.handleChange(moment(event.target.value, this.getDateFormat()).toDate());
+    }
+  }
+
+  private handleChangeStartRaw(event: React.FocusEvent<HTMLInputElement>) {
+    this.setState({
+      displayStartValue: event.target.value
+    });
+    if (moment(event.target.value, this.getDateFormat(), true).isValid()) {
+      this.handleChangeStart(moment(event.target.value, this.getDateFormat()).toDate());
+    }
+  }
+
+  private handleChangeEndRaw(event: React.FocusEvent<HTMLInputElement>) {
+    this.setState({
+      displayEndValue: event.target.value
+    });
+    if (moment(event.target.value, this.getDateFormat(), true).isValid()) {
+      this.handleChangeEnd(moment(event.target.value, this.getDateFormat()).toDate());
     }
   }
 
   private handleChange(date: Date) {
     if (date) {
-      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
-      if (date) {
-        this.setState({
-          selectedUnixTimestamp: unixTimestamp
-        });
-      }
+      const unixTimestamp = moment(date).unix();
+      this.setState({
+        showCalendar: false
+      });
       if (this.props.onChange) {
         this.props.onChange(unixTimestamp, date);
       }
     }
   }
 
-  private handleChangeRawStart(event: React.FocusEvent<HTMLInputElement>) {
-    const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
-    if (newMoment.isValid()) {
-      this.handleChangeStart(newMoment.toDate());
-    }
-  }
-
   private handleChangeStart(date: Date) {
     if (date) {
-      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+      const unixTimestamp = moment(date).unix();
       if (this.state.selectedEndUnixTimestamp) {
         if (this.state.selectedEndUnixTimestamp < unixTimestamp) {
           this.setState({
@@ -313,16 +356,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   }
 
-  private handleChangeRawEnd(event: React.FocusEvent<HTMLInputElement>) {
-    const newMoment = moment(event.target.value, 'DD-MM-YYYY hh:mm A');
-    if (newMoment.isValid()) {
-      this.handleChangeEnd(newMoment.toDate());
-    }
-  }
-
   private handleChangeEnd(date: Date) {
     if (date) {
-      const unixTimestamp = Formatter.dateToUnixTimestamp(date);
+      const unixTimestamp = moment(date).unix();
       if (this.state.selectedStartUnixTimestamp) {
         if (this.state.selectedStartUnixTimestamp < unixTimestamp) {
           this.setState({ selectedEndUnixTimestamp: unixTimestamp });
@@ -341,4 +377,80 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       }
     }
   }
+
+  private showCalendar = () => {
+    if (this.state.showCalendar) {
+      this.setState({ showCalendar: false });
+    } else {
+      this.setState({ showCalendar: true });
+    }
+  };
+
+  private getDefaultValue = (displayValue: any) => {
+    if (displayValue) {
+      return moment(displayValue, this.getDateFormat());
+    } else {
+      if (this.props.options.startDate || this.props.options.endDate) {
+        if (this.props.options.startDate) {
+          return moment(this.props.options.startDate);
+        } else {
+          return moment(this.props.options.endDate);
+        }
+      } else {
+        return moment();
+      }
+    }
+  };
+
+  private disabledDate = (d: any) => {
+    if (this.props.options.startDate && this.props.options.endDate) {
+      return d.isBefore(this.props.options.startDate) || d.isAfter(this.props.options.endDate);
+    }
+    if (this.props.options.startDate) {
+      return d.isBefore(this.props.options.startDate);
+    }
+    if (this.props.options.endDate) {
+      return d.isAfter(this.props.options.endDate);
+    }
+  };
+
+  private disabledStartDate = (d: any) => {
+    const { displayEndValue, displayStartValue }: any = this.state;
+    if (!displayStartValue || !displayEndValue) {
+      return false;
+    }
+    return d.isAfter(new Date(moment(displayEndValue).format(this.getDateFormat())));
+  };
+
+  private disabledEndDate = (d: any) => {
+    const { displayEndValue, displayStartValue }: any = this.state;
+    if (!displayStartValue || !displayEndValue) {
+      return false;
+    }
+    return d.isBefore(new Date(moment(displayStartValue).format(this.getDateFormat())));
+  };
+
+  private showStartCalendar = () => {
+    if (this.state.showStartCalendar) {
+      this.setState({ showStartCalendar: false });
+    } else {
+      this.setState({ showStartCalendar: true, showEndCalendar: false });
+    }
+  };
+
+  private showEndCalendar = () => {
+    if (this.state.showEndCalendar) {
+      this.setState({ showEndCalendar: false });
+    } else {
+      this.setState({ showEndCalendar: true, showStartCalendar: false });
+    }
+  };
+
+  private getDateFormat = () => {
+    let dateFormat = 'DD/MM/YYYY';
+    if (this.props.type === 'datetime' || this.props.options.showTimeSelect) {
+      dateFormat = 'DD/MM/YYYY HH:mm:ss';
+    }
+    return dateFormat;
+  };
 }

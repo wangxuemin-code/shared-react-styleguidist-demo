@@ -8,7 +8,7 @@ import { Icon } from './Icon';
 import { Image } from './Image';
 import { Divider } from './Divider';
 import { Transition } from './Transition';
-import { Controls } from '../index-prod';
+import { Link } from './Link';
 import { Dropdown } from 'antd';
 var uniqid = require('uniqid');
 
@@ -76,15 +76,19 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container display={'flex'} {...this.props}>
         <WrapperContainer display={'flex'}>
-          <a href='/' className={styles.logoAnchor}>
-            {this.props.logo && (
+          {this.props.logo && (
+            <Link className={styles.logoAnchor} href={'/'} underline={false}>
               <Image
                 variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
                 className={styles.icon}
               />
-            )}
-          </a>
-          <ul className={styles.links}>{this.props.mainLinks!.map((link: any) => link)}</ul>
+            </Link>
+          )}
+          <Container className={styles.links}>
+            {this.props.mainLinks!.map((link: any, i: number) => (
+              <Container key={i}>{link}</Container>
+            ))}
+          </Container>
           {this.props.userAction && (
             <Container className={styles.right} verticalAlign='center'>
               {/* {this.props.notifications && this.getNotificationDesign()} */}
@@ -110,16 +114,16 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <li key={href} className={selected ? 'selected' : ''}>
         {!useAnchorTag && (
-          <Controls.Link href={href} underline={false}>
+          <Link href={href} underline={false}>
             {title}
             {/* <div className={styles.underline} /> */}
-          </Controls.Link>
+          </Link>
         )}
         {useAnchorTag && (
-          <Controls.Link useNormalAnchor href={href} underline={false}>
+          <Link useNormalAnchor href={href} underline={false}>
             {title}
             {/* <div className={styles.underline} /> */}
-          </Controls.Link>
+          </Link>
         )}
       </li>
     );
@@ -240,7 +244,9 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Transition>
         <Container className={styles.subMenu}>
-          {this.props.subLinks && this.props.subLinks.map((sublink: any) => sublink)}
+          {this.props.subLinks!.map((sublink: any, i: number) => (
+            <Container key={i}>{sublink}</Container>
+          ))}
           {/* {Cookies.get('account') && (
             <Container
               padding={{ topBottomRem: 0.5, leftRightRem: 1 }}

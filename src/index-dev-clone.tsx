@@ -3,26 +3,25 @@ import * as ReactDOM from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { Controls } from './index-prod';
 
-class Main extends Controls.MyComponent {
+class Main extends Controls.MyComponent<
+  any,
+  {
+    value?: string | number;
+  }
+> {
   private form?: Controls.Form;
 
   public constructor(props: any) {
     super(props);
+    this.state = {
+      value: ''
+    };
   }
 
   public render() {
     return (
       <React.Fragment>
         <Controls.RootContainer>
-          <Controls.Header
-            logo={true}
-            className={'istox-header'}
-            mainLinks={[
-              { title: 'STO', path: 'sto', selected: false, useAnchorTag: true },
-              { title: 'Wallet', path: 'wallet', selected: true, useAnchorTag: true }
-            ]}
-            subLinks={[{ title: 'Transactions', path: 'transactions', useAnchorTag: true }]}
-          />
           <Controls.WrapperContainer>
             <Controls.Container margin={{ topPx: 200 }}>
               <Controls.Form
@@ -32,6 +31,74 @@ class Main extends Controls.MyComponent {
                   }
                 }}
               >
+                <Controls.FormControl
+                  required
+                  label={'Date'}
+                  name='date'
+                  type={'date'}
+                  placeholder={'DD/MM/YYYY'}
+                  dateOptions={{
+                    // endDate: new Date('12/09/2019'),
+                    // startDate: new Date(new Date().setFullYear(new Date().getFullYear() - 19)),
+                    // endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
+                    dateFormat: 'dd-MM-yyyy'
+                  }}
+                  append={
+                    <Controls.Button
+                      float={'left'}
+                      textAlign={'center'}
+                      type={'submit'}
+                      onPress={() => {
+                        this.setState({
+                          value: 1562342400
+                          // value: '2019-07-28T13:35:38.000Z'
+                        });
+                      }}
+                    >
+                      Change Date
+                    </Controls.Button>
+                  }
+                  value={this.state.value}
+                />
+                <Controls.FormControl
+                  required={true}
+                  name={'dateformat'}
+                  label={
+                    <>
+                      <h6>
+                        Date <br /> (DD-MM-YYYY)
+                      </h6>
+                    </>
+                  }
+                  placeholder='Only DD-MM-YYYY format is allowed'
+                  type={'date'}
+                  dateOptions={{
+                    dateFormat: 'dd-MM-yyyy'
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateTime'}
+                  name='datetime'
+                  type={'datetime'}
+                  dateOptions={{
+                    showTimeSelect: true
+                  }}
+                  onInputChanged={(value) => {
+                    console.log(value);
+                  }}
+                />
+                <Controls.FormControl
+                  required
+                  label={'DateRange'}
+                  name='daterange'
+                  type={'daterange'}
+                  placeholder={''}
+                  // value={Formatter.dateToUnixTimestamp(new Date())}
+                  dateOptions={{
+                    showTimeSelect: false
+                  }}
+                />
                 <Controls.Clone
                   deleteControl={<Controls.Container>Delete ME!</Controls.Container>}
                   name='emails'

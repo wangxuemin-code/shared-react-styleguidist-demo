@@ -138,7 +138,7 @@
     }
 
     &.after-login {
-      padding: 0 1.429rem;
+      padding: 0 0 0 1.429rem;
       font-size: 2rem;
     }
 
@@ -161,21 +161,15 @@
     }
   }
 
-  ul.links {
-    list-style-type: none;
+  .links {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: auto;
     padding: 0;
-    // width: 100%;
 
     a {
       color: map-get($colors, primaryAlt);
-    }
-
-    a:hover {
-      text-decoration: none;
     }
   }
 
@@ -183,11 +177,11 @@
     background-color: map-get($colors, primaryAltActive);
     color: map-get($colors, primary);
 
-    ul.links {
-      li.selected .underline {
+    .links {
+      .link.selected .underline {
         background-color: map-get($colors, primary);
       }
-      a {
+      .link {
         color: map-get($colors, primary);
       }
     }
@@ -197,9 +191,10 @@
     background-color: transparent;
   }
 
-  a.logo-anchor {
-    padding: 0 0.5rem;
+  .logo-anchor {
     display: flex;
+    align-items: center;
+    height: 100%;
   }
 }
 
@@ -212,36 +207,21 @@
   height: 30px;
 }
 
-.istox-header ul.links > li {
+.istox-header .links .link {
   float: left;
   font-size: 1rem;
-  margin-right: 20px;
-  margin-left: 20px;
   cursor: pointer;
   position: relative;
   transition: $transitionLinear;
   font-weight: bold;
   opacity: 0.5;
+  color: map-get($colors, primaryAlt);
 }
 
-.istox-header ul.links > li .underline {
-  display: none;
-}
-
-.istox-header ul.links > li.selected,
-.istox-header ul.links > li:hover {
+.istox-header .links .link.selected,
+.istox-header .links .link:hover {
   opacity: 1;
 }
-
-// .istox-header ul.links > li.selected .underline {
-//   display: block;
-//   position: absolute;
-//   width: 100%;
-//   height: 3px;
-//   background-color: map-get($colors, primaryAlt);
-//   bottom: -15px;
-//   left: 0px;
-// }
 
 .logout-button .button {
   color: map-get($colors, danger) !important;

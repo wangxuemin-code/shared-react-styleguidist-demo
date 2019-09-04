@@ -19,6 +19,14 @@
     color: map-get($colors, primaryGreyDark);
   }
 
+  &.light {
+    color: map-get($colors, primaryGreyDarker);
+  }
+
+  &.dark {
+    color: map-get($colors, primaryDarkActive);
+  }
+
   &.info {
     color: map-get($colors, info);
   }
@@ -54,6 +62,14 @@
       border-color: map-get($colors, primaryGreyDark);
     }
 
+    &.light {
+      border-color: map-get($colors, primaryGreyDarker);
+    }
+
+    &.dark {
+      border-color: map-get($colors, primaryDark);
+    }
+
     &.info {
       border-color: map-get($colors, info);
     }
@@ -86,6 +102,16 @@
     }
 
     &.disabled {
+      color: map-get($colors, primaryGreyDarker);
+      border-color: map-get($colors, primaryGreyDarker);
+    }
+
+    &.light {
+      color: map-get($colors, primaryDarkActive);
+      border-color: map-get($colors, primaryDarkActive);
+    }
+
+    &.dark {
       color: map-get($colors, primaryGreyDarker);
       border-color: map-get($colors, primaryGreyDarker);
     }

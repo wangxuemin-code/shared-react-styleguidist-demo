@@ -63,6 +63,7 @@ interface IProps extends IContainer {
   static?: boolean;
   prepend?: any;
   append?: any;
+  suffix?: any;
   label?: any;
   required?: boolean;
   selectOptions?: { label: any; value: string | number }[];
@@ -290,12 +291,14 @@ export class FormControl extends React.Component<IProps, IState> {
 
     if (this.props.type === 'date' && !this.props.oldValue) {
       if (this.props.required || (!this.props.required && this.state.value)) {
-        const re = /^\d\d[./-]\d\d[./-]\d\d\d\d$/;
-        const value = moment.unix(Number(this.state.value)).format('DD-MM-YYYY');
+        // const re = /^\d\d[./-]\d\d[./-]\d\d\d\d$/;
+        const re = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/i;
+        const value = moment(Number(this.state.value)).format('DD/MM/YYYY');
+        // const value = moment.unix(Number(this.state.value)).format('DD/MM/YYYY');
         if (!re.test(value)) {
           if (setErrorState) {
             this.setState({
-              error: 'Date format is invalid, only DD-MM-YYYY is allowed.',
+              error: 'Date format is invalid, only DD/MM/YYYY is allowed.',
               showError: true
             });
           }
@@ -350,21 +353,21 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     }
 
-    if (this.props.type === 'password') {
-      if (this.props.required || (!this.props.required && this.state.value)) {
-        // const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
-        const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/;
-        if (!re.test(String(this.state.value))) {
-          if (setErrorState)
-            this.setState({
-              error:
-                'Password must contain at least one number, one lowercase letter, one uppercase letter, one special chatacter and eight characters in length',
-              showError: true
-            });
-          return false;
-        }
-      }
-    }
+    // if (this.props.type === 'password') {
+    //   if (this.props.required || (!this.props.required && this.state.value)) {
+    //     // const re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    //     const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d.*)(?=.*\W.*)[a-zA-Z0-9\S]{8,}$/;
+    //     if (!re.test(String(this.state.value))) {
+    //       if (setErrorState)
+    //         this.setState({
+    //           error:
+    //             'Password must contain at least one number, one lowercase letter, one uppercase letter, one special chatacter and eight characters in length',
+    //           showError: true
+    //         });
+    //       return false;
+    //     }
+    //   }
+    // }
 
     this.setState({ showError: false });
     return true;
@@ -994,6 +997,7 @@ export class FormControl extends React.Component<IProps, IState> {
               onChange={this.onChange}
               disabled={this.props.disabled}
               onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
+              suffix={this.props.suffix || ''}
             />
           )}
           {this.props.unit && (
@@ -1231,11 +1235,15 @@ export class FormControl extends React.Component<IProps, IState> {
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       if (value) {
+        // let dateFormat = 'DD/MM/YYYY';
+        // if (this.props.type === 'datetime' || this.props.dateOptions!.showTimeSelect) {
+        //   dateFormat = 'DD/MM/YYYY HH:mm:ss';
+        // }
         const dateFormat = this.props.dateOptions
           ? this.props.dateOptions.dateFormat
             ? this.props.dateOptions.dateFormat.toUpperCase()
             : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
-            ? 'DD/MM/YYYY hh:mm A'
+            ? 'DD/MM/YYYY HH:mm:ss'
             : 'DD/MM/YYYY'
           : 'DD/MM/YYYY';
         if (this.props.static) {

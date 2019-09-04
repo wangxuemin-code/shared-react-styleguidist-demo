@@ -42,7 +42,7 @@ export class Resend extends React.Component<IProps, IState> {
     let style: React.CSSProperties = {};
 
     return (
-      <p className='color-primary-grey-dark'>
+      <Container className='color-primary-grey-dark'>
         {(this.state.timeRemainingInSeconds === 0 ||
           this.state.timeRemainingInSeconds === this.props.duration) && (
           <>
@@ -57,7 +57,7 @@ export class Resend extends React.Component<IProps, IState> {
               {this.state.timeRemainingInSeconds == 1 ? 'second' : 'seconds'}
             </span>
           )}
-      </p>
+      </Container>
     );
   }
 

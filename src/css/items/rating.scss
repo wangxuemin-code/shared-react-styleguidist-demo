@@ -25,6 +25,16 @@
       opacity: 0.7;
     }
 
+    &.light {
+      border: none;
+      background-color: map-get($colors, primaryGreyLighter);
+    }
+
+    &.dark {
+      border: none;
+      background-color: map-get($colors, primaryDarkActive);
+    }
+
     &.success {
       border: none;
       background-color: map-get($colors, success);

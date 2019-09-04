@@ -97,6 +97,8 @@ class Main extends Controls.MyComponent<
       'primary',
       'secondary',
       'disabled',
+      'light',
+      'dark',
       'info',
       'success',
       'warning',
@@ -195,7 +197,7 @@ class Main extends Controls.MyComponent<
         <React.Fragment>
           <Controls.RootContainer>
             <Controls.Header
-              logo={true}
+              logo={false}
               className={'istox-header'}
               mainLinks={[
                 <Controls.Link
@@ -1473,6 +1475,7 @@ class Main extends Controls.MyComponent<
                     onBlur={() => {
                       console.log(this.form.getInputValue('email'));
                     }}
+                    suffix={<Controls.Icon variant={'success'} icon={faCheckCircle} />}
                   />
                   <Controls.Container className={'form-group'}>
                     <Controls.FormControl
@@ -1629,7 +1632,7 @@ class Main extends Controls.MyComponent<
                     required
                     label={'DateTime'}
                     name='datetime'
-                    type={'date'}
+                    type={'datetime'}
                     dateOptions={{
                       showTimeSelect: true
                     }}
@@ -1645,7 +1648,7 @@ class Main extends Controls.MyComponent<
                     placeholder={''}
                     // value={Formatter.dateToUnixTimestamp(new Date())}
                     dateOptions={{
-                      showTimeSelect: false
+                      showTimeSelect: true
                     }}
                     onInputChanged={(value) => {
                       console.log(this.form.getInputValue('daterange'));
@@ -1849,7 +1852,7 @@ class Main extends Controls.MyComponent<
                       {
                         label: 'Option2',
                         value: 'abcl',
-                        html: <Controls.Image fullWidth src={'/images/favicon.png'} />
+                        html: <Controls.Image fullWidth src={'/images/User-Avatar.png'} />
                       }
                     ]}
                   />
@@ -1962,7 +1965,7 @@ class Main extends Controls.MyComponent<
               />
               <Controls.Item
                 icon={faCheckCircle}
-                image={'/images/favicon.png'}
+                image={'/images/User-Avatar.png'}
                 title={'Title'}
                 description={
                   'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...'
@@ -2008,7 +2011,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Card
                   leftIcon={faInfoCircle}
                   rightIcon={faCheckCircle}
-                  image={'/images/favicon.png'}
+                  image={'/images/User-Avatar.png'}
                   title={'Title'}
                 />
                 <Controls.Card leftIcon={faInfoCircle} rightIcon={faCheckCircle}>
@@ -2289,15 +2292,15 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
                 <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
-                <Controls.StoTimeLine 
+                <Controls.StoTimeLine
                   stoDateTime={{
-                    createdAt:"2019-07-29T01:36:48Z",
-                    bookbuildingStartTime:"2019-07-30T10:20:24Z",
-                    bookbuildingEndTime:"2019-07-31T10:20:24Z",
-                    preSaleStartTime:"2019-08-01T10:20:24Z",
-                    preSaleEndTime:"2019-08-02T10:20:24Z",
-                    publicSaleStartTime:"2019-08-03T10:20:24Z",
-                    publicSaleEndTime:"2019-08-04T10:20:24Z",
+                    createdAt: '2019-07-29T01:36:48Z',
+                    bookbuildingStartTime: '2019-07-30T10:20:24Z',
+                    bookbuildingEndTime: '2019-07-31T10:20:24Z',
+                    preSaleStartTime: '2019-08-01T10:20:24Z',
+                    preSaleEndTime: '2019-08-02T10:20:24Z',
+                    publicSaleStartTime: '2019-08-03T10:20:24Z',
+                    publicSaleEndTime: '2019-08-04T10:20:24Z'
                   }}
                   hideTitle
                 />

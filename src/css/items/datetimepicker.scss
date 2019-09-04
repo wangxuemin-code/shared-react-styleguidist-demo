@@ -1,3 +1,20 @@
+:global(.ant-calendar-input-wrap) {
+  display: none;
+}
+
+:global(.ant-calendar-picker-container) {
+  z-index: 0;
+}
+
+:global(.ant-calendar-picker) {
+  visibility: hidden;
+  width: 0px;
+  position: absolute;
+  left: 0;
+  top: 42px;
+  z-index: 1;
+}
+
 :global(.react-datepicker) {
   font-family: inherit;
   font-size: 0.75rem;
