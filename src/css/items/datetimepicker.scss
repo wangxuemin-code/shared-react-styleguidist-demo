@@ -15,6 +15,17 @@
   z-index: 1;
 }
 
+.date-input {
+  width: 100%;
+  position: relative;
+
+  :global(.anticon) {
+    position: absolute;
+    right: 5px;
+    top: 12px;
+  }
+}
+
 :global(.react-datepicker) {
   font-family: inherit;
   font-size: 0.75rem;

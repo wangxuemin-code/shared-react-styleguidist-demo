@@ -3,7 +3,7 @@ import * as styles from '../css/main.scss';
 import { IContainer, Container } from './Container';
 import moment = require('moment');
 import { Input as ReactInput, Icon as ReactIcon, DatePicker as ReactDatePicker } from 'antd';
-import MaskedInput from 'antd-mask-input';
+import MaskedInput from 'react-maskedinput-ultimate';
 
 export interface IDateOption {
   endDate?: Date;
@@ -59,63 +59,48 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (this.props.type === 'date' || this.props.type === 'datetime') {
       return (
         <React.Fragment>
-          <MaskedInput
-            placeholderChar=' '
-            mask={this.props.type === 'date' ? '11/11/1111' : '11/11/1111 11:11:11'}
-            isRevealingMask={false}
-            disabled={this.props.disabled}
-            className={'date-input'}
-            value={this.state.displayValue}
-            suffix={
-              <ReactIcon
-                onClick={this.showCalendar}
-                type='calendar'
-                style={{ color: 'rgba(0,0,0)' }}
-              />
-            }
-            placeholder={this.props.placeholder}
-            onChange={this.handleChangeRaw.bind(this)}
-          />
-          {/* <ReactInput
-            disabled={this.props.disabled}
-            className={'date-input'}
-            value={this.state.displayValue}
-            suffix={
-              <ReactIcon
-                onClick={this.showCalendar}
-                type='calendar'
-                style={{ color: 'rgba(0,0,0)' }}
-              />
-            }
-            placeholder={this.props.placeholder}
-            onChange={this.handleChangeRaw.bind(this)}
-            // onBlur={this.showCalendar}
-          /> */}
-          <ReactDatePicker
-            value={this.state.defaultValue}
-            disabledDate={this.disabledDate}
-            disabled={this.props.disabled}
-            format={
-              this.props.type === 'datetime' || this.props.options.showTimeSelect
-                ? 'DD/MM/YYYY HH:mm:ss'
-                : 'DD/MM/YYYY'
-            }
-            style={{ visibility: 'hidden', width: 0 }}
-            onChange={this.handleChange.bind(this)}
-            onOk={this.showCalendar}
-            open={this.state.showCalendar}
-            showTime={
-              this.props.type === 'datetime' || this.props.options.showTimeSelect
-                ? { defaultValue: moment('00:00:00', 'HH:mm:ss') }
-                : false
-            }
-          />
+          <Container className={styles.dateInput}>
+            <MaskedInput
+              placeholderChar=' '
+              mask={this.props.type === 'date' ? '11/11/1111' : '11/11/1111 11:11:11'}
+              disabled={this.props.disabled}
+              className={'ant-input'}
+              value={this.state.displayValue}
+              isRevealingMask={true}
+              placeholder={this.props.placeholder}
+              onChange={this.handleChangeRaw.bind(this)}
+            />
+            <ReactIcon
+              onClick={this.showCalendar}
+              type='calendar'
+              style={{ color: 'rgba(0,0,0)' }}
+            />
+            <ReactDatePicker
+              value={this.state.defaultValue}
+              disabledDate={this.disabledDate}
+              disabled={this.props.disabled}
+              format={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? 'DD/MM/YYYY HH:mm:ss'
+                  : 'DD/MM/YYYY'
+              }
+              style={{ visibility: 'hidden', width: 0 }}
+              onChange={this.handleChange.bind(this)}
+              onOk={this.showCalendar}
+              open={this.state.showCalendar}
+              showTime={
+                this.props.type === 'datetime' || this.props.options.showTimeSelect
+                  ? { defaultValue: moment('00:00:00', 'HH:mm:ss') }
+                  : false
+              }
+            />
+          </Container>
         </React.Fragment>
       );
     } else {
       return (
         <Container className={styles.dateGroup}>
-          <Container position={'relative'}>
+          <Container className={styles.dateInput} position={'relative'}>
             <MaskedInput
               placeholderChar=' '
               mask={
@@ -123,19 +108,16 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                   ? '11/11/1111 11:11:11'
                   : '11/11/1111'
               }
-              isRevealingMask={false}
               disabled={this.props.disabled}
-              className={'date-input'}
+              className={'ant-input'}
               value={this.state.displayStartValue}
-              suffix={
-                <ReactIcon
-                  onClick={this.showStartCalendar}
-                  type='calendar'
-                  style={{ color: 'rgba(0,0,0)' }}
-                />
-              }
               placeholder={this.props.placeholder}
               onChange={this.handleChangeStartRaw.bind(this)}
+            />
+            <ReactIcon
+              onClick={this.showStartCalendar}
+              type='calendar'
+              style={{ color: 'rgba(0,0,0)' }}
             />
             <ReactDatePicker
               value={moment(this.state.displayStartValue, this.getDateFormat())}
@@ -157,7 +139,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               }
             />
           </Container>
-          <Container position={'relative'} display={'flex'}>
+          <Container className={styles.dateInput} position={'relative'} display={'flex'}>
             <MaskedInput
               placeholderChar=' '
               mask={
@@ -165,19 +147,16 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                   ? '11/11/1111 11:11:11'
                   : '11/11/1111'
               }
-              isRevealingMask={false}
               disabled={this.props.disabled}
-              className={'date-input'}
+              className={'ant-input'}
               value={this.state.displayEndValue}
-              suffix={
-                <ReactIcon
-                  onClick={this.showEndCalendar}
-                  type='calendar'
-                  style={{ color: 'rgba(0,0,0)' }}
-                />
-              }
               placeholder={this.props.placeholder}
               onChange={this.handleChangeEndRaw.bind(this)}
+            />
+            <ReactIcon
+              onClick={this.showEndCalendar}
+              type='calendar'
+              style={{ color: 'rgba(0,0,0)' }}
             />
             <ReactDatePicker
               value={moment(this.state.displayEndValue, this.getDateFormat())}
@@ -419,15 +398,19 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (!displayStartValue || !displayEndValue) {
       return false;
     }
-    return d.isAfter(new Date(moment(displayEndValue).format(this.getDateFormat())));
+    return d > moment(displayEndValue, 'DD/MM/YYYY');
   };
 
   private disabledEndDate = (d: any) => {
-    const { displayEndValue, displayStartValue }: any = this.state;
-    if (!displayStartValue || !displayEndValue) {
+    const { displayStartValue }: any = this.state;
+    if (!displayStartValue) {
       return false;
     }
-    return d.isBefore(new Date(moment(displayStartValue).format(this.getDateFormat())));
+    // console.log(
+    //   d.format('MM/DD/YYYY'),
+    //   moment(displayStartValue, 'DD/MM/YYYY').format('MM/DD/YYYY')
+    // );
+    return d <= moment(displayStartValue, 'DD/MM/YYYY');
   };
 
   private showStartCalendar = () => {

@@ -24,16 +24,17 @@ interface IState {
 }
 export declare class OtpInput extends React.Component<IProps, IState> {
     private timer;
+    private activeInput;
     static defaultProps: IProps;
     constructor(props: IProps);
     componentDidUpdate(prevProps: IProps): void;
     getOtp: () => void;
     focusInput: (input: number) => void;
-    focusNextInput: () => void;
-    focusPrevInput: () => void;
-    changeCodeAtFocus: (value: string) => void;
+    focusNextInput: (input?: number | undefined) => void;
+    focusPrevInput: (input?: number | undefined) => void;
+    changeCodeAtFocus: (value: string, input?: number | undefined) => void;
     handleOnChange: (e: any) => void;
-    handleOnKeyDown: (e: any) => void;
+    handleOnKeyDown: (e: any, i: number) => void;
     renderInputs: () => JSX.Element[];
     render(): JSX.Element;
     private sendPhoneCode;
