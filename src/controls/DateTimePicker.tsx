@@ -49,7 +49,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
   }
 
   public componentDidUpdate(prevProps: IProps) {
-    console.log(this.props.value, prevProps.value);
     if (this.props.value !== prevProps.value) {
       this.updateStateWithProps(false, this.props.value ? this.props.value : 0, this.props.type);
     }
@@ -76,6 +75,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               style={{ color: 'rgba(0,0,0)' }}
             />
             <ReactDatePicker
+              getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={this.state.defaultValue}
               disabledDate={this.disabledDate}
               disabled={this.props.disabled}
@@ -120,6 +120,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               style={{ color: 'rgba(0,0,0)' }}
             />
             <ReactDatePicker
+              getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={moment(this.state.displayStartValue, this.getDateFormat())}
               disabledDate={this.disabledStartDate}
               disabled={this.props.disabled}
@@ -159,6 +160,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               style={{ color: 'rgba(0,0,0)' }}
             />
             <ReactDatePicker
+              getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={moment(this.state.displayEndValue, this.getDateFormat())}
               disabledDate={this.disabledEndDate}
               disabled={this.props.disabled}
