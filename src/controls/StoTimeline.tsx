@@ -34,18 +34,18 @@ export class StoTimeLine extends React.Component<IProps, IState> {
   }
 
   render() {
-    const phases: Array<{ title: string, date: Moment, key?: string, clickable: boolean }> = [];
+    const phases: Array<{ title: string; date: Moment; key?: string; clickable: boolean }> = [];
     phases.push(
       {
         title: 'STO created',
         date: moment(this.props.stoDateTime.createdAt),
-        clickable: false
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.createdAt))
       },
       {
         title: 'Book Building',
         key: 'book_building',
-        date: moment(this.props.stoDateTime.bookbuildingStartTime),
-        clickable: true
+        date: moment(this.props.stoDateTime.bookbuildingStartTime), // < cu
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.bookbuildingStartTime))
       },
       {
         title: 'Allocation',
@@ -56,7 +56,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         title: 'Pre-sale',
         key: 'presale',
         date: moment(this.props.stoDateTime.preSaleStartTime),
-        clickable: true
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.preSaleStartTime))
       },
       {
         title: 'Pre-sale closed',
@@ -67,25 +67,30 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         title: 'Public sale',
         key: 'public_sale',
         date: moment(this.props.stoDateTime.publicSaleStartTime),
-        clickable: true
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleStartTime))
       },
       {
         title: 'Launch',
         key: 'confirmed',
         date: moment(this.props.stoDateTime.publicSaleEndTime),
-        clickable: true
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleEndTime))
       }
     );
 
     return (
-      <Container id="timeline" {...this.props} >
-        {!this.props.hideTitle && <Container className={styles.stoMainTitle} margin={{ bottomPx: 130 }}>STO Timeline</Container>}
+      <Container id='timeline' {...this.props}>
+        {!this.props.hideTitle && (
+          <Container className={styles.stoMainTitle} margin={{ bottomPx: 130 }}>
+            STO Timeline
+          </Container>
+        )}
         <Container className={styles.stoTimelineContainer}>
           {phases.map((phase, i) => {
+            const nextPhaseDate = i < phases.length - 1 ? phases[i + 1].date : undefined;
             return (
               <Container
                 key={i}
-                classNames={[styles.point, this.getActiveStyle(phase.date, phase.key || 'empty')]}
+                classNames={[styles.point, this.getActiveStyle(phase.date, nextPhaseDate, phase.key || 'empty')]}
               >
                 <Container
                   className={styles.inner}
@@ -98,17 +103,12 @@ export class StoTimeLine extends React.Component<IProps, IState> {
                   style={{
                     cursor: !phase.clickable ? 'arrow' : 'pointer'
                   }}
-                  onClick={
-                    phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined
-                  }
+                  onClick={phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined}
                 >
+                  {phase.clickable && <div className={styles.tick} />}
                   <Container className={styles.textContainer}>
-                    <Container className={styles.date}>
-                      {phase.date.format('D MMM YYYY')}
-                    </Container>
-                    <Container className={styles.time}>
-                      {phase.date.format('hh:mm A')}
-                    </Container>
+                    <Container className={styles.date}>{phase.date.format('D MMM YYYY')}</Container>
+                    <Container className={styles.time}>{phase.date.format('hh:mm A')}</Container>
                     <Container className={styles.title}>{phase.title}</Container>
                   </Container>
                 </Container>
@@ -153,15 +153,21 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
   };
 
-  getActiveStyle = (date: Moment, phaseKey: string) => {
+  getActiveStyle = (currentPhaseDate: Moment, nextPhaseDate: Moment | undefined, phaseKey: string) => {
     if (this.props.onImportantDateClicked) {
-      if (this.hasDatePast(date)) {
+      if (this.hasDatePast(currentPhaseDate)) {
         return this.state.selectedDateKey === phaseKey ? styles.active : styles.halfActive;
       } else {
         return '';
       }
+    } else if (nextPhaseDate !== undefined) {
+      return this.hasDatePast(currentPhaseDate) && !this.hasDatePast(nextPhaseDate)
+        ? styles.active
+        : this.hasDatePast(currentPhaseDate)
+        ? styles.completed
+        : '';
     } else {
-      return this.hasDatePast(date) ? styles.active : '';
+      return '';
     }
   };
 }

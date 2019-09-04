@@ -68,20 +68,33 @@
       }
 
       &.big {
+        content: '\00a0';
         width: 26px;
         height: 26px;
         border-radius: 52px;
         margin-right: -13px;
+        border: solid 12px rgba(59, 228, 193, 1);
+
+        .tick {
+          height: 12px;
+          width: 7px;
+          border: solid rgb(241, 241, 241);
+          border-width: 0px 2px 2px 0px;
+          transform: rotate(45deg);
+          margin-top: -6px;
+          margin-left: -2px;
+        }
 
         .text-container {
-          top: -37px;
-          left: -37px;
+          top: -49px;
+          left: -44px;
         }
       }
     }
 
     &.half-active,
-    &.active {
+    &.active,
+    &.completed {
       .dot {
         background-color: rgba(59, 228, 193, 1);
       }

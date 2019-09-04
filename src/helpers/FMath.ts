@@ -10,7 +10,15 @@ export class FMath {
    * @param {string} y string of second multiplicand
    * @notice same as normal addition
    */
-  public static add(x: string | number, y: string | number) {
+  public static add(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
     return this.fromFixed(x1.add(y1));
@@ -22,7 +30,15 @@ export class FMath {
    * @param {string} y string of second multiplicand
    * @notice same as normal addition
    */
-  public static sub(x: string | number, y: string | number) {
+  public static sub(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
     return this.fromFixed(x1.sub(y1));
@@ -34,7 +50,15 @@ export class FMath {
    * @param {string} y string of second multiplicand
    * @notice same as normal addition
    */
-  public static mul(x: string | number, y: string | number) {
+  public static mul(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
     return this.fromFixed(
@@ -51,9 +75,21 @@ export class FMath {
    * @param {string} y string of divisor
    * @notice will automatically truncate to 18dp
    */
-  public static div(x: string | number, y: string | number) {
+  public static div(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    if (this.toFixed(x.toString()) === this.toFixed(y.toString())) return "1".toString();
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
+
+    if (((x1.div(y1)).umod(new BN(10)) == 0) && (x1.mod(y1) == 0)) return this.fromFixed((x1.div(y1).mul(this.FIXED_1)));
 
     const r_y = this.FIXED_1.mul(this.FIXED_1).div(y1);
 
@@ -70,7 +106,11 @@ export class FMath {
    * @param {string} x string of number
    * @param {string} dp string of decimal place
    */
-  public static roundUp(x: string | number, dp: number) {
+  public static roundUp(x: string | number | undefined | null, dp: number) {
+    if (!x) {
+      x = 0;
+    }
+
     const x1 = new BN(this.toFixed(x.toString()));
     const dp1 = new BN(dp);
     const precision = new BN(10).pow(this.DECIMALS.sub(dp1));
@@ -89,7 +129,11 @@ export class FMath {
    * @param {string} x string of number
    * @param {string} dp string of decimal place
    */
-  public static roundDown(x: string | number, dp: number) {
+  public static roundDown(x: string | number | undefined | null, dp: number) {
+    if (!x) {
+      x = 0;
+    }
+
     const x1 = new BN(this.toFixed(x.toString()));
     const dp1 = new BN(dp);
     const precision = new BN(10).pow(this.DECIMALS.sub(dp1));
