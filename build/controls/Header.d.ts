@@ -30,6 +30,7 @@ interface IHeader extends IContainer {
 interface IState {
     name: string;
     email: string;
+    subMenuVisible: boolean;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
@@ -46,5 +47,6 @@ export declare class Header extends React.Component<IHeader, IState> {
     private getNotificationItemDesign;
     private getUserActionDesign;
     private getSubMenuDesign;
+    private toggleSubMenu;
 }
 export {};

@@ -26,28 +26,6 @@
   }
 }
 
-:global(.react-datepicker) {
-  font-family: inherit;
-  font-size: 0.75rem;
-}
-
-:global(.react-datepicker__time-list-item) {
-  height: 23px !important;
-  padding: 5px 1px !important;
-  font-size: 0.65rem;
-  font-weight: bold;
-}
-
-:global(.react-datepicker-wrapper),
-:global(.react-datepicker__input-container),
-:global(.react-datepicker__input-container) > input {
-  width: 100%;
-}
-
-:global(.react-datepicker__input-container) > input {
-  height: 36px;
-}
-
 .datepicker-calender-container {
   pointer-events: none;
   position: absolute;
@@ -60,4 +38,109 @@
   grid-template-columns: 1fr 1fr;
   width: 100%;
   grid-column-gap: 1rem;
+}
+
+:global(.ant-calendar) {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+  border: 1px solid rgba(125, 125, 125, 0.1);
+  border-radius: 0;
+}
+
+:global(.ant-calendar-date:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(.ant-calendar-year-panel-year:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(.ant-calendar-selected-date .ant-calendar-date:hover, .ant-calendar-selected-start-date
+    .ant-calendar-date:hover, .ant-calendar-selected-end-date .ant-calendar-date:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(.ant-calendar-time-picker-select li:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(.ant-calendar-month-panel-month:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(.ant-calendar-selected-date .ant-calendar-date, .ant-calendar-selected-start-date
+    .ant-calendar-date, .ant-calendar-selected-end-date .ant-calendar-date) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month:hover) {
+  background: map-get($colors, primaryActive);
+}
+
+:global(.ant-calendar-time-picker-select-option-selected) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-header a:hover) {
+  color: map-get($colors, primary);
+}
+
+:global(.ant-calendar-today .ant-calendar-date) {
+  color: map-get($colors, primary);
+  border-color: map-get($colors, primary);
+}
+
+:global(.ant-calendar-time-picker-select-option-selected) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-selected-day .ant-calendar-date) {
+  color: map-get($colors, primaryAlt);
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-selected-day .ant-calendar-date:hover) {
+  background: map-get($colors, primaryActive);
+}
+
+:global(li.ant-calendar-time-picker-select-option-selected) {
+  background: map-get($colors, primary);
+  color: map-get($colors, primaryAlt);
+}
+
+:global(.ant-calendar .ant-calendar-ok-btn) {
+  border-color: map-get($colors, primary);
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar .ant-calendar-ok-btn:hover) {
+  border-color: map-get($colors, primaryActive);
+  background: map-get($colors, primaryActive);
+}
+
+:global(.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year) {
+  background: map-get($colors, primary);
+}
+
+:global(.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year:hover) {
+  background: map-get($colors, primaryActive);
+}
+
+:global(.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade:hover) {
+  background: map-get($colors, primaryActive);
+}
+
+:global(.ant-calendar-decade-panel-decade:hover) {
+  background: map-get($colors, secondaryBackground);
+}
+
+:global(li.ant-calendar-time-picker-select-option-selected:hover) {
+  background: map-get($colors, primaryActive);
 }
