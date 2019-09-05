@@ -23,7 +23,7 @@ export class Footer extends React.Component<IProps, any> {
         {this.getFooterWrapper(
           <Grid>
             {this.props.detailed && (
-              <Grid.Row>
+              <Grid.Row fitted>
                 <Grid.Col col={3}>
                   <Image float={'left'} width={120} variant={'logo alt'} />
                 </Grid.Col>
@@ -94,7 +94,7 @@ export class Footer extends React.Component<IProps, any> {
                 </Grid.Col>
               </Grid.Row>
             )}
-            <Grid.Row padding={{ topRem: this.props.detailed ? 2 : 0 }}>
+            <Grid.Row fitted padding={{ topRem: this.props.detailed ? 2 : 0 }}>
               <Grid.Col col={6}>
                 <Container className={'small'} float={'left'}>
                   © iSTOX 2019. All rights reserved.
