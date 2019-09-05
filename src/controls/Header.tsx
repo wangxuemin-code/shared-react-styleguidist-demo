@@ -46,6 +46,7 @@ interface IHeader extends IContainer {
 interface IState {
   name: string;
   email: string;
+  subMenuVisible: boolean;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -58,7 +59,8 @@ export class Header extends React.Component<IHeader, IState> {
     super(props);
     this.state = {
       name: this.props.name!,
-      email: this.props.email!
+      email: this.props.email!,
+      subMenuVisible: false
     };
   }
 
@@ -208,10 +210,13 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Dropdown
         overlay={this.getSubMenuDesign()}
-        trigger={['click']}
         getPopupContainer={(trigger: any) => trigger.parentNode}
+        visible={this.state.subMenuVisible}
       >
-        <Container classNames={[styles.userAction, styles.afterLogin, 'ant-dropdown-link']}>
+        <Container
+          onClick={this.toggleSubMenu}
+          classNames={[styles.userAction, styles.afterLogin, 'ant-dropdown-link']}
+        >
           <Image
             width={28}
             src={
@@ -245,7 +250,9 @@ export class Header extends React.Component<IHeader, IState> {
       <Transition>
         <Container className={styles.subMenu}>
           {this.props.subLinks!.map((sublink: any, i: number) => (
-            <Container key={i}>{sublink}</Container>
+            <Container onClick={this.toggleSubMenu} key={i}>
+              {sublink}
+            </Container>
           ))}
           {/* {Cookies.get('account') && (
             <Container
@@ -263,4 +270,12 @@ export class Header extends React.Component<IHeader, IState> {
       </Transition>
     );
   }
+
+  private toggleSubMenu = () => {
+    if (this.state.subMenuVisible) {
+      this.setState({ subMenuVisible: false });
+    } else {
+      this.setState({ subMenuVisible: true });
+    }
+  };
 }

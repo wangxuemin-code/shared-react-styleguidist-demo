@@ -25,6 +25,17 @@
     border: 2px solid map-get($colors, primaryGreyDarker);
   }
 
+  &.light {
+    background-color: map-get($colors, primaryAlt);
+    border: 2px solid map-get($colors, primaryGreyDarker);
+  }
+
+  &.dark {
+    background-color: map-get($colors, primaryDarkActive);
+    border: 2px solid map-get($colors, primaryDarkActive);
+    color: map-get($colors, primaryAlt);
+  }
+
   &.success {
     background-color: map-get($colors, successBackground);
     border: 2px solid map-get($colors, success);
@@ -75,6 +86,18 @@
   &.disabled {
     background-color: map-get($colors, primaryGreyDarker);
     border: 2px solid map-get($colors, primaryGreyLighter);
+  }
+
+  &.light {
+    background-color: map-get($colors, primaryAlt);
+    border: 2px solid map-get($colors, primaryGreyDarker);
+    color: map-get($colors, primaryDarkActive);
+  }
+
+  &.dark {
+    background-color: map-get($colors, primaryDarkActive);
+    border: 2px solid map-get($colors, primaryDarkActive);
+    color: map-get($colors, primaryAlt);
   }
 
   &.success {

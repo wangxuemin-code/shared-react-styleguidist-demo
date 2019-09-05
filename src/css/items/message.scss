@@ -17,6 +17,12 @@
     color: map-get($colors, primary);
   }
 
+  .label {
+    background-color: map-get($colors, primary);
+    padding: 0.6rem 0.6rem;
+    border-radius: 0;
+  }
+
   &.primary {
     > div,
     .icon {
@@ -50,6 +56,30 @@
     .label {
       border: 1px solid map-get($colors, primaryGreyDarker);
       background-color: map-get($colors, primaryGreyDarker);
+    }
+  }
+
+  &.light {
+    > div,
+    .icon {
+      color: map-get($colors, primaryGrey);
+    }
+
+    .label {
+      border: 1px solid map-get($colors, primaryGrey);
+      background-color: map-get($colors, primaryAlt);
+    }
+  }
+
+  &.dark {
+    > div,
+    .icon {
+      color: map-get($colors, primaryDarkActive);
+    }
+
+    .label {
+      border: 1px solid map-get($colors, primaryDarkActive);
+      background-color: map-get($colors, primaryDarkActive);
     }
   }
 
@@ -136,6 +166,24 @@
       }
     }
 
+    &.light {
+      background-color: map-get($colors, primaryAlt);
+
+      > div,
+      .icon {
+        color: map-get($colors, primaryGrey);
+      }
+    }
+
+    &.dark {
+      background-color: map-get($colors, primaryDarkActive);
+
+      > div,
+      .icon {
+        color: map-get($colors, primaryAlt);
+      }
+    }
+
     &.success {
       background-color: map-get($colors, successBackground);
 
@@ -208,6 +256,24 @@
       }
     }
 
+    &.light {
+      background-color: map-get($colors, primaryAlt);
+      border-left: 3px solid map-get($colors, primaryGrey);
+      > div,
+      .icon {
+        color: map-get($colors, primaryGrey);
+      }
+    }
+
+    &.dark {
+      background-color: map-get($colors, primaryDarkBackground);
+      border-left: 3px solid map-get($colors, primaryDarkActive);
+      > div,
+      .icon {
+        color: map-get($colors, primaryDarkActive);
+      }
+    }
+
     &.success {
       background-color: map-get($colors, successBackground);
       border-left: 3px solid map-get($colors, success);
@@ -251,25 +317,25 @@
     border-radius: 0;
   }
 
-  .label {
-    background-color: map-get($colors, primary);
-    padding: 0.6rem 0.6rem;
-    border-radius: 0;
-
-    .icon {
-      color: map-get($colors, primaryAlt) !important;
-    }
-  }
-
   &.labeled {
     padding: 0;
-    background-color: map-get($colors, primaryAlt) !important;
+    background-color: map-get($colors, primaryAlt);
 
     .content {
       width: 100%;
       border: 1px solid map-get($colors, primaryGrey);
       border-left: 0;
       padding: 0.5rem 3rem;
+    }
+
+    .icon {
+      color: map-get($colors, primaryAlt);
+    }
+
+    &.light {
+      .icon {
+        color: map-get($colors, primaryGrey);
+      }
     }
   }
 }

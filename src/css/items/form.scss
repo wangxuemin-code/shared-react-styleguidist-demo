@@ -60,6 +60,11 @@ textarea[disabled] {
   display: block;
 }
 
+:global(.ant-dropdown) {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+  border: 1px solid rgba(125, 125, 125, 0.1);
+}
+
 .istox-form {
   margin: auto;
   .old-value-active {

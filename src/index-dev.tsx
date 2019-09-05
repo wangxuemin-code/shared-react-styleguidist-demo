@@ -1002,42 +1002,7 @@ class Main extends Controls.MyComponent<
                 visible={this.state.showModal}
                 width={this.state.modalWidth}
               >
-                <Controls.Form>
- <Controls.FormControl
-                  required
-                  label={'Date'}
-                  name='date'
-                  type={'date'}
-                  placeholder={'DD/MM/YYYY'}
-                  dateOptions={{
-                    endDate: new Date(),
-                    dateFormat: 'dd-MM-yyyy'
-                  }}
-                  value={this.state.value}
-                  // value={'2019-07-28T13:35:38.000Z'}
-                  // value={'07/17/1999'}
-                  onInputChanged={(value) => {
-                    console.log(value);
-                    console.log('date', this.form.getInputValue('date'));
-                  }}
-                  append={
-                    <Controls.Button
-                      float={'left'}
-                      textAlign={'center'}
-                      type={'submit'}
-                      onPress={() => {
-                        this.setState({
-                          value: 1562342400
-                          // value: '2019-07-28T13:35:38.000Z'
-                        });
-                      }}
-                    >
-                      Change Date
-                    </Controls.Button>
-                  }
-                />
-                </Controls.Form>
-               
+                Modal
               </Controls.Modal>
               <Controls.Button
                 variant='danger'

@@ -26,6 +26,16 @@
     background-color: map-get($colors, primaryGreyLighter);
   }
 
+  &.light {
+    color: map-get($colors, primaryGreyDarker);
+    background-color: map-get($colors, primaryAlt);
+  }
+
+  &.dark {
+    color: map-get($colors, primaryAlt);
+    background-color: map-get($colors, primaryDarkActive);
+  }
+
   &.success {
     color: map-get($colors, success);
     background-color: map-get($colors, successBackground);
