@@ -13,7 +13,16 @@ interface ITab {
 }
 
 interface IProps extends IContainer {
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   selectedIndex?: number;
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';

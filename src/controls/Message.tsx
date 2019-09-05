@@ -15,6 +15,8 @@ interface IMessage extends IContainer {
     | 'secondary'
     | 'info'
     | 'disabled'
+    | 'light'
+    | 'dark'
     | 'success'
     | 'warning'
     | 'danger'

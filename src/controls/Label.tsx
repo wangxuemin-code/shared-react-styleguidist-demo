@@ -4,7 +4,16 @@ import { Container, IContainer } from './Container';
 
 interface ILabel extends IContainer {
   text?: any;
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   size?: 'small' | 'normal';
 }
 

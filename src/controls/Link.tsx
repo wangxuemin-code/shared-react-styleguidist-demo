@@ -5,7 +5,16 @@ import { IContainer, Container } from './Container';
 import { MouseEventHandler } from 'react';
 
 interface ILink extends IContainer {
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   underline?: boolean;
   showUnderline?: boolean;
   href?: string;
