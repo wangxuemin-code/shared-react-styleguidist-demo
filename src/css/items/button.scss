@@ -168,7 +168,7 @@ $borderRadius: 0;
 
       &:not([disabled]):not(.loading):hover {
         background-color: map-get($colors, primaryAlt);
-        border: 2px solid map-get($colors, primaryDarkActive);
+        border: 2px solid map-get($colors, primaryAlt);
       }
     }
   }
@@ -188,9 +188,9 @@ $borderRadius: 0;
       color: map-get($colors, primaryDarkActive);
 
       &:not([disabled]):not(.loading):hover {
-        background-color: map-get($colors, primaryAlt);
-        border: 2px solid map-get($colors, primaryGreyDarker);
-        color: map-get($colors, primaryGreyDarker);
+        background-color: map-get($colors, primaryDarkActive);
+        border: 2px solid map-get($colors, primaryDarkActive);
+        color: map-get($colors, primaryAlt);
       }
     }
   }
