@@ -250,7 +250,10 @@ export class Header extends React.Component<IHeader, IState> {
       <Transition>
         <Container className={styles.subMenu}>
           {this.props.subLinks!.map((sublink: any, i: number) => (
-            <Container onClick={this.toggleSubMenu} key={i}>
+            <Container
+              onClick={sublink.props.href || sublink.props.onClick ? this.toggleSubMenu : undefined}
+              key={i}
+            >
               {sublink}
             </Container>
           ))}
