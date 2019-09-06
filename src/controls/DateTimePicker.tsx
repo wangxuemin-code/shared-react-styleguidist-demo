@@ -111,6 +111,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
               className={'ant-input'}
               value={this.state.displayStartValue}
+              isRevealingMask={true}
               placeholder={this.props.placeholder}
               onChange={this.handleChangeStartRaw.bind(this)}
             />
@@ -151,6 +152,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
               className={'ant-input'}
               value={this.state.displayEndValue}
+              isRevealingMask={true}
               placeholder={this.props.placeholder}
               onChange={this.handleChangeEndRaw.bind(this)}
             />

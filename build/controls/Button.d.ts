@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IContainer } from './Container';
 interface IButton extends IContainer {
-    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
     outline?: boolean;
     flat?: boolean;
     type?: 'button' | 'submit';

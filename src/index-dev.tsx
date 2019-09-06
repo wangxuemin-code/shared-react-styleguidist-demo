@@ -1148,35 +1148,34 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <h4>Progress</h4>
               <Controls.ProgressBar compact value={20} />
-              <Controls.ProgressBar value={20} />
-              <Controls.ProgressBar value={20} variant={'success'} />
-              <Controls.ProgressBar value={21} label variant={'info'} />
-              <Controls.ProgressBar value={20} striped variant={'warning'} />
-              <Controls.ProgressBar value={20} variant={'danger'} />
+               <Controls.ProgressBar animated compact value={25} />
+              {this.variantStates.map((progress: any) => (
+                <Controls.ProgressBar value={20} variant={progress} />
+              ))}
               <Controls.ProgressBar value={20} label={'Strong Password'} variant={'success'} />
               <Controls.ProgressBar compact>
-                <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                <Controls.ProgressBar variant='success' value={25} order={1} />
                 <Controls.ProgressBar variant='info' value={25} order={2} />
-                <Controls.ProgressBar striped variant='warning' value={25} order={3} />
-                <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                <Controls.ProgressBar variant='warning' value={25} order={3} />
+                <Controls.ProgressBar variant='danger' value={25} order={4} />
               </Controls.ProgressBar>
               <Controls.ProgressBar>
-                <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                <Controls.ProgressBar variant='success' value={25} order={1} />
                 <Controls.ProgressBar variant='info' value={25} order={2} />
-                <Controls.ProgressBar striped variant='warning' value={25} order={3} />
-                <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                <Controls.ProgressBar variant='warning' value={25} order={3} />
+                <Controls.ProgressBar variant='danger' value={25} order={4} />
               </Controls.ProgressBar>
               <Controls.ProgressBar>
-                <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                <Controls.ProgressBar variant='success' value={25} order={1} />
                 <Controls.ProgressBar variant='info' value={25} order={2} />
-                <Controls.ProgressBar striped variant='warning' value={25} order={3} />
-                <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                <Controls.ProgressBar variant='warning' value={25} order={3} />
+                <Controls.ProgressBar variant='danger' value={25} order={4} />
               </Controls.ProgressBar>
               <Controls.ProgressBar gap width={200}>
-                <Controls.ProgressBar striped variant='success' value={25} order={1} />
+                <Controls.ProgressBar variant='success' value={25} order={1} />
                 <Controls.ProgressBar variant='info' value={25} order={2} />
-                <Controls.ProgressBar striped variant='warning' value={25} order={3} />
-                <Controls.ProgressBar striped variant='danger' value={25} order={4} />
+                <Controls.ProgressBar variant='warning' value={25} order={3} />
+                <Controls.ProgressBar variant='danger' value={25} order={4} />
               </Controls.ProgressBar>
               <Controls.Divider />
               <h4>Rating</h4>

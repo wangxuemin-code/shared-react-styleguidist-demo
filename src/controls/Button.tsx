@@ -15,7 +15,16 @@ const SpinnerSVG = () => (
 );
 
 interface IButton extends IContainer {
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   outline?: boolean;
   flat?: boolean;
   type?: 'button' | 'submit';
@@ -92,7 +101,11 @@ export class Button extends React.Component<IButton, any> {
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={!this.props.disabled && !this.props.loading ? this.props.onPress || this.props.onClick : undefined}
+          onClick={
+            !this.props.disabled && !this.props.loading
+              ? this.props.onPress || this.props.onClick
+              : undefined
+          }
           disabled={this.props.disabled || this.props.loading}
         >
           <Container fontSizeRem={this.props.fontSizeRem} fontSizePx={this.props.fontSizePx}>

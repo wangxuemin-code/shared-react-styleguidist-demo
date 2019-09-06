@@ -1,7 +1,7 @@
 .ant-progress-bg {
   line-height: 1rem;
   transition: width $transitionLinear;
-  background-color: map-get($colors, primaryGreyDark);
+  background-color: map-get($colors, primary);
 }
 .istox-progress {
   .ant-progress-bg {
@@ -36,21 +36,54 @@
     }
   }
 
-  .success {
+  .primary {
     .ant-progress-bg {
-      background-color: map-get($colors, success);
+      background-color: map-get($colors, primary);
     }
   }
+
+  .secondary {
+    .ant-progress-bg {
+      background-color: map-get($colors, secondary);
+    }
+  }
+
+  .disabled {
+    .ant-progress-bg {
+      background-color: map-get($colors, primaryGreyDark);
+    }
+  }
+
+  .light {
+    .ant-progress-bg {
+      background-color: map-get($colors, primaryGrey);
+    }
+  }
+
+  .dark {
+    .ant-progress-bg {
+      background-color: map-get($colors, primaryDarkActive);
+    }
+  }
+
   .info {
     .ant-progress-bg {
       background-color: map-get($colors, info);
     }
   }
+
+  .success {
+    .ant-progress-bg {
+      background-color: map-get($colors, success);
+    }
+  }
+
   .warning {
     .ant-progress-bg {
       background-color: map-get($colors, warning);
     }
   }
+
   .danger {
     .ant-progress-bg {
       background-color: map-get($colors, danger);

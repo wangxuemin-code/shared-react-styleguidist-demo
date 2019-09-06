@@ -7,10 +7,18 @@ var uniqid = require('uniqid');
 interface IProps extends IContainer {
   children?: any;
   label?: boolean | string;
-  striped?: boolean;
   animated?: boolean;
   value?: any;
-  variant?: string;
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   order?: number;
   gap?: boolean;
   compact?: boolean;
@@ -87,6 +95,7 @@ export class ProgressBar extends React.Component<IProps, IState> {
         key={uniqid().toString()}
       >
         <Progress
+          status={IProps.animated ? 'active' : undefined}
           percent={this.props.children ? 100 : IProps.value}
           showInfo={IProps.compact ? false : true}
           format={() => (IProps.compact ? '' : label)}
