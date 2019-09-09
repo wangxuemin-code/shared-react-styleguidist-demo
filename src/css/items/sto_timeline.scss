@@ -8,7 +8,7 @@
 .sto-timeline-container {
   display: grid;
   grid-template-columns: 0px repeat(6, auto);
-  padding: 0px 30px;
+  padding: 0px 40px;
 
   .point {
     width: 100%;
@@ -68,12 +68,10 @@
       }
 
       &.big {
-        content: '\00a0';
         width: 26px;
         height: 26px;
         border-radius: 52px;
         margin-right: -13px;
-        border: solid 12px rgba(59, 228, 193, 1);
 
         .tick {
           height: 12px;
@@ -86,17 +84,43 @@
         }
 
         .text-container {
-          top: -49px;
-          left: -44px;
+          top: -38px;
+          left: -38px;
+        }
+      }
+    }
+
+    &.completed {
+      .dot {
+        background-color: rgba(59, 228, 193, 1);
+        &.big {
+          content: '\00a0';
+          border: solid 12px rgba(59, 228, 193, 1);
+
+          .text-container {
+            top: -49px;
+            left: -49px;
+          }
         }
       }
     }
 
     &.half-active,
-    &.active,
-    &.completed {
+    &.active {
       .dot {
-        background-color: rgba(59, 228, 193, 1);
+        border: solid 3px rgba(59, 228, 193, 1);
+
+        .text-container {
+          top: -46px;
+          left: -46px;
+        }
+
+        &.big {
+          .text-container {
+            top: -42px;
+            left: -42px;
+          }
+        }
       }
     }
 
