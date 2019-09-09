@@ -2610,6 +2610,7 @@ export const big: string;
 export const tick: string;
 export const completed: string;
 export const halfActive: string;
+export const textActive: string;
 export const spaceBetween: string;
 export const alignSelfEnd: string;
 export const alignSelfStart: string;
