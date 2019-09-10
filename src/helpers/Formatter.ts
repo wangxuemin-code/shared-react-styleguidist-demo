@@ -53,6 +53,10 @@ export class Formatter {
       .trim();
   }
 
+  public static datetimeByFormat(format: string, input?: string | number | Date): string {
+    return this.getMomentObject(format, input);
+  }
+
   public static datetime(input?: string | number | Date): string {
     return this.getMomentObject('DD MMMM YYYY hh:mm A', input);
   }

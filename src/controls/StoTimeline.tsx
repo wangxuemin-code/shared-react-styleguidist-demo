@@ -16,6 +16,7 @@ interface IStoDateTime {
 
 interface IProps extends IContainer {
   stoDateTime: IStoDateTime;
+  defaultPhase?: string;
   onImportantDateClicked?: (type: string) => void;
   hideTitle?: boolean;
 }
@@ -29,7 +30,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      selectedDateKey: ''
+      selectedDateKey: this.props.defaultPhase || ''
     };
   }
 
