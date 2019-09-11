@@ -135,6 +135,17 @@
       }
     }
 
+    &.text-active {
+      .dot {
+        .text-container {
+          .date,
+          .title {
+            color: black;
+          }
+        }
+      }
+    }
+
     &:first-child {
       .dot {
         margin-right: 0px;

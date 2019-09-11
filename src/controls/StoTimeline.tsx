@@ -16,6 +16,7 @@ interface IStoDateTime {
 
 interface IProps extends IContainer {
   stoDateTime: IStoDateTime;
+  defaultPhase?: string;
   onImportantDateClicked?: (type: string) => void;
   hideTitle?: boolean;
 }
@@ -29,7 +30,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      selectedDateKey: ''
+      selectedDateKey: this.props.defaultPhase || ''
     };
   }
 
@@ -172,8 +173,22 @@ export class StoTimeLine extends React.Component<IProps, IState> {
 
   getActiveStyle = (currentPhaseDate: Moment, nextPhaseDate: Moment | undefined, phaseKey: string) => {
     if (this.props.onImportantDateClicked) {
-      if (this.hasDatePast(currentPhaseDate)) {
-        return this.state.selectedDateKey === phaseKey ? styles.active : styles.halfActive;
+      if (
+        this.hasDatePast(currentPhaseDate) &&
+        !this.hasDatePast(nextPhaseDate) &&
+        this.state.selectedDateKey === phaseKey
+      ) {
+        return styles.active;
+      } else if (this.hasDatePast(currentPhaseDate) && this.state.selectedDateKey === phaseKey) {
+        return `${styles.completed} ${styles.textActive}`;
+      } else if (
+        this.hasDatePast(currentPhaseDate) &&
+        !this.hasDatePast(nextPhaseDate) &&
+        this.state.selectedDateKey !== phaseKey
+      ) {
+        return styles.halfActive;
+      } else if (this.hasDatePast(currentPhaseDate)) {
+        return styles.completed;
       } else {
         return '';
       }
