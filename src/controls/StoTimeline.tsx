@@ -52,8 +52,9 @@ export class StoTimeLine extends React.Component<IProps, IState> {
       },
       {
         title: 'Allocation',
+        key: 'allocation',
         date: moment(this.props.stoDateTime.bookbuildingEndTime),
-        clickable: false,
+        clickable: true,
         isBig: false
       },
       {
@@ -77,7 +78,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         isBig: true
       },
       {
-        title: 'Launch',
+        title: 'STO End',
         key: 'confirmed',
         date: moment(this.props.stoDateTime.publicSaleEndTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleEndTime)),
@@ -151,13 +152,8 @@ export class StoTimeLine extends React.Component<IProps, IState> {
 
   onDateClicked = (key: string) => {
     if (this.props.onImportantDateClicked) {
-      if (this.state.selectedDateKey === key) {
-        this.setState({ selectedDateKey: '' });
-        this.props.onImportantDateClicked('');
-      } else {
-        this.setState({ selectedDateKey: key });
-        this.props.onImportantDateClicked(key);
-      }
+      this.setState({ selectedDateKey: key });
+      this.props.onImportantDateClicked(key);
     }
   };
 
