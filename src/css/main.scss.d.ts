@@ -2608,12 +2608,9 @@ export const date: string;
 export const time: string;
 export const big: string;
 export const tick: string;
-export const halfActive: string;
-<<<<<<< HEAD
 export const completed: string;
-=======
+export const halfActive: string;
 export const textActive: string;
->>>>>>> 068567c87dc034526744e4c45725282b69d5ff8a
 export const spaceBetween: string;
 export const alignSelfEnd: string;
 export const alignSelfStart: string;

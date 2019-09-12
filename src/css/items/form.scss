@@ -137,7 +137,7 @@ textarea[disabled] {
     border-radius: 0;
     height: auto;
     padding: 0;
-    min-height: 37px !important;
+    min-height: 37px;
     font-size: 1.143rem;
     color: map-get($colors, primaryDarkActive);
     font-weight: 300;

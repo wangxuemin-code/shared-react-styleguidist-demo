@@ -18,7 +18,7 @@ body,
 #reactContainer {
   height: 100%;
   font-family: map-get($typography, font);
-  font-weight: 300;
+  font-weight: 400;
   color: map-get($colors, primaryDarkActive);
 }
 
@@ -67,7 +67,7 @@ a:hover {
 }
 
 label {
-  font-weight: 300;
+  font-weight: 400;
   color: map-get($colors, primaryGreyDarker);
 }
 
@@ -93,7 +93,7 @@ p,
 article {
   font-size: 1rem;
   margin: 0;
-  font-weight: 300;
+  font-weight: 400;
 }
 .tiny {
   font-size: 0.7143rem; // 10px
@@ -232,7 +232,7 @@ hr {
 }
 
 .normal-text {
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .light-bold {

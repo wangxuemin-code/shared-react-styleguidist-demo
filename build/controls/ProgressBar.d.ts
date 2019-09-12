@@ -3,10 +3,9 @@ import { IContainer } from './Container';
 interface IProps extends IContainer {
     children?: any;
     label?: boolean | string;
-    striped?: boolean;
     animated?: boolean;
     value?: any;
-    variant?: string;
+    variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
     order?: number;
     gap?: boolean;
     compact?: boolean;
