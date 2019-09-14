@@ -926,14 +926,13 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Divider />
               <h4>PopUps</h4>
-              <Controls.Toast />
+              <Controls.BlockchainToast />
               <Controls.Button
                 onPress={() => {
-                  Controls.Toast.show({
+                  Controls.BlockchainToast.show({
                     type: 'transaction_status_ok',
                     blockchainTransactionOptions: {
-                      purpose: 'Hello',
-                      txHash: '0x5b35c2a75cc21af4573990e3b469fd3a6bea353d7f59839e0827415994b46fe2'
+                      purpose: 'Create Fiat'
                     }
                   });
                 }}
@@ -1125,7 +1124,7 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <h4>Progress</h4>
               <Controls.ProgressBar compact value={20} />
-               <Controls.ProgressBar animated compact value={25} />
+              <Controls.ProgressBar animated compact value={25} />
               {this.variantStates.map((progress: any) => (
                 <Controls.ProgressBar value={20} variant={progress} />
               ))}

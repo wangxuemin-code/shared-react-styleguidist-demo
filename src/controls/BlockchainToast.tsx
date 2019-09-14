@@ -1,18 +1,14 @@
+import { faCheck, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
-import { toast, ToastContainer, cssTransition } from 'react-toastify';
-import { IContainer } from './Container';
-import { Icon, Transition } from '.';
-import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
-import {
-  faCheck,
-  faTimes,
-  IconDefinition
-} from '@fortawesome/free-solid-svg-icons';
-import * as styles from '../css/main.scss';
+import { cssTransition, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Icon } from '.';
+import * as styles from '../css/main.scss';
+import { IContainer, Container } from './Container';
 
 interface IBlockchainTransactionOptions {
   purpose: string;
+  message?: string;
 }
 
 interface IProps extends IContainer {
@@ -34,7 +30,8 @@ export class BlockchainToast extends React.Component {
   // can only use html element, not react element
   private static getTransactionDesign(props: IProps) {
     let blockchainTransactionOptions: IBlockchainTransactionOptions = {
-      purpose: 'Unknown'
+      purpose: 'Unknown',
+      message: ''
     };
     if (props.blockchainTransactionOptions) {
       blockchainTransactionOptions = props.blockchainTransactionOptions;
@@ -42,13 +39,12 @@ export class BlockchainToast extends React.Component {
     if (props.type == 'transaction_status_ok') {
       props.icon = faCheck;
       blockchainTransactionOptions.purpose =
-        'You have approved token to be' + blockchainTransactionOptions.purpose;
+        'Transaction for ' + blockchainTransactionOptions.purpose + ' has been registered on Blockchain successfully.';
     }
     if (props.type == 'transaction_status_fail') {
       props.icon = faTimes;
       blockchainTransactionOptions.purpose =
-        'You have failed to approve token to be' +
-        blockchainTransactionOptions.purpose;
+        'Transaction for ' + blockchainTransactionOptions.purpose + ' failed to register on Blockchain.';
     }
 
     return (
@@ -59,7 +55,12 @@ export class BlockchainToast extends React.Component {
           </div>
         </div>
         <div className='column right'>
-          <p className='purpose'>{blockchainTransactionOptions.purpose}</p>
+          <p className='purpose'>
+            {blockchainTransactionOptions.purpose}
+            {blockchainTransactionOptions.message && (
+              <Container margin={{ topPx: 15 }}>{blockchainTransactionOptions.message}</Container>
+            )}
+          </p>
         </div>
       </div>
     );
@@ -73,8 +74,6 @@ export class BlockchainToast extends React.Component {
       variant = 'danger';
     }
     let classes: string[] = [styles.istoxBlockchainToast, variant];
-    console.log('classes: ' + classes.toString());
-    console.log('classes join: ' + classes.join(' ').toString());
 
     classes = classes.filter(function(el) {
       return el != '';
@@ -83,7 +82,7 @@ export class BlockchainToast extends React.Component {
     const FadeInAndOut = cssTransition({
       enter: 'fadeIn',
       exit: 'fadeOut',
-      duration: 1000
+      duration: 500
     });
 
     toast(BlockchainToast.getTransactionDesign(props), {
