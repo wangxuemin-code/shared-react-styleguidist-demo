@@ -3,7 +3,7 @@
 }
 
 :global(.ant-calendar-picker-container) {
-  z-index: 1;
+  z-index: 20;
 }
 
 :global(.ant-calendar-picker) {
@@ -23,6 +23,7 @@
     position: absolute;
     right: 5px;
     top: 12px;
+    z-index: 20;
   }
 }
 
@@ -69,78 +70,105 @@
 
 :global(.ant-calendar-selected-date .ant-calendar-date, .ant-calendar-selected-start-date
     .ant-calendar-date, .ant-calendar-selected-end-date .ant-calendar-date) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-month-panel-selected-cell .ant-calendar-month-panel-month:hover) {
-  background: map-get($colors, primaryActive);
+  background: map-get($colors, secondaryActive);
 }
 
 :global(.ant-calendar-time-picker-select-option-selected) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-header a:hover) {
-  color: map-get($colors, primary);
+  color: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-today .ant-calendar-date) {
-  color: map-get($colors, primary);
-  border-color: map-get($colors, primary);
+  color: map-get($colors, secondary);
+  border-color: map-get($colors, secondary);
+  background: map-get($colors, primaryAlt);
+}
+
+:global(.ant-calendar-today .ant-calendar-date:hover) {
+  color: map-get($colors, primaryAlt);
+  border-color: map-get($colors, secondary);
+  background: map-get($colors, secondary);
+}
+
+:global(.ant-calendar-time-picker-select li:focus) {
+  color: map-get($colors, primaryAlt);
+}
+
+:global(.ant-calendar-selected-date .ant-calendar-date, .ant-calendar-selected-start-date
+    .ant-calendar-date, .ant-calendar-selected-end-date .ant-calendar-date) {
+  color: map-get($colors, secondary);
+  border-color: map-get($colors, secondary);
+  background: map-get($colors, primaryAlt);
 }
 
 :global(.ant-calendar-time-picker-select-option-selected) {
-  background: map-get($colors, primary);
+  background: map-get($colors, primaryAlt);
 }
 
 :global(.ant-calendar-selected-day .ant-calendar-date) {
   color: map-get($colors, primaryAlt);
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-selected-day .ant-calendar-date:hover) {
-  background: map-get($colors, primaryActive);
+  background: map-get($colors, secondaryActive);
 }
 
 :global(li.ant-calendar-time-picker-select-option-selected) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
   color: map-get($colors, primaryAlt);
 }
 
 :global(.ant-calendar .ant-calendar-ok-btn) {
-  border-color: map-get($colors, primary);
-  background: map-get($colors, primary);
+  border-color: map-get($colors, secondary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar .ant-calendar-ok-btn:hover) {
-  border-color: map-get($colors, primaryActive);
-  background: map-get($colors, primaryActive);
+  border-color: map-get($colors, secondaryActive);
+  background: map-get($colors, secondaryActive);
 }
 
 :global(.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year) {
-  background: map-get($colors, primary);
+  background: map-get($colors, secondary);
 }
 
 :global(.ant-calendar-year-panel-selected-cell .ant-calendar-year-panel-year:hover) {
-  background: map-get($colors, primaryActive);
+  background: map-get($colors, secondaryActive);
 }
 
 :global(.ant-calendar-decade-panel-selected-cell .ant-calendar-decade-panel-decade:hover) {
-  background: map-get($colors, primaryActive);
+  background: map-get($colors, secondaryActive);
 }
 
 :global(.ant-calendar-decade-panel-decade:hover) {
   background: map-get($colors, secondaryBackground);
 }
 
+:global(.ant-calendar-range .ant-calendar-in-range-cell::before) {
+  background: map-get($colors, secondaryBackground);
+}
+
 :global(li.ant-calendar-time-picker-select-option-selected:hover) {
-  background: map-get($colors, primaryActive);
+  background: map-get($colors, secondaryActive);
+}
+
+:global(.ant-calendar-time .ant-calendar-footer) {
+  z-index: 9;
+  background: #fff;
 }

@@ -515,7 +515,7 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 0.9)'
+              color: 'rgba(0, 0, 0, 1)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -536,6 +536,10 @@ export class FormControl extends React.Component<IProps, IState> {
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
               padding: '1rem !important'
+            }),
+            singleValue: (base: any) => ({
+              ...base,
+              color: 'rgba(0, 0, 0, 1)'
             })
           }}
         />
@@ -574,7 +578,7 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 0.9)'
+              color: 'rgba(0, 0, 0, 1)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -595,6 +599,10 @@ export class FormControl extends React.Component<IProps, IState> {
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
               padding: '1rem !important'
+            }),
+            singleValue: (base: any) => ({
+              ...base,
+              color: 'rgba(0, 0, 0, 1)'
             })
           }}
           options={this.props.selectCustomOptions}
@@ -686,7 +694,7 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 0.9)'
+              color: 'rgba(0, 0, 0, 1)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -707,6 +715,10 @@ export class FormControl extends React.Component<IProps, IState> {
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
               padding: '1rem !important'
+            }),
+            singleValue: (base: any) => ({
+              ...base,
+              color: 'rgba(0, 0, 0, 1)'
             })
           }}
         />
@@ -786,7 +798,7 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 0.9)'
+              color: 'rgba(0, 0, 0, 1)'
             }),
             option: (base: any, state: any) => ({
               ...base,
@@ -807,6 +819,10 @@ export class FormControl extends React.Component<IProps, IState> {
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
               padding: '1rem !important'
+            }),
+            singleValue: (base: any) => ({
+              ...base,
+              color: 'rgba(0, 0, 0, 1)'
             })
           }}
         />

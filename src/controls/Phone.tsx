@@ -150,6 +150,10 @@ export class Phone extends React.Component<IProps, IState> {
                 noOptionsMessageCSS: (base: any, state: any) => ({
                   ...base,
                   padding: '1rem !important'
+                }),
+                singleValue: (base: any) => ({
+                  ...base,
+                  color: 'rgba(0, 0, 0, 1)'
                 })
               }}
             />
