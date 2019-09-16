@@ -1,3 +1,5 @@
+import BigNumber from 'bignumber.js';
+
 const { BN, toWei, fromWei } = require('web3-utils');
 
 export class FMath {
@@ -84,21 +86,23 @@ export class FMath {
       y = 0;
     }
 
-    if (this.toFixed(x.toString()) === this.toFixed(y.toString())) return "1".toString();
+    return new BigNumber(x).dividedBy(new BigNumber(y)).toString();
 
-    const x1 = new BN(this.toFixed(x.toString()));
-    const y1 = new BN(this.toFixed(y.toString()));
+    // if (this.toFixed(x.toString()) === this.toFixed(y.toString())) return "1".toString();
 
-    if (((x1.div(y1)).umod(new BN(10)) == 0) && (x1.mod(y1) == 0)) return this.fromFixed((x1.div(y1).mul(this.FIXED_1)));
+    // const x1 = new BN(this.toFixed(x.toString()));
+    // const y1 = new BN(this.toFixed(y.toString()));
 
-    const r_y = this.FIXED_1.mul(this.FIXED_1).div(y1);
+    // if (((x1.div(y1)).umod(new BN(10)) == 0) && (x1.mod(y1) == 0)) return this.fromFixed((x1.div(y1).mul(this.FIXED_1)));
 
-    return this.fromFixed(
-      x1
-        .mul(r_y)
-        .div(this.FIXED_1)
-        .toString()
-    );
+    // const r_y = this.FIXED_1.mul(this.FIXED_1).div(y1);
+
+    // return this.fromFixed(
+    //   x1
+    //     .mul(r_y)
+    //     .div(this.FIXED_1)
+    //     .toString()
+    // );
   }
 
   /**
