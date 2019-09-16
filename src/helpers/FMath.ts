@@ -86,7 +86,10 @@ export class FMath {
       y = 0;
     }
 
-    return new BigNumber(x).dividedBy(new BigNumber(y)).toString();
+    return new BigNumber(x)
+      .dividedBy(new BigNumber(y))
+      .decimalPlaces(18, 1)
+      .toString();
 
     // if (this.toFixed(x.toString()) === this.toFixed(y.toString())) return "1".toString();
 
