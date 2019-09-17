@@ -47,6 +47,7 @@ interface IState {
   name: string;
   email: string;
   subMenuVisible: boolean;
+  isSubMenuClicked: boolean;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -60,7 +61,8 @@ export class Header extends React.Component<IHeader, IState> {
     this.state = {
       name: this.props.name!,
       email: this.props.email!,
-      subMenuVisible: false
+      subMenuVisible: false,
+      isSubMenuClicked: false
     };
   }
 
@@ -212,6 +214,8 @@ export class Header extends React.Component<IHeader, IState> {
         overlay={this.getSubMenuDesign()}
         getPopupContainer={(trigger: any) => trigger.parentNode}
         visible={this.state.subMenuVisible}
+        trigger={['click']}
+        onVisibleChange={this.hideSubMenu}
       >
         <Container
           onClick={this.toggleSubMenu}
@@ -274,11 +278,19 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private toggleSubMenu = () => {
-    if (this.state.subMenuVisible) {
-      this.setState({ subMenuVisible: false });
+  private hideSubMenu = () => {
+    if (this.state.isSubMenuClicked) {
+      this.setState({ subMenuVisible: false, isSubMenuClicked: false });
     } else {
       this.setState({ subMenuVisible: true });
+    }
+  };
+
+  private toggleSubMenu = () => {
+    if (this.state.isSubMenuClicked) {
+      this.setState({ subMenuVisible: false, isSubMenuClicked: false });
+    } else {
+      this.setState({ subMenuVisible: true, isSubMenuClicked: true });
     }
   };
 }

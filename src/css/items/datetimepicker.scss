@@ -24,6 +24,18 @@
     right: 5px;
     top: 12px;
     z-index: 20;
+    color: map-get($colors, primaryGreyDark) !important;
+  }
+
+  :global(.anticon) {
+    &:hover {
+      color: map-get($colors, primaryDark) !important;
+    }
+  }
+
+  input[disabled] {
+    border-bottom: 0;
+    color: map-get($colors, primaryGreyDark);
   }
 }
 

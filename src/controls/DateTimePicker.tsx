@@ -11,6 +11,7 @@ export interface IDateOption {
   startDate?: Date;
   showTimeSelect?: boolean;
   dateFormat?: string;
+  defaultShowDate?: boolean;
 }
 
 interface IProps extends IContainer {
@@ -34,6 +35,7 @@ interface IState {
   displayStartValue?: string;
   displayEndValue?: string;
   defaultValue?: any;
+  calendarIconClicked?: boolean;
 }
 
 export class DateTimePicker extends React.Component<IProps, IState> {
@@ -118,6 +120,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                     }
                   : undefined
               }
+              onOpenChange={this.hideCalendar}
             />
           </Container>
         </React.Fragment>
@@ -198,6 +201,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                     }
                   : undefined
               }
+              onOpenChange={this.hideRangeCalendar}
             />
           </Container>
           <Container className={styles.dateInput} position={'relative'} display={'flex'}>
@@ -494,11 +498,21 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     // }
   }
 
+  private hideCalendar = () => {
+    setTimeout(() => {
+      if (this.state.calendarIconClicked) {
+        this.setState({ showCalendar: false, calendarIconClicked: false });
+      } else {
+        this.setState({ showCalendar: true });
+      }
+    }, 100);
+  };
+
   private showCalendar = () => {
-    if (this.state.showCalendar) {
-      this.setState({ showCalendar: false });
+    if (!this.state.calendarIconClicked) {
+      this.setState({ showCalendar: true, calendarIconClicked: true });
     } else {
-      this.setState({ showCalendar: true });
+      this.setState({ showCalendar: false });
     }
   };
 
@@ -530,11 +544,21 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   };
 
+  private hideRangeCalendar = () => {
+    setTimeout(() => {
+      if (this.state.calendarIconClicked) {
+        this.setState({ showRangeCalendar: false, calendarIconClicked: false });
+      } else {
+        this.setState({ showRangeCalendar: true });
+      }
+    }, 100);
+  };
+
   private showRangeCalendar = () => {
-    if (this.state.showRangeCalendar) {
-      this.setState({ showRangeCalendar: false });
+    if (!this.state.calendarIconClicked) {
+      this.setState({ showRangeCalendar: true, calendarIconClicked: true });
     } else {
-      this.setState({ showRangeCalendar: true });
+      this.setState({ showRangeCalendar: false });
     }
   };
 
