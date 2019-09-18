@@ -93,7 +93,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               }}
             />
             <ReactIcon
-              onClick={this.showCalendar}
+              onClick={this.toggleDatePicker}
               type='calendar'
               style={{ color: 'rgba(0,0,0)' }}
             />
@@ -109,7 +109,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               }
               style={{ visibility: 'hidden', width: 0 }}
               onChange={this.handleChange.bind(this)}
-              onOk={this.showCalendar}
+              onOk={this.toggleDatePicker}
               open={this.state.showCalendar}
               showTime={
                 this.props.type === 'datetime' || this.props.options.showTimeSelect
@@ -120,7 +120,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                     }
                   : undefined
               }
-              onOpenChange={this.hideCalendar}
+              onOpenChange={this.datePickerStatus}
             />
           </Container>
         </React.Fragment>
@@ -427,9 +427,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         this.props.onChange('');
       }
     }
-    this.setState({
-      showCalendar: false
-    });
   }
 
   private handleChangeRange(date: any) {
@@ -498,21 +495,29 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     // }
   }
 
-  private hideCalendar = () => {
-    setTimeout(() => {
-      if (this.state.calendarIconClicked) {
-        this.setState({ showCalendar: false, calendarIconClicked: false });
-      } else {
-        this.setState({ showCalendar: true });
-      }
-    }, 100);
+  private datePickerStatus = (status: any) => {
+    if (!status) {
+      this.hideDatePicker();
+    }
   };
 
-  private showCalendar = () => {
+  private hideDatePicker = () => {
+    setTimeout(() => {
+      this.setState({
+        showCalendar: false,
+        calendarIconClicked: false
+      });
+    }, 200);
+  };
+
+  private toggleDatePicker = () => {
     if (!this.state.calendarIconClicked) {
-      this.setState({ showCalendar: true, calendarIconClicked: true });
-    } else {
-      this.setState({ showCalendar: false });
+      this.setState((prevState): any => {
+        return {
+          showCalendar: !prevState.showCalendar,
+          calendarIconClicked: true
+        };
+      });
     }
   };
 

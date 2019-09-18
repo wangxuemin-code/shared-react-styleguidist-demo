@@ -215,7 +215,7 @@ export class Header extends React.Component<IHeader, IState> {
         getPopupContainer={(trigger: any) => trigger.parentNode}
         visible={this.state.subMenuVisible}
         trigger={['click']}
-        onVisibleChange={this.hideSubMenu}
+        onVisibleChange={this.subMenuStatus}
       >
         <Container
           onClick={this.toggleSubMenu}
@@ -278,19 +278,23 @@ export class Header extends React.Component<IHeader, IState> {
     );
   }
 
-  private hideSubMenu = () => {
-    if (this.state.isSubMenuClicked) {
-      this.setState({ subMenuVisible: false, isSubMenuClicked: false });
-    } else {
-      this.setState({ subMenuVisible: true });
+  private subMenuStatus = (status: any) => {
+    if (!status) {
+      this.hideSubMenu();
     }
   };
 
+  private hideSubMenu = () => {
+    this.setState({
+      subMenuVisible: false
+    });
+  };
+
   private toggleSubMenu = () => {
-    if (this.state.isSubMenuClicked) {
-      this.setState({ subMenuVisible: false, isSubMenuClicked: false });
-    } else {
-      this.setState({ subMenuVisible: true, isSubMenuClicked: true });
-    }
+    this.setState((prevState): any => {
+      return {
+        subMenuVisible: !prevState.subMenuVisible
+      };
+    });
   };
 }
