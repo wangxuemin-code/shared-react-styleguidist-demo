@@ -54,7 +54,8 @@ export class AwsHelper {
               accessKeyId: credentials.accessKey,
               secretAccessKey: credentials.secretKey,
               sessionToken: credentials.sessionToken,
-              region: 'ap-southeast-1'
+              region: 'ap-southeast-1',
+              signatureVersion: 'v4'
             };
 
             const s3 = new AWS.S3(options);
