@@ -436,6 +436,8 @@ export class FormControl extends React.Component<IProps, IState> {
             {this.props.unit ? ` ${this.props.unit}` : ''}
           </Container>
         );
+      } else if (this.props.type === 'hidden') {
+        return null;
       } else {
         return (
           <Container>
