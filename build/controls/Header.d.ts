@@ -48,6 +48,7 @@ export declare class Header extends React.Component<IHeader, IState> {
     private getNotificationItemDesign;
     private getUserActionDesign;
     private getSubMenuDesign;
+    private subMenuStatus;
     private hideSubMenu;
     private toggleSubMenu;
 }

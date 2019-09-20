@@ -24,7 +24,7 @@
 }
 
 textarea[disabled] {
-  color: map-get($colors, primaryGreyDarker);
+  color: map-get($colors, primaryGreyDarker) !important;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
