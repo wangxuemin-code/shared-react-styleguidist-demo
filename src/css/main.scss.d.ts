@@ -2432,6 +2432,7 @@ export const cursorDefault: string;
 export const cursorPointer: string;
 export const uppercase: string;
 export const rotate: string;
+export const hide: string;
 export const grid: string;
 export const gridColumn: string;
 export const col1: string;

@@ -423,3 +423,7 @@ strong {
 
 @include mq(mini) {
 }
+
+.hide {
+  display: none;
+}
