@@ -245,6 +245,7 @@ export class OtpInput extends React.Component<IProps, IState> {
                   float={'right'}
                   variant='primary'
                   onPress={this.sendPhoneCode}
+                  type={'submit'}
                 >
                   {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
                     ? 'Send Code'

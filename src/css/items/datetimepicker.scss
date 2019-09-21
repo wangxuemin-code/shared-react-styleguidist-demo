@@ -184,3 +184,11 @@
   z-index: 9;
   background: #fff;
 }
+
+:global(.ant-calendar-disabled-cell.ant-calendar-today .ant-calendar-date::before) {
+  border: 0;
+}
+
+:global(.ant-calendar-disabled-cell.ant-calendar-selected-day .ant-calendar-date::before) {
+  background: transparent;
+}

@@ -397,25 +397,116 @@ strong {
   }
 }
 
+.large-screen-only {
+  display: none !important;
+}
+.computer-only {
+  display: none !important;
+}
+.tablet-only {
+  display: none !important;
+}
+.plablet-only {
+  display: none !important;
+}
+.mobile-only {
+  display: none !important;
+}
+
 @include mq(retina) {
 }
 
 @include mq(huge) {
+  .large-screen-only {
+    display: block !important;
+  }
+  .computer-only {
+    display: none !important;
+  }
+  .tablet-only {
+    display: none !important;
+  }
+  .plablet-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: none !important;
+  }
 }
 
 @include mq(big) {
+  .large-screen-only {
+    display: block !important;
+  }
+  .computer-only {
+    display: block !important;
+  }
+  .tablet-only {
+    display: none !important;
+  }
+  .plablet-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: none !important;
+  }
 }
 
 @include mq(large) {
+  .large-screen-only {
+    display: block !important;
+  }
+  .computer-only {
+    display: block !important;
+  }
+  .tablet-only {
+    display: block !important;
+  }
+  .plablet-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: none !important;
+  }
 }
 
 @include mq(medium) {
   .display-flex {
     display: grid;
   }
+  .large-screen-only {
+    display: block !important;
+  }
+  .computer-only {
+    display: block !important;
+  }
+  .tablet-only {
+    display: block !important;
+  }
+  .plablet-only {
+    display: block !important;
+  }
+  .mobile-only {
+    display: none !important;
+  }
 }
 
 @include mq(small) {
+  .large-screen-only {
+    display: block !important;
+  }
+  .computer-only {
+    display: block !important;
+  }
+  .tablet-only {
+    display: block !important;
+  }
+  .plablet-only {
+    display: block !important;
+  }
+  .mobile-only {
+    display: block !important;
+  }
 }
 
 @include mq(tiny) {

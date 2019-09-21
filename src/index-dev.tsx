@@ -1495,6 +1495,9 @@ class Main extends Controls.MyComponent<
                     placeholder={'Search'}
                     value=''
                     prepend={<Controls.Icon icon={faSearch} />}
+                    onInputChanged={() => {
+                      console.log(this.form.getInputValue('search'));
+                    }}
                   />
                   <Controls.FormControl
                     required
@@ -1665,6 +1668,7 @@ class Main extends Controls.MyComponent<
                     name='datetime'
                     type={'datetime'}
                     dateOptions={{
+                      endDate: new Date(),
                       showTimeSelect: true
                     }}
                     onInputChanged={(value) => {
