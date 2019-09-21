@@ -131,7 +131,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               mask={this.props.options.showTimeSelect ? '11/11/1111 11:11 ab' : '11/11/1111'}
               disabled={this.props.disabled}
               className={'ant-input'}
-              value={this.state.displayStartValue}
+              value={this.state.displayStartValue || ''}
               isRevealingMask={true}
               placeholder={this.props.placeholder}
               onChange={this.handleChangeRangeStartRaw.bind(this)}
@@ -187,7 +187,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
               mask={this.props.options.showTimeSelect ? '11/11/1111 11:11 ab' : '11/11/1111'}
               disabled={this.props.disabled}
               className={'ant-input'}
-              value={this.state.displayEndValue}
+              value={this.state.displayEndValue || ''}
               isRevealingMask={true}
               placeholder={this.props.placeholder}
               onChange={this.handleChangeRangeEndRaw.bind(this)}
@@ -274,10 +274,14 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           defaultValue: this.getDefaultValue(displayValue)
         };
       } else {
-        value = newValue.toString();
+        if (newValue) {
+          value = newValue.toString();
+        }
+
         this.state = {
-          selectedStartUnixTimestamp: parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
-          selectedEndUnixTimestamp: parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
+          selectedStartUnixTimestamp:
+            value && parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
+          selectedEndUnixTimestamp: value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
           displayStartValue,
           displayEndValue
         };
@@ -294,11 +298,16 @@ export class DateTimePicker extends React.Component<IProps, IState> {
           defaultValue: this.getDefaultValue(displayValue)
         });
       } else {
+        if (newValue) {
+          value = newValue.toString();
+        }
+
         this.setState({
-          selectedStartUnixTimestamp: parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
-          selectedEndUnixTimestamp: parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
-          displayStartValue,
-          displayEndValue
+          selectedStartUnixTimestamp:
+            value && parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
+          selectedEndUnixTimestamp: value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
+          displayStartValue: displayStartValue || undefined,
+          displayEndValue: displayEndValue || undefined
         });
       }
     }
