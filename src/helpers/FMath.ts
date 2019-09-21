@@ -152,6 +152,54 @@ export class FMath {
     );
   }
 
+  public static greaterThanOrEqualTo(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) >= 0;
+  }
+
+  public static greaterThan(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) > 0;
+  }
+
+  public static lessThanOrEqualTo(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) <= 0;
+  }
+
+  public static lessThan(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) < 0;
+  }
+
   /**
    * @dev converts a number to fixed point of 18 by multiplying by 10e18
    * @param {string} x string of number
