@@ -1488,6 +1488,7 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
                   />
                   <Controls.FormControl
+                    debounce={2000}
                     required
                     label={'Search'}
                     name='search'
@@ -1636,10 +1637,16 @@ class Main extends Controls.MyComponent<
                         textAlign={'center'}
                         type={'submit'}
                         onPress={() => {
-                          this.setState({
-                            value: 1562342400
-                            // value: '2019-07-28T13:35:38.000Z'
-                          });
+                          if (this.state.value == '' || this.state.value == undefined) {
+                            this.setState({
+                              value: '2019-07-28T13:35:38.000Z'
+                            });
+                          } else {
+                            this.setState({
+                              value: undefined
+                              // value: '2019-07-28T13:35:38.000Z'
+                            });
+                          }
                         }}
                       >
                         Change Date

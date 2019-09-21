@@ -118,7 +118,7 @@ export class FormControl extends React.Component<IProps, IState> {
     uploaderConfigs: {},
     includeInFormData: true,
     showPhoneLabel: true,
-    debounce: 1000
+    debounce: 0
   };
 
   constructor(props: IProps) {
@@ -399,12 +399,7 @@ export class FormControl extends React.Component<IProps, IState> {
     const result = this.processValue(String(value));
     this.setState({ displayValue: result.displayValue, value: result.value }, () => {
       if (notify) {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value || '', this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value || '');
       }
     });
   }
@@ -1043,12 +1038,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value);
       }
     );
   }
@@ -1060,12 +1050,7 @@ export class FormControl extends React.Component<IProps, IState> {
       this.setState(
         { displayValue: result.displayValue, value: result.value, showError: false },
         () => {
-          if (this.props.onInputChanged) {
-            clearTimeout(this.debounceTimer);
-            this.debounceTimer = setTimeout(() => {
-              this.props.onInputChanged!(result.value, this.props.name || '');
-            }, this.props.debounce);
-          }
+          this.beforeInputChanged(result.value);
         }
       );
     }
@@ -1076,12 +1061,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value);
       }
     );
   };
@@ -1092,33 +1072,18 @@ export class FormControl extends React.Component<IProps, IState> {
       newValue = selectedOption.value[0];
     }
     this.setState({ displayValue: newValue, value: newValue, showError: false }, () => {
-      if (this.props.onInputChanged) {
-        clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => {
-          this.props.onInputChanged!(newValue, this.props.name || '');
-        }, this.props.debounce);
-      }
+      this.beforeInputChanged(newValue);
     });
   };
 
   private setToEmpty = () => {
     this.onValueChanged(false, '');
-    if (this.props.onInputChanged) {
-      clearTimeout(this.debounceTimer);
-      this.debounceTimer = setTimeout(() => {
-        this.props.onInputChanged!('', this.props.name || '');
-      }, this.props.debounce);
-    }
+    this.beforeInputChanged('');
   };
 
   private onPhoneChange(value: string) {
     this.setState({ displayValue: value, value: value, showError: false }, () => {
-      if (this.props.onInputChanged) {
-        clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => {
-          this.props.onInputChanged!(value, this.props.name || '');
-        }, this.props.debounce);
-      }
+      this.beforeInputChanged(value);
     });
   }
 
@@ -1127,12 +1092,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value);
       }
     );
   }
@@ -1142,24 +1102,14 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value);
       }
     );
   }
 
   private onUploaderChanged(newUrl: string) {
     this.setState({ displayValue: newUrl, value: newUrl, showError: false }, () => {
-      if (this.props.onInputChanged) {
-        clearTimeout(this.debounceTimer);
-        this.debounceTimer = setTimeout(() => {
-          this.props.onInputChanged!(newUrl, this.props.name || '');
-        }, this.props.debounce);
-      }
+      this.beforeInputChanged(newUrl);
     });
   }
 
@@ -1168,12 +1118,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(result.value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(result.value);
       }
     );
   }
@@ -1184,12 +1129,7 @@ export class FormControl extends React.Component<IProps, IState> {
     this.setState(
       { displayValue: result.displayValue, value: result.value, showError: false },
       () => {
-        if (this.props.onInputChanged) {
-          clearTimeout(this.debounceTimer);
-          this.debounceTimer = setTimeout(() => {
-            this.props.onInputChanged!(value, this.props.name || '');
-          }, this.props.debounce);
-        }
+        this.beforeInputChanged(value);
       }
     );
   }
@@ -1204,21 +1144,10 @@ export class FormControl extends React.Component<IProps, IState> {
         showError: false
       },
       () => {
-        if (this.props.onInputChanged) {
-          if (this.props.singleCheckbox) {
-            clearTimeout(this.debounceTimer);
-            this.debounceTimer = setTimeout(() => {
-              this.props.onInputChanged!(
-                checkedValues.length == 1 ? checkedValues[0] : '0',
-                this.props.name || ''
-              );
-            }, this.props.debounce);
-          } else {
-            clearTimeout(this.debounceTimer);
-            this.debounceTimer = setTimeout(() => {
-              this.props.onInputChanged!(checkedValues, this.props.name || '');
-            }, this.props.debounce);
-          }
+        if (this.props.singleCheckbox) {
+          this.beforeInputChanged(checkedValues.length == 1 ? checkedValues[0] : '0');
+        } else {
+          this.beforeInputChanged(checkedValues);
         }
       }
     );
@@ -1410,5 +1339,18 @@ export class FormControl extends React.Component<IProps, IState> {
     var parts = x.toString().split('.');
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     return parts.join('.');
+  };
+
+  private beforeInputChanged = (value: any) => {
+    if (this.props.onInputChanged) {
+      if (this.props.debounce! > 0) {
+        clearTimeout(this.debounceTimer);
+        this.debounceTimer = setTimeout(() => {
+          this.props.onInputChanged!(value, this.props.name || '');
+        }, this.props.debounce);
+      } else {
+        this.props.onInputChanged!(value, this.props.name || '');
+      }
+    }
   };
 }
