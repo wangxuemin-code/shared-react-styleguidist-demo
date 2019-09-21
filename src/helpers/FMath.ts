@@ -200,6 +200,30 @@ export class FMath {
     return new BigNumber(x).comparedTo(new BigNumber(y)) < 0;
   }
 
+  public static equalTo(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) === 0;
+  }
+
+  public static notEqualTo(x: string | number | undefined | null, y: string | number | undefined | null) {
+    if (!x) {
+      x = 0;
+    }
+
+    if (!y) {
+      y = 0;
+    }
+
+    return new BigNumber(x).comparedTo(new BigNumber(y)) !== 0;
+  }
+
   /**
    * @dev converts a number to fixed point of 18 by multiplying by 10e18
    * @param {string} x string of number
