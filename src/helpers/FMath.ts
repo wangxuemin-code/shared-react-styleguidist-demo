@@ -21,6 +21,9 @@ export class FMath {
       y = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
     return this.fromFixed(x1.add(y1));
@@ -41,6 +44,9 @@ export class FMath {
       y = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
     return this.fromFixed(x1.sub(y1));
@@ -60,6 +66,9 @@ export class FMath {
     if (!y) {
       y = 0;
     }
+
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
 
     const x1 = new BN(this.toFixed(x.toString()));
     const y1 = new BN(this.toFixed(y.toString()));
@@ -84,6 +93,14 @@ export class FMath {
 
     if (!y) {
       y = 0;
+    }
+
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
+    // don't allow div by zero
+    if (y === 0 || y === '0') {
+      return 0;
     }
 
     return new BigNumber(x)
@@ -118,6 +135,8 @@ export class FMath {
       x = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+
     const x1 = new BN(this.toFixed(x.toString()));
     const dp1 = new BN(dp);
     const precision = new BN(10).pow(this.DECIMALS.sub(dp1));
@@ -141,6 +160,8 @@ export class FMath {
       x = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+
     const x1 = new BN(this.toFixed(x.toString()));
     const dp1 = new BN(dp);
     const precision = new BN(10).pow(this.DECIMALS.sub(dp1));
@@ -161,6 +182,9 @@ export class FMath {
       y = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
     return new BigNumber(x).comparedTo(new BigNumber(y)) >= 0;
   }
 
@@ -172,6 +196,9 @@ export class FMath {
     if (!y) {
       y = 0;
     }
+
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
 
     return new BigNumber(x).comparedTo(new BigNumber(y)) > 0;
   }
@@ -185,6 +212,9 @@ export class FMath {
       y = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
     return new BigNumber(x).comparedTo(new BigNumber(y)) <= 0;
   }
 
@@ -196,6 +226,9 @@ export class FMath {
     if (!y) {
       y = 0;
     }
+
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
 
     return new BigNumber(x).comparedTo(new BigNumber(y)) < 0;
   }
@@ -209,6 +242,9 @@ export class FMath {
       y = 0;
     }
 
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
+
     return new BigNumber(x).comparedTo(new BigNumber(y)) === 0;
   }
 
@@ -220,6 +256,9 @@ export class FMath {
     if (!y) {
       y = 0;
     }
+
+    x = this.makeSureValidNumber(x);
+    y = this.makeSureValidNumber(y);
 
     return new BigNumber(x).comparedTo(new BigNumber(y)) !== 0;
   }
@@ -238,5 +277,18 @@ export class FMath {
    */
   private static fromFixed(x: string) {
     return fromWei(x);
+  }
+
+  /**
+   * Try to test whether input is a valid number, if not, return zero
+   * @param input
+   */
+  private static makeSureValidNumber(input: string | number) {
+    try {
+      const result = new BigNumber(input).decimalPlaces(18, 1).toString();
+      return result;
+    } catch (ex) {
+      return 0;
+    }
   }
 }
