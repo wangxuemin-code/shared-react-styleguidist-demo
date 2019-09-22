@@ -101,7 +101,7 @@ export class Header extends React.Component<IHeader, IState> {
           )}
           {!this.props.userAction && (
             <Container className={styles.right} verticalAlign='center'>
-              <div className='small'>Already have an account? </div>&nbsp; &nbsp;
+              <div className='small plablet-hidden'>Already have an account? </div>&nbsp; &nbsp;
               <a href='/login'>
                 <Button size='small' variant={'secondary'} outline={className.includes('alt')}>
                   Sign In

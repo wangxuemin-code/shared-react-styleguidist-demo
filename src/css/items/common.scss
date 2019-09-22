@@ -413,6 +413,22 @@ strong {
   display: none !important;
 }
 
+.large-screen-hidden {
+  display: block !important;
+}
+.computer-hidden {
+  display: block !important;
+}
+.tablet-hidden {
+  display: block !important;
+}
+.plablet-hidden {
+  display: block !important;
+}
+.mobile-hidden {
+  display: block !important;
+}
+
 @include mq(retina) {
 }
 
@@ -432,6 +448,22 @@ strong {
   .mobile-only {
     display: none !important;
   }
+
+  .large-screen-hidden {
+    display: none !important;
+  }
+  .computer-hidden {
+    display: block !important;
+  }
+  .tablet-hidden {
+    display: block !important;
+  }
+  .plablet-hidden {
+    display: block !important;
+  }
+  .mobile-hidden {
+    display: block !important;
+  }
 }
 
 @include mq(big) {
@@ -450,6 +482,22 @@ strong {
   .mobile-only {
     display: none !important;
   }
+
+  .large-screen-hidden {
+    display: none !important;
+  }
+  .computer-hidden {
+    display: none !important;
+  }
+  .tablet-hidden {
+    display: block !important;
+  }
+  .plablet-hidden {
+    display: block !important;
+  }
+  .mobile-hidden {
+    display: block !important;
+  }
 }
 
 @include mq(large) {
@@ -467,6 +515,22 @@ strong {
   }
   .mobile-only {
     display: none !important;
+  }
+
+  .large-screen-hidden {
+    display: none !important;
+  }
+  .computer-hidden {
+    display: none !important;
+  }
+  .tablet-hidden {
+    display: none !important;
+  }
+  .plablet-hidden {
+    display: block !important;
+  }
+  .mobile-hidden {
+    display: block !important;
   }
 }
 
@@ -489,6 +553,22 @@ strong {
   .mobile-only {
     display: none !important;
   }
+
+  .large-screen-hidden {
+    display: none !important;
+  }
+  .computer-hidden {
+    display: none !important;
+  }
+  .tablet-hidden {
+    display: none !important;
+  }
+  .plablet-hidden {
+    display: none !important;
+  }
+  .mobile-hidden {
+    display: block !important;
+  }
 }
 
 @include mq(small) {
@@ -506,6 +586,22 @@ strong {
   }
   .mobile-only {
     display: block !important;
+  }
+
+  .large-screen-hidden {
+    display: none !important;
+  }
+  .computer-hidden {
+    display: none !important;
+  }
+  .tablet-hidden {
+    display: none !important;
+  }
+  .plablet-hidden {
+    display: none !important;
+  }
+  .mobile-hidden {
+    display: none !important;
   }
 }
 
