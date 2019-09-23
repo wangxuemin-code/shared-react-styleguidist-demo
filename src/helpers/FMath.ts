@@ -285,7 +285,7 @@ export class FMath {
    */
   private static makeSureValidNumber(input: string | number) {
     try {
-      const result = new BigNumber(input).decimalPlaces(18, 1).toString();
+      const result = new BigNumber(input).toFixed(18, 1).toString();
       return result;
     } catch (ex) {
       return 0;
