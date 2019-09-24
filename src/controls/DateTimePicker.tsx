@@ -12,6 +12,7 @@ export interface IDateOption {
   showTimeSelect?: boolean;
   dateFormat?: string;
   defaultShowDate?: boolean;
+  defaultSelectTime?: 'end_of_day' | 'start_of_day';
 }
 
 interface IProps extends IContainer {
@@ -93,11 +94,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon
-              onClick={this.toggleDatePicker}
-              type='calendar'
-              style={{ color: 'rgba(0,0,0)' }}
-            />
+            <ReactIcon onClick={this.toggleDatePicker} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
             <ReactDatePicker
               getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={this.state.defaultValue}
@@ -159,20 +156,12 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon
-              onClick={this.showRangeCalendar}
-              type='calendar'
-              style={{ color: 'rgba(0,0,0)' }}
-            />
+            <ReactIcon onClick={this.showRangeCalendar} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
             <RangePicker
               getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={[
-                this.state.displayStartValue
-                  ? moment(this.state.displayStartValue, this.getDateFormat())
-                  : moment(),
-                this.state.displayEndValue
-                  ? moment(this.state.displayEndValue, this.getDateFormat())
-                  : moment()
+                this.state.displayStartValue ? moment(this.state.displayStartValue, this.getDateFormat()) : moment(),
+                this.state.displayEndValue ? moment(this.state.displayEndValue, this.getDateFormat()) : moment()
                 // moment(this.state.displayStartValue, this.getDateFormat()),
                 // moment(this.state.displayEndValue, this.getDateFormat())
               ]}
@@ -225,11 +214,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon
-              onClick={this.showRangeCalendar}
-              type='calendar'
-              style={{ color: 'rgba(0,0,0)' }}
-            />
+            <ReactIcon onClick={this.showRangeCalendar} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
             {/* <ReactDatePicker
               getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={moment(this.state.displayEndValue, this.getDateFormat())}
@@ -256,11 +241,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     }
   }
 
-  private updateStateWithProps(
-    firstCall: boolean,
-    newValue: number | string,
-    type: string | undefined
-  ) {
+  private updateStateWithProps(firstCall: boolean, newValue: number | string, type: string | undefined) {
     let value: any = '';
     let displayValue: any = '';
     let displayStartValue: any = '';
@@ -276,19 +257,13 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     } else {
       if (value) {
         value = newValue.toString();
-        displayStartValue =
-          value.split(',')[0] !== '0' ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY') : '';
-        displayEndValue =
-          value.split(',')[1] !== '0' ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY') : '';
+        displayStartValue = value.split(',')[0] !== '0' ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY') : '';
+        displayEndValue = value.split(',')[1] !== '0' ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY') : '';
         if (this.props.type === 'datetime' || this.props.options.showTimeSelect) {
           displayStartValue =
-            value.split(',')[0] !== '0'
-              ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY hh:mm a')
-              : '';
+            value.split(',')[0] !== '0' ? moment.unix(value.split(',')[0]).format('DD/MM/YYYY hh:mm a') : '';
           displayEndValue =
-            value.split(',')[1] !== '0'
-              ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY hh:mm a')
-              : '';
+            value.split(',')[1] !== '0' ? moment.unix(value.split(',')[1]).format('DD/MM/YYYY hh:mm a') : '';
         }
       }
     }
@@ -311,8 +286,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         this.state = {
           selectedStartUnixTimestamp:
             value && parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
-          selectedEndUnixTimestamp:
-            value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
+          selectedEndUnixTimestamp: value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
           displayStartValue,
           displayEndValue
         };
@@ -336,8 +310,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         this.setState({
           selectedStartUnixTimestamp:
             value && parseInt(value.split(',')[0]) ? parseInt(value.split(',')[0]) : undefined,
-          selectedEndUnixTimestamp:
-            value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
+          selectedEndUnixTimestamp: value && parseInt(value.split(',')[1]) ? parseInt(value.split(',')[1]) : undefined,
           displayStartValue: displayStartValue || undefined,
           displayEndValue: displayEndValue || undefined
         });
@@ -367,17 +340,13 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     if (dateValue == '  /  /    ' || dateValue == '  /  /       :     ') {
       this.handleChangeRange([
         undefined,
-        this.state.displayEndValue
-          ? moment(this.state.displayEndValue, this.getDateFormat())
-          : undefined
+        this.state.displayEndValue ? moment(this.state.displayEndValue, this.getDateFormat()) : undefined
       ]);
     } else {
       if (moment(event.target.value, this.getDateFormat(), true).isValid()) {
         this.handleChangeRange([
           moment(event.target.value, this.getDateFormat()),
-          this.state.displayEndValue
-            ? moment(this.state.displayEndValue, this.getDateFormat())
-            : undefined
+          this.state.displayEndValue ? moment(this.state.displayEndValue, this.getDateFormat()) : undefined
         ]);
       }
     }
@@ -390,17 +359,13 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     });
     if (dateValue == '  /  /    ' || dateValue == '  /  /       :     ') {
       this.handleChangeRange([
-        this.state.displayStartValue
-          ? moment(this.state.displayStartValue, this.getDateFormat())
-          : undefined,
+        this.state.displayStartValue ? moment(this.state.displayStartValue, this.getDateFormat()) : undefined,
         undefined
       ]);
     } else {
       if (moment(event.target.value, this.getDateFormat(), true).isValid()) {
         this.handleChangeRange([
-          this.state.displayStartValue
-            ? moment(this.state.displayStartValue, this.getDateFormat())
-            : undefined,
+          this.state.displayStartValue ? moment(this.state.displayStartValue, this.getDateFormat()) : undefined,
           moment(event.target.value, this.getDateFormat())
         ]);
       }
@@ -413,9 +378,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       const unixTimestamp =
         this.props.type === 'datetime' || this.props.options.showTimeSelect
           ? moment(date).unix()
-          : moment(date)
-              .startOf('day')
-              .unix();
+          : this.getUnixAutoAppendTime(date);
 
       if (this.props.onChange) {
         this.props.onChange(unixTimestamp, date);
@@ -434,15 +397,11 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     const startUnixTimestamp =
       this.props.type === 'datetime' || this.props.options.showTimeSelect
         ? moment(startDate).unix()
-        : moment(startDate)
-            .startOf('day')
-            .unix();
+        : this.getUnixAutoAppendTime(startDate);
     const endUnixTimestamp =
       this.props.type === 'datetime' || this.props.options.showTimeSelect
         ? moment(endDate).unix()
-        : moment(endDate)
-            .startOf('day')
-            .unix();
+        : this.getUnixAutoAppendTime(endDate);
 
     if (startDate) {
       if (endDate) {
@@ -503,6 +462,18 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     //     }
     //   }
     // }
+  }
+
+  private getUnixAutoAppendTime(date: any) {
+    if (this.props.options && this.props.options.defaultSelectTime === 'start_of_day') {
+      return moment(date)
+        .startOf('day')
+        .unix();
+    } else {
+      return moment(date)
+        .endOf('day')
+        .unix();
+    }
   }
 
   private datePickerStatus = (status: any) => {
