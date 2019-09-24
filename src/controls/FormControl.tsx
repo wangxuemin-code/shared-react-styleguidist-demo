@@ -649,10 +649,17 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const Options: any = [];
+      const Options: any = [
+        { code: 'SG', country: 'Singapore', label: 'Singapore', value: 'Singapore' }
+      ];
       const excludeOptions = this.props.excludeOptions || [];
       countries.all.map((option) => {
-        if (option.alpha3.length && option.emoji && excludeOptions.indexOf(option.name) == -1) {
+        if (
+          option.alpha3.length &&
+          option.emoji &&
+          excludeOptions.indexOf(option.name) == -1 &&
+          option.alpha2 !== 'SG'
+        ) {
           var obj = {
             label: option.name,
             value: option.name,
@@ -752,10 +759,15 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const Options: any = [];
+      const Options: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
       const excludeOptions = this.props.excludeOptions || [];
       countries.all.map((option) => {
-        if (option.alpha3.length && option.emoji && excludeOptions.indexOf(option.alpha3) == -1) {
+        if (
+          option.alpha3.length &&
+          option.emoji &&
+          excludeOptions.indexOf(option.alpha3) == -1 &&
+          option.alpha2 !== 'SG'
+        ) {
           var obj = {
             label: option.alpha3,
             value: option.alpha3,

@@ -75,9 +75,9 @@ export class Phone extends React.Component<IProps, IState> {
         </components.SingleValue>
       );
     };
-    const Options: any = [];
+    const Options: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
     countries.all.map((option) => {
-      if (option.countryCallingCodes.length && option.emoji) {
+      if (option.countryCallingCodes.length && option.emoji && option.alpha2 !== 'SG') {
         var obj = {
           label: option.countryCallingCodes[0],
           value: option.countryCallingCodes[0],
@@ -182,6 +182,7 @@ export class Phone extends React.Component<IProps, IState> {
               {this.props.onSendCode && (
                 <Container margin={{ leftRem: 1 }}>
                   <Button
+                    type={'submit'}
                     disabled={!this.state.phoneCode || !this.state.phoneNumber}
                     loading={
                       this.state.timeRemainingInSeconds === 60 ||
