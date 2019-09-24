@@ -107,7 +107,7 @@ export class Footer extends React.Component<IProps, any> {
                     href='https://www.istox.com/legal#terms'
                     useNormalAnchor={true}
                   >
-                    Terms and Condition
+                    Terms and Conditions
                   </Link>
                   <Link
                     margin={{ rightRem: 1 }}
