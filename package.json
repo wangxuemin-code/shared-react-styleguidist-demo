@@ -1,6 +1,6 @@
 {
   "name": "istox-shared",
-  "version": "2.1.135",
+  "version": "2.1.136",
   "description": "",
   "main": "build/index.js",
   "typings": "build/index-prod.d.ts",
