@@ -285,6 +285,9 @@ export class FMath {
    */
   private static makeSureValidNumber(input: string | number) {
     try {
+      if (input.toString().toLowerCase() === 'nan') {
+        return '0';
+      }
       const result = new BigNumber(input).toFixed(18, 1).toString();
       return result;
     } catch (ex) {
