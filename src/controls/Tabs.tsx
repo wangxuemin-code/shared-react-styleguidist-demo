@@ -20,7 +20,8 @@ interface IProps extends IContainer {
   tabsContentOrientation?: 'stacked' | 'inline';
   align?: 'left' | 'middle' | 'right';
   basic?: boolean;
-  onTabSelected?: (tabName: string, index?: number) => void;
+  onTabSelected?: (tabName: string) => void;
+  onSelectedIndexChanged?: (selectedIndex: number) => void;
   id?: string;
   extraControls?: any;
   animated?: boolean | { inkBar: boolean; tabPane: boolean };
@@ -43,7 +44,7 @@ export class Tabs extends React.Component<IProps, IState> {
     super(props);
 
     this.state = { selectedIndex: this.props.selectedIndex || 0 };
-    this.onTabChanged(this.props.tabs[this.props.selectedIndex || 0].tabName);
+    this.onTabChanged(this.props.selectedIndex || 0, this.props.tabs[this.props.selectedIndex || 0].tabName);
   }
 
   componentDidMount() {
@@ -143,12 +144,16 @@ export class Tabs extends React.Component<IProps, IState> {
     if (this.state.selectedIndex != index) {
       this.setState({ selectedIndex: index });
     }
-    this.onTabChanged(this.props.tabs[index].tabName, index);
+    this.onTabChanged(index, this.props.tabs[index].tabName);
   };
 
-  private onTabChanged = (tabName?: string, index?: number) => {
+  private onTabChanged = (index: number, tabName?: string) => {
     if (tabName && this.props.onTabSelected) {
-      this.props.onTabSelected(tabName, index);
+      this.props.onTabSelected(tabName);
+    }
+
+    if (this.props.onSelectedIndexChanged) {
+      this.props.onSelectedIndexChanged(index);
     }
   };
 }
