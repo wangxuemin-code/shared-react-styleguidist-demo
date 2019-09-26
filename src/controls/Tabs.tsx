@@ -13,23 +13,14 @@ interface ITab {
 }
 
 interface IProps extends IContainer {
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   selectedIndex?: number;
   tabs: ITab[];
   orientation?: 'vertical' | 'horizontal';
   tabsContentOrientation?: 'stacked' | 'inline';
   align?: 'left' | 'middle' | 'right';
   basic?: boolean;
-  onTabSelected?: (tabName: string) => void;
+  onTabSelected?: (tabName: string, index?: number) => void;
   id?: string;
   extraControls?: any;
   animated?: boolean | { inkBar: boolean; tabPane: boolean };
@@ -90,11 +81,7 @@ export class Tabs extends React.Component<IProps, IState> {
     };
     const { TabPane } = ReactTabs;
     return (
-      <Container
-        id={this.props.id || 'istox-tabs'}
-        {...filteredProps}
-        className={classes.join(' ')}
-      >
+      <Container id={this.props.id || 'istox-tabs'} {...filteredProps} className={classes.join(' ')}>
         <ReactTabs
           tabBarExtraContent={this.props.extraControls}
           tabPosition={this.props.orientation === 'vertical' ? 'left' : 'top'}
@@ -106,12 +93,7 @@ export class Tabs extends React.Component<IProps, IState> {
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (
-            <TabPane
-              key={i.toString()}
-              tab={tab.title}
-              disabled={tab.disabled}
-              forceRender={!this.props.lazyLoad}
-            >
+            <TabPane key={i.toString()} tab={tab.title} disabled={tab.disabled} forceRender={!this.props.lazyLoad}>
               {tab.contents}
             </TabPane>
           ))}
@@ -161,12 +143,12 @@ export class Tabs extends React.Component<IProps, IState> {
     if (this.state.selectedIndex != index) {
       this.setState({ selectedIndex: index });
     }
-    this.onTabChanged(this.props.tabs[index].tabName);
+    this.onTabChanged(this.props.tabs[index].tabName, index);
   };
 
-  private onTabChanged = (tabName?: string) => {
+  private onTabChanged = (tabName?: string, index?: number) => {
     if (tabName && this.props.onTabSelected) {
-      this.props.onTabSelected(tabName);
+      this.props.onTabSelected(tabName, index);
     }
   };
 }
