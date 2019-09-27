@@ -77,10 +77,6 @@ class Main extends Controls.MyComponent<any, IState> {
                   label={'Uploader'}
                   name='uploader'
                   required={true}
-                  value={
-                    // 'ISTOXBUCKET|istoxkyc|ID35126761M/6314f04e-76e6-4142-bdac-4a23cbf438ed.pdf'
-                    'ISTOXBUCKET|istoxkyc-local|ID42731762M/f0cbc4cc-915a-4a3b-8e43-94a1989a8f15.png'
-                  }
                   uploaderConfigs={{
                     fieldName: 'label1',
                     bucketName: 'istoxkyc-local',
@@ -95,10 +91,6 @@ class Main extends Controls.MyComponent<any, IState> {
                   label={'Uploader'}
                   name='uploader_2'
                   required={true}
-                  value={
-                    // 'ISTOXBUCKET|istoxkyc|ID35126761M/6314f04e-76e6-4142-bdac-4a23cbf438ed.pdf'
-                    'ISTOXBUCKET|istoxkyc-local|ID42731762M/f0cbc4cc-915a-4a3b-8e43-94a1989a8f15.png'
-                  }
                   uploaderConfigs={{
                     bucketName: 'istoxkyc-local',
                     path: 'ID42731762M',
@@ -112,10 +104,6 @@ class Main extends Controls.MyComponent<any, IState> {
                   label={'Uploader2'}
                   name='uploader_3'
                   required={true}
-                  value={
-                    // 'ISTOXBUCKET|istoxkyc|ID35126761M/6314f04e-76e6-4142-bdac-4a23cbf438ed.pdf'
-                    'ISTOXBUCKET|istoxkyc-local|ID42731762M/f0cbc4cc-915a-4a3b-8e43-94a1989a8f15.png'
-                  }
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
