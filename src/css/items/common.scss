@@ -340,6 +340,10 @@ strong {
   text-transform: uppercase;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .rotate {
   animation: rotate 0.8s linear infinite;
   transform-box: fill-box;

@@ -6,21 +6,48 @@ import { Alert, IAlert } from './Alert';
 import { Container, IContainer } from './Container';
 import { FormControl } from './FormControl';
 import { Loading } from './Loading';
-import { Controls } from '../index-prod';
+import { Modal } from './Modal';
+import { ProgressBar } from './ProgressBar';
+import { Divider } from './Divider';
+import { Grid } from './Grid';
+import { Button } from './Button';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
-  onSubmit?: () => void;
   horizontal?: boolean;
-  onUploadError?: (e: any) => void;
   comparing?: boolean;
+  antiVirusChecks?: any;
+  onSubmit?: () => void;
+  onUploadError?: (e: any) => void;
+  onUploadComplete?: (uploads: any[]) => void;
+  onAntiVirusChecksComplete?: () => void;
+  uploadBackButtonText?: string;
 }
 
-export class Form extends React.Component<IProps> {
+interface IState {
+  showUploaderModal: boolean;
+  uploadFormControlsProgress?: any[];
+  antiVirusChecks?: any;
+  uploadResult?: string;
+  uploadRedirectMessage?: string;
+}
+
+export class Form extends React.Component<IProps, IState> {
   formControls: any[];
 
   constructor(props: IProps) {
     super(props);
+
+    this.state = {
+      showUploaderModal: false,
+      antiVirusChecks: {}
+    };
+  }
+
+  public componentDidUpdate(prevProps: IProps) {
+    if (prevProps.antiVirusChecks !== this.props.antiVirusChecks) {
+      this.updateUploaderProgress(this.props.antiVirusChecks);
+    }
   }
 
   public render() {
@@ -43,9 +70,91 @@ export class Form extends React.Component<IProps> {
         >
           {this.recursiveCloneChildren(this.props.children)}
         </ReactForm>
+        <Modal width={650} visible={this.state.showUploaderModal}>
+          {this.state.uploadResult && (
+            <>
+              <h4>{this.state.uploadResult}</h4>
+              <Divider visibility={'hidden'} />
+            </>
+          )}
+          {this.getUploaderFormControls(this.props.children)}
+          {!this.state.uploadRedirectMessage && (
+            <>
+              <Divider visibility={'hidden'} />
+              <Button
+                variant='disabled'
+                outline
+                onClick={() => {
+                  this.setState({ showUploaderModal: false });
+                }}
+              >
+                {this.state.uploadFormControlsProgress && this.props.uploadBackButtonText}
+              </Button>
+            </>
+          )}
+          {this.state.uploadRedirectMessage && (
+            <Container className='color-primary-grey-darker large' textAlign={'center'}>
+              {this.state.uploadRedirectMessage}
+            </Container>
+          )}
+        </Modal>
       </Container>
     );
   }
+
+  private getUploaderFormControls = (children: any) => {
+    let uploaderCount = 0;
+    return React.Children.map(children, (child) => {
+      uploaderCount++;
+      const uploadFormControlsProgress = this.state.uploadFormControlsProgress;
+      if (child.props.type === 'uploader') {
+        return (
+          <>
+            {uploadFormControlsProgress && uploadFormControlsProgress[child.props.name] && (
+              <>
+                {child.props.uploaderConfigs.fieldName && (
+                  <>
+                    {uploaderCount !== 1 && child.props.uploaderConfigs.fieldName && (
+                      <>
+                        <Divider visibility='visible' />
+                      </>
+                    )}
+                    <p className='color-primary-grey-darker'>
+                      {child.props.uploaderConfigs.fieldName}
+                    </p>
+                  </>
+                )}
+                <Grid>
+                  <Grid.Row fitted>
+                    <Grid.Col col={8}>
+                      <Container className='semi-bold large color-dark'>
+                        {uploadFormControlsProgress[child.props.name].fileName || ''}
+                      </Container>
+                      <ProgressBar
+                        padding={{ bottomRem: 0.5 }}
+                        className={styles.uploaderProgressBar}
+                        animated
+                        variant={uploadFormControlsProgress[child.props.name].variant}
+                        value={uploadFormControlsProgress[child.props.name].percentProgress || ''}
+                      />
+                    </Grid.Col>
+                    <Grid.Col col={4} verticalAlign='center'>
+                      <Container
+                        padding={{ leftRem: 2 }}
+                        className={`capitalize color-${uploadFormControlsProgress[child.props.name].variant}`}
+                      >
+                        {uploadFormControlsProgress[child.props.name].statusMessage}
+                      </Container>
+                    </Grid.Col>
+                  </Grid.Row>
+                </Grid>
+              </>
+            )}
+          </>
+        );
+      }
+    });
+  };
 
   private recursiveCloneChildren(children: any) {
     return React.Children.map(children, (child) => {
@@ -58,6 +167,9 @@ export class Form extends React.Component<IProps> {
       childProps.children = this.recursiveCloneChildren((child.props as any).children);
       if (this.props.comparing) {
         childProps.static = this.props.comparing;
+      }
+      if (this.props.onUploadComplete) {
+        childProps.getUploaderProgress = this.getUploaderProgress;
       }
       return React.cloneElement(child, childProps);
     });
@@ -167,9 +279,15 @@ export class Form extends React.Component<IProps> {
   public handleFormControlsUpload() {
     return new Promise((resolve, reject) => {
       const promises: any[] = [];
+      let showUploadModal = false;
+      let uploads: any[] = [];
       this.formControls.forEach(async (formControl: any) => {
         if (formControl.onUpload) {
           const promise = formControl.onUpload();
+          if (formControl.control.state.uploaded == false) {
+            showUploadModal = true;
+            uploads.push(formControl.getName());
+          }
           if (promise) {
             promises.push(promise);
           }
@@ -177,14 +295,17 @@ export class Form extends React.Component<IProps> {
       });
 
       if (promises.length > 0) {
-        Controls.Confirm.show({ type: 'blocking-load', message: 'Uploading...' });
+        if (showUploadModal) {
+          this.setState({ showUploaderModal: true });
+        }
         Promise.all(promises)
           .then(() => {
-            Controls.Confirm.destroy();
+            if (this.props.onUploadComplete && showUploadModal) {
+              this.props.onUploadComplete(uploads);
+            }
             resolve();
           })
-          .catch((e) => {
-            Controls.Confirm.destroy();
+          .catch((e: any) => {
             reject(e);
           });
       } else {
@@ -192,4 +313,90 @@ export class Form extends React.Component<IProps> {
       }
     });
   }
+
+  private updateUploaderProgress = (antiVirusChecks: any) => {
+    if (Object.keys(antiVirusChecks).length) {
+      let uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
+      let newUploadFormControlsProgress: any[] = [];
+      let virusCount: number = 0;
+      Object.keys(antiVirusChecks).forEach(function(key: any) {
+        let percentProgress = uploadFormControlsProgress[key].percentProgress;
+        let statusMessage = uploadFormControlsProgress[key].statusMessage;
+        let fileName = uploadFormControlsProgress[key].fileName;
+        let variant = uploadFormControlsProgress[key].variant;
+        percentProgress = 100;
+        if (antiVirusChecks[key]) {
+          statusMessage = 'File uploaded';
+          variant = 'success';
+        } else {
+          statusMessage = 'Malicious file detected';
+          variant = 'danger';
+          virusCount++;
+        }
+        const obj = {
+          percentProgress: percentProgress,
+          fileName: fileName,
+          variant: variant,
+          statusMessage: statusMessage
+        };
+        newUploadFormControlsProgress[key] = obj;
+      });
+      this.setState({
+        uploadFormControlsProgress: newUploadFormControlsProgress,
+        uploadResult: virusCount > 0 ? `${virusCount} Malicious file detected!` : undefined
+      });
+      if (virusCount === 0) {
+        this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
+        setTimeout(() => {
+          this.setState({ showUploaderModal: false });
+          if (this.props.onAntiVirusChecksComplete) {
+            this.props.onAntiVirusChecksComplete();
+          }
+        }, 2000);
+      }
+    }
+  };
+
+  public getUploaderProgress = (
+    name: string,
+    fileName: string,
+    uploaderProgress: number,
+    uploaderComplete: boolean
+  ) => {
+    const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
+    const key: any = name;
+    let variant = 'danger';
+    let statusMessage = uploaderProgress + '% uploaded';
+    if (uploaderComplete) {
+      statusMessage = 'File failed';
+    }
+    let uploaderPercentProgress: number = uploaderProgress;
+    if (this.props.antiVirusChecks) {
+      let uploaderPercentProgress: number = uploaderProgress / 2;
+      if (uploaderPercentProgress > 49) {
+        variant = 'info';
+        statusMessage = 'Checking for virus';
+      }
+    } else {
+      if (uploaderPercentProgress > 49) {
+        variant = 'info';
+      }
+      if (uploaderPercentProgress === 100) {
+        variant = 'success';
+        statusMessage = 'File uploaded';
+        this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
+        setTimeout(() => {
+          this.setState({ showUploaderModal: false });
+        }, 2000);
+      }
+    }
+    const obj = {
+      percentProgress: uploaderPercentProgress,
+      fileName: fileName,
+      variant: variant,
+      statusMessage: statusMessage
+    };
+    uploadFormControlsProgress[key] = obj;
+    this.setState({ uploadFormControlsProgress });
+  };
 }

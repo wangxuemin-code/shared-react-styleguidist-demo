@@ -14,7 +14,6 @@ import {
   faUser,
   faChevronCircleRight,
   faCheck,
-  faFilePdf,
   faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
