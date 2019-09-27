@@ -30,6 +30,8 @@ interface IState {
   antiVirusChecks?: any;
   uploadResult?: string;
   uploadRedirectMessage?: string;
+  uploadComplete?: boolean;
+  uploadBackButtonText?: string;
 }
 
 export class Form extends React.Component<IProps, IState> {
@@ -40,7 +42,9 @@ export class Form extends React.Component<IProps, IState> {
 
     this.state = {
       showUploaderModal: false,
-      antiVirusChecks: {}
+      antiVirusChecks: {},
+      uploadComplete: false,
+      uploadBackButtonText: this.props.uploadBackButtonText
     };
   }
 
@@ -70,7 +74,7 @@ export class Form extends React.Component<IProps, IState> {
         >
           {this.recursiveCloneChildren(this.props.children)}
         </ReactForm>
-        <Modal width={650} visible={this.state.showUploaderModal}>
+        <Modal width={650} visible={this.state.showUploaderModal} disableClose>
           {this.state.uploadResult && (
             <>
               <h4>{this.state.uploadResult}</h4>
@@ -88,7 +92,7 @@ export class Form extends React.Component<IProps, IState> {
                   this.setState({ showUploaderModal: false });
                 }}
               >
-                {this.state.uploadFormControlsProgress && this.props.uploadBackButtonText}
+                {this.state.uploadFormControlsProgress && this.state.uploadBackButtonText}
               </Button>
             </>
           )}
@@ -104,15 +108,24 @@ export class Form extends React.Component<IProps, IState> {
 
   private getUploaderFormControls = (children: any) => {
     let uploaderCount = 0;
+    let prevFieldName = '';
     return React.Children.map(children, (child) => {
       uploaderCount++;
       const uploadFormControlsProgress = this.state.uploadFormControlsProgress;
-      if (child.props.type === 'uploader') {
+      if (child.props.type && child.props.type === 'uploader') {
+        let showTitle = false;
+        if (
+          child.props.uploaderConfigs.fieldName &&
+          prevFieldName !== child.props.uploaderConfigs.fieldName
+        ) {
+          showTitle = true;
+        }
+        prevFieldName = child.props.uploaderConfigs.fieldName;
         return (
           <>
             {uploadFormControlsProgress && uploadFormControlsProgress[child.props.name] && (
               <>
-                {child.props.uploaderConfigs.fieldName && (
+                {showTitle && (
                   <>
                     {uploaderCount !== 1 && child.props.uploaderConfigs.fieldName && (
                       <>
@@ -158,18 +171,24 @@ export class Form extends React.Component<IProps, IState> {
 
   private recursiveCloneChildren(children: any) {
     return React.Children.map(children, (child) => {
-      if (!React.isValidElement(child)) return child;
       var childProps: any = {
         ref: (ele: any) => {
           if (ele) this.formControls.push(ele);
         }
       };
+      if (
+        this.props.onUploadComplete &&
+        child.props &&
+        child.props.type &&
+        child.props.type === 'uploader'
+      ) {
+        childProps.getUploaderProgress = this.getUploaderProgress;
+        return React.cloneElement(child, childProps);
+      }
+      if (!React.isValidElement(child)) return child;
       childProps.children = this.recursiveCloneChildren((child.props as any).children);
       if (this.props.comparing) {
         childProps.static = this.props.comparing;
-      }
-      if (this.props.onUploadComplete) {
-        childProps.getUploaderProgress = this.getUploaderProgress;
       }
       return React.cloneElement(child, childProps);
     });
@@ -296,11 +315,12 @@ export class Form extends React.Component<IProps, IState> {
 
       if (promises.length > 0) {
         if (showUploadModal) {
-          this.setState({ showUploaderModal: true });
+          this.setState({ showUploaderModal: true, uploadBackButtonText: 'Cancel upload' });
         }
         Promise.all(promises)
           .then(() => {
             if (this.props.onUploadComplete && showUploadModal) {
+              this.setState({ uploadBackButtonText: this.props.uploadBackButtonText });
               this.props.onUploadComplete(uploads);
             }
             resolve();
@@ -366,7 +386,7 @@ export class Form extends React.Component<IProps, IState> {
     const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
     const key: any = name;
     let variant = 'danger';
-    let statusMessage = uploaderProgress + '% uploaded';
+    let statusMessage = uploaderProgress.toFixed(2) + '% uploaded';
     if (uploaderComplete) {
       statusMessage = 'File failed';
     }
@@ -375,7 +395,6 @@ export class Form extends React.Component<IProps, IState> {
       let uploaderPercentProgress: number = uploaderProgress / 2;
       if (uploaderPercentProgress > 49) {
         variant = 'info';
-        statusMessage = 'Checking for virus';
       }
     } else {
       if (uploaderPercentProgress > 49) {

@@ -29,7 +29,11 @@ interface IProps {
   resetFormControl?: () => void;
   bucketName?: string;
   fixedFileName?: string;
-  getUploaderProgress?: (fileName: string, uploaderProgress: number, uploaderComplete: boolean) => void;
+  getUploaderProgress?: (
+    fileName: string,
+    uploaderProgress: number,
+    uploaderComplete: boolean
+  ) => void;
 }
 
 interface IState {
