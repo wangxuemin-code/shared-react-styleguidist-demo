@@ -15,6 +15,7 @@ export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
 
 interface IProps {
+  uploaderFieldName?: string;
   path?: string;
   uploaderLabel?: any;
   uploaderFooter?: any;
@@ -28,6 +29,7 @@ interface IProps {
   resetFormControl?: () => void;
   bucketName?: string;
   fixedFileName?: string;
+  getUploaderProgress?: (fileName: string, uploaderProgress: number, uploaderComplete: boolean) => void;
 }
 
 interface IState {
@@ -41,6 +43,8 @@ interface IState {
   dragOver?: boolean;
   loading?: boolean;
   url: string;
+  fieldName: any;
+  uploadProgress: number;
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
@@ -58,7 +62,9 @@ export default class FileUploader extends React.Component<IProps, IState> {
       type: this.getExtensionType(),
       uploaded: true,
       showViewer: false,
-      url: ''
+      url: '',
+      fieldName: this.props.uploaderFieldName,
+      uploadProgress: 0
     };
   }
 
@@ -139,14 +145,14 @@ export default class FileUploader extends React.Component<IProps, IState> {
           this.setState({
             src: processedSrc,
             type: 'pdf',
-            url: processedSrc,
-            fileName: ''
+            url: processedSrc
+            // fileName: ''
           });
         } else {
           this.setState({
             src: processedSrc,
-            type: 'image',
-            fileName: ''
+            type: 'image'
+            // fileName: ''
           });
         }
       });
@@ -157,13 +163,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
           src: value,
           type: 'pdf',
           url: value,
-          fileName: ''
+          fileName: value
         });
       } else {
         this.setState({
           src: value,
           type: 'image',
-          fileName: ''
+          fileName: value
         });
       }
     } else if (value && this.tryParseJsonValue(value)) {
@@ -177,12 +183,14 @@ export default class FileUploader extends React.Component<IProps, IState> {
         this.setState({
           src: obj.src,
           type: 'pdf',
-          url: obj.src
+          url: obj.src,
+          fileName: value
         });
       } else {
         this.setState({
           src: obj.src,
-          type: 'image'
+          type: 'image',
+          fileName: value
         });
       }
     } else if (value === undefined || value == '') {
@@ -225,6 +233,12 @@ export default class FileUploader extends React.Component<IProps, IState> {
   private onValueChanged = () => {
     if (this.props.onChange) {
       this.props.onChange(this.getValue());
+    }
+  };
+
+  private getUploaderProgress = (uploaderProgress: number, uploaderComplete: boolean) => {
+    if (this.props.getUploaderProgress && this.state.fileName) {
+      this.props.getUploaderProgress(this.state.fileName, uploaderProgress, uploaderComplete);
     }
   };
 
@@ -509,18 +523,23 @@ export default class FileUploader extends React.Component<IProps, IState> {
           // The upload() is used instead of putObject() as we'd need the location url and assign that to our user profile/database
           // see: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
 
-          s3.putObject(params, (err, data) => {
-            if (err) {
-              reject(err);
-            } else {
-              const result = `ISTOXBUCKET|${bucket}|${key}`;
-
-              this.setState({ src: result, uploaded: true }, () => {
-                this.onValueChanged();
-                resolve();
-              });
-            }
-          });
+          s3.putObject(params)
+            .on('httpUploadProgress', (progress) => {
+              var percentComplete = (progress.loaded / progress.total) * 100;
+              this.getUploaderProgress(percentComplete, false);
+            })
+            .send((err, data) => {
+              if (err) {
+                reject(err);
+              } else {
+                const result = `ISTOXBUCKET|${bucket}|${key}`;
+                this.setState({ src: result, uploaded: true }, () => {
+                  this.onValueChanged();
+                  this.getUploaderProgress(100, true);
+                  resolve();
+                });
+              }
+            });
 
           // Save the Location (url) to your database and Key if needs be.
           // As good developers, we should return the url and let other function do the saving to database etc
