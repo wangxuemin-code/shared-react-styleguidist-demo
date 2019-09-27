@@ -51,7 +51,7 @@ const convertStringToSassDimension = function(result) {
 
 module.exports = {
   entry: {
-    'istox-shared': './src/index-dev.tsx'
+    'istox-shared': './src/index-dev-sts-uploader.tsx'
   },
   // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
   devtool: 'inline-source-map',
