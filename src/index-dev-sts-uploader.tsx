@@ -47,31 +47,31 @@ class Main extends Controls.MyComponent<any, IState> {
                 onUploadError={(e) => {
                   console.log(e);
                 }}
-                onUploadComplete={(uploads: any[]) => {
-                  console.log('done');
-                  let antiVirusFiles: any[] = [];
-                  let antiVirusReturns: any[] = [];
-                  uploads.forEach(async (name: any) => {
-                    const value = this.form!.getInputValue(name);
-                    antiVirusFiles.push(value);
-                    antiVirusReturns.push({
-                      key: name,
-                      file: name,
-                      success: true
-                    });
-                  });
-                  let antiVirusChecks = {
-                    bucketName: 'istoxkyc-local',
-                    files: antiVirusFiles
-                  };
-                  console.log('call antivirus', antiVirusChecks);
-                  this.setState({ antiVirusChecks: antiVirusReturns });
-                }}
-                antiVirusChecks={this.state.antiVirusChecks}
-                onAntiVirusChecksComplete={() => {
-                  console.log('do sthg');
-                }}
-                uploadBackButtonText={'Back to something'}
+                // onUploadComplete={(uploads: any[]) => {
+                //   console.log('done');
+                //   let antiVirusFiles: any[] = [];
+                //   let antiVirusReturns: any[] = [];
+                //   uploads.forEach(async (name: any) => {
+                //     const value = this.form!.getInputValue(name);
+                //     antiVirusFiles.push(value);
+                //     antiVirusReturns.push({
+                //       key: name,
+                //       file: name,
+                //       success: true
+                //     });
+                //   });
+                //   let antiVirusChecks = {
+                //     bucketName: 'istoxkyc-local',
+                //     files: antiVirusFiles
+                //   };
+                //   console.log('call antivirus', antiVirusChecks);
+                //   this.setState({ antiVirusChecks: antiVirusReturns });
+                // }}
+                // antiVirusChecks={this.state.antiVirusChecks}
+                // onAntiVirusChecksComplete={() => {
+                //   console.log('do sthg');
+                // }}
+                // uploadBackButtonText={'Back to something'}
               >
                 {this.state.antiVirusChecks && (
                   <Controls.Message variant={'warning'} message={'Dasdsad'} />
