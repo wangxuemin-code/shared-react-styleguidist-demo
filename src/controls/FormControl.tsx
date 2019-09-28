@@ -109,6 +109,7 @@ interface IProps extends IContainer {
     uploaderProgress: number,
     uploaderComplete: boolean
   ) => void;
+  getUploadedState?: () => boolean;
 }
 
 interface IProcessResult {
@@ -1387,4 +1388,10 @@ export class FormControl extends React.Component<IProps, IState> {
       this.props.getUploaderProgress(this.props.name, fileName, uploaderProgress, uploaderComplete);
     }
   };
+
+  public getUploadState() {
+    if (this.control && this.control.getUploadState) {
+      return this.control.getUploadState();
+    }
+  }
 }

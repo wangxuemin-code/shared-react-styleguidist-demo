@@ -49,6 +49,7 @@ interface IState {
   url: string;
   fieldName: any;
   uploadProgress: number;
+  uploadFail: boolean;
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
@@ -68,7 +69,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
       showViewer: false,
       url: '',
       fieldName: this.props.uploaderFieldName,
-      uploadProgress: 0
+      uploadProgress: 0,
+      uploadFail: false
     };
   }
 
@@ -258,7 +260,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           results.push('video/*');
           break;
         case 'image':
-          results.push('image/*');
+          results.push('');
           break;
       }
     });
@@ -436,15 +438,30 @@ export default class FileUploader extends React.Component<IProps, IState> {
   };
 
   private onFileChange = (e: any, inputFile?: File) => {
-    let file = inputFile || (e.target as any).files[0],
-      pattern = this.getAllowFileRules().join('|');
+    let file = inputFile || (e.target as any).files[0];
+    const filesAllowed: any[] = [];
+    const msgFilesAllowed: any[] = [];
+    this.props.customAllowFileExtensions!.map((extension) => {
+      let ex = extension;
+      if (extension === '.jpg') {
+        ex = extension.replace('.jpg', 'jpeg');
+      } else {
+        ex = extension.replace('.', '');
+      }
+      let cap = ex.toUpperCase();
+      filesAllowed.push(ex);
+      filesAllowed.push(cap);
+      msgFilesAllowed.push(cap);
+    });
+    const pattern = '^.*.(' + filesAllowed.join('|') + ')$';
     if (file) {
       this.setState({ loading: true });
       if (!file.type.match(pattern)) {
+        const filesAllowedString = msgFilesAllowed.join(' , ').toUpperCase();
         this.setState({ loading: false });
         Confirm.show({
           type: 'okonly',
-          message: 'Only specified files ( JPG, GIF, PNG, PDF ) are allowed ',
+          message: `Only specified files ( ${filesAllowedString} ) are allowed`,
           onResult: (result) => {}
         });
         e.target.value = '';
@@ -489,6 +506,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
     return !!pattern.test(str);
   }
 
+  public getUploadState = () => {
+    return this.state.uploaded;
+  };
+
   public onUpload = async () => {
     if (!this.state.uploaded) {
       return new Promise(async (resolve, reject) => {
@@ -529,11 +550,17 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
           s3.putObject(params)
             .on('httpUploadProgress', (progress) => {
-              var percentComplete = (progress.loaded / progress.total) * 100;
-              this.getUploaderProgress(percentComplete, false);
+              if (this.state.uploadFail === false) {
+                var percentComplete = (progress.loaded / progress.total) * 100;
+                this.getUploaderProgress(percentComplete, percentComplete === 100 ? true : false);
+              }
             })
-            .send((err, data) => {
+            .send((err: any, data: any) => {
               if (err) {
+                if (this.getUploaderProgress) {
+                  this.getUploaderProgress(100, false);
+                }
+                this.setState({ uploadFail: true });
                 reject(err);
               } else {
                 const result = `ISTOXBUCKET|${bucket}|${key}`;
@@ -544,7 +571,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
                 });
               }
             });
-
           // Save the Location (url) to your database and Key if needs be.
           // As good developers, we should return the url and let other function do the saving to database etc
 
