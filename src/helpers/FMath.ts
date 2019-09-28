@@ -288,7 +288,7 @@ export class FMath {
       const result = new BigNumber(input).toFixed(18, 1).toString();
 
       // non numeric
-      if (result.match(/[^$,.\d]/)) {
+      if (result.match(/[^-,.\d]/)) {
         return '0';
       }
 
