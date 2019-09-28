@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOVRCR7USQ',
-        secret_access_key: '/HHXpm+s6iwtKwwoici+0y/YCSxgeQl4hivAH5zr',
+        access_key_id: 'ASIA5FEPMSFOWF7VGISTa',
+        secret_access_key: 'ZGX4LCVhlKknirIWXJ71W4uQc+FTKVk4x1aH/tcR',
         session_token:
-          'FQoGZXIvYXdzEMf//////////wEaDDO3VAqL9l3PhnavXSLkA0db89Y2SSZl+yruCUdQFi1FnW9YFlr4t9SSfOtM28uItm8QF6kPZZTPlH56JFrhYtle+I2Ujo994wmIRBh0/vcBRl618Mb0CaL0pC1YFglxosJwp0GtRl+CC9aHrZcxHqWLqGGGLPYoQaZb9Y+DGHGtYrsy/Gr/9IREwR/HkCYMLqXWYsl1lrv6f+luRmcggiIn5W6NHlaRsOCeqDD4QQlQxy0maJCM0XBAcxxBExAlUuugvxtAf7J58+UN0svHngIKVBRRzVd85+n1TDttFhSOrQ6Vs/JOuq9pqbHj5aikAwjy6JkEuN4KSBue7h/3Yu9TRWChLLg17WogZ7jyJHfETREQaNU6hoafsFKCfjQAOzmATFS9OHcWNArZx751OYDJTo8VlqKzHXDvH4deTs5JhB+8T7d4dJxDcU0rYeBF2oJ+tWQTk86rsIQrePTqLaOw9HBTfebToru7C/e2VSE6f2LbX/9I9VJKz9tElj+1ATYTxQrTcwaUdG70HW6gHmY54Ndgwk8pFuvMQn2ppBeXOD1k1GMU8Ngh+2jjH8KuXo7UKPof2eckc5vk8Zc3dbfeWyeLdp6Nv38gmJN/LnTHj0iwT/GRJRo5MXEttjognvWCTvMRbRdQQmO2mE+n1XEidago7rS97AU=',
+          'FQoGZXIvYXdzEMv//////////wEaDOJNeayqY4k/J8kLrSLkA57nRzmP0W8dMnCcxmaE9Z5Iu0TQ+nAmiOYRuAmuER1udnUfxNTUBh7Zv2Z2ILbyrGlPp23St5qcee5TTqNZVN9VkWeKiEFigFXJrDKx7YgjXcgj6ibrh/TgoBm1O/zIDEIBzviPcVfrM+DAQuCD+8z2OzCDHAKXs1lhVS3PMmAXuQg+xeA4J/ROCfnmGCAjiol79g318DOQHr9iZZJyccXTQ4yARFADSMgiITTeAt8+ehV1JEsMEzGK5pP5zyK59s2GZ89FyE60OJXF7UYv/w3ZtC4GI8IS89LDgUCfZi4aBFj4u9VnRNn3E/eszMH4VSepIySx12FmXFJQV+J+nON889luhzBeS7gA4UvJZlnb6Pl/gopSlUoDZNzznBIoRqy4NrgvinRys5bLlJjgpdlwoRcQ9E3UangQ7Up/8g0R6V7Nf+7KKSux1wM/zQ/SETDUdq4LQJNFkj+Df/wuRO+OvuH4Kx5WQZ2K3B0u3QiJE25D/j6IWLWBdwHiRdJVhmeTkES3K1mUv9PaStVPTLp5QRn8OApvjOvXv0jhcj8rNqDvb9v2kDkYh0vzRL6IrSrKztwPIHOIRVQ962wL/BdjaELqVggQzuNn/ZIuF3iLh79PHTvLlhL3Qq2huOShFy2hYa8oqLa+7AU=',
         expiration: '2019-09-24 09:04:53 UTC'
       };
     };
@@ -48,7 +48,7 @@ class Main extends Controls.MyComponent<any, IState> {
                   console.log(e);
                 }}
                 onUploadComplete={(uploads: any[]) => {
-                  console.log('done');
+                  console.log('done', uploads);
                   let antiVirusFiles: any[] = [];
                   let antiVirusReturns: any[] = [];
                   uploads.forEach(async (name: any) => {
@@ -88,9 +88,9 @@ class Main extends Controls.MyComponent<any, IState> {
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                  value='ISTOXBUCKET|istoxkyc-local|ID42731762M/8d4529b3-a81b-4466-89f2-8ede52a34bb4.png'
+                  value='ISTOXBUCKET|istoxkyc-local|ID42731762M/94c15aa4-92d5-4fcb-b04a-8b2970a5352b.pdf'
                 />
-                <Controls.FormControl
+                {/* <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -116,7 +116,7 @@ class Main extends Controls.MyComponent<any, IState> {
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                />
+                /> */}
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'

@@ -347,6 +347,9 @@ export class Form extends React.Component<IProps, IState> {
             reject(e);
           });
       } else {
+        if (this.props.onUploadComplete) {
+          this.props.onUploadComplete(uploads);
+        }
         resolve();
       }
     });
