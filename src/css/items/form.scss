@@ -410,10 +410,7 @@ textarea[disabled] {
   :global(.ant-progress-bg) {
     height: 4px !important;
     transition-delay: 2s;
-<<<<<<< HEAD
     transition-timing-function: linear;
-=======
->>>>>>> 8b8c942fb019e7174f28fbe5a4100ab24a997508
     transition: all 10s cubic-bezier(0.08, 0.82, 0.17, 1) 0s;
   }
 }
