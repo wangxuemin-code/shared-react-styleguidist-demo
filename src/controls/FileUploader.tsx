@@ -238,7 +238,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   private onValueChanged = () => {
     if (this.props.onChange) {
-      console.log(this.getValue());
+      // console.log(this.getValue());
       this.props.onChange(this.getValue());
     }
   };
