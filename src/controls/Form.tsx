@@ -321,7 +321,7 @@ export class Form extends React.Component<IProps, IState> {
         if (formControl.onUpload) {
           const promise = formControl.onUpload();
           const isUploaded = formControl.getUploadState();
-          if (!isUploaded) {
+          if (!isUploaded && promise) {
             showUploadModal = true;
             uploads.push(formControl.getName());
             promises.push(promise);
@@ -329,13 +329,17 @@ export class Form extends React.Component<IProps, IState> {
           }
         }
       });
-      this.setState({ uploadFormControls });
+
       if (promises.length > 0) {
         if (showUploadModal) {
-          this.setState({
-            showUploaderModal: true,
-            uploadBackButtonText: 'Cancel upload',
-            uploadRedirectMessage: undefined
+          this.setState({ uploadFormControls }, () => {
+            setTimeout(() => {
+              this.setState({
+                showUploaderModal: true,
+                uploadBackButtonText: 'Cancel upload',
+                uploadRedirectMessage: undefined
+              });
+            }, 500);
           });
         }
         Promise.all(promises)

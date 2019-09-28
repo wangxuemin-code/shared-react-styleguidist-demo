@@ -1619,7 +1619,7 @@ class Main extends Controls.MyComponent<
                     type={'date'}
                     placeholder={'DD/MM/YYYY'}
                     dateOptions={{
-                      endDate: new Date(),
+                      startDate: new Date(),
                       dateFormat: 'dd-MM-yyyy',
                       defaultShowDate: true
                     }}
@@ -1674,7 +1674,7 @@ class Main extends Controls.MyComponent<
                     name='datetime'
                     type={'datetime'}
                     dateOptions={{
-                      endDate: new Date(),
+                      startDate: new Date(),
                       showTimeSelect: true
                     }}
                     onInputChanged={(value) => {
@@ -1689,6 +1689,7 @@ class Main extends Controls.MyComponent<
                     placeholder={''}
                     // value={Formatter.dateToUnixTimestamp(new Date())}
                     dateOptions={{
+                      startDate: new Date(),
                       showTimeSelect: true
                     }}
                     onInputChanged={(value) => {
@@ -1954,7 +1955,7 @@ class Main extends Controls.MyComponent<
                     static={true}
                     placeholder={'DD/MM/YYYY'}
                     dateOptions={{
-                      endDate: new Date()
+                      startDate: new Date()
                       // dateFormat: 'DD-MM-YYYY'
                     }}
                     // oldValue={'2019-07-28T17:58:18.000Z'}

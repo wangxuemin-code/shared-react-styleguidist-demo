@@ -8,7 +8,7 @@ import { Modal } from './Modal';
 import { Spin as ReactSpin, Icon as ReactIcon } from 'antd';
 import * as AWS from 'aws-sdk';
 import { AwsHelper } from '../helpers/AwsHelper';
-import { Cookie, UuidGenerator } from '../helpers';
+import { UuidGenerator } from '../helpers';
 declare const Buffer: { from: new (arg0: any, arg1: string) => any };
 
 export type FilePattern = 'audio' | 'video' | 'image';
@@ -238,6 +238,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   private onValueChanged = () => {
     if (this.props.onChange) {
+      console.log(this.getValue());
       this.props.onChange(this.getValue());
     }
   };
@@ -410,18 +411,18 @@ export default class FileUploader extends React.Component<IProps, IState> {
     this.props.resetFormControl!;
     file.preview = await this.getBase64(file);
     if (file.type.split('/')[0] === 'image') {
-      setTimeout(() => {
-        this.setState(
-          {
-            src: file.preview as string,
-            type: 'image',
-            extension: this.getExtension(file.name),
-            uploaded: false,
-            fileName: file.name
-          },
-          this.onValueChanged
-        );
-      }, 100);
+      // setTimeout(() => {
+      this.setState(
+        {
+          src: file.preview as string,
+          type: 'image',
+          extension: this.getExtension(file.name),
+          uploaded: false,
+          fileName: file.name
+        },
+        this.onValueChanged
+      );
+      // }, 100);
     } else if (file.type === 'application/pdf') {
       this.setState(
         {
