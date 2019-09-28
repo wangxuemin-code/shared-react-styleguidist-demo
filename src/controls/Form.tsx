@@ -406,7 +406,6 @@ export class Form extends React.Component<IProps, IState> {
     if (this.props.antiVirusChecks) {
       uploaderPercentProgress = uploaderProgress / 2;
     }
-    console.log(uploaderComplete, uploaderPercentProgress);
     if (!uploaderComplete && uploaderPercentProgress === 50) {
       variant = 'danger';
       statusMessage = 'Upload failed';
