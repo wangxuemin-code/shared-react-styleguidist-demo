@@ -183,12 +183,21 @@ export class Form extends React.Component<IProps, IState> {
 
   private recursiveCloneChildren(children: any) {
     return React.Children.map(children, (child) => {
-      if (!React.isValidElement(child)) return child;
       var childProps: any = {
         ref: (ele: any) => {
           if (ele) this.formControls.push(ele);
         }
       };
+      if (
+        this.props.onUploadComplete &&
+        child.props &&
+        child.props.type &&
+        child.props.type === 'uploader'
+      ) {
+        childProps.getUploaderProgress = this.getUploaderProgress;
+        return React.cloneElement(child, childProps);
+      }
+      if (!React.isValidElement(child)) return child;
       childProps.children = this.recursiveCloneChildren((child.props as any).children);
       if (this.props.comparing) {
         childProps.static = this.props.comparing;

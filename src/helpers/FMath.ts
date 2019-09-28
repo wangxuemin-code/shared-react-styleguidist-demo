@@ -285,10 +285,13 @@ export class FMath {
    */
   private static makeSureValidNumber(input: string | number) {
     try {
-      if (input.toString().toLowerCase() === 'nan') {
+      const result = new BigNumber(input).toFixed(18, 1).toString();
+
+      // non numeric
+      if (result.match(/[^$,.\d]/)) {
         return '0';
       }
-      const result = new BigNumber(input).toFixed(18, 1).toString();
+
       return result;
     } catch (ex) {
       return 0;
