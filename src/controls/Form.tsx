@@ -188,15 +188,6 @@ export class Form extends React.Component<IProps, IState> {
           if (ele) this.formControls.push(ele);
         }
       };
-      if (
-        this.props.onUploadComplete &&
-        child.props &&
-        child.props.type &&
-        child.props.type === 'uploader'
-      ) {
-        childProps.getUploaderProgress = this.getUploaderProgress;
-        return React.cloneElement(child, childProps);
-      }
       if (!React.isValidElement(child)) return child;
       childProps.children = this.recursiveCloneChildren((child.props as any).children);
       if (this.props.comparing) {
