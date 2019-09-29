@@ -6,6 +6,7 @@ import { Button } from './Button';
 import { Container } from './Container';
 import { Icon } from './Icon';
 import * as styles from '../css/main.scss';
+import { Divider } from './Divider';
 
 interface IProps {
   placeholder?: string;
@@ -42,17 +43,6 @@ export class Phone extends React.Component<IProps, IState> {
     };
   }
 
-  public componentDidMount() {
-    setTimeout(() => {
-      const eles = document.querySelectorAll('.country-SG');
-      eles.forEach((ele) => {
-        if (ele) {
-          ele.parentElement!.setAttribute('data-code', 'SG');
-        }
-      });
-    }, 100);
-  }
-
   public componentWillMount() {
     if (this.props.value) {
       this.processPhoneCode(this.props.value);
@@ -69,7 +59,7 @@ export class Phone extends React.Component<IProps, IState> {
     const CustomOption = (innerProps: any) => {
       return (
         <components.Option {...innerProps}>
-          <Container className={`select-option country-${innerProps.data.code}`}>
+          <Container className={'select-opt'}>
             <Container float='left'>
               <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.country}
@@ -82,14 +72,16 @@ export class Phone extends React.Component<IProps, IState> {
     const DisplayOption = (innerProps: any) => {
       return (
         <components.SingleValue {...innerProps}>
-          <Container className='select-option'>
+          <Container className='select-opt'>
             <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
             {innerProps.data.label}
           </Container>
         </components.SingleValue>
       );
     };
-    const Options: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
+    const allOptions: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
+    const mainOptions: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
+    const restOptions: any = [];
     var sortedCountries: any = countries.all;
     sortedCountries.sort(function(a: any, b: any) {
       if (a.name < b.name) {
@@ -108,9 +100,20 @@ export class Phone extends React.Component<IProps, IState> {
           country: option.name,
           code: option.alpha2
         };
-        Options.push(obj);
+        restOptions.push(obj);
+        allOptions.push(obj);
       }
     });
+    const Options: any = [
+      {
+        label: <Container display='none'></Container>,
+        options: mainOptions
+      },
+      {
+        label: <Divider compact />,
+        options: restOptions
+      }
+    ];
     const customFilter = (option: any, searchText: string) => {
       if (
         (option.data && option.data.label.includes(searchText.toLowerCase())) ||
@@ -136,10 +139,10 @@ export class Phone extends React.Component<IProps, IState> {
             <Select
               ignoreAccents={false}
               // componentClass='select'
-              // defaultMenuIsOpen
+              defaultMenuIsOpen
               searchable={true}
               className={'select phone-select'}
-              value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
+              value={allOptions.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
               filterOption={customFilter}
               onChange={this.onSetOption}
               components={{ Option: CustomOption, SingleValue: DisplayOption }}

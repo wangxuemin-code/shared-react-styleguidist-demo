@@ -280,13 +280,6 @@ textarea[disabled] {
     position: absolute !important;
   }
 
-  .phone-select {
-    div[id*='select'][data-code='SG'] {
-      border-bottom: 1px solid map-get($colors, primaryGreyDarker);
-      margin-bottom: 5px;
-    }
-  }
-
   .select {
     width: 100%;
 
@@ -301,15 +294,16 @@ textarea[disabled] {
       border-bottom: 3px solid rgba(0, 0, 0, 0.15);
     }
 
-    div[id*='select'] {
+    div[class*='option'] {
       background-color: map-get($colors, primaryAlt);
       cursor: pointer;
       color: map-get($colors, primaryGreyDarker);
       border-left: 3px solid map-get($colors, primaryAlt);
       padding: 0.5rem;
+      display: inline-block;
     }
 
-    div[id*='select']:hover {
+    div[class*='option']:hover {
       color: map-get($colors, primaryDark);
       border-left: 3px solid map-get($colors, primaryDark);
     }
@@ -335,7 +329,7 @@ textarea[disabled] {
       align-items: center;
 
       .form-controls-inner {
-        .select-option {
+        .select-opt {
           display: flex;
           align-items: center;
 

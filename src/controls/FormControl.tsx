@@ -567,14 +567,14 @@ export class FormControl extends React.Component<IProps, IState> {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
-            <Container className='select-option'>{innerProps.data.html}</Container>
+            <Container className='select-opt'>{innerProps.data.html}</Container>
           </components.Option>
         );
       };
       const DisplayOption = (innerProps: any) => {
         return (
           <components.SingleValue {...innerProps}>
-            <Container className='select-option'>{innerProps.data.html}</Container>
+            <Container className='select-opt'>{innerProps.data.html}</Container>
           </components.SingleValue>
         );
       };
@@ -643,7 +643,7 @@ export class FormControl extends React.Component<IProps, IState> {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
-            <Container className='select-option'>
+            <Container className='select-opt'>
               <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
@@ -653,7 +653,7 @@ export class FormControl extends React.Component<IProps, IState> {
       const DisplayOption = (innerProps: any) => {
         return (
           <components.SingleValue {...innerProps}>
-            <Container className='select-option'>
+            <Container className='select-opt'>
               <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
@@ -753,7 +753,7 @@ export class FormControl extends React.Component<IProps, IState> {
       const CustomOption = (innerProps: any) => {
         return (
           <components.Option {...innerProps}>
-            <Container className='select-option'>
+            <Container className='select-opt'>
               <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>
@@ -763,7 +763,7 @@ export class FormControl extends React.Component<IProps, IState> {
       const DisplayOption = (innerProps: any) => {
         return (
           <components.SingleValue {...innerProps}>
-            <Container className='select-option'>
+            <Container className='select-opt'>
               <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
               {innerProps.data.label}
             </Container>

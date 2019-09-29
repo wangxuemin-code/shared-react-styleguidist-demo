@@ -1,0 +1,17 @@
+.hr-divider {
+  hr {
+    margin: 1rem 0;
+    display: inline-block;
+    border: 0;
+
+    &.hidden {
+      visibility: none;
+    }
+  }
+
+  &.compact {
+    hr {
+      margin: 0.5rem 0;
+    }
+  }
+}

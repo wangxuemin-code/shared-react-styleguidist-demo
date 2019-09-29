@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { IContainer, Container } from './Container';
 import { stylings } from '../css/theme';
+import * as styles from '../css/main.scss';
 
 interface IDivider extends IContainer {
   direction?: 'horizontal' | 'vertical';
   size?: number;
   color?: string;
+  compact?: boolean;
 }
 
 export class Divider extends React.Component<IDivider, any> {
@@ -16,6 +18,14 @@ export class Divider extends React.Component<IDivider, any> {
   };
 
   public render() {
+    let classes: string[] = [
+      styles.hrDivider,
+      this.props.className ? this.props.className : '',
+      this.props.compact ? styles.compact : ''
+    ];
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
     const style: React.CSSProperties = {};
     if (this.props.direction === 'vertical') {
       style.width = this.props.size;
@@ -26,7 +36,7 @@ export class Divider extends React.Component<IDivider, any> {
     }
     style.background = this.props.color;
     return (
-      <Container {...this.props}>
+      <Container {...this.props} className={classes.join(' ')}>
         <hr style={style} />
       </Container>
     );
