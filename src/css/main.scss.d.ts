@@ -2547,6 +2547,7 @@ export const reactDatepickerYearSelect: string;
 export const mainFormControlsWrapper: string;
 export const formControlsWrapper: string;
 export const imageWrapper: string;
+export const phoneSelect: string;
 export const antFormHorizontal: string;
 export const selectOption: string;
 export const loadingContainerWrapper: string;

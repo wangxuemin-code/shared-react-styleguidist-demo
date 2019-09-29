@@ -360,6 +360,7 @@ export class Form extends React.Component<IProps, IState> {
       let uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
       let newUploadFormControlsProgress: any[] = [];
       let virusCount: number = 0;
+      let virusDetected: any[] = [];
       antiVirusChecks.map((upload: any) => {
         const key = upload.key;
         let percentProgress = uploadFormControlsProgress[key].percentProgress;
@@ -374,6 +375,7 @@ export class Form extends React.Component<IProps, IState> {
           statusMessage = 'Malicious file detected';
           variant = 'danger';
           virusCount++;
+          virusDetected.push(key);
         }
         const obj = {
           percentProgress: percentProgress,
@@ -396,6 +398,17 @@ export class Form extends React.Component<IProps, IState> {
           }
         }, 2000);
       }
+      if (virusDetected.length) {
+        this.formControls.forEach(async (formControl: any) => {
+          if (formControl && formControl.props && formControl.props.name) {
+            if (virusDetected.includes(formControl.props.name)) {
+              setTimeout(() => {
+                formControl.reset();
+              }, 300);
+            }
+          }
+        });
+      }
     }
   };
 
@@ -411,9 +424,9 @@ export class Form extends React.Component<IProps, IState> {
     let statusMessage = uploaderProgress.toFixed(2) + '% uploaded';
     let uploaderPercentProgress: number = uploaderProgress;
     if (this.props.antiVirusChecks) {
-      uploaderPercentProgress = uploaderProgress / 2;
+      uploaderPercentProgress = uploaderProgress - 1;
     }
-    if (!uploaderComplete && uploaderPercentProgress === 50) {
+    if (!uploaderComplete && uploaderPercentProgress === 99) {
       variant = 'danger';
       statusMessage = 'Upload failed';
     } else {

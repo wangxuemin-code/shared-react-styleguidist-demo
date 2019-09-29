@@ -20,11 +20,11 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOWF7VGISTa',
-        secret_access_key: 'ZGX4LCVhlKknirIWXJ71W4uQc+FTKVk4x1aH/tcR',
+        access_key_id: 'ASIA5FEPMSFO2VYFN5MBa',
+        secret_access_key: 'iu16T683agaXk/HMDvUtEMtJeT/uat7MjmrUpdCC',
         session_token:
-          'FQoGZXIvYXdzEMv//////////wEaDOJNeayqY4k/J8kLrSLkA57nRzmP0W8dMnCcxmaE9Z5Iu0TQ+nAmiOYRuAmuER1udnUfxNTUBh7Zv2Z2ILbyrGlPp23St5qcee5TTqNZVN9VkWeKiEFigFXJrDKx7YgjXcgj6ibrh/TgoBm1O/zIDEIBzviPcVfrM+DAQuCD+8z2OzCDHAKXs1lhVS3PMmAXuQg+xeA4J/ROCfnmGCAjiol79g318DOQHr9iZZJyccXTQ4yARFADSMgiITTeAt8+ehV1JEsMEzGK5pP5zyK59s2GZ89FyE60OJXF7UYv/w3ZtC4GI8IS89LDgUCfZi4aBFj4u9VnRNn3E/eszMH4VSepIySx12FmXFJQV+J+nON889luhzBeS7gA4UvJZlnb6Pl/gopSlUoDZNzznBIoRqy4NrgvinRys5bLlJjgpdlwoRcQ9E3UangQ7Up/8g0R6V7Nf+7KKSux1wM/zQ/SETDUdq4LQJNFkj+Df/wuRO+OvuH4Kx5WQZ2K3B0u3QiJE25D/j6IWLWBdwHiRdJVhmeTkES3K1mUv9PaStVPTLp5QRn8OApvjOvXv0jhcj8rNqDvb9v2kDkYh0vzRL6IrSrKztwPIHOIRVQ962wL/BdjaELqVggQzuNn/ZIuF3iLh79PHTvLlhL3Qq2huOShFy2hYa8oqLa+7AU=',
-        expiration: '2019-09-24 09:04:53 UTC'
+          'FQoGZXIvYXdzEN3//////////wEaDN1E2Bs97LGbLhn2rCLjA1Q+/RGbzjYi4CMWYp4jz0ogtkfUYUUKM7cCnUpz1exyDDq3CaQqPkPd/nu/t58Zs7du00zMi7n8p18eU+xMVqB6g51uXMpKyOyCzJWyAR+Ndgz3W+fSFwhKWSn2RTPQS7NjfdNKZ0cy6rL1pV31L+JcKxSUSho+CQXJ+ZXTtTaFFaNT+bJJWKHhT/+uDhseV/TLs9ZDaSJHWVXjKPHTAic4OpknDQbE9h7TU4eMp2HB/ftwrGzkZQBKZ3CkhWzDqAjhfEH+aHBABQhh1u4wQ5eFksgLCaUw4YhAsuRS53zHAf66B6DT4PkLSLgVcJj1uCtS7XxEi5cK1tVQ4+jeG+gtxFNfu+luKd8S2SpqwOhKjWP+dvXLCp43IEbirRORyR/LCfKE9BFxga8bG0o11LmXZRHfKY5XoMjvrnPb9S15Vq1lnLqjEM6q9F/ZkGe61mZ1FQvu4lFRzfjCerJMiQLIzJPV/hhEk+LMJPTjQBxXozFhfaq6WEyt/YRgdf2xRmzYwAmXie8XW0B2o/I4HDDgR9cjyWm357sJ1cRvD8mYqbRhGbZRmr/L6Tmt6RN5aEaVuYmxGzOrQd2gwPmc4bFRA05JwB7gyy9b8CDk+7cYXfrDBCzcT1qb9DH+B9upWDlUySibucLsBQ==',
+        expiration: '2019-09-29 12:59:23 UTC'
       };
     };
   }
@@ -57,7 +57,7 @@ class Main extends Controls.MyComponent<any, IState> {
                     antiVirusReturns.push({
                       key: name,
                       file: name,
-                      success: true
+                      success: false
                     });
                   });
                   let antiVirusChecks = {
@@ -84,13 +84,13 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label1',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42731762M',
+                    path: 'ID42343612M',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                  value='ISTOXBUCKET|istoxkyc-local|ID42731762M/94c15aa4-92d5-4fcb-b04a-8b2970a5352b.pdf'
+                  value=''
                 />
-                {/* <Controls.FormControl
+                <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -98,7 +98,7 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42731762M',
+                    path: 'ID42343612M',
                     customAllowFileExtensions: ['.jpg', '.png']
                     // fixedFileName: 'abc'
                   }}
@@ -112,11 +112,11 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42731762M',
+                    path: 'ID42343612M',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                /> */}
+                />
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'

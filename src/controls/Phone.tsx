@@ -42,6 +42,17 @@ export class Phone extends React.Component<IProps, IState> {
     };
   }
 
+  public componentDidMount() {
+    setTimeout(() => {
+      const eles = document.querySelectorAll('.country-SG');
+      eles.forEach((ele) => {
+        if (ele) {
+          ele.parentElement!.setAttribute('data-code', 'SG');
+        }
+      });
+    }, 100);
+  }
+
   public componentWillMount() {
     if (this.props.value) {
       this.processPhoneCode(this.props.value);
@@ -58,9 +69,12 @@ export class Phone extends React.Component<IProps, IState> {
     const CustomOption = (innerProps: any) => {
       return (
         <components.Option {...innerProps}>
-          <Container className='select-option'>
-            <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-            {innerProps.data.label}
+          <Container className={`select-option country-${innerProps.data.code}`}>
+            <Container float='left'>
+              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
+              {innerProps.data.country}
+            </Container>
+            <Container float='right'>{innerProps.data.label}</Container>
           </Container>
         </components.Option>
       );
@@ -76,7 +90,17 @@ export class Phone extends React.Component<IProps, IState> {
       );
     };
     const Options: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
-    countries.all.map((option) => {
+    var sortedCountries: any = countries.all;
+    sortedCountries.sort(function(a: any, b: any) {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.firstname > b.firstname) {
+        return 1;
+      }
+      return 0;
+    });
+    sortedCountries.map((option: any) => {
       if (option.countryCallingCodes.length && option.emoji && option.alpha2 !== 'SG') {
         var obj = {
           label: option.countryCallingCodes[0],
@@ -109,12 +133,12 @@ export class Phone extends React.Component<IProps, IState> {
                 <Container className={styles.semiBold}>Area Code</Container>
               </label>
             )}
-
             <Select
               ignoreAccents={false}
               // componentClass='select'
               // defaultMenuIsOpen
-              className={'select'}
+              searchable={true}
+              className={'select phone-select'}
               value={Options.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
               filterOption={customFilter}
               onChange={this.onSetOption}
@@ -137,6 +161,7 @@ export class Phone extends React.Component<IProps, IState> {
                 }),
                 menu: (base: any, state: any) => ({
                   ...base,
+                  width: '300px',
                   padding: '0.5rem 0 !important',
                   backgroundColor: 'white !important',
                   boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',

@@ -80,8 +80,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
-      const value = this.props.value;
-      this.processValue(value);
+      this.processValue(this.props.value);
     }
   }
 
@@ -369,7 +368,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
             {this.state.type !== 'pdf' && (
               <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
             )}
-            {this.state.type == 'pdf' && (
+            {this.state.type == 'pdf' && this.state.src !== '' && (
               <ReactIcon
                 onClick={this.openViewer.bind(this)}
                 className={styles.fileIcon}
