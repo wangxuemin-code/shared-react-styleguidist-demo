@@ -139,7 +139,7 @@ export class Phone extends React.Component<IProps, IState> {
             <Select
               ignoreAccents={false}
               // componentClass='select'
-              defaultMenuIsOpen
+              // defaultMenuIsOpen
               searchable={true}
               className={'select phone-select'}
               value={allOptions.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
