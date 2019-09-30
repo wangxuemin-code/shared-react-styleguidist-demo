@@ -1923,6 +1923,7 @@ class Main extends Controls.MyComponent<
                     showPhoneLabel={false}
                   />
                   <Controls.FormControl
+                    autoFocus={true}
                     label={'Phone With Send Code'}
                     name='phonewithsendcode'
                     type={'phone'}

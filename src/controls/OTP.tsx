@@ -15,7 +15,7 @@ interface IProps extends IContainer {
   numInputs: number;
   onChange: Function;
   separator?: any;
-  shouldAutoFocus: boolean;
+  autoFocus: boolean;
   isInputNum?: boolean;
   inputWidth: string;
   maxLength: number;
@@ -29,7 +29,7 @@ interface IProps extends IContainer {
 interface ISingleOtpInput extends IContainer {
   value: string;
   maxLength: number;
-  shouldAutoFocus?: boolean;
+  autoFocus?: boolean;
   inputWidth: string;
   isInputNum?: boolean;
   onChange: any;
@@ -55,7 +55,7 @@ export class OtpInput extends React.Component<IProps, IState> {
     onChange: (otp: number) => {
       // console.log(otp);
     },
-    shouldAutoFocus: true,
+    autoFocus: false,
     inputWidth: '2rem',
     maxLength: 1
   };
@@ -186,7 +186,7 @@ export class OtpInput extends React.Component<IProps, IState> {
 
   renderInputs = () => {
     const { activeInput, otp } = this.state;
-    const { numInputs, separator, shouldAutoFocus, isInputNum, inputWidth, maxLength } = this.props;
+    const { numInputs, separator, autoFocus, isInputNum, inputWidth, maxLength } = this.props;
     const inputs = [];
     for (let i = 0; i < numInputs; i++) {
       inputs.push(
@@ -204,7 +204,7 @@ export class OtpInput extends React.Component<IProps, IState> {
             }}
             onBlur={() => this.setState({ activeInput: -1 })}
             // isLastChild={i === numInputs - 1}
-            shouldAutoFocus={shouldAutoFocus}
+            autoFocus={autoFocus}
             isInputNum={isInputNum}
             inputWidth={inputWidth}
             maxLength={maxLength}
@@ -298,10 +298,10 @@ class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
   componentDidMount() {
     const {
       input,
-      props: { focus, shouldAutoFocus }
+      props: { focus, autoFocus }
     } = this;
 
-    if (input && focus && shouldAutoFocus) {
+    if (input && focus && autoFocus) {
       input.focus();
     }
   }

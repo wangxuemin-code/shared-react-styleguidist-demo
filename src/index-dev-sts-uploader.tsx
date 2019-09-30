@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFO2VYFN5MBa',
-        secret_access_key: 'iu16T683agaXk/HMDvUtEMtJeT/uat7MjmrUpdCC',
+        access_key_id: 'ASIA5FEPMSFOQLWV3CDO',
+        secret_access_key: '66QUq5Ery8Z3Mu1XTlAQui0vQp2iJckr5gYmVDHZ',
         session_token:
-          'FQoGZXIvYXdzEN3//////////wEaDN1E2Bs97LGbLhn2rCLjA1Q+/RGbzjYi4CMWYp4jz0ogtkfUYUUKM7cCnUpz1exyDDq3CaQqPkPd/nu/t58Zs7du00zMi7n8p18eU+xMVqB6g51uXMpKyOyCzJWyAR+Ndgz3W+fSFwhKWSn2RTPQS7NjfdNKZ0cy6rL1pV31L+JcKxSUSho+CQXJ+ZXTtTaFFaNT+bJJWKHhT/+uDhseV/TLs9ZDaSJHWVXjKPHTAic4OpknDQbE9h7TU4eMp2HB/ftwrGzkZQBKZ3CkhWzDqAjhfEH+aHBABQhh1u4wQ5eFksgLCaUw4YhAsuRS53zHAf66B6DT4PkLSLgVcJj1uCtS7XxEi5cK1tVQ4+jeG+gtxFNfu+luKd8S2SpqwOhKjWP+dvXLCp43IEbirRORyR/LCfKE9BFxga8bG0o11LmXZRHfKY5XoMjvrnPb9S15Vq1lnLqjEM6q9F/ZkGe61mZ1FQvu4lFRzfjCerJMiQLIzJPV/hhEk+LMJPTjQBxXozFhfaq6WEyt/YRgdf2xRmzYwAmXie8XW0B2o/I4HDDgR9cjyWm357sJ1cRvD8mYqbRhGbZRmr/L6Tmt6RN5aEaVuYmxGzOrQd2gwPmc4bFRA05JwB7gyy9b8CDk+7cYXfrDBCzcT1qb9DH+B9upWDlUySibucLsBQ==',
+          'FQoGZXIvYXdzEPr//////////wEaDJljRm6n95Q1ChaZdSLlA2UrfR9ZtZ5FbOHjwpRI7eAz7x2lL87dpTwslX3+A5M5ieaPfuhtl0eK7FPtQRfwIW5Md8N09jrQTi2xtoWqy9tzG8tw1LO/MaHqPOLjgI/wB6x/t856bGJXZW8GXZjNh8iSFV1V1eFC7CLfnpaF/7Rq5dUK5wlejsUTyk9k5eyLM9RDC+XvB41hLpcZbAH98CDk3h911oEO3pHypjq1Cv6XTbA+nW7SO7JqRJOUFNat9ke0p//2Skyvdd3qXKNcn4LhOmxeQqPiHS8VI6Atm9R8nu3F1pnsnjWJ34wUrS1C/y6qxku5DMrfaHbzwOXJFk8QD1PCacYfEz3hzR62OCKCeS6DsQHEMgtyeZUTptDGtxBfpL2oXKAE0VE3K52a5Km/uXraXoBd5SAWOVCuEUFm4HgwneV9gATf2cL20isfGzklERue8FkT3FYgiqIpfzr2ulRoF4ptx5Gti8YbkbYNJnb+l/Y4YrTeNGyJ/fROXIzjp+S8b5WUX4Ms/gJfdp1PUIgqKwf3oWWiftV4YxEWwW8AofFa+SAIGeV+7lIF7vsqct8SrJpFYNAsHd9mXSVtxEMStFvC9WD47MDwJEojCVJB0C5xisLrrxqQMRMYuq+qRNdyiJ9vSIcN9El1O2mzBILxKM/ayOwF',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };
@@ -47,50 +47,57 @@ class Main extends Controls.MyComponent<any, IState> {
                 onUploadError={(e) => {
                   console.log(e);
                 }}
-                onUploadComplete={(uploads: any[]) => {
-                  console.log('done', uploads);
-                  let antiVirusFiles: any[] = [];
-                  let antiVirusReturns: any[] = [];
-                  uploads.forEach(async (name: any) => {
-                    const value = this.form!.getInputValue(name);
-                    antiVirusFiles.push(value);
-                    antiVirusReturns.push({
-                      key: name,
-                      file: name,
-                      success: false
-                    });
-                  });
-                  let antiVirusChecks = {
-                    bucketName: 'istoxkyc-local',
-                    files: antiVirusFiles
-                  };
-                  console.log('call antivirus', antiVirusChecks);
-                  this.setState({ antiVirusChecks: antiVirusReturns });
-                }}
-                antiVirusChecks={this.state.antiVirusChecks}
-                onAntiVirusChecksComplete={() => {
-                  console.log('do sthg');
-                }}
-                uploadBackButtonText={'Back to something'}
+                // onUploadComplete={(uploads: any[]) => {
+                //   console.log('done', uploads);
+                //   let antiVirusFiles: any[] = [];
+                //   let antiVirusReturns: any[] = [];
+                //   var flag = false;
+                //   uploads.forEach(async (name: any) => {
+                //     const value = this.form!.getInputValue(name);
+                //     antiVirusFiles.push(value);
+                //     antiVirusReturns.push({
+                //       key: name,
+                //       file: name,
+                //       success: !flag
+                //     });
+                //     // flag = !flag;
+                //   });
+                //   let antiVirusChecks = {
+                //     bucketName: 'istoxkyc-local',
+                //     files: antiVirusFiles
+                //   };
+                //   console.log('call antivirus', antiVirusChecks);
+                //   this.setState({ antiVirusChecks: antiVirusReturns });
+                // }}
+                // antiVirusChecks={this.state.antiVirusChecks}
+                // onAntiVirusChecksComplete={() => {
+                //   console.log('do sthg');
+                // }}
+                // uploadBackButtonText={'Back to something'}
               >
                 {this.state.antiVirusChecks && (
                   <Controls.Message variant={'warning'} message={'Dasdsad'} />
                 )}
                 <Controls.FormControl
                   type='uploader'
-                  label={'Uploader'}
+                  label={
+                    <p key='paragraph' className='normal-text'>
+                      Uploader
+                    </p>
+                  }
                   name='uploader'
                   required={true}
                   uploaderConfigs={{
                     fieldName: 'label1',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42343612M',
-                    customAllowFileExtensions: ['.jpg', '.png', '.pdf']
+                    path: 'ID46066150M',
+                    customAllowFileExtensions: ['.jpg', '.png', '.pdf'],
+                    showFileName: true
                     // fixedFileName: 'abc'
                   }}
                   value=''
                 />
-                <Controls.FormControl
+                {/* <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -98,7 +105,7 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42343612M',
+                    path: 'ID46066150M',
                     customAllowFileExtensions: ['.jpg', '.png']
                     // fixedFileName: 'abc'
                   }}
@@ -112,11 +119,11 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID42343612M',
+                    path: 'ID46066150M',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                />
+                /> */}
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'

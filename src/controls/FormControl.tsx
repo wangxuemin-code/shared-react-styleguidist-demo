@@ -1,25 +1,30 @@
-import { countries } from 'country-data';
 import * as React from 'react';
 import { SyntheticEvent } from 'react';
-import { Input as ReactInput, Checkbox as ReactCheckbox, Radio as ReactRadio } from 'antd';
+import {
+  Input as ReactInput,
+  Checkbox as ReactCheckbox,
+  Radio as ReactRadio,
+  InputNumber as ReactInputNumber
+} from 'antd';
+import { OtpInput } from './OTP';
+import { Phone } from './Phone';
+import { countries } from 'country-data';
 import Select, { components } from 'react-select';
+import { DateTimePicker, IDateOption } from './DateTimePicker';
 import TextareaAutosize from 'react-textarea-autosize';
+import FileUploader, { FilePattern } from './FileUploader';
 import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
+import moment = require('moment');
+import { DateTime } from '../helpers';
 import { Container, IContainer } from './Container';
-import { DateTimePicker, IDateOption } from './DateTimePicker';
-import { Phone } from './Phone';
 import { Icon } from './Icon';
 import { Loading } from './Loading';
 import { Message } from './Message';
-import { OtpInput } from './OTP';
 import { Transition } from './Transition';
-import FileUploader, { FilePattern } from './FileUploader';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import moment = require('moment');
-import { Ant } from '../index-prod';
-import { DateTime } from '../helpers';
+import { Divider } from './Divider';
 
 interface IState {
   oldDisplayValue?: string;
@@ -94,15 +99,16 @@ interface IProps extends IContainer {
     fixedFileName?: string;
   };
   singleCheckbox?: boolean;
+  includeInFormData?: boolean;
+  showPhoneLabel?: boolean;
+  debounce?: number;
+  autoFocus?: boolean;
   onInputChanged?: (value: string | number | undefined, name: string) => void;
   onFocus?: (formControl: FormControl) => void;
   onBlur?: (formControl: FormControl) => void;
   onKeyPress?: () => void;
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
-  includeInFormData?: boolean;
-  showPhoneLabel?: boolean;
-  debounce?: number;
   getUploaderProgress?: (
     name: string,
     fileName: string,
@@ -486,6 +492,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'numberfields') {
       return (
         <OtpInput
+          autoFocus={this.props.autoFocus}
           loading={this.props.loading}
           required={this.props.required}
           isInputNum
@@ -516,6 +523,7 @@ export class FormControl extends React.Component<IProps, IState> {
       let Options: any = this.props.selectOptions || [];
       return (
         <Select
+          autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           // componentClass='select'
           // defaultMenuIsOpen
@@ -581,6 +589,7 @@ export class FormControl extends React.Component<IProps, IState> {
       let Options = this.props.selectCustomOptions || [];
       return (
         <Select
+          autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
           className={'select'}
@@ -630,6 +639,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'phone') {
       return (
         <Phone
+          autoFocus={this.props.autoFocus}
           required={this.props.required}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || undefined}
@@ -660,9 +670,23 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const Options: any = [
+      const allOptions: any = [
         { code: 'SG', country: 'Singapore', label: 'Singapore', value: 'Singapore' }
       ];
+      const mainOptions: any = [
+        { code: 'SG', country: 'Singapore', label: 'Singapore', value: 'Singapore' }
+      ];
+      const restOptions: any = [];
+      var sortedCountries: any = countries.all;
+      sortedCountries.sort(function(a: any, b: any) {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
       const excludeOptions = this.props.excludeOptions || [];
       countries.all.map((option) => {
         if (
@@ -677,7 +701,8 @@ export class FormControl extends React.Component<IProps, IState> {
             country: option.name,
             code: option.alpha2
           };
-          Options.push(obj);
+          restOptions.push(obj);
+          allOptions.push(obj);
         }
       });
       if (excludeOptions.indexOf('Others') == -1) {
@@ -687,8 +712,19 @@ export class FormControl extends React.Component<IProps, IState> {
           country: 'Others',
           code: 'Others'
         };
-        Options.push(obj);
+        restOptions.push(obj);
+        allOptions.push(obj);
       }
+      const Options: any = [
+        {
+          label: <Container display='none'></Container>,
+          options: mainOptions
+        },
+        {
+          label: <Divider compact />,
+          options: restOptions
+        }
+      ];
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -703,10 +739,11 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+          value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -721,10 +758,6 @@ export class FormControl extends React.Component<IProps, IState> {
               ...base,
               padding: '0 0.5rem',
               color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
             }),
             menu: (base: any, state: any) => ({
               ...base,
@@ -770,9 +803,21 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const Options: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
+      const allOptions: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
+      const mainOptions: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
+      const restOptions: any = [];
+      var sortedCountries: any = countries.all;
+      sortedCountries.sort(function(a: any, b: any) {
+        if (a.alpha3 < b.alpha3) {
+          return -1;
+        }
+        if (a.alpha3 > b.alpha3) {
+          return 1;
+        }
+        return 0;
+      });
       const excludeOptions = this.props.excludeOptions || [];
-      countries.all.map((option) => {
+      sortedCountries.map((option: any) => {
         if (
           option.alpha3.length &&
           option.emoji &&
@@ -785,7 +830,8 @@ export class FormControl extends React.Component<IProps, IState> {
             country: option.name,
             code: option.alpha2
           };
-          Options.push(obj);
+          restOptions.push(obj);
+          allOptions.push(obj);
         }
       });
       if (excludeOptions.indexOf('Others') == -1) {
@@ -795,8 +841,19 @@ export class FormControl extends React.Component<IProps, IState> {
           country: 'Others',
           code: 'Others'
         };
-        Options.push(obj);
+        restOptions.push(obj);
+        allOptions.push(obj);
       }
+      const Options: any = [
+        {
+          label: <Container display='none'></Container>,
+          options: mainOptions
+        },
+        {
+          label: <Divider compact />,
+          options: restOptions
+        }
+      ];
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -811,11 +868,12 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          autoFocus={this.props.autoFocus}
           // defaultMenuIsOpen
           ignoreAccents={false}
           isDisabled={this.props.disabled}
           className={'select'}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+          value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -830,10 +888,6 @@ export class FormControl extends React.Component<IProps, IState> {
               ...base,
               padding: '0 0.5rem',
               color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
             }),
             menu: (base: any, state: any) => ({
               ...base,
@@ -872,6 +926,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'longtext') {
       return (
         <TextareaAutosize
+          autoFocus={this.props.autoFocus}
           className={'form-control'}
           autoComplete={'off'}
           autoCorrect={'off'}
@@ -885,6 +940,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'date') {
       return (
         <DateTimePicker
+          autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
           type={'date'}
           placeholder={this.props.placeholder}
@@ -896,6 +952,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'datetime') {
       return (
         <DateTimePicker
+          autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
           type={'datetime'}
           placeholder={this.props.placeholder}
@@ -907,6 +964,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'daterange') {
       return (
         <DateTimePicker
+          autoFocus={this.props.autoFocus}
           disabled={this.props.disabled}
           type={'daterange'}
           placeholder={this.props.placeholder}
@@ -1000,6 +1058,7 @@ export class FormControl extends React.Component<IProps, IState> {
         <>
           {this.props.type === 'password' && (
             <ReactInput.Password
+              autoFocus={this.props.autoFocus}
               prefix={this.props.prepend || ''}
               className={classes.join(' ')}
               autoComplete={'off'}
@@ -1013,7 +1072,8 @@ export class FormControl extends React.Component<IProps, IState> {
           )}
 
           {this.props.type === 'number' && (
-            <Ant.InputNumber
+            <ReactInputNumber
+              autoFocus={this.props.autoFocus}
               prefix={this.props.prepend || ''}
               className={classes.join(' ')}
               autoComplete={'off'}
@@ -1037,6 +1097,7 @@ export class FormControl extends React.Component<IProps, IState> {
 
           {this.props.type !== 'number' && this.props.type !== 'password' && (
             <ReactInput
+              autoFocus={this.props.autoFocus}
               prefix={this.props.prepend || ''}
               className={classes.join(' ')}
               autoComplete={'off'}

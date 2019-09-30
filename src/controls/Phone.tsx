@@ -11,12 +11,13 @@ import { Divider } from './Divider';
 interface IProps {
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
   selectOptions?: { label: any; value: string }[];
   required?: boolean;
-  onSendCode?: (processing: boolean) => void;
   loading?: boolean;
   showPhoneLabel?: boolean;
+  autoFocus?: boolean;
+  onChange?: (value: string) => void;
+  onSendCode?: (processing: boolean) => void;
 }
 
 interface IState {
@@ -87,7 +88,7 @@ export class Phone extends React.Component<IProps, IState> {
       if (a.name < b.name) {
         return -1;
       }
-      if (a.firstname > b.firstname) {
+      if (a.name > b.name) {
         return 1;
       }
       return 0;
@@ -137,6 +138,7 @@ export class Phone extends React.Component<IProps, IState> {
               </label>
             )}
             <Select
+              autoFocus={this.props.autoFocus}
               ignoreAccents={false}
               // componentClass='select'
               // defaultMenuIsOpen
@@ -157,10 +159,6 @@ export class Phone extends React.Component<IProps, IState> {
                   ...base,
                   padding: '0 0.5rem',
                   color: 'rgba(0, 0, 0, 0.9)'
-                }),
-                option: (base: any, state: any) => ({
-                  ...base,
-                  borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
                 }),
                 menu: (base: any, state: any) => ({
                   ...base,

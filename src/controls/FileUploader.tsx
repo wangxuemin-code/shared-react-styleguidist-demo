@@ -365,6 +365,11 @@ export default class FileUploader extends React.Component<IProps, IState> {
               leftRightRem: 1
             }}
           >
+            {this.props.showFileName && (
+              <Container onClick={this.onFileChange} className={styles.uploaderChangeButton}>
+                Change
+              </Container>
+            )}
             {this.state.type !== 'pdf' && (
               <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
             )}
@@ -376,8 +381,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
               />
             )}
             {this.props.showFileName && (
-              <Container margin={{ topRem: 0.3 }} fluid verticalAlign={'center'}>
-                <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+              <Container className={styles.uploaderFileName} fluid verticalAlign={'center'}>
+                <Container
+                  classNames={[styles.normalText, styles.small, styles.colorPrimaryGreyDarker]}
+                >
                   {this.state.fileName}
                 </Container>
               </Container>
@@ -548,19 +555,21 @@ export default class FileUploader extends React.Component<IProps, IState> {
           // The upload() is used instead of putObject() as we'd need the location url and assign that to our user profile/database
           // see: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
 
-          s3.putObject(params)
+          var upload = s3
+            .putObject(params)
             .on('httpUploadProgress', (progress) => {
               if (this.state.uploadFail === false) {
-                var percentComplete = (progress.loaded / progress.total) * 100;
-                this.getUploaderProgress(percentComplete, percentComplete === 100 ? true : false);
+                var percentComplete = (progress.loaded / progress.total) * 100 - 1;
+                this.getUploaderProgress(percentComplete, false);
               }
             })
             .send((err: any, data: any) => {
               if (err) {
-                if (this.getUploaderProgress) {
-                  this.getUploaderProgress(100, false);
-                }
+                // setTimeout(() => {
+                //   upload.abort();
+                // }, 200);
                 this.setState({ uploadFail: true });
+                this.getUploaderProgress(100, false);
                 reject(err);
               } else {
                 const result = `ISTOXBUCKET|${bucket}|${key}`;
@@ -576,6 +585,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
           // make sure state is set before return
         } catch (e) {
+          this.setState({ uploadFail: true });
+          this.getUploaderProgress(100, false);
           reject(e);
         }
       });

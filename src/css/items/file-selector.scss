@@ -19,6 +19,21 @@
   }
 }
 
+.uploader-file-name {
+  margin: 0.5rem 0;
+}
+
+.uploader-change-button {
+  position: absolute;
+  right: 0;
+  top: -2rem;
+  cursor: pointer;
+}
+
+.uploader-change-button:hover {
+  color: map-get($colors, primaryDark);
+}
+
 .uploader-viewer {
   position: absolute;
   top: 5px;

@@ -37,7 +37,7 @@ export class ProgressBar extends React.Component<IProps, IState> {
       this.setState({
         value: this.props.value
       });
-    }, 100);
+    }, 1000);
   }
 
   componentDidUpdate() {

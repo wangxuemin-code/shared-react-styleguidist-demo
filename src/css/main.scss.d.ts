@@ -2601,6 +2601,8 @@ export const istoxBlockchainToast: string;
 export const purpose: string;
 export const uploaderContainer: string;
 export const clearUpload: string;
+export const uploaderFileName: string;
+export const uploaderChangeButton: string;
 export const uploaderViewer: string;
 export const uploader: string;
 export const fileIcon: string;

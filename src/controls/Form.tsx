@@ -22,6 +22,7 @@ interface IProps extends IContainer, IAlert {
   onUploadComplete?: (uploads: any[]) => void;
   onAntiVirusChecksComplete?: () => void;
   uploadBackButtonText?: string;
+  uploadRedirectMessage?: string;
 }
 
 interface IState {
@@ -45,11 +46,12 @@ export class Form extends React.Component<IProps, IState> {
       showUploaderModal: false,
       antiVirusChecks: [],
       uploadComplete: false,
-      uploadBackButtonText: this.props.uploadBackButtonText
+      uploadBackButtonText: this.props.uploadBackButtonText,
+      uploadRedirectMessage: ''
     };
   }
 
-  public componentDidUpdate(prevProps: IProps) {
+  public componentDidUpdate(prevProps: IProps, prevState: IState) {
     if (prevProps.antiVirusChecks !== this.props.antiVirusChecks) {
       this.updateUploaderProgress(this.props.antiVirusChecks);
     }
@@ -92,7 +94,9 @@ export class Form extends React.Component<IProps, IState> {
                   variant='disabled'
                   outline
                   onClick={() => {
-                    this.setState({ showUploaderModal: false });
+                    this.setState({
+                      showUploaderModal: false
+                    });
                   }}
                 >
                   {this.state.uploadFormControlsProgress && this.state.uploadBackButtonText}
@@ -100,7 +104,12 @@ export class Form extends React.Component<IProps, IState> {
               </>
             )}
           {this.state.uploadRedirectMessage && (
-            <Container className='color-primary-grey-darker large' textAlign={'center'}>
+            <Container
+              padding={{ bottomRem: 0.9 }}
+              className='color-primary-grey-darker large'
+              textAlign={'center'}
+            >
+              <Divider visibility={'hidden'} />
               {this.state.uploadRedirectMessage}
             </Container>
           )}
@@ -271,21 +280,24 @@ export class Form extends React.Component<IProps, IState> {
 
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
-
     if (this.validate(true) && this.props.onSubmit) {
-      this.setState({
-        uploadFormControlsProgress: undefined,
-        uploadFormControls: undefined
-      });
-      this.handleFormControlsUpload()
-        .then(() => {
-          this.props.onSubmit!();
-        })
-        .catch((e) => {
-          if (this.props.onUploadError) {
-            this.props.onUploadError(e);
-          }
-        });
+      this.setState(
+        {
+          uploadFormControlsProgress: undefined,
+          uploadFormControls: undefined
+        },
+        () => {
+          this.handleFormControlsUpload()
+            .then(() => {
+              this.props.onSubmit!();
+            })
+            .catch((e) => {
+              if (this.props.onUploadError) {
+                this.props.onUploadError(e);
+              }
+            });
+        }
+      );
     }
   }
 
@@ -320,26 +332,33 @@ export class Form extends React.Component<IProps, IState> {
           }
         }
       });
-
+      this.setState({
+        uploadFormControls,
+        uploadResult: `Uploading ${uploads.length} file${uploads.length > 2 ? 's...' : ''}`
+      });
       if (promises.length > 0) {
-        if (showUploadModal) {
-          this.setState({ uploadFormControls }, () => {
-            setTimeout(() => {
-              this.setState({
-                showUploaderModal: true,
-                uploadBackButtonText: 'Cancel upload',
-                uploadRedirectMessage: undefined
-              });
-            }, 500);
-          });
-        }
         Promise.all(promises)
           .then(() => {
-            if (this.props.onUploadComplete && showUploadModal && uploads.length) {
+            if (showUploadModal && uploads.length) {
               this.setState({
-                uploadBackButtonText: this.props.uploadBackButtonText
+                uploadBackButtonText: this.props.uploadBackButtonText,
+                uploadResult: this.props.onUploadComplete
+                  ? `Uploading ${uploads.length} file${uploads.length > 2 ? 's...' : ''}`
+                  : `${uploads.length} file${uploads.length > 2 ? 's uploaded' : ''}`
               });
+            }
+            if (this.props.onUploadComplete) {
               this.props.onUploadComplete(uploads);
+            } else {
+              this.setState({
+                uploadRedirectMessage:
+                  this.props.uploadRedirectMessage || 'Page redirecting. Please wait...'
+              });
+              setTimeout(() => {
+                this.setState({
+                  showUploaderModal: false
+                });
+              }, 2000);
             }
             resolve();
           })
@@ -387,7 +406,10 @@ export class Form extends React.Component<IProps, IState> {
       });
       this.setState({
         uploadFormControlsProgress: newUploadFormControlsProgress,
-        uploadResult: virusCount > 0 ? `${virusCount} Malicious file detected!` : undefined
+        uploadResult:
+          virusCount > 0
+            ? `${virusCount} Malicious file${virusCount > 2 ? 's' : ''} detected!`
+            : `${antiVirusChecks.length} file${antiVirusChecks.length > 2 ? 's' : ''} uploaded!`
       });
       if (virusCount === 0) {
         this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
@@ -421,29 +443,27 @@ export class Form extends React.Component<IProps, IState> {
     const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
     const key: any = name;
     let variant = 'info';
-    let statusMessage = uploaderProgress.toFixed(2) + '% uploaded';
+    let statusMessage = uploaderProgress.toFixed(2) + '% uploading';
     let uploaderPercentProgress: number = uploaderProgress;
     if (this.props.antiVirusChecks) {
       uploaderPercentProgress = uploaderProgress - 1;
     }
-    if (!uploaderComplete && uploaderPercentProgress === 99) {
+    if (this.state.showUploaderModal === false && uploaderPercentProgress > 0) {
+      this.setState({
+        showUploaderModal: true,
+        uploadBackButtonText: 'Cancel upload',
+        uploadRedirectMessage: undefined
+      });
+    }
+    if (!uploaderComplete && uploaderPercentProgress === 100) {
       variant = 'danger';
       statusMessage = 'Upload failed';
     } else {
-      statusMessage = uploaderPercentProgress.toFixed(2) + '% uploaded';
+      statusMessage = uploaderPercentProgress.toFixed(2) + '% uploading';
       variant = 'info';
       if (uploaderPercentProgress === 100) {
         variant = 'success';
         statusMessage = 'File uploaded';
-      }
-    }
-
-    if (uploaderComplete) {
-      if (uploaderPercentProgress === 100) {
-        this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
-        setTimeout(() => {
-          this.setState({ showUploaderModal: false });
-        }, 2000);
       }
     }
     const obj = {
