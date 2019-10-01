@@ -67,7 +67,9 @@ class Main extends Controls.MyComponent<any, IState> {
                     files: antiVirusFiles
                   };
                   console.log('call antivirus', antiVirusChecks);
-                  this.setState({ antiVirusChecks: antiVirusReturns });
+                  setTimeout(() => {
+                    this.setState({ antiVirusChecks: antiVirusReturns });
+                  }, 2000);
                 }}
                 antiVirusChecks={this.state.antiVirusChecks}
                 onAntiVirusChecksComplete={() => {
