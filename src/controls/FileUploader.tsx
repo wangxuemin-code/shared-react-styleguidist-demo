@@ -617,6 +617,9 @@ export default class FileUploader extends React.Component<IProps, IState> {
                 const result = `ISTOXBUCKET|${bucket}|${key}`;
                 this.setState({ src: result, uploaded: true, uploadStatus: 1 }, () => {
                   this.onValueChanged();
+                  if (this.overallProgress == 100) {
+                    this.overallProgress = 0;
+                  }
                   if (this.overallProgress == 0) {
                     this.getUploaderProgress(0, false);
                   } else {

@@ -458,7 +458,8 @@ export class Form extends React.Component<IProps, IState> {
         uploadRedirectMessage: undefined
       });
     }
-    if (!uploaderComplete && uploaderPercentProgress === 100) {
+    // Need to check here
+    if (!this.props.antiVirusChecks && !uploaderComplete && uploaderPercentProgress === 100) {
       variant = 'danger';
       statusMessage = 'Upload failed';
     } else {
