@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Iframe from 'react-iframe';
-import { Container } from '.';
+import { Container, Message } from '.';
 import * as styles from '../css/main.scss';
 import { Confirm } from './Confirm';
 import { Image } from './Image';
@@ -49,10 +49,13 @@ interface IState {
   url: string;
   fieldName: any;
   uploadProgress: number;
-  uploadFail: boolean;
+  uploadStatus: -1 | 0 | 1 | 2; // 2 is attached
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
+  private progressInterval: any;
+  private overallProgress: number = 0;
+  private fileUploader: any;
   public static defaultProps: IProps = {
     value: '',
     filePatterns: ['image'],
@@ -70,8 +73,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
       url: '',
       fieldName: this.props.uploaderFieldName,
       uploadProgress: 0,
-      uploadFail: false
+      uploadStatus: 0
     };
+
+    this.handleFileUploaderClick = this.handleFileUploaderClick.bind(this);
   }
 
   public componentDidMount() {
@@ -150,13 +155,15 @@ export default class FileUploader extends React.Component<IProps, IState> {
           this.setState({
             src: processedSrc,
             type: 'pdf',
-            url: processedSrc
+            url: processedSrc,
+            uploadStatus: 1
             // fileName: ''
           });
         } else {
           this.setState({
             src: processedSrc,
-            type: 'image'
+            type: 'image',
+            uploadStatus: 1
             // fileName: ''
           });
         }
@@ -202,7 +209,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
       this.setState({
         src: '',
         type: this.getExtensionType(),
-        fileName: ''
+        fileName: '',
+        uploadStatus: 0
       });
     }
   }
@@ -237,7 +245,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
   private onValueChanged = () => {
     if (this.props.onChange) {
-      // console.log(this.getValue());
       this.props.onChange(this.getValue());
     }
   };
@@ -320,6 +327,22 @@ export default class FileUploader extends React.Component<IProps, IState> {
           )}
         </Modal>
         <Container position={'relative'} widthPercent={100} heightPercent={100}>
+          {this.props.showFileName && this.state.src !== '' && (
+            <Container
+              onClick={this.props.resetFormControl!}
+              classNames={[styles.uploaderDeleteButton, styles.small]}
+            >
+              Delete
+            </Container>
+          )}
+          {this.props.showFileName && this.state.src !== '' && (
+            <Container
+              onClick={this.handleFileUploaderClick}
+              classNames={[styles.uploaderChangeButton, styles.small]}
+            >
+              Change
+            </Container>
+          )}
           <label
             onDragEnter={this.onDragEnter}
             onDragLeave={this.onDragLeave}
@@ -330,8 +353,31 @@ export default class FileUploader extends React.Component<IProps, IState> {
             {this.props.uploaderLabel && (
               <Container className={styles.uploaderLabel}>{this.props.uploaderLabel}</Container>
             )}
+            {this.state.uploadStatus > 0 && (
+              <Container className={styles.uploaderStatus}>
+                <Message
+                  flat
+                  message={
+                    this.state.uploadStatus === 2
+                      ? 'Attached'
+                      : this.state.uploadStatus === 1
+                      ? 'Saved'
+                      : ''
+                  }
+                  size={'small'}
+                  variant={
+                    this.state.uploadStatus === 2
+                      ? 'disabled'
+                      : this.state.uploadStatus === 1
+                      ? 'info'
+                      : undefined
+                  }
+                />
+              </Container>
+            )}
             {this.getContentDesign()}
             <input
+              ref={(ref) => (this.fileUploader = ref)}
               type='file'
               accept={this.getAllowFileRules().join(',')}
               onChange={this.onFileChange}
@@ -351,48 +397,43 @@ export default class FileUploader extends React.Component<IProps, IState> {
     );
   }
 
+  private handleFileUploaderClick = (e: any) => {
+    this.fileUploader.click();
+  };
+
   private getContentDesign() {
     if (this.state.src) {
       return (
-        <Container>
-          <Container
-            position='relative'
-            textAlign='center'
-            className='image-container'
-            padding={{
-              topRem: this.props.uploaderLabel || this.props.uploaderViewer ? 2 : 1,
-              bottomRem: 1,
-              leftRightRem: 1
-            }}
-          >
-            {this.props.showFileName && (
-              <Container onClick={this.onFileChange} className={styles.uploaderChangeButton}>
-                Change
+        <Container
+          position='relative'
+          textAlign='center'
+          className='image-container'
+          padding={{
+            topRem: this.props.uploaderLabel || this.props.uploaderViewer ? 2 : 1,
+            bottomRem: 1,
+            leftRightRem: 1
+          }}
+        >
+          {this.state.type !== 'pdf' && (
+            <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
+          )}
+          {this.state.type == 'pdf' && this.state.src !== '' && (
+            <ReactIcon
+              onClick={this.openViewer.bind(this)}
+              className={styles.fileIcon}
+              type={'file-pdf'}
+            />
+          )}
+          {this.props.showFileName && (
+            <Container className={styles.uploaderFileName} fluid verticalAlign={'center'}>
+              <Container classNames={[styles.normalText, styles.small, styles.colorDark]}>
+                {this.state.fileName}
               </Container>
-            )}
-            {this.state.type !== 'pdf' && (
-              <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
-            )}
-            {this.state.type == 'pdf' && this.state.src !== '' && (
-              <ReactIcon
-                onClick={this.openViewer.bind(this)}
-                className={styles.fileIcon}
-                type={'file-pdf'}
-              />
-            )}
-            {this.props.showFileName && (
-              <Container className={styles.uploaderFileName} fluid verticalAlign={'center'}>
-                <Container
-                  classNames={[styles.normalText, styles.small, styles.colorPrimaryGreyDarker]}
-                >
-                  {this.state.fileName}
-                </Container>
-              </Container>
-            )}
-            {this.props.uploaderFooter && (
-              <Container className={styles.uploaderFooter}>{this.props.uploaderFooter}</Container>
-            )}
-          </Container>
+            </Container>
+          )}
+          {this.props.uploaderFooter && (
+            <Container className={styles.uploaderFooter}>{this.props.uploaderFooter}</Container>
+          )}
         </Container>
       );
     } else {
@@ -424,7 +465,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
           type: 'image',
           extension: this.getExtension(file.name),
           uploaded: false,
-          fileName: file.name
+          fileName: file.name,
+          uploadStatus: 2
         },
         this.onValueChanged
       );
@@ -437,7 +479,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
           type: 'pdf',
           extension: this.getExtension(file.name),
           uploaded: false,
-          fileName: file.name
+          fileName: file.name,
+          uploadStatus: 2
         },
         this.onValueChanged
       );
@@ -558,25 +601,38 @@ export default class FileUploader extends React.Component<IProps, IState> {
           var upload = s3
             .putObject(params)
             .on('httpUploadProgress', (progress) => {
-              if (this.state.uploadFail === false) {
+              if (this.state.uploadStatus === 0) {
                 var percentComplete = (progress.loaded / progress.total) * 100 - 1;
-                this.getUploaderProgress(percentComplete, false);
+                if (percentComplete > 0) {
+                  this.processProgressInterval(Math.round(percentComplete), false);
+                }
               }
             })
             .send((err: any, data: any) => {
               if (err) {
-                // setTimeout(() => {
-                //   upload.abort();
-                // }, 200);
-                this.setState({ uploadFail: true });
-                this.getUploaderProgress(100, false);
+                this.processProgressInterval(100, false);
+                this.setState({ uploadStatus: -1 });
                 reject(err);
               } else {
                 const result = `ISTOXBUCKET|${bucket}|${key}`;
-                this.setState({ src: result, uploaded: true }, () => {
+                this.setState({ src: result, uploaded: true, uploadStatus: 1 }, () => {
                   this.onValueChanged();
-                  this.getUploaderProgress(100, true);
-                  resolve();
+                  if (this.overallProgress == 0) {
+                    this.getUploaderProgress(0, false);
+                  } else {
+                    this.getUploaderProgress(this.overallProgress, false);
+                  }
+                  clearInterval(this.progressInterval);
+                  this.progressInterval = setInterval(() => {
+                    if (this.overallProgress < 100) {
+                      this.overallProgress++;
+                      this.getUploaderProgress(this.overallProgress, false);
+                    } else {
+                      this.getUploaderProgress(this.overallProgress, true);
+                      clearInterval(this.progressInterval);
+                      resolve();
+                    }
+                  }, 1);
                 });
               }
             });
@@ -585,13 +641,31 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
           // make sure state is set before return
         } catch (e) {
-          this.setState({ uploadFail: true });
-          this.getUploaderProgress(100, false);
+          this.setState({ uploadStatus: -1 });
+          this.processProgressInterval(100, false);
           reject(e);
         }
       });
     } else {
       return null;
+    }
+  };
+
+  private processProgressInterval = (percentComplete: number, uploaderComplete: boolean) => {
+    if (percentComplete < 99 && percentComplete > this.overallProgress && !uploaderComplete) {
+      this.overallProgress = percentComplete;
+    }
+    clearInterval(this.progressInterval);
+    this.progressInterval = setInterval(() => {
+      if (this.overallProgress < percentComplete) {
+        this.overallProgress++;
+      } else {
+        clearInterval(this.progressInterval);
+      }
+      this.getUploaderProgress(this.overallProgress, uploaderComplete);
+    }, 1);
+    if (this.overallProgress == 100 && !uploaderComplete) {
+      this.overallProgress = 0;
     }
   };
 }

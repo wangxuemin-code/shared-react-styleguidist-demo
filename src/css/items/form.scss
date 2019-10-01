@@ -401,16 +401,6 @@ textarea[disabled] {
   box-shadow: 0px 0px 5px 5px map-get($colors, primary);
 }
 
-.uploader-progress-bar {
-  :global(.ant-progress-outer) {
-    padding-right: 0;
-  }
-
-  :global(.ant-progress-bg) {
-    height: 4px !important;
-  }
-}
-
 @include mq(medium) {
   .istox-form {
     &.ant-form-horizontal {

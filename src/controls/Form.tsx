@@ -51,7 +51,7 @@ export class Form extends React.Component<IProps, IState> {
     };
   }
 
-  public componentDidUpdate(prevProps: IProps, prevState: IState) {
+  public componentDidUpdate(prevProps: IProps) {
     if (prevProps.antiVirusChecks !== this.props.antiVirusChecks) {
       this.updateUploaderProgress(this.props.antiVirusChecks);
     }
@@ -163,7 +163,7 @@ export class Form extends React.Component<IProps, IState> {
                           animated
                           variant={uploadFormControlsProgress[formControl.props.name].variant}
                           value={
-                            uploadFormControlsProgress[formControl.props.name].percentProgress || ''
+                            uploadFormControlsProgress[formControl.props.name].percentProgress || 0
                           }
                         />
                       </Grid.Col>
@@ -341,10 +341,9 @@ export class Form extends React.Component<IProps, IState> {
           .then(() => {
             if (showUploadModal && uploads.length) {
               this.setState({
-                uploadBackButtonText: this.props.uploadBackButtonText,
                 uploadResult: this.props.onUploadComplete
                   ? `Uploading ${uploads.length} file${uploads.length > 2 ? 's...' : ''}`
-                  : `${uploads.length} file${uploads.length > 2 ? 's uploaded' : ''}`
+                  : `${uploads.length} File${uploads.length > 2 ? 's uploaded' : ' uploaded'}`
               });
             }
             if (this.props.onUploadComplete) {
@@ -419,6 +418,10 @@ export class Form extends React.Component<IProps, IState> {
             this.props.onAntiVirusChecksComplete();
           }
         }, 2000);
+      } else {
+        this.setState({
+          uploadBackButtonText: this.props.uploadBackButtonText
+        });
       }
       if (virusDetected.length) {
         this.formControls.forEach(async (formControl: any) => {
@@ -443,9 +446,9 @@ export class Form extends React.Component<IProps, IState> {
     const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
     const key: any = name;
     let variant = 'info';
-    let statusMessage = uploaderProgress.toFixed(2) + '% uploading';
+    let statusMessage = uploaderProgress + '% uploading';
     let uploaderPercentProgress: number = uploaderProgress;
-    if (this.props.antiVirusChecks) {
+    if (this.props.antiVirusChecks && uploaderComplete) {
       uploaderPercentProgress = uploaderProgress - 1;
     }
     if (this.state.showUploaderModal === false && uploaderPercentProgress > 0) {
@@ -459,7 +462,7 @@ export class Form extends React.Component<IProps, IState> {
       variant = 'danger';
       statusMessage = 'Upload failed';
     } else {
-      statusMessage = uploaderPercentProgress.toFixed(2) + '% uploading';
+      statusMessage = uploaderPercentProgress + '% uploading';
       variant = 'info';
       if (uploaderPercentProgress === 100) {
         variant = 'success';
@@ -473,6 +476,19 @@ export class Form extends React.Component<IProps, IState> {
       statusMessage: statusMessage
     };
     uploadFormControlsProgress[key] = obj;
+    let filesFailed = 0;
+    for (var i in uploadFormControlsProgress) {
+      const upload = uploadFormControlsProgress[i];
+      if (upload.statusMessage === 'Upload failed') {
+        filesFailed++;
+      }
+    }
+    if (filesFailed > 0) {
+      this.setState({
+        uploadResult: `${filesFailed} File${filesFailed > 2 ? ' uploads failed' : 'upload failed'}`
+      });
+    }
+
     this.setState({ uploadFormControlsProgress });
   };
 }

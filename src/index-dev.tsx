@@ -1428,7 +1428,7 @@ class Main extends Controls.MyComponent<
                 >
                   <Controls.Container className={'form-group '}>
                     <Controls.FormControl
-                      // required
+                      required
                       placeholder={'Placeholder'}
                       disabled={true}
                       ref={(ref) => {
@@ -1440,18 +1440,9 @@ class Main extends Controls.MyComponent<
                         </span>
                       }
                       extraControls={
-                        this.state.error === 'yes' ? (
-                          <Controls.Transition>
-                            <Controls.Message
-                              variant='danger'
-                              message='Hello i am a extra controls'
-                            />
-                          </Controls.Transition>
-                        ) : (
-                          <Controls.Link>
-                            <Controls.Icon icon={faPlus} text={'Extra control'} />
-                          </Controls.Link>
-                        )
+                        <Controls.Link>
+                          <Controls.Icon icon={faPlus} text={'Extra control'} />
+                        </Controls.Link>
                       }
                       append={
                         <Controls.Button
@@ -1484,7 +1475,7 @@ class Main extends Controls.MyComponent<
                     name='image'
                     type='uploader'
                     value='https://v.fastcdn.co/t/fb1fdb8c/bb03cafd/1558938078-42717848-212x56-iSTOX-Logo.png'
-                    uploaderConfigs={{ customAllowFileExtensions: ['.pdf'] }}
+                    uploaderConfigs={{ showFileName: true, customAllowFileExtensions: ['.pdf'] }}
                   />
                   <Controls.FormControl
                     debounce={2000}

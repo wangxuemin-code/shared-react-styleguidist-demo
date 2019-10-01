@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOQLWV3CDO',
-        secret_access_key: '66QUq5Ery8Z3Mu1XTlAQui0vQp2iJckr5gYmVDHZ',
+        access_key_id: 'ASIA5FEPMSFO4QH34SZV',
+        secret_access_key: 'iZ6W8xRkdgDDyXwIpHZ6LcW1rhyZZYaNftPyNqUG',
         session_token:
-          'FQoGZXIvYXdzEPr//////////wEaDJljRm6n95Q1ChaZdSLlA2UrfR9ZtZ5FbOHjwpRI7eAz7x2lL87dpTwslX3+A5M5ieaPfuhtl0eK7FPtQRfwIW5Md8N09jrQTi2xtoWqy9tzG8tw1LO/MaHqPOLjgI/wB6x/t856bGJXZW8GXZjNh8iSFV1V1eFC7CLfnpaF/7Rq5dUK5wlejsUTyk9k5eyLM9RDC+XvB41hLpcZbAH98CDk3h911oEO3pHypjq1Cv6XTbA+nW7SO7JqRJOUFNat9ke0p//2Skyvdd3qXKNcn4LhOmxeQqPiHS8VI6Atm9R8nu3F1pnsnjWJ34wUrS1C/y6qxku5DMrfaHbzwOXJFk8QD1PCacYfEz3hzR62OCKCeS6DsQHEMgtyeZUTptDGtxBfpL2oXKAE0VE3K52a5Km/uXraXoBd5SAWOVCuEUFm4HgwneV9gATf2cL20isfGzklERue8FkT3FYgiqIpfzr2ulRoF4ptx5Gti8YbkbYNJnb+l/Y4YrTeNGyJ/fROXIzjp+S8b5WUX4Ms/gJfdp1PUIgqKwf3oWWiftV4YxEWwW8AofFa+SAIGeV+7lIF7vsqct8SrJpFYNAsHd9mXSVtxEMStFvC9WD47MDwJEojCVJB0C5xisLrrxqQMRMYuq+qRNdyiJ9vSIcN9El1O2mzBILxKM/ayOwF',
+          'FQoGZXIvYXdzEAwaDKDK6YEKu9YxkNynMSLlA10SItmSwdiqSZ5BUDWDTbf/OXfHgouUFne4NNCiz0XbiXUpnsD3Cubh8PI035Tiqvz8aqOdNvf2rJOpmnyfPGHLjvSTNTe9AE7pDSEoIEeoqCbhX3ZGNZryFqyG1GJBJLv+mv7cBMvjFieBeUXEo2TM5/2oemg0wCUYIYw1RRMWO/2/J5SDBuYFD8ZlA5xe1PMO1wErvAe0Q5tVIQo2WB12O9ffsrv81+cXJt9QGdA9+dmMSGmwkxEWW9ncfCbGwzQkZW1pSU1Gh9O5NJZ0U25uO3EyiH/hMBLEM+otTbsNY3HJkibQduMcYHDyUBgwvmZTQmxogu4xeV/+rZ+xj0vyXtUDdMhaALB+U3+7PoyWv3z3h32t9XoRh2NHgaoe1NqWoCQeg5vNBzhRL8/BskW2R829VSbD46fTGABRgAJkceZ7IcdIA9kFUT7gTlw2IPyVDVN3RxntPmaGzXguGkDCbMxj4BYY+3/FCcaa/hyGNFLHHEuXEmrbqZ0HeuPiAoaE56JuUMFRMOgeC9YBvJgxzWxnp043VPELEhGPPynBU7l/P7AfusC9H5s8+RedHHKP5AEqFiZ0GBM/sEfL4paGrZkSzfvUd+1XVHid8/TkPxbnRN7SO321Jm/gQFLQvFQND5TqKOTdzOwF',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };
@@ -47,33 +47,33 @@ class Main extends Controls.MyComponent<any, IState> {
                 onUploadError={(e) => {
                   console.log(e);
                 }}
-                // onUploadComplete={(uploads: any[]) => {
-                //   console.log('done', uploads);
-                //   let antiVirusFiles: any[] = [];
-                //   let antiVirusReturns: any[] = [];
-                //   var flag = false;
-                //   uploads.forEach(async (name: any) => {
-                //     const value = this.form!.getInputValue(name);
-                //     antiVirusFiles.push(value);
-                //     antiVirusReturns.push({
-                //       key: name,
-                //       file: name,
-                //       success: !flag
-                //     });
-                //     // flag = !flag;
-                //   });
-                //   let antiVirusChecks = {
-                //     bucketName: 'istoxkyc-local',
-                //     files: antiVirusFiles
-                //   };
-                //   console.log('call antivirus', antiVirusChecks);
-                //   this.setState({ antiVirusChecks: antiVirusReturns });
-                // }}
-                // antiVirusChecks={this.state.antiVirusChecks}
-                // onAntiVirusChecksComplete={() => {
-                //   console.log('do sthg');
-                // }}
-                // uploadBackButtonText={'Back to something'}
+                onUploadComplete={(uploads: any[]) => {
+                  console.log('done', uploads);
+                  let antiVirusFiles: any[] = [];
+                  let antiVirusReturns: any[] = [];
+                  var flag = false;
+                  uploads.forEach(async (name: any) => {
+                    const value = this.form!.getInputValue(name);
+                    antiVirusFiles.push(value);
+                    antiVirusReturns.push({
+                      key: name,
+                      file: name,
+                      success: !flag
+                    });
+                    flag = !flag;
+                  });
+                  let antiVirusChecks = {
+                    bucketName: 'istoxkyc-local',
+                    files: antiVirusFiles
+                  };
+                  console.log('call antivirus', antiVirusChecks);
+                  this.setState({ antiVirusChecks: antiVirusReturns });
+                }}
+                antiVirusChecks={this.state.antiVirusChecks}
+                onAntiVirusChecksComplete={() => {
+                  console.log('do sthg');
+                }}
+                uploadBackButtonText={'Back to something'}
               >
                 {this.state.antiVirusChecks && (
                   <Controls.Message variant={'warning'} message={'Dasdsad'} />
@@ -95,9 +95,9 @@ class Main extends Controls.MyComponent<any, IState> {
                     showFileName: true
                     // fixedFileName: 'abc'
                   }}
-                  value=''
+                  value='ISTOXBUCKET|istoxkyc-local|ID46066150M/e0d925c5-47d8-469f-bdb9-be32662ea001.png'
                 />
-                {/* <Controls.FormControl
+                <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -123,7 +123,7 @@ class Main extends Controls.MyComponent<any, IState> {
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                /> */}
+                />
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'

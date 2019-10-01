@@ -4,7 +4,7 @@ interface IProps extends IContainer {
     numInputs: number;
     onChange: Function;
     separator?: any;
-    shouldAutoFocus: boolean;
+    autoFocus: boolean;
     isInputNum?: boolean;
     inputWidth: string;
     maxLength: number;

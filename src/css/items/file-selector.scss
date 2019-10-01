@@ -23,15 +23,23 @@
   margin: 0.5rem 0;
 }
 
-.uploader-change-button {
+.uploader-change-button,
+.uploader-delete-button {
   position: absolute;
   right: 0;
-  top: -2rem;
+  top: -1.5rem;
   cursor: pointer;
+  color: map-get($colors, primaryDark);
+  font-weight: 600;
 }
 
-.uploader-change-button:hover {
-  color: map-get($colors, primaryDark);
+.uploader-change-button:hover,
+.uploader-delete-button:hover {
+  color: map-get($colors, primaryActive);
+}
+
+.uploader-delete-button {
+  right: 60px;
 }
 
 .uploader-viewer {
@@ -49,6 +57,17 @@
   background-color: #fff;
   border: 2px dashed map-get($colors, primaryGreyLighter);
 }
+
+.uploader-progress-bar {
+  :global(.ant-progress-outer) {
+    padding-right: 0;
+  }
+
+  :global(.ant-progress-bg) {
+    height: 4px !important;
+  }
+}
+
 .uploader {
   display: block;
   cursor: pointer;
@@ -78,6 +97,18 @@
     padding: 0 0.5rem;
     color: map-get($colors, primaryAlt);
     z-index: 99;
+  }
+
+  .uploader-status {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+
+    :global(.istox-message .content) {
+      padding: 0.3rem 0.5rem;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
   }
 
   &.disabled {

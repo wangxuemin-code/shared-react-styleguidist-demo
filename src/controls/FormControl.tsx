@@ -233,20 +233,20 @@ export class FormControl extends React.Component<IProps, IState> {
             </Container>
           </>
         </Container>
-        {this.state.extraControls && (
-          <Container className={styles.formControlsWrapper}>
-            <span />
-            <Container className={'extra-control'} display='block'>
-              {this.state.extraControls}
-            </Container>
-          </Container>
-        )}
         {this.state.showError && (
           <Container className={styles.formControlsWrapper}>
             <span />
             <Transition in={this.state.showError}>
               <Message variant={'danger'} message={this.state.error} />
             </Transition>
+          </Container>
+        )}
+        {this.state.extraControls && (
+          <Container className={styles.formControlsWrapper}>
+            <span />
+            <Container className={'extra-control'} display='block'>
+              {this.state.extraControls}
+            </Container>
           </Container>
         )}
       </Container>
