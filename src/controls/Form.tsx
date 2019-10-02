@@ -371,7 +371,6 @@ export class Form extends React.Component<IProps, IState> {
   }
 
   private updateUploaderProgress = (antiVirusChecks: any) => {
-    console.log(antiVirusChecks);
     if (antiVirusChecks.length) {
       let uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
       let newUploadFormControlsProgress: any[] = [];

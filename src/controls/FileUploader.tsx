@@ -601,7 +601,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
           var upload = s3
             .putObject(params)
             .on('httpUploadProgress', (progress) => {
-              console.log(progress);
               // if (this.state.uploadStatus === 0) {
               var percentComplete = (progress.loaded / progress.total) * 100 - 1;
               if (percentComplete > 0) {
