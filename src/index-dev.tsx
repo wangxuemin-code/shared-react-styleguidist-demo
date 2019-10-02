@@ -1897,13 +1897,14 @@ class Main extends Controls.MyComponent<
                     label={'Country'}
                     name='country'
                     type={'country'}
-                    // excludeOptions={['Others']}
+                    // excludeOptions={['Others', 'Singapore']}
                     required
                   />
                   <Controls.FormControl
                     label={'Country Code'}
                     name='countrycode'
                     type={'countrycode'}
+                    // excludeOptions={['Others', 'SGP']}
                     value={'SGP'}
                   />
                   <Controls.FormControl

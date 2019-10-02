@@ -666,13 +666,20 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const allOptions: any = [
-        { code: 'SG', country: 'Singapore', label: 'Singapore', value: 'Singapore' }
-      ];
-      const mainOptions: any = [
-        { code: 'SG', country: 'Singapore', label: 'Singapore', value: 'Singapore' }
-      ];
+      const allOptions: any = [];
+      const mainOptions: any = [];
       const restOptions: any = [];
+      const excludeOptions = this.props.excludeOptions || [];
+      if (excludeOptions.indexOf('Singapore') == -1) {
+        var obj = {
+          label: 'Singapore',
+          value: 'Singapore',
+          country: 'Singapore',
+          code: 'SG'
+        };
+        mainOptions.push(obj);
+        allOptions.push(obj);
+      }
       var sortedCountries: any = countries.all;
       sortedCountries.sort(function(a: any, b: any) {
         if (a.name < b.name) {
@@ -683,8 +690,7 @@ export class FormControl extends React.Component<IProps, IState> {
         }
         return 0;
       });
-      const excludeOptions = this.props.excludeOptions || [];
-      countries.all.map((option) => {
+      sortedCountries.map((option: any) => {
         if (
           option.alpha3.length &&
           option.emoji &&
@@ -711,7 +717,7 @@ export class FormControl extends React.Component<IProps, IState> {
         restOptions.push(obj);
         allOptions.push(obj);
       }
-      const Options: any = [
+      let Options: any = [
         {
           label: <Container display='none'></Container>,
           options: mainOptions
@@ -721,6 +727,14 @@ export class FormControl extends React.Component<IProps, IState> {
           options: restOptions
         }
       ];
+      if (excludeOptions.indexOf('Singapore') !== -1) {
+        Options = [
+          {
+            label: '',
+            options: restOptions
+          }
+        ];
+      }
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
@@ -802,9 +816,20 @@ export class FormControl extends React.Component<IProps, IState> {
           </components.SingleValue>
         );
       };
-      const allOptions: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
-      const mainOptions: any = [{ code: 'SG', country: 'Singapore', label: 'SGP', value: 'SGP' }];
+      const allOptions: any = [];
+      const mainOptions: any = [];
       const restOptions: any = [];
+      const excludeOptions = this.props.excludeOptions || [];
+      if (excludeOptions.indexOf('SGP') == -1) {
+        var obj = {
+          label: 'SGP',
+          value: 'SGP',
+          country: 'Singapore',
+          code: 'SG'
+        };
+        mainOptions.push(obj);
+        allOptions.push(obj);
+      }
       var sortedCountries: any = countries.all;
       sortedCountries.sort(function(a: any, b: any) {
         if (a.alpha3 < b.alpha3) {
@@ -815,7 +840,6 @@ export class FormControl extends React.Component<IProps, IState> {
         }
         return 0;
       });
-      const excludeOptions = this.props.excludeOptions || [];
       sortedCountries.map((option: any) => {
         if (
           option.alpha3.length &&
@@ -843,7 +867,7 @@ export class FormControl extends React.Component<IProps, IState> {
         restOptions.push(obj);
         allOptions.push(obj);
       }
-      const Options: any = [
+      let Options: any = [
         {
           label: <Container display='none'></Container>,
           options: mainOptions
@@ -853,6 +877,14 @@ export class FormControl extends React.Component<IProps, IState> {
           options: restOptions
         }
       ];
+      if (excludeOptions.indexOf('SGP') !== -1) {
+        Options = [
+          {
+            label: '',
+            options: restOptions
+          }
+        ];
+      }
       const customFilter = (option: any, searchText: string) => {
         if (
           (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||

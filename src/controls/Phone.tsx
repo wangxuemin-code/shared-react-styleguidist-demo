@@ -80,9 +80,17 @@ export class Phone extends React.Component<IProps, IState> {
         </components.SingleValue>
       );
     };
-    const allOptions: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
-    const mainOptions: any = [{ code: 'SG', country: 'Singapore', label: '+65', value: '+65' }];
+    const allOptions: any = [];
+    const mainOptions: any = [];
     const restOptions: any = [];
+    var obj = {
+      label: '+65',
+      value: '+65',
+      country: 'Singapore',
+      code: 'SG'
+    };
+    mainOptions.push(obj);
+    allOptions.push(obj);
     var sortedCountries: any = countries.all;
     sortedCountries.sort(function(a: any, b: any) {
       if (a.name < b.name) {
