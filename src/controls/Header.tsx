@@ -47,7 +47,6 @@ interface IState {
   name: string;
   email: string;
   subMenuVisible: boolean;
-  isSubMenuClicked: boolean;
 }
 
 export class Header extends React.Component<IHeader, IState> {
@@ -61,8 +60,7 @@ export class Header extends React.Component<IHeader, IState> {
     this.state = {
       name: this.props.name!,
       email: this.props.email!,
-      subMenuVisible: false,
-      isSubMenuClicked: false
+      subMenuVisible: false
     };
   }
 
@@ -255,7 +253,7 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.subMenu}>
           {this.props.subLinks!.map((sublink: any, i: number) => (
             <Container
-              onClick={sublink.props.href || sublink.props.onClick ? this.toggleSubMenu : undefined}
+              onClick={sublink.props.href || sublink.props.onClick ? this.hideSubMenu : undefined}
               key={i}
             >
               {sublink}
@@ -292,9 +290,11 @@ export class Header extends React.Component<IHeader, IState> {
 
   private toggleSubMenu = () => {
     this.setState((prevState): any => {
-      return {
-        subMenuVisible: !prevState.subMenuVisible
-      };
+      if (prevState) {
+        return {
+          subMenuVisible: !prevState.subMenuVisible
+        };
+      }
     });
   };
 }
