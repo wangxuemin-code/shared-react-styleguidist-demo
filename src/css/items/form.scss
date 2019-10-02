@@ -135,7 +135,6 @@ textarea[disabled] {
   input,
   .select,
   textarea {
-    background-color: transparent !important;
     border: 0;
     border-bottom: 1px solid map-get($colors, primaryGrey);
     box-shadow: none;
@@ -178,8 +177,6 @@ textarea[disabled] {
     }
     > div {
       min-height: auto;
-      // height: 36px;
-      // background-color: transparent !important;
 
       > div {
         height: auto !important;
@@ -333,9 +330,14 @@ textarea[disabled] {
           display: flex;
           align-items: center;
 
-          // .icon {
-          //   margin-top: -4px;
-          // }
+          .left {
+            display: flex;
+            align-items: center;
+          }
+
+          .flag {
+            display: flex;
+          }
         }
 
         .loading-container-wrapper {

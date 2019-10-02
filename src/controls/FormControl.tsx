@@ -542,18 +542,15 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
+              color: 'rgba(0, 0, 0, 1)',
+              backgroundColor: 'transparent'
             }),
             menu: (base: any, state: any) => ({
               ...base,
               padding: '0.5rem 0 !important',
-              backgroundColor: 'white !important',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              backgroundColor: 'white',
+              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
+              border: '1px solid rgba(125, 125, 125, 0.1)',
               zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
@@ -563,7 +560,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
-              padding: '1rem !important'
+              padding: '1rem'
             }),
             singleValue: (base: any) => ({
               ...base,
@@ -607,18 +604,15 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              borderColor: state.isFocused ? 'rgba(0, 27, 86, 1) !important' : ''
+              color: 'rgba(0, 0, 0, 1)',
+              backgroundColor: 'transparent'
             }),
             menu: (base: any, state: any) => ({
               ...base,
               padding: '0.5rem 0 !important',
-              backgroundColor: 'white !important',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              backgroundColor: 'white',
+              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
+              border: '1px solid rgba(125, 125, 125, 0.1)',
               zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
@@ -628,7 +622,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
-              padding: '1rem !important'
+              padding: '1rem'
             }),
             singleValue: (base: any) => ({
               ...base,
@@ -760,14 +754,15 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)'
+              color: 'rgba(0, 0, 0, 1)',
+              backgroundColor: 'transparent'
             }),
             menu: (base: any, state: any) => ({
               ...base,
               padding: '0.5rem 0 !important',
-              backgroundColor: 'white !important',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              backgroundColor: 'white',
+              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
+              border: '1px solid rgba(125, 125, 125, 0.1)',
               zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
@@ -777,7 +772,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
-              padding: '1rem !important'
+              padding: '1rem'
             }),
             singleValue: (base: any) => ({
               ...base,
@@ -891,14 +886,15 @@ export class FormControl extends React.Component<IProps, IState> {
             control: (base: any) => ({
               ...base,
               padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)'
+              color: 'rgba(0, 0, 0, 1)',
+              backgroundColor: 'transparent'
             }),
             menu: (base: any, state: any) => ({
               ...base,
               padding: '0.5rem 0 !important',
-              backgroundColor: 'white !important',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              backgroundColor: 'white',
+              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
+              border: '1px solid rgba(125, 125, 125, 0.1)',
               zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
@@ -908,7 +904,7 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             noOptionsMessageCSS: (base: any, state: any) => ({
               ...base,
-              padding: '1rem !important'
+              padding: '1rem'
             }),
             singleValue: (base: any) => ({
               ...base,

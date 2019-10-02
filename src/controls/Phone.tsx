@@ -141,7 +141,7 @@ export class Phone extends React.Component<IProps, IState> {
               autoFocus={this.props.autoFocus}
               ignoreAccents={false}
               // componentClass='select'
-              // defaultMenuIsOpen
+              defaultMenuIsOpen
               searchable={true}
               className={'select phone-select'}
               value={allOptions.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
@@ -158,15 +158,16 @@ export class Phone extends React.Component<IProps, IState> {
                 control: (base: any) => ({
                   ...base,
                   padding: '0 0.5rem',
-                  color: 'rgba(0, 0, 0, 0.9)'
+                  color: 'rgba(0, 0, 0, 1)',
+                  backgroundColor: 'transparent'
                 }),
                 menu: (base: any, state: any) => ({
                   ...base,
                   width: '300px',
                   padding: '0.5rem 0 !important',
-                  backgroundColor: 'white !important',
-                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-                  border: '1px solid rgba(125, 125, 125, 0.1) !important',
+                  backgroundColor: 'white',
+                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
+                  border: '1px solid rgba(125, 125, 125, 0.1)',
                   zIndex: 2
                 }),
                 dropdownIndicator: (base: any, state: any) => ({
@@ -176,7 +177,7 @@ export class Phone extends React.Component<IProps, IState> {
                 }),
                 noOptionsMessageCSS: (base: any, state: any) => ({
                   ...base,
-                  padding: '1rem !important'
+                  padding: '1rem'
                 }),
                 singleValue: (base: any) => ({
                   ...base,
