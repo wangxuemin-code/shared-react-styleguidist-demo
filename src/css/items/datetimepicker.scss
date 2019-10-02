@@ -34,7 +34,6 @@
   }
 
   input[disabled] {
-    border-bottom: 0;
     color: map-get($colors, primaryGreyDark);
   }
 }

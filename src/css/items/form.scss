@@ -19,8 +19,10 @@
   line-height: 37px;
 }
 
-.ant-input[disabled] {
+.ant-input[disabled],
+.ant-input-number-disabled {
   color: map-get($colors, primaryGreyDarker);
+  background-color: transparent;
 }
 
 textarea[disabled] {

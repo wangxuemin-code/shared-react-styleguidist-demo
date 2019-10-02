@@ -1492,6 +1492,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     required
+                    disabled
                     label={'Email'}
                     name='email'
                     type={'email'}
@@ -1516,6 +1517,7 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
+                    disabled
                     label={'Description'}
                     name='description'
                     type={'longtext'}
@@ -1660,6 +1662,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    disabled
                     required
                     label={'DateTime'}
                     name='datetime'
@@ -1811,6 +1814,7 @@ class Main extends Controls.MyComponent<
                     value={0}
                   />
                   <Controls.FormControl
+                    disabled
                     required
                     label={'Dropdown'}
                     name='dropdown'

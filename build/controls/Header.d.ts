@@ -31,7 +31,6 @@ interface IState {
     name: string;
     email: string;
     subMenuVisible: boolean;
-    isSubMenuClicked: boolean;
 }
 export declare class Header extends React.Component<IHeader, IState> {
     static defaultProps: {
