@@ -23,10 +23,12 @@
 .ant-input-number-disabled {
   color: map-get($colors, primaryGreyDarker);
   background-color: transparent;
+  cursor: not-allowed;
 }
 
 textarea[disabled] {
   color: map-get($colors, primaryGreyDarker) !important;
+  cursor: not-allowed;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {

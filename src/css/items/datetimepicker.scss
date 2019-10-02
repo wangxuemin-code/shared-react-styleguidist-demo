@@ -35,6 +35,7 @@
 
   input[disabled] {
     color: map-get($colors, primaryGreyDark);
+    cursor: not-allowed;
   }
 }
 
