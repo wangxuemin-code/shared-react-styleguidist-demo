@@ -7,7 +7,7 @@
 
 .sto-timeline-container {
   display: grid;
-  grid-template-columns: 0px repeat(6, auto);
+  grid-template-columns: 0px repeat(7, auto);
   padding: 0px 40px;
 
   .point {
@@ -155,6 +155,31 @@
     }
   }
 }
+
+.sto-timeline-container {
+  &.disabled {
+    .point {
+      background-color: map-get($colors, primaryGreyDarker);
+
+      &.completed {
+        .dot {
+          background-color: map-get($colors, primaryGreyDarker);
+          &.big {
+            border-color: map-get($colors, primaryGreyDarker);
+          }
+        }
+      }
+
+      &.half-active,
+      &.active {
+        .dot {
+          border-color: map-get($colors, primaryGreyDarker);
+        }
+      }
+    }
+  }
+}
+
 .space-between {
   justify-content: space-between;
 

@@ -32,7 +32,7 @@ interface IProps {
   getUploaderProgress?: (
     fileName: string,
     uploaderProgress: number,
-    uploaderComplete: boolean
+    uploaderComplete: -1 | 0 | 1
   ) => void;
 }
 
@@ -249,7 +249,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
     }
   };
 
-  private getUploaderProgress = (uploaderProgress: number, uploaderComplete: boolean) => {
+  private getUploaderProgress = (uploaderProgress: number, uploaderComplete: -1 | 0 | 1) => {
     if (this.props.getUploaderProgress && this.state.fileName) {
       this.props.getUploaderProgress(this.state.fileName, uploaderProgress, uploaderComplete);
     }
@@ -601,16 +601,17 @@ export default class FileUploader extends React.Component<IProps, IState> {
           var upload = s3
             .putObject(params)
             .on('httpUploadProgress', (progress) => {
-              if (this.state.uploadStatus === 0) {
-                var percentComplete = (progress.loaded / progress.total) * 100 - 1;
-                if (percentComplete > 0) {
-                  this.processProgressInterval(Math.round(percentComplete), false);
-                }
+              console.log(progress);
+              // if (this.state.uploadStatus === 0) {
+              var percentComplete = (progress.loaded / progress.total) * 100 - 1;
+              if (percentComplete > 0) {
+                this.processProgressInterval(Math.round(percentComplete), 0);
               }
+              // }
             })
             .send((err: any, data: any) => {
               if (err) {
-                this.processProgressInterval(100, false);
+                this.processProgressInterval(100, -1);
                 this.setState({ uploadStatus: -1 });
                 reject(err);
               } else {
@@ -621,17 +622,17 @@ export default class FileUploader extends React.Component<IProps, IState> {
                     this.overallProgress = 0;
                   }
                   if (this.overallProgress == 0) {
-                    this.getUploaderProgress(0, false);
+                    this.getUploaderProgress(0, 0);
                   } else {
-                    this.getUploaderProgress(this.overallProgress, false);
+                    this.getUploaderProgress(this.overallProgress, 0);
                   }
                   clearInterval(this.progressInterval);
                   this.progressInterval = setInterval(() => {
                     if (this.overallProgress < 100) {
                       this.overallProgress++;
-                      this.getUploaderProgress(this.overallProgress, false);
+                      this.getUploaderProgress(this.overallProgress, 0);
                     } else {
-                      this.getUploaderProgress(this.overallProgress, true);
+                      this.getUploaderProgress(this.overallProgress, 1);
                       clearInterval(this.progressInterval);
                       resolve();
                     }
@@ -645,7 +646,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
           // make sure state is set before return
         } catch (e) {
           this.setState({ uploadStatus: -1 });
-          this.processProgressInterval(100, false);
+          this.processProgressInterval(100, -1);
           reject(e);
         }
       });
@@ -654,8 +655,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
     }
   };
 
-  private processProgressInterval = (percentComplete: number, uploaderComplete: boolean) => {
-    if (percentComplete < 99 && percentComplete > this.overallProgress && !uploaderComplete) {
+  private processProgressInterval = (percentComplete: number, uploaderComplete: -1 | 0 | 1) => {
+    if (percentComplete < 99 && percentComplete > this.overallProgress && uploaderComplete === 0) {
       this.overallProgress = percentComplete;
     }
     clearInterval(this.progressInterval);
@@ -667,7 +668,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       }
       this.getUploaderProgress(this.overallProgress, uploaderComplete);
     }, 1);
-    if (this.overallProgress == 100 && !uploaderComplete) {
+    if (this.overallProgress == 100 && uploaderComplete === 0) {
       this.overallProgress = 0;
     }
   };

@@ -58,11 +58,11 @@ export class Formatter {
   }
 
   public static datetime(input?: string | number | Date): string {
-    return this.getMomentObject('DD MMMM YYYY hh:mm A', input);
+    return this.getMomentObject('DD MMM YYYY hh:mm A', input);
   }
 
   public static date(input?: string | number | Date): string {
-    return this.getMomentObject('DD MMMM YYYY', input);
+    return this.getMomentObject('DD MMM YYYY', input);
   }
 
   public static time(input?: string | number | Date): string {

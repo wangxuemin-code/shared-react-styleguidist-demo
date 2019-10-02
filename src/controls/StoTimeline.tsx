@@ -12,6 +12,8 @@ interface IStoDateTime {
   preSaleEndTime: string;
   publicSaleStartTime: string;
   publicSaleEndTime: string;
+  issueDateTime: string;
+  terminatedAt?: string;
 }
 
 interface IProps extends IContainer {
@@ -38,7 +40,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     const phases: Array<{ title: string; date: Moment; key?: string; clickable: boolean; isBig: boolean }> = [];
     phases.push(
       {
-        title: 'STO created',
+        title: 'Offering created',
         date: moment(this.props.stoDateTime.createdAt),
         clickable: false,
         isBig: false
@@ -51,37 +53,43 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         isBig: true
       },
       {
-        title: 'Allocation',
+        title: 'Token Allocation',
         key: 'allocation',
         date: moment(this.props.stoDateTime.bookbuildingEndTime),
         clickable: true,
         isBig: false
       },
       {
-        title: 'Pre-sale',
+        title: 'Pre-Sale',
         key: 'presale',
         date: moment(this.props.stoDateTime.preSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.preSaleStartTime)),
         isBig: true
       },
       {
-        title: 'Pre-sale closed',
+        title: 'Pre-Sale closed',
         date: moment(this.props.stoDateTime.preSaleEndTime),
         clickable: false,
         isBig: false
       },
       {
-        title: 'Public sale',
+        title: 'Public Sale',
         key: 'public_sale',
         date: moment(this.props.stoDateTime.publicSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleStartTime)),
         isBig: true
       },
       {
-        title: 'STO End',
-        key: 'confirmed',
+        title: 'Public Sale closed',
         date: moment(this.props.stoDateTime.publicSaleEndTime),
-        clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleEndTime)),
+        clickable: false,
+        isBig: false
+      },
+      {
+        title: 'Launch',
+        key: 'confirmed',
+        date: moment(this.props.stoDateTime.issueDateTime),
+        clickable: this.hasDatePast(moment(this.props.stoDateTime.issueDateTime)),
         isBig: true
       }
     );
@@ -90,10 +98,12 @@ export class StoTimeLine extends React.Component<IProps, IState> {
       <Container id='timeline' {...this.props}>
         {!this.props.hideTitle && (
           <Container className={styles.stoMainTitle} margin={{ bottomPx: 130 }}>
-            STO Timeline
+            Offering Timeline
           </Container>
         )}
-        <Container className={styles.stoTimelineContainer}>
+        <Container
+          classNames={[styles.stoTimelineContainer, this.props.stoDateTime.terminatedAt ? styles.disabled : '']}
+        >
           {phases.map((phase, i) => {
             const nextPhaseDate = i < phases.length - 1 ? phases[i + 1].date : undefined;
             return (
@@ -129,8 +139,16 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     );
   }
 
+  private getRelativeMoment() {
+    if (this.props.stoDateTime.terminatedAt) {
+      return moment(this.props.stoDateTime.terminatedAt);
+    } else {
+      return moment();
+    }
+  }
+
   hasDatePast(date: any) {
-    return moment(date) <= moment();
+    return moment(date) <= this.getRelativeMoment();
   }
 
   getBarPercent(prevDate: any, nextDate: any): number {
@@ -143,7 +161,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
 
     const maxUnix = moment(nextDate).unix() - moment(prevDate).unix();
-    const currentUnix = moment().unix() - moment(prevDate).unix();
+    const currentUnix = this.getRelativeMoment().unix() - moment(prevDate).unix();
 
     const percent = Math.min(100, 100 - (currentUnix / maxUnix) * 100);
 
@@ -189,7 +207,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         return '';
       }
     } else {
-      return this.hasDatePast(currentPhaseDate) && !this.hasDatePast(nextPhaseDate)
+      return this.hasDatePast(currentPhaseDate) && nextPhaseDate && !this.hasDatePast(nextPhaseDate)
         ? styles.active
         : this.hasDatePast(currentPhaseDate)
         ? styles.completed

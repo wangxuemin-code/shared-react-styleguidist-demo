@@ -113,7 +113,7 @@ interface IProps extends IContainer {
     name: string,
     fileName: string,
     uploaderProgress: number,
-    uploaderComplete: boolean
+    uploaderComplete: -1 | 0 | 1
   ) => void;
   getUploadedState?: () => boolean;
 }
@@ -553,7 +553,8 @@ export class FormControl extends React.Component<IProps, IState> {
               padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important'
+              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
               ...base,
@@ -617,7 +618,8 @@ export class FormControl extends React.Component<IProps, IState> {
               padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important'
+              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
               ...base,
@@ -739,6 +741,7 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          // defaultMenuIsOpen
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
@@ -764,7 +767,8 @@ export class FormControl extends React.Component<IProps, IState> {
               padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important'
+              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
               ...base,
@@ -894,7 +898,8 @@ export class FormControl extends React.Component<IProps, IState> {
               padding: '0.5rem 0 !important',
               backgroundColor: 'white !important',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important'
+              border: '1px solid rgba(125, 125, 125, 0.1) !important',
+              zIndex: 2
             }),
             dropdownIndicator: (base: any, state: any) => ({
               ...base,
@@ -1443,7 +1448,7 @@ export class FormControl extends React.Component<IProps, IState> {
   private getUploaderProgress = (
     fileName: string,
     uploaderProgress: number,
-    uploaderComplete: boolean
+    uploaderComplete: -1 | 0 | 1
   ) => {
     if (this.props.getUploaderProgress && this.props.name && fileName) {
       this.props.getUploaderProgress(this.props.name, fileName, uploaderProgress, uploaderComplete);

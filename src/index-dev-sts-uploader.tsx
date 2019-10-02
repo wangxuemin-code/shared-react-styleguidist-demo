@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOVGKC2ONN',
-        secret_access_key: 'MSphnbpsDeVM66oc8yngf7HO9OSEdROJPJm9BmuY',
+        access_key_id: 'ASIA5FEPMSFOYXECSXNL',
+        secret_access_key: 'v4QESsKsKKikhVFVfI5h6kLr9+PxwlXbOnUrVMeb',
         session_token:
-          'FQoGZXIvYXdzEA0aDMIr92JjD5swg37tIiLlA2EDVyGu3z8BHe3JCRI30gCQrm257rcSHsH6ZdwBeDoNmof5AGKyiOGhUCptI45ODqmexqwZlZhbm5dLgtPeq6mlQdvtsorDQ6WEvA5Gxg5aprYGBJLyr2cMP4wr3j9eTL6iaYCo0s1gzdZmsgoBMFuxZ9Ppq8KoT2tE60p/mfVVIMkPjgEfQWYXChzJ2TRtmExE1HTYnVygW0OW33jkhZZ1H/R0mhmGYfsLW+Jnhn5o0Gaw4okPm8uc/zQPJhLssIYAFPPyOFQJEJebVto9groiF2LBJpSuzk64ECVRtUIuePf0x5oBT0X6o3qoqbqp/y6QskQ6OsJkoY/Vs5Yb96mqjgAyGMuQyNhGtpo6jH52YcMPoscVMnULXmS6jo+JduLaq6bwj1qRofaLdvMGd9Zf/xMwCmRyurqL+EbAMw/xfam9uXwDDZjfCw47fZx0QWKGU1s0+wFPaiAeG8VLHAwPT7xEdQRXNByW58JZaT7XxlpZkdyxuifWCJONodtzA+Jpc91rKUbOQAKirXLuOoH3f6Zq5P5iSEyGYidJJrZowhylRlYNvbYQSRMn6GBlSxOuGbDvWpwaCkDf+/N1hqNdb0DxOq68ACi7GZfVchHEv5Wh9aWagjbFQQ3L1RUYo+57j1mtKLT7zOwF',
+          'FQoGZXIvYXdzEB0aDI6WUUg9sYH6jHlYpiLkA/EuvafX4gb/r38mblg9OXziFtc+DD4vDfrmHeaZXgZxVft0gxylSecorjS9+mmFjNuX9Oi1uJIH1SyGfxJE/y/yMNOzyjTVvDZWN1upZrEpuCEBvQ9cKnr/11VxYGWBsHS8LuKsJ1M3U4bmmdMsn7iWIdlwOeFbLgdNVbknKDwP+d2XOdsYziG1GYfJ5E1+2WZUy33412a1b0W7o/PgH0RHGR3YPTviMsqi+/JxOrQyxGXumAGtNSut25zz7EAQDl/peOXE/mP8CllyOTI/FuFdWlkYXTZkcO0PeB3IQrKQMKG2HxXmCYPt4vBMSZD60bvPfdD2de7PswLtO19nr7/uzh3Db6qf3oQkF9dsHiaudJEahdMPDVRHIRC1y+vTOCGO3ebPuRH99YZal152V/ZG4a1ooWKl7wzK6hlhFakrj9MwTHXnDFc9fX5R33RkkED3ZBS6G8/q1q5lnzjvwuEB5lLkDINfo7UUY5nIVTXdloYLtGycMlteqI3M6GmiBOc2/a7EbiHgToDq7PSO+BozilXHK5Z03Vmlczy8cCNhgWcH3yO0ihhxwHkD/wenGmnoujDJWj2FqbN9pTqo1SdyPsczjV5jAAvn1gJiaWhkG7FXwi/n2RajLgjYI175EaW/l94oyqzQ7AU=',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };
@@ -92,14 +92,14 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label1',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID46066150M',
+                    path: 'ID83676276M',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf'],
                     showFileName: true
                     // fixedFileName: 'abc'
                   }}
                   value='ISTOXBUCKET|istoxkyc-local|ID46066150M/e0d925c5-47d8-469f-bdb9-be32662ea001.png'
                 />
-                <Controls.FormControl
+                {/* <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -107,7 +107,7 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID46066150M',
+                    path: 'ID83676276M',
                     customAllowFileExtensions: ['.jpg', '.png']
                     // fixedFileName: 'abc'
                   }}
@@ -121,11 +121,11 @@ class Main extends Controls.MyComponent<any, IState> {
                   uploaderConfigs={{
                     fieldName: 'label2',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID46066150M',
+                    path: 'ID83676276M',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                />
+                /> */}
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'

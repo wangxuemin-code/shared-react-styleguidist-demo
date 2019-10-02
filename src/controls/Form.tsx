@@ -30,7 +30,7 @@ interface IState {
   uploadFormControlsProgress?: any[];
   antiVirusChecks?: any;
   uploadResult?: string;
-  uploadRedirectMessage?: string;
+  uploadRedirectMessage?: any;
   uploadComplete?: boolean;
   uploadBackButtonText?: string;
   uploadFormControls?: any;
@@ -85,23 +85,21 @@ export class Form extends React.Component<IProps, IState> {
             </>
           )}
           {this.getUploaderFormControls()}
+          <Divider visibility={'hidden'} />
           {!this.state.uploadRedirectMessage &&
             this.state.uploadFormControlsProgress &&
             this.state.uploadBackButtonText && (
-              <>
-                <Divider visibility={'hidden'} />
-                <Button
-                  variant='disabled'
-                  outline
-                  onClick={() => {
-                    this.setState({
-                      showUploaderModal: false
-                    });
-                  }}
-                >
-                  {this.state.uploadFormControlsProgress && this.state.uploadBackButtonText}
-                </Button>
-              </>
+              <Button
+                variant='disabled'
+                outline
+                onClick={() => {
+                  this.setState({
+                    showUploaderModal: false
+                  });
+                }}
+              >
+                {this.state.uploadFormControlsProgress && this.state.uploadBackButtonText}
+              </Button>
             )}
           {this.state.uploadRedirectMessage && (
             <Container
@@ -109,7 +107,6 @@ export class Form extends React.Component<IProps, IState> {
               className='color-primary-grey-darker large'
               textAlign={'center'}
             >
-              <Divider visibility={'hidden'} />
               {this.state.uploadRedirectMessage}
             </Container>
           )}
@@ -374,6 +371,7 @@ export class Form extends React.Component<IProps, IState> {
   }
 
   private updateUploaderProgress = (antiVirusChecks: any) => {
+    console.log(antiVirusChecks);
     if (antiVirusChecks.length) {
       let uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
       let newUploadFormControlsProgress: any[] = [];
@@ -420,7 +418,8 @@ export class Form extends React.Component<IProps, IState> {
         }, 2000);
       } else {
         this.setState({
-          uploadBackButtonText: this.props.uploadBackButtonText
+          uploadBackButtonText: this.props.uploadBackButtonText,
+          uploadRedirectMessage: ''
         });
       }
       if (virusDetected.length) {
@@ -441,7 +440,7 @@ export class Form extends React.Component<IProps, IState> {
     name: string,
     fileName: string,
     uploaderProgress: number,
-    uploaderComplete: boolean
+    uploaderComplete: -1 | 0 | 1
   ) => {
     const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
     const key: any = name;
@@ -454,14 +453,18 @@ export class Form extends React.Component<IProps, IState> {
     if (this.state.showUploaderModal === false && uploaderPercentProgress > 0) {
       this.setState({
         showUploaderModal: true,
-        uploadBackButtonText: 'Cancel upload',
-        uploadRedirectMessage: undefined
+        uploadBackButtonText: undefined,
+        // uploadBackButtonText: 'Cancel upload',
+        uploadRedirectMessage: <>&nbsp;</>
       });
     }
-    // Need to check here
-    if (!this.props.antiVirusChecks && !uploaderComplete && uploaderPercentProgress === 100) {
+    if (uploaderComplete === -1 && uploaderProgress === 100) {
       variant = 'danger';
       statusMessage = 'Upload failed';
+      this.setState({
+        uploadRedirectMessage: '',
+        uploadBackButtonText: 'Cancel upload'
+      });
     } else {
       statusMessage = uploaderPercentProgress + '% uploading';
       variant = 'info';

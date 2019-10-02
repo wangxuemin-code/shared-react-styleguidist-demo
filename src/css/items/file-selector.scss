@@ -105,6 +105,14 @@
     left: 1rem;
     z-index: 1;
 
+    :global(.istox-message.flat.info) {
+      background-color: #ebf5f7;
+    }
+
+    :global(.istox-message.flat.disabled) {
+      background-color: #f2f2f2;
+    }
+
     :global(.istox-message .content) {
       padding: 0.3rem 0.5rem;
       text-transform: uppercase;
