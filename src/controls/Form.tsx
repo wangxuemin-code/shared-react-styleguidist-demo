@@ -199,7 +199,7 @@ export class Form extends React.Component<IProps, IState> {
       if (this.props.comparing) {
         childProps.static = this.props.comparing;
       }
-      childProps.getUploaderProgress = this.getUploaderProgress;
+      childProps.getuploaderprogress = this.getuploaderprogress;
       return React.cloneElement(child, childProps);
     });
   }
@@ -435,7 +435,7 @@ export class Form extends React.Component<IProps, IState> {
     }
   };
 
-  public getUploaderProgress = (
+  public getuploaderprogress = (
     name: string,
     fileName: string,
     uploaderProgress: number,
