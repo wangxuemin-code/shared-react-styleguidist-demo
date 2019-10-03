@@ -73,6 +73,7 @@ export interface IContainer {
   letterSpacing?: number;
   fontSizePx?: number;
   fontSizeRem?: number;
+  onMouseDown?: MouseEventHandler;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
   onClick?: MouseEventHandler;
