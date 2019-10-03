@@ -45,12 +45,10 @@ textarea[disabled] {
   border-color: map-get($colors, secondary);
 }
 
-// .ant-checkbox-group,
-// .ant-radio-group {
-//   label {
-//     font-size: 1.143rem;
-//   }
-// }
+.ant-radio-wrapper {
+  display: inline-flex;
+  align-items: center;
+}
 
 .ant-input-prefix {
   left: 0.5rem !important;

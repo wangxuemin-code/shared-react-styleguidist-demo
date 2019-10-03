@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOYXECSXNL',
-        secret_access_key: 'v4QESsKsKKikhVFVfI5h6kLr9+PxwlXbOnUrVMeb',
+        access_key_id: 'ASIA5FEPMSFO2E5777PP',
+        secret_access_key: 'FNiQzLeev6esm6GHf9w2uhzzRMasuxldVTrufXLh',
         session_token:
-          'FQoGZXIvYXdzEB0aDI6WUUg9sYH6jHlYpiLkA/EuvafX4gb/r38mblg9OXziFtc+DD4vDfrmHeaZXgZxVft0gxylSecorjS9+mmFjNuX9Oi1uJIH1SyGfxJE/y/yMNOzyjTVvDZWN1upZrEpuCEBvQ9cKnr/11VxYGWBsHS8LuKsJ1M3U4bmmdMsn7iWIdlwOeFbLgdNVbknKDwP+d2XOdsYziG1GYfJ5E1+2WZUy33412a1b0W7o/PgH0RHGR3YPTviMsqi+/JxOrQyxGXumAGtNSut25zz7EAQDl/peOXE/mP8CllyOTI/FuFdWlkYXTZkcO0PeB3IQrKQMKG2HxXmCYPt4vBMSZD60bvPfdD2de7PswLtO19nr7/uzh3Db6qf3oQkF9dsHiaudJEahdMPDVRHIRC1y+vTOCGO3ebPuRH99YZal152V/ZG4a1ooWKl7wzK6hlhFakrj9MwTHXnDFc9fX5R33RkkED3ZBS6G8/q1q5lnzjvwuEB5lLkDINfo7UUY5nIVTXdloYLtGycMlteqI3M6GmiBOc2/a7EbiHgToDq7PSO+BozilXHK5Z03Vmlczy8cCNhgWcH3yO0ihhxwHkD/wenGmnoujDJWj2FqbN9pTqo1SdyPsczjV5jAAvn1gJiaWhkG7FXwi/n2RajLgjYI175EaW/l94oyqzQ7AU=',
+          'FQoGZXIvYXdzEDQaDI0U4U7D91EI77h2GiLkA0a8byKGYznepVrLckgpjA2rNH5XlOOlN9jTe+dzEEF4CRowlsT/TFnqcP7OV7MKm/rapupcJX5OkZpGhxrPiEaIdnlEhoQ4IWB0ZOC7/mJiPQ0aqAW6dYJzUxAuxikDeiTI0uyCpKYNUM/lB4u8Ns9k/5gSJWDqTzCBuFJqLcp3aMI8ES/KIRxpBwmRXo0GBr7fWEHhMuZtQhbdiGLbTFWtAc7fECk1b+sZ9aCUuW3uaqwXbuCp8htMNtn8f/gINjGkfj6Z391uP5jRwRegDGC2FGnKIrkuvqc77kLBfPwPcttKsaXFRne8EyMhY0OmiQ4njEBVnfGsFoTuN/N+nGg4P3F7Mcoy1ohLQjI7qsEwT7FkqZEgaBGdkbf7N2mrQEE5GXgZakPM1wryPxJ9Y9zPm1xDKDpuvs+KzVn7vRf4nmjVmS7YLjCkZMnjbCzYi+a0OxONNNgxWdVMyqldkBRpg3hkExJT/OLajrGQASw8eFrG8HQgja70EPEVlYUD6/0btnyuTe9W5VuWPdy0p5dk7O1RtVHp5wMCIB/GSKDeNDT3M6F7W6ZdzwQs6YDDaMR/jdCYhnj+OEmwZJfmK/S4j5myD5SZpgzMwDdJfT/yIKlid3ToOk7081oD/7IAbCPYgggo18DV7AU=',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };

@@ -92,7 +92,14 @@ export class Header extends React.Component<IHeader, IState> {
             ))}
           </Container>
           {this.props.userAction && (
-            <Container className={styles.right} verticalAlign='center'>
+            <Container
+              onMouseDown={(e: any) => {
+                e.preventDefault();
+                return false;
+              }}
+              className={styles.right}
+              verticalAlign='center'
+            >
               {/* {this.props.notifications && this.getNotificationDesign()} */}
               {this.props.userAction && this.getUserActionDesign()}
             </Container>
@@ -249,17 +256,16 @@ export class Header extends React.Component<IHeader, IState> {
 
   private getSubMenuDesign() {
     return (
-      <Transition>
-        <Container className={styles.subMenu}>
-          {this.props.subLinks!.map((sublink: any, i: number) => (
-            <Container
-              onClick={sublink.props.href || sublink.props.onClick ? this.hideSubMenu : undefined}
-              key={i}
-            >
-              {sublink}
-            </Container>
-          ))}
-          {/* {Cookies.get('account') && (
+      <Container className={styles.subMenu}>
+        {this.props.subLinks!.map((sublink: any, i: number) => (
+          <Container
+            onClick={sublink.props.href || sublink.props.onClick ? this.hideSubMenu : undefined}
+            key={i}
+          >
+            {sublink}
+          </Container>
+        ))}
+        {/* {Cookies.get('account') && (
             <Container
               padding={{ topBottomRem: 0.5, leftRightRem: 1 }}
               textAlign='left'
@@ -271,8 +277,7 @@ export class Header extends React.Component<IHeader, IState> {
               Sign Out
             </Container>
           )} */}
-        </Container>
-      </Transition>
+      </Container>
     );
   }
 

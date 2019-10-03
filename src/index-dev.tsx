@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Fragment } from 'react';
 import { Mqtt, Formatter, FMath } from './helpers';
 import * as ReactDOM from 'react-dom';
 import { Controls, Ant } from './index-prod';
@@ -179,7 +178,7 @@ class Main extends Controls.MyComponent<
 
   public render() {
     const link = (
-      <Fragment>
+      <>
         By visiting the iSTOX platform, I shall be subject to and bound by our&nbsp;
         <Controls.Link
           onClick={() => {
@@ -189,11 +188,11 @@ class Main extends Controls.MyComponent<
         >
           Terms of Use
         </Controls.Link>
-      </Fragment>
+      </>
     );
     return this.shouldRender(() => {
       return (
-        <React.Fragment>
+        <>
           <Controls.RootContainer>
             <Controls.Header
               logo={false}
@@ -2349,7 +2348,7 @@ class Main extends Controls.MyComponent<
             </Controls.WrapperContainer>
           </Controls.RootContainer>
           <Controls.Footer detailed />
-        </React.Fragment>
+        </>
       );
     }, this.state.loading);
   }
