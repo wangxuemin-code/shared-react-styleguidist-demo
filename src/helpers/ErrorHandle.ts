@@ -29,8 +29,7 @@ export class ErrorHandle {
         if (error.message) {
           if (error.message.toLowerCase().indexOf('network error') > -1) {
             return {
-              message:
-                'Network error. Please make sure your are connected to the internet and has already logon.',
+              message: 'There is a problem with the server.',
               type: 'NotAuthorizedOrNetworkIssue'
             };
           }
