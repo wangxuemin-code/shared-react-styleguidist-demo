@@ -48,7 +48,7 @@ export class Loading extends React.Component<IProps, IState> {
     return (
       <div className={styles.loadingContainer} style={style}>
         {this.state.showLoading && (
-          <Image width={60} src={'/images/iSTOX-Emblem-Blue-Loading.gif'} />
+          <Image width={50} src={'/images/iSTOX-Emblem-Blue-Loading.gif'} />
         )}
       </div>
     );
