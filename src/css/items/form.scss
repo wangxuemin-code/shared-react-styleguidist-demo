@@ -17,12 +17,13 @@
 .ant-input {
   height: 37px;
   line-height: 37px;
+  background-color: inherit;
 }
 
 .ant-input[disabled],
 .ant-input-number-disabled {
   color: map-get($colors, primaryGreyDarker);
-  background-color: transparent;
+  background-color: inherit;
   cursor: not-allowed;
 }
 
@@ -183,7 +184,7 @@ textarea[disabled] {
       > div {
         height: auto !important;
         span {
-          background-color: transparent;
+          background-color: inherit;
         }
       }
     }

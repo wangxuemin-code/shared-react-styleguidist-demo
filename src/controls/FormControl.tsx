@@ -368,7 +368,10 @@ export class FormControl extends React.Component<IProps, IState> {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!re.test(String(this.state.value).toLowerCase())) {
           if (setErrorState)
-            this.setState({ error: 'Email address is not valid.', showError: true });
+            this.setState({
+              error: "The email address that you've entered is invalid.",
+              showError: true
+            });
           return false;
         }
       }

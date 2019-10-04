@@ -496,7 +496,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       if (extension === '.jpg') {
         ex = extension.replace('.jpg', 'jpeg');
       } else {
-        ex = extension.replace('.', '');
+        ex = extension.replace(/\./g, '');
       }
       let cap = ex.toUpperCase();
       filesAllowed.push(ex);
@@ -511,7 +511,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
         this.setState({ loading: false });
         Confirm.show({
           type: 'okonly',
-          message: `Only specified files ( ${filesAllowedString} ) are allowed`,
+          message: `The file type you uploaded is not supported on iSTOX. Only ${filesAllowedString} is supported.`,
           onResult: (result) => {}
         });
         e.target.value = '';
@@ -521,7 +521,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
         this.setState({ loading: false });
         Confirm.show({
           type: 'okonly',
-          message: 'The maximum file size for upload is 10MB',
+          message: 'The file size of your file exceeds our limit of 10MB.',
           onResult: (result) => {}
         });
         e.target.value = '';

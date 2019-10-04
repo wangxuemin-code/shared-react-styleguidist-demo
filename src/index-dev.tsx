@@ -891,7 +891,7 @@ class Main extends Controls.MyComponent<
                         type='uploader'
                         value={this.state.imageUrl}
                         uploaderConfigs={{
-                          customAllowFileExtensions: ['.pdf'],
+                          customAllowFileExtensions: ['.pdf, .jpeg, .png'],
                           showFileName: true,
                           footer: (
                             <>
