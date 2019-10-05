@@ -282,7 +282,7 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.props.type === 'checkbox') {
       if (this.props.required) {
         if (this.state.value == '') {
-          if (setErrorState) this.setState({ error: 'This field is required.', showError: true });
+          if (setErrorState) this.setState({ error: 'Required field', showError: true });
           return false;
         } else {
           this.setState({ showError: false });
@@ -292,21 +292,22 @@ export class FormControl extends React.Component<IProps, IState> {
     }
 
     if (this.props.required) {
+      if (this.props.type === 'phone') {
+        const value = this.state.value;
+        if (value) {
+          if (value.toString().split('-').length < 2) {
+            if (setErrorState) this.setState({ error: 'Required field', showError: true });
+            return false;
+          }
+        }
+      }
       if (
         this.state.value === undefined ||
         this.state.value === null ||
         this.state.value.toString().trim() === ''
       ) {
-        if (setErrorState) this.setState({ error: 'This field is required.', showError: true });
+        if (setErrorState) this.setState({ error: 'Required field', showError: true });
         return false;
-      }
-
-      if (this.props.type === 'phone') {
-        const value = this.state.value;
-        if (!value && value.toString().split('-').length < 2) {
-          if (setErrorState) this.setState({ error: 'This field is required.', showError: true });
-          return false;
-        }
       }
     }
 
