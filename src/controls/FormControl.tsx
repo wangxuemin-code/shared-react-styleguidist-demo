@@ -295,7 +295,10 @@ export class FormControl extends React.Component<IProps, IState> {
       if (this.props.type === 'phone') {
         const value = this.state.value;
         if (value) {
-          if (value.toString().split('-').length < 2) {
+          if (
+            value.toString().split('-').length < 2 ||
+            (value.toString().split('-').length > 1 && value.toString().split('-')[1].length < 1)
+          ) {
             if (setErrorState) this.setState({ error: 'Required field', showError: true });
             return false;
           }
