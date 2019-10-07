@@ -3,7 +3,6 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Loading } from './Loading';
-import { Item } from './Item';
 import { Controls } from '../index-prod';
 var uniqid = require('uniqid');
 

@@ -1,5 +1,9 @@
 .istox-footer-container {
   padding: 1rem 0 1rem;
   color: map-get($colors, primaryGreyDarker);
-  border-top: 1px solid map-get($colors, primaryGrey);
+  border-top: 1px solid map-get($colors, primaryGreyLight);
+
+  .anticon:hover {
+    color: #000 !important;
+  }
 }
