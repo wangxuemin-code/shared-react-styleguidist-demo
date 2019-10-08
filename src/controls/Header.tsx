@@ -288,9 +288,11 @@ export class Header extends React.Component<IHeader, IState> {
   };
 
   private hideSubMenu = () => {
-    this.setState({
-      subMenuVisible: false
-    });
+    setTimeout(() => {
+      this.setState({
+        subMenuVisible: false
+      });
+    }, 500);
   };
 
   private toggleSubMenu = () => {
