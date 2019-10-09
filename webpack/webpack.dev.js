@@ -21,24 +21,7 @@ const convertStringToSassDimension = function(result) {
     return result;
   }
 
-  const cssUnits = [
-    'rem',
-    'em',
-    'vh',
-    'vw',
-    'vmin',
-    'vmax',
-    'ex',
-    '%',
-    'px',
-    'cm',
-    'mm',
-    'in',
-    'pt',
-    'pc',
-    'ch',
-    'ms'
-  ];
+  const cssUnits = ['rem', 'em', 'vh', 'vw', 'vmin', 'vmax', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'ms'];
   const parts = result.match(/[a-zA-Z]+|[0-9]+/g);
   const value = parts[0];
   const unit = parts[parts.length - 1];
@@ -51,7 +34,7 @@ const convertStringToSassDimension = function(result) {
 
 module.exports = {
   entry: {
-    'istox-shared': './src/index-dev.tsx'
+    'istox-shared': './src/index-playground.tsx'
   },
   // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
   devtool: 'inline-source-map',

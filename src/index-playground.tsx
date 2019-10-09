@@ -36,18 +36,17 @@ class Main extends Controls.MyComponent<
       <Controls.RootContainer>
         <Controls.Container margin={{ bottomRem: 6, leftRightRem: 4 }}>
           <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
-          <Controls.StoTimeLine
-            stoDateTime={{
-              createdAt: '2019-08-10T01:36:48Z',
-              bookbuildingStartTime: '2019-08-14T10:20:24Z',
-              bookbuildingEndTime: '2019-08-24T10:20:24Z',
-              preSaleStartTime: '2019-08-28T10:20:24Z',
-              preSaleEndTime: '2019-09-15T10:20:24Z',
-              publicSaleStartTime: '2019-09-20T10:20:24Z',
-              publicSaleEndTime: '2019-09-26T00:20:24Z',
-              issueDateTime: '2019-09-28T00:20:24Z'
+          <Controls.FormControl
+            type='date'
+            label={'Date'}
+            name='date'
+            value={1287446400}
+            dateOptions={{
+              useUtc: true
             }}
-            hideTitle
+            onInputChanged={(value) => {
+              console.log(value);
+            }}
           />
         </Controls.Container>
       </Controls.RootContainer>
