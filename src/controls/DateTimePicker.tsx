@@ -1,9 +1,9 @@
+import { DatePicker as ReactDatePicker, Icon as ReactIcon } from 'antd';
 import * as React from 'react';
-import * as styles from '../css/main.scss';
-import { IContainer, Container } from './Container';
-import moment = require('moment');
-import { Icon as ReactIcon, DatePicker as ReactDatePicker } from 'antd';
 import MaskedInput from 'react-maskedinput-ultimate';
+import * as styles from '../css/main.scss';
+import { Container, IContainer } from './Container';
+import moment = require('moment');
 const { RangePicker } = ReactDatePicker;
 
 export interface IDateOption {
@@ -253,7 +253,17 @@ export class DateTimePicker extends React.Component<IProps, IState> {
     value = newValue;
     if (type === 'date' || type === 'datetime') {
       if (value) {
-        displayValue = moment.unix(value).format('DD/MM/YYYY');
+        if (this.props.options && this.props.options.useUtc) {
+          displayValue = moment
+            .unix(value)
+            .utc()
+            .format('DD/MM/YYYY');
+        } else {
+          displayValue = moment.unix(value).format('DD/MM/YYYY');
+        }
+
+        // displayValue = moment.unix(value).format('DD/MM/YYYY');
+
         if (this.props.type === 'datetime' || this.props.options.showTimeSelect) {
           displayValue = moment.unix(value).format('DD/MM/YYYY hh:mm a');
         }
@@ -271,6 +281,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         }
       }
     }
+
     if (firstCall) {
       if (type === 'date' || type === 'datetime') {
         if (typeof newValue === 'string') {
@@ -297,8 +308,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
       }
     } else {
       if (type === 'date' || type === 'datetime') {
-        console.log(newValue);
-
         if (typeof newValue === 'string') {
           value = parseInt(newValue, 10);
         } else {
@@ -477,8 +486,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
 
   private getUnixAutoAppendTime(date: any) {
     if (this.props.options && this.props.options.useUtc) {
-      console.log(date);
-
       return moment
         .utc(date)
         .startOf('day')
@@ -524,7 +531,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
 
   private getDefaultValue = (displayValue: any) => {
     if (this.props.options && this.props.options.useUtc) {
-      return moment.utc(displayValue);
+      return moment.utc(displayValue, this.getDateFormat());
     }
 
     if (displayValue) {
