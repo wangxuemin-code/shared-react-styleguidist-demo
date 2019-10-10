@@ -36,22 +36,38 @@ class Main extends Controls.MyComponent<
       <Controls.RootContainer>
         <Controls.Container margin={{ bottomRem: 6, leftRightRem: 4 }}>
           <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
-          <Controls.FormControl
-            type='date'
-            label={'Date'}
-            name='date'
-            value={1287446400}
-            dateOptions={{
-              useUtc: true
-            }}
-            onInputChanged={(value) => {
-              console.log(value);
-            }}
-          />
+          <Controls.Form>
+            <Controls.FormControl
+              type='autocomplete'
+              label={'Date'}
+              name='date'
+              autoCompleteOptions={{
+                getFetchPromise: this.fetchData
+              }}
+              onInputChanged={(value) => {
+                console.log(value);
+              }}
+            />
+
+            <Controls.FormControl type='text' value='abc' />
+          </Controls.Form>
         </Controls.Container>
       </Controls.RootContainer>
     );
   }
+
+  private fetchData = () => {
+    return new Promise<Array<{ component: any; value: string }>>((resolve, reject) => {
+      setTimeout(() => {
+        resolve([
+          {
+            component: <Controls.Container fontWeight='bold'>Hello</Controls.Container>,
+            value: 'hello'
+          }
+        ]);
+      }, 1000);
+    });
+  };
 }
 
 const render = () => {
