@@ -53,20 +53,24 @@ export class Formatter {
       .trim();
   }
 
-  public static datetimeByFormat(format: string, input?: string | number | Date): string {
-    return this.getMomentObject(format, input);
+  public static datetimeByFormat(
+    format: string,
+    input?: string | number | Date,
+    options?: { useUtc?: boolean }
+  ): string {
+    return this.getMomentObject(format, input, options);
   }
 
-  public static datetime(input?: string | number | Date): string {
-    return this.getMomentObject('DD MMM YYYY hh:mm A', input);
+  public static datetime(input?: string | number | Date, options?: { useUtc?: boolean }): string {
+    return this.getMomentObject('DD MMM YYYY hh:mm A', input, options);
   }
 
-  public static date(input?: string | number | Date): string {
-    return this.getMomentObject('DD MMM YYYY', input);
+  public static date(input?: string | number | Date, options?: { useUtc?: boolean }): string {
+    return this.getMomentObject('DD MMM YYYY', input, options);
   }
 
-  public static time(input?: string | number | Date): string {
-    return this.getMomentObject('hh:mm A', input);
+  public static time(input?: string | number | Date, options?: { useUtc?: boolean }): string {
+    return this.getMomentObject('hh:mm A', input, options);
   }
 
   public static datetimeToDate(input?: string | number): Date {
@@ -116,15 +120,27 @@ export class Formatter {
     return value.toString().split('.')[1].length || 0;
   }
 
-  private static getMomentObject(format: string, input?: string | number | Date): string {
+  private static getMomentObject(
+    format: string,
+    input?: string | number | Date,
+    options?: { useUtc?: boolean }
+  ): string {
+    let momentObj = null;
+
     if (typeof input !== 'string' && typeof input !== 'number') {
-      return moment(input).format(format);
+      momentObj = moment(input);
     } else if (typeof input === 'number') {
-      return moment.unix(input).format(format);
+      momentObj = moment.unix(input);
     } else if (isNaN(Number(input))) {
-      return moment(input).format(format);
+      momentObj = moment(input);
     } else {
-      return moment.unix(Number(input)).format(format);
+      momentObj = moment.unix(Number(input));
+    }
+
+    if (options && options.useUtc) {
+      return momentObj.utc().format(format);
+    } else {
+      return momentObj.format(format);
     }
   }
 }
