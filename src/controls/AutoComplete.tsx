@@ -8,7 +8,9 @@ export interface IAutoComplete {
     value: string;
   }>;
   loadingText?: string;
-  getFetchPromise?: () => Promise<
+  getFetchPromise?: (
+    searchText: string
+  ) => Promise<
     Array<{
       component: any;
       value: string;
@@ -89,14 +91,18 @@ export class AutoComplete extends React.Component<IProps, IState> {
     );
   }
 
-  private fetchOptions = async () => {
+  private fetchOptions = async (text: string) => {
     if (this.props.options && this.props.options.getFetchPromise) {
-      this.setState({ loading: true, data: [] });
-      const data = await this.props.options.getFetchPromise();
-      this.setState({
-        data,
-        loading: false
-      });
+      if (text) {
+        this.setState({ loading: true, data: [] });
+        const data = await this.props.options.getFetchPromise(text);
+        this.setState({
+          data,
+          loading: false
+        });
+      } else {
+        this.setState({ loading: false, data: [] });
+      }
     }
   };
 

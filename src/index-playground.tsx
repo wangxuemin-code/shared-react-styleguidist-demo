@@ -56,7 +56,8 @@ class Main extends Controls.MyComponent<
     );
   }
 
-  private fetchData = () => {
+  private fetchData = (text: string) => {
+    console.log(text);
     return new Promise<Array<{ component: any; value: string }>>((resolve, reject) => {
       setTimeout(() => {
         resolve([
