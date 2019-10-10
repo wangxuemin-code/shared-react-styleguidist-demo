@@ -1620,7 +1620,8 @@ class Main extends Controls.MyComponent<
                     type={'date'}
                     placeholder={'DD/MM/YYYY'}
                     dateOptions={{
-                      startDate: new Date(),
+                      endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
+                      // useUtc: true,
                       dateFormat: 'dd-MM-yyyy',
                       defaultShowDate: true
                     }}
