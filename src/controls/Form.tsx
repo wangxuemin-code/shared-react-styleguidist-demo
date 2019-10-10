@@ -80,7 +80,7 @@ export class Form extends React.Component<IProps, IState> {
         <Modal width={650} visible={this.state.showUploaderModal} disableClose>
           {this.state.uploadResult && (
             <>
-              <h4>{this.state.uploadResult}</h4>
+              <h3 className={styles.colorDark}>{this.state.uploadResult}</h3>
               <Divider visibility={'hidden'} />
             </>
           )}
@@ -143,9 +143,9 @@ export class Form extends React.Component<IProps, IState> {
                           <Divider visibility='visible' />
                         </>
                       )}
-                      <p className='color-primary-grey-darker'>
+                      <Container classNames={[styles.colorPrimaryGreyDarker, styles.uppercase]}>
                         {formControl.props.uploaderConfigs.fieldName}
-                      </p>
+                      </Container>
                     </>
                   )}
                   <Grid>
@@ -167,6 +167,7 @@ export class Form extends React.Component<IProps, IState> {
                       <Grid.Col col={4} verticalAlign='center'>
                         <Container
                           padding={{ leftRem: 2 }}
+                          margin={{ topRem: -2.4 }}
                           className={`capitalize color-${
                             uploadFormControlsProgress[formControl.props.name].variant !== 'info'
                               ? uploadFormControlsProgress[formControl.props.name].variant

@@ -1554,6 +1554,13 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     required
+                    label={'AlphaNumeric only'}
+                    name='alphanumeric'
+                    placeholder={'Only Alpha Numeric allowed'}
+                    type={'alphanumeric'}
+                  />
+                  <Controls.FormControl
+                    required
                     label={'Capitalize only'}
                     name='capitalize'
                     placeholder={'Only capitalize allowed'}

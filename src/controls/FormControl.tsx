@@ -45,6 +45,7 @@ interface IProps extends IContainer {
   placeholder?: any;
   type?:
     | 'alphabet'
+    | 'alphanumeric'
     | 'text'
     | 'number'
     | 'numberfields'
@@ -1311,6 +1312,12 @@ export class FormControl extends React.Component<IProps, IState> {
         return false;
       }
     }
+    if (this.props.type === 'alphanumeric') {
+      const re = /^[a-z0-9]+$/i;
+      if (value && !re.test(String(value))) {
+        return false;
+      }
+    }
     if (this.props.type === 'alphabet' || this.props.alphabetOnly) {
       const re = /^[A-Za-z]+$/;
       if (value && !re.test(String(value))) {
@@ -1366,6 +1373,12 @@ export class FormControl extends React.Component<IProps, IState> {
       }
     } else if (this.props.type === 'numeric') {
       const re = /^\d+$/;
+      return {
+        displayValue: !re.test(value) ? '' : value,
+        value: !re.test(value) ? '' : value
+      };
+    } else if (this.props.type === 'alphanumeric') {
+      const re = /^[a-z0-9]+$/i;
       return {
         displayValue: !re.test(value) ? '' : value,
         value: !re.test(value) ? '' : value
