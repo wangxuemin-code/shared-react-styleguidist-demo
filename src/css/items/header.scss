@@ -170,7 +170,7 @@
 
   &.alt {
     background-color: map-get($colors, primaryAltActive);
-    color: map-get($colors, primary);
+    color: map-get($colors, primaryGreyDarker);
 
     .links {
       .link.selected .underline {

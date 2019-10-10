@@ -297,7 +297,6 @@ textarea[disabled] {
     div[class*='option'] {
       background-color: map-get($colors, primaryAlt);
       cursor: pointer;
-      color: map-get($colors, primaryGreyDarker);
       border-left: 3px solid map-get($colors, primaryAlt);
       padding: 0.5rem;
       display: inline-block;

@@ -2,6 +2,14 @@
   border-radius: 0;
 }
 
+.ant-modal-content {
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+}
+
+.ant-modal-mask {
+  background-color: rgba(28, 66, 103, 0.5);
+}
+
 .my-modal .close-button {
   .button {
     background-color: transparent;

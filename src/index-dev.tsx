@@ -1502,12 +1502,14 @@ class Main extends Controls.MyComponent<
                     suffix={<Controls.Icon variant={'success'} icon={faCheckCircle} />}
                   />
                   <Controls.Container className={'form-group'}>
+                    {/* <Ant.Popover placement='topLeft' trigger='click' content={'PopOver'}> */}
                     <Controls.FormControl
                       required
                       label={'Password'}
                       name='Password'
                       type={'password'}
                     />
+                    {/* </Ant.Popover> */}
                     <Controls.FormControl
                       label={'Password'}
                       name='Password'
@@ -1898,6 +1900,7 @@ class Main extends Controls.MyComponent<
                     type={'country'}
                     // excludeOptions={['Others', 'Singapore']}
                     required
+                    value='Singapore'
                   />
                   <Controls.FormControl
                     label={'Country Code'}

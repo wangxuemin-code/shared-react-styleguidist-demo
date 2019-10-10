@@ -172,7 +172,7 @@ export class Phone extends React.Component<IProps, IState> {
                 menu: (base: any, state: any) => ({
                   ...base,
                   width: '300px',
-                  padding: '0.5rem 0 !important',
+                  padding: '0.5rem !important',
                   backgroundColor: 'white',
                   boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
                   border: '1px solid rgba(125, 125, 125, 0.1)',
@@ -190,6 +190,11 @@ export class Phone extends React.Component<IProps, IState> {
                 singleValue: (base: any) => ({
                   ...base,
                   color: 'rgba(0, 0, 0, 1)'
+                }),
+                option: (base: any, state: any) => ({
+                  ...base,
+                  fontWeight: state.isSelected ? 600 : 400,
+                  color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
                 })
               }}
             />
