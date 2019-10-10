@@ -82,6 +82,7 @@ export class AutoComplete extends React.Component<IProps, IState> {
           onChange={this.onChanged}
           defaultActiveFirstOption={false}
           showArrow={false}
+          placeholder={this.props.placeholder}
         >
           {this.state.data.map((d) => (
             <Ant.Select.Option key={d.value}>{d.component}</Ant.Select.Option>
