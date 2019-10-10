@@ -56,7 +56,7 @@ export class AutoComplete extends React.Component<IProps, IState> {
   }
 
   public componentDidUpdate(prevProps: IProps) {
-    if (this.props.options !== this.props.options) {
+    if (this.props.options !== prevProps.options) {
       this.setState({
         data: this.props.options && this.props.options.data ? this.props.options.data : []
       });
