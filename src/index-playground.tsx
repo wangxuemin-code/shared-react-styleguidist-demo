@@ -44,6 +44,7 @@ class Main extends Controls.MyComponent<
               autoCompleteOptions={{
                 getFetchPromise: this.fetchData
               }}
+              placeholder='testing'
               onInputChanged={(value) => {
                 console.log(value);
               }}

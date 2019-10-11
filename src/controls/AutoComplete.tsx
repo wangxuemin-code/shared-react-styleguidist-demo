@@ -71,7 +71,7 @@ export class AutoComplete extends React.Component<IProps, IState> {
             width: '100%'
           }}
           showSearch
-          value={this.props.value}
+          value={this.props.value ? this.props.value : undefined}
           notFoundContent={
             this.state.loading ? (
               <Controls.Container>{this.props.options!.loadingText || 'Loading...'}</Controls.Container>
