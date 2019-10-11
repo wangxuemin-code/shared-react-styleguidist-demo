@@ -1597,14 +1597,14 @@ class Main extends Controls.MyComponent<
                     loading={true}
                     // loading={this.state.loading}
                     onSendCode={(processing: boolean) => {
-                      if (processing) {
-                        this.setState({ loading: true });
-                        // setTimeout(() => {
-                        //   this.setState({ email: 'hahahaha@gmail.com' });
-                        // }, 5000);
-                      } else {
-                        this.setState({ loading: false });
-                      }
+                      // if (processing) {
+                      //   this.setState({ loading: true });
+                      //   // setTimeout(() => {
+                      //   //   this.setState({ email: 'hahahaha@gmail.com' });
+                      //   // }, 5000);
+                      // } else {
+                      //   this.setState({ loading: false });
+                      // }
                     }}
                     validateReturnError={(value: string | number | undefined | null): any => {
                       return 'Invalid OTP';
@@ -1621,7 +1621,7 @@ class Main extends Controls.MyComponent<
                     placeholder={'DD/MM/YYYY'}
                     dateOptions={{
                       endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
-                      // useUtc: true,
+                      useUtc: true,
                       dateFormat: 'dd-MM-yyyy',
                       defaultShowDate: true
                     }}

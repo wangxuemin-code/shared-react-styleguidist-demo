@@ -230,7 +230,7 @@ export class OtpInput extends React.Component<IProps, IState> {
           <>
             <Item basic={true} backgroundColor={'#F8F8F8'} icon={faMobileAlt}>
               <Container verticalAlign={'center'}>
-                <Container>
+                <Container margin={{ rightRem: 1 }}>
                   code sent to <br /> {this.state.phoneCode}&nbsp; {asterisk.repeat(asteriskCount)}
                   {phoneNumber}
                 </Container>
@@ -246,7 +246,7 @@ export class OtpInput extends React.Component<IProps, IState> {
                   float={'right'}
                   variant='primary'
                   onPress={this.sendPhoneCode}
-                  type={'submit'}
+                  type={'button'}
                 >
                   {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
                     ? 'Send Code'
@@ -254,7 +254,7 @@ export class OtpInput extends React.Component<IProps, IState> {
                       this.state.timeRemainingInSeconds === 0 ||
                       !this.props.loading
                     ? 'Resend Code'
-                    : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
+                    : 'You can resend in ' + this.state.timeRemainingInSeconds + ' sec'}
                 </Button>
               </Container>
             </Item>
