@@ -7,7 +7,9 @@ export interface IAutoComplete {
     component: any;
     value: string;
   }>;
+  minSearchCharacters?: number;
   loadingText?: string;
+  noRecordText?: string;
   getFetchPromise?: (
     searchText: string
   ) => Promise<
@@ -28,18 +30,24 @@ interface IProps {
 interface IState {
   selectedValues: Array<String>;
   loading: boolean;
+  error?: string;
+  searchText?: string;
   data: Array<{
     component: any;
     value: string;
   }>;
 }
 
+const DEFAULT_MIN_SEARCH_CHARS = 3;
+
 export class AutoComplete extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     options: {
       data: [],
-      loadingText: 'Loading...'
+      loadingText: 'Loading...',
+      minSearchCharacters: DEFAULT_MIN_SEARCH_CHARS
     },
+
     onChange: () => {}
   };
 
@@ -75,15 +83,23 @@ export class AutoComplete extends React.Component<IProps, IState> {
           notFoundContent={
             this.state.loading ? (
               <Controls.Container>{this.props.options!.loadingText || 'Loading...'}</Controls.Container>
+            ) : this.state.searchText ? (
+              <Controls.Container>{this.props.options!.noRecordText || 'No record found'}</Controls.Container>
             ) : null
           }
           filterOption={false}
           onSearch={this.fetchOptions}
           onChange={this.onChanged}
-          defaultActiveFirstOption={false}
+          defaultActiveFirstOption={true}
           showArrow={false}
           placeholder={this.props.placeholder}
         >
+          {this.state.error && (
+            <Ant.Select.Option key='error' disabled={true}>
+              <Controls.Alert error={this.state.error} />
+            </Ant.Select.Option>
+          )}
+
           {this.state.data.map((d) => (
             <Ant.Select.Option key={d.value}>{d.component}</Ant.Select.Option>
           ))}
@@ -93,16 +109,29 @@ export class AutoComplete extends React.Component<IProps, IState> {
   }
 
   private fetchOptions = async (text: string) => {
-    if (this.props.options && this.props.options.getFetchPromise) {
-      if (text) {
-        this.setState({ loading: true, data: [] });
-        const data = await this.props.options.getFetchPromise(text);
-        this.setState({
-          data,
-          loading: false
-        });
-      } else {
-        this.setState({ loading: false, data: [] });
+    if (
+      !text ||
+      text.length <
+        (this.props.options
+          ? this.props.options.minSearchCharacters || DEFAULT_MIN_SEARCH_CHARS
+          : DEFAULT_MIN_SEARCH_CHARS)
+    ) {
+      this.setState({ loading: false, data: [], error: undefined, searchText: undefined });
+    } else {
+      if (this.props.options && this.props.options.getFetchPromise) {
+        this.setState({ loading: true, data: [], error: undefined, searchText: text });
+        try {
+          const data = await this.props.options.getFetchPromise(text);
+          this.setState({
+            data,
+            loading: false
+          });
+        } catch (ex) {
+          this.setState({
+            loading: false,
+            error: ex
+          });
+        }
       }
     }
   };
