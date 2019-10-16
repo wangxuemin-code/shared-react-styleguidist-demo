@@ -49,6 +49,7 @@ interface IProps extends IContainer {
   selectedItemIds?: string[];
   scrollableTBody?: boolean;
   onLoadMore?: () => void;
+  height?: number;
   hasMore?: boolean;
   threshold?: number;
   useWindow?: boolean;
@@ -117,25 +118,29 @@ export class Table extends React.Component<IProps, IState> {
             </tr>
           </thead>
           {this.props.scrollableTBody ? (
-            <InfiniteScroll
-              element={'tbody'}
-              pageStart={0}
-              hasMore={this.props.hasMore}
-              loadMore={this.props.onLoadMore}
-              loader={
-                <tr className='loader' key={uniqid().toString()}>
-                  <td>Loading ...</td>
-                </tr>
-              }
-              threshold={this.props.threshold || 50}
-              useWindow={this.props.useWindow || false}
-              initialLoad={this.props.initialLoad || false}
+            <Controls.Container
+              style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}
             >
-              {this.props.rows &&
-                this.props.rows.map((tableRowModel, i) => {
-                  return this.getRowDesign(tableRowModel, i);
-                })}
-            </InfiniteScroll>
+              <InfiniteScroll
+                element={'tbody'}
+                pageStart={0}
+                hasMore={this.props.hasMore}
+                loadMore={this.props.onLoadMore}
+                loader={
+                  <tr className='loader' key={uniqid().toString()}>
+                    <td>Loading ...</td>
+                  </tr>
+                }
+                threshold={this.props.threshold || 50}
+                useWindow={this.props.useWindow || false}
+                initialLoad={this.props.initialLoad || false}
+              >
+                {this.props.rows &&
+                  this.props.rows.map((tableRowModel, i) => {
+                    return this.getRowDesign(tableRowModel, i);
+                  })}
+              </InfiniteScroll>
+            </Controls.Container>
           ) : (
             <tbody>
               {this.props.rows &&
