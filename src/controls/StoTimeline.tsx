@@ -5,7 +5,6 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from './Container';
 
 interface IStoDateTime {
-  createdAt: string;
   bookbuildingStartTime: string;
   bookbuildingEndTime: string;
   preSaleStartTime: string;
@@ -40,12 +39,6 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     const phases: Array<{ title: string; date: Moment; key?: string; clickable: boolean; isBig: boolean }> = [];
     phases.push(
       {
-        title: 'Offering created',
-        date: moment(this.props.stoDateTime.createdAt),
-        clickable: false,
-        isBig: false
-      },
-      {
         title: 'Book Building',
         key: 'book_building',
         date: moment(this.props.stoDateTime.bookbuildingStartTime),
@@ -53,7 +46,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         isBig: true
       },
       {
-        title: 'Token Allocation',
+        title: 'Book Building Closed',
         key: 'allocation',
         date: moment(this.props.stoDateTime.bookbuildingEndTime),
         clickable: true,
