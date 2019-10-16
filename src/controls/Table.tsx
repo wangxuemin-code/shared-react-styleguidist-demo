@@ -47,7 +47,7 @@ interface IProps extends IContainer {
   selectable?: boolean;
   onSelectedItemsChanged?: (selectedItemIds: string[]) => void;
   selectedItemIds?: string[];
-  scrollableBody?: boolean;
+  scrollableTBody?: boolean;
   onLoadMore?: () => void;
   hasMore?: boolean;
   threshold?: number;
@@ -116,7 +116,7 @@ export class Table extends React.Component<IProps, IState> {
                 })}
             </tr>
           </thead>
-          {this.props.scrollableBody ? (
+          {this.props.scrollableTBody ? (
             <InfiniteScroll
               element={'tbody'}
               pageStart={0}
