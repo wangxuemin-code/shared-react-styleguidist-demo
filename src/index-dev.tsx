@@ -1575,6 +1575,7 @@ class Main extends Controls.MyComponent<
                     unit={'SGD'}
                   />
                   <Controls.FormControl
+                    autoFocus={true}
                     numInputs={6}
                     inputWidth={'60px'}
                     label={'OTP'}
@@ -1621,9 +1622,9 @@ class Main extends Controls.MyComponent<
                     placeholder={'DD/MM/YYYY'}
                     dateOptions={{
                       endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
-                      useUtc: true,
-                      dateFormat: 'dd-MM-yyyy',
-                      defaultShowDate: true
+                      useUtc: true
+                      // dateFormat: 'dd-MM-yyyy',
+                      // defaultShowDate: true
                     }}
                     value={this.state.value}
                     // value={'2019-07-28T13:35:38.000Z'}
@@ -1671,7 +1672,6 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
-                    disabled
                     required
                     label={'DateTime'}
                     name='datetime'
@@ -1929,7 +1929,7 @@ class Main extends Controls.MyComponent<
                     showPhoneLabel={false}
                   />
                   <Controls.FormControl
-                    autoFocus={true}
+                    // autoFocus={true}
                     label={'Phone With Send Code'}
                     name='phonewithsendcode'
                     type={'phone'}

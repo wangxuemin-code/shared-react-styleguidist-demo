@@ -2418,6 +2418,7 @@ export const textLeft: string;
 export const textCenter: string;
 export const textRight: string;
 export const textJustify: string;
+export const textDecorationUnderline: string;
 export const right: string;
 export const left: string;
 export const flex1: string;

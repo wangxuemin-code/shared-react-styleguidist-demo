@@ -332,7 +332,7 @@ export class Form extends React.Component<IProps, IState> {
       });
       this.setState({
         uploadFormControls,
-        uploadResult: `Uploading ${uploads.length} file${uploads.length > 2 ? 's...' : ''}`
+        uploadResult: `Uploading ${uploads.length} file${uploads.length !== 1 ? 's...' : ''}`
       });
       if (promises.length > 0) {
         Promise.all(promises)
@@ -340,8 +340,8 @@ export class Form extends React.Component<IProps, IState> {
             if (showUploadModal && uploads.length) {
               this.setState({
                 uploadResult: this.props.onUploadComplete
-                  ? `Uploading ${uploads.length} file${uploads.length > 2 ? 's...' : ''}`
-                  : `${uploads.length} File${uploads.length > 2 ? 's uploaded' : ' uploaded'}`
+                  ? `Uploading ${uploads.length} file${uploads.length !== 1 ? 's...' : ''}`
+                  : `${uploads.length} File${uploads.length !== 1 ? 's uploaded' : ' uploaded'}`
               });
             }
             if (this.props.onUploadComplete) {
@@ -405,8 +405,8 @@ export class Form extends React.Component<IProps, IState> {
         uploadFormControlsProgress: newUploadFormControlsProgress,
         uploadResult:
           virusCount > 0
-            ? `${virusCount} Malicious file${virusCount > 2 ? 's' : ''} detected!`
-            : `${antiVirusChecks.length} file${antiVirusChecks.length > 2 ? 's' : ''} uploaded!`
+            ? `${virusCount} Malicious file${virusCount !== 1 ? 's' : ''} detected!`
+            : `${antiVirusChecks.length} file${antiVirusChecks.length !== 1 ? 's' : ''} uploaded!`
       });
       if (virusCount === 0) {
         this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
@@ -491,7 +491,7 @@ export class Form extends React.Component<IProps, IState> {
       if (filesFailed > 0) {
         this.setState({
           uploadResult: `${filesFailed} File${
-            filesFailed > 2 ? ' uploads failed' : 'upload failed'
+            filesFailed !== 1 ? ' uploads failed' : 'upload failed'
           }`
         });
       }

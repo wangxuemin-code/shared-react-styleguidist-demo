@@ -149,8 +149,11 @@ export class OtpInput extends React.Component<IProps, IState> {
     ) {
       // 0-9 only and Enter
       const otpLength = this.state.otp.join('').length;
-      if (!isNaN(e.key) && otpLength < this.props.numInputs) {
+      const otp = this.state.otp;
+      if (!isNaN(e.key) && otpLength <= this.props.numInputs && e.key !== otp[i]) {
         this.changeCodeAtFocus(e.key, i);
+      }
+      if (!isNaN(e.key) && i < this.props.numInputs) {
         this.focusNextInput(i);
       }
     } else {
@@ -160,16 +163,16 @@ export class OtpInput extends React.Component<IProps, IState> {
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
-        if (otp[i] == '') {
-          this.focusPrevInput(i);
-        }
+        // if (otp[i] == '') {
+        this.focusPrevInput(i);
+        // }
         this.changeCodeAtFocus('', i);
         break;
       case DELETE:
         e.preventDefault();
-        if (otp[i] == '') {
-          this.focusPrevInput(i);
-        }
+        // if (otp[i] == '') {
+        this.focusPrevInput(i);
+        // }
         this.changeCodeAtFocus('', i);
         break;
       case LEFT_ARROW:
@@ -198,12 +201,13 @@ export class OtpInput extends React.Component<IProps, IState> {
             onChange={this.handleOnChange}
             onKeyDown={(e: any) => this.handleOnKeyDown(e, i)}
             onFocus={(e: any) => {
-              this.setState({
-                activeInput: i
-              });
-              e.target.select();
+              // this.setState({
+              //   activeInput: i
+              // });
+              // e.target.select();
             }}
-            onBlur={() => this.setState({ activeInput: -1 })}
+            onBlur={() => {}}
+            // onBlur={() => this.setState({ activeInput: -1 })}
             // isLastChild={i === numInputs - 1}
             autoFocus={autoFocus}
             isInputNum={isInputNum}
@@ -313,9 +317,9 @@ class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
       props: { focus }
     } = this;
 
-    if (prevProps.focus !== focus && (input && focus)) {
+    if (focus && (input && focus)) {
       input.focus();
-      input.select();
+      // input.select();
     }
   }
 

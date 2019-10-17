@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOROJIDYWB',
-        secret_access_key: 'D7pfCLdcg6JT+wc9LreeQNWDmUEinM5UjnebJGvb',
+        access_key_id: 'ASIAZGTEABANDA27BMVY',
+        secret_access_key: '4vc4RQJFVPdnr1peI0P8XpXiRe5irP2gbXhfMOwq',
         session_token:
-          'FQoGZXIvYXdzEOH//////////wEaDNAjFaLhML8csSCyuSLkA3OsG5Y+ViyiXHQaMlUTbI72Wry9LFOyusD1K7Q2HBRTc4Qw0KYxZTyXyECBAFCEIE9NMuuTUXDYsJh3XVtmWVp5mWFYWRR8iWenG9J8eoh8Sr2VxOIpg8neek+hMJkydhrAarCzI4k5ulogful1rcJ2zt2uLbI5CCw3/AWA3pNW5vJlwdR1sr/vx32r1sZ9y5wA8xYV4zSed16qFHGYTiePNIcUn4r3rN4dFiw2/A2Qj6FjqDKdMmrGTUPAMPvwrCfwIfSmQ9TEa3jHFWAcdRMID/Jb23iiSkikduaLAd7wux8LIEMEao505cG9VcMN3MTyC9b+nR+JPLELbBFBBL5WIIMqP/g5010QME/OjC5ATYuo2U/W0pDDgEbcvXKLd62qhIQdk2JBd0IOruEFI1ex2G3m7MaOoV1PrO7bFKSurJztjgDJ7UqYxyCjWJHMVELTGXoVX0TO/M+qXrT1xDI70N9DkgJouYEdqW9Yug7D4Wn+cnQXRRst4DmLpxFCBn4p6nRUCCkJahtcycY4YCReZBpCMdyw13jQpbDiLWXrCanYL2jJlczrm3WO/3BYOYtYxPJNOjnTlZABG80ov9cmfJ1v+A9eVj45TpeW/3Kbxvq/6UbBe0FmNPU7QagMi22edj0o5cn77AU=',
+          'FQoGZXIvYXdzEIb//////////wEaDAfkS9+xjnPUnimh3SLiA/4eqmgQ3C581LXb15ARLmOslxhGkVZ8IkiKo4L9vq3xjnwU6dm6O+kaT5ButcAoO1IA51sJ9BK6x/kXwJ3tyR3po4EwHRBiDBrjXL1sli7KaZCrjgUSDkN4oNSUDfJg/D25qj6T2jRC3eIbPezAH+E2Xh+XP0bU3vsHeTwdGcHdxnqoLnGg6TJ2UilXCf1G6cvZdZf1rU2g5rmAl2zTTGbSDny0OUgjW1vACO9SzSEhdgNRHNA7jK79BCUv5srsRawqew+Y/1uUeWEyh8lCHaphJ72irSWcRAmIqbmJXZr6VeLu+pYx1NR5Dl+UfgWUiPCn7D0lPWJKymlLSb2V/VrYtQIBNpzBGgE4oGTBkATszbiSX8NaArTNKcJ9iRxG1GO1i9w7KIgrbyT+5KoDd7wh4wIdFmV0GteIHA6vrGPobdweWKPPahQge1S8r+7JvE4J0ksStS9qnhfyhH4MWeLKKcq+aaMtdh7lW9ovLd3jSwFOp2F6HzUSd4nZZqoZ/sK7qxpEZrLbxbSDTz+pkzCgo3IgGvElfMcnnLFhAjGJlUI0T/r1xP+9ftX1N52OnZYu1NIE2tUzaRufLjBcnpIEZue2m3DHfNcSEaEjo7cA40xw4TqOxfBf/ryxlSg0T72VKJrYn+0F',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };
@@ -99,7 +99,7 @@ class Main extends Controls.MyComponent<any, IState> {
                   }}
                   value='ISTOXBUCKET|istoxkyc-local|ID46066150M/e0d925c5-47d8-469f-bdb9-be32662ea001.png'
                 />
-                <Controls.FormControl
+                {/* <Controls.FormControl
                   type='uploader'
                   label={'Uploader'}
                   name='uploader_2'
@@ -125,7 +125,7 @@ class Main extends Controls.MyComponent<any, IState> {
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf']
                     // fixedFileName: 'abc'
                   }}
-                />
+                /> */}
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'
