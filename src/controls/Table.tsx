@@ -4,6 +4,7 @@ import { Container, IContainer } from './Container';
 import { Icon } from './Icon';
 import { Loading } from './Loading';
 import { Controls } from '../index-prod';
+var InfiniteScroll = require('react-infinite-scroller');
 var uniqid = require('uniqid');
 
 export interface TableHeaderModel {
@@ -46,6 +47,13 @@ interface IProps extends IContainer {
   selectable?: boolean;
   onSelectedItemsChanged?: (selectedItemIds: string[]) => void;
   selectedItemIds?: string[];
+  scrollableTBody?: boolean;
+  onLoadMore?: () => void;
+  height?: number;
+  hasMore?: boolean;
+  threshold?: number;
+  useWindow?: boolean;
+  initialLoad?: boolean;
 }
 
 interface IState {
@@ -109,12 +117,38 @@ export class Table extends React.Component<IProps, IState> {
                 })}
             </tr>
           </thead>
-          <tbody>
-            {this.props.rows &&
-              this.props.rows.map((tableRowModel, i) => {
-                return this.getRowDesign(tableRowModel, i);
-              })}
-          </tbody>
+          {this.props.scrollableTBody ? (
+            <Controls.Container
+              style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}
+            >
+              <InfiniteScroll
+                element={'tbody'}
+                pageStart={0}
+                hasMore={this.props.hasMore}
+                loadMore={this.props.onLoadMore}
+                loader={
+                  <tr className='loader' key={uniqid().toString()}>
+                    <td>Loading ...</td>
+                  </tr>
+                }
+                threshold={this.props.threshold || 50}
+                useWindow={this.props.useWindow || false}
+                initialLoad={this.props.initialLoad || false}
+              >
+                {this.props.rows &&
+                  this.props.rows.map((tableRowModel, i) => {
+                    return this.getRowDesign(tableRowModel, i);
+                  })}
+              </InfiniteScroll>
+            </Controls.Container>
+          ) : (
+            <tbody>
+              {this.props.rows &&
+                this.props.rows.map((tableRowModel, i) => {
+                  return this.getRowDesign(tableRowModel, i);
+                })}
+            </tbody>
+          )}
         </table>
         {typeof this.props.footer === 'string' && (
           <Container padding={{ allRem: 1 }}>
@@ -189,13 +223,7 @@ export class Table extends React.Component<IProps, IState> {
                       value: '1'
                     }
                   ]}
-                  value={
-                    rowModel.itemId
-                      ? this.state.selectedIds.indexOf(rowModel.itemId) > -1
-                        ? '1'
-                        : ''
-                      : ''
-                  }
+                  value={rowModel.itemId ? (this.state.selectedIds.indexOf(rowModel.itemId) > -1 ? '1' : '') : ''}
                   onInputChanged={this.onCheckboxChanged.bind(this, 'single', {
                     itemId: rowModel.itemId
                   })}
@@ -299,12 +327,7 @@ export class Table extends React.Component<IProps, IState> {
         if (!this.isRowHeader(tableRowModel)) {
           const itemId = (tableRowModel as TableRowModel).itemId;
           const groupId = (tableRowModel as TableRowModel).groupId;
-          if (
-            groupId === checkGroupId &&
-            itemId &&
-            result &&
-            this.state.selectedIds.indexOf(itemId) < 0
-          ) {
+          if (groupId === checkGroupId && itemId && result && this.state.selectedIds.indexOf(itemId) < 0) {
             result = false;
           }
         }
