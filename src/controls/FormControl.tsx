@@ -1194,11 +1194,13 @@ export class FormControl extends React.Component<IProps, IState> {
               max={1000000000000}
               min={0}
               placeholder={this.props.placeholder}
-              // value={
-              //   this.isNotEmpty(this.state.value) && String(this.state.value!).trim() !== ''
-              //     ? Number(this.state.value)
-              //     : undefined
-              // }
+              value={
+                this.isNotEmpty(this.state.value) &&
+                String(this.state.value!).trim() !== '' &&
+                !isNaN(this.state.value as any)
+                  ? Number(this.state.value)
+                  : undefined
+              }
               onChange={this.onNumberChanged}
               disabled={this.props.disabled}
               formatter={this.numberWithCommas}
