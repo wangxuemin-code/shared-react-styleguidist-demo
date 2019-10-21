@@ -340,7 +340,6 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         } else {
           value = newValue;
         }
-
         this.setState({
           displayValue,
           defaultValue: this.getDefaultValue(displayValue)
@@ -567,14 +566,18 @@ export class DateTimePicker extends React.Component<IProps, IState> {
 
   private getDefaultValue = (displayValue: any) => {
     if (this.props.options && this.props.options.useUtc) {
-      if (this.props.options.startDate || this.props.options.endDate) {
-        if (this.props.options.startDate) {
-          return moment.utc(this.props.options.startDate);
-        } else {
-          return moment.utc(this.props.options.endDate);
-        }
-      } else {
+      if (displayValue) {
         return moment.utc(displayValue, this.getDateFormat());
+      } else {
+        if (this.props.options.startDate || this.props.options.endDate) {
+          if (this.props.options.startDate) {
+            return moment.utc(this.props.options.startDate);
+          } else {
+            return moment.utc(this.props.options.endDate);
+          }
+        } else {
+          return moment.utc(displayValue, this.getDateFormat());
+        }
       }
     }
     if (displayValue) {
