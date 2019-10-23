@@ -54,6 +54,7 @@ class Main extends Controls.MyComponent<
     success: string[] | string;
     error: string;
     loading: boolean;
+    processing: boolean;
     showModal: boolean;
     modalWidth: number;
     value?: string | number;
@@ -79,6 +80,7 @@ class Main extends Controls.MyComponent<
       error: '',
       modalWidth: 200,
       loading: false,
+      processing: false,
       showModal: false,
       selectOptions: [
         {
@@ -1596,7 +1598,7 @@ class Main extends Controls.MyComponent<
                     separator={<span>&nbsp;&nbsp;</span>}
                     required
                     loading={true}
-                    // loading={this.state.loading}
+                    // loading={this.state.processing}
                     onSendCode={(processing: boolean) => {
                       // if (processing) {
                       //   this.setState({ loading: true });
@@ -1930,18 +1932,19 @@ class Main extends Controls.MyComponent<
                     showPhoneLabel={false}
                   />
                   <Controls.FormControl
+                    required={true}
                     // autoFocus={true}
                     label={'Phone With Send Code'}
                     name='phonewithsendcode'
                     type={'phone'}
                     placeholder={'+65-88234124'}
-                    loading={this.state.loading}
+                    loading={this.state.processing}
                     onSendCode={(processing: boolean) => {
                       console.log(processing);
                       if (processing) {
-                        this.setState({ loading: true });
+                        this.setState({ processing: true });
                       } else {
-                        this.setState({ loading: false });
+                        this.setState({ processing: false });
                       }
                     }}
                     onInputChanged={() => {
@@ -1959,14 +1962,10 @@ class Main extends Controls.MyComponent<
                   <Controls.FormControl
                     label={'Static Date'}
                     name='date_static'
-                    type={'date'}
+                    type={'datetime'}
                     static={true}
                     placeholder={'DD/MM/YYYY'}
-                    dateOptions={{
-                      startDate: new Date()
-                      // dateFormat: 'DD-MM-YYYY'
-                    }}
-                    // oldValue={'2019-07-28T17:58:18.000Z'}
+                    // oldValue={'2019-07-28T17:58:17.000Z'}
                     // value={'2019-07-28T17:58:18.000Z'}
                     // oldValue={1563552000} // 20/07/2019
                     // value={1564156800} // 27/07/2019

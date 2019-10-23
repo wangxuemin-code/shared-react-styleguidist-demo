@@ -2639,6 +2639,7 @@ export const fadeIn: string;
 export const fadeOut: string;
 export const hrDivider: string;
 export const hidden: string;
+export const phoneTimerMessage: string;
 export const antAlertSlideUpIn: string;
 export const AntSwitchSmallLoadingCircle: string;
 export const antSwitchSmallLoadingCircle: string;

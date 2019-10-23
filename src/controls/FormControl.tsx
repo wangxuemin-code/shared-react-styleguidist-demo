@@ -1480,17 +1480,10 @@ export class FormControl extends React.Component<IProps, IState> {
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       if (value) {
-        // let dateFormat = 'DD/MM/YYYY';
-        // if (this.props.type === 'datetime' || this.props.dateOptions!.showTimeSelect) {
-        //   dateFormat = 'DD/MM/YYYY HH:mm:ss';
-        // }
-        const dateFormat = this.props.dateOptions
-          ? this.props.dateOptions.dateFormat
-            ? this.props.dateOptions.dateFormat.toUpperCase()
-            : this.props.type === 'datetime' || this.props.dateOptions.showTimeSelect
-            ? 'DD/MM/YYYY HH:mm:ss'
-            : 'DD/MM/YYYY'
-          : 'DD/MM/YYYY';
+        let dateFormat = 'DD/MM/YYYY';
+        if (this.props.type === 'datetime' || this.props.dateOptions!.showTimeSelect) {
+          dateFormat = 'DD/MM/YYYY HH:mm:ss';
+        }
         if (this.props.static) {
           return {
             displayValue: Formatter.unixTimestampToDate(Number(value))

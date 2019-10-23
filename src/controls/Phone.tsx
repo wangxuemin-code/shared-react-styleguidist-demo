@@ -137,7 +137,7 @@ export class Phone extends React.Component<IProps, IState> {
       }
     };
     return (
-      <Container fluid display={'flex'}>
+      <Container position={'relative'} fluid display={'flex'}>
         <Container display={'flex'} margin={{ rightRem: 1 }}>
           <Container width={120}>
             {this.props.showPhoneLabel && (
@@ -219,7 +219,6 @@ export class Phone extends React.Component<IProps, IState> {
                   onChange={this.onChange}
                 />
               </Container>
-
               {this.props.onSendCode && (
                 <Container margin={{ leftRem: 1 }}>
                   <Button
@@ -241,7 +240,12 @@ export class Phone extends React.Component<IProps, IState> {
                     }
                     float={'right'}
                     variant={
-                      !this.state.phoneCode || !this.state.phoneNumber ? 'disabled' : 'primary'
+                      !this.state.phoneCode ||
+                      !this.state.phoneNumber ||
+                      (this.state.timeRemainingInSeconds !== 60 &&
+                        this.state.timeRemainingInSeconds !== 0)
+                        ? 'disabled'
+                        : 'primary'
                     }
                     onPress={this.sendPhoneCode}
                   >
@@ -251,12 +255,21 @@ export class Phone extends React.Component<IProps, IState> {
                         this.state.timeRemainingInSeconds === 0 ||
                         !this.props.loading
                       ? 'Resend Code'
-                      : 'Expires in ' + this.state.timeRemainingInSeconds + ' sec'}
+                      : 'Resend Code'}
                   </Button>
                 </Container>
               )}
             </Container>
           </Container>
+        </Container>
+        <Container className={styles.phoneTimerMessage}>
+          {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
+            ? ''
+            : this.state.timeRemainingInSeconds === 60 ||
+              this.state.timeRemainingInSeconds === 0 ||
+              !this.props.loading
+            ? ''
+            : 'You can resend in ' + this.state.timeRemainingInSeconds + ' sec'}
         </Container>
       </Container>
     );
