@@ -1641,7 +1641,7 @@ class Main extends Controls.MyComponent<
                         onPress={() => {
                           if (this.state.value == '' || this.state.value == undefined) {
                             this.setState({
-                              // value: '2019-07-28T13:35:38.000Z'
+                              // value: '1990-10-19T20:46:45.000Z'
                               value: '2001-10-03'
                             });
                           } else {

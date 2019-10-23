@@ -1195,6 +1195,7 @@ export class FormControl extends React.Component<IProps, IState> {
               onChange={this.onChange}
               disabled={this.props.disabled}
               onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
+              maxLength={255}
             />
           )}
 
@@ -1237,6 +1238,7 @@ export class FormControl extends React.Component<IProps, IState> {
               disabled={this.props.disabled}
               onBlur={this.props.onBlur ? this.props.onBlur.bind(this, this) : null}
               suffix={this.props.suffix || ''}
+              maxLength={255}
             />
           )}
           {this.props.unit && (
