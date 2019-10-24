@@ -1622,12 +1622,12 @@ class Main extends Controls.MyComponent<
                     name='date'
                     type={'date'}
                     placeholder={'DD/MM/YYYY'}
-                    dateOptions={{
-                      endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
-                      useUtc: true
-                      // dateFormat: 'dd-MM-yyyy',
-                      // defaultShowDate: true
-                    }}
+                    // dateOptions={{
+                    //   endDate: new Date(new Date().setFullYear(new Date().getFullYear() - 18)),
+                    //   useUtc: true
+                    //   // dateFormat: 'dd-MM-yyyy',
+                    //   // defaultShowDate: true
+                    // }}
                     value={this.state.value}
                     // value={'2019-07-28T13:35:38.000Z'}
                     // value={'07/17/1999'}

@@ -2,6 +2,8 @@
   padding: 1rem 0 1rem;
   color: map-get($colors, primaryGreyDarker);
   border-top: 1px solid map-get($colors, primaryGreyLight);
+  background: map-get($colors, primaryAlt);
+  position: relative;
 
   .anticon:hover {
     color: #000 !important;
