@@ -149,6 +149,7 @@ textarea[disabled] {
     font-size: 1.143rem;
     color: map-get($colors, primaryDarkActive);
     font-weight: 400;
+    background-color: transparent;
   }
 
   .ant-select-selection {

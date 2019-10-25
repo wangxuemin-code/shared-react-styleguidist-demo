@@ -135,31 +135,54 @@ export class OtpInput extends React.Component<IProps, IState> {
     this.getOtp();
   };
 
-  handleOnChange = (e: any) => {
+  handleOnChange = (e: any, i: number) => {
+    // console.log('change', e.target.value, i);
+    // const value = e.target.value;
+    // const res = value.substring(0, this.props.numInputs);
+    // const otp = res.split('');
+    // if (value.length > 1) {
+    //   this.setState({
+    //     otp: res,
+    //     activeInput: 0
+    //   });
+    // }
     // this.changeCodeAtFocus(e.target.value);
     // this.focusNextInput();
   };
 
   handleOnKeyDown = (e: any, i: number) => {
-    if (
-      (e.keyCode >= 48 && e.keyCode <= 57) ||
-      (e.keyCode >= 96 && e.keyCode <= 105) ||
-      e.keyCode == 13 ||
-      e.keyCode == 9
-    ) {
+    let otp = this.state.otp;
+    const otpLength = otp.join('').length;
+    if (e.keyCode === 187 || e.keyCode === 189) {
+      e.preventDefault();
+    } else {
       // 0-9 only and Enter
-      const otpLength = this.state.otp.join('').length;
-      const otp = this.state.otp;
       if (!isNaN(e.key) && otpLength <= this.props.numInputs && e.key !== otp[i]) {
         this.changeCodeAtFocus(e.key, i);
       }
       if (!isNaN(e.key) && i < this.props.numInputs) {
         this.focusNextInput(i);
       }
-    } else {
-      e.preventDefault();
     }
-    const otp: string[] = this.state.otp;
+    otp = this.state.otp;
+    // if (
+    //   (e.keyCode >= 48 && e.keyCode <= 57) ||
+    //   (e.keyCode >= 96 && e.keyCode <= 105) ||
+    //   e.keyCode == 13 ||
+    //   e.keyCode == 9
+    // ) {
+    //   // 0-9 only and Enter
+    //   const otpLength = this.state.otp.join('').length;
+    //   const otp = this.state.otp;
+    //   if (!isNaN(e.key) && otpLength <= this.props.numInputs && e.key !== otp[i]) {
+    //     this.changeCodeAtFocus(e.key, i);
+    //   }
+    //   if (!isNaN(e.key) && i < this.props.numInputs) {
+    //     this.focusNextInput(i);
+    //   }
+    // } else {
+    //   e.preventDefault();
+    // }
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
@@ -198,7 +221,7 @@ export class OtpInput extends React.Component<IProps, IState> {
           <SingleOtpInput
             focus={activeInput === i}
             value={otp && otp[i]}
-            onChange={this.handleOnChange}
+            onChange={(e: any) => this.handleOnChange(e, i)}
             onKeyDown={(e: any) => this.handleOnKeyDown(e, i)}
             onFocus={(e: any) => {
               // this.setState({
@@ -335,6 +358,7 @@ class SingleOtpInput extends React.PureComponent<ISingleOtpInput> {
         onKeyDown={onKeyDown}
         onChange={onChange}
         type={this.props.isInputNum ? 'number' : 'text'}
+        pattern='[0-9]*'
         maxLength={1}
         value={value ? value : ''}
       />

@@ -1485,7 +1485,11 @@ export class FormControl extends React.Component<IProps, IState> {
           this.props.type === 'datetime' ||
           (this.props.dateOptions && this.props.dateOptions.showTimeSelect)
         ) {
-          dateFormat = 'DD/MM/YYYY HH:mm:ss';
+          if (this.props.static) {
+            dateFormat = 'DD/MM/YYYY hh:mm a';
+          } else {
+            dateFormat = 'DD/MM/YYYY HH:mm:ss';
+          }
         }
         if (this.props.static) {
           return {
