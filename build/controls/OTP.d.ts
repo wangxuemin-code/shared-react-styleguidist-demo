@@ -33,7 +33,7 @@ export declare class OtpInput extends React.Component<IProps, IState> {
     focusNextInput: (input?: number | undefined) => void;
     focusPrevInput: (input?: number | undefined) => void;
     changeCodeAtFocus: (value: string, input?: number | undefined) => void;
-    handleOnChange: (e: any) => void;
+    handleOnChange: (e: any, i: number) => void;
     handleOnKeyDown: (e: any, i: number) => void;
     renderInputs: () => JSX.Element[];
     render(): JSX.Element;

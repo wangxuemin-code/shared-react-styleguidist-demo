@@ -1593,7 +1593,7 @@ class Main extends Controls.MyComponent<
                     inputWidth={'60px'}
                     label={'OTP with verification'}
                     verificationNumber={'+65-88234124'}
-                    name='numberfields'
+                    name='verifynumberfields'
                     type={'numberfields'}
                     separator={<span>&nbsp;&nbsp;</span>}
                     required

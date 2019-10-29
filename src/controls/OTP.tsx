@@ -136,66 +136,58 @@ export class OtpInput extends React.Component<IProps, IState> {
   };
 
   handleOnChange = (e: any, i: number) => {
-    // console.log('change', e.target.value, i);
-    // const value = e.target.value;
-    // const res = value.substring(0, this.props.numInputs);
-    // const otp = res.split('');
-    // if (value.length > 1) {
-    //   this.setState({
-    //     otp: res,
-    //     activeInput: 0
-    //   });
-    // }
-    // this.changeCodeAtFocus(e.target.value);
-    // this.focusNextInput();
+    let otp = this.state.otp;
+    let value = e.target.value;
+    if (value) {
+      if (value.length > 1) {
+        value = value.substr(1);
+      }
+      if (!isNaN(value) && value !== otp[i]) {
+        this.changeCodeAtFocus(value, i);
+      }
+      if (!isNaN(value) && i < this.props.numInputs) {
+        this.focusNextInput(i);
+      }
+    }
   };
 
   handleOnKeyDown = (e: any, i: number) => {
     let otp = this.state.otp;
-    const otpLength = otp.join('').length;
-    if (e.keyCode === 187 || e.keyCode === 189) {
+    // const otpLength = otp.join('').length;
+    if (e.keyCode === 187 || e.keyCode === 190) {
       e.preventDefault();
     } else {
       // 0-9 only and Enter
-      if (!isNaN(e.key) && otpLength <= this.props.numInputs && e.key !== otp[i]) {
-        this.changeCodeAtFocus(e.key, i);
-      }
-      if (!isNaN(e.key) && i < this.props.numInputs) {
-        this.focusNextInput(i);
-      }
+      // if (!isNaN(e.key) && e.key !== otp[i]) {
+      //   this.changeCodeAtFocus(e.key, i);
+      // }
+      // if (!isNaN(e.key) && i < this.props.numInputs) {
+      //   this.focusNextInput(i);
+      // }
     }
-    otp = this.state.otp;
-    // if (
-    //   (e.keyCode >= 48 && e.keyCode <= 57) ||
-    //   (e.keyCode >= 96 && e.keyCode <= 105) ||
-    //   e.keyCode == 13 ||
-    //   e.keyCode == 9
-    // ) {
-    //   // 0-9 only and Enter
-    //   const otpLength = this.state.otp.join('').length;
-    //   const otp = this.state.otp;
-    //   if (!isNaN(e.key) && otpLength <= this.props.numInputs && e.key !== otp[i]) {
-    //     this.changeCodeAtFocus(e.key, i);
-    //   }
-    //   if (!isNaN(e.key) && i < this.props.numInputs) {
-    //     this.focusNextInput(i);
-    //   }
-    // } else {
-    //   e.preventDefault();
-    // }
     switch (e.keyCode) {
       case BACKSPACE:
         e.preventDefault();
-        // if (otp[i] == '') {
-        this.focusPrevInput(i);
-        // }
+        otp = this.state.otp;
+        if (otp[i] == undefined || otp[i] === '') {
+          this.focusPrevInput(i);
+        }
+        if ((otp[i] == undefined || otp[i] === '') && i > 0) {
+          const prevInput = i - 1;
+          this.changeCodeAtFocus('', prevInput);
+        }
         this.changeCodeAtFocus('', i);
         break;
       case DELETE:
         e.preventDefault();
-        // if (otp[i] == '') {
-        this.focusPrevInput(i);
-        // }
+        otp = this.state.otp;
+        if (otp[i] == undefined || otp[i] === '') {
+          this.focusPrevInput(i);
+        }
+        if ((otp[i] == undefined || otp[i] === '') && i > 0) {
+          const prevInput = i - 1;
+          this.changeCodeAtFocus('', prevInput);
+        }
         this.changeCodeAtFocus('', i);
         break;
       case LEFT_ARROW:
