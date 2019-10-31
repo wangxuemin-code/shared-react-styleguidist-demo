@@ -36,10 +36,10 @@
       position: relative;
 
       .text-container {
-        width: 100px;
+        width: 116px;
         height: 100px;
         position: absolute;
-        left: -42px;
+        left: -50px;
         top: -42px;
         display: flex;
         flex-direction: column;
@@ -99,7 +99,7 @@
 
           .text-container {
             top: -49px;
-            left: -49px;
+            left: -57px;
           }
         }
       }
@@ -118,7 +118,7 @@
         &.big {
           .text-container {
             top: -42px;
-            left: -42px;
+            left: -50px;
           }
         }
       }

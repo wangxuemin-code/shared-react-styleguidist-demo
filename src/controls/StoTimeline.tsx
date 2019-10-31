@@ -36,50 +36,88 @@ export class StoTimeLine extends React.Component<IProps, IState> {
   }
 
   render() {
-    const phases: Array<{ title: string; date: Moment; key?: string; clickable: boolean; isBig: boolean }> = [];
+    const phases: Array<{
+      title: any;
+      date: Moment;
+      key?: string;
+      clickable: boolean;
+      isBig: boolean;
+    }> = [];
     phases.push(
       {
-        title: 'Book Building',
+        title: (
+          <>
+            Start Of
+            <br />
+            Book Building
+          </>
+        ),
         key: 'book_building',
         date: moment(this.props.stoDateTime.bookbuildingStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.bookbuildingStartTime)),
         isBig: true
       },
       {
-        title: 'Book Building Closed',
+        title: (
+          <>
+            End Of
+            <br />
+            Book Building
+          </>
+        ),
         key: 'allocation',
         date: moment(this.props.stoDateTime.bookbuildingEndTime),
         clickable: true,
         isBig: false
       },
       {
-        title: 'Pre-Sale',
+        title: (
+          <>
+            Start Of <br /> Pre-Sale
+          </>
+        ),
         key: 'presale',
         date: moment(this.props.stoDateTime.preSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.preSaleStartTime)),
         isBig: true
       },
       {
-        title: 'Pre-Sale closed',
+        title: (
+          <>
+            End Of <br /> Pre-Sale
+          </>
+        ),
         date: moment(this.props.stoDateTime.preSaleEndTime),
         clickable: false,
         isBig: false
       },
       {
-        title: 'Public Sale',
+        title: (
+          <>
+            Start Of <br /> Public Sale
+          </>
+        ),
         key: 'public_sale',
         date: moment(this.props.stoDateTime.publicSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleStartTime)),
         isBig: true
       },
       {
-        title: 'Public Sale closed',
+        title: (
+          <>
+            End Of <br /> Public Sale
+          </>
+        ),
         date: moment(this.props.stoDateTime.publicSaleEndTime),
         clickable: false,
         isBig: false
       },
       {
-        title: 'Launch',
+        title: (
+          <>
+            Start Of <br /> Secondary Trading
+          </>
+        ),
         key: 'confirmed',
         date: moment(this.props.stoDateTime.issueDateTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.issueDateTime)),
@@ -95,14 +133,20 @@ export class StoTimeLine extends React.Component<IProps, IState> {
           </Container>
         )}
         <Container
-          classNames={[styles.stoTimelineContainer, this.props.stoDateTime.terminatedAt ? styles.disabled : '']}
+          classNames={[
+            styles.stoTimelineContainer,
+            this.props.stoDateTime.terminatedAt ? styles.disabled : ''
+          ]}
         >
           {phases.map((phase, i) => {
             const nextPhaseDate = i < phases.length - 1 ? phases[i + 1].date : undefined;
             return (
               <Container
                 key={i}
-                classNames={[styles.point, this.getActiveStyle(phase.date, nextPhaseDate, phase.key || 'empty')]}
+                classNames={[
+                  styles.point,
+                  this.getActiveStyle(phase.date, nextPhaseDate, phase.key || 'empty')
+                ]}
               >
                 <Container
                   className={styles.inner}
@@ -115,9 +159,13 @@ export class StoTimeLine extends React.Component<IProps, IState> {
                   style={{
                     cursor: !phase.clickable ? 'arrow' : 'pointer'
                   }}
-                  onClick={phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined}
+                  onClick={
+                    phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined
+                  }
                 >
-                  {this.shouldShowTick(phase.date, nextPhaseDate) && <div className={styles.tick} />}
+                  {this.shouldShowTick(phase.date, nextPhaseDate) && (
+                    <div className={styles.tick} />
+                  )}
                   <Container className={styles.textContainer}>
                     <Container className={styles.date}>{phase.date.format('D MMM YYYY')}</Container>
                     <Container className={styles.time}>{phase.date.format('hh:mm A')}</Container>
@@ -178,7 +226,11 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
   };
 
-  getActiveStyle = (currentPhaseDate: Moment, nextPhaseDate: Moment | undefined, phaseKey: string) => {
+  getActiveStyle = (
+    currentPhaseDate: Moment,
+    nextPhaseDate: Moment | undefined,
+    phaseKey: string
+  ) => {
     if (this.props.onImportantDateClicked) {
       if (
         this.hasDatePast(currentPhaseDate) &&
