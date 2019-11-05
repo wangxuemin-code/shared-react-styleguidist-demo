@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IContainer, Container } from './Container';
 import { stylings } from '../css/theme';
 import * as styles from '../css/main.scss';
+import { IContainer, Container } from '.';
 
 interface IDivider extends IContainer {
   direction?: 'horizontal' | 'vertical';

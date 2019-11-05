@@ -1,9 +1,7 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { stylings } from '../css/theme';
-import { Controls } from '../index-prod';
-import { IContainer } from './Container';
-import { FormControl } from './FormControl';
+import { FormControl, Button, Icon, Container, IContainer } from '.';
 
 /////////// IMPORTANT, Clone children must be single node only,
 /////////// do wrap it with React.Fragment for multiple nodes
@@ -92,23 +90,17 @@ export class Clone extends React.Component<IProps, IState> {
 
     const results = [];
 
-    const topContainer = (
-      <Controls.Container fluid>
-        {this.props.addControlPosition === 'top' && this.getAddControl()}
-      </Controls.Container>
-    );
+    const topContainer = <Container fluid>{this.props.addControlPosition === 'top' && this.getAddControl()}</Container>;
 
     results.push(topContainer);
 
     for (let i = 0; i < count; i++) {
       const result = (
         <>
-          <Controls.Container fluid>
-            {this.props.deleteControlPosition === 'top' && this.getDeleteControl(i)}
-          </Controls.Container>
+          <Container fluid>{this.props.deleteControlPosition === 'top' && this.getDeleteControl(i)}</Container>
 
           {this.props.deleteControlPosition == 'right' && (
-            <Controls.Container
+            <Container
               fluid={true}
               display='grid'
               style={{
@@ -116,10 +108,8 @@ export class Clone extends React.Component<IProps, IState> {
               }}
             >
               {this.recursiveCloneChildren(this.props.children, i, 0, 0)}
-              <Controls.Container heightPercent={100}>
-                {this.getDeleteControl(i)}
-              </Controls.Container>
-            </Controls.Container>
+              <Container heightPercent={100}>{this.getDeleteControl(i)}</Container>
+            </Container>
           )}
           {this.props.deleteControlPosition != 'right' && (
             <>{this.recursiveCloneChildren(this.props.children, i, 0, 0)}</>
@@ -131,9 +121,7 @@ export class Clone extends React.Component<IProps, IState> {
     }
 
     const bottomContainer = (
-      <Controls.Container fluid>
-        {this.props.addControlPosition === 'bottom' && this.getAddControl()}
-      </Controls.Container>
+      <Container fluid>{this.props.addControlPosition === 'bottom' && this.getAddControl()}</Container>
     );
 
     results.push(bottomContainer);
@@ -151,9 +139,7 @@ export class Clone extends React.Component<IProps, IState> {
 
         childProps.name = (child.props as any).name + '_' + index;
         childProps.value =
-          this.state.value && this.state.value.length > index
-            ? this.state.value[index][originalName]
-            : undefined;
+          this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
         childProps.oldValue =
           this.props.oldValue && this.props.oldValue.length > index
             ? this.props.oldValue[index][originalName]
@@ -167,9 +153,7 @@ export class Clone extends React.Component<IProps, IState> {
         childProps.index = index;
         const originalName = (child.props as any).name;
         childProps.value =
-          this.state.value && this.state.value.length > index
-            ? this.state.value[index][originalName]
-            : undefined;
+          this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
         childProps.oldValue =
           this.props.oldValue && this.props.oldValue.length > index
             ? this.props.oldValue[index][originalName]
@@ -190,9 +174,7 @@ export class Clone extends React.Component<IProps, IState> {
 
       if (level === 0 && i == children.length - 1) {
         if (this.props.deleteControlPosition == 'bottom') {
-          childProps.children.push(
-            <Controls.Container fluid={true}>{this.getDeleteControl(index)}</Controls.Container>
-          );
+          childProps.children.push(<Container fluid={true}>{this.getDeleteControl(index)}</Container>);
         }
       }
 
@@ -215,7 +197,7 @@ export class Clone extends React.Component<IProps, IState> {
 
     let component = null;
     if (!this.props.addControl) {
-      component = <Controls.Button>Add</Controls.Button>;
+      component = <Button>Add</Button>;
     } else {
       component = this.props.addControl;
     }
@@ -224,12 +206,11 @@ export class Clone extends React.Component<IProps, IState> {
   }
 
   private getDeleteControl(index: number) {
-    if (this.props.oldValue || this.props.static || this.state.value.length <= this.props.minItem!)
-      return null;
+    if (this.props.oldValue || this.props.static || this.state.value.length <= this.props.minItem!) return null;
 
     let component = null;
     if (!this.props.deleteControl) {
-      component = <Controls.Icon icon={faTrash} fontColor={stylings.colors.primary} />;
+      component = <Icon icon={faTrash} fontColor={stylings.colors.primary} />;
     } else {
       component = this.props.deleteControl;
     }
@@ -264,11 +245,7 @@ export class Clone extends React.Component<IProps, IState> {
         childProps.onClick = onClick.bind(this);
       }
 
-      childProps.children = this.recursiveCloneButton(
-        (child.props as any).children,
-        level + 1,
-        onClick
-      );
+      childProps.children = this.recursiveCloneButton((child.props as any).children, level + 1, onClick);
       return React.cloneElement(child, childProps);
     });
   }

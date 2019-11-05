@@ -18,23 +18,7 @@ const convertStringToSassDimension = function(result) {
     return result;
   }
 
-  const cssUnits = [
-    'rem',
-    'em',
-    'vh',
-    'vw',
-    'vmin',
-    'vmax',
-    'ex',
-    '%',
-    'px',
-    'cm',
-    'mm',
-    'in',
-    'pt',
-    'pc',
-    'ch'
-  ];
+  const cssUnits = ['rem', 'em', 'vh', 'vw', 'vmin', 'vmax', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch'];
   const parts = result.match(/[a-zA-Z]+|[0-9]+/g);
   const value = parts[0];
   const unit = parts[parts.length - 1];
@@ -49,6 +33,7 @@ module.exports = {
   entry: {
     'istox-shared': './src/index-prod.ts'
   },
+  devtool: false,
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
@@ -121,6 +106,14 @@ module.exports = {
             loader: 'awesome-typescript-loader'
           }
         ]
+      },
+      {
+        loader: 'webpack-ant-icon-loader',
+        enforce: 'pre',
+        // options: {
+        //   chunkName: 'antd-icons'
+        // },
+        include: [require.resolve('@ant-design/icons/lib/dist')]
       },
       {
         test: /\.(css|scss)$/i,

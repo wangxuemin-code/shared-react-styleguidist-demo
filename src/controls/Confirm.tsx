@@ -1,10 +1,8 @@
 import { faExclamationCircle, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { Button, Icon, Modal } from '.';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Loading } from './Loading';
+import { Loading, Container, IContainer, Button, Icon, Modal } from '.';
 
 interface IProps extends IContainer {
   title?: string;
@@ -70,12 +68,7 @@ export class Confirm extends React.Component<IProps, IState> {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    float={'none'}
-                    outline
-                    variant={'danger'}
-                    onPress={this.onPositivePressed}
-                  >
+                  <Button float={'none'} outline variant={'danger'} onPress={this.onPositivePressed}>
                     Confirm
                   </Button>
                 </div>
@@ -92,12 +85,7 @@ export class Confirm extends React.Component<IProps, IState> {
                   >
                     No
                   </Button>
-                  <Button
-                    float={'none'}
-                    outline
-                    variant={'danger'}
-                    onPress={this.onPositivePressed}
-                  >
+                  <Button float={'none'} outline variant={'danger'} onPress={this.onPositivePressed}>
                     Yes
                   </Button>
                 </div>

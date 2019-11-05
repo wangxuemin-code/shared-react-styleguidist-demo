@@ -1,18 +1,9 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
+import { Container, IContainer } from '.';
 
 interface IProps extends IContainer {
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   headline?: string;
   title?: string;
   subtitle?: string;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
+import { Container, IContainer } from '.';
 
 interface IProps extends IContainer {
   header?: any;

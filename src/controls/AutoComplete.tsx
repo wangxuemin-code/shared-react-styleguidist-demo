@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Ant, Controls } from '../index-prod';
-import _ = require('lodash');
+const debounce = require('lodash/debounce');
+import Select from 'antd/es/select';
+import { Container, Alert } from '.';
 
 export interface IAutoComplete {
   data?: Array<{
@@ -60,7 +61,7 @@ export class AutoComplete extends React.Component<IProps, IState> {
       loading: false
     };
 
-    this.fetchOptions = _.debounce(this.fetchOptions, 600);
+    this.fetchOptions = debounce(this.fetchOptions, 600);
   }
 
   public componentDidUpdate(prevProps: IProps) {
@@ -74,7 +75,7 @@ export class AutoComplete extends React.Component<IProps, IState> {
   public render() {
     return (
       <React.Fragment>
-        <Ant.Select
+        <Select
           style={{
             width: '100%'
           }}
@@ -82,9 +83,9 @@ export class AutoComplete extends React.Component<IProps, IState> {
           value={this.props.value ? this.props.value : undefined}
           notFoundContent={
             this.state.loading ? (
-              <Controls.Container>{this.props.options!.loadingText || 'Loading...'}</Controls.Container>
+              <Container>{this.props.options!.loadingText || 'Loading...'}</Container>
             ) : this.state.searchText ? (
-              <Controls.Container>{this.props.options!.noRecordText || 'No record found'}</Controls.Container>
+              <Container>{this.props.options!.noRecordText || 'No record found'}</Container>
             ) : null
           }
           filterOption={false}
@@ -95,15 +96,15 @@ export class AutoComplete extends React.Component<IProps, IState> {
           placeholder={this.props.placeholder}
         >
           {this.state.error && (
-            <Ant.Select.Option key='error' disabled={true}>
-              <Controls.Alert error={this.state.error} />
-            </Ant.Select.Option>
+            <Select.Option key='error' disabled={true}>
+              <Alert error={this.state.error} />
+            </Select.Option>
           )}
 
           {this.state.data.map((d) => (
-            <Ant.Select.Option key={d.value}>{d.component}</Ant.Select.Option>
+            <Select.Option key={d.value}>{d.component}</Select.Option>
           ))}
-        </Ant.Select>
+        </Select>
       </React.Fragment>
     );
   }

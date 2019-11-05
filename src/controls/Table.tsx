@@ -1,11 +1,8 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Icon } from './Icon';
-import { Loading } from './Loading';
-import { Controls } from '../index-prod';
 var InfiniteScroll = require('react-infinite-scroller');
 var uniqid = require('uniqid');
+import { Loading, FormControl, Container, IContainer, Icon } from '.';
 
 export interface TableHeaderModel {
   title: string;
@@ -96,7 +93,7 @@ export class Table extends React.Component<IProps, IState> {
             <tr>
               {this.props.selectable && (
                 <th>
-                  <Controls.FormControl
+                  <FormControl
                     type={'checkbox'}
                     singleCheckbox={true}
                     selectOptions={[
@@ -118,9 +115,7 @@ export class Table extends React.Component<IProps, IState> {
             </tr>
           </thead>
           {this.props.scrollableTBody ? (
-            <Controls.Container
-              style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}
-            >
+            <Container style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}>
               <InfiniteScroll
                 element={'tbody'}
                 pageStart={0}
@@ -140,7 +135,7 @@ export class Table extends React.Component<IProps, IState> {
                     return this.getRowDesign(tableRowModel, i);
                   })}
               </InfiniteScroll>
-            </Controls.Container>
+            </Container>
           ) : (
             <tbody>
               {this.props.rows &&
@@ -173,7 +168,7 @@ export class Table extends React.Component<IProps, IState> {
           <tr key={index} className={styles.rowHeader}>
             {this.props.selectable && (
               <td className={styles.min}>
-                <Controls.FormControl
+                <FormControl
                   type={'checkbox'}
                   singleCheckbox={true}
                   selectOptions={[
@@ -214,7 +209,7 @@ export class Table extends React.Component<IProps, IState> {
           <tr key={index} onClick={rowModel.onClick}>
             {this.props.selectable && (
               <td className={styles.min}>
-                <Controls.FormControl
+                <FormControl
                   type={'checkbox'}
                   singleCheckbox={true}
                   selectOptions={[

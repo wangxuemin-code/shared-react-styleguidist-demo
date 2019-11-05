@@ -1,14 +1,13 @@
 import { BorderColorProperty, BorderStyleProperty } from 'csstype';
 import * as React from 'react';
-// import { Glyphicon } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IContainer, Container } from './Container';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
 import SVG from 'react-inlinesvg';
 import { countries } from 'country-data';
 import ReactCountryFlag from 'react-country-flag';
+import { IContainer, Container } from '.';
 
 interface IBadge {
   borderSize?: number;
@@ -26,16 +25,7 @@ interface IBadge {
 
 interface IProps extends IContainer {
   icon: any;
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   size?: 'tiny' | 'small' | 'medium' | 'large';
   onClick?: () => void;
   text?: string;
@@ -146,9 +136,7 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'currency':
-        const currency = countries.all.filter(
-          (obj: any) => obj.currencies[0] === this.props.currency
-        )[0];
+        const currency = countries.all.filter((obj: any) => obj.currencies[0] === this.props.currency)[0];
         return (
           <Container className={styles.flag} {...this.props}>
             {currency && <ReactCountryFlag code={currency.alpha2} svg />}

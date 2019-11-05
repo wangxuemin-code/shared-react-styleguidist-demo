@@ -1,6 +1,6 @@
 /// <reference types="react" />
+import { IContainer } from '.';
 import { MyComponent } from './MyComponent';
-import { IContainer } from './Container';
 interface IProps extends IContainer {
     type: '404' | '500';
     message?: string;

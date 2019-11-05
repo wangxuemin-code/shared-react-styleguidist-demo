@@ -1,16 +1,9 @@
 import { faChevronDown, faBell } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { WrapperContainer } from './WrapperContainer';
-import { Button } from './Button';
-import { Icon } from './Icon';
-import { Image } from './Image';
-import { Divider } from './Divider';
-import { Transition } from './Transition';
-import { Link } from './Link';
-import { Dropdown } from 'antd';
 var uniqid = require('uniqid');
+import Dropdown from 'antd/es/dropdown';
+import { Link, Transition, Divider, Image, Icon, Button, Container, IContainer, WrapperContainer } from '.';
 
 interface INotifications {
   header?: string;
@@ -80,10 +73,7 @@ export class Header extends React.Component<IHeader, IState> {
         <WrapperContainer display={'flex'}>
           {this.props.logo && (
             <Link className={styles.logoAnchor} href={'/'} underline={false}>
-              <Image
-                variant={className && className.includes('alt') ? 'logo alt' : 'logo'}
-                className={styles.icon}
-              />
+              <Image variant={className && className.includes('alt') ? 'logo alt' : 'logo'} className={styles.icon} />
             </Link>
           )}
           <Container className={styles.links}>
@@ -106,9 +96,7 @@ export class Header extends React.Component<IHeader, IState> {
           )}
           {!this.props.userAction && (
             <Container className={styles.right} verticalAlign='center'>
-              <Container classNames={[styles.small, styles.plabletHidden]}>
-                Already have an account?{' '}
-              </Container>
+              <Container classNames={[styles.small, styles.plabletHidden]}>Already have an account? </Container>
               &nbsp; &nbsp;
               <a href='/login'>
                 <Button size='small' variant={'secondary'} outline={className.includes('alt')}>
@@ -167,10 +155,7 @@ export class Header extends React.Component<IHeader, IState> {
         <Container className={styles.notificationMenu}>
           {allNotifications.map((singleNotification: any) => {
             count++;
-            return this.getSingleNotificationDesign(
-              singleNotification,
-              count !== allNotifications.length
-            );
+            return this.getSingleNotificationDesign(singleNotification, count !== allNotifications.length);
           })}
         </Container>
       </Transition>
@@ -188,12 +173,7 @@ export class Header extends React.Component<IHeader, IState> {
                 <p>{notification.title}</p>
               </Container>
               {notification.contents!.map((item: INotificationItem) => {
-                return this.getNotificationItemDesign(
-                  item.icon,
-                  item.content,
-                  item.link,
-                  item.onClick
-                );
+                return this.getNotificationItemDesign(item.icon, item.content, item.link, item.onClick);
               })}
             </Container>
           ))}
@@ -231,21 +211,13 @@ export class Header extends React.Component<IHeader, IState> {
         >
           <Image
             width={28}
-            src={
-              className.includes('alt')
-                ? '/images/User-Avatar-Onboarding.png'
-                : '/images/User-Avatar.png'
-            }
+            src={className.includes('alt') ? '/images/User-Avatar-Onboarding.png' : '/images/User-Avatar.png'}
           />
           <Container className={styles.text}>
             {(this.state.name || this.state.email) && (
               <Container>
-                {this.state.name && (
-                  <Container className={styles.headerName}>{this.state.name}</Container>
-                )}
-                {this.state.email && (
-                  <Container className={styles.headerEmail}>{this.state.email}</Container>
-                )}
+                {this.state.name && <Container className={styles.headerName}>{this.state.name}</Container>}
+                {this.state.email && <Container className={styles.headerEmail}>{this.state.email}</Container>}
               </Container>
             )}
             {this.props.subLinks && this.props.subLinks.length && (
@@ -261,10 +233,7 @@ export class Header extends React.Component<IHeader, IState> {
     return (
       <Container className={styles.subMenu}>
         {this.props.subLinks!.map((sublink: any, i: number) => (
-          <Container
-            onClick={sublink.props.href || sublink.props.onClick ? this.hideSubMenu : undefined}
-            key={i}
-          >
+          <Container onClick={sublink.props.href || sublink.props.onClick ? this.hideSubMenu : undefined} key={i}>
             {sublink}
           </Container>
         ))}

@@ -6,7 +6,6 @@ import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IAllDirection, IDirection, IDirectionShort } from './common/Interfaces';
 import Truncate from 'react-truncate';
-import { number } from 'prop-types';
 
 interface IBorder {
   borderRadius?: number;
@@ -48,16 +47,7 @@ export interface IContainer {
   backgroundPosition?: 'center' | 'bottom' | 'left' | 'right' | 'top' | 'initial' | 'inherit';
   backgroundSize?: 'auto' | 'contain' | 'cover' | 'inherit' | 'initial';
   backgroundRepeat?: 'no-repeat' | 'initial' | 'inherit' | 'repeat' | 'repeat-x' | 'repeat-y';
-  display?:
-    | 'block'
-    | 'inline-block'
-    | 'inline'
-    | 'flex'
-    | 'grid'
-    | 'inline-grid'
-    | 'inline-flex'
-    | 'inherit'
-    | 'none';
+  display?: 'block' | 'inline-block' | 'inline' | 'flex' | 'grid' | 'inline-grid' | 'inline-flex' | 'inherit' | 'none';
   position?: 'static' | 'absolute' | 'fixed' | 'relative';
   visibility?: 'hidden' | 'visible';
   hidden?: boolean;
@@ -117,11 +107,7 @@ export class Container extends React.Component<IContainer, any> {
           : styles.right
         : '',
       this.props.fluid ? styles.fluid : '',
-      this.props.overflow
-        ? this.props.overflow === 'hidden'
-          ? styles.overflowHidden
-          : styles.overflowAuto
-        : ''
+      this.props.overflow ? (this.props.overflow === 'hidden' ? styles.overflowHidden : styles.overflowAuto) : ''
     ];
 
     classes = classes.filter(function(el) {

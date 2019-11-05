@@ -2,9 +2,8 @@ import { faCheck, faTimes, IconDefinition } from '@fortawesome/free-solid-svg-ic
 import * as React from 'react';
 import { cssTransition, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Icon } from '.';
 import * as styles from '../css/main.scss';
-import { IContainer, Container } from './Container';
+import { IContainer, Container, Icon } from '.';
 
 interface IBlockchainTransactionOptions {
   purpose: string;

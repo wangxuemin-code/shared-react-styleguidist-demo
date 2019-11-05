@@ -8,4 +8,11 @@
   .anticon:hover {
     color: #000 !important;
   }
+
+  .social-icons {
+    :global(.icon) {
+      font-size: 16px;
+      color: map-get($colors, primaryGreyDarker);
+    }
+  }
 }

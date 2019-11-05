@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Tabs as ReactTabs } from 'antd';
+import ReactTabs from 'antd/es/tabs';
+import { Container, IContainer } from '.';
 
 interface ITab {
   title: any;

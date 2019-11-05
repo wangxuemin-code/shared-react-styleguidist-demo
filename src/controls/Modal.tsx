@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Modal as ReactModal } from 'antd';
 import * as styles from '../css/main.scss';
-import { Icon } from '.';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import ReactModal from 'antd/es/modal';
+import { Icon } from '.';
 
 interface IState {
   visible: boolean;
@@ -50,9 +50,7 @@ export class Modal extends React.Component<IProps, IState> {
         maskClosable={false}
         centered={true}
       >
-        {!this.props.disableClose && (
-          <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />
-        )}
+        {!this.props.disableClose && <Icon icon={faTimes} className={styles.closeButton} onClick={this.onModalHide} />}
 
         {this.props.children}
       </ReactModal>

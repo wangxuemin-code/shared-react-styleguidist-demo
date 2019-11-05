@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Moment } from 'moment';
 import moment = require('moment');
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
+import { Container, IContainer } from '.';
 
 interface IStoDateTime {
   bookbuildingStartTime: string;
@@ -133,20 +133,14 @@ export class StoTimeLine extends React.Component<IProps, IState> {
           </Container>
         )}
         <Container
-          classNames={[
-            styles.stoTimelineContainer,
-            this.props.stoDateTime.terminatedAt ? styles.disabled : ''
-          ]}
+          classNames={[styles.stoTimelineContainer, this.props.stoDateTime.terminatedAt ? styles.disabled : '']}
         >
           {phases.map((phase, i) => {
             const nextPhaseDate = i < phases.length - 1 ? phases[i + 1].date : undefined;
             return (
               <Container
                 key={i}
-                classNames={[
-                  styles.point,
-                  this.getActiveStyle(phase.date, nextPhaseDate, phase.key || 'empty')
-                ]}
+                classNames={[styles.point, this.getActiveStyle(phase.date, nextPhaseDate, phase.key || 'empty')]}
               >
                 <Container
                   className={styles.inner}
@@ -159,13 +153,9 @@ export class StoTimeLine extends React.Component<IProps, IState> {
                   style={{
                     cursor: !phase.clickable ? 'arrow' : 'pointer'
                   }}
-                  onClick={
-                    phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined
-                  }
+                  onClick={phase.clickable ? this.onDateClicked.bind(this, phase.key || '') : undefined}
                 >
-                  {this.shouldShowTick(phase.date, nextPhaseDate) && (
-                    <div className={styles.tick} />
-                  )}
+                  {this.shouldShowTick(phase.date, nextPhaseDate) && <div className={styles.tick} />}
                   <Container className={styles.textContainer}>
                     <Container className={styles.date}>{phase.date.format('D MMM YYYY')}</Container>
                     <Container className={styles.time}>{phase.date.format('hh:mm A')}</Container>
@@ -226,11 +216,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
   };
 
-  getActiveStyle = (
-    currentPhaseDate: Moment,
-    nextPhaseDate: Moment | undefined,
-    phaseKey: string
-  ) => {
+  getActiveStyle = (currentPhaseDate: Moment, nextPhaseDate: Moment | undefined, phaseKey: string) => {
     if (this.props.onImportantDateClicked) {
       if (
         this.hasDatePast(currentPhaseDate) &&

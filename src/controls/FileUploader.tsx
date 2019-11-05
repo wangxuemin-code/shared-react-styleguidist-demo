@@ -1,15 +1,13 @@
 import * as React from 'react';
 import Iframe from 'react-iframe';
-import { Container, Message } from '.';
 import * as styles from '../css/main.scss';
-import { Confirm } from './Confirm';
-import { Image } from './Image';
-import { Modal } from './Modal';
-import { Spin as ReactSpin, Icon as ReactIcon } from 'antd';
-import * as AWS from 'aws-sdk';
+var S3 = require('aws-sdk/clients/s3');
 import { AwsHelper } from '../helpers/AwsHelper';
 import { UuidGenerator } from '../helpers';
 declare const Buffer: { from: new (arg0: any, arg1: string) => any };
+import ReactSpin from 'antd/es/spin';
+import ReactIcon from 'antd/es/icon';
+import { Modal, Image, Confirm, Container, Message } from '.';
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
@@ -29,11 +27,7 @@ interface IProps {
   resetFormControl?: () => void;
   bucketName?: string;
   fixedFileName?: string;
-  getuploaderprogress?: (
-    fileName: string,
-    uploaderProgress: number,
-    uploaderComplete: -1 | 0 | 1
-  ) => void;
+  getuploaderprogress?: (fileName: string, uploaderProgress: number, uploaderComplete: -1 | 0 | 1) => void;
 }
 
 interface IState {
@@ -328,18 +322,12 @@ export default class FileUploader extends React.Component<IProps, IState> {
         </Modal>
         <Container position={'relative'} widthPercent={100} heightPercent={100}>
           {this.props.showFileName && this.state.src !== '' && (
-            <Container
-              onClick={this.props.resetFormControl!}
-              classNames={[styles.uploaderDeleteButton, styles.small]}
-            >
+            <Container onClick={this.props.resetFormControl!} classNames={[styles.uploaderDeleteButton, styles.small]}>
               Delete
             </Container>
           )}
           {this.props.showFileName && this.state.src !== '' && (
-            <Container
-              onClick={this.handleFileUploaderClick}
-              classNames={[styles.uploaderChangeButton, styles.small]}
-            >
+            <Container onClick={this.handleFileUploaderClick} classNames={[styles.uploaderChangeButton, styles.small]}>
               Change
             </Container>
           )}
@@ -357,20 +345,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
               <Container className={styles.uploaderStatus}>
                 <Message
                   flat
-                  message={
-                    this.state.uploadStatus === 2
-                      ? 'Attached'
-                      : this.state.uploadStatus === 1
-                      ? 'Saved'
-                      : ''
-                  }
+                  message={this.state.uploadStatus === 2 ? 'Attached' : this.state.uploadStatus === 1 ? 'Saved' : ''}
                   size={'small'}
                   variant={
-                    this.state.uploadStatus === 2
-                      ? 'disabled'
-                      : this.state.uploadStatus === 1
-                      ? 'info'
-                      : undefined
+                    this.state.uploadStatus === 2 ? 'disabled' : this.state.uploadStatus === 1 ? 'info' : undefined
                   }
                 />
               </Container>
@@ -414,15 +392,9 @@ export default class FileUploader extends React.Component<IProps, IState> {
             leftRightRem: 1
           }}
         >
-          {this.state.type !== 'pdf' && (
-            <Image onClick={this.openViewer.bind(this)} src={this.state.src} />
-          )}
+          {this.state.type !== 'pdf' && <Image onClick={this.openViewer.bind(this)} src={this.state.src} />}
           {this.state.type == 'pdf' && this.state.src !== '' && (
-            <ReactIcon
-              onClick={this.openViewer.bind(this)}
-              className={styles.fileIcon}
-              type={'file-pdf'}
-            />
+            <ReactIcon onClick={this.openViewer.bind(this)} className={styles.fileIcon} type={'file-pdf'} />
           )}
           {this.props.showFileName && (
             <Container className={styles.uploaderFileName} fluid verticalAlign={'center'}>
@@ -573,7 +545,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
             region: 'ap-southeast-1'
           };
 
-          const s3 = new AWS.S3(options);
+          const s3 = new S3(options);
 
           const base64result = this.state.src.split(',')[1];
 
@@ -600,7 +572,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
 
           var upload = s3
             .putObject(params)
-            .on('httpUploadProgress', (progress) => {
+            .on('httpUploadProgress', (progress: any) => {
               // if (this.state.uploadStatus === 0) {
               var percentComplete = (progress.loaded / progress.total) * 100 - 1;
               if (percentComplete > 0) {

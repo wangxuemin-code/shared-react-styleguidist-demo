@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IContainer } from './Container';
+import { IContainer } from '.';
 interface IProps extends IContainer {
     type?: 'fade' | 'expand';
     in?: boolean;

@@ -1,19 +1,10 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
+import { Container, IContainer } from '.';
 
 interface ILabel extends IContainer {
   text?: any;
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   size?: 'small' | 'normal';
 }
 

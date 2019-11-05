@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Container } from './Container';
 import * as styles from '../css/main.scss';
-import { Pagination as ReactPagination } from 'antd';
+import ReactPagination from 'antd/es/pagination';
 
 interface IProps {
   current: number;
@@ -16,8 +16,12 @@ export class Pagination extends React.Component<IProps> {
   public render() {
     return (
       <Container className={styles.istoxPagination}>
-        <ReactPagination current={this.props.current} total={this.props.total} />
+        <ReactPagination onChange={this.onChange} current={this.props.current} total={this.props.total} />
       </Container>
     );
   }
+
+  private onChange = () => {
+    return false;
+  };
 }

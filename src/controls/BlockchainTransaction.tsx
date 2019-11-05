@@ -2,13 +2,10 @@ import { Message } from 'paho-mqtt';
 import * as React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { IFilterTypes, Mqtt } from '../helpers';
-import { Container } from './Container';
 import * as styles from '../css/main.scss';
-import { Image } from './Image';
 import { RabbitMQMessage } from '../models/RabbitMQMessage';
-import { Icon } from './Icon';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { Link } from './Link';
+import { Link, Icon, Image, Container } from '.';
 
 interface IProps {
   mqttClient: Mqtt;
@@ -50,11 +47,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
         const rabbitMqMessage = new RabbitMQMessage(message.payloadString);
         if (rabbitMqMessage.hasError()) {
           if (this.props.onError)
-            this.props.onError(
-              rabbitMqMessage.getError() || 'Unknown error.',
-              rabbitMqMessage,
-              message
-            );
+            this.props.onError(rabbitMqMessage.getError() || 'Unknown error.', rabbitMqMessage, message);
           this.startExit();
         } else {
           if (this.props.onSucess) this.props.onSucess(rabbitMqMessage, message);
@@ -88,12 +81,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
         onMouseLeave={this.onMouseLeave.bind(this)}
       >
         <Container classNames={[styles.content, this.state.succeed ? styles.invi : '']}>
-          <Image
-            src={'images/mining.gif'}
-            width={40}
-            margin={{ rightPx: 10 }}
-            display='inline-block'
-          />
+          <Image src={'images/mining.gif'} width={40} margin={{ rightPx: 10 }} display='inline-block' />
           Interacting with blockchain...
         </Container>
 
@@ -105,9 +93,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
               <Link margin={{ leftPx: 20 }}>Show</Link>
             </React.Fragment>
           )}
-          {this.state.succeed && !this.state.txId && (
-            <p>Blockchain transaction is executed successfully</p>
-          )}
+          {this.state.succeed && !this.state.txId && <p>Blockchain transaction is executed successfully</p>}
         </Container>
       </Container>
     );
@@ -141,9 +127,7 @@ export class BlockchainTransaction extends React.Component<IProps, IState> {
   }
 
   private onExited() {
-    const target = document.getElementById(
-      this.props.waitOptions.queueName + this.props.waitOptions.topicName
-    );
+    const target = document.getElementById(this.props.waitOptions.queueName + this.props.waitOptions.topicName);
     if (target && target.parentNode) {
       unmountComponentAtNode(target);
       target.parentNode.removeChild(target);

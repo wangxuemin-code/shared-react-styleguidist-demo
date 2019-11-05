@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { MyComponent } from './MyComponent';
+import { MyComponent } from '.';
 
 interface IState {
   fixed: boolean;
@@ -14,16 +14,15 @@ interface IProps {
 }
 
 export class Sticky extends MyComponent<IProps, IState> {
-
   public static defaultProps: IProps = {
-    offsetY: 0,
+    offsetY: 0
   };
 
   public readonly state: IState = {
     fixed: false,
     originalY: -1,
     width: -1,
-    height: -1,
+    height: -1
   };
 
   private container: React.RefObject<HTMLDivElement>;
@@ -45,21 +44,20 @@ export class Sticky extends MyComponent<IProps, IState> {
   }
 
   public render() {
+    const style: React.CSSProperties = {};
+    style.position = this.state.fixed ? 'fixed' : 'static';
+    style.top = this.props.offsetY;
+    if (this.state.fixed) {
+      style.width = this.state.width;
+    }
 
-      const style: React.CSSProperties = {};
-      style.position = this.state.fixed  ? 'fixed' : 'static';
-      style.top = this.props.offsetY;
-      if (this.state.fixed) {
-        style.width = this.state.width;
-      }
-
-      return (
-          <div style={{height: this.state.height}}>
-            <div style={style} ref={this.container}>
-              {this.props.children}
-            </div>
-          </div>
-        );
+    return (
+      <div style={{ height: this.state.height }}>
+        <div style={style} ref={this.container}>
+          {this.props.children}
+        </div>
+      </div>
+    );
   }
 
   private onResize() {
@@ -76,11 +74,13 @@ export class Sticky extends MyComponent<IProps, IState> {
       }
 
       if (!this.state.fixed) {
-        this.setState({ fixed: (div.getBoundingClientRect().top - this.props.offsetY < 0),
-                        width: div.getBoundingClientRect().width,
-                        height: div.getBoundingClientRect().height });
+        this.setState({
+          fixed: div.getBoundingClientRect().top - this.props.offsetY < 0,
+          width: div.getBoundingClientRect().width,
+          height: div.getBoundingClientRect().height
+        });
       } else {
-        if (window.scrollY + this.props.offsetY  < this.state.originalY) {
+        if (window.scrollY + this.props.offsetY < this.state.originalY) {
           this.setState({ fixed: false });
         }
       }

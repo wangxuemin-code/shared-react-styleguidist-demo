@@ -1,9 +1,8 @@
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { Container, IContainer } from '.';
-import * as theme from '../css/theme/theme';
+import { stylings } from '../css/theme';
 import React = require('react');
-import { SeriesChart } from 'highcharts';
+import { Container, IContainer } from '.';
 
 interface IBarChart extends IContainer {
   type?: 'column' | 'bar';
@@ -31,7 +30,7 @@ interface IBarChart extends IContainer {
 export class BarChart extends React.Component<IBarChart, any> {
   private chart: any;
   public static defaultProps = {
-    colors: [theme.stylings.colors.primary, theme.stylings.colors.primaryGrey]
+    colors: [stylings.colors.primary, stylings.colors.primaryGrey]
   };
 
   componentDidMount() {

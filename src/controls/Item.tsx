@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Image } from './Image';
-import { Icon } from './Icon';
+import { Icon, Image, Container, IContainer } from '.';
 
 interface IItem extends IContainer {
   basic?: boolean;
@@ -31,9 +29,7 @@ export class Item extends React.Component<IItem, any> {
           {!this.props.children && this.props.title && (
             <Container className={styles.itemTitle}>{this.props.title}</Container>
           )}
-          {!this.props.children && this.props.description && (
-            <Container> {this.props.description}</Container>
-          )}
+          {!this.props.children && this.props.description && <Container> {this.props.description}</Container>}
         </Container>
       </Container>
     );

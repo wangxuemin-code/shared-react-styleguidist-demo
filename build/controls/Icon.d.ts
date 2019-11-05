@@ -1,6 +1,6 @@
 import { BorderColorProperty, BorderStyleProperty } from 'csstype';
 import * as React from 'react';
-import { IContainer } from './Container';
+import { IContainer } from '.';
 interface IBadge {
     borderSize?: number;
     borderRadius?: number;

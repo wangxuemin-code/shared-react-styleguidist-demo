@@ -1,9 +1,8 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
 import ControlsHelper from './common/ControlsHelper';
-import { Link } from './Link';
-import { Icon as ReactIcon } from 'antd';
+import ReactIcon from 'antd/es/icon';
+import { Link, Container, IContainer } from '.';
 
 const SpinnerSVG = () => (
   <svg className='rotate icon' viewBox='0 0 1024 1024' fill='currentColor' width='1em' height='1em'>
@@ -15,16 +14,7 @@ const SpinnerSVG = () => (
 );
 
 interface IButton extends IContainer {
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   outline?: boolean;
   flat?: boolean;
   type?: 'button' | 'submit';
@@ -101,11 +91,7 @@ export class Button extends React.Component<IButton, any> {
           type={this.props.type}
           style={style}
           className={classes.join(' ')}
-          onClick={
-            !this.props.disabled && !this.props.loading
-              ? this.props.onPress || this.props.onClick
-              : undefined
-          }
+          onClick={!this.props.disabled && !this.props.loading ? this.props.onPress || this.props.onClick : undefined}
           disabled={this.props.disabled || this.props.loading}
         >
           <Container fontSizeRem={this.props.fontSizeRem} fontSizePx={this.props.fontSizePx}>

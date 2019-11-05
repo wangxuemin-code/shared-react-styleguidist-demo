@@ -13,6 +13,7 @@ const sassUtils = require('node-sass-utils')(sass);
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 8201;
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 const host = process.env.HOST || '0.0.0.0';
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Convert js strings to dimenssions
 const convertStringToSassDimension = function(result) {
@@ -21,24 +22,7 @@ const convertStringToSassDimension = function(result) {
     return result;
   }
 
-  const cssUnits = [
-    'rem',
-    'em',
-    'vh',
-    'vw',
-    'vmin',
-    'vmax',
-    'ex',
-    '%',
-    'px',
-    'cm',
-    'mm',
-    'in',
-    'pt',
-    'pc',
-    'ch',
-    'ms'
-  ];
+  const cssUnits = ['rem', 'em', 'vh', 'vw', 'vmin', 'vmax', 'ex', '%', 'px', 'cm', 'mm', 'in', 'pt', 'pc', 'ch', 'ms'];
   const parts = result.match(/[a-zA-Z]+|[0-9]+/g);
   const value = parts[0];
   const unit = parts[parts.length - 1];
@@ -81,6 +65,11 @@ module.exports = {
     }
   },
   plugins: [
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'server',
+      generateStatsFile: true,
+      statsOptions: { source: false }
+    }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
@@ -160,6 +149,14 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        loader: 'webpack-ant-icon-loader',
+        enforce: 'pre',
+        // options: {
+        //   chunkName: 'antd-icons'
+        // },
+        include: [require.resolve('@ant-design/icons/lib/dist')]
       },
       {
         test: /(istox.css|ReactToastify.css)/,

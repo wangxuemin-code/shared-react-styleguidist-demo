@@ -1,8 +1,8 @@
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { Container, IContainer } from '.';
-import * as theme from '../css/theme/theme';
+import { stylings } from '../css/theme';
 import React = require('react');
+import { Container, IContainer } from '.';
 
 interface ILineChart extends IContainer {
   title?: string;
@@ -19,7 +19,7 @@ interface ILineChart extends IContainer {
 
 export class LineChart extends React.Component<ILineChart, any> {
   public static defaultProps = {
-    colors: [theme.stylings.colors.primary, theme.stylings.colors.primaryGrey]
+    colors: [stylings.colors.primary, stylings.colors.primaryGrey]
   };
 
   componentDidMount() {

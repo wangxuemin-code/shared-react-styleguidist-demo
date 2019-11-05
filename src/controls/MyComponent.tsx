@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Loading } from '.';
 import { ErrorHandle } from '../helpers';
-import { ErrorPage } from './ErrorPage';
+import { Loading, ErrorPage } from '.';
 
 interface IProps {
   loading?: boolean;

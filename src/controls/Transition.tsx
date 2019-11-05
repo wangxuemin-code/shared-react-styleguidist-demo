@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { IContainer, Container } from './Container';
-import * as ReactDOM from 'react-dom';
 import Animate from 'react-move/Animate';
+import { IContainer, Container } from '.';
 
 interface IProps extends IContainer {
   type?: 'fade' | 'expand';

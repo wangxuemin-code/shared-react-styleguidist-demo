@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IContainer } from './Container';
+import { IContainer } from '.';
 interface IButton extends IContainer {
     variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
     outline?: boolean;

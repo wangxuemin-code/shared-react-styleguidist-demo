@@ -1,11 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Alert as ReactAlert } from 'antd';
-import { Icon } from '.';
-import { Message } from '.';
-import { Transition } from './Transition';
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { Container, IContainer, Message, Transition } from '.';
 
 export interface IAlert extends IContainer {
   error?: string | string[];
@@ -28,11 +24,7 @@ export class Alert extends React.Component<IAlert, IState> {
       success: this.props.success,
       info: this.props.info,
       showing:
-        this.isset(this.props.success) ||
-        this.isset(this.props.error) ||
-        this.isset(this.props.info)
-          ? true
-          : false
+        this.isset(this.props.success) || this.isset(this.props.error) || this.isset(this.props.info) ? true : false
     };
   }
 
@@ -45,22 +37,13 @@ export class Alert extends React.Component<IAlert, IState> {
       return;
     }
 
-    if (
-      (Array.isArray(this.props.success) && this.arrayNotEmpty(this.props.success)) ||
-      this.props.success
-    ) {
+    if ((Array.isArray(this.props.success) && this.arrayNotEmpty(this.props.success)) || this.props.success) {
       success = this.props.success;
     }
-    if (
-      (Array.isArray(this.props.error) && this.arrayNotEmpty(this.props.error)) ||
-      this.props.error
-    ) {
+    if ((Array.isArray(this.props.error) && this.arrayNotEmpty(this.props.error)) || this.props.error) {
       error = this.props.error;
     }
-    if (
-      (Array.isArray(this.props.info) && this.arrayNotEmpty(this.props.info)) ||
-      this.props.info
-    ) {
+    if ((Array.isArray(this.props.info) && this.arrayNotEmpty(this.props.info)) || this.props.info) {
       info = this.props.info;
     }
 

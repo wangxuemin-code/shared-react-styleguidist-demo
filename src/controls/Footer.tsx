@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { Icon } from 'antd';
-import { Image } from '.';
-import { Link } from '.';
-import { Grid } from '.';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { WrapperContainer } from './WrapperContainer';
+import { WrapperContainer, Container, IContainer, Grid, Link, Image } from '.';
+import ReactIcon from 'antd/es/icon';
 
 interface IProps extends IContainer {
   detailed?: boolean;
@@ -87,7 +83,7 @@ export class Footer extends React.Component<IProps, any> {
                   </Grid.Row>
                 </Grid.Col>
                 <Grid.Col col={3}>
-                  <Container padding={{ topRem: 0.6 }} float={'right'}>
+                  <Container className={styles.socialIcons} padding={{ topRem: 0.6 }} float={'right'}>
                     <Link
                       variant='light'
                       underline={false}
@@ -96,10 +92,7 @@ export class Footer extends React.Component<IProps, any> {
                       href='https://www.facebook.com/iSTOXsg/'
                       useNormalAnchor={true}
                     >
-                      <Icon
-                        style={{ fontSize: '16px', color: '#7d7d7d' }}
-                        component={this.facebookIcon}
-                      />
+                      <ReactIcon component={this.facebookIcon} />
                     </Link>
                     <Link
                       variant='light'
@@ -109,10 +102,7 @@ export class Footer extends React.Component<IProps, any> {
                       href='https://www.linkedin.com/company/istox/'
                       useNormalAnchor={true}
                     >
-                      <Icon
-                        style={{ fontSize: '16px', color: '#7d7d7d' }}
-                        component={this.linkedinIcon}
-                      />
+                      <ReactIcon component={this.linkedinIcon} />
                     </Link>
                     <Link
                       variant='light'
@@ -121,10 +111,7 @@ export class Footer extends React.Component<IProps, any> {
                       href='https://twitter.com/istoxexchange'
                       useNormalAnchor={true}
                     >
-                      <Icon
-                        style={{ fontSize: '16px', color: '#7d7d7d' }}
-                        component={this.twitterIcon}
-                      />
+                      <ReactIcon component={this.twitterIcon} />
                     </Link>
                   </Container>
                 </Grid.Col>
@@ -154,11 +141,7 @@ export class Footer extends React.Component<IProps, any> {
                   >
                     Privacy Policy
                   </Link>
-                  <Link
-                    variant='light'
-                    href='https://www.istox.com/legal#cookie'
-                    useNormalAnchor={true}
-                  >
+                  <Link variant='light' href='https://www.istox.com/legal#cookie' useNormalAnchor={true}>
                     Cookie Policy
                   </Link>
                 </Container>

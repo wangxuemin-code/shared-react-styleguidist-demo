@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { MyComponent } from './MyComponent';
+import { MyComponent } from '.';
 interface IState {
     fixed: boolean;
     originalY: number;

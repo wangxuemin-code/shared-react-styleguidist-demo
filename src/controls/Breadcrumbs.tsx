@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Container, IContainer } from './Container';
-import { Link } from './Link';
 import * as styles from '../css/main.scss';
 var uniqid = require('uniqid');
+import { Link, Container, IContainer } from '.';
 
 type BreadcrumbType = {
   title: string;
@@ -21,11 +20,7 @@ export class Breadcrumbs extends React.Component<IBreadcrumbs, any> {
         {this.props.links.map((link, index) => {
           const result = [];
           result.push(
-            <Link
-              key={uniqid().toString()}
-              href={link.href}
-              useNormalAnchor={this.props.useNormalAnchor}
-            >
+            <Link key={uniqid().toString()} href={link.href} useNormalAnchor={this.props.useNormalAnchor}>
               {link.title}
             </Link>
           );

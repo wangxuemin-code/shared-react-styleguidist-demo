@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Container, IContainer } from './Container';
-import { Button } from './Button';
-import { Item } from './Item';
-import { Divider } from './Divider';
 import { faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 import * as styles from '../css/main.scss';
+import { Item, Divider, Button, Container, IContainer } from '.';
 
 const BACKSPACE = 8;
 const LEFT_ARROW = 37;
@@ -66,12 +63,8 @@ export class OtpInput extends React.Component<IProps, IState> {
     this.state = {
       activeInput: 0,
       otp: [],
-      phoneCode: this.props.verificationNumber
-        ? this.props.verificationNumber.toString().split('-')[0]
-        : '',
-      phoneNumber: this.props.verificationNumber
-        ? this.props.verificationNumber.toString().split('-')[1]
-        : '',
+      phoneCode: this.props.verificationNumber ? this.props.verificationNumber.toString().split('-')[0] : '',
+      phoneNumber: this.props.verificationNumber ? this.props.verificationNumber.toString().split('-')[1] : '',
       timeRemainingInSeconds: 60,
       firstSendCode: true
     };
@@ -240,9 +233,7 @@ export class OtpInput extends React.Component<IProps, IState> {
     let phoneNumber = this.state.phoneNumber;
     const asterisk = '* ';
     const asteriskCount = phoneNumber ? phoneNumber.toString().length - 3 : 0;
-    phoneNumber = phoneNumber
-      ? phoneNumber.toString().substr(phoneNumber.toString().length - 3)
-      : '';
+    phoneNumber = phoneNumber ? phoneNumber.toString().substr(phoneNumber.toString().length - 3) : '';
     return (
       <Container {...this.props} className={styles.otpControl}>
         {this.props.verificationNumber && (

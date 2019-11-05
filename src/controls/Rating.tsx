@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { IContainer, Container } from './Container';
-import { Icon } from './Icon';
 import * as styles from '../css/main.scss';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { Icon, IContainer, Container } from '.';
 
 interface IRating extends IContainer {
   value?: any;

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
-import { Image } from './Image';
-import { Icon } from './Icon';
+import { Icon, Image, Container, IContainer } from '.';
 
 interface IProps extends IContainer {
   title?: string;
@@ -30,11 +28,7 @@ export class Card extends React.Component<IProps, any> {
           <Icon variant='secondary' className={styles.cardTopLeftIcon} icon={this.props.leftIcon} />
         )}
         {this.props.rightIcon && (
-          <Icon
-            variant='secondary'
-            className={styles.cardTopRightIcon}
-            icon={this.props.rightIcon}
-          />
+          <Icon variant='secondary' className={styles.cardTopRightIcon} icon={this.props.rightIcon} />
         )}
         {!this.props.children && this.props.title && (
           <Container className={styles.cardTitle}>{this.props.title}</Container>

@@ -1,20 +1,11 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { Link as ReactRouterLink } from 'react-router-dom';
-import { IContainer, Container } from './Container';
 import { MouseEventHandler } from 'react';
+import { IContainer, Container } from '.';
 
 interface ILink extends IContainer {
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   underline?: boolean;
   showUnderline?: boolean;
   href?: string;

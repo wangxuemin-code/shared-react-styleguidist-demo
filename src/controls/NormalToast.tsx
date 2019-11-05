@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { IContainer } from './Container';
-import { Icon } from '.';
 import * as styles from '../css/main.scss';
+import { Icon, IContainer } from '.';
 
 interface IProps extends IContainer {
   icon?: any;

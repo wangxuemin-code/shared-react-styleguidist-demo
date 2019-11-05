@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { MyComponent } from './MyComponent';
-import { Container, IContainer } from './Container';
-import { Image } from './Image';
 import * as styles from '../css/main.scss';
-import { Icon } from './Icon';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { Icon, Image, Container, IContainer } from '.';
+import { MyComponent } from './MyComponent';
 
 interface IProps extends IContainer {
   type: '404' | '500';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IContainer } from './Container';
+import { IContainer } from '.';
 export interface IAlert extends IContainer {
     error?: string | string[];
     success?: string | string[];

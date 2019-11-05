@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { DetailedReactHTMLElement } from 'react';
-import { Form as ReactForm } from 'antd';
 import * as styles from '../css/main.scss';
-import { Alert, IAlert } from './Alert';
-import { Container, IContainer } from './Container';
-import { FormControl } from './FormControl';
-import { Loading } from './Loading';
-import { Modal } from './Modal';
-import { ProgressBar } from './ProgressBar';
-import { Divider } from './Divider';
-import { Grid } from './Grid';
-import { Button } from './Button';
+import ReactForm from 'antd/es/form';
+import {
+  Button,
+  Grid,
+  Divider,
+  ProgressBar,
+  Modal,
+  Loading,
+  FormControl,
+  Container,
+  IContainer,
+  Alert,
+  IAlert
+} from '.';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
@@ -102,11 +106,7 @@ export class Form extends React.Component<IProps, IState> {
               </Button>
             )}
           {this.state.uploadRedirectMessage && (
-            <Container
-              padding={{ bottomRem: 0.9 }}
-              className='color-primary-grey-darker large'
-              textAlign={'center'}
-            >
+            <Container padding={{ bottomRem: 0.9 }} className='color-primary-grey-darker large' textAlign={'center'}>
               {this.state.uploadRedirectMessage}
             </Container>
           )}
@@ -159,9 +159,7 @@ export class Form extends React.Component<IProps, IState> {
                           className={styles.uploaderProgressBar}
                           animated
                           variant={uploadFormControlsProgress[formControl.props.name].variant}
-                          value={
-                            uploadFormControlsProgress[formControl.props.name].percentProgress || 0
-                          }
+                          value={uploadFormControlsProgress[formControl.props.name].percentProgress || 0}
                         />
                       </Grid.Col>
                       <Grid.Col col={4} verticalAlign='center'>
@@ -348,8 +346,7 @@ export class Form extends React.Component<IProps, IState> {
               this.props.onUploadComplete(uploads);
             } else {
               this.setState({
-                uploadRedirectMessage:
-                  this.props.uploadRedirectMessage || 'Page redirecting. Please wait...'
+                uploadRedirectMessage: this.props.uploadRedirectMessage || 'Page redirecting. Please wait...'
               });
               setTimeout(() => {
                 this.setState({
@@ -490,9 +487,7 @@ export class Form extends React.Component<IProps, IState> {
       }
       if (filesFailed > 0) {
         this.setState({
-          uploadResult: `${filesFailed} File${
-            filesFailed !== 1 ? ' uploads failed' : 'upload failed'
-          }`
+          uploadResult: `${filesFailed} File${filesFailed !== 1 ? ' uploads failed' : 'upload failed'}`
         });
       }
     }

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Container, IContainer } from './Container';
-import { Link } from './Link';
+import { Link, Container, IContainer } from '.';
 
 interface IProps extends IContainer {
   initTimer?: boolean;
@@ -43,20 +42,18 @@ export class Resend extends React.Component<IProps, IState> {
 
     return (
       <Container className='color-primary-grey-dark'>
-        {(this.state.timeRemainingInSeconds === 0 ||
-          this.state.timeRemainingInSeconds === this.props.duration) && (
+        {(this.state.timeRemainingInSeconds === 0 || this.state.timeRemainingInSeconds === this.props.duration) && (
           <>
             Didn’t receive the code?&nbsp;
             <Link onClick={this.resendCode}>Resend Code</Link>
           </>
         )}
-        {this.state.timeRemainingInSeconds !== 0 &&
-          this.state.timeRemainingInSeconds !== this.props.duration && (
-            <span>
-              You can resend in {this.state.timeRemainingInSeconds}{' '}
-              {this.state.timeRemainingInSeconds == 1 ? 'second' : 'seconds'}
-            </span>
-          )}
+        {this.state.timeRemainingInSeconds !== 0 && this.state.timeRemainingInSeconds !== this.props.duration && (
+          <span>
+            You can resend in {this.state.timeRemainingInSeconds}{' '}
+            {this.state.timeRemainingInSeconds == 1 ? 'second' : 'seconds'}
+          </span>
+        )}
       </Container>
     );
   }
@@ -64,8 +61,7 @@ export class Resend extends React.Component<IProps, IState> {
   private resendCode = () => {
     if (
       this.props.duration &&
-      (this.state.timeRemainingInSeconds === 0 ||
-        this.state.timeRemainingInSeconds === this.props.duration)
+      (this.state.timeRemainingInSeconds === 0 || this.state.timeRemainingInSeconds === this.props.duration)
     ) {
       clearInterval(this.timer!);
       this.setState({ timeRemainingInSeconds: this.props.duration - 1 });

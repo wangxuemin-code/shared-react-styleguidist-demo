@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IContainer } from './Container';
 import { GridColumn } from './GridColumn';
 import { GridRow } from './GridRow';
+import { IContainer } from '.';
 interface IGrid extends IContainer {
 }
 export declare class Grid extends React.Component<IGrid, any> {

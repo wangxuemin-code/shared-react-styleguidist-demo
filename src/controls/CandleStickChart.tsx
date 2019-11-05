@@ -1,11 +1,8 @@
 import * as Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
-import { IContainer } from '.';
 import React = require('react');
 
-interface ICandleStickChart extends IContainer {}
-
-export class CandleStickChart extends React.Component<ICandleStickChart, any> {
+export class CandleStickChart extends React.Component<any, any> {
   componentDidMount() {
     // must trigger an resize event else highcharts will give wrong dimension
     window.dispatchEvent(new Event('resize'));

@@ -1,12 +1,9 @@
 import { countries } from 'country-data';
 import * as React from 'react';
-import { Input as ReactInput } from 'antd';
 import Select, { components } from 'react-select';
-import { Button } from './Button';
-import { Container } from './Container';
-import { Icon } from './Icon';
 import * as styles from '../css/main.scss';
-import { Divider } from './Divider';
+import ReactInput from 'antd/es/input';
+import { Divider, Icon, Container, Button } from '.';
 
 interface IProps {
   placeholder?: string;
@@ -242,8 +239,7 @@ export class Phone extends React.Component<IProps, IState> {
                     variant={
                       !this.state.phoneCode ||
                       !this.state.phoneNumber ||
-                      (this.state.timeRemainingInSeconds !== 60 &&
-                        this.state.timeRemainingInSeconds !== 0)
+                      (this.state.timeRemainingInSeconds !== 60 && this.state.timeRemainingInSeconds !== 0)
                         ? 'disabled'
                         : 'primary'
                     }
@@ -265,9 +261,7 @@ export class Phone extends React.Component<IProps, IState> {
         <Container className={styles.phoneTimerMessage}>
           {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
             ? ''
-            : this.state.timeRemainingInSeconds === 60 ||
-              this.state.timeRemainingInSeconds === 0 ||
-              !this.props.loading
+            : this.state.timeRemainingInSeconds === 60 || this.state.timeRemainingInSeconds === 0 || !this.props.loading
             ? ''
             : 'You can resend in ' + this.state.timeRemainingInSeconds + ' sec'}
         </Container>

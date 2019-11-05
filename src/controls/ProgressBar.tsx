@@ -1,24 +1,15 @@
 import * as React from 'react';
-import { Progress } from 'antd';
-import { IContainer, Container } from './Container';
 import * as styles from '../css/main.scss';
 var uniqid = require('uniqid');
+import Progress from 'antd/es/progress';
+import { IContainer, Container } from '.';
 
 interface IProps extends IContainer {
   children?: any;
   label?: boolean | string;
   animated?: boolean;
   value?: any;
-  variant?:
-    | 'primary'
-    | 'secondary'
-    | 'info'
-    | 'disabled'
-    | 'light'
-    | 'dark'
-    | 'success'
-    | 'warning'
-    | 'danger';
+  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
   order?: number;
   gap?: boolean;
   compact?: boolean;
@@ -75,18 +66,11 @@ export class ProgressBar extends React.Component<IProps, IState> {
   }
 
   private getProgressBarDesign(IProps: IProps) {
-    let classes: string[] = [
-      this.props.className ? this.props.className : '',
-      IProps.variant ? IProps.variant : ''
-    ];
+    let classes: string[] = [this.props.className ? this.props.className : '', IProps.variant ? IProps.variant : ''];
     classes = classes.filter(function(el) {
       return el != '';
     });
-    const label = IProps.label
-      ? typeof IProps.label === 'string'
-        ? IProps.label
-        : `${IProps.value}%`
-      : '';
+    const label = IProps.label ? (typeof IProps.label === 'string' ? IProps.label : `${IProps.value}%`) : '';
     return (
       <Container
         widthPercent={this.props.children ? IProps.value : undefined}

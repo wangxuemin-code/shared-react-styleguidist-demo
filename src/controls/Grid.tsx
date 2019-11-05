@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-import { Container, IContainer } from './Container';
 import { GridColumn } from './GridColumn';
 import { GridRow } from './GridRow';
+import { Container, IContainer } from '.';
 
 interface IGrid extends IContainer {}
 

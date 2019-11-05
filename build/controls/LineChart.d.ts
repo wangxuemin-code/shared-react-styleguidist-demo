@@ -1,5 +1,5 @@
-import { IContainer } from '.';
 import React = require('react');
+import { IContainer } from '.';
 interface ILineChart extends IContainer {
     title?: string;
     subTitle?: string;

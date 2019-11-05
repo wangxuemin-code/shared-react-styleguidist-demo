@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { Icon } from '.';
 import * as styles from '../css/main.scss';
-import { Theme } from '../index-prod';
-import { Container, IContainer } from './Container';
+import { stylings } from '../css/theme';
+import { Container, IContainer, Icon } from '.';
 
 interface IMessage extends IContainer {
   labeled?: boolean;
@@ -74,12 +73,7 @@ export class Message extends React.Component<IMessage, any> {
               </Container>
             )}
             {this.props.content && (
-              <Container
-                fontSizeRem={0.85}
-                fontWeight={200}
-                margin={{ topPx: 2 }}
-                fontColor={'black'}
-              >
+              <Container fontSizeRem={0.85} fontWeight={200} margin={{ topPx: 2 }} fontColor={'black'}>
                 {this.props.content}
               </Container>
             )}
@@ -88,7 +82,7 @@ export class Message extends React.Component<IMessage, any> {
                 fontSizeRem={0.85}
                 fontWeight={200}
                 margin={{ topPx: 8 }}
-                fontColor={Theme.stylings.colors.primaryGreyDark}
+                fontColor={stylings.colors.primaryGreyDark}
               >
                 {this.props.subContent}
               </Container>

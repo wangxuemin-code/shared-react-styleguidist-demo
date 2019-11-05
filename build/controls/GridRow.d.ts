@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IContainer } from './Container';
+import { IContainer } from '.';
 interface IGridRow extends IContainer {
     fitted?: boolean;
     equalWidth?: boolean;

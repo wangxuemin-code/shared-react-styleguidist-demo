@@ -1,6 +1,5 @@
 import * as React from 'react';
-import * as styles from '../css/main.scss';
-import { Controls } from '../index-prod';
+import { Container, FormControl } from '.';
 
 export class TestControl extends React.Component<any, any> {
   constructor(props: any) {
@@ -15,9 +14,9 @@ export class TestControl extends React.Component<any, any> {
   }
   public render() {
     return (
-      <Controls.Container>
-        <Controls.FormControl type='text' name='test4' value='12345' />
-      </Controls.Container>
+      <Container>
+        <FormControl type='text' name='test4' value='12345' />
+      </Container>
     );
   }
 }

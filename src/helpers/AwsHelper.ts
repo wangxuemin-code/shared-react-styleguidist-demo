@@ -1,5 +1,5 @@
 import moment = require('moment');
-import AWS = require('aws-sdk');
+var S3 = require('aws-sdk/clients/s3');
 
 export class AwsHelper {
   public static convertedUrl?: string;
@@ -58,7 +58,7 @@ export class AwsHelper {
               signatureVersion: 'v4'
             };
 
-            const s3 = new AWS.S3(options);
+            const s3 = new S3(options);
 
             const myBucket = arr[1];
             const myKey = arr[2];

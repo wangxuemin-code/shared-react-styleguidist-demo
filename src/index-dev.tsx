@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Mqtt, Formatter, FMath } from './helpers';
 import * as ReactDOM from 'react-dom';
-import { Controls, Ant } from './index-prod';
+import { Controls } from './index-prod';
 import {
   faAddressBook,
   faAdjust,
@@ -1826,7 +1826,7 @@ class Main extends Controls.MyComponent<
                     value={0}
                   />
                   <Controls.FormControl
-                    disabled
+                    // disabled
                     required
                     label={'Dropdown'}
                     name='dropdown'
@@ -2336,7 +2336,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container>
                 <h4>Test Direct Ant Component Access</h4>
-                <Ant.Alert message={'Testing Ant component'} />
+                {/* <Ant.Alert message={'Testing Ant component'} /> */}
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
