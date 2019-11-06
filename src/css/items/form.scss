@@ -152,6 +152,10 @@ textarea[disabled] {
     background-color: transparent;
   }
 
+  textarea {
+    min-height: 38px;
+  }
+
   .ant-select-selection {
     border: none !important;
     box-shadow: none !important;

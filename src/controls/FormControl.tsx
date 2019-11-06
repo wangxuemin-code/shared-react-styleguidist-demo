@@ -2,7 +2,6 @@ import * as React from 'react';
 import { SyntheticEvent } from 'react';
 import { countries } from 'country-data';
 import Select, { components } from 'react-select';
-import TextareaAutosize from 'react-textarea-autosize';
 import FileUploader, { FilePattern } from './FileUploader';
 import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
@@ -82,6 +81,7 @@ interface IProps extends IContainer {
   required?: boolean;
   selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
+  isSearchable?: boolean;
   excludeOptions?: string[];
   extraControls?: any;
   dateOptions?: IDateOption;
@@ -111,6 +111,7 @@ interface IProps extends IContainer {
   showPhoneLabel?: boolean;
   debounce?: number;
   autoFocus?: boolean;
+  autoSize?: any;
   onInputChanged?: (value: string | number | undefined, name: string) => void;
   onFocus?: (formControl: FormControl) => void;
   onBlur?: (formControl: FormControl) => void;
@@ -141,7 +142,8 @@ export class FormControl extends React.Component<IProps, IState> {
     uploaderConfigs: {},
     includeInFormData: true,
     showPhoneLabel: true,
-    debounce: 0
+    debounce: 0,
+    autoSize: true
   };
 
   constructor(props: IProps) {
@@ -587,6 +589,7 @@ export class FormControl extends React.Component<IProps, IState> {
       let Options: any = this.props.selectOptions || [];
       return (
         <Select
+          isSearchable={this.props.isSearchable}
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           // componentClass='select'
@@ -656,6 +659,7 @@ export class FormControl extends React.Component<IProps, IState> {
       let Options = this.props.selectCustomOptions || [];
       return (
         <Select
+          isSearchable={this.props.isSearchable}
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
@@ -824,6 +828,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Select
           // defaultMenuIsOpen
+          isSearchable={this.props.isSearchable}
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
@@ -978,6 +983,7 @@ export class FormControl extends React.Component<IProps, IState> {
       };
       return (
         <Select
+          isSearchable={this.props.isSearchable}
           autoFocus={this.props.autoFocus}
           // defaultMenuIsOpen
           ignoreAccents={false}
@@ -1042,11 +1048,9 @@ export class FormControl extends React.Component<IProps, IState> {
       );
     } else if (this.props.type === 'longtext') {
       return (
-        <TextareaAutosize
+        <ReactInput.TextArea
           autoFocus={this.props.autoFocus}
-          className={'form-control'}
-          autoComplete={'off'}
-          autoCorrect={'off'}
+          autosize={this.props.autoSize}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || ''}
           onChange={this.onChange}

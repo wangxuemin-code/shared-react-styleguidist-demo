@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Mqtt, Formatter, FMath } from './helpers';
 import * as ReactDOM from 'react-dom';
-import { Controls } from './index-prod';
+import { Controls, Ant } from './index-prod';
 import {
   faAddressBook,
   faAdjust,
@@ -93,17 +93,7 @@ class Main extends Controls.MyComponent<
       imageUrl: '',
       imageFooterChanged: false
     };
-    this.variantStates = [
-      'primary',
-      'secondary',
-      'disabled',
-      'light',
-      'dark',
-      'info',
-      'success',
-      'warning',
-      'danger'
-    ];
+    this.variantStates = ['primary', 'secondary', 'disabled', 'light', 'dark', 'info', 'success', 'warning', 'danger'];
     this.tabsContent = [
       {
         title: <Controls.Container>Account Info</Controls.Container>,
@@ -209,12 +199,7 @@ class Main extends Controls.MyComponent<
                 >
                   STO
                 </Controls.Link>,
-                <Controls.Link
-                  padding={{ leftRightRem: 1 }}
-                  underline={false}
-                  useNormalAnchor={true}
-                  href={'wallet'}
-                >
+                <Controls.Link padding={{ leftRightRem: 1 }} underline={false} useNormalAnchor={true} href={'wallet'}>
                   Wallet
                 </Controls.Link>
               ]}
@@ -247,13 +232,7 @@ class Main extends Controls.MyComponent<
                       title: 'Earlier',
                       contents: [
                         {
-                          icon: (
-                            <Controls.Icon
-                              size={'large'}
-                              variant={'success'}
-                              icon={faCheckCircle}
-                            />
-                          ),
+                          icon: <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />,
                           content: (
                             <Controls.Container>
                               <h6>Account Info</h6>
@@ -266,13 +245,7 @@ class Main extends Controls.MyComponent<
                           }
                         },
                         {
-                          icon: (
-                            <Controls.Icon
-                              size={'large'}
-                              variant={'success'}
-                              icon={faCheckCircle}
-                            />
-                          ),
+                          icon: <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />,
                           content: (
                             <Controls.Container>
                               <h6>Account Info</h6>
@@ -290,13 +263,7 @@ class Main extends Controls.MyComponent<
                       title: 'Days ago',
                       contents: [
                         {
-                          icon: (
-                            <Controls.Icon
-                              size={'large'}
-                              variant={'success'}
-                              icon={faCheckCircle}
-                            />
-                          ),
+                          icon: <Controls.Icon size={'large'} variant={'success'} icon={faCheckCircle} />,
                           content: (
                             <Controls.Container>
                               <h6>Account Info</h6>
@@ -511,10 +478,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Icon icon={faPlus} />
                 Icon
               </Controls.Button>
-              <Controls.Button
-                variant='primary'
-                subText={<span className='small'>Back to Residential / Mailing</span>}
-              >
+              <Controls.Button variant='primary' subText={<span className='small'>Back to Residential / Mailing</span>}>
                 SubText
               </Controls.Button>
               <Controls.Button float={'right'} fontStyle={'italic'} variant='primary'>
@@ -589,12 +553,7 @@ class Main extends Controls.MyComponent<
               <Controls.Container display={'flex'}>
                 {this.variantStates.map((link: any) => (
                   <Controls.Container key={uniqid().toString()}>
-                    <Controls.Link
-                      showUnderline={true}
-                      linkColor={'#000'}
-                      variant={link}
-                      useNormalAnchor
-                    >
+                    <Controls.Link showUnderline={true} linkColor={'#000'} variant={link} useNormalAnchor>
                       {link.toUpperCase()}
                     </Controls.Link>
                     &nbsp; &nbsp;
@@ -603,13 +562,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container>
                 There is a&nbsp;
-                <Controls.Link
-                  showUnderline={true}
-                  linkColor={'#000'}
-                  variant={'secondary'}
-                  href='/'
-                  useNormalAnchor
-                >
+                <Controls.Link showUnderline={true} linkColor={'#000'} variant={'secondary'} href='/' useNormalAnchor>
                   Link
                 </Controls.Link>
                 &nbsp;in this sentence
@@ -646,12 +599,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Icon size='tiny' icon={faUser} text={'Tiny'} /> &nbsp; &nbsp;
                 <Controls.Icon size='small' icon={faUser} text={'Small'} /> &nbsp; &nbsp;
                 <Controls.Icon size='medium' icon={faUser} text={'Medium'} /> &nbsp; &nbsp;
-                <Controls.Icon
-                  size='large'
-                  color={'#3BE4C1'}
-                  icon={faChevronCircleRight}
-                  text={'Large'}
-                />
+                <Controls.Icon size='large' color={'#3BE4C1'} icon={faChevronCircleRight} text={'Large'} />
               </Controls.Container>
               <Controls.Container display={'flex'}>
                 <Controls.Icon icon={faUser} text={'Passing ICON as a variable'} /> &nbsp; &nbsp;
@@ -1216,21 +1164,13 @@ class Main extends Controls.MyComponent<
               <Controls.Rating defaultValue={3} maxValue={3} />
               <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
               {this.variantStates.map((rating: any) => (
-                <Controls.Container
-                  key={uniqid().toString()}
-                  display={'flex'}
-                  alignItems={'center'}
-                >
+                <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
                   <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                   &nbsp;&nbsp; {rating}
                 </Controls.Container>
               ))}
               {this.variantStates.map((rating: any) => (
-                <Controls.Container
-                  key={uniqid().toString()}
-                  display={'flex'}
-                  alignItems={'center'}
-                >
+                <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
                   <Controls.Rating filled variant={rating} defaultValue={3} maxValue={3} />
                   &nbsp;&nbsp; {rating}
                 </Controls.Container>
@@ -1305,11 +1245,7 @@ class Main extends Controls.MyComponent<
                     rowContents: ['Super Admin', 'This is another not very long content.', '']
                   },
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', 'DDMMYYYY'],
                     rowActions: [
                       {
                         icon: faAddressBook,
@@ -1329,11 +1265,7 @@ class Main extends Controls.MyComponent<
                     rowContents: ['Super Admin', 'This is a table row with a callback', '']
                   },
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', 'DDMMYYYY'],
                     rowActions: [{ loading: true }]
                   }
                 ]}
@@ -1366,11 +1298,7 @@ class Main extends Controls.MyComponent<
                     rowColSpans: [2]
                   },
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', 'DDMMYYYY'],
                     itemId: '2',
                     groupId: '1',
                     rowActions: [
@@ -1394,11 +1322,7 @@ class Main extends Controls.MyComponent<
                     groupId: '1'
                   },
                   {
-                    rowContents: [
-                      'Super Admin',
-                      'This is another not very long content.',
-                      'DDMMYYYY'
-                    ],
+                    rowContents: ['Super Admin', 'This is another not very long content.', 'DDMMYYYY'],
                     itemId: '4',
                     groupId: '1',
                     rowActions: [{ loading: true }]
@@ -1505,39 +1429,20 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.Container className={'form-group'}>
                     {/* <Ant.Popover placement='topLeft' trigger='click' content={'PopOver'}> */}
-                    <Controls.FormControl
-                      required
-                      label={'Password'}
-                      name='Password'
-                      type={'password'}
-                    />
+                    <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
                     {/* </Ant.Popover> */}
-                    <Controls.FormControl
-                      label={'Password'}
-                      name='Password'
-                      type={'password'}
-                      value={'haha'}
-                    />
+                    <Controls.FormControl label={'Password'} name='Password' type={'password'} value={'haha'} />
                   </Controls.Container>
                   <Controls.FormControl
-                    disabled
+                    // disabled
+                    autoSize={{ minRows: 3 }}
                     label={'Description'}
                     name='description'
                     type={'longtext'}
                     alwaysCapitalize={true}
                   />
-                  <Controls.FormControl
-                    required
-                    label={'Numbers only'}
-                    name='numeric'
-                    type={'numeric'}
-                  />
-                  <Controls.FormControl
-                    required
-                    label={'Numbers with commas'}
-                    name='number'
-                    type={'number'}
-                  />
+                  <Controls.FormControl required label={'Numbers only'} name='numeric' type={'numeric'} />
+                  <Controls.FormControl required label={'Numbers with commas'} name='number' type={'number'} />
                   <Controls.FormControl
                     required
                     label={'$$$'}
@@ -1703,13 +1608,7 @@ class Main extends Controls.MyComponent<
                       console.log(value);
                     }}
                   />
-                  <Controls.FormControl
-                    required
-                    label={'Notify me'}
-                    name='notify'
-                    type={'switch'}
-                    defaultValue='0'
-                  />
+                  <Controls.FormControl required label={'Notify me'} name='notify' type={'switch'} defaultValue='0' />
                   <Controls.FormControl
                     required
                     label={'H Radio'}
@@ -1827,6 +1726,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     // disabled
+                    isSearchable={false}
                     required
                     label={'Dropdown'}
                     name='dropdown'
@@ -2051,12 +1951,7 @@ class Main extends Controls.MyComponent<
             <Controls.Divider /> */}
               <h4>Card</h4>
               <Controls.Container className={'display-flex'}>
-                <Controls.Card
-                  leftIcon={faInfoCircle}
-                  rightIcon={faCheckCircle}
-                  icon={faUser}
-                  title={'Title'}
-                />
+                <Controls.Card leftIcon={faInfoCircle} rightIcon={faCheckCircle} icon={faUser} title={'Title'} />
                 <Controls.Card
                   leftIcon={faInfoCircle}
                   rightIcon={faCheckCircle}
@@ -2103,11 +1998,7 @@ class Main extends Controls.MyComponent<
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
-                  <Controls.Message
-                    key={uniqid().toString()}
-                    variant={message}
-                    message={`Hello i am a ${message}`}
-                  />
+                  <Controls.Message key={uniqid().toString()} variant={message} message={`Hello i am a ${message}`} />
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
@@ -2204,11 +2095,7 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <h4>Custom tooltip</h4>
               <Controls.Container
-                tooltip={
-                  <Controls.Container backgroundColor={'#BBBBBB'}>
-                    I am tooltip content!
-                  </Controls.Container>
-                }
+                tooltip={<Controls.Container backgroundColor={'#BBBBBB'}>I am tooltip content!</Controls.Container>}
                 tooltipOptions={{
                   place: 'left',
                   clickable: true,
@@ -2224,11 +2111,7 @@ class Main extends Controls.MyComponent<
               <h4>Label</h4>
               <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
                 {this.variantStates.map((message: any) => (
-                  <Controls.Label
-                    key={uniqid().toString()}
-                    variant={message}
-                    text={`Hello i am a ${message}`}
-                  />
+                  <Controls.Label key={uniqid().toString()} variant={message} text={`Hello i am a ${message}`} />
                 ))}
               </Controls.Container>
 
@@ -2288,11 +2171,7 @@ class Main extends Controls.MyComponent<
                     <span>Statement</span>
                   </div>'
                   type={'column'}
-                  colors={[
-                    'rgba(0, 27, 86, 0.9)',
-                    'rgba(101, 195, 102, 0.9)',
-                    'rgba(59, 228, 193, 1)'
-                  ]}
+                  colors={['rgba(0, 27, 86, 0.9)', 'rgba(101, 195, 102, 0.9)', 'rgba(59, 228, 193, 1)']}
                   categories={['2016', '2017', '2018']}
                   plotOptions={{
                     column: {
@@ -2336,7 +2215,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container>
                 <h4>Test Direct Ant Component Access</h4>
-                {/* <Ant.Alert message={'Testing Ant component'} /> */}
+                <Ant.Alert message={'Testing Ant component'} />
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
