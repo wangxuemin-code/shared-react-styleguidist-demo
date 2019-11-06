@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { IContainer, Container } from './Container';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { stylings } from '../css/theme';
-import { IContainer, Container } from '.';
+import * as theme from '../css/theme/theme';
 
-interface IProps extends IContainer {
+interface IDoughnutChart extends IContainer {
   title?: any;
   labelName?: string;
   backgroundColor: string;
@@ -16,7 +16,7 @@ interface IProps extends IContainer {
   }[];
 }
 
-export class DoughnutChart extends React.Component<IProps, any> {
+export class DoughnutChart extends React.Component<IDoughnutChart> {
   private chart: any;
   constructor(props: any) {
     super(props);
@@ -31,7 +31,11 @@ export class DoughnutChart extends React.Component<IProps, any> {
   }
 
   public render() {
-    const defaultColors = [stylings.colors.danger, stylings.colors.warning, stylings.colors.success];
+    const defaultColors = [
+      theme.stylings.colors.danger,
+      theme.stylings.colors.warning,
+      theme.stylings.colors.success
+    ];
     var len = this.props.data.length;
 
     const options = {
