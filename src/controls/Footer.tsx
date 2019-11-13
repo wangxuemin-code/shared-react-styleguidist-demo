@@ -128,7 +128,7 @@ export class Footer extends React.Component<IProps, any> {
                   <Link
                     variant='light'
                     margin={{ rightRem: 1 }}
-                    href='https://www.istox.com/legal#terms'
+                    href='https://www.istox.com/Company/iSTOX_Terms_and_Conditions.pdf'
                     useNormalAnchor={true}
                   >
                     Terms and Conditions
@@ -136,12 +136,12 @@ export class Footer extends React.Component<IProps, any> {
                   <Link
                     variant='light'
                     margin={{ rightRem: 1 }}
-                    href='https://www.istox.com/legal#privacy'
+                    href='https://www.istox.com/privacy'
                     useNormalAnchor={true}
                   >
                     Privacy Policy
                   </Link>
-                  <Link variant='light' href='https://www.istox.com/legal#cookie' useNormalAnchor={true}>
+                  <Link variant='light' href='https://www.istox.com/cookie' useNormalAnchor={true}>
                     Cookie Policy
                   </Link>
                 </Container>
