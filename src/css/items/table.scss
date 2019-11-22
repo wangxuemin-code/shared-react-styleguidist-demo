@@ -90,3 +90,13 @@
   right: 10px;
   left: auto;
 }
+
+.ant-pagination {
+  :global(.ant-pagination-options) {
+    display: flex;
+    float: right;
+    flex-direction: row-reverse;
+    width: 50%;
+    justify-content: space-between;
+  }
+}

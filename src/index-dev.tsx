@@ -1231,7 +1231,6 @@ class Main extends Controls.MyComponent<
                     Footer
                   </Controls.Item>
                 }
-                basic
                 columnHeaders={[
                   { title: 'Code' },
                   { title: 'Date Created', min: true },
@@ -1269,6 +1268,13 @@ class Main extends Controls.MyComponent<
                     rowActions: [{ loading: true }]
                   }
                 ]}
+                pagination={{
+                  total: 5000,
+                  defaultPageSize: 100,
+                  pageSizeOptions: ['100', '200', '300', '400'],
+                  onPagechange: (page:number, pageSize: number) => console.log('Page is ', page, 'and Page Size is ', pageSize),
+                  onShowSizeChange: (current: number, pageSize: number) => console.log('Current page is ', current, 'and Page Size is ', pageSize)
+                }}
               />
               <Controls.Divider visibility={'hidden'} />
               <Controls.Table
@@ -2090,7 +2096,10 @@ class Main extends Controls.MyComponent<
               <h4>Breadcrumbs</h4>
               <Controls.Breadcrumbs
                 useNormalAnchor
-                links={[{ title: 'User', href: '#' }, { title: 'Admin', href: '#' }]}
+                links={[
+                  { title: 'User', href: '#' },
+                  { title: 'Admin', href: '#' }
+                ]}
               />
               <Controls.Divider />
               <h4>Custom tooltip</h4>
