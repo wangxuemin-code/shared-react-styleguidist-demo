@@ -3,7 +3,7 @@ import * as styles from '../css/main.scss';
 var InfiniteScroll = require('react-infinite-scroller');
 var uniqid = require('uniqid');
 import { Loading, FormControl, Container, IContainer, Icon } from '.';
-import { Ant } from '../index-prod';
+import ReactPagination from 'antd/es/pagination';
 
 export interface TableHeaderModel {
   title: string;
@@ -170,7 +170,7 @@ export class Table extends React.Component<IProps, IState> {
             padding={{ topBottomRem: 1, leftRightPx: 30 }}
             style={{ borderTop: '1px solid', borderColor: 'inherit' }}
           >
-            <Ant.Pagination
+            <ReactPagination
               showSizeChanger={this.props.pagination.showSizeChanger || true}
               onShowSizeChange={this.props.pagination.onShowSizeChange}
               defaultCurrent={this.props.pagination.defaultCurrent || 1}
