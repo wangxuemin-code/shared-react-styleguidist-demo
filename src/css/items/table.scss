@@ -92,11 +92,12 @@
 }
 
 .ant-pagination {
+  display: flex;
   :global(.ant-pagination-options) {
-    display: flex;
-    float: right;
-    flex-direction: row-reverse;
-    width: 50%;
     justify-content: space-between;
+    flex: 1 auto;
+  }
+  :global(.ant-pagination-options-size-changer) {
+    float: right;
   }
 }
