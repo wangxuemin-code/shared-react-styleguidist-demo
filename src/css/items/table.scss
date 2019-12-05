@@ -90,14 +90,3 @@
   right: 10px;
   left: auto;
 }
-
-.ant-pagination {
-  display: flex;
-  :global(.ant-pagination-options) {
-    justify-content: space-between;
-    flex: 1 auto;
-  }
-  :global(.ant-pagination-options-size-changer) {
-    float: right;
-  }
-}
