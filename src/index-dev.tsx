@@ -2139,7 +2139,9 @@ class Main extends Controls.MyComponent<
               <Controls.Divider />
               <Controls.Container>
                 <h4>Pagination</h4>
-                <Controls.Pagination current={2} total={50} />
+                <Controls.Pagination defaultCurrent={2} total={50} />
+                <Controls.Pagination outline defaultCurrent={2} total={50} />
+                <Controls.Pagination prevButtonText='' nextButtonText='' defaultCurrent={2} total={50} />
                 <br />
               </Controls.Container>
               <Controls.Divider />

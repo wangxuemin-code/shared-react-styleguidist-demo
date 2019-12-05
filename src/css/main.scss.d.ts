@@ -2632,7 +2632,6 @@ export const breadcrumbs: string;
 export const informationContainer: string;
 export const subtitle: string;
 export const headlineContainer: string;
-export const istoxPagination: string;
 export const stoMainTitle: string;
 export const stoTimelineContainer: string;
 export const point: string;

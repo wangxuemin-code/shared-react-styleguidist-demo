@@ -6,6 +6,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('node-sass');
 const sassUtils = require('node-sass-utils')(sass);
@@ -39,6 +41,53 @@ module.exports = {
   },
   // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
   devtool: 'inline-source-map',
+  optimization: {
+    minimizer: [
+      new UglifyJSPlugin({
+        sourceMap: false,
+        uglifyOptions: {
+          compress: {
+            inline: false
+          }
+        },
+        // Use multiprocess to improve build speed
+        parallel: true
+      }),
+      new OptimizeCssAssetsPlugin({})
+    ],
+    runtimeChunk: false,
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        reactVendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'reactvendor'
+        },
+        utilityVendor: {
+          test: /[\\/]node_modules[\\/](lodash|moment)[\\/]/,
+          name: 'utilityVendor'
+        },
+        antd: {
+          test: /[\\/]node_modules[\\/](antd|@ant-design)[\\/]/,
+          name: 'antdVendor'
+        },
+        iconVendor: {
+          test: /[\\/]node_modules[\\/](@fortawesome)[\\/]/,
+          name: 'iconVendor'
+        },
+        awsVendor: {
+          test: /[\\/]node_modules[\\/](aws-sdk)[\\/]/,
+          name: 'awsVendor'
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/](!react)(!react-dom)(!antd)(!@ant-design)(!lodash)(!moment)(!@fortawesome)(!aws-sdk)[\\/]/,
+          name: 'vendor'
+        }
+      }
+    }
+  },
   output: {
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: true

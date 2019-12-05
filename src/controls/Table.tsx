@@ -2,8 +2,7 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 var InfiniteScroll = require('react-infinite-scroller');
 var uniqid = require('uniqid');
-import { Loading, FormControl, Container, IContainer, Icon } from '.';
-import ReactPagination from 'antd/es/pagination';
+import { Loading, FormControl, Container, IContainer, Icon, Pagination } from '.';
 
 export interface TableHeaderModel {
   title: string;
@@ -35,18 +34,6 @@ export interface TableActionsModel {
   loading?: boolean;
 }
 
-interface Pagination {
-  defaultCurrent?: number;
-  total: number;
-  showLessItems?: boolean;
-  defaultPageSize?: number;
-  pageSizeOptions?: Array<string>;
-  showSizeChanger?: boolean;
-  showQuickJumper?: boolean;
-  onShowSizeChange?: (current: number, pageSize: number) => void;
-  onPagechange: (page: number, pageSize: number) => void;
-}
-
 interface IProps extends IContainer {
   header?: any;
   footer?: any;
@@ -64,7 +51,17 @@ interface IProps extends IContainer {
   threshold?: number;
   useWindow?: boolean;
   initialLoad?: boolean;
-  pagination?: Pagination;
+  pagination?: {
+    defaultCurrent?: number;
+    total: number;
+    showLessItems?: boolean;
+    defaultPageSize?: number;
+    pageSizeOptions?: Array<string>;
+    showSizeChanger?: boolean;
+    showQuickJumper?: boolean;
+    onShowSizeChange?: (current: number, pageSize: number) => void;
+    onPagechange: (page: number, pageSize: number) => void;
+  };
 }
 
 interface IState {
@@ -166,20 +163,23 @@ export class Table extends React.Component<IProps, IState> {
         )}
         {typeof this.props.footer !== 'string' && <Container>{this.props.footer}</Container>}
         {this.props.pagination && (
-          <Container
-            padding={{ topBottomRem: 1, leftRightPx: 30 }}
-            style={{ borderTop: '1px solid', borderColor: 'inherit' }}
-          >
-            <ReactPagination
-              showSizeChanger={this.props.pagination.showSizeChanger || true}
+          <Container padding={{ topBottomRem: 1 }} style={{ borderTop: '1px solid', borderColor: 'inherit' }}>
+            <Pagination
+              showSizeChanger={
+                this.props.pagination.showSizeChanger !== undefined ? this.props.pagination.showSizeChanger : true
+              }
               onShowSizeChange={this.props.pagination.onShowSizeChange}
               defaultCurrent={this.props.pagination.defaultCurrent || 1}
               total={this.props.pagination.total}
-              showLessItems={this.props.pagination.showLessItems || false}
+              showLessItems={
+                this.props.pagination.showLessItems !== undefined ? this.props.pagination.showLessItems : false
+              }
               defaultPageSize={this.props.pagination.defaultPageSize || 10}
               pageSizeOptions={this.props.pagination.pageSizeOptions || ['10', '25', '50', '100']}
               onChange={this.props.pagination.onPagechange}
-              showQuickJumper={this.props.pagination.showQuickJumper || true}
+              showQuickJumper={
+                this.props.pagination.showQuickJumper !== undefined ? this.props.pagination.showQuickJumper : true
+              }
             />
           </Container>
         )}

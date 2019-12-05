@@ -1,17 +1,79 @@
-.istox-pagination {
+.pagination {
+  :global(.ant-pagination-item) {
+    border-radius: 0;
+  }
+
   :global(.ant-pagination-item-active) {
-    border-color: map-get($colors, primary);
+    border-color: map-get($colors, primaryDarkActive);
+    background-color: map-get($colors, primary);
+
+    a {
+      color: map-get($colors, primaryAlt);
+    }
   }
 
-  :global(.ant-pagination-item:hover) {
-    border-color: map-get($colors, primary);
+  :global(.ant-pagination-item),
+  :global(.ant-pagination-item-link) {
+    border-color: map-get($colors, primaryAlt);
+    color: map-get($colors, primaryDarkActive);
+
+    &:hover {
+      border-color: map-get($colors, primaryDarkActive);
+      color: map-get($colors, primaryAlt);
+      background-color: map-get($colors, primary);
+
+      a {
+        color: map-get($colors, primaryAlt);
+      }
+    }
   }
 
-  :global(.ant-pagination-item a) {
-    color: map-get($colors, primary);
+  :global(.ant-pagination-options-quick-jumper) {
+    input {
+      border-radius: 0;
+      &:hover {
+        border: 1px solid map-get($colors, primaryGreyLight);
+      }
+    }
   }
 
-  :global(.ant-pagination-item-active a) {
-    color: map-get($colors, primary);
+  :global(.ant-select-selection) {
+    border-radius: 0;
+    &:hover {
+      border: 1px solid map-get($colors, primaryGreyLight);
+    }
+  }
+
+  :global(.ant-select-dropdown) {
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+    border: 1px solid map-get($colors, primaryGreyLight);
+    z-index: 10;
+  }
+
+  :global(.ant-select-dropdown-menu-item) {
+    background-color: map-get($colors, primaryAlt);
+    border-left: 3px solid map-get($colors, primaryAlt);
+
+    &:hover {
+      background-color: map-get($colors, primaryAlt);
+      color: map-get($colors, primaryDark);
+      border-left: 3px solid map-get($colors, primaryDark);
+    }
+  }
+
+  :global(.ant-select-open .ant-select-selection) {
+    border: 1px solid map-get($colors, primaryGreyLight);
+  }
+
+  :global(.ant-pagination-item-link-icon) {
+    color: map-get($colors, primaryGrey) !important;
+  }
+
+  &.outline {
+    :global(.ant-pagination-item),
+    :global(.ant-pagination-item-link) {
+      border-color: map-get($colors, primaryGreyLight);
+      color: map-get($colors, primaryGrey);
+    }
   }
 }

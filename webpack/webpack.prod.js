@@ -6,8 +6,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonPaths = require('./common-paths');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const sass = require('node-sass');
 const sassUtils = require('node-sass-utils')(sass);
 
@@ -36,13 +37,50 @@ module.exports = {
   devtool: false,
   optimization: {
     minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+      new UglifyJSPlugin({
+        sourceMap: false,
+        uglifyOptions: {
+          compress: {
+            inline: false
+          }
+        },
+        // Use multiprocess to improve build speed
+        parallel: true
       }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+      new OptimizeCssAssetsPlugin({})
+    ],
+    runtimeChunk: false,
+    splitChunks: {
+      chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        reactVendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          name: 'reactvendor'
+        },
+        utilityVendor: {
+          test: /[\\/]node_modules[\\/](lodash|moment)[\\/]/,
+          name: 'utilityVendor'
+        },
+        antd: {
+          test: /[\\/]node_modules[\\/](antd|@ant-design)[\\/]/,
+          name: 'antdVendor'
+        },
+        iconVendor: {
+          test: /[\\/]node_modules[\\/](@fortawesome)[\\/]/,
+          name: 'iconVendor'
+        },
+        awsVendor: {
+          test: /[\\/]node_modules[\\/](aws-sdk)[\\/]/,
+          name: 'awsVendor'
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/](!react)(!react-dom)(!antd)(!@ant-design)(!lodash)(!moment)(!@fortawesome)(!aws-sdk)[\\/]/,
+          name: 'vendor'
+        }
+      }
+    }
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
@@ -54,7 +92,13 @@ module.exports = {
     new webpack.IgnorePlugin(/test\.ts$/),
 
     // do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: 'istox.css'
+    })
   ],
   module: {
     // loaders -> rules in webpack 2
