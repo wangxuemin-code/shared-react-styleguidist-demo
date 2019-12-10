@@ -10,7 +10,7 @@
   }
 
   .social-icons {
-    :global(.icon) {
+    .anticon {
       font-size: 16px;
       color: map-get($colors, primaryGreyDarker);
     }

@@ -4,8 +4,9 @@
   background-color: map-get($colors, primary);
 }
 .istox-progress {
-  .ant-progress-bg {
-    border-radius: 0 !important;
+  .ant-progress-bg,
+  .ant-progress-inner {
+    border-radius: 0;
   }
   &.multi {
     display: flex;

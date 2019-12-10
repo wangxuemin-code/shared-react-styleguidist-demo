@@ -20,10 +20,10 @@ class Main extends Controls.MyComponent<any, IState> {
 
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIAZGTEABANDA27BMVY',
-        secret_access_key: '4vc4RQJFVPdnr1peI0P8XpXiRe5irP2gbXhfMOwq',
+        access_key_id: 'ASIA5FEPMSFOTLGQ3XRP',
+        secret_access_key: '5aXaezJeWWra30+VZg27J1IN8MIFt8tQYgMJHeLc',
         session_token:
-          'FQoGZXIvYXdzEIb//////////wEaDAfkS9+xjnPUnimh3SLiA/4eqmgQ3C581LXb15ARLmOslxhGkVZ8IkiKo4L9vq3xjnwU6dm6O+kaT5ButcAoO1IA51sJ9BK6x/kXwJ3tyR3po4EwHRBiDBrjXL1sli7KaZCrjgUSDkN4oNSUDfJg/D25qj6T2jRC3eIbPezAH+E2Xh+XP0bU3vsHeTwdGcHdxnqoLnGg6TJ2UilXCf1G6cvZdZf1rU2g5rmAl2zTTGbSDny0OUgjW1vACO9SzSEhdgNRHNA7jK79BCUv5srsRawqew+Y/1uUeWEyh8lCHaphJ72irSWcRAmIqbmJXZr6VeLu+pYx1NR5Dl+UfgWUiPCn7D0lPWJKymlLSb2V/VrYtQIBNpzBGgE4oGTBkATszbiSX8NaArTNKcJ9iRxG1GO1i9w7KIgrbyT+5KoDd7wh4wIdFmV0GteIHA6vrGPobdweWKPPahQge1S8r+7JvE4J0ksStS9qnhfyhH4MWeLKKcq+aaMtdh7lW9ovLd3jSwFOp2F6HzUSd4nZZqoZ/sK7qxpEZrLbxbSDTz+pkzCgo3IgGvElfMcnnLFhAjGJlUI0T/r1xP+9ftX1N52OnZYu1NIE2tUzaRufLjBcnpIEZue2m3DHfNcSEaEjo7cA40xw4TqOxfBf/ryxlSg0T72VKJrYn+0F',
+          'FwoGZXIvYXdzEJz//////////wEaDNd3AlBYCyHf/Yz1AyK1A6aNMGPM3UIFPJjuqW8LabEno+T7aMfjDmNdvFaZk7qZEP7G9/+sE20DPhR0ojYNpFFT9l9GzlZNEw0FfYfDSRNGpNZ6xIWZl5690bu3CGiuNJu7N4sAmxFMXEX4KVUV5tDVK/FJ3zBDfNxTxCvSBSCmG/wU4BMPlBnENRtRJ9n5C6DJa85eoPKvAeL0VXYRewJ919HX4Dx13I5+DGuHGURUQw/UKJFKHSeVB+h6PEf2gOOmg+PqquI13bh/Y2/ZhEpLAY7IioQJTuom1+FVpeZhPIWJUMUWrGrzvWVB4QIRt5k2fIQxcvWBVVscxFAmu/rTKpF/0yS1HUIOt1E3sTYjeZHwHiRP5ax77CUU4xkn4ig/X0Gy2ALi1TweRFt6AUMq7nEtkQPkDSiCElPmqXpyOZikdxEv2bMaL1ZHNSjMCEhDIzAmfP9c7CA4DD7/SvjBJ9ANYB6VZoQ2ybL7a8VLC7rC4p3yM0KsD6vpvvB6N9RdRSGDuFleaDF8dq9pyg8XAKuCJ9rTosrBIkNAi1Lqn2BvMWGHRFOf1YqPOSj2HuzciZVZj9Y5j2HhXZDLcwbJeEFKKLXkve8FMi3ClqC6JYBeqiqFrADRMERLdvnRkUZC9bIhhxLUKSk4fdcaGwcoHqxgQjAjbtc=',
         expiration: '2019-09-29 12:59:23 UTC'
       };
     };
@@ -77,9 +77,7 @@ class Main extends Controls.MyComponent<any, IState> {
                 }}
                 uploadBackButtonText={'Back to something'}
               >
-                {this.state.antiVirusChecks && (
-                  <Controls.Message variant={'warning'} message={'Dasdsad'} />
-                )}
+                {this.state.antiVirusChecks && <Controls.Message variant={'warning'} message={'Dasdsad'} />}
                 <Controls.FormControl
                   type='uploader'
                   label={
