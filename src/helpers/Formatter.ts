@@ -4,7 +4,7 @@ import BigNumber from 'bignumber.js';
 export class Formatter {
   public static money(
     input: number | string | undefined,
-    options: { decimalPlace?: number; symbol?: string; unit?: string; rounding?: 'up' | 'down' } = {}
+    options: { decimalPlace?: number; symbol?: string; unit?: string; rounding?: 'up' | 'down' | 'halfUp' } = {}
   ): string {
     if (!input) {
       input = 0;
@@ -12,7 +12,7 @@ export class Formatter {
 
     const roundMode = options.rounding ? options.rounding : 'up';
 
-    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 });
+    BigNumber.set({ ROUNDING_MODE: this.getBigNumberRoundingModeCode(roundMode) });
 
     const resultBN = new BigNumber(input.toString());
 
@@ -23,7 +23,7 @@ export class Formatter {
 
   public static number(
     input: number | string | undefined,
-    options: { decimalPlace?: number; rounding?: 'up' | 'down' } = {}
+    options: { decimalPlace?: number; rounding?: 'up' | 'down' | 'halfUp' } = {}
   ): string {
     if (!input) {
       input = 0;
@@ -31,11 +31,24 @@ export class Formatter {
 
     const roundMode = options.rounding ? options.rounding : 'up';
 
-    BigNumber.set({ ROUNDING_MODE: roundMode == 'up' ? 0 : 1 });
+    BigNumber.set({ ROUNDING_MODE: this.getBigNumberRoundingModeCode(roundMode) });
 
     const resultBN = new BigNumber(input.toString());
 
     return `${resultBN.toFormat(options.decimalPlace || 0)}`;
+  }
+
+  private static getBigNumberRoundingModeCode(rounding: 'up' | 'down' | 'halfUp') {
+    switch (rounding) {
+      case 'up':
+        return 0;
+      case 'down':
+        return 1;
+      case 'halfUp':
+        return 4;
+    }
+
+    return 0;
   }
 
   public static toBN(input: number | string | undefined | null) {
