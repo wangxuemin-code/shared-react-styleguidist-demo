@@ -68,9 +68,9 @@ textarea[disabled] {
   display: block;
 }
 
-:global(.ant-dropdown) {
+.ant-dropdown {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
-  border: 1px solid rgba(125, 125, 125, 0.1);
+  border: 1px solid map-get($colors, primaryGreyLighter);
 }
 
 .istox-form {
@@ -169,7 +169,7 @@ textarea[disabled] {
 
   input:hover,
   textarea:hover {
-    border-bottom: 1px solid map-get($colors, primaryGreyDark) !important;
+    border-bottom: 1px solid map-get($colors, secondary) !important;
     box-shadow: none;
   }
   input:focus,
@@ -177,6 +177,12 @@ textarea[disabled] {
   .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
     border-bottom: 1px solid map-get($colors, secondary) !important;
     box-shadow: none;
+  }
+  input.otp:hover {
+    border: 1px solid map-get($colors, secondary) !important;
+  }
+  input.otp:focus {
+    border: 1px solid map-get($colors, secondary) !important;
   }
   .select {
     input {
@@ -317,6 +323,7 @@ textarea[disabled] {
       border-left: 3px solid map-get($colors, primaryAlt);
       padding: 0.5rem;
       display: inline-block;
+      font-size: 1rem;
     }
 
     div[class*='option']:hover {

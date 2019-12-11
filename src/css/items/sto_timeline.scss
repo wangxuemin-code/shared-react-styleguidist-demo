@@ -190,10 +190,10 @@
     align-self: flex-start;
   }
 
-  :global(.image-responsive) {
+  .image-responsive {
     max-width: 280px;
   }
-  :global(.secondary) {
+  .secondary {
     color: map-get($colors, secondary);
   }
 }

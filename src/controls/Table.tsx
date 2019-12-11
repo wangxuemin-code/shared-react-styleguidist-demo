@@ -58,7 +58,7 @@ interface IProps extends IContainer {
     defaultPageSize?: number;
     pageSizeOptions?: Array<string>;
     showSizeChanger?: boolean;
-    showQuickJumper?: boolean;
+    showQuickJumper?: any;
     onShowSizeChange?: (current: number, pageSize: number) => void;
     onPagechange: (page: number, pageSize: number) => void;
   };
@@ -178,7 +178,9 @@ export class Table extends React.Component<IProps, IState> {
               pageSizeOptions={this.props.pagination.pageSizeOptions || ['10', '25', '50', '100']}
               onChange={this.props.pagination.onPagechange}
               showQuickJumper={
-                this.props.pagination.showQuickJumper !== undefined ? this.props.pagination.showQuickJumper : true
+                this.props.pagination.showQuickJumper !== undefined
+                  ? this.props.pagination.showQuickJumper
+                  : { goButton: 'Go to page' }
               }
             />
           </Container>
