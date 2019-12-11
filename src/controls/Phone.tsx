@@ -171,8 +171,8 @@ export class Phone extends React.Component<IProps, IState> {
                   width: '300px',
                   padding: '0.5rem !important',
                   backgroundColor: 'white',
-                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px',
-                  border: '1px solid rgba(125, 125, 125, 0.1)',
+                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
+                  border: '1px solid rgba(125, 125, 125, 0.1) !important',
                   zIndex: 2
                 }),
                 dropdownIndicator: (base: any, state: any) => ({
