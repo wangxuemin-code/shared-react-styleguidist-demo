@@ -143,12 +143,11 @@ export class Phone extends React.Component<IProps, IState> {
               </label>
             )}
             <Select
+              isSearchable={true}
               autoFocus={this.props.autoFocus}
               ignoreAccents={false}
-              // componentClass='select'
               // defaultMenuIsOpen
-              searchable={true}
-              className={'select phone-select'}
+              className={`select phone-select is-searchable`}
               value={allOptions.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
               filterOption={customFilter}
               onChange={this.onSetOption}
@@ -164,7 +163,8 @@ export class Phone extends React.Component<IProps, IState> {
                   ...base,
                   padding: '0 0.5rem',
                   color: 'rgba(0, 0, 0, 1)',
-                  backgroundColor: 'transparent'
+                  backgroundColor: 'transparent',
+                  cursor: 'poimter'
                 }),
                 menu: (base: any, state: any) => ({
                   ...base,

@@ -2554,6 +2554,7 @@ export const unitPadding: string;
 export const unit: string;
 export const select: string;
 export const otp: string;
+export const isSearchable: string;
 export const horizontal: string;
 export const otpControl: string;
 export const reactDatepickerMonthSelect: string;

@@ -205,9 +205,18 @@ textarea[disabled] {
       min-height: auto;
 
       > div {
+        cursor: pointer;
         height: auto !important;
         span {
           background-color: inherit;
+        }
+      }
+    }
+
+    &.is-searchable {
+      > div {
+        > div {
+          cursor: text;
         }
       }
     }

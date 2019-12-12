@@ -144,7 +144,8 @@ export class FormControl extends React.Component<IProps, IState> {
     includeInFormData: true,
     showPhoneLabel: true,
     debounce: 0,
-    autoSize: true
+    autoSize: true,
+    isSearchable: true
   };
 
   constructor(props: IProps) {
@@ -596,7 +597,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // componentClass='select'
           // defaultMenuIsOpen
           isDisabled={this.props.disabled}
-          className={'select'}
+          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
           onChange={this.onSetOption}
@@ -666,7 +667,7 @@ export class FormControl extends React.Component<IProps, IState> {
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
-          className={'select'}
+          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
           // defaultMenuIsOpen
           value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           placeholder={this.props.placeholder}
@@ -837,7 +838,7 @@ export class FormControl extends React.Component<IProps, IState> {
           autoFocus={this.props.autoFocus}
           ignoreAccents={false}
           isDisabled={this.props.disabled}
-          className={'select'}
+          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
           value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
@@ -995,7 +996,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // defaultMenuIsOpen
           ignoreAccents={false}
           isDisabled={this.props.disabled}
-          className={'select'}
+          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
           value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
           filterOption={customFilter}
           placeholder={this.props.placeholder}
