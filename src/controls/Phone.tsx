@@ -168,6 +168,7 @@ export class Phone extends React.Component<IProps, IState> {
                 }),
                 menu: (base: any, state: any) => ({
                   ...base,
+                  top: 'auto',
                   width: '300px',
                   padding: '0.5rem !important',
                   backgroundColor: 'white',

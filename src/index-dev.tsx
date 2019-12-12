@@ -1469,7 +1469,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     required
-                    label={'AlphaNumeric only'}
+                    label={'Alpha-numeric only'}
                     name='alphanumeric'
                     placeholder={'Only Alpha Numeric allowed'}
                     type={'alphanumeric'}
@@ -1776,6 +1776,37 @@ class Main extends Controls.MyComponent<
                       </Controls.Button>
                     }
                   />
+                  <Controls.Container width={250}>
+                    <Controls.FormControl
+                      // disabled
+                      isSearchable={false}
+                      required
+                      label={'Custom menu size Dropdown'}
+                      name='dropdown'
+                      placeholder='Choose'
+                      type={'select'}
+                      value={'secondary'}
+                      selectOptions={[
+                        {
+                          label: 'Primary',
+                          value: 'primary'
+                        },
+                        {
+                          label: 'Secondary',
+                          value: 'secondary'
+                        },
+                        {
+                          label: 'Disabled',
+                          value: 'disabled'
+                        }
+                      ]}
+                      selectMenuSize={500} // in px
+                      onInputChanged={(value) => {
+                        console.log(this.form.getInputValue('dropdown'));
+                        console.log(value);
+                      }}
+                    />
+                  </Controls.Container>
                   <Controls.FormControl
                     required
                     label={'Html Dropdown'}

@@ -81,6 +81,7 @@ interface IProps extends IContainer {
   required?: boolean;
   selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
+  selectMenuSize?: number;
   isSearchable?: boolean;
   excludeOptions?: string[];
   extraControls?: any;
@@ -614,6 +615,8 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
+              top: 'auto',
+              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
               padding: '0.5rem !important',
               backgroundColor: 'white',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
@@ -682,6 +685,8 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
+              top: 'auto',
+              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
               padding: '0.5rem !important',
               backgroundColor: 'white',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
@@ -852,6 +857,8 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
+              top: 'auto',
+              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
               padding: '0.5rem !important',
               backgroundColor: 'white',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
@@ -1008,6 +1015,8 @@ export class FormControl extends React.Component<IProps, IState> {
             }),
             menu: (base: any, state: any) => ({
               ...base,
+              top: 'auto',
+              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
               padding: '0.5rem !important',
               backgroundColor: 'white',
               boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
