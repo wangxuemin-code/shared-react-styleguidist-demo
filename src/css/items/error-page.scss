@@ -7,14 +7,14 @@
   flex: 1;
   padding: 4rem;
   text-align: center;
-}
 
-.error-page .message {
-  font-size: 1.5rem;
-  font-weight: lighter;
-}
+  .message {
+    font-size: 1.5rem;
+    font-weight: lighter;
+  }
 
-.error-page .alt-icon {
-  font-size: 15rem;
-  color: map-get($colors, danger);
+  .alt-icon {
+    font-size: 15rem;
+    color: map-get($colors, danger);
+  }
 }

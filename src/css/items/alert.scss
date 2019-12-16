@@ -1,20 +1,20 @@
 .istox-alert {
   margin-bottom: 1rem;
-}
 
-.istox-alert .alert {
-  border-radius: 0;
-  margin-bottom: 1rem;
-  white-space: pre-wrap;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-}
+  .alert {
+    border-radius: 0;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+  }
 
-.istox-alert .icon {
-  font-size: 2rem;
-  margin-right: 0.5rem;
+  .icon {
+    font-size: 2rem;
+    margin-right: 0.5rem;
+  }
 }
 
 .ant-alert {

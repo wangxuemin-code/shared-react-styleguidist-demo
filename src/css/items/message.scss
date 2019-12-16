@@ -109,6 +109,18 @@
     }
   }
 
+  &.dark-warning {
+    > div,
+    .icon {
+      color: map-get($colors, darkWarning);
+    }
+
+    .label {
+      border: 1px solid map-get($colors, darkWarning);
+      background-color: map-get($colors, darkWarning);
+    }
+  }
+
   &.info {
     > div,
     .icon {
@@ -204,6 +216,15 @@
       }
     }
 
+    &.dark-warning {
+      background-color: map-get($colors, darkWarningBackground);
+
+      > div,
+      .icon {
+        color: map-get($colors, darkWarning);
+      }
+    }
+
     &.info {
       background-color: map-get($colors, infoBackground);
 
@@ -291,6 +312,15 @@
       > div,
       .icon {
         color: map-get($colors, warning);
+      }
+    }
+
+    &.dark-warning {
+      background-color: map-get($colors, darkWarningBackground);
+      border-left: 3px solid map-get($colors, darkWarning);
+      > div,
+      .icon {
+        color: map-get($colors, darkWarning);
       }
     }
 

@@ -46,6 +46,11 @@
     border: 2px solid map-get($colors, warning);
   }
 
+  &.dark-warning {
+    background-color: map-get($colors, darkWarningBackground);
+    border: 2px solid map-get($colors, darkWarning);
+  }
+
   &.danger {
     background-color: map-get($colors, dangerBackground);
     border: 2px solid map-get($colors, danger);
@@ -108,6 +113,11 @@
   &.warning {
     background-color: map-get($colors, warning);
     border: 2px solid map-get($colors, warning);
+  }
+
+  &.dark-warning {
+    background-color: map-get($colors, darkWarning);
+    border: 2px solid map-get($colors, darkWarning);
   }
 
   &.danger {

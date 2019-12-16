@@ -28,6 +28,7 @@ export declare const stylings: {
         successActive: string;
         dangerActive: string;
         warningActive: string;
+        darkWarningActive: string;
         primary: string;
         secondary: string;
         primaryAlt: string;
@@ -41,6 +42,7 @@ export declare const stylings: {
         success: string;
         danger: string;
         warning: string;
+        darkWarning: string;
         primaryBackground: string;
         secondaryBackground: string;
         primaryAltBackground: string;
@@ -49,5 +51,6 @@ export declare const stylings: {
         successBackground: string;
         dangerBackground: string;
         warningBackground: string;
+        darkWarningBackground: string;
     };
 };

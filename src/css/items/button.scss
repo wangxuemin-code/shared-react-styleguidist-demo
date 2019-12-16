@@ -258,6 +258,27 @@ $borderRadius: 0;
     }
   }
 
+  &.dark-warning {
+    background-color: map-get($colors, darkWarning);
+    background-image: none;
+
+    &:not([disabled]):not(.loading):hover {
+      background-color: map-get($colors, darkWarningActive);
+    }
+
+    &.outline {
+      background-color: map-get($colors, primaryAlt);
+      color: map-get($colors, darkWarning);
+      border: 2px solid map-get($colors, darkWarning);
+
+      &:not([disabled]):not(.loading):hover {
+        background-color: map-get($colors, darkWarning);
+        border: 2px solid map-get($colors, darkWarning);
+        color: map-get($colors, primaryAlt);
+      }
+    }
+  }
+
   &.danger {
     background-color: map-get($colors, danger);
     background-image: none;

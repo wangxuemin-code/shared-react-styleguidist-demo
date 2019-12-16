@@ -28,65 +28,65 @@
     }
   }
 
+  tbody tr {
+    transition: background-color $transitionLinear;
+
+    &.row-header {
+      color: map-get($colors, primaryGreyDark);
+
+      td {
+        padding: 4px 1rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+    }
+
+    .action:hover {
+      background-color: white;
+      color: map-get($colors, primary);
+    }
+  }
+
+  tr {
+    td,
+    th {
+      &:first-of-type {
+        padding-left: 0px;
+      }
+
+      &:last-of-type {
+        padding-right: 0px;
+      }
+    }
+  }
+
   td.min {
     width: 1%;
     white-space: nowrap;
   }
-}
 
-.istox-table th {
-  font-size: 0.8571rem;
-  padding: 1rem;
-  color: map-get($colors, primaryDark);
-  font-weight: 600;
-}
-
-.istox-table td {
-  padding: 1rem;
-  font-size: 1rem;
-  color: map-get($colors, primaryGreyDarker);
-  font-weight: lighter;
-}
-
-.istox-table tr {
-  td,
   th {
-    &:first-of-type {
-      padding-left: 0px;
-    }
+    font-size: 0.8571rem;
+    padding: 1rem;
+    color: map-get($colors, primaryDark);
+    font-weight: 600;
+  }
 
-    &:last-of-type {
-      padding-right: 0px;
+  td {
+    padding: 1rem;
+    font-size: 1rem;
+    color: map-get($colors, primaryGreyDarker);
+    font-weight: lighter;
+  }
+
+  .action-container {
+    text-align: right;
+    position: relative;
+
+    > div > .loading-container {
+      width: 30px;
+      right: 10px;
+      left: auto;
     }
   }
-}
-
-.istox-table tbody tr {
-  transition: background-color $transitionLinear;
-
-  &.row-header {
-    color: map-get($colors, primaryGreyDark);
-
-    td {
-      padding: 4px 1rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-  }
-}
-
-.istox-table .action-container {
-  text-align: right;
-  position: relative;
-}
-
-.istox-table tbody tr .action:hover {
-  background-color: white;
-  color: map-get($colors, primary);
-}
-
-.istox-table .action-container > div > .loading-container {
-  width: 30px;
-  right: 10px;
-  left: auto;
 }

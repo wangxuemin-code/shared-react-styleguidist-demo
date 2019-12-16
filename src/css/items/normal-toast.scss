@@ -43,6 +43,11 @@
     color: map-get($colors, warning) !important;
   }
 
+  &.dark-warning {
+    background-color: map-get($colors, darkWarningBackground) !important;
+    color: map-get($colors, darkWarning) !important;
+  }
+
   &.danger {
     background-color: map-get($colors, dangerBackground) !important;
     color: map-get($colors, danger) !important;

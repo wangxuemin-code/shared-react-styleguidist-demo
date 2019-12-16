@@ -1,7 +1,7 @@
 import { faChevronDown, faBell } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-var uniqid = require('uniqid');
+import { UuidGenerator } from '../helpers';
 import Dropdown from 'antd/es/dropdown';
 import { Link, Transition, Divider, Image, Icon, Button, Container, IContainer, WrapperContainer } from '.';
 
@@ -164,11 +164,11 @@ export class Header extends React.Component<IHeader, IState> {
 
   private getSingleNotificationDesign(singleNotification: any, showDivider: boolean) {
     return (
-      <Container key={uniqid().toString()}>
+      <Container key={UuidGenerator.generate()}>
         <h6>{singleNotification.header}</h6>
         {singleNotification &&
           singleNotification.notifications.map((notification: any) => (
-            <Container key={uniqid().toString()}>
+            <Container key={UuidGenerator.generate()}>
               <Container padding={{ topRem: 0.5 }} className={styles.uppercase}>
                 <p>{notification.title}</p>
               </Container>
@@ -185,7 +185,7 @@ export class Header extends React.Component<IHeader, IState> {
   private getNotificationItemDesign(icon: any, content: any, link?: string, onClick?: () => void) {
     return (
       <Container
-        key={uniqid().toString()}
+        key={UuidGenerator.generate()}
         classNames={[styles.notification, styles.item, styles.basic]}
         onClick={onClick}
       >

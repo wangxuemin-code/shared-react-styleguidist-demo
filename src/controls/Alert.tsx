@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { faCheckCircle, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Container, IContainer, Message, Transition } from '.';
+import { UuidGenerator } from '../helpers';
 
 export interface IAlert extends IContainer {
   error?: string | string[];
@@ -118,7 +119,7 @@ export class Alert extends React.Component<IAlert, IState> {
     }
 
     return (
-      <Container {...this.props} className={styles.istoxAlert}>
+      <Container key={UuidGenerator.generate()} {...this.props} className={styles.istoxAlert}>
         <Message justifyContent={'left'} flat fluid variant={type} icon={icon} message={message} />
       </Container>
     );

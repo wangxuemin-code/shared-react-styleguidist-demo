@@ -147,6 +147,9 @@ article {
 .color-warning {
   color: map-get($colors, warning);
 }
+.color-dark-warning {
+  color: map-get($colors, darkWarning);
+}
 .color-danger {
   color: map-get($colors, danger);
 }

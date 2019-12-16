@@ -47,6 +47,10 @@
       border: none;
       background-color: map-get($colors, warning);
     }
+    &.dark-warning {
+      border: none;
+      background-color: map-get($colors, darkWarning);
+    }
     &.danger {
       border: none;
       background-color: map-get($colors, danger);

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Mqtt, Formatter, FMath } from './helpers';
+// import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
 import { Controls, Ant } from './index-prod';
 import {
@@ -16,8 +16,7 @@ import {
   faLongArrowAltRight
 } from '@fortawesome/free-solid-svg-icons';
 import 'react-toastify/dist/ReactToastify.css';
-
-var uniqid = require('uniqid');
+import { UuidGenerator } from './helpers';
 // const mqtt = new Mqtt({
 //   host: 'localhost',
 //   port: 35675,
@@ -93,7 +92,18 @@ class Main extends Controls.MyComponent<
       imageUrl: '',
       imageFooterChanged: false
     };
-    this.variantStates = ['primary', 'secondary', 'disabled', 'light', 'dark', 'info', 'success', 'warning', 'danger'];
+    this.variantStates = [
+      'primary',
+      'secondary',
+      'disabled',
+      'light',
+      'dark',
+      'info',
+      'success',
+      'warning',
+      'dark-warning',
+      'danger'
+    ];
     this.tabsContent = [
       {
         title: <Controls.Container>Account Info</Controls.Container>,
@@ -323,7 +333,7 @@ class Main extends Controls.MyComponent<
                     <span className='large'>Large</span>
                     <br />
                     {this.variantStates.map((color: any) => (
-                      <Controls.Container display={'inline-block'} key={uniqid().toString()}>
+                      <Controls.Container display={'inline-block'} key={UuidGenerator.generate()}>
                         <span className={`color-${color}`}>{color}</span> &nbsp;
                       </Controls.Container>
                     ))}
@@ -349,7 +359,7 @@ class Main extends Controls.MyComponent<
               />
               {this.variantStates.map((tab: any) => (
                 <Controls.Tabs
-                  key={uniqid().toString()}
+                  key={UuidGenerator.generate()}
                   margin={{ topPx: 20 }}
                   basic
                   variant={tab}
@@ -394,7 +404,6 @@ class Main extends Controls.MyComponent<
               <Controls.Tabs
                 margin={{ topPx: 20 }}
                 className={'istox-tabs'}
-                tabsContentOrientation={'stacked'}
                 align={'middle'}
                 tabs={this.tabsContentWithIcons}
               />
@@ -490,31 +499,31 @@ class Main extends Controls.MyComponent<
               </Controls.Button>
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button key={uniqid().toString()} variant={button}>
+                <Controls.Button key={UuidGenerator.generate()} variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button key={uniqid().toString()} loading variant={button}>
+                <Controls.Button key={UuidGenerator.generate()} loading variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button disabled={true} key={uniqid().toString()} variant={button}>
+                <Controls.Button disabled={true} key={UuidGenerator.generate()} variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button key={uniqid().toString()} outline variant={button}>
+                <Controls.Button key={UuidGenerator.generate()} outline variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button key={uniqid().toString()} loading outline variant={button}>
+                <Controls.Button key={UuidGenerator.generate()} loading outline variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
@@ -522,7 +531,7 @@ class Main extends Controls.MyComponent<
               <h4>Link</h4>
               <Controls.Container display={'flex'}>
                 {this.variantStates.map((link: any) => (
-                  <Controls.Container key={uniqid().toString()}>
+                  <Controls.Container key={UuidGenerator.generate()}>
                     <Controls.Link variant={link} useNormalAnchor>
                       {link.toUpperCase()}
                     </Controls.Link>
@@ -532,7 +541,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container display={'flex'}>
                 {this.variantStates.map((link: any) => (
-                  <Controls.Container key={uniqid().toString()}>
+                  <Controls.Container key={UuidGenerator.generate()}>
                     <Controls.Link underline={false} variant={link} useNormalAnchor>
                       {link.toUpperCase()}
                     </Controls.Link>
@@ -542,7 +551,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container display={'flex'}>
                 {this.variantStates.map((link: any) => (
-                  <Controls.Container key={uniqid().toString()}>
+                  <Controls.Container key={UuidGenerator.generate()}>
                     <Controls.Link linkColor={'#000'} variant={link} useNormalAnchor>
                       {link.toUpperCase()}
                     </Controls.Link>
@@ -552,7 +561,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Container display={'flex'}>
                 {this.variantStates.map((link: any) => (
-                  <Controls.Container key={uniqid().toString()}>
+                  <Controls.Container key={UuidGenerator.generate()}>
                     <Controls.Link showUnderline={true} linkColor={'#000'} variant={link} useNormalAnchor>
                       {link.toUpperCase()}
                     </Controls.Link>
@@ -929,19 +938,7 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Divider />
               <h4>PopUps</h4>
-              <Controls.BlockchainToast />
-              <Controls.Button
-                onPress={() => {
-                  Controls.BlockchainToast.show({
-                    type: 'transaction_status_ok',
-                    blockchainTransactionOptions: {
-                      purpose: 'Create Fiat'
-                    }
-                  });
-                }}
-              >
-                Toast
-              </Controls.Button>
+              {/* <Controls.BlockchainToast /> */}
               <Controls.Modal
                 onModalHide={() => {
                   console.log('modal hide');
@@ -988,113 +985,39 @@ class Main extends Controls.MyComponent<
               <Controls.Button variant='primary' tooltip={'tooltip!'} display='inline-block'>
                 ToolTip
               </Controls.Button>
-              <Controls.Button
+              {/* <Controls.Button
                 variant='success'
-                // onPress={() => {
-                //   Controls.BlockchainTransaction.show({
-                //     mqttClient: mqtt,
-                //     waitOptions: {
-                //       queueName: 'test'
-                //     },
-                //     onSucess: () => {}
-                //   });
-                // }}
+                onPress={() => {
+                  Controls.BlockchainTransaction.show({
+                    mqttClient: mqtt,
+                    waitOptions: {
+                      queueName: 'test'
+                    },
+                    onSucess: () => {}
+                  });
+                }}
               >
                 Bottom Toast
-              </Controls.Button>
+              </Controls.Button> */}
               <br />
               <br />
               <h5>Toast with image, title and description</h5>
-              <Controls.Button
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    //variant: 'primary',
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here'
-                  });
-                }}
-              >
-                primary
-              </Controls.Button>
-              <Controls.Button
-                variant={'secondary'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'secondary'
-                  });
-                }}
-              >
-                secondary
-              </Controls.Button>
-              <Controls.Button
-                variant={'disabled'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'disabled'
-                  });
-                }}
-              >
-                disabled
-              </Controls.Button>
-              <Controls.Button
-                variant={'info'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'info'
-                  });
-                }}
-              >
-                info
-              </Controls.Button>
-              <Controls.Button
-                variant={'success'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'success'
-                  });
-                }}
-              >
-                success
-              </Controls.Button>
-              <Controls.Button
-                variant={'warning'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'warning'
-                  });
-                }}
-              >
-                warning
-              </Controls.Button>
-              <Controls.Button
-                variant={'danger'}
-                onPress={() => {
-                  Controls.NormalToast.show({
-                    icon: faCheck,
-                    title: 'normal toast',
-                    description: 'description goes here',
-                    variant: 'danger'
-                  });
-                }}
-              >
-                danger
-              </Controls.Button>
+              {this.variantStates.map((toast: any) => (
+                <Controls.Button
+                  key={UuidGenerator.generate()}
+                  variant={toast}
+                  onPress={() => {
+                    Controls.NormalToast.show({
+                      variant: toast,
+                      icon: faCheck,
+                      title: 'normal toast',
+                      description: 'description goes here'
+                    });
+                  }}
+                >
+                  {toast.toUpperCase()}
+                </Controls.Button>
+              ))}
               <br />
               <br />
               <h5>Blockchain Receiption Toast</h5>
@@ -1129,7 +1052,7 @@ class Main extends Controls.MyComponent<
               <Controls.ProgressBar compact value={20} />
               <Controls.ProgressBar animated compact value={25} />
               {this.variantStates.map((progress: any) => (
-                <Controls.ProgressBar value={20} variant={progress} />
+                <Controls.ProgressBar key={UuidGenerator.generate()} value={20} variant={progress} />
               ))}
               <Controls.ProgressBar value={20} label={'Strong Password'} variant={'success'} />
               <Controls.ProgressBar compact>
@@ -1164,13 +1087,13 @@ class Main extends Controls.MyComponent<
               <Controls.Rating defaultValue={3} maxValue={3} />
               <Controls.Rating defaultValue={2.5} width={200} maxValue={4} />
               {this.variantStates.map((rating: any) => (
-                <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
+                <Controls.Container key={UuidGenerator.generate()} display={'flex'} alignItems={'center'}>
                   <Controls.Rating variant={rating} defaultValue={0} maxValue={1} />
                   &nbsp;&nbsp; {rating}
                 </Controls.Container>
               ))}
               {this.variantStates.map((rating: any) => (
-                <Controls.Container key={uniqid().toString()} display={'flex'} alignItems={'center'}>
+                <Controls.Container key={UuidGenerator.generate()} display={'flex'} alignItems={'center'}>
                   <Controls.Rating filled variant={rating} defaultValue={3} maxValue={3} />
                   &nbsp;&nbsp; {rating}
                 </Controls.Container>
@@ -2008,7 +1931,7 @@ class Main extends Controls.MyComponent<
               <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     variant={message}
                     icon={faCheckCircle}
                     message={`Hello i am a ${message}`}
@@ -2017,7 +1940,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     flat
                     icon={faInfoCircle}
                     variant={message}
@@ -2027,7 +1950,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     flat
                     icon={faInfoCircle}
                     variant={message}
@@ -2037,12 +1960,16 @@ class Main extends Controls.MyComponent<
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
-                  <Controls.Message key={uniqid().toString()} variant={message} message={`Hello i am a ${message}`} />
+                  <Controls.Message
+                    key={UuidGenerator.generate()}
+                    variant={message}
+                    message={`Hello i am a ${message}`}
+                  />
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     flat
                     variant={message}
                     message={`Hello i am a ${message}`}
@@ -2051,7 +1978,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     flat
                     variant={message}
                     size={'small'}
@@ -2061,7 +1988,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     outline
                     variant={message}
                     message={`Hello i am a ${message}`}
@@ -2070,7 +1997,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     fluid
                     justifyContent={'left'}
                     outline
@@ -2082,7 +2009,7 @@ class Main extends Controls.MyComponent<
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
                   <Controls.Message
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     fluid
                     justifyContent={'left'}
                     labeled
@@ -2094,9 +2021,8 @@ class Main extends Controls.MyComponent<
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 {this.variantStates.map((message: any) => (
-                  <>
+                  <React.Fragment key={UuidGenerator.generate()}>
                     <Controls.Message
-                      key={uniqid().toString()}
                       fluid
                       labeled
                       icon={faExclamationCircle}
@@ -2106,7 +2032,7 @@ class Main extends Controls.MyComponent<
                       subContent={'2010 August 2018'}
                     />
                     <Controls.Divider />
-                  </>
+                  </React.Fragment>
                 ))}
                 <Controls.Divider visibility={'hidden'} />
                 <Controls.Message
@@ -2153,14 +2079,14 @@ class Main extends Controls.MyComponent<
               <h4>Label</h4>
               <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
                 {this.variantStates.map((message: any) => (
-                  <Controls.Label key={uniqid().toString()} variant={message} text={`Hello i am a ${message}`} />
+                  <Controls.Label key={UuidGenerator.generate()} variant={message} text={`Hello i am a ${message}`} />
                 ))}
               </Controls.Container>
 
               <Controls.Container padding={{ allPx: 15 }} backgroundColor={'#FFF'}>
                 {this.variantStates.map((message: any) => (
                   <Controls.Label
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     variant={message}
                     size='small'
                     text={`Hello i am a small ${message}`}
@@ -2246,7 +2172,7 @@ class Main extends Controls.MyComponent<
                 <h4>Highlighted Information</h4>
                 {this.variantStates.map((info: any) => (
                   <Controls.HighlightedInfo
-                    key={uniqid().toString()}
+                    key={UuidGenerator.generate()}
                     variant={info}
                     headline={'new info'}
                     title={'Issuer name'}

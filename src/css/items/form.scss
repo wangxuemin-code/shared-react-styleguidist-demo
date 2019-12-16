@@ -308,8 +308,18 @@ textarea[disabled] {
     }
   }
 
-  .react-toggle-screenreader-only {
-    position: absolute !important;
+  // .react-toggle-screenreader-only {
+  //   position: absolute !important;
+  // }
+  .ant-switch-inner {
+    .anticon {
+      font-size: 1rem;
+      vertical-align: -0.2em;
+    }
+  }
+
+  .ant-switch-checked {
+    background-color: map-get($colors, primary);
   }
 
   .select {
@@ -421,22 +431,6 @@ textarea[disabled] {
   input[type]:not([type='search']):not([type='url']):not([type='hidden']) {
     min-width: 100%;
   }
-}
-
-.react-toggle--checked .react-toggle-track {
-  background-color: map-get($colors, primary);
-}
-
-.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
-  background-color: map-get($colors, primary);
-}
-
-.react-toggle--checked .react-toggle-thumb {
-  border-color: map-get($colors, primary);
-}
-
-.react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
-  box-shadow: 0px 0px 5px 5px map-get($colors, primary);
 }
 
 @include mq(medium) {

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
-var uniqid = require('uniqid');
+import { UuidGenerator } from '../helpers';
 import Progress from 'antd/es/progress';
 import { IContainer, Container } from '.';
 
@@ -76,7 +76,7 @@ export class ProgressBar extends React.Component<IProps, IState> {
         widthPercent={this.props.children ? IProps.value : undefined}
         {...this.props}
         className={classes.join(' ')}
-        key={uniqid().toString()}
+        key={UuidGenerator.generate()}
       >
         <Progress
           status={IProps.animated ? 'active' : undefined}

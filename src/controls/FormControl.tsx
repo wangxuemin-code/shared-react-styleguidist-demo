@@ -3,7 +3,6 @@ import { SyntheticEvent } from 'react';
 import { countries } from 'country-data';
 import Select, { components } from 'react-select';
 import FileUploader, { FilePattern } from './FileUploader';
-import Toggle from 'react-toggle';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
 import moment = require('moment');
@@ -13,6 +12,8 @@ import ReactInput from 'antd/es/input';
 import ReactCheckbox from 'antd/es/checkbox';
 import ReactRadio from 'antd/es/radio';
 import ReactInputNumber from 'antd/es/input-number';
+import ReactSwitch from 'antd/es/switch';
+import ReactIcon from 'antd/es/icon';
 
 import {
   DateTimePicker,
@@ -1049,10 +1050,12 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <Container className={styles.loadingContainerWrapper}>
           <Loading loading={this.props.loading} />
-          <Toggle
-            onChange={this.onSwitchChanged}
+          <ReactSwitch
             disabled={this.props.disabled}
-            checked={this.state.displayValue === '1'}
+            onChange={this.onSwitchChanged}
+            checkedChildren={<ReactIcon type='check' />}
+            unCheckedChildren={<ReactIcon type='close' />}
+            defaultChecked={this.state.displayValue === '1'}
           />
         </Container>
       );
@@ -1325,8 +1328,8 @@ export class FormControl extends React.Component<IProps, IState> {
     });
   }
 
-  private onSwitchChanged(e: SyntheticEvent<HTMLInputElement>) {
-    const result = this.processValue((e.target as any).checked ? '1' : '0');
+  private onSwitchChanged(checked: boolean, event: Event) {
+    const result = this.processValue(checked ? '1' : '0');
     this.setState({ displayValue: result.displayValue, value: result.value, showError: false }, () => {
       this.beforeInputChanged(result.value);
     });

@@ -42,28 +42,14 @@
     padding-left: 1rem;
   }
 
-  // .close-button {
-  //   .button {
-  //     background-color: transparent;
-  //     float: right;
-  //     border: none;
-  //     color: map-get($colors, primary);
-  //     padding: 0;
-  //     position: absolute;
-  //   }
-  //   color: map-get($colors, primaryGreyDark);
-  //   position: absolute !important;
-  //   font-size: 1.1428571428571428rem;
-  //   right: 0.5rem;
-  //   top: 0.5rem;
-  //   cursor: pointer;
-  //   z-index: 1;
-  // }
-
   .item {
     display: grid;
     grid-template-columns: 0.5fr 1fr;
     margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
   }
 
   .view-more {
@@ -92,19 +78,15 @@
     left: 10%;
     transform: translate(-50%, -50%);
   }
+
+  button {
+    position: relative;
+    color: white;
+  }
 }
 
 .istox-blockchain-toast a,
 .istox-blockchain-toast a:hover,
 .istox-blockchain-toast a:active {
   text-decoration: none !important;
-}
-
-.istox-blockchain-toast .item:last-of-type {
-  margin-bottom: 0px;
-}
-
-.istox-blockchain-toast button {
-  position: relative;
-  color: white;
 }

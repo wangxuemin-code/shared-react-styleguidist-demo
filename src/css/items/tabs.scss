@@ -65,9 +65,27 @@
     }
   }
 
+  &.dark-warning {
+    .ant-tabs-ink-bar {
+      border: 1px solid map-get($colors, darkWarning);
+    }
+  }
+
   &.danger {
     .ant-tabs-ink-bar {
       border: 1px solid map-get($colors, danger);
+    }
+  }
+
+  &.middle {
+    .ant-tabs-bar {
+      text-align: center;
+    }
+  }
+
+  &.right {
+    .ant-tabs-bar {
+      text-align: right;
     }
   }
 }

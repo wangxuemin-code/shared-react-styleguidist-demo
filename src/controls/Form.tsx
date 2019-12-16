@@ -15,6 +15,7 @@ import {
   Alert,
   IAlert
 } from '.';
+import { UuidGenerator } from '../helpers';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
@@ -133,7 +134,7 @@ export class Form extends React.Component<IProps, IState> {
           }
           prevFieldName = formControl.props.uploaderConfigs.fieldName;
           return (
-            <>
+            <React.Fragment key={UuidGenerator.generate()}>
               {uploadFormControlsProgress && uploadFormControlsProgress[formControl.props.name] && (
                 <>
                   {showTitle && (
@@ -179,7 +180,7 @@ export class Form extends React.Component<IProps, IState> {
                   </Grid>
                 </>
               )}
-            </>
+            </React.Fragment>
           );
         }
       }

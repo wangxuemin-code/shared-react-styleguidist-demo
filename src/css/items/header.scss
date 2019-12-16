@@ -3,22 +3,22 @@
   background-color: map-get($colors, primaryAltActive);
   border-radius: 0;
   padding-bottom: 0.5rem;
-}
 
-.sub-menu a {
-  color: map-get($colors, primaryDark);
-  font-size: 1rem;
-  display: block;
+  a {
+    color: map-get($colors, primaryDark);
+    font-size: 1rem;
+    display: block;
 
-  > div {
-    padding: 0.5rem 1rem;
-    width: 100%;
+    > div {
+      padding: 0.5rem 1rem;
+      width: 100%;
+    }
+
+    &:hover {
+      background-color: map-get($colors, primaryBackground);
+      color: map-get($colors, primary);
+    }
   }
-}
-
-.sub-menu a:hover {
-  background-color: map-get($colors, primaryBackground);
-  color: map-get($colors, primary);
 }
 
 .notification-menu {

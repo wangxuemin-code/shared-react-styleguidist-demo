@@ -5,23 +5,23 @@
   .confirm-cancel {
     margin-right: 1rem !important;
   }
-}
 
-.confirm-container .icon-container {
-  font-size: 6rem;
-  color: map-get($colors, primary);
-}
+  .icon-container {
+    font-size: 6rem;
+    color: map-get($colors, primary);
+  }
 
-.confirm-container .content-container {
-  font-size: 1.3rem;
-  font-weight: lighter;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+  .content-container {
+    font-size: 1.3rem;
+    font-weight: lighter;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-.confirm-container .buttonsContainer {
-  margin-top: 40px;
-  margin-bottom: 20px;
+  .buttonsContainer {
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
 }
 
 .blocking-load-container {

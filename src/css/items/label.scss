@@ -46,6 +46,11 @@
     background-color: map-get($colors, warningBackground);
   }
 
+  &.dark-warning {
+    color: map-get($colors, darkWarning);
+    background-color: map-get($colors, darkWarningBackground);
+  }
+
   &.info {
     color: map-get($colors, info);
     background-color: map-get($colors, infoBackground);

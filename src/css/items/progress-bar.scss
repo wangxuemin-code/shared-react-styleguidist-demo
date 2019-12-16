@@ -85,6 +85,12 @@
     }
   }
 
+  .dark-warning {
+    .ant-progress-bg {
+      background-color: map-get($colors, darkWarning);
+    }
+  }
+
   .danger {
     .ant-progress-bg {
       background-color: map-get($colors, danger);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 var InfiniteScroll = require('react-infinite-scroller');
-var uniqid = require('uniqid');
+import { UuidGenerator } from '../helpers';
 import { Loading, FormControl, Container, IContainer, Icon, Pagination } from '.';
 
 export interface TableHeaderModel {
@@ -121,7 +121,7 @@ export class Table extends React.Component<IProps, IState> {
 
               {this.props.columnHeaders &&
                 this.props.columnHeaders.map((tableHeaderModel) => {
-                  return this.getHeaderDesign(tableHeaderModel, uniqid().toString());
+                  return this.getHeaderDesign(tableHeaderModel, UuidGenerator.generate());
                 })}
             </tr>
           </thead>
@@ -133,7 +133,7 @@ export class Table extends React.Component<IProps, IState> {
                 hasMore={this.props.hasMore}
                 loadMore={this.props.onLoadMore}
                 loader={
-                  <tr className='loader' key={uniqid().toString()}>
+                  <tr className='loader' key={UuidGenerator.generate()}>
                     <td>Loading ...</td>
                   </tr>
                 }
@@ -189,7 +189,7 @@ export class Table extends React.Component<IProps, IState> {
     );
   }
 
-  private getHeaderDesign(tableHeaderModel: TableHeaderModel, index: number) {
+  private getHeaderDesign(tableHeaderModel: TableHeaderModel, index: string) {
     return <th key={index}>{tableHeaderModel.title}</th>;
   }
 
@@ -224,7 +224,7 @@ export class Table extends React.Component<IProps, IState> {
                 colspan = rowHeaderModel.rowColSpans[i];
               }
               return (
-                <td key={uniqid().toString()} colSpan={colspan}>
+                <td key={UuidGenerator.generate()} colSpan={colspan}>
                   <Container>{rowHeaderContent}</Container>
                 </td>
               );
@@ -269,7 +269,7 @@ export class Table extends React.Component<IProps, IState> {
                 <Container>
                   {rowModel.rowActions &&
                     rowModel.rowActions.map((tableActionsModel) => {
-                      return this.getActionDesign(tableActionsModel, uniqid().toString());
+                      return this.getActionDesign(tableActionsModel, UuidGenerator.generate());
                     })}
                 </Container>;
               } else {
@@ -283,7 +283,7 @@ export class Table extends React.Component<IProps, IState> {
                 const className = (min ? styles.min : '') + ' ' + (tdClass || '');
 
                 return (
-                  <td key={uniqid().toString()} className={`${className.trim()}`} colSpan={colspan}>
+                  <td key={UuidGenerator.generate()} className={`${className.trim()}`} colSpan={colspan}>
                     <Container>{content}</Container>
                   </td>
                 );
@@ -295,7 +295,7 @@ export class Table extends React.Component<IProps, IState> {
                 <Container>
                   {rowModel.rowActions &&
                     rowModel.rowActions.map((tableActionsModel) => {
-                      return this.getActionDesign(tableActionsModel, uniqid().toString());
+                      return this.getActionDesign(tableActionsModel, UuidGenerator.generate());
                     })}
                 </Container>
               </td>
@@ -308,7 +308,7 @@ export class Table extends React.Component<IProps, IState> {
     }
   }
 
-  private getActionDesign(tableActionsModel: TableActionsModel, index: number) {
+  private getActionDesign(tableActionsModel: TableActionsModel, index: string) {
     if (tableActionsModel.loading) {
       return <Loading key={index} loading={true} backDrop={false} />;
     } else {
