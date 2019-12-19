@@ -1326,7 +1326,7 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
-                    bordered={true}
+                    bordered
                     debounce={2000}
                     required
                     label={'Bordered'}
@@ -1347,7 +1347,7 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{ showFileName: true, customAllowFileExtensions: ['.pdf'] }}
                   />
                   <Controls.FormControl
-                    bordered={true}
+                    // bordered
                     debounce={2000}
                     required
                     label={'Search'}
@@ -1361,6 +1361,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     disabled
                     label={'Email'}
@@ -1374,11 +1375,20 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.Container className={'form-group'}>
                     {/* <Ant.Popover placement='topLeft' trigger='click' content={'PopOver'}> */}
-                    <Controls.FormControl required label={'Password'} name='Password' type={'password'} />
+                    <Controls.FormControl 
+                    // bordered 
+                    required label={'Password'} name='Password' type={'password'} />
                     {/* </Ant.Popover> */}
-                    <Controls.FormControl label={'Password'} name='Password' type={'password'} value={'haha'} />
+                    <Controls.FormControl
+                      // bordered
+                      label={'Password'}
+                      name='Password'
+                      type={'password'}
+                      value={'haha'}
+                    />
                   </Controls.Container>
                   <Controls.FormControl
+                    // bordered
                     // disabled
                     required
                     autoSize={{ minRows: 3 }}
@@ -1387,9 +1397,12 @@ class Main extends Controls.MyComponent<
                     type={'longtext'}
                     alwaysCapitalize={true}
                   />
-                  <Controls.FormControl required label={'Numbers only'} name='numeric' type={'numeric'} />
-                  <Controls.FormControl required label={'Numbers with commas'} name='number' type={'number'} />
+                  <Controls.FormControl // bordered
+                   required label={'Numbers only'} name='numeric' type={'numeric'} />
+                  <Controls.FormControl // bordered 
+                  required label={'Numbers with commas'} name='number' type={'number'} />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'$$$'}
                     name='money'
@@ -1398,6 +1411,7 @@ class Main extends Controls.MyComponent<
                     unit={'SGD'}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Alpha only'}
                     name='alphabet'
@@ -1406,6 +1420,7 @@ class Main extends Controls.MyComponent<
                     alphabetOnly={true}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Alpha-numeric only'}
                     name='alphanumeric'
@@ -1413,6 +1428,7 @@ class Main extends Controls.MyComponent<
                     type={'alphanumeric'}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Capitalize only'}
                     name='capitalize'
@@ -1420,6 +1436,7 @@ class Main extends Controls.MyComponent<
                     alwaysCapitalize={true}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Unit Field'}
                     name='unit'
@@ -1468,6 +1485,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Date'}
                     name='date'
@@ -1510,6 +1528,7 @@ class Main extends Controls.MyComponent<
                     }
                   />
                   <Controls.FormControl
+                    // bordered
                     required={true}
                     name={'dateformat'}
                     label={
@@ -1526,6 +1545,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'DateTime'}
                     name='datetime'
@@ -1539,6 +1559,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'DateRange'}
                     name='daterange'
@@ -1556,6 +1577,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl required label={'Notify me'} name='notify' type={'switch'} defaultValue='0' />
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'H Radio'}
                     name='h_radio'
@@ -1671,6 +1693,7 @@ class Main extends Controls.MyComponent<
                     value={0}
                   />
                   <Controls.FormControl
+                    // bordered
                     // disabled
                     isSearchable={true}
                     required
@@ -1716,7 +1739,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     // disabled
-                    bordered={true}
+                    // bordered
                     isSearchable={true}
                     required
                     label={'Multiple Dropdown'}
@@ -1760,7 +1783,7 @@ class Main extends Controls.MyComponent<
                   <Controls.Container width={300}>
                     <Controls.FormControl
                       // disabled
-                      bordered
+                      // bordered
                       isSearchable={false}
                       required
                       label={'Custom menu size Dropdown'}
@@ -1790,6 +1813,7 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
+                    // bordered
                     required
                     label={'Html Dropdown'}
                     name='Dropdown'
@@ -1828,7 +1852,7 @@ class Main extends Controls.MyComponent<
                     ]}
                   />
                   <Controls.FormControl
-                    bordered
+                    // bordered
                     label={'Country'}
                     name='country'
                     type={'country'}
@@ -1837,6 +1861,7 @@ class Main extends Controls.MyComponent<
                     value='Singapore'
                   />
                   <Controls.FormControl
+                    // bordered
                     label={'Country Code'}
                     name='countrycode'
                     type={'countrycode'}
@@ -1844,6 +1869,7 @@ class Main extends Controls.MyComponent<
                     value={'SGP'}
                   />
                   <Controls.FormControl
+                    // bordered
                     required={true}
                     label={'Phone'}
                     name='phone'
@@ -1855,6 +1881,7 @@ class Main extends Controls.MyComponent<
                     showPhoneLabel={false}
                   />
                   <Controls.FormControl
+                    // bordered
                     required={true}
                     // autoFocus={true}
                     label={'Phone With Send Code'}

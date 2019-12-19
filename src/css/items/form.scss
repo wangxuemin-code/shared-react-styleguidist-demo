@@ -233,6 +233,21 @@ textarea[disabled] {
       padding: 0 0.5rem;
       border: 1px solid map-get($colors, primaryGrey);
     }
+
+    .ant-select {
+      input {
+        border: 0;
+        padding: 0;
+      }
+
+      .ant-select-arrow {
+        right: 0;
+      }
+    }
+
+    .unit {
+      right: 0.5rem;
+    }
   }
 
   .ant-select {
@@ -272,10 +287,10 @@ textarea[disabled] {
       line-height: 37px;
       margin-left: 0px;
       margin-right: 0px;
-      padding: 0 10px;
     }
 
     .ant-select-arrow {
+      right: 0.5rem;
       font-size: 1rem;
       transition: all 0.2s ease;
     }
@@ -296,14 +311,14 @@ textarea[disabled] {
   }
 
   input:not(.ant-select-search__field):hover,
-  textarea:hover {
+  textarea:hover,
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
     border-bottom: 1px solid map-get($colors, secondary);
     box-shadow: none;
   }
 
   input:not(.ant-select-search__field):focus,
-  textarea:focus,
-  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+  textarea:focus {
     border-bottom: 1px solid map-get($colors, secondary);
     box-shadow: none;
   }
@@ -315,8 +330,7 @@ textarea[disabled] {
     }
 
     input:not(.ant-select-search__field):focus,
-    textarea:focus,
-    .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    textarea:focus {
       border: 1px solid map-get($colors, secondary);
     }
   }
@@ -392,7 +406,8 @@ textarea[disabled] {
       &.error {
         input,
         textarea,
-        .ant-select {
+        .ant-select,
+        .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
           border-bottom: 1px solid map-get($colors, danger);
         }
 
@@ -407,8 +422,16 @@ textarea[disabled] {
         &.error {
           input,
           textarea,
-          .ant-select {
+          .ant-select,
+          .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
             border: 1px solid map-get($colors, danger);
+          }
+
+          .ant-select {
+            input {
+              border: 0;
+              padding: 0;
+            }
           }
         }
       }

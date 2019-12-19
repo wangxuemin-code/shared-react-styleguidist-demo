@@ -190,17 +190,25 @@ export class FormControl extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const classes: string[] = [styles.formControlsWrapper];
+    let classes: string[] = [styles.formControlsWrapper];
     if (this.state.showError) {
       classes.push('error');
     }
 
-    const wrapperClasses: string[] = [
+    let wrapperClasses: string[] = [
       styles.mainFormControlsWrapper,
       this.props.type === 'uploader' ? styles.imageWrapper : '',
       this.props.type === 'hidden' ? styles.hide : '',
       this.props.bordered ? styles.bordered : ''
     ];
+
+    classes = classes.filter(function(el) {
+      return el != '';
+    });
+
+    wrapperClasses = wrapperClasses.filter(function(el) {
+      return el != '';
+    });
 
     return (
       <Container {...this.props} className={wrapperClasses.join(' ')}>
