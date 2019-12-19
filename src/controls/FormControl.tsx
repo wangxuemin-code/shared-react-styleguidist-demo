@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { SyntheticEvent } from 'react';
 import { countries } from 'country-data';
-import Select, { components } from 'react-select';
 import FileUploader, { FilePattern } from './FileUploader';
 import * as styles from '../css/main.scss';
 import { Formatter } from '../helpers/Formatter';
@@ -14,11 +12,17 @@ import ReactRadio from 'antd/es/radio';
 import ReactInputNumber from 'antd/es/input-number';
 import ReactSwitch from 'antd/es/switch';
 import ReactIcon from 'antd/es/icon';
+import ReactSelect from 'antd/es/select';
+const { Option, OptGroup } = ReactSelect;
+const chevronDown = (
+  <svg viewBox='0 0 448 512' fill='currentColor' width='1em' height='1em'>
+    <path d='M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z' />
+  </svg>
+);
 
 import {
   DateTimePicker,
   IDateOption,
-  Divider,
   Transition,
   Message,
   Loading,
@@ -44,6 +48,7 @@ interface IState {
 interface IProps extends IContainer {
   loading?: boolean;
   fullWidth?: boolean;
+  bordered?: boolean;
   defaultValue?: any;
   value?: string | number | null;
   oldValue?: string | number | null;
@@ -83,6 +88,8 @@ interface IProps extends IContainer {
   selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
   selectMenuSize?: number;
+  selectMode?: 'default' | 'multiple' | 'tags';
+  selectMaxTagCount?: number;
   isSearchable?: boolean;
   excludeOptions?: string[];
   extraControls?: any;
@@ -146,7 +153,8 @@ export class FormControl extends React.Component<IProps, IState> {
     showPhoneLabel: true,
     debounce: 0,
     autoSize: true,
-    isSearchable: true
+    isSearchable: true,
+    selectMode: 'default'
   };
 
   constructor(props: IProps) {
@@ -187,15 +195,15 @@ export class FormControl extends React.Component<IProps, IState> {
       classes.push('error');
     }
 
+    const wrapperClasses: string[] = [
+      styles.mainFormControlsWrapper,
+      this.props.type === 'uploader' ? styles.imageWrapper : '',
+      this.props.type === 'hidden' ? styles.hide : '',
+      this.props.bordered ? styles.bordered : ''
+    ];
+
     return (
-      <Container
-        {...this.props}
-        classNames={[
-          styles.mainFormControlsWrapper,
-          this.props.type === 'uploader' ? styles.imageWrapper : '',
-          this.props.type === 'hidden' ? styles.hide : ''
-        ]}
-      >
+      <Container {...this.props} className={wrapperClasses.join(' ')}>
         <Container className={classes.join(' ')}>
           <>
             {this.shouldShowOldValue() && (
@@ -505,16 +513,6 @@ export class FormControl extends React.Component<IProps, IState> {
               disabled={true}
               getuploaderprogress={this.getuploaderprogress}
             />
-
-            {/* <Image
-              src={
-                oldValue
-                  ? this.props.oldValue
-                    ? this.state.oldDisplayValue
-                    : ''
-                  : this.state.displayValue
-              }
-            /> */}
           </Container>
         );
       } else if (this.props.type === 'number') {
@@ -574,148 +572,39 @@ export class FormControl extends React.Component<IProps, IState> {
           onSendCode={this.props.onSendCode}
         />
       );
-    } else if (this.props.type === 'select') {
-      const CustomOption = (innerProps: any) => {
-        return (
-          <components.Option {...innerProps}>
-            <Container>{innerProps.data.label}</Container>
-          </components.Option>
+    } else if (this.props.type === 'select' || this.props.type === 'customselect') {
+      const children: any[] = [];
+      let Options: any = [];
+      if (this.props.type === 'select') {
+        Options = this.props.selectOptions;
+      }
+      if (this.props.type === 'customselect') {
+        Options = this.props.selectCustomOptions;
+      }
+      Options!.map((item: any, i: any) => {
+        children.push(
+          <Option value={item.value} key={i}>
+            {this.props.type === 'customselect' ? <>{item.html}</> : item.label}
+          </Option>
         );
-      };
-      const DisplayOption = (innerProps: any) => {
-        return (
-          <components.SingleValue {...innerProps}>
-            <Container>{innerProps.data.label}</Container>
-          </components.SingleValue>
-        );
-      };
-      let Options: any = this.props.selectOptions || [];
+      });
       return (
-        <Select
-          isSearchable={this.props.isSearchable}
-          autoFocus={this.props.autoFocus}
-          ignoreAccents={false}
-          // componentClass='select'
-          // defaultMenuIsOpen
-          isDisabled={this.props.disabled}
-          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
+        <ReactSelect
+          // open={true}
           placeholder={this.props.placeholder}
+          defaultValue={this.state.value}
+          optionLabelProp='children'
           onChange={this.onSetOption}
-          options={this.props.selectOptions}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          styles={{
-            placeholder: (base: any) => ({
-              ...base,
-              color: 'rgba(125, 125, 125, 1)'
-            }),
-            control: (base: any) => ({
-              ...base,
-              padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              backgroundColor: 'transparent'
-            }),
-            menu: (base: any, state: any) => ({
-              ...base,
-              top: 'auto',
-              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
-              padding: '0.5rem !important',
-              backgroundColor: 'white',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
-              zIndex: 2
-            }),
-            dropdownIndicator: (base: any, state: any) => ({
-              ...base,
-              transition: 'all .2s ease',
-              transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
-            }),
-            noOptionsMessageCSS: (base: any, state: any) => ({
-              ...base,
-              padding: '1rem'
-            }),
-            singleValue: (base: any) => ({
-              ...base,
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              fontWeight: state.isSelected ? 600 : 400,
-              color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
-            })
-          }}
-        />
-      );
-    } else if (this.props.type === 'customselect') {
-      const CustomOption = (innerProps: any) => {
-        return (
-          <components.Option {...innerProps}>
-            <Container className='select-opt'>{innerProps.data.html}</Container>
-          </components.Option>
-        );
-      };
-      const DisplayOption = (innerProps: any) => {
-        return (
-          <components.SingleValue {...innerProps}>
-            <Container className='select-opt'>{innerProps.data.html}</Container>
-          </components.SingleValue>
-        );
-      };
-      let Options = this.props.selectCustomOptions || [];
-      return (
-        <Select
-          isSearchable={this.props.isSearchable}
-          autoFocus={this.props.autoFocus}
-          ignoreAccents={false}
-          isDisabled={this.props.disabled}
-          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
-          // defaultMenuIsOpen
-          value={Options.filter((obj: any) => obj.value === this.state.value)[0] || ''}
-          placeholder={this.props.placeholder}
-          onChange={this.onSetOption}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          styles={{
-            placeholder: (base: any) => ({
-              ...base,
-              color: 'rgba(125, 125, 125, 1)'
-            }),
-            control: (base: any) => ({
-              ...base,
-              padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              backgroundColor: 'transparent'
-            }),
-            menu: (base: any, state: any) => ({
-              ...base,
-              top: 'auto',
-              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
-              padding: '0.5rem !important',
-              backgroundColor: 'white',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
-              zIndex: 2
-            }),
-            dropdownIndicator: (base: any, state: any) => ({
-              ...base,
-              transition: 'all .2s ease',
-              transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
-            }),
-            noOptionsMessageCSS: (base: any, state: any) => ({
-              ...base,
-              padding: '1rem'
-            }),
-            singleValue: (base: any) => ({
-              ...base,
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              fontWeight: state.isSelected ? 600 : 400,
-              color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
-            })
-          }}
-          options={this.props.selectCustomOptions}
-        />
+          suffixIcon={chevronDown}
+          showSearch={this.props.isSearchable}
+          notFoundContent={'No Results'}
+          mode={this.props.selectMode}
+          maxTagCount={this.props.selectMaxTagCount}
+          dropdownMenuStyle={{ width: this.props.selectMenuSize }}
+          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? false : true}
+        >
+          {children}
+        </ReactSelect>
       );
     } else if (this.props.type === 'phone') {
       return (
@@ -730,53 +619,46 @@ export class FormControl extends React.Component<IProps, IState> {
           showPhoneLabel={this.props.showPhoneLabel}
         />
       );
-    } else if (this.props.type === 'country') {
-      const CustomOption = (innerProps: any) => {
-        return (
-          <components.Option {...innerProps}>
-            <Container className='select-opt'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.Option>
-        );
-      };
-      const DisplayOption = (innerProps: any) => {
-        return (
-          <components.SingleValue {...innerProps}>
-            <Container className='select-opt'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.SingleValue>
-        );
-      };
-      const allOptions: any = [];
+    } else if (this.props.type === 'country' || this.props.type === 'countrycode') {
       const mainOptions: any = [];
       const restOptions: any = [];
       const excludeOptions = this.props.excludeOptions || [];
-      if (excludeOptions.indexOf('Singapore') == -1) {
+      const singaporeLabel = this.props.type === 'country' ? 'Singapore' : 'SGP';
+      if (excludeOptions.indexOf(singaporeLabel) == -1) {
         var obj = {
-          label: 'Singapore',
-          value: 'Singapore',
+          label: singaporeLabel,
+          value: singaporeLabel,
           country: 'Singapore',
           code: 'SG'
         };
         mainOptions.push(obj);
-        allOptions.push(obj);
       }
       var sortedCountries: any = countries.all;
-      sortedCountries.sort(function(a: any, b: any) {
-        if (a.name < b.name) {
-          return -1;
-        }
-        if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
+      if (this.props.type === 'country') {
+        sortedCountries.sort(function(a: any, b: any) {
+          if (a.name < b.name) {
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        });
+      }
+      if (this.props.type === 'countrycode') {
+        sortedCountries.sort(function(a: any, b: any) {
+          if (a.alpha3 < b.alpha3) {
+            return -1;
+          }
+          if (a.alpha3 > b.alpha3) {
+            return 1;
+          }
+          return 0;
+        });
+      }
       sortedCountries.map((option: any) => {
         if (
+          this.props.type === 'country' &&
           option.alpha3.length &&
           option.emoji &&
           excludeOptions.indexOf(option.name) == -1 &&
@@ -789,152 +671,9 @@ export class FormControl extends React.Component<IProps, IState> {
             code: option.alpha2
           };
           restOptions.push(obj);
-          allOptions.push(obj);
         }
-      });
-      if (excludeOptions.indexOf('Others') == -1) {
-        var obj = {
-          label: 'Others',
-          value: 'Others',
-          country: 'Others',
-          code: 'Others'
-        };
-        restOptions.push(obj);
-        allOptions.push(obj);
-      }
-      let Options: any = [
-        {
-          label: <Container display='none'></Container>,
-          options: mainOptions
-        },
-        {
-          label: <Divider compact />,
-          options: restOptions
-        }
-      ];
-      if (excludeOptions.indexOf('Singapore') !== -1) {
-        Options = [
-          {
-            label: '',
-            options: restOptions
-          }
-        ];
-      }
-      const customFilter = (option: any, searchText: string) => {
         if (
-          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      };
-      return (
-        <Select
-          // defaultMenuIsOpen
-          isSearchable={this.props.isSearchable}
-          autoFocus={this.props.autoFocus}
-          ignoreAccents={false}
-          isDisabled={this.props.disabled}
-          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
-          value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
-          filterOption={customFilter}
-          placeholder={this.props.placeholder}
-          onChange={this.onSetOption}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          options={Options}
-          styles={{
-            placeholder: (base: any) => ({
-              ...base,
-              color: 'rgba(125, 125, 125, 1)'
-            }),
-            control: (base: any) => ({
-              ...base,
-              padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              backgroundColor: 'transparent'
-            }),
-            menu: (base: any, state: any) => ({
-              ...base,
-              top: 'auto',
-              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
-              padding: '0.5rem !important',
-              backgroundColor: 'white',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
-              zIndex: 2
-            }),
-            dropdownIndicator: (base: any, state: any) => ({
-              ...base,
-              transition: 'all .2s ease',
-              transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
-            }),
-            noOptionsMessageCSS: (base: any, state: any) => ({
-              ...base,
-              padding: '1rem'
-            }),
-            singleValue: (base: any) => ({
-              ...base,
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              fontWeight: state.isSelected ? 600 : 400,
-              color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
-            })
-          }}
-        />
-      );
-    } else if (this.props.type === 'countrycode') {
-      const CustomOption = (innerProps: any) => {
-        return (
-          <components.Option {...innerProps}>
-            <Container className='select-opt'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.Option>
-        );
-      };
-      const DisplayOption = (innerProps: any) => {
-        return (
-          <components.SingleValue {...innerProps}>
-            <Container className='select-opt'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.label}
-            </Container>
-          </components.SingleValue>
-        );
-      };
-      const allOptions: any = [];
-      const mainOptions: any = [];
-      const restOptions: any = [];
-      const excludeOptions = this.props.excludeOptions || [];
-      if (excludeOptions.indexOf('SGP') == -1) {
-        var obj = {
-          label: 'SGP',
-          value: 'SGP',
-          country: 'Singapore',
-          code: 'SG'
-        };
-        mainOptions.push(obj);
-        allOptions.push(obj);
-      }
-      var sortedCountries: any = countries.all;
-      sortedCountries.sort(function(a: any, b: any) {
-        if (a.alpha3 < b.alpha3) {
-          return -1;
-        }
-        if (a.alpha3 > b.alpha3) {
-          return 1;
-        }
-        return 0;
-      });
-      sortedCountries.map((option: any) => {
-        if (
+          this.props.type === 'countrycode' &&
           option.alpha3.length &&
           option.emoji &&
           excludeOptions.indexOf(option.alpha3) == -1 &&
@@ -947,7 +686,6 @@ export class FormControl extends React.Component<IProps, IState> {
             code: option.alpha2
           };
           restOptions.push(obj);
-          allOptions.push(obj);
         }
       });
       if (excludeOptions.indexOf('Others') == -1) {
@@ -958,93 +696,44 @@ export class FormControl extends React.Component<IProps, IState> {
           code: 'Others'
         };
         restOptions.push(obj);
-        allOptions.push(obj);
       }
-      let Options: any = [
-        {
-          label: <Container display='none'></Container>,
-          options: mainOptions
-        },
-        {
-          label: <Divider compact />,
-          options: restOptions
-        }
-      ];
-      if (excludeOptions.indexOf('SGP') !== -1) {
-        Options = [
-          {
-            label: '',
-            options: restOptions
-          }
-        ];
-      }
-      const customFilter = (option: any, searchText: string) => {
-        if (
-          (option.data && option.data.label.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.value.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
-          (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
-        ) {
-          return true;
-        } else {
-          return false;
-        }
-      };
+      const mainChildren: any[] = [];
+      const restChildren: any[] = [];
+      mainOptions!.map((item: any, i: any) => {
+        mainChildren.push(
+          <Option data-search={`${item.label} ${item.value} ${item.country} ${item.code}`} value={item.value} key={i}>
+            <Icon flag={item.code} /> &nbsp;&nbsp;
+            {item.label}
+          </Option>
+        );
+      });
+      restOptions!.map((item: any, i: any) => {
+        restChildren.push(
+          <Option data-search={`${item.label} ${item.value} ${item.country} ${item.code}`} value={item.value} key={i}>
+            <Icon flag={item.code} /> &nbsp;&nbsp;
+            {item.label}
+          </Option>
+        );
+      });
       return (
-        <Select
-          isSearchable={this.props.isSearchable}
-          autoFocus={this.props.autoFocus}
-          // defaultMenuIsOpen
-          ignoreAccents={false}
-          isDisabled={this.props.disabled}
-          className={`select ${this.props.isSearchable ? 'is-searchable' : ''}`}
-          value={allOptions.filter((obj: any) => obj.value === this.state.value)[0] || ''}
-          filterOption={customFilter}
+        <ReactSelect
+          // open={true}
           placeholder={this.props.placeholder}
+          defaultValue={this.state.value}
+          optionLabelProp='children'
           onChange={this.onSetOption}
-          components={{ Option: CustomOption, SingleValue: DisplayOption }}
-          options={Options}
-          styles={{
-            placeholder: (base: any) => ({
-              ...base,
-              color: 'rgba(125, 125, 125, 1)'
-            }),
-            control: (base: any) => ({
-              ...base,
-              padding: '0 0.5rem',
-              color: 'rgba(0, 0, 0, 1)',
-              backgroundColor: 'transparent'
-            }),
-            menu: (base: any, state: any) => ({
-              ...base,
-              top: 'auto',
-              width: this.props.selectMenuSize ? this.props.selectMenuSize : '100%',
-              padding: '0.5rem !important',
-              backgroundColor: 'white',
-              boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-              border: '1px solid rgba(125, 125, 125, 0.1) !important',
-              zIndex: 2
-            }),
-            dropdownIndicator: (base: any, state: any) => ({
-              ...base,
-              transition: 'all .2s ease',
-              transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
-            }),
-            noOptionsMessageCSS: (base: any, state: any) => ({
-              ...base,
-              padding: '1rem'
-            }),
-            singleValue: (base: any) => ({
-              ...base,
-              color: 'rgba(0, 0, 0, 1)'
-            }),
-            option: (base: any, state: any) => ({
-              ...base,
-              fontWeight: state.isSelected ? 600 : 400,
-              color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
-            })
-          }}
-        />
+          suffixIcon={chevronDown}
+          showSearch={this.props.isSearchable}
+          dropdownRender={(menu) => <div className='flag-select'>{menu}</div>}
+          optionFilterProp='data-search'
+          notFoundContent={'No Results'}
+          mode={this.props.selectMode}
+          dropdownMenuStyle={{ width: this.props.selectMenuSize }}
+          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? false : true}
+        >
+          <OptGroup label='mainOptions'>{mainChildren}</OptGroup>
+          <OptGroup label='restOptions'>{restChildren}</OptGroup>
+        </ReactSelect>
       );
     } else if (this.props.type === 'switch') {
       return (
@@ -1288,9 +977,9 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private onSetOption = (selectedOption: any) => {
-    let newValue = selectedOption.value;
-    if (newValue.constructor === Array) {
-      newValue = selectedOption.value[0];
+    let newValue = selectedOption;
+    if (selectedOption.constructor === Array) {
+      newValue = selectedOption.join();
     }
     this.setState({ displayValue: newValue, value: newValue, showError: false }, () => {
       this.beforeInputChanged(newValue);

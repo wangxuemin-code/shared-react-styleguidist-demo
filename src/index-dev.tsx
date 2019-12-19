@@ -1282,7 +1282,7 @@ class Main extends Controls.MyComponent<
                     });
                   }}
                 >
-                  <Controls.Container className={'form-group '}>
+                  <Controls.Container className={'form-group'}>
                     <Controls.FormControl
                       required
                       placeholder={'Placeholder'}
@@ -1326,6 +1326,19 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
+                    bordered={true}
+                    debounce={2000}
+                    required
+                    label={'Bordered'}
+                    name='bordered'
+                    type={'text'}
+                    placeholder={'Bordered'}
+                    value=''
+                    onInputChanged={() => {
+                      console.log(this.form.getInputValue('search'));
+                    }}
+                  />
+                  <Controls.FormControl
                     required
                     label='Image'
                     name='image'
@@ -1334,6 +1347,7 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{ showFileName: true, customAllowFileExtensions: ['.pdf'] }}
                   />
                   <Controls.FormControl
+                    bordered={true}
                     debounce={2000}
                     required
                     label={'Search'}
@@ -1366,6 +1380,7 @@ class Main extends Controls.MyComponent<
                   </Controls.Container>
                   <Controls.FormControl
                     // disabled
+                    required
                     autoSize={{ minRows: 3 }}
                     label={'Description'}
                     name='description'
@@ -1657,7 +1672,7 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.FormControl
                     // disabled
-                    isSearchable={false}
+                    isSearchable={true}
                     required
                     label={'Dropdown'}
                     name='dropdown'
@@ -1699,13 +1714,57 @@ class Main extends Controls.MyComponent<
                       </Controls.Button>
                     }
                   />
-                  <Controls.Container width={250}>
+                  <Controls.FormControl
+                    // disabled
+                    bordered={true}
+                    isSearchable={true}
+                    required
+                    label={'Multiple Dropdown'}
+                    name='multiple_dropdown'
+                    placeholder='Choose'
+                    type={'select'}
+                    value={'secondary'}
+                    selectMode={'multiple'}
+                    selectMaxTagCount={3}
+                    selectOptions={[
+                      {
+                        label: 'Primary',
+                        value: 'primary'
+                      },
+                      {
+                        label: 'Secondary',
+                        value: 'secondary'
+                      },
+                      {
+                        label: 'Disabled',
+                        value: 'disabled'
+                      },
+                      {
+                        label: 'Primary1',
+                        value: 'primary1'
+                      },
+                      {
+                        label: 'Secondary2',
+                        value: 'secondary2'
+                      },
+                      {
+                        label: 'Disabled3',
+                        value: 'disabled3'
+                      }
+                    ]}
+                    onInputChanged={(value) => {
+                      console.log(this.form.getInputValue('multiple_dropdown'));
+                      console.log(value);
+                    }}
+                  />
+                  <Controls.Container width={300}>
                     <Controls.FormControl
                       // disabled
+                      bordered
                       isSearchable={false}
                       required
                       label={'Custom menu size Dropdown'}
-                      name='dropdown'
+                      name='custom_dropdown'
                       placeholder='Choose'
                       type={'select'}
                       value={'secondary'}
@@ -1725,7 +1784,7 @@ class Main extends Controls.MyComponent<
                       ]}
                       selectMenuSize={500} // in px
                       onInputChanged={(value) => {
-                        console.log(this.form.getInputValue('dropdown'));
+                        console.log(this.form.getInputValue('custom_dropdown'));
                         console.log(value);
                       }}
                     />
@@ -1736,6 +1795,7 @@ class Main extends Controls.MyComponent<
                     name='Dropdown'
                     placeholder='Choose'
                     type={'customselect'}
+                    value={'hei!'}
                     selectCustomOptions={[
                       {
                         label: 'Option1',
@@ -1763,11 +1823,12 @@ class Main extends Controls.MyComponent<
                       {
                         label: 'Option2',
                         value: 'abcl',
-                        html: <Controls.Image fullWidth src={'/images/User-Avatar.png'} />
+                        html: <Controls.Image width={50} src={'/images/User-Avatar.png'} />
                       }
                     ]}
                   />
                   <Controls.FormControl
+                    bordered
                     label={'Country'}
                     name='country'
                     type={'country'}

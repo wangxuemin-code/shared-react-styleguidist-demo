@@ -1,9 +1,15 @@
 import { countries } from 'country-data';
 import * as React from 'react';
-import Select, { components } from 'react-select';
 import * as styles from '../css/main.scss';
 import ReactInput from 'antd/es/input';
-import { Divider, Icon, Container, Button } from '.';
+import ReactSelect from 'antd/es/select';
+const { Option, OptGroup } = ReactSelect;
+const chevronDown = (
+  <svg viewBox='0 0 448 512' fill='currentColor' width='1em' height='1em'>
+    <path d='M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z' />
+  </svg>
+);
+import { Icon, Container, Button } from '.';
 
 interface IProps {
   placeholder?: string;
@@ -54,40 +60,18 @@ export class Phone extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const CustomOption = (innerProps: any) => {
-      return (
-        <components.Option {...innerProps}>
-          <Container className={'select-opt'}>
-            <Container float='left'>
-              <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-              {innerProps.data.country}
-            </Container>
-            <Container float='right'>{innerProps.data.label}</Container>
-          </Container>
-        </components.Option>
-      );
-    };
-    const DisplayOption = (innerProps: any) => {
-      return (
-        <components.SingleValue {...innerProps}>
-          <Container className='select-opt'>
-            <Icon flag={innerProps.data.code} /> &nbsp;&nbsp;
-            {innerProps.data.label}
-          </Container>
-        </components.SingleValue>
-      );
-    };
-    const allOptions: any = [];
     const mainOptions: any = [];
     const restOptions: any = [];
+    const singaporeLabel = '+65';
+    var sortedCountries: any = countries.all;
+
     var obj = {
-      label: '+65',
-      value: '+65',
+      label: singaporeLabel,
+      value: singaporeLabel,
       country: 'Singapore',
       code: 'SG'
     };
     mainOptions.push(obj);
-    allOptions.push(obj);
     var sortedCountries: any = countries.all;
     sortedCountries.sort(function(a: any, b: any) {
       if (a.name < b.name) {
@@ -107,32 +91,47 @@ export class Phone extends React.Component<IProps, IState> {
           code: option.alpha2
         };
         restOptions.push(obj);
-        allOptions.push(obj);
       }
     });
-    const Options: any = [
-      {
-        label: <Container display='none'></Container>,
-        options: mainOptions
-      },
-      {
-        label: <Divider compact />,
-        options: restOptions
-      }
-    ];
-    const customFilter = (option: any, searchText: string) => {
-      if (
-        (option.data && option.data.label.includes(searchText.toLowerCase())) ||
-        (option.data && option.data.value.includes(searchText.toLowerCase())) ||
-        (option.data && option.data.value.includes('+' + searchText.toLowerCase())) ||
-        (option.data && option.data.country.toLowerCase().includes(searchText.toLowerCase())) ||
-        (option.data && option.data.code.toLowerCase().includes(searchText.toLowerCase()))
-      ) {
-        return true;
+
+    var filteredRestOptions = restOptions.reduce((accumulator: any, current: any) => {
+      if (checkIfAlreadyExist(current)) {
+        return accumulator;
       } else {
-        return false;
+        return [...accumulator, current];
       }
-    };
+
+      function checkIfAlreadyExist(currentVal: any) {
+        return accumulator.some((item: any) => {
+          return item.label === currentVal.label;
+        });
+      }
+    }, []);
+
+    const mainChildren: any[] = [];
+    const restChildren: any[] = [];
+    mainOptions!.map((item: any, i: any) => {
+      mainChildren.push(
+        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
+          <Container float='left'>
+            <Icon flag={item.code} /> &nbsp;
+            <Container className='phone-country'>{item.country}</Container>
+          </Container>
+          <Container float='right'> {item.label}</Container>
+        </Option>
+      );
+    });
+    filteredRestOptions!.map((item: any, i: any) => {
+      restChildren.push(
+        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
+          <Container float='left'>
+            <Icon flag={item.code} /> &nbsp;
+            <Container className='phone-country'>{item.country}</Container>
+          </Container>
+          <Container float='right'> {item.label}</Container>
+        </Option>
+      );
+    });
     return (
       <Container position={'relative'} fluid display={'flex'}>
         <Container display={'flex'} margin={{ rightRem: 1 }}>
@@ -142,60 +141,23 @@ export class Phone extends React.Component<IProps, IState> {
                 <Container className={styles.semiBold}>Area Code</Container>
               </label>
             )}
-            <Select
-              isSearchable={true}
-              autoFocus={this.props.autoFocus}
-              ignoreAccents={false}
-              // defaultMenuIsOpen
-              className={`select phone-select is-searchable`}
-              value={allOptions.filter((obj: any) => obj.value === this.state.phoneCode)[0] || ''}
-              filterOption={customFilter}
+            <ReactSelect
+              // open={true}
+              placeholder={this.props.placeholder}
+              defaultValue={this.state.value}
+              optionLabelProp='children'
               onChange={this.onSetOption}
-              components={{ Option: CustomOption, SingleValue: DisplayOption }}
-              options={Options}
-              isDisabled={this.props.loading}
-              styles={{
-                placeholder: (base: any) => ({
-                  ...base,
-                  color: 'rgba(125, 125, 125, 1)'
-                }),
-                control: (base: any) => ({
-                  ...base,
-                  padding: '0 0.5rem',
-                  color: 'rgba(0, 0, 0, 1)',
-                  backgroundColor: 'transparent',
-                  cursor: 'poimter'
-                }),
-                menu: (base: any, state: any) => ({
-                  ...base,
-                  top: 'auto',
-                  width: '300px',
-                  padding: '0.5rem !important',
-                  backgroundColor: 'white',
-                  boxShadow: 'rgba(0, 0, 0, 0.15) 0px 4px 0px !important',
-                  border: '1px solid rgba(125, 125, 125, 0.1) !important',
-                  zIndex: 2
-                }),
-                dropdownIndicator: (base: any, state: any) => ({
-                  ...base,
-                  transition: 'all .2s ease',
-                  transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : null
-                }),
-                noOptionsMessageCSS: (base: any, state: any) => ({
-                  ...base,
-                  padding: '1rem'
-                }),
-                singleValue: (base: any) => ({
-                  ...base,
-                  color: 'rgba(0, 0, 0, 1)'
-                }),
-                option: (base: any, state: any) => ({
-                  ...base,
-                  fontWeight: state.isSelected ? 600 : 400,
-                  color: state.isSelected ? 'rgba(0, 0, 0, 1)' : '#7D7D7D'
-                })
-              }}
-            />
+              suffixIcon={chevronDown}
+              showSearch={true}
+              dropdownRender={(menu) => <div className='flag-select phone-select'>{menu}</div>}
+              optionFilterProp='data-search'
+              notFoundContent={'No Results'}
+              dropdownMatchSelectWidth={false}
+              className={'phone-select'}
+            >
+              <OptGroup label='mainOptions'>{mainChildren}</OptGroup>
+              <OptGroup label='restOptions'>{restChildren}</OptGroup>
+            </ReactSelect>
           </Container>
         </Container>
         <Container fluid display={'flex'} className={styles.flex1}>
@@ -306,10 +268,7 @@ export class Phone extends React.Component<IProps, IState> {
   }
 
   private onSetOption = (selectedOption: any) => {
-    let newValue = selectedOption.value;
-    if (newValue.constructor === Array) {
-      newValue = selectedOption.value[0];
-    }
+    let newValue = selectedOption;
     const phoneNumber = this.state.phoneNumber;
     let value = '';
     if (newValue || phoneNumber) {

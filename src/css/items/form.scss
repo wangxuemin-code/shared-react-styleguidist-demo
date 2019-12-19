@@ -32,6 +32,10 @@ textarea[disabled] {
   cursor: not-allowed;
 }
 
+.ant-checkbox-checked::after {
+  border: 0;
+}
+
 .ant-checkbox-checked .ant-checkbox-inner {
   border-color: map-get($colors, secondary);
   background-color: map-get($colors, secondary);
@@ -68,9 +72,80 @@ textarea[disabled] {
   display: block;
 }
 
-.ant-dropdown {
+.flag-select {
+  &.phone-select {
+    width: 400px;
+  }
+  .phone-country {
+    display: inline-block;
+  }
+  .ant-select-dropdown-menu-item-group-title {
+    display: none;
+  }
+  .ant-select-dropdown-menu-item-group:first-child {
+    border-bottom: 1px solid map-get($colors, primaryGreyLight);
+    padding-bottom: 5px;
+  }
+  .ant-select-dropdown-menu-item-group:last-child {
+    padding-top: 5px;
+  }
+}
+
+.ant-dropdown,
+.ant-select-dropdown {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
-  border: 1px solid map-get($colors, primaryGreyLighter);
+  border: 0;
+  border-radius: 0;
+  z-index: 2;
+
+  .ant-select-dropdown-menu {
+    border: 1px solid map-get($colors, primaryGreyLighter);
+    border-radius: 0;
+    padding: 0.5rem 0;
+    margin-top: -5px;
+
+    .ant-select-dropdown-menu-item:not(.ant-select-dropdown-menu-item-disabled) {
+      background-color: map-get($colors, primaryAlt);
+      cursor: pointer;
+      border-left: 3px solid map-get($colors, primaryAlt);
+      padding: 0.3rem 0.5rem;
+      font-size: 1rem;
+      border-radius: 0;
+      width: 100%;
+
+      &.ant-select-dropdown-menu-item-selected {
+        background-color: map-get($colors, primaryAlt);
+        color: map-get($colors, primaryDark);
+        border-left: 3px solid map-get($colors, primaryDark);
+      }
+
+      &:hover {
+        background-color: map-get($colors, primaryAlt);
+        color: map-get($colors, primaryDark);
+        border-left: 3px solid map-get($colors, primaryDark);
+      }
+    }
+  }
+
+  &.ant-select-dropdown--multiple {
+    .ant-select-dropdown-menu {
+      .ant-select-dropdown-menu-item:not(.ant-select-dropdown-menu-item-disabled) {
+        &.ant-select-dropdown-menu-item-selected {
+          border-left: 3px solid map-get($colors, primaryAlt);
+
+          .ant-select-selected-icon {
+            color: map-get($colors, success);
+          }
+
+          &:hover {
+            .ant-select-selected-icon {
+              color: map-get($colors, success);
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 .istox-form {
@@ -136,7 +211,6 @@ textarea[disabled] {
     }
   }
   input,
-  .select,
   textarea,
   .ant-select {
     border: 0;
@@ -152,78 +226,106 @@ textarea[disabled] {
     background-color: transparent;
   }
 
+  .bordered {
+    input,
+    textarea,
+    .ant-select {
+      padding: 0 0.5rem;
+      border: 1px solid map-get($colors, primaryGrey);
+    }
+  }
+
+  .ant-select {
+    .ant-select-selection--multiple > ul > li,
+    .ant-select-selection--multiple .ant-select-selection__rendered > ul > li {
+      margin-top: 6px;
+    }
+    .ant-select-selection--single {
+      height: 37px;
+    }
+    .ant-select-selection--multiple .ant-select-search--inline .ant-select-search__field {
+      position: relative;
+      top: -6px;
+      border: 0;
+      padding: 0;
+    }
+    .ant-select-selection-selected-value {
+      .icon.country {
+        position: relative;
+        top: -1px;
+      }
+    }
+    &.phone-select {
+      .ant-select-selection-selected-value {
+        .phone-country {
+          display: none;
+        }
+      }
+    }
+
+    .ant-select-selection {
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    .ant-select-selection__rendered {
+      line-height: 37px;
+      margin-left: 0px;
+      margin-right: 0px;
+      padding: 0 10px;
+    }
+
+    .ant-select-arrow {
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .ant-select-search--inline {
+      left: 0;
+    }
+  }
+
+  .ant-select-open {
+    .ant-select-arrow {
+      transform: rotate(180deg);
+    }
+  }
+
   textarea {
     min-height: 38px;
   }
 
-  .ant-select-selection {
-    border: none !important;
-    box-shadow: none !important;
-  }
-
-  .ant-select-selection__rendered {
-    line-height: 37px;
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-
-  input:hover,
+  input:not(.ant-select-search__field):hover,
   textarea:hover {
-    border-bottom: 1px solid map-get($colors, secondary) !important;
+    border-bottom: 1px solid map-get($colors, secondary);
     box-shadow: none;
   }
-  input:focus,
+
+  input:not(.ant-select-search__field):focus,
   textarea:focus,
   .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
-    border-bottom: 1px solid map-get($colors, secondary) !important;
+    border-bottom: 1px solid map-get($colors, secondary);
     box-shadow: none;
   }
+
+  .bordered {
+    input:not(.ant-select-search__field):hover,
+    textarea:hover {
+      border: 1px solid map-get($colors, secondary);
+    }
+
+    input:not(.ant-select-search__field):focus,
+    textarea:focus,
+    .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+      border: 1px solid map-get($colors, secondary);
+    }
+  }
+
   input.otp:hover {
-    border: 1px solid map-get($colors, secondary) !important;
+    border: 1px solid map-get($colors, secondary);
   }
   input.otp:focus {
-    border: 1px solid map-get($colors, secondary) !important;
-  }
-  .select {
-    input {
-      height: 37px;
-      line-height: 37px;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-bottom: 0 !important;
-      box-shadow: none;
-    }
-    div {
-      border: 0;
-      box-shadow: none;
-      border-radius: 0;
-      justify-content: left;
-    }
-    > div {
-      min-height: auto;
-
-      > div {
-        cursor: pointer;
-        height: auto !important;
-        span {
-          background-color: inherit;
-        }
-      }
-    }
-
-    &.is-searchable {
-      > div {
-        > div {
-          cursor: text;
-        }
-      }
-    }
-
-    div[class$='menu'] {
-      font-size: 0.9rem;
-    }
+    border: 1px solid map-get($colors, secondary);
   }
 
   .horizontal {
@@ -286,6 +388,30 @@ textarea[disabled] {
     .form-controls-wrapper {
       display: flex;
       flex-direction: column;
+
+      &.error {
+        input,
+        textarea,
+        .ant-select {
+          border-bottom: 1px solid map-get($colors, danger);
+        }
+
+        input.otp {
+          border: 1px solid map-get($colors, danger);
+        }
+      }
+    }
+
+    &.bordered {
+      .form-controls-wrapper {
+        &.error {
+          input,
+          textarea,
+          .ant-select {
+            border: 1px solid map-get($colors, danger);
+          }
+        }
+      }
     }
 
     &.image-wrapper {
@@ -307,10 +433,6 @@ textarea[disabled] {
       margin-right: 0;
     }
   }
-
-  // .react-toggle-screenreader-only {
-  //   position: absolute !important;
-  // }
   .ant-switch-inner {
     .anticon {
       font-size: 1rem;
@@ -320,36 +442,6 @@ textarea[disabled] {
 
   .ant-switch-checked {
     background-color: map-get($colors, primary);
-  }
-
-  .select {
-    width: 100%;
-    position: initial;
-
-    div {
-      padding: 0;
-      margin: 0;
-    }
-
-    > div:nth-child(3) {
-      padding: 0rem;
-      border: 1px solid map-get($colors, primaryGreyLighter);
-      border-bottom: 3px solid rgba(0, 0, 0, 0.15);
-    }
-
-    div[class*='option'] {
-      background-color: map-get($colors, primaryAlt);
-      cursor: pointer;
-      border-left: 3px solid map-get($colors, primaryAlt);
-      padding: 0.5rem;
-      display: inline-block;
-      font-size: 1rem;
-    }
-
-    div[class*='option']:hover {
-      color: map-get($colors, primaryDark);
-      border-left: 3px solid map-get($colors, primaryDark);
-    }
   }
 
   .horizontal {
@@ -372,20 +464,6 @@ textarea[disabled] {
       align-items: center;
 
       .form-controls-inner {
-        .select-opt {
-          display: flex;
-          align-items: center;
-
-          .left {
-            display: flex;
-            align-items: center;
-          }
-
-          .flag {
-            display: flex;
-          }
-        }
-
         .loading-container-wrapper {
           position: relative;
           display: flex;
@@ -394,12 +472,6 @@ textarea[disabled] {
       }
     }
   }
-}
-
-.istox-form .form-controls-wrapper.error input,
-.istox-form .form-controls-wrapper.error .select,
-.istox-form .form-controls-wrapper.error textarea {
-  border-bottom: 1px solid map-get($colors, danger);
 }
 
 .istox-form .input-append {
