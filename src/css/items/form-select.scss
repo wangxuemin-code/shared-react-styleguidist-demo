@@ -80,6 +80,8 @@
 }
 
 .ant-select {
+  width: 100%; // Need to think in future if select width should be controlled by parent
+
   .ant-select-selection--single {
     min-height: 37px;
   }
