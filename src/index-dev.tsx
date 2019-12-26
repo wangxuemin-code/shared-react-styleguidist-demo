@@ -1742,7 +1742,7 @@ class Main extends Controls.MyComponent<
                     name='dropdown'
                     placeholder='Choose'
                     type={'select'}
-                    value={'secondary'}
+                    value={'Secondary'}
                     selectOptions={this.state.selectOptions}
                     onInputChanged={(value) => {
                       console.log(this.form.getInputValue('dropdown'));
@@ -1787,7 +1787,7 @@ class Main extends Controls.MyComponent<
                     name='multiple_dropdown'
                     placeholder='Choose'
                     type={'select'}
-                    value={'secondary'}
+                    value={'Secondary,Primary'}
                     selectMode={'multiple'}
                     selectMaxTagCount={3}
                     selectOptions={[
@@ -1831,7 +1831,7 @@ class Main extends Controls.MyComponent<
                       name='custom_dropdown'
                       placeholder='Choose'
                       type={'select'}
-                      value={'secondary'}
+                      value={'Secondary'}
                       selectOptions={[
                         {
                           label: 'Primary',

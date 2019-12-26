@@ -601,7 +601,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // open={true}
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
-          defaultValue={this.state.value}
+          defaultValue={this.state.value ? String(this.state.value).split(',') : undefined}
           optionLabelProp='children'
           onChange={this.onSetOption}
           suffixIcon={chevronDown}

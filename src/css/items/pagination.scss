@@ -9,6 +9,7 @@
   }
   .ant-pagination-options-size-changer {
     float: right;
+    border: 1px solid map-get($colors, primaryGreyLight);
   }
 
   .ant-pagination-item {
@@ -108,6 +109,7 @@
   .ant-select-selection-selected-value {
     font-size: 1rem;
     color: map-get($colors, primaryDarkActive);
+    padding: 0 0.5rem;
   }
 
   .ant-select-dropdown-menu {
@@ -163,8 +165,8 @@
   }
 
   .ant-select-selection--single .ant-select-selection__rendered {
-    margin-right: 2.2rem;
-    line-height: 37px;
+    margin-right: 1.7rem;
+    line-height: 35px;
   }
 
   .ant-select-dropdown-menu-item:first-child,
