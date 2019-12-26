@@ -1,6 +1,7 @@
 .pagination {
   .ant-pagination {
     display: flex;
+    align-items: center;
   }
   .ant-pagination-options {
     justify-content: space-between;
@@ -48,12 +49,15 @@
   .ant-pagination-options-quick-jumper {
     color: map-get($colors, primaryGreyDarker);
     font-size: 0;
+    height: 37px;
+    line-height: 37px;
 
     input {
       border-radius: 0;
       color: map-get($colors, primaryDarkActive);
       border-color: map-get($colors, primaryGreyLight);
       text-align: center;
+      min-height: 37px;
 
       &:hover {
         border: 1px solid map-get($colors, primaryGreyDarker);
@@ -86,20 +90,29 @@
     }
 
     .ant-select-arrow {
-      color: map-get($colors, primaryGreyDarker);
+      color: map-get($colors, primaryGreyDark);
+      font-size: 0.857rem;
+      top: 55%;
     }
   }
 
   .ant-select-dropdown {
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
-    border: 1px solid map-get($colors, primaryGreyLighter);
     z-index: 10;
     border-radius: 0;
-    padding: 0.5rem;
+
+    > div {
+      margin-top: -5px;
+    }
+  }
+
+  .ant-select-selection-selected-value {
+    font-size: 1rem;
+    color: map-get($colors, primaryDarkActive);
   }
 
   .ant-select-dropdown-menu {
     border-radius: 0;
+    margin-top: 0;
   }
 
   .ant-select-dropdown-menu-item {
@@ -151,6 +164,7 @@
 
   .ant-select-selection--single .ant-select-selection__rendered {
     margin-right: 2.2rem;
+    line-height: 37px;
   }
 
   .ant-select-dropdown-menu-item:first-child,

@@ -511,7 +511,7 @@ class Main extends Controls.MyComponent<
               ))}
               <Controls.Divider visibility={'hidden'} />
               {this.variantStates.map((button: any) => (
-                <Controls.Button disabled={true} key={UuidGenerator.generate()} variant={button}>
+                <Controls.Button disabled key={UuidGenerator.generate()} variant={button}>
                   {button.toUpperCase()}
                 </Controls.Button>
               ))}
@@ -908,7 +908,7 @@ class Main extends Controls.MyComponent<
                     <Controls.Container height={200} width={200}>
                       <Controls.FormControl
                         required
-                        label='Image uploader disabled '
+                        label='Image uploader Disabled '
                         name='uploadviewer'
                         type='uploader'
                         disabled
@@ -1284,9 +1284,9 @@ class Main extends Controls.MyComponent<
                 >
                   <Controls.Container className={'form-group'}>
                     <Controls.FormControl
+                      disabled
                       required
                       placeholder={'Placeholder'}
-                      disabled={true}
                       ref={(ref) => {
                         this.form = ref;
                       }}
@@ -1326,6 +1326,7 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
+                    // disabled
                     bordered
                     debounce={2000}
                     required
@@ -1339,6 +1340,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     required
                     label='Image'
                     name='image'
@@ -1347,6 +1349,7 @@ class Main extends Controls.MyComponent<
                     uploaderConfigs={{ showFileName: true, customAllowFileExtensions: ['.pdf'] }}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     debounce={2000}
                     required
@@ -1361,9 +1364,9 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
-                    disabled
                     label={'Email'}
                     name='email'
                     type={'email'}
@@ -1375,11 +1378,17 @@ class Main extends Controls.MyComponent<
                   />
                   <Controls.Container className={'form-group'}>
                     {/* <Ant.Popover placement='topLeft' trigger='click' content={'PopOver'}> */}
-                    <Controls.FormControl 
-                    // bordered 
-                    required label={'Password'} name='Password' type={'password'} />
+                    <Controls.FormControl
+                      // disabled
+                      // bordered
+                      required
+                      label={'Password'}
+                      name='Password'
+                      type={'password'}
+                    />
                     {/* </Ant.Popover> */}
                     <Controls.FormControl
+                      // disabled
                       // bordered
                       label={'Password'}
                       name='Password'
@@ -1388,8 +1397,8 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
-                    // bordered
                     // disabled
+                    // bordered
                     required
                     autoSize={{ minRows: 3 }}
                     label={'Description'}
@@ -1397,11 +1406,24 @@ class Main extends Controls.MyComponent<
                     type={'longtext'}
                     alwaysCapitalize={true}
                   />
-                  <Controls.FormControl // bordered
-                   required label={'Numbers only'} name='numeric' type={'numeric'} />
-                  <Controls.FormControl // bordered 
-                  required label={'Numbers with commas'} name='number' type={'number'} />
                   <Controls.FormControl
+                    // disabled
+                    // bordered
+                    required
+                    label={'Numbers only'}
+                    name='numeric'
+                    type={'numeric'}
+                  />
+                  <Controls.FormControl
+                    // disabled
+                    // bordered
+                    required
+                    label={'Numbers with commas'}
+                    name='number'
+                    type={'number'}
+                  />
+                  <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'$$$'}
@@ -1411,6 +1433,7 @@ class Main extends Controls.MyComponent<
                     unit={'SGD'}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Alpha only'}
@@ -1420,6 +1443,7 @@ class Main extends Controls.MyComponent<
                     alphabetOnly={true}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Alpha-numeric only'}
@@ -1428,6 +1452,7 @@ class Main extends Controls.MyComponent<
                     type={'alphanumeric'}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Capitalize only'}
@@ -1436,6 +1461,7 @@ class Main extends Controls.MyComponent<
                     alwaysCapitalize={true}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Unit Field'}
@@ -1485,6 +1511,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Date'}
@@ -1528,6 +1555,7 @@ class Main extends Controls.MyComponent<
                     }
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required={true}
                     name={'dateformat'}
@@ -1545,6 +1573,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'DateTime'}
@@ -1559,6 +1588,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'DateRange'}
@@ -1575,8 +1605,16 @@ class Main extends Controls.MyComponent<
                       console.log(value);
                     }}
                   />
-                  <Controls.FormControl required label={'Notify me'} name='notify' type={'switch'} defaultValue='0' />
                   <Controls.FormControl
+                    // disabled
+                    required
+                    label={'Notify me'}
+                    name='notify'
+                    type={'switch'}
+                    defaultValue='0'
+                  />
+                  <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'H Radio'}
@@ -1603,6 +1641,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     required
                     label={'V Radio'}
                     name='v_radio'
@@ -1627,6 +1666,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     label={'H Checkbox'}
                     name='h_checkbox'
                     type={'checkbox'}
@@ -1668,6 +1708,7 @@ class Main extends Controls.MyComponent<
                     }}
                   />
                   <Controls.FormControl
+                    // disabled
                     required
                     label={'V Checkbox'}
                     name='v_checkbox'
@@ -1693,8 +1734,8 @@ class Main extends Controls.MyComponent<
                     value={0}
                   />
                   <Controls.FormControl
-                    // bordered
                     // disabled
+                    // bordered
                     isSearchable={true}
                     required
                     label={'Dropdown'}
@@ -1718,15 +1759,15 @@ class Main extends Controls.MyComponent<
                             selectOptions: [
                               {
                                 label: 'Primary',
-                                value: 'primary'
+                                value: 'Primary'
                               },
                               {
                                 label: 'Secondary',
-                                value: 'secondary'
+                                value: 'Secondary'
                               },
                               {
                                 label: 'Disabled',
-                                value: 'disabled'
+                                value: 'Disabled'
                               }
                             ],
                             loading: false
@@ -1752,27 +1793,27 @@ class Main extends Controls.MyComponent<
                     selectOptions={[
                       {
                         label: 'Primary',
-                        value: 'primary'
+                        value: 'Primary'
                       },
                       {
                         label: 'Secondary',
-                        value: 'secondary'
+                        value: 'Secondary'
                       },
                       {
                         label: 'Disabled',
-                        value: 'disabled'
+                        value: 'Disabled'
                       },
                       {
                         label: 'Primary1',
-                        value: 'primary1'
+                        value: 'Primary1'
                       },
                       {
                         label: 'Secondary2',
-                        value: 'secondary2'
+                        value: 'Secondary2'
                       },
                       {
                         label: 'Disabled3',
-                        value: 'disabled3'
+                        value: 'Disabled3'
                       }
                     ]}
                     onInputChanged={(value) => {
@@ -1794,15 +1835,15 @@ class Main extends Controls.MyComponent<
                       selectOptions={[
                         {
                           label: 'Primary',
-                          value: 'primary'
+                          value: 'Primary'
                         },
                         {
                           label: 'Secondary',
-                          value: 'secondary'
+                          value: 'Secondary'
                         },
                         {
                           label: 'Disabled',
-                          value: 'disabled'
+                          value: 'Disabled'
                         }
                       ]}
                       selectMenuSize={500} // in px
@@ -1813,6 +1854,7 @@ class Main extends Controls.MyComponent<
                     />
                   </Controls.Container>
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required
                     label={'Html Dropdown'}
@@ -1852,6 +1894,7 @@ class Main extends Controls.MyComponent<
                     ]}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     label={'Country'}
                     name='country'
@@ -1861,6 +1904,7 @@ class Main extends Controls.MyComponent<
                     value='Singapore'
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     label={'Country Code'}
                     name='countrycode'
@@ -1869,6 +1913,7 @@ class Main extends Controls.MyComponent<
                     value={'SGP'}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required={true}
                     label={'Phone'}
@@ -1881,6 +1926,7 @@ class Main extends Controls.MyComponent<
                     showPhoneLabel={false}
                   />
                   <Controls.FormControl
+                    // disabled
                     // bordered
                     required={true}
                     // autoFocus={true}

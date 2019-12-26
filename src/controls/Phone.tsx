@@ -12,6 +12,7 @@ const chevronDown = (
 import { Icon, Container, Button } from '.';
 
 interface IProps {
+  disabled?: boolean;
   placeholder?: string;
   value?: string;
   selectOptions?: { label: any; value: string }[];
@@ -143,6 +144,7 @@ export class Phone extends React.Component<IProps, IState> {
             )}
             <ReactSelect
               // open={true}
+              disabled={this.props.disabled}
               placeholder={this.props.placeholder}
               defaultValue={this.state.value}
               optionLabelProp='children'
@@ -173,7 +175,7 @@ export class Phone extends React.Component<IProps, IState> {
                   autoComplete={'off'}
                   autoCorrect={'off'}
                   type={'text'}
-                  disabled={this.props.loading}
+                  disabled={this.props.loading || this.props.disabled}
                   placeholder={this.props.placeholder}
                   value={this.state.phoneNumber || ''}
                   onChange={this.onChange}

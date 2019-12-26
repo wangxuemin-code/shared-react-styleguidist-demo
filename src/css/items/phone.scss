@@ -3,3 +3,33 @@
   top: 5rem;
   right: 0;
 }
+
+input.otp:hover {
+  border: 1px solid map-get($colors, secondary);
+}
+
+input.otp:focus {
+  border: 1px solid map-get($colors, secondary);
+}
+
+input.otp {
+  padding: 1rem;
+  border: 1px solid map-get($colors, primaryGrey);
+  min-width: 0 !important;
+  font-weight: bold;
+  height: 45px;
+}
+
+.otp-control {
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+  .icon {
+    font-size: 3.5rem !important;
+  }
+}

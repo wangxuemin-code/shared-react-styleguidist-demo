@@ -599,6 +599,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <ReactSelect
           // open={true}
+          disabled={this.props.disabled}
           placeholder={this.props.placeholder}
           defaultValue={this.state.value}
           optionLabelProp='children'
@@ -617,6 +618,7 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'phone') {
       return (
         <Phone
+          disabled={this.props.disabled}
           autoFocus={this.props.autoFocus}
           required={this.props.required}
           placeholder={this.props.placeholder}
@@ -726,6 +728,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <ReactSelect
           // open={true}
+          disabled={this.props.disabled}
           placeholder={this.props.placeholder}
           defaultValue={this.state.value}
           optionLabelProp='children'
