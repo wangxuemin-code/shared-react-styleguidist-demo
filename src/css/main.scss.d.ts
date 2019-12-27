@@ -2586,6 +2586,7 @@ export const middle: string;
 export const dateInput: string;
 export const datepickerCalenderContainer: string;
 export const dateGroup: string;
+export const borddered: string;
 export const antCalendarSelectedDate: string;
 export const istoxProgress: string;
 export const multi: string;

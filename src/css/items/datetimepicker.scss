@@ -60,6 +60,12 @@
   margin-top: -2px;
 }
 
+.borddered {
+  .ant-calendar {
+    margin-top: -1px;
+  }
+}
+
 .ant-calendar-date:hover {
   background: map-get($colors, secondaryBackground);
 }

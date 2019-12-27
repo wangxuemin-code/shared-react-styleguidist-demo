@@ -102,6 +102,9 @@ textarea[disabled] {
 }
 
 .bordered {
+  .ant-input {
+    line-height: 35px;
+  }
   .unit {
     right: 0.5rem;
   }
