@@ -1,3 +1,9 @@
+.form-controls-inner {
+  flex: 1;
+  position: relative;
+  display: flex;
+}
+
 .istox-form {
   margin: auto;
 
@@ -26,12 +32,6 @@
     > div:last-child {
       margin-right: 0;
     }
-  }
-
-  .form-controls-inner {
-    flex: 1;
-    position: relative;
-    display: flex;
   }
 
   .istox-message {
