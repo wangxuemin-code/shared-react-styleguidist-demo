@@ -1,7 +1,10 @@
 import * as React from 'react';
 import { Container, FormControl } from '.';
+import { FormComponent } from './FormComponent';
+import { Controls } from '../index-prod';
+import { TestControl2 } from './TestControl2';
 
-export class TestControl extends React.Component<any, any> {
+export class TestControl extends FormComponent {
   constructor(props: any) {
     super(props);
   }
@@ -13,9 +16,20 @@ export class TestControl extends React.Component<any, any> {
     });
   }
   public render() {
-    return (
+    return super.formComponentRender(
       <Container>
-        <FormControl type='text' name='test4' value='12345' />
+        <FormControl required={true} type='text' name='bbb1' value='bbb' />
+
+        <Controls.Clone
+          deleteControl={<Controls.Container>Delete ME!</Controls.Container>}
+          name='passwords'
+          addControlPosition={'top'}
+          deleteControlPosition={'bottom'}
+        >
+          <>
+            <TestControl2 />
+          </>
+        </Controls.Clone>
       </Container>
     );
   }

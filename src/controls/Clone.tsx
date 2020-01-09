@@ -19,6 +19,7 @@ interface IProps extends IContainer {
   isIncludeInFormData?: boolean;
   minItem?: number;
   static?: boolean;
+  parentCloneNames?: Array<String>;
 }
 
 interface IState {
@@ -33,7 +34,8 @@ export class Clone extends React.Component<IProps, IState> {
     addControlPosition: 'bottom',
     cloneLabel: false,
     index: 0,
-    minItem: 1
+    minItem: 1,
+    parentCloneNames: []
   };
 
   public constructor(props: IProps) {
@@ -164,6 +166,9 @@ export class Clone extends React.Component<IProps, IState> {
           }
         };
       }
+
+      childProps.parentCloneNames = this.props.parentCloneNames!.concat(this.props.name + '[' + index + ']');
+      childProps.cloneIndex = index;
 
       childProps.children = this.recursiveCloneChildren(
         (child.props as any).children,

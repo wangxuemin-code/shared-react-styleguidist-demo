@@ -16,6 +16,7 @@ import {
   IAlert
 } from '.';
 import { UuidGenerator } from '../helpers';
+import _ = require('lodash');
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
@@ -200,9 +201,14 @@ export class Form extends React.Component<IProps, IState> {
         childProps.static = this.props.comparing;
       }
       childProps.getuploaderprogress = this.getuploaderprogress;
+      childProps.injectControlFn = this.formControlInject;
       return React.cloneElement(child, childProps);
     });
   }
+
+  private formControlInject = (formControl: any) => {
+    this.formControls.push(formControl);
+  };
 
   public onSaved() {
     this.formControls.forEach((formControl: any) => {
@@ -248,23 +254,34 @@ export class Form extends React.Component<IProps, IState> {
 
   public getFormData(): FormData {
     const formData = new FormData();
-    this.formControls.forEach((formControl: any) => {
-      if (formControl.getName && formControl.getValue && formControl.isIncludeInFormData) {
-        formData.append(formControl.getName(), formControl.getValue(false));
-      }
-    });
+
+    const formObject = this.getFormObject();
+    for (var key of formObject.keys()) {
+      formData.append(key, formObject[key]);
+    }
+
     return formData;
   }
 
   public getFormJson(): string {
-    var object: any = {};
+    return JSON.stringify(this.getFormObject());
+  }
+
+  public getFormObject(): any {
+    const result: any = {};
     this.formControls.forEach((formControl: any) => {
-      if (formControl.getName && formControl.getValue && formControl.isIncludeInFormData) {
-        object[formControl.getName()] = formControl.getValue(false);
+      if (formControl.isFormControl && formControl.isFormControl() && formControl.isIncludeInFormData) {
+        const parentCloneNames = formControl.getParentCloneNames();
+
+        if (parentCloneNames.length > 0) {
+          _.set(result, parentCloneNames.join('.') + '.' + formControl.getName(), formControl.getValue(false));
+        } else {
+          result[formControl.getName()] = formControl.getValue(false);
+        }
       }
     });
 
-    return JSON.stringify(object);
+    return result;
   }
 
   public reset() {

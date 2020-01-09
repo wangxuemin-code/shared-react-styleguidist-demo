@@ -46,6 +46,7 @@ interface IState {
 }
 
 interface IProps extends IContainer {
+  parentCloneNames?: Array<String>;
   loading?: boolean;
   fullWidth?: boolean;
   bordered?: boolean;
@@ -154,7 +155,8 @@ export class FormControl extends React.Component<IProps, IState> {
     debounce: 0,
     autoSize: true,
     isSearchable: true,
-    selectMode: 'default'
+    selectMode: 'default',
+    parentCloneNames: []
   };
 
   constructor(props: IProps) {
@@ -1285,5 +1287,13 @@ export class FormControl extends React.Component<IProps, IState> {
     if (this.control && this.control.getUploadState) {
       return this.control.getUploadState();
     }
+  }
+
+  public getParentCloneNames() {
+    return this.props.parentCloneNames;
+  }
+
+  public isFormControl() {
+    return true;
   }
 }
