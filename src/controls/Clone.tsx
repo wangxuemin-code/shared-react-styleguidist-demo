@@ -127,7 +127,7 @@ export class Clone extends React.Component<IProps, IState> {
             </Container>
           )}
 
-          {this.props.deleteControlPosition != 'right' && (
+          {this.props.deleteControlPosition != 'right' && this.props.deleteControlPosition != 'left' && (
             <>{this.recursiveCloneChildren(this.props.children, i, 0, 0)}</>
           )}
         </>
