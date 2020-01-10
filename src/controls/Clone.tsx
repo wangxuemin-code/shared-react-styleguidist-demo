@@ -113,6 +113,20 @@ export class Clone extends React.Component<IProps, IState> {
               <Container heightPercent={100}>{this.getDeleteControl(i)}</Container>
             </Container>
           )}
+
+          {this.props.deleteControlPosition == 'left' && (
+            <Container
+              fluid={true}
+              display='grid'
+              style={{
+                gridTemplateColumns: 'max-content auto'
+              }}
+            >
+              <Container heightPercent={100}>{this.getDeleteControl(i)}</Container>
+              {this.recursiveCloneChildren(this.props.children, i, 0, 0)}
+            </Container>
+          )}
+
           {this.props.deleteControlPosition != 'right' && (
             <>{this.recursiveCloneChildren(this.props.children, i, 0, 0)}</>
           )}
