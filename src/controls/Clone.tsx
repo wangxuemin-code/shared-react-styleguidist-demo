@@ -12,7 +12,7 @@ interface IProps extends IContainer {
   value?: any[];
   oldValue?: any[];
   addControlPosition?: 'top' | 'bottom';
-  deleteControlPosition?: 'top' | 'right' | 'bottom';
+  deleteControlPosition?: 'top' | 'right' | 'bottom' | 'left';
   addControl?: any;
   deleteControl?: any;
   cloneLabel?: boolean;
