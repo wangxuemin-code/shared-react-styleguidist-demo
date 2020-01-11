@@ -18,10 +18,10 @@ export class TestControl extends FormComponent {
   public render() {
     return super.formComponentRender(
       <Container>
-        <FormControl required={true} type='text' name='bbb1' value='bbb' />
+        <FormControl required={true} type='text' name='bbb1' label='Inner Level1' />
 
         <Controls.Clone
-          deleteControl={<Controls.Container>Delete ME!</Controls.Container>}
+          deleteControl={<Controls.Container>Inner Deletion</Controls.Container>}
           name='passwords'
           addControlPosition={'top'}
           deleteControlPosition={'bottom'}

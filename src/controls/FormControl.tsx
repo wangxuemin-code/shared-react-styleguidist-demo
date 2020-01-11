@@ -135,6 +135,7 @@ interface IProps extends IContainer {
     uploaderComplete: -1 | 0 | 1
   ) => void;
   getUploadedState?: () => boolean;
+  onUnmount?: Function;
 }
 
 interface IProcessResult {
@@ -145,6 +146,7 @@ interface IProcessResult {
 export class FormControl extends React.Component<IProps, IState> {
   private control?: any;
   private debounceTimer?: any;
+  private unmounted: boolean;
 
   public static defaultProps: IProps = {
     type: 'text',
@@ -189,6 +191,12 @@ export class FormControl extends React.Component<IProps, IState> {
     if (prevProps.extraControls !== this.props.extraControls) {
       this.setState({ extraControls: this.props.extraControls });
     }
+  }
+
+  public componentWillUnmount() {
+    if (this.props.onUnmount) this.props.onUnmount(this);
+
+    this.unmounted = true;
   }
 
   public render() {
@@ -1295,5 +1303,9 @@ export class FormControl extends React.Component<IProps, IState> {
 
   public isFormControl() {
     return true;
+  }
+
+  public isUnmounted() {
+    return this.unmounted;
   }
 }

@@ -1,9 +1,19 @@
 import * as React from 'react';
-import { MyComponent } from '.';
+import { MyComponent, FormControl } from '.';
+import _ = require('lodash');
+import { Clone } from './Clone';
 
 interface IProps {
   injectControlFn?: Function;
+  uninjectControlFn?: Function;
   parentCloneNames?: Array<String>;
+  value?: any;
+  oldValue?: any;
+  onInputChanged?: any;
+  cloneName?: string;
+  static?: boolean;
+  cloneLabel?: boolean;
+  cloneIndex?: number;
 }
 
 export class FormComponent<P = {}, S = {}> extends MyComponent<P & IProps, S> {
@@ -29,6 +39,33 @@ export class FormComponent<P = {}, S = {}> extends MyComponent<P & IProps, S> {
       if (this.props.injectControlFn) {
         childProps.injectControlFn = this.props.injectControlFn;
       }
+
+      if (this.props.uninjectControlFn) {
+        childProps.uninjectControlFn = this.props.uninjectControlFn;
+      }
+
+      if (child.type === FormControl) {
+        const fullPath = [this.props.cloneName]
+          .concat((child.props as any).name)
+          .filter((item: any) => !!item)
+          .join('.');
+
+        childProps.value = _.get(this.props.value, fullPath, undefined);
+        childProps.oldValue = _.get(this.props.oldValue, fullPath, undefined);
+
+        childProps.onInputChanged = this.props.onInputChanged;
+        childProps.onUnmount = this.props.uninjectControlFn;
+
+        if (!this.props.cloneLabel && this.props.cloneIndex != 0) {
+          childProps.label = '';
+        }
+      } else if (child.type === Clone) {
+        childProps.value = _.get(this.props.value, this.props.cloneName!, undefined);
+        childProps.oldValue = _.get(this.props.oldValue, this.props.cloneName!, undefined);
+        childProps.cloneLabel = this.props.cloneLabel;
+      }
+
+      childProps.static = this.props.static;
       childProps.parentCloneNames = this.props.parentCloneNames;
       return React.cloneElement(child, childProps);
     });

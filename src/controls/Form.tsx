@@ -202,12 +202,31 @@ export class Form extends React.Component<IProps, IState> {
       }
       childProps.getuploaderprogress = this.getuploaderprogress;
       childProps.injectControlFn = this.formControlInject;
+      childProps.uninjectControlFn = this.formControlUninject;
       return React.cloneElement(child, childProps);
     });
   }
 
   private formControlInject = (formControl: any) => {
-    this.formControls.push(formControl);
+    const index = this.formControls.indexOf(formControl);
+
+    if (index < 0) {
+      this.formControls.push(formControl);
+    }
+
+    this.formControls = this.formControls.filter(() => {
+      return formControl.isUnmounted && !formControl.isUnmounted();
+    });
+  };
+
+  private formControlUninject = (formControl: any) => {
+    const index = this.formControls.indexOf(formControl);
+
+    if (index >= 0) this.formControls.splice(index, 1);
+
+    this.formControls = this.formControls.filter(() => {
+      return formControl.isUnmounted && !formControl.isUnmounted();
+    });
   };
 
   public onSaved() {
@@ -220,14 +239,19 @@ export class Form extends React.Component<IProps, IState> {
 
   public getInputValue(name: string): string {
     let value = '';
-    this.formControls.forEach((formControl: any) => {
-      if (formControl.getName && formControl.getValue) {
-        if (formControl.getName() === name) {
-          value = formControl.getValue(true);
-        }
+
+    const formObject = this.getFormObject();
+    Object.keys(formObject).forEach((key) => {
+      if (key === name) {
+        value = formObject[key];
       }
     });
-    return value.trim();
+
+    if (typeof value === 'string') {
+      return value.trim();
+    } else {
+      return value;
+    }
   }
 
   public getFormControl(name: string): FormControl {

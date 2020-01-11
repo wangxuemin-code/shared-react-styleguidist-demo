@@ -37,13 +37,31 @@ class Main extends Controls.MyComponent<
                   name='emails'
                   addControlPosition={'top'}
                   deleteControlPosition={'bottom'}
+                  cloneLabel={false}
+                  value={{
+                    emails: [
+                      {
+                        bbb1: 'abc',
+                        passwords: [
+                          {
+                            ccc1: 'haha'
+                          },
+                          {
+                            ccc1: 'hehehe'
+                          }
+                        ]
+                      },
+                      {
+                        bbb1: 'cw2',
+                        passwords: []
+                      }
+                    ]
+                  }}
                 >
                   <>
                     <TestControl />
                   </>
                 </Controls.Clone>
-
-                <Controls.FormControl type='text' value='aaaa' name='ggg' />
 
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
@@ -53,6 +71,8 @@ class Main extends Controls.MyComponent<
                     console.log(this.form!.getFormControls());
                     let object = this.form!.getFormObject();
                     console.log(object);
+
+                    console.log(this.form!.getInputValue('emails'));
                   }}
                 >
                   Test

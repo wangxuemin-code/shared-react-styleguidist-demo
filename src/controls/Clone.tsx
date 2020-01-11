@@ -1,7 +1,8 @@
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import * as React from 'react';
 import { stylings } from '../css/theme';
-import { FormControl, Button, Icon, Container, IContainer } from '.';
+import { FormControl, Button, Icon, Container, IContainer, FormComponent } from '.';
+import _ = require('lodash');
 
 /////////// IMPORTANT, Clone children must be single node only,
 /////////// do wrap it with React.Fragment for multiple nodes
@@ -9,8 +10,8 @@ import { FormControl, Button, Icon, Container, IContainer } from '.';
 interface IProps extends IContainer {
   name: string;
   index?: number;
-  value?: any[];
-  oldValue?: any[];
+  value?: any;
+  oldValue?: any;
   addControlPosition?: 'top' | 'bottom';
   deleteControlPosition?: 'top' | 'right' | 'bottom' | 'left';
   addControl?: any;
@@ -20,6 +21,7 @@ interface IProps extends IContainer {
   minItem?: number;
   static?: boolean;
   parentCloneNames?: Array<String>;
+  uninjectControlFn?: Function;
 }
 
 interface IState {
@@ -28,6 +30,7 @@ interface IState {
 
 export class Clone extends React.Component<IProps, IState> {
   private innerClones: Clone[];
+  private unmounted: boolean;
 
   public static defaultProps = {
     deleteControlPosition: 'right',
@@ -42,16 +45,20 @@ export class Clone extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      value: this.maintainMinItems(this.props.value)
+      value: this.maintainMinItems(this.getValueWithName(this.props.value))
     };
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
       this.setState({
-        value: this.maintainMinItems(this.props.value)
+        value: this.maintainMinItems(this.getValueWithName(this.props.value))
       });
     }
+  }
+
+  public componentWillUnmount() {
+    this.unmounted = true;
   }
 
   public render() {
@@ -153,35 +160,51 @@ export class Clone extends React.Component<IProps, IState> {
       if (child.type === FormControl && cloneLevel === 0) {
         const originalName = (child.props as any).name;
 
-        childProps.name = (child.props as any).name + '_' + index;
         childProps.value =
           this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
         childProps.oldValue =
-          this.props.oldValue && this.props.oldValue.length > index
-            ? this.props.oldValue[index][originalName]
+          this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
+            ? this.getValueWithName(this.props.oldValue)[index][originalName]
             : undefined;
-        childProps.onInputChanged = this.onInputChanged.bind(this, originalName);
+
+        childProps.onUnmount = this.props.uninjectControlFn;
+        childProps.onInputChanged = this.onInputChanged.bind(this);
 
         if (!this.props.cloneLabel && index != 0) {
           childProps.label = '';
         }
       } else if (child.type === Clone && cloneLevel === 0) {
-        childProps.index = index;
         const originalName = (child.props as any).name;
+
+        childProps.index = index;
         childProps.value =
           this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
         childProps.oldValue =
-          this.props.oldValue && this.props.oldValue.length > index
-            ? this.props.oldValue[index][originalName]
+          this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
+            ? this.getValueWithName(this.props.oldValue)[index][originalName]
             : undefined;
+
         childProps.ref = (ref: any) => {
           if (ref) {
             this.innerClones.push(ref);
           }
         };
+      } else if ((child.type as any).prototype instanceof FormComponent && cloneLevel === 0) {
+        const obj: any = {};
+        const oldObj: any = {};
+        obj[this.props.name] = this.state.value && this.state.value.length > index ? this.state.value : [];
+        oldObj[this.props.name] = this.getValueWithName(this.props.oldValue);
+        childProps.value = obj;
+        childProps.oldValue = oldObj;
+
+        childProps.onInputChanged = this.onInputChanged.bind(this, index);
+
+        childProps.cloneLabel = this.props.cloneLabel;
       }
 
+      childProps.uninjectControlFn = this.props.uninjectControlFn;
       childProps.parentCloneNames = this.props.parentCloneNames!.concat(this.props.name + '[' + index + ']');
+      childProps.cloneName = this.props.name + '[' + index + ']';
       childProps.cloneIndex = index;
 
       childProps.children = this.recursiveCloneChildren(
@@ -201,12 +224,9 @@ export class Clone extends React.Component<IProps, IState> {
     });
   }
 
-  private onInputChanged = (originalName: string, newValue: string | number, name: string) => {
-    const arr = name.split('_');
-    const index = parseInt(arr[arr.length - 1], 10);
-
+  private onInputChanged = (index: number, newValue: string | number, name: string) => {
     const value = this.state.value;
-    value[index][originalName] = newValue;
+    value[index][name] = newValue;
 
     this.setState({ value: ([] as any[]).concat(value) });
   };
@@ -279,5 +299,17 @@ export class Clone extends React.Component<IProps, IState> {
       }
       return results;
     }
+  }
+
+  private getValueWithName(value: any) {
+    if (Array.isArray(value)) {
+      return value;
+    } else {
+      return _.get(value, this.props.name, undefined);
+    }
+  }
+
+  public isUnmounted() {
+    return this.unmounted;
   }
 }

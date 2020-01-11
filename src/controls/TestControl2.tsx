@@ -10,7 +10,7 @@ export class TestControl2 extends FormComponent {
   public render() {
     return super.formComponentRender(
       <Container>
-        <FormControl required={true} type='text' name='ccc1' value='ccc' />
+        <FormControl required={true} type='text' name='ccc1' label={'Inner level2'} />
       </Container>
     );
   }
