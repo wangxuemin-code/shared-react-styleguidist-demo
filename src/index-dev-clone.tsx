@@ -60,6 +60,8 @@ class Main extends Controls.MyComponent<
                 >
                   <>
                     <TestControl />
+
+                    <Controls.FormControl type='text' name='aaab' />
                   </>
                 </Controls.Clone>
 

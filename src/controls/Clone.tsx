@@ -168,7 +168,7 @@ export class Clone extends React.Component<IProps, IState> {
             : undefined;
 
         childProps.onUnmount = this.props.uninjectControlFn;
-        childProps.onInputChanged = this.onInputChanged.bind(this);
+        childProps.onInputChanged = this.onInputChanged.bind(this, index);
 
         if (!this.props.cloneLabel && index != 0) {
           childProps.label = '';
