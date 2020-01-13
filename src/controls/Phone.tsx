@@ -133,6 +133,7 @@ export class Phone extends React.Component<IProps, IState> {
         </Option>
       );
     });
+
     return (
       <Container position={'relative'} fluid display={'flex'}>
         <Container display={'flex'} margin={{ rightRem: 1 }}>
@@ -145,8 +146,8 @@ export class Phone extends React.Component<IProps, IState> {
             <ReactSelect
               // open={true}
               disabled={this.props.disabled}
-              placeholder={this.props.placeholder}
-              defaultValue={this.state.value}
+              placeholder={this.getPlaceholderAreaCode()}
+              value={this.state.phoneCode || undefined}
               optionLabelProp='children'
               onChange={this.onSetOption}
               suffixIcon={chevronDown}
@@ -176,7 +177,7 @@ export class Phone extends React.Component<IProps, IState> {
                   autoCorrect={'off'}
                   type={'text'}
                   disabled={this.props.loading || this.props.disabled}
-                  placeholder={this.props.placeholder}
+                  placeholder={this.getPlaceholderPhone()}
                   value={this.state.phoneNumber || ''}
                   onChange={this.onChange}
                 />
@@ -305,4 +306,28 @@ export class Phone extends React.Component<IProps, IState> {
       clearInterval(this.timer!);
     }
   };
+
+  private getPlaceholderAreaCode() {
+    if (this.props.placeholder) {
+      const arr = this.props.placeholder.split('-');
+      if (arr.length > 1) {
+        return arr[0];
+      }
+    }
+
+    return '';
+  }
+
+  private getPlaceholderPhone() {
+    if (this.props.placeholder) {
+      const arr = this.props.placeholder.split('-');
+      if (arr.length >= 2) {
+        return arr[1];
+      } else if (arr.length === 1) {
+        return arr[0];
+      }
+    }
+
+    return '';
+  }
 }

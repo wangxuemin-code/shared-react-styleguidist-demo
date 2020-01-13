@@ -1919,6 +1919,7 @@ class Main extends Controls.MyComponent<
                     label={'Phone'}
                     name='phone'
                     value={'+65'}
+                    placeholder={'Sample placeholder'}
                     type={'phone'}
                     onInputChanged={() => {
                       console.log(this.form.getInputValue('phone'));
@@ -1933,7 +1934,7 @@ class Main extends Controls.MyComponent<
                     label={'Phone With Send Code'}
                     name='phonewithsendcode'
                     type={'phone'}
-                    placeholder={'+65-88234124'}
+                    value={'+65-88234124'}
                     loading={this.state.processing}
                     onSendCode={(processing: boolean) => {
                       console.log(processing);
