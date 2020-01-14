@@ -608,16 +608,20 @@ export class FormControl extends React.Component<IProps, IState> {
           </Option>
         );
       });
+
+      let value = this.state.value;
+      if ((this.props.selectMaxTagCount || 1) > 1) {
+        if (this.state.value === '') {
+          value = undefined;
+        }
+      }
+
       return (
         <ReactSelect
           // open={true}
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
-          value={
-            this.state.value !== null && this.state.value !== undefined
-              ? String(this.state.value).split(',')
-              : undefined
-          }
+          value={value !== null && value !== undefined ? String(value).split(',') : undefined}
           optionLabelProp='children'
           onChange={this.onSetOption}
           suffixIcon={chevronDown}
@@ -1112,9 +1116,9 @@ export class FormControl extends React.Component<IProps, IState> {
     return true;
   }
 
-  private processValue(value: string): IProcessResult {
+  private processValue(value?: string): IProcessResult {
     if (this.props.alwaysCapitalize) {
-      value = value.toUpperCase();
+      value = (value || '').toUpperCase();
     }
     if (
       this.props.type === 'checkbox' ||
@@ -1160,20 +1164,20 @@ export class FormControl extends React.Component<IProps, IState> {
     } else if (this.props.type === 'numeric') {
       const re = /^\d+$/;
       return {
-        displayValue: !re.test(value) ? '' : value,
-        value: !re.test(value) ? '' : value
+        displayValue: !re.test(value || '') ? '' : value,
+        value: !re.test(value || '') ? '' : value
       };
     } else if (this.props.type === 'alphanumeric') {
       const re = /^[a-z0-9]+$/i;
       return {
-        displayValue: !re.test(value) ? '' : value,
-        value: !re.test(value) ? '' : value
+        displayValue: !re.test(value || '') ? '' : value,
+        value: !re.test(value || '') ? '' : value
       };
     } else if (this.props.type === 'alphabet' || this.props.alphabetOnly) {
       const re = /^[a-zA-Z]+$/;
       return {
-        displayValue: !re.test(value) ? '' : value,
-        value: !re.test(value) ? '' : value
+        displayValue: !re.test(value || '') ? '' : value,
+        value: !re.test(value || '') ? '' : value
       };
     } else if (this.props.type === 'date' || this.props.type === 'datetime') {
       if (value) {
@@ -1211,7 +1215,17 @@ export class FormControl extends React.Component<IProps, IState> {
 
   private onValueChanged(firstCall: boolean, newValue: string | undefined | null | number) {
     let result: IProcessResult = { displayValue: '', value: '' };
-    result = this.processValue(this.isNotEmpty(newValue) ? String(newValue) : '');
+
+    if (
+      this.props.type === 'select' ||
+      this.props.type === 'customselect' ||
+      this.props.type === 'country' ||
+      this.props.type === 'countrycode'
+    ) {
+      result = this.processValue(this.isNotEmpty(newValue) ? String(newValue) : undefined);
+    } else {
+      result = this.processValue(this.isNotEmpty(newValue) ? String(newValue) : '');
+    }
     let oldValueResult: IProcessResult = { displayValue: undefined, value: undefined };
     if (this.props.static && this.isNotEmpty(this.props.oldValue)) {
       oldValueResult = this.processValue(this.isNotEmpty(this.props.oldValue) ? String(this.props.oldValue) : '');
