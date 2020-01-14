@@ -50,10 +50,12 @@ export class FormComponent<P = {}, S = {}> extends MyComponent<P & IProps, S> {
           .filter((item: any) => !!item)
           .join('.');
 
-        childProps.value = _.get(this.props.value, fullPath, undefined);
-        childProps.oldValue = _.get(this.props.oldValue, fullPath, undefined);
+        if (!childProps.excludeFromFormData) {
+          childProps.value = _.get(this.props.value, fullPath, (child.props as any).value);
+          childProps.oldValue = _.get(this.props.oldValue, fullPath, (child.props as any).oldValue);
+        }
 
-        childProps.onInputChanged = this.props.onInputChanged;
+        childProps.onInputChanged2 = this.props.onInputChanged;
         childProps.onUnmount = this.props.uninjectControlFn;
 
         if (!this.props.cloneLabel && this.props.cloneIndex != 0) {

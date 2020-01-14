@@ -17,7 +17,6 @@ interface IProps extends IContainer {
   addControl?: any;
   deleteControl?: any;
   cloneLabel?: boolean;
-  isIncludeInFormData?: boolean;
   minItem?: number;
   static?: boolean;
   parentCloneNames?: Array<String>;
@@ -71,10 +70,6 @@ export class Clone extends React.Component<IProps, IState> {
 
   public getName = () => {
     return this.props.name;
-  };
-
-  public isIncludeInFormData = () => {
-    return this.props.isIncludeInFormData;
   };
 
   public getValue = (includeKey: boolean) => {
@@ -160,15 +155,17 @@ export class Clone extends React.Component<IProps, IState> {
       if (child.type === FormControl && cloneLevel === 0) {
         const originalName = (child.props as any).name;
 
-        childProps.value =
-          this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
-        childProps.oldValue =
-          this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
-            ? this.getValueWithName(this.props.oldValue)[index][originalName]
-            : undefined;
+        if (!childProps.excludeFromFormData) {
+          childProps.value =
+            this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
+          childProps.oldValue =
+            this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
+              ? this.getValueWithName(this.props.oldValue)[index][originalName]
+              : undefined;
+        }
 
         childProps.onUnmount = this.props.uninjectControlFn;
-        childProps.onInputChanged = this.onInputChanged.bind(this, index);
+        childProps.onInputChanged2 = this.onInputChanged.bind(this, index);
 
         if (!this.props.cloneLabel && index != 0) {
           childProps.label = '';

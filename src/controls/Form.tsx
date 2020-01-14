@@ -294,7 +294,12 @@ export class Form extends React.Component<IProps, IState> {
   public getFormObject(): any {
     const result: any = {};
     this.formControls.forEach((formControl: any) => {
-      if (formControl.isFormControl && formControl.isFormControl() && formControl.isIncludeInFormData) {
+      if (
+        formControl.isFormControl &&
+        formControl.isFormControl() &&
+        formControl.isExcludeFromFormData &&
+        !formControl.isExcludeFromFormData()
+      ) {
         const parentCloneNames = formControl.getParentCloneNames();
 
         if (parentCloneNames.length > 0) {

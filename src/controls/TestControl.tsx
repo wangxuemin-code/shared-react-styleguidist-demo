@@ -19,7 +19,16 @@ export class TestControl extends FormComponent {
     return super.formComponentRender(
       <Container>
         <FormControl required={true} type='text' name='bbb1' label='Inner Level1' />
-
+        <FormControl
+          required={true}
+          type='text'
+          name='bbb2'
+          value={'GG'}
+          label='Inner Level1-2'
+          onInputChanged={(value) => {
+            console.log(value);
+          }}
+        />
         <Controls.Clone
           deleteControl={<Controls.Container>Inner Deletion</Controls.Container>}
           name='passwords'

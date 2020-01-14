@@ -117,12 +117,14 @@ interface IProps extends IContainer {
     fixedFileName?: string;
   };
   singleCheckbox?: boolean;
-  includeInFormData?: boolean;
+  excludeFromFormData?: boolean;
   showPhoneLabel?: boolean;
   debounce?: number;
   autoFocus?: boolean;
   autoSize?: any;
   onInputChanged?: (value: string | number | undefined, name: string) => void;
+  // need it for cloneable control
+  onInputChanged2?: (value: string | number | undefined, name: string) => void;
   onFocus?: (formControl: FormControl) => void;
   onBlur?: (formControl: FormControl) => void;
   onKeyPress?: () => void;
@@ -152,7 +154,7 @@ export class FormControl extends React.Component<IProps, IState> {
     type: 'text',
     name: '',
     uploaderConfigs: {},
-    includeInFormData: true,
+    excludeFromFormData: false,
     showPhoneLabel: true,
     debounce: 0,
     autoSize: true,
@@ -1246,8 +1248,8 @@ export class FormControl extends React.Component<IProps, IState> {
     return <Container className={classes.join(' ')}>{append}</Container>;
   }
 
-  public isIncludeInFormData = () => {
-    return this.props.includeInFormData;
+  public isExcludeFromFormData = () => {
+    return this.props.excludeFromFormData;
   };
 
   private isNotEmpty = (value: any) => {
@@ -1277,14 +1279,18 @@ export class FormControl extends React.Component<IProps, IState> {
   };
 
   private beforeInputChanged = (value: any) => {
-    if (this.props.onInputChanged) {
+    if (this.props.onInputChanged || this.props.onInputChanged2) {
       if (this.props.debounce! > 0) {
         clearTimeout(this.debounceTimer);
         this.debounceTimer = setTimeout(() => {
-          this.props.onInputChanged!(value, this.props.name || '');
+          if (this.props.onInputChanged) this.props.onInputChanged!(value, this.props.name || '');
+
+          if (this.props.onInputChanged2) this.props.onInputChanged2!(value, this.props.name || '');
         }, this.props.debounce);
       } else {
-        this.props.onInputChanged!(value, this.props.name || '');
+        if (this.props.onInputChanged) this.props.onInputChanged!(value, this.props.name || '');
+
+        if (this.props.onInputChanged2) this.props.onInputChanged2!(value, this.props.name || '');
       }
     }
   };
