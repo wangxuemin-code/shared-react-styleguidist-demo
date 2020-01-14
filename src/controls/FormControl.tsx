@@ -611,7 +611,11 @@ export class FormControl extends React.Component<IProps, IState> {
           // open={true}
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
-          value={this.state.value ? String(this.state.value).split(',') : undefined}
+          value={
+            this.state.value !== null && this.state.value !== undefined
+              ? String(this.state.value).split(',')
+              : undefined
+          }
           optionLabelProp='children'
           onChange={this.onSetOption}
           suffixIcon={chevronDown}
@@ -740,7 +744,7 @@ export class FormControl extends React.Component<IProps, IState> {
           // open={true}
           disabled={this.props.disabled}
           placeholder={this.props.placeholder}
-          defaultValue={this.state.value}
+          value={this.state.value}
           optionLabelProp='children'
           onChange={this.onSetOption}
           suffixIcon={chevronDown}
