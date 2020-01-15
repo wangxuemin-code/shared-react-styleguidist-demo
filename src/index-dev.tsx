@@ -1831,7 +1831,7 @@ class Main extends Controls.MyComponent<
                       name='custom_dropdown'
                       placeholder='Choose'
                       type={'select'}
-                      value={'Secondary'}
+                      value={''}
                       selectOptions={[
                         {
                           label: 'Primary',
@@ -1839,7 +1839,7 @@ class Main extends Controls.MyComponent<
                         },
                         {
                           label: 'Secondary',
-                          value: 'Secondary'
+                          value: ''
                         },
                         {
                           label: 'Disabled',
