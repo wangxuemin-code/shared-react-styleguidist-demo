@@ -5,7 +5,8 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import * as styles from '../css/main.scss';
 import SVG from 'react-inlinesvg';
-import { countries } from 'country-data';
+// import { countries } from 'country-data';
+import countries from '../helpers/Countries';
 import ReactCountryFlag from 'react-country-flag';
 import { IContainer, Container } from '.';
 
@@ -25,7 +26,16 @@ interface IBadge {
 
 interface IProps extends IContainer {
   icon: any;
-  variant?: 'primary' | 'secondary' | 'info' | 'disabled' | 'light' | 'dark' | 'success' | 'warning' | 'danger';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'disabled'
+    | 'light'
+    | 'dark'
+    | 'success'
+    | 'warning'
+    | 'danger';
   size?: 'tiny' | 'small' | 'medium' | 'large';
   onClick?: () => void;
   text?: string;
@@ -60,7 +70,11 @@ export class Icon extends React.Component<IProps, any> {
       this.props.badge ? styles.badge : '',
       this.props.flag ? styles.country : '',
       this.props.currency ? styles.country : '',
-      this.props.badge ? (this.props.badge.iconBackground ? styles.iconBackground : '') : ''
+      this.props.badge
+        ? this.props.badge.iconBackground
+          ? styles.iconBackground
+          : ''
+        : ''
     ];
     classes = classes.filter(function(el) {
       return el != '';
@@ -102,7 +116,9 @@ export class Icon extends React.Component<IProps, any> {
     return (
       <Container style={style} className={classes.join(' ')}>
         {this.getIconDesign(iconStyle)}
-        {this.props.text && <Container className={styles.iconText}>{this.props.text}</Container>}
+        {this.props.text && (
+          <Container className={styles.iconText}>{this.props.text}</Container>
+        )}
       </Container>
     );
   }
@@ -112,7 +128,10 @@ export class Icon extends React.Component<IProps, any> {
       case 'fontawesome':
         return (
           <Container style={iconStyle} className={styles.svg} {...this.props}>
-            <FontAwesomeIcon color={this.props.color} icon={this.props.icon as IconDefinition} />
+            <FontAwesomeIcon
+              color={this.props.color}
+              icon={this.props.icon as IconDefinition}
+            />
           </Container>
         );
         break;
@@ -128,7 +147,9 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'flag':
-        const flag = countries.all.filter((obj: any) => obj.alpha2 === this.props.flag)[0];
+        const flag = countries.all.filter(
+          (obj: any) => obj.alpha2 === this.props.flag
+        )[0];
         return (
           <Container className={styles.flag} {...this.props}>
             {flag && <ReactCountryFlag code={flag.alpha2} svg />}
@@ -136,7 +157,9 @@ export class Icon extends React.Component<IProps, any> {
         );
         break;
       case 'currency':
-        const currency = countries.all.filter((obj: any) => obj.currencies[0] === this.props.currency)[0];
+        const currency = countries.all.filter(
+          (obj: any) => obj.currencies[0] === this.props.currency
+        )[0];
         return (
           <Container className={styles.flag} {...this.props}>
             {currency && <ReactCountryFlag code={currency.alpha2} svg />}
@@ -146,7 +169,11 @@ export class Icon extends React.Component<IProps, any> {
     }
   }
 
-  private checkIconType(): 'fontawesomepro' | 'fontawesome' | 'flag' | 'currency' {
+  private checkIconType():
+    | 'fontawesomepro'
+    | 'fontawesome'
+    | 'flag'
+    | 'currency' {
     if (this.props.currency) {
       return 'currency';
     } else if (this.props.flag) {

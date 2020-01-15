@@ -1,4 +1,5 @@
-import { countries } from 'country-data';
+// import { countries } from 'country-data';
+import countries from '../helpers/Countries';
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import ReactInput from 'antd/es/input';
@@ -84,7 +85,11 @@ export class Phone extends React.Component<IProps, IState> {
       return 0;
     });
     sortedCountries.map((option: any) => {
-      if (option.countryCallingCodes.length && option.emoji && option.alpha2 !== 'SG') {
+      if (
+        option.countryCallingCodes.length &&
+        option.emoji &&
+        option.alpha2 !== 'SG'
+      ) {
         var obj = {
           label: option.countryCallingCodes[0],
           value: option.countryCallingCodes[0],
@@ -95,25 +100,32 @@ export class Phone extends React.Component<IProps, IState> {
       }
     });
 
-    var filteredRestOptions = restOptions.reduce((accumulator: any, current: any) => {
-      if (checkIfAlreadyExist(current)) {
-        return accumulator;
-      } else {
-        return [...accumulator, current];
-      }
+    var filteredRestOptions = restOptions.reduce(
+      (accumulator: any, current: any) => {
+        if (checkIfAlreadyExist(current)) {
+          return accumulator;
+        } else {
+          return [...accumulator, current];
+        }
 
-      function checkIfAlreadyExist(currentVal: any) {
-        return accumulator.some((item: any) => {
-          return item.label === currentVal.label;
-        });
-      }
-    }, []);
+        function checkIfAlreadyExist(currentVal: any) {
+          return accumulator.some((item: any) => {
+            return item.label === currentVal.label;
+          });
+        }
+      },
+      []
+    );
 
     const mainChildren: any[] = [];
     const restChildren: any[] = [];
     mainOptions!.map((item: any, i: any) => {
       mainChildren.push(
-        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
+        <Option
+          data-search={`${item.label} ${item.country} ${item.code}`}
+          value={item.value}
+          key={i}
+        >
           <Container float='left'>
             <Icon flag={item.code} /> &nbsp;
             <Container className='phone-country'>{item.country}</Container>
@@ -124,7 +136,11 @@ export class Phone extends React.Component<IProps, IState> {
     });
     filteredRestOptions!.map((item: any, i: any) => {
       restChildren.push(
-        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
+        <Option
+          data-search={`${item.label} ${item.country} ${item.code}`}
+          value={item.value}
+          key={i}
+        >
           <Container float='left'>
             <Icon flag={item.code} /> &nbsp;
             <Container className='phone-country'>{item.country}</Container>
@@ -152,7 +168,9 @@ export class Phone extends React.Component<IProps, IState> {
               onChange={this.onSetOption}
               suffixIcon={chevronDown}
               showSearch={true}
-              dropdownRender={(menu) => <div className='flag-select phone-select'>{menu}</div>}
+              dropdownRender={(menu) => (
+                <div className='flag-select phone-select'>{menu}</div>
+              )}
               optionFilterProp='data-search'
               notFoundContent={'No Results'}
               dropdownMatchSelectWidth={false}
@@ -205,13 +223,15 @@ export class Phone extends React.Component<IProps, IState> {
                     variant={
                       !this.state.phoneCode ||
                       !this.state.phoneNumber ||
-                      (this.state.timeRemainingInSeconds !== 60 && this.state.timeRemainingInSeconds !== 0)
+                      (this.state.timeRemainingInSeconds !== 60 &&
+                        this.state.timeRemainingInSeconds !== 0)
                         ? 'disabled'
                         : 'primary'
                     }
                     onPress={this.sendPhoneCode}
                   >
-                    {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
+                    {this.state.firstSendCode &&
+                    this.state.timeRemainingInSeconds === 60
                       ? 'Send Code'
                       : this.state.timeRemainingInSeconds === 60 ||
                         this.state.timeRemainingInSeconds === 0 ||
@@ -227,7 +247,9 @@ export class Phone extends React.Component<IProps, IState> {
         <Container className={styles.phoneTimerMessage}>
           {this.state.firstSendCode && this.state.timeRemainingInSeconds === 60
             ? ''
-            : this.state.timeRemainingInSeconds === 60 || this.state.timeRemainingInSeconds === 0 || !this.props.loading
+            : this.state.timeRemainingInSeconds === 60 ||
+              this.state.timeRemainingInSeconds === 0 ||
+              !this.props.loading
             ? ''
             : 'You can resend in ' + this.state.timeRemainingInSeconds + ' sec'}
         </Container>
@@ -240,7 +262,11 @@ export class Phone extends React.Component<IProps, IState> {
       const phone = phoneValue ? phoneValue.toString().split('-') : '';
       const phoneCode = phone[0] ? phone[0] : '';
       const phoneNumber = phone[1] ? phone[1] : '';
-      this.setState({ phoneCode: phoneCode, phoneNumber: phoneNumber, value: phoneValue });
+      this.setState({
+        phoneCode: phoneCode,
+        phoneNumber: phoneNumber,
+        value: phoneValue
+      });
     } else {
       this.setState({ phoneCode: '', phoneNumber: '', value: '' });
     }
