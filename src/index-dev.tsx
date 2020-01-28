@@ -2325,11 +2325,26 @@ class Main extends Controls.MyComponent<
               </Controls.Container>
               <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
-                <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
+                <h4 style={{ marginBottom: '80px' }}>STO Timeline (Three Phase)</h4>
                 <Controls.StoTimeLine
                   stoDateTime={{
                     bookbuildingStartTime: '2019-08-14T10:20:24Z',
                     bookbuildingEndTime: '2019-08-24T10:20:24Z',
+                    preSaleStartTime: '2019-08-28T10:20:24Z',
+                    preSaleEndTime: '2019-09-15T10:20:24Z',
+                    publicSaleStartTime: '2019-09-20T10:20:24Z',
+                    publicSaleEndTime: '2019-09-26T00:20:24Z',
+                    issueDateTime: '2019-09-26T00:20:24Z'
+                  }}
+                  hideTitle
+                />
+              </Controls.Container>
+              <Controls.Divider />
+              <Controls.Container margin={{ bottomRem: 6 }}>
+                <h4 style={{ marginBottom: '80px' }}>STO Timeline (Two Phase)</h4>
+                <Controls.StoTimeLine
+                  stoDateTime={{
+                    offeringCreatedTime: '2019-08-14T10:20:24Z',
                     preSaleStartTime: '2019-08-28T10:20:24Z',
                     preSaleEndTime: '2019-09-15T10:20:24Z',
                     publicSaleStartTime: '2019-09-20T10:20:24Z',

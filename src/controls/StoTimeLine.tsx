@@ -5,8 +5,9 @@ import * as styles from '../css/main.scss';
 import { Container, IContainer } from '.';
 
 interface IStoDateTime {
-  bookbuildingStartTime: string;
-  bookbuildingEndTime: string;
+  bookbuildingStartTime?: string;
+  bookbuildingEndTime?: string;
+  offeringCreatedTime?: string;
   preSaleStartTime: string;
   preSaleEndTime: string;
   publicSaleStartTime: string;
@@ -22,29 +23,37 @@ interface IProps extends IContainer {
   hideTitle?: boolean;
 }
 
+type Phases = Array<{
+  title: any;
+  date: Moment;
+  key?: string;
+  clickable: boolean;
+  isBig: boolean;
+}>;
+
 interface IState {
   selectedDateKey: string;
+  phases: Phases;
 }
 
 export class StoTimeLine extends React.Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
 
-    this.state = {
-      selectedDateKey: this.props.defaultPhase || ''
-    };
-  }
+    const phases: Phases = [];
 
-  render() {
-    const phases: Array<{
-      title: any;
-      date: Moment;
-      key?: string;
-      clickable: boolean;
-      isBig: boolean;
-    }> = [];
-    phases.push(
-      {
+    if (this.props.stoDateTime.offeringCreatedTime) {
+      phases.push({
+        title: <>Offering Created</>,
+        key: 'offering_created',
+        date: moment(this.props.stoDateTime.offeringCreatedTime),
+        clickable: false,
+        isBig: false
+      });
+    }
+
+    if (this.props.stoDateTime.bookbuildingStartTime) {
+      phases.push({
         title: (
           <>
             Start Of
@@ -56,8 +65,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.bookbuildingStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.bookbuildingStartTime)),
         isBig: true
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.bookbuildingEndTime) {
+      phases.push({
         title: (
           <>
             End Of
@@ -69,8 +80,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.bookbuildingEndTime),
         clickable: true,
         isBig: false
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.preSaleStartTime) {
+      phases.push({
         title: (
           <>
             Start Of <br /> Pre-Sale
@@ -80,8 +93,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.preSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.preSaleStartTime)),
         isBig: true
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.preSaleEndTime) {
+      phases.push({
         title: (
           <>
             End Of <br /> Pre-Sale
@@ -90,8 +105,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.preSaleEndTime),
         clickable: false,
         isBig: false
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.publicSaleStartTime) {
+      phases.push({
         title: (
           <>
             Start Of <br /> Public Sale
@@ -101,8 +118,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.publicSaleStartTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleStartTime)),
         isBig: true
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.publicSaleEndTime) {
+      phases.push({
         title: (
           <>
             End Of <br /> Public Sale
@@ -111,8 +130,10 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.publicSaleEndTime),
         clickable: false,
         isBig: false
-      },
-      {
+      });
+    }
+    if (this.props.stoDateTime.issueDateTime) {
+      phases.push({
         title: (
           <>
             Start Of <br /> Secondary Trading
@@ -122,8 +143,17 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         date: moment(this.props.stoDateTime.issueDateTime),
         clickable: this.hasDatePast(moment(this.props.stoDateTime.issueDateTime)),
         isBig: true
-      }
-    );
+      });
+    }
+
+    this.state = {
+      selectedDateKey: this.props.defaultPhase || '',
+      phases: phases
+    };
+  }
+
+  render() {
+    const { phases } = this.state;
 
     return (
       <Container id='timeline' {...this.props}>
@@ -134,6 +164,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
         )}
         <Container
           classNames={[styles.stoTimelineContainer, this.props.stoDateTime.terminatedAt ? styles.disabled : '']}
+          style={{ gridTemplateColumns: `0px repeat(${phases.length - 1}, auto)` }}
         >
           {phases.map((phase, i) => {
             const nextPhaseDate = i < phases.length - 1 ? phases[i + 1].date : undefined;
