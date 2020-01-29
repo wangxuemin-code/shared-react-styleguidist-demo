@@ -776,7 +776,7 @@ export class FormControl extends React.Component<IProps, IState> {
             onChange={this.onSwitchChanged}
             checkedChildren={<ReactIcon type='check' />}
             unCheckedChildren={<ReactIcon type='close' />}
-            defaultChecked={this.state.displayValue === '1'}
+            checked={this.state.displayValue === '1'}
           />
         </Container>
       );
