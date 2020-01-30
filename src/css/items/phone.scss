@@ -33,3 +33,7 @@ input.otp {
     font-size: 3.5rem !important;
   }
 }
+
+.phone-select .ant-select-selection-item .left > .phone-country {
+  display: none;
+}

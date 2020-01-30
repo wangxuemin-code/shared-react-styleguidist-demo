@@ -649,20 +649,14 @@ export class FormControl extends React.Component<IProps, IState> {
         />
       );
     } else if (this.props.type === 'country' || this.props.type === 'countrycode') {
-      const mainOptions: any = [];
       const restOptions: any = [];
       const excludeOptions = this.props.excludeOptions || [];
-      const singaporeLabel = this.props.type === 'country' ? 'Singapore' : 'SGP';
-      if (excludeOptions.indexOf(singaporeLabel) == -1) {
-        var obj = {
-          label: singaporeLabel,
-          value: singaporeLabel,
-          country: 'Singapore',
-          code: 'SG'
-        };
-        mainOptions.push(obj);
-      }
+
       var sortedCountries: any = countries.all;
+
+      var singaporeIndex = sortedCountries.findIndex((country: any) => country.alpha2 == 'SG');
+      const singaporeArr = sortedCountries.splice(singaporeIndex, 1);
+
       if (this.props.type === 'country') {
         sortedCountries.sort(function(a: any, b: any) {
           if (a.name < b.name) {
@@ -685,13 +679,15 @@ export class FormControl extends React.Component<IProps, IState> {
           return 0;
         });
       }
+
+      if (singaporeArr.length > 0) sortedCountries.unshift(singaporeArr[0]);
+
       sortedCountries.map((option: any) => {
         if (
           this.props.type === 'country' &&
           option.alpha3.length &&
           option.emoji &&
-          excludeOptions.indexOf(option.name) == -1 &&
-          option.alpha2 !== 'SG'
+          excludeOptions.indexOf(option.name) == -1
         ) {
           var obj = {
             label: option.name,
@@ -705,8 +701,7 @@ export class FormControl extends React.Component<IProps, IState> {
           this.props.type === 'countrycode' &&
           option.alpha3.length &&
           option.emoji &&
-          excludeOptions.indexOf(option.alpha3) == -1 &&
-          option.alpha2 !== 'SG'
+          excludeOptions.indexOf(option.alpha3) == -1
         ) {
           var obj = {
             label: option.alpha3,
@@ -726,16 +721,7 @@ export class FormControl extends React.Component<IProps, IState> {
         };
         restOptions.push(obj);
       }
-      const mainChildren: any[] = [];
       const restChildren: any[] = [];
-      mainOptions!.map((item: any, i: any) => {
-        mainChildren.push(
-          <Option data-search={`${item.label} ${item.value} ${item.country} ${item.code}`} value={item.value} key={i}>
-            <Icon flag={item.code} /> &nbsp;&nbsp;
-            {item.label}
-          </Option>
-        );
-      });
       restOptions!.map((item: any, i: any) => {
         restChildren.push(
           <Option data-search={`${item.label} ${item.value} ${item.country} ${item.code}`} value={item.value} key={i}>
@@ -760,8 +746,7 @@ export class FormControl extends React.Component<IProps, IState> {
           mode={this.props.selectMode}
           dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? this.props.selectMenuSize : true}
         >
-          <OptGroup label='mainOptions'>{mainChildren}</OptGroup>
-          <OptGroup label='restOptions'>{restChildren}</OptGroup>
+          {restChildren}
         </ReactSelect>
       );
     } else if (this.props.type === 'switch') {

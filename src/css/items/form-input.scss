@@ -19,12 +19,28 @@
 }
 
 .ant-input-prefix {
-  left: 0.5rem !important;
+  position: absolute;
+  height: 37px;
+  display: flex;
+  left: 0.5rem;
   color: map-get($colors, primaryGrey) !important;
+  align-items: center;
 }
 
 .ant-input-affix-wrapper .ant-input-suffix {
-  right: 0.5rem !important;
+  right: 0.5rem;
+  position: absolute;
+  height: 37px;
+  display: flex;
+  align-items: center;
+}
+
+.ant-input-affix-wrapper,
+.ant-input-affix-wrapper:hover,
+.ant-input-affix-wrapper-focused {
+  border: none;
+  padding: 0px;
+  box-shadow: none;
 }
 
 .ant-input-affix-wrapper .ant-input:not(:first-child) {

@@ -24,36 +24,33 @@
 
 .ant-dropdown,
 .ant-select-dropdown {
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 0px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 2px 1px;
   border: 0;
   border-radius: 0;
 
-  .ant-select-dropdown-menu {
-    border: 1px solid map-get($colors, primaryGreyLighter);
+  .ant-select-item-option:not(.ant-select-item-option-disabled) {
+    background-color: map-get($colors, primaryAlt);
+    cursor: pointer;
+    border-left: 3px solid map-get($colors, primaryAlt);
+    padding: 0.3rem 0.5rem;
+    font-size: 0.857rem;
     border-radius: 0;
-    padding: 0.5rem 0;
-    margin-top: -5px;
+    width: 100%;
 
-    .ant-select-dropdown-menu-item:not(.ant-select-dropdown-menu-item-disabled) {
+    &.ant-select-item-option-selected {
       background-color: map-get($colors, primaryAlt);
-      cursor: pointer;
-      border-left: 3px solid map-get($colors, primaryAlt);
-      padding: 0.3rem 0.5rem;
-      font-size: 0.857rem;
-      border-radius: 0;
-      width: 100%;
+      color: map-get($colors, primaryDark);
+      border-left: 3px solid map-get($colors, primaryDark);
+    }
 
-      &.ant-select-dropdown-menu-item-selected {
-        background-color: map-get($colors, primaryAlt);
-        color: map-get($colors, primaryDark);
-        border-left: 3px solid map-get($colors, primaryDark);
-      }
+    &.ant-select-item-option-active {
+      border-left: 3px solid map-get($colors, secondary);
+    }
 
-      &:hover {
-        background-color: map-get($colors, primaryAlt);
-        color: map-get($colors, primaryDark);
-        border-left: 3px solid map-get($colors, primaryDark);
-      }
+    &:hover {
+      background-color: map-get($colors, primaryAlt);
+      color: map-get($colors, primaryDark);
+      border-left: 3px solid map-get($colors, secondary);
     }
   }
 
@@ -75,6 +72,19 @@
         }
       }
     }
+  }
+}
+
+.ant-select-item-option-content .end-of-group {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  margin: 3px 0px;
+
+  > div {
+    width: 100%;
+    background-color: map-get($colors, primaryGrey);
+    height: 1px;
   }
 }
 
@@ -160,6 +170,36 @@
     .ant-select-selection__rendered {
       line-height: 35px;
     }
+  }
+}
+
+.ant-select,
+.ant-select-single:not(.ant-select-customize-input) {
+  .ant-select-selector {
+    height: 37px;
+    border: 0;
+    box-shadow: none !important;
+    padding: 0px 30px 0px 0px;
+    cursor: pointer;
+
+    .ant-select-selection-item {
+      line-height: 37px;
+    }
+
+    .ant-select-selection-search {
+      left: 0px;
+
+      > input {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.ant-select-multiple {
+  .ant-select-selection-item {
+    line-height: 25px !important;
+    font-size: 12px;
   }
 }
 

@@ -65,6 +65,7 @@ input,
 .ant-input,
 .ant-input-number-input,
 .ant-input-affix-wrapper input,
+.ant-input-affix-wrapper > .ant-input,
 textarea,
 .ant-select {
   border: 0;
@@ -225,4 +226,19 @@ textarea:focus {
       flex: unset;
     }
   }
+}
+
+.ant-picker {
+  width: 0px;
+  height: 0px;
+  padding: 0px;
+  border: 0px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  visibility: hidden;
+}
+
+.date-input:hover > .ant-input {
+  border-bottom: 1px solid map-get($colors, secondary);
 }

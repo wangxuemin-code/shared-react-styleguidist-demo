@@ -112,6 +112,12 @@
     padding: 0 0.5rem;
   }
 
+  .ant-select-selection-item {
+    font-size: 1rem;
+    color: map-get($colors, primaryDarkActive);
+    padding: 0px 0px 0px 14px !important;
+  }
+
   .ant-select-dropdown-menu {
     border-radius: 0;
     margin-top: 0;

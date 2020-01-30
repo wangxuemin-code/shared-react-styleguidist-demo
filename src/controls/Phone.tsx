@@ -62,19 +62,13 @@ export class Phone extends React.Component<IProps, IState> {
   }
 
   public render() {
-    const mainOptions: any = [];
     const restOptions: any = [];
-    const singaporeLabel = '+65';
+
     var sortedCountries: any = countries.all;
 
-    var obj = {
-      label: singaporeLabel,
-      value: singaporeLabel,
-      country: 'Singapore',
-      code: 'SG'
-    };
-    mainOptions.push(obj);
-    var sortedCountries: any = countries.all;
+    var singaporeIndex = sortedCountries.findIndex((country: any) => country.alpha2 == 'SG');
+    const singaporeArr = sortedCountries.splice(singaporeIndex, 1);
+
     sortedCountries.sort(function(a: any, b: any) {
       if (a.name < b.name) {
         return -1;
@@ -84,8 +78,11 @@ export class Phone extends React.Component<IProps, IState> {
       }
       return 0;
     });
+
+    if (singaporeArr.length > 0) sortedCountries.unshift(singaporeArr[0]);
+
     sortedCountries.map((option: any) => {
-      if (option.countryCallingCodes.length && option.emoji && option.alpha2 !== 'SG') {
+      if (option.countryCallingCodes.length && option.emoji) {
         var obj = {
           label: option.countryCallingCodes[0],
           value: option.countryCallingCodes[0],
@@ -110,22 +107,16 @@ export class Phone extends React.Component<IProps, IState> {
       }
     }, []);
 
-    const mainChildren: any[] = [];
     const restChildren: any[] = [];
-    mainOptions!.map((item: any, i: any) => {
-      mainChildren.push(
-        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
-          <Container float='left'>
-            <Icon flag={item.code} /> &nbsp;
-            <Container className='phone-country'>{item.country}</Container>
-          </Container>
-          <Container float='right'> {item.label}</Container>
-        </Option>
-      );
-    });
+
     filteredRestOptions!.map((item: any, i: any) => {
       restChildren.push(
-        <Option data-search={`${item.label} ${item.country} ${item.code}`} value={item.value} key={i}>
+        <Option
+          data-search={`${item.label} ${item.country} ${item.code}`}
+          value={item.value}
+          key={i}
+          className={item.code === 'SG' ? styles.endOfGroup : ''}
+        >
           <Container float='left'>
             <Icon flag={item.code} /> &nbsp;
             <Container className='phone-country'>{item.country}</Container>
@@ -138,7 +129,7 @@ export class Phone extends React.Component<IProps, IState> {
     return (
       <Container position={'relative'} fluid display={'flex'}>
         <Container display={'flex'} margin={{ rightRem: 1 }}>
-          <Container width={120}>
+          <Container width={130} height={43}>
             {this.props.showPhoneLabel && (
               <label className={styles.semiBold}>
                 <Container className={styles.semiBold}>Area Code</Container>
@@ -156,11 +147,10 @@ export class Phone extends React.Component<IProps, IState> {
               dropdownRender={(menu: any) => <div className='flag-select phone-select'>{menu}</div>}
               optionFilterProp='data-search'
               notFoundContent={'No Results'}
-              dropdownMatchSelectWidth={undefined}
+              dropdownMatchSelectWidth={400}
               className={'phone-select'}
             >
-              <OptGroup label='mainOptions'>{mainChildren}</OptGroup>
-              <OptGroup label='restOptions'>{restChildren}</OptGroup>
+              {restChildren}
             </ReactSelect>
           </Container>
         </Container>
