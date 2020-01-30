@@ -95,8 +95,13 @@ textarea,
   }
 }
 
+.ant-select:hover {
+  border-bottom: 1px solid map-get($colors, secondary);
+}
+
 input:not(.ant-select-search__field):hover,
 .ant-input:hover,
+.ant-select-focused,
 textarea:hover,
 .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
   border-bottom: 1px solid map-get($colors, secondary);

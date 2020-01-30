@@ -1,11 +1,11 @@
+import { CalendarOutlined } from '@ant-design/icons';
+import ReactDatePicker from 'antd/es/date-picker';
 import * as React from 'react';
 import MaskedInput from 'react-maskedinput-ultimate';
+import { Container, IContainer } from '.';
 import * as styles from '../css/main.scss';
 import moment = require('moment');
-import ReactDatePicker from 'antd/es/date-picker';
-import ReactIcon from 'antd/es/icon';
 const { RangePicker } = ReactDatePicker;
-import { Container, IContainer } from '.';
 
 export interface IDateOption {
   endDate?: Date;
@@ -98,9 +98,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon onClick={this.toggleDatePicker} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
+            <CalendarOutlined onClick={this.toggleDatePicker} style={{ color: 'rgba(0,0,0)' }} />
             <ReactDatePicker
-              getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
+              getPopupContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={this.state.defaultValue}
               disabledDate={this.disabledDate}
               disabled={this.props.disabled}
@@ -161,9 +161,9 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon onClick={this.showRangeCalendar} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
+            <CalendarOutlined onClick={this.showRangeCalendar} style={{ color: 'rgba(0,0,0)' }} />
             <RangePicker
-              getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
+              getPopupContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={[
                 this.state.displayStartValue ? moment(this.state.displayStartValue, this.getDateFormat()) : moment(),
                 this.state.displayEndValue ? moment(this.state.displayEndValue, this.getDateFormat()) : moment()
@@ -182,7 +182,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                   ? {
                       use12Hours: true,
                       format: 'HH:mm',
-                      defaultValue: moment('00:00:00', 'HH:mm')
+                      defaultValue: [moment('00:00:00', 'HH:mm')]
                     }
                   : undefined
               }
@@ -219,7 +219,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                 }
               }}
             />
-            <ReactIcon onClick={this.showRangeCalendar} type='calendar' style={{ color: 'rgba(0,0,0)' }} />
+            <CalendarOutlined onClick={this.showRangeCalendar} style={{ color: 'rgba(0,0,0)' }} />
             {/* <ReactDatePicker
               getCalendarContainer={(trigger: any) => trigger.parentNode.parentNode}
               value={moment(this.state.displayEndValue, this.getDateFormat())}

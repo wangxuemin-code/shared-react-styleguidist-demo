@@ -79,7 +79,7 @@ export class Form extends React.Component<IProps, IState> {
         <ReactForm
           layout={this.props.horizontal ? 'horizontal' : 'vertical'}
           className={styles.istoxForm}
-          onSubmit={this._onSubmit.bind(this)}
+          onSubmitCapture={this._onSubmit.bind(this)}
         >
           {this.recursiveCloneChildren(this.props.children)}
         </ReactForm>

@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { Controls } from './index-prod';
+import ReactSelect from 'antd/es/select';
+const { Option, OptGroup } = ReactSelect;
 
 class Main extends Controls.MyComponent<
   any,
@@ -37,39 +39,32 @@ class Main extends Controls.MyComponent<
         <Controls.Container margin={{ bottomRem: 6, leftRightRem: 4 }}>
           <h4 style={{ marginBottom: '80px' }}>STO Timeline</h4>
           <Controls.Form>
-            <Controls.FormControl
-              type='autocomplete'
-              label={'Date'}
-              name='date'
-              autoCompleteOptions={{
-                getFetchPromise: this.fetchData
-              }}
-              placeholder='testing'
-              onInputChanged={(value) => {
-                console.log(value);
-              }}
-            />
+            <Controls.FormControl type='text' label='ABC'></Controls.FormControl>
 
-            <Controls.FormControl type='text' value='abc' />
+            <Controls.FormControl
+              type='select'
+              selectOptions={[
+                {
+                  label: 'abc',
+                  value: 'cde'
+                },
+                {
+                  label: 'ggg',
+                  value: 'ggg'
+                }
+              ]}
+            ></Controls.FormControl>
           </Controls.Form>
         </Controls.Container>
+
+        <ReactSelect notFoundContent={'No Results'} showSearch={true}>
+          <Option value={'aa'}>aa</Option>
+
+          <Option value={'bb'}>bb</Option>
+        </ReactSelect>
       </Controls.RootContainer>
     );
   }
-
-  private fetchData = (text: string) => {
-    console.log(text);
-    return new Promise<Array<{ component: any; value: string }>>((resolve, reject) => {
-      setTimeout(() => {
-        resolve([
-          {
-            component: <Controls.Container fontWeight='bold'>Hello</Controls.Container>,
-            value: 'hello'
-          }
-        ]);
-      }, 1000);
-    });
-  };
 }
 
 const render = () => {

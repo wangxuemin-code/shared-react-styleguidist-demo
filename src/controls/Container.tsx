@@ -1,7 +1,7 @@
 import { BorderColorProperty, BorderStyleProperty, FontWeightProperty } from 'csstype';
 import * as React from 'react';
 import { MouseEventHandler } from 'react';
-import * as ReactTooltip from 'react-tooltip';
+import ReactTooltip from 'react-tooltip';
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
 import { IAllDirection, IDirection, IDirectionShort } from './common/Interfaces';

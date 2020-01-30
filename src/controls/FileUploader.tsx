@@ -1,13 +1,13 @@
+import { EyeOutlined, FilePdfOutlined, SyncOutlined } from '@ant-design/icons';
+import ReactSpin from 'antd/es/spin';
 import * as React from 'react';
 import Iframe from 'react-iframe';
+import { Confirm, Container, Image, Message, Modal } from '.';
 import * as styles from '../css/main.scss';
-var S3 = require('aws-sdk/clients/s3');
-import { AwsHelper } from '../helpers/AwsHelper';
 import { UuidGenerator } from '../helpers';
+import { AwsHelper } from '../helpers/AwsHelper';
+var S3 = require('aws-sdk/clients/s3');
 declare const Buffer: { from: new (arg0: any, arg1: string) => any };
-import ReactSpin from 'antd/es/spin';
-import ReactIcon from 'antd/es/icon';
-import { Modal, Image, Confirm, Container, Message } from '.';
 
 export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
@@ -229,7 +229,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
   };
 
   private isLoading = (children: any) => {
-    const spinnerIcon = <ReactIcon type='sync' style={{ fontSize: 24 }} spin />;
+    const spinnerIcon = <SyncOutlined style={{ fontSize: 24 }} spin />;
     return (
       <ReactSpin style={{ color: '#000' }} indicator={spinnerIcon} tip='uploading'>
         {children}
@@ -363,11 +363,10 @@ export default class FileUploader extends React.Component<IProps, IState> {
             />
           </label>
           {this.props.uploaderViewer && (
-            <ReactIcon
+            <EyeOutlined
               onClick={this.openViewer.bind(this)}
               className={styles.uploaderViewer}
               style={{ fontSize: 24 }}
-              type={'eye'}
             />
           )}
         </Container>
@@ -394,7 +393,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
         >
           {this.state.type !== 'pdf' && <Image onClick={this.openViewer.bind(this)} src={this.state.src} />}
           {this.state.type == 'pdf' && this.state.src !== '' && (
-            <ReactIcon onClick={this.openViewer.bind(this)} className={styles.fileIcon} type={'file-pdf'} />
+            <FilePdfOutlined onClick={this.openViewer.bind(this)} className={styles.fileIcon} />
           )}
           {this.props.showFileName && (
             <Container className={styles.uploaderFileName} fluid verticalAlign={'center'}>

@@ -8,6 +8,7 @@
     "strictNullChecks": true,
     "removeComments": true,
     "declaration": true,
+    "esModuleInterop": true,
     "sourceMap": true,
     "jsx": "react",
     "typeRoots": ["index.d.ts", "node_modules/@types"],

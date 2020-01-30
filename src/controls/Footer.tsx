@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { WrapperContainer, Container, IContainer, Grid, Link, Image } from '.';
-import ReactIcon from 'antd/es/icon';
+import ReactIcon from '@ant-design/icons';
 
 interface IProps extends IContainer {
   detailed?: boolean;
@@ -120,7 +120,7 @@ export class Footer extends React.Component<IProps, any> {
             <Grid.Row fitted padding={{ topRem: this.props.detailed ? 2 : 0 }}>
               <Grid.Col col={6}>
                 <Container className={'small'} float={'left'}>
-                  © iSTOX 2019. All rights reserved.
+                  © iSTOX 2020. All rights reserved.
                 </Container>
               </Grid.Col>
               <Grid.Col col={6}>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Container } from './Container';
 import * as styles from '../css/main.scss';
 import ReactPagination from 'antd/es/pagination';
-import ReactIcon from 'antd/es/icon';
+import ReactIcon from '@ant-design/icons';
 
 interface IProps {
   outline?: boolean;

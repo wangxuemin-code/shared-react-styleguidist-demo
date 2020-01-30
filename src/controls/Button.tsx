@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as styles from '../css/main.scss';
 import ControlsHelper from './common/ControlsHelper';
-import ReactIcon from 'antd/es/icon';
+import ReactIcon from '@ant-design/icons';
 import { Link, Container, IContainer } from '.';
 
 const SpinnerSVG = () => (

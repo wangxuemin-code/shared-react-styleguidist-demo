@@ -96,13 +96,15 @@ export class AutoComplete extends React.Component<IProps, IState> {
           placeholder={this.props.placeholder}
         >
           {this.state.error && (
-            <Select.Option key='error' disabled={true}>
+            <Select.Option key='error' value='error' disabled={true}>
               <Alert error={this.state.error} />
             </Select.Option>
           )}
 
           {this.state.data.map((d) => (
-            <Select.Option key={d.value}>{d.component}</Select.Option>
+            <Select.Option key={d.value} value={d.value}>
+              {d.component}
+            </Select.Option>
           ))}
         </Select>
       </React.Fragment>

@@ -1,40 +1,39 @@
-import * as React from 'react';
-// import { countries } from 'country-data';
-import countries from '../helpers/Countries';
-import FileUploader, { FilePattern } from './FileUploader';
-import * as styles from '../css/main.scss';
-import { Formatter } from '../helpers/Formatter';
-import moment = require('moment');
-import { DateTime } from '../helpers';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import ReactInput from 'antd/es/input';
 import ReactCheckbox from 'antd/es/checkbox';
-import ReactRadio from 'antd/es/radio';
+import ReactInput from 'antd/es/input';
 import ReactInputNumber from 'antd/es/input-number';
-import ReactSwitch from 'antd/es/switch';
-import ReactIcon from 'antd/es/icon';
+import ReactRadio from 'antd/es/radio';
 import ReactSelect from 'antd/es/select';
+import ReactSwitch from 'antd/es/switch';
+import * as React from 'react';
+import {
+  AutoComplete,
+  Container,
+  DateTimePicker,
+  IAutoComplete,
+  Icon,
+  IContainer,
+  IDateOption,
+  Loading,
+  Message,
+  OtpInput,
+  Phone,
+  Transition
+} from '.';
+import * as styles from '../css/main.scss';
+import { DateTime } from '../helpers';
+import countries from '../helpers/Countries';
+import { Formatter } from '../helpers/Formatter';
+import FileUploader, { FilePattern } from './FileUploader';
+import moment = require('moment');
+
 const { Option, OptGroup } = ReactSelect;
 const chevronDown = (
   <svg viewBox='0 0 448 512' fill='currentColor' width='1em' height='1em'>
     <path d='M441.9 167.3l-19.8-19.8c-4.7-4.7-12.3-4.7-17 0L224 328.2 42.9 147.5c-4.7-4.7-12.3-4.7-17 0L6.1 167.3c-4.7 4.7-4.7 12.3 0 17l209.4 209.4c4.7 4.7 12.3 4.7 17 0l209.4-209.4c4.7-4.7 4.7-12.3 0-17z' />
   </svg>
 );
-
-import {
-  DateTimePicker,
-  IDateOption,
-  Transition,
-  Message,
-  Loading,
-  Icon,
-  Container,
-  IContainer,
-  OtpInput,
-  Phone,
-  IAutoComplete,
-  AutoComplete
-} from '.';
 
 interface IState {
   oldDisplayValue?: string;
@@ -90,7 +89,7 @@ interface IProps extends IContainer {
   selectOptions?: { label: any; value: string | number }[];
   selectCustomOptions?: { label: string; value: string; html: any }[];
   selectMenuSize?: number;
-  selectMode?: 'default' | 'multiple' | 'tags';
+  selectMode?: 'multiple' | 'tags';
   selectMaxTagCount?: number;
   isSearchable?: boolean;
   excludeOptions?: string[];
@@ -160,7 +159,7 @@ export class FormControl extends React.Component<IProps, IState> {
     debounce: 0,
     autoSize: true,
     isSearchable: true,
-    selectMode: 'default',
+    selectMode: undefined,
     parentCloneNames: []
   };
 
@@ -630,8 +629,7 @@ export class FormControl extends React.Component<IProps, IState> {
           notFoundContent={'No Results'}
           mode={this.props.selectMode}
           maxTagCount={this.props.selectMaxTagCount}
-          dropdownMenuStyle={{ width: this.props.selectMenuSize }}
-          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? false : true}
+          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? this.props.selectMenuSize : true}
         >
           {children}
         </ReactSelect>
@@ -756,12 +754,11 @@ export class FormControl extends React.Component<IProps, IState> {
           onChange={this.onSetOption}
           suffixIcon={chevronDown}
           showSearch={this.props.isSearchable}
-          dropdownRender={(menu) => <div className='flag-select'>{menu}</div>}
+          dropdownRender={(menu: any) => <div className='flag-select'>{menu}</div>}
           optionFilterProp='data-search'
           notFoundContent={'No Results'}
           mode={this.props.selectMode}
-          dropdownMenuStyle={{ width: this.props.selectMenuSize }}
-          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? false : true}
+          dropdownMatchSelectWidth={this.props.selectMenuSize !== undefined ? this.props.selectMenuSize : true}
         >
           <OptGroup label='mainOptions'>{mainChildren}</OptGroup>
           <OptGroup label='restOptions'>{restChildren}</OptGroup>
@@ -774,8 +771,8 @@ export class FormControl extends React.Component<IProps, IState> {
           <ReactSwitch
             disabled={this.props.disabled}
             onChange={this.onSwitchChanged}
-            checkedChildren={<ReactIcon type='check' />}
-            unCheckedChildren={<ReactIcon type='close' />}
+            checkedChildren={<CheckOutlined />}
+            unCheckedChildren={<CloseOutlined />}
             checked={this.state.displayValue === '1'}
           />
         </Container>
@@ -784,7 +781,7 @@ export class FormControl extends React.Component<IProps, IState> {
       return (
         <ReactInput.TextArea
           autoFocus={this.props.autoFocus}
-          autosize={this.props.autoSize}
+          autoSize={this.props.autoSize}
           placeholder={this.props.placeholder}
           value={this.state.displayValue || ''}
           onChange={this.onChange}
