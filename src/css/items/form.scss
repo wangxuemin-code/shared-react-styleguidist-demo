@@ -228,15 +228,17 @@ textarea:focus {
   }
 }
 
-.ant-picker {
-  width: 0px;
-  height: 0px;
-  padding: 0px;
-  border: 0px;
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-  visibility: hidden;
+.date-input {
+  .ant-picker {
+    width: 0px;
+    height: 0px;
+    padding: 0px;
+    border: 0px;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    visibility: hidden;
+  }
 }
 
 .date-input:hover > .ant-input {

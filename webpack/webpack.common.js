@@ -31,21 +31,7 @@ const config = {
     library: 'ISTOX',
     libraryTarget: 'umd'
   },
-  plugins: [new webpack.DefinePlugin(envKeys), new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })],
-  externals: {
-    react: {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'React',
-      root: 'React'
-    },
-    'react-dom': {
-      commonjs: 'react-dom',
-      commonjs2: 'react-dom',
-      amd: 'ReactDOM',
-      root: 'ReactDOM'
-    }
-  }
+  plugins: [new webpack.DefinePlugin(envKeys), new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })]
 };
 
 module.exports = config;

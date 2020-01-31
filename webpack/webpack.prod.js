@@ -33,6 +33,20 @@ module.exports = {
   entry: {
     'istox-shared': './src/index-prod.ts'
   },
+  externals: {
+    react: {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'React',
+      root: 'React'
+    },
+    'react-dom': {
+      commonjs: 'react-dom',
+      commonjs2: 'react-dom',
+      amd: 'ReactDOM',
+      root: 'ReactDOM'
+    }
+  },
   devtool: false,
   optimization: {
     minimizer: [
