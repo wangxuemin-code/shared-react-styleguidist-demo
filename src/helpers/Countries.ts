@@ -14,7 +14,7 @@ const updateData: any = {
   'Brunei Darussalam': 'Brunei',
   'Cabo Verde': 'Cape Verde',
   'Republic Of Congo': 'Congo (Republic Of)',
-  "Côte d'Ivoire": "Cote D'Ivoire (Ivory Coast)",
+  "Côte d'Ivoire": "Cote D'Ivoire (Ivory Coast)",
   'Heard Island And McDonald Islands': 'Heard And Mcdonald Islands',
   Macao: 'Macau',
   'Macedonia, The Former Yugoslav Republic Of': 'Macedonia',
