@@ -33,8 +33,8 @@ const config = {
   },
   plugins: [new webpack.DefinePlugin(envKeys), new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })],
   externals: {
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    react: { commonjs: 'react' },
+    'react-dom': { commonjs: 'react-dom' }
   }
 };
 
