@@ -1,7 +1,7 @@
 import * as React from 'react';
 // import { Mqtt } from './helpers';
 import * as ReactDOM from 'react-dom';
-import { Controls, Ant } from './index-prod';
+import { Controls, Ant, AntIcon, AntCustomIcon } from './index-prod';
 import {
   faAddressBook,
   faAdjust,
