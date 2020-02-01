@@ -33,16 +33,16 @@ module.exports = {
   entry: {
     'istox-shared': './src/index-prod.ts'
   },
-  devtool: false,
+  devtool: 'inline-source-map',
   optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true // set to true if you want JS source maps
-      }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //     cache: true,
+    //     parallel: true,
+    //     sourceMap: true // set to true if you want JS source maps
+    //   }),
+    //   new OptimizeCSSAssetsPlugin({})
+    // ]
   },
   plugins: [
     // Generates an `index.html` file with the <script> injected.
