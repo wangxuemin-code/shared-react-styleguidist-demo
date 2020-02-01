@@ -31,10 +31,11 @@ const config = {
     library: 'ISTOX',
     libraryTarget: 'umd'
   },
-  plugins: [
-    new webpack.DefinePlugin(envKeys),
-    new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })
-  ]
+  plugins: [new webpack.DefinePlugin(envKeys), new ForkTsCheckerWebpackPlugin({ checkSyntacticErrors: true })],
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM'
+  }
 };
 
 module.exports = config;
