@@ -76,13 +76,13 @@ export class Form extends React.Component<IProps, IState> {
       <Container {...this.props}>
         <Loading loading={this.props.loading} />
         <Alert success={this.props.success} info={this.props.info} error={this.props.error} />
-        <ReactForm
-          layout={this.props.horizontal ? 'horizontal' : 'vertical'}
+        <form
+          // layout={this.props.horizontal ? 'horizontal' : 'vertical'}
           className={styles.istoxForm}
-          onSubmitCapture={this._onSubmit.bind(this)}
+          onSubmit={this._onSubmit.bind(this)}
         >
           {this.recursiveCloneChildren(this.props.children)}
-        </ReactForm>
+        </form>
         <Modal width={650} visible={this.state.showUploaderModal} disableClose>
           {this.state.uploadResult && (
             <>
