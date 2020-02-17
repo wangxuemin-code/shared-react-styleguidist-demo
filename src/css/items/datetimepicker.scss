@@ -2,11 +2,6 @@
   display: none;
 }
 
-.ant-calendar-picker-container,
-.ant-picker-dropdown {
-  z-index: 20;
-}
-
 .ant-picker-content th {
   color: #000000;
 }
@@ -19,7 +14,7 @@
 
 .ant-picker-header-view {
   font-weight: 500;
-  color: rgba(0,0,0,0.85);
+  color: rgba(0, 0, 0, 0.85);
 }
 
 a.ant-picker-today-btn {
@@ -96,8 +91,7 @@ a.ant-picker-today-btn {
 
 .ant-calendar-selected-date .ant-calendar-date:hover,
 .ant-calendar-selected-start-date .ant-calendar-date:hover,
-.ant-calendar-selected-end-date .ant-calendar-date:hover
-.ant-picker-cell-inner:hover {
+.ant-calendar-selected-end-date .ant-calendar-date:hover .ant-picker-cell-inner:hover {
   background: map-get($colors, secondaryBackground);
 }
 
@@ -106,7 +100,7 @@ a.ant-picker-today-btn {
 }
 
 .ant-calendar-month-panel-month:hover,
-.ant-picker-cell-inner:hover{
+.ant-picker-cell-inner:hover {
   background: map-get($colors, secondaryBackground);
 }
 
@@ -229,7 +223,7 @@ li.ant-calendar-time-picker-select-option-selected:hover {
 
 //---------------------------------------------------------------------
 .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
-.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner{
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
   background: map-get($colors, secondary);
 
   &:before {
@@ -268,7 +262,9 @@ li.ant-calendar-time-picker-select-option-selected:hover {
 .ant-picker-cell-in-view.ant-picker-cell-in-range::before,
 .ant-picker-cell-range-hover-start::before,
 .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover::before,
-.ant-picker-panel > :not(.ant-picker-date-panel) .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start::before,
+.ant-picker-panel
+  > :not(.ant-picker-date-panel)
+  .ant-picker-cell-in-view.ant-picker-cell-in-range.ant-picker-cell-range-hover-start::before,
 .ant-picker-time-panel-column > li.ant-picker-time-panel-cell-selected .ant-picker-time-panel-cell-inner {
   background: map-get($colors, secondaryBackground);
 }

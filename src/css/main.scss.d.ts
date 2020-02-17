@@ -2531,7 +2531,6 @@ export const slideOut: string;
 export const istoxTabs: string;
 export const middle: string;
 export const antCalendarInputWrap: string;
-export const antCalendarPickerContainer: string;
 export const datepickerCalenderContainer: string;
 export const dateGroup: string;
 export const antCalendar: string;
