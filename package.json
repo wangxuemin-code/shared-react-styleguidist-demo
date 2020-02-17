@@ -8,7 +8,7 @@
     "build-theme": "./node_modules/.bin/tsc --target 'ES5' --declaration  ./src/css/theme/theme.ts",
     "build": "npm run build-theme && ./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env=prod && npm run compile-scss && npm run copy-theme",
     "start": "npm run build-theme && ./node_modules/.bin/webpack-dev-server --mode development --open --config ./webpack/webpack.config.js --env.env=dev",
-    "prepublishOnly": "sudo npm run build --unsafe-perm",
+    "prepublishOnly": "npm run build --unsafe-perm",
     "compile-scss": "./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env='build-css'",
     "copy-theme": "cp ./src/css/theme/theme.js ./build/css/theme/"
   },
