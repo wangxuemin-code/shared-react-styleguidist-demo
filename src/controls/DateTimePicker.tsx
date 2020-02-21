@@ -122,6 +122,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
                     }
                   : false
               }
+              showToday={false}
               onOpenChange={this.datePickerStatus}
             />
           </Container>
@@ -292,7 +293,7 @@ export class DateTimePicker extends React.Component<IProps, IState> {
         }
         this.state = {
           displayValue,
-          defaultValue: this.getDefaultValue(displayValue)
+          defaultValue: newValue ? this.getDefaultValue(displayValue) : undefined
         };
       } else {
         if (newValue) {
