@@ -122,6 +122,8 @@ interface IProps extends IContainer {
   debounce?: number;
   autoFocus?: boolean;
   autoSize?: any;
+  minimumNumberValue?: number;
+  maximumNumberValue?: number;
   onInputChanged?: (value: string | number | undefined, name: string) => void;
   // need it for cloneable control
   onInputChanged2?: (value: string | number | undefined, name: string) => void;
@@ -916,8 +918,8 @@ export class FormControl extends React.Component<IProps, IState> {
               className={classes.join(' ')}
               autoComplete={'off'}
               autoCorrect={'off'}
-              max={1000000000000}
-              min={0}
+              max={this.isNotEmpty(this.props.maximumNumberValue) ? this.props.maximumNumberValue : 1000000000000}
+              min={this.isNotEmpty(this.props.minimumNumberValue) ? this.props.minimumNumberValue : 0}
               placeholder={this.props.placeholder}
               value={
                 this.isNotEmpty(this.state.value) &&
