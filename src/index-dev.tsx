@@ -2324,7 +2324,6 @@ class Main extends Controls.MyComponent<
                 <h4>Test Direct Ant Component Access</h4>
                 <Ant.Alert message={'Testing Ant component'} />
               </Controls.Container>
-              <Controls.Divider />
               <Controls.Container margin={{ bottomRem: 6 }}>
                 <h4 style={{ marginBottom: '80px' }}>STO Timeline (Three Phase)</h4>
                 <Controls.StoTimeLine
@@ -2353,6 +2352,7 @@ class Main extends Controls.MyComponent<
                     issueDateTime: '2019-09-26T00:20:24Z'
                   }}
                   hideTitle
+                  onImportantDateClicked={(phase) => console.log('Phase ', phase)}
                 />
               </Controls.Container>
               <Controls.Divider visibility={'hidden'} />

@@ -44,7 +44,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
 
     if (this.props.stoDateTime.offeringCreatedTime) {
       phases.push({
-        title: <>Offering Created</>,
+        title: 'STO created',
         key: 'offering_created',
         date: moment(this.props.stoDateTime.offeringCreatedTime),
         clickable: false,
@@ -84,64 +84,46 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
     if (this.props.stoDateTime.preSaleStartTime) {
       phases.push({
-        title: (
-          <>
-            Start Of <br /> Pre-Sale
-          </>
-        ),
-        key: 'presale',
+        title: 'Subscription',
+        key: 'presale_start',
         date: moment(this.props.stoDateTime.preSaleStartTime),
-        clickable: this.hasDatePast(moment(this.props.stoDateTime.preSaleStartTime)),
+        clickable: true,
         isBig: true
       });
     }
     if (this.props.stoDateTime.preSaleEndTime) {
       phases.push({
-        title: (
-          <>
-            End Of <br /> Pre-Sale
-          </>
-        ),
+        title: 'Subscription closed',
+        key: 'presale_end',
         date: moment(this.props.stoDateTime.preSaleEndTime),
-        clickable: false,
-        isBig: false
+        clickable: true,
+        isBig: true
       });
     }
     if (this.props.stoDateTime.publicSaleStartTime) {
       phases.push({
-        title: (
-          <>
-            Start Of <br /> Public Sale
-          </>
-        ),
-        key: 'public_sale',
+        title: 'Final Offering',
+        key: 'public_sale_start',
         date: moment(this.props.stoDateTime.publicSaleStartTime),
-        clickable: this.hasDatePast(moment(this.props.stoDateTime.publicSaleStartTime)),
+        clickable: true,
         isBig: true
       });
     }
     if (this.props.stoDateTime.publicSaleEndTime) {
       phases.push({
-        title: (
-          <>
-            End Of <br /> Public Sale
-          </>
-        ),
+        title: 'Final Offering closed',
+        key: 'public_sale_end',
         date: moment(this.props.stoDateTime.publicSaleEndTime),
-        clickable: false,
+        clickable: true,
         isBig: false
       });
     }
     if (this.props.stoDateTime.issueDateTime) {
       phases.push({
-        title: (
-          <>
-            Start Of <br /> Secondary Trading
-          </>
-        ),
+        title: 'STO End',
         key: 'confirmed',
         date: moment(this.props.stoDateTime.issueDateTime),
-        clickable: this.hasDatePast(moment(this.props.stoDateTime.issueDateTime)),
+        clickable: true,
         isBig: true
       });
     }
