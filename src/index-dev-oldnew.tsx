@@ -35,9 +35,6 @@ class Main extends Controls.MyComponent {
                 onSubmit={() => {
                   console.log('submitted');
                 }}
-                onUploadError={(e) => {
-                  console.log(e);
-                }}
                 comparing={true}
               >
                 <Controls.FormControl

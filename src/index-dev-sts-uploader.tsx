@@ -1,30 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { Controls } from './index-prod';
 import { AwsHelper } from './helpers';
+import { Controls } from './index-prod';
 
-interface IState {
-  antiVirusChecks: any;
-}
-
-class Main extends Controls.MyComponent<any, IState> {
+class Main extends Controls.MyComponent<any, any> {
   private form?: Controls.Form;
+  private uploader?: any;
 
   public constructor(props: any) {
     super(props);
 
-    this.state = {
-      antiVirusChecks: {}
-    };
-
     AwsHelper.retrieveSTSCallback = async () => {
       return {
-        access_key_id: 'ASIA5FEPMSFOTLGQ3XRP',
-        secret_access_key: '5aXaezJeWWra30+VZg27J1IN8MIFt8tQYgMJHeLc',
+        access_key_id: 'ASIA5FEPMSFOV3F6BOQT',
+        secret_access_key: 'BMb/GdSCKois339DGRgH5rldi+iC9ait4oj0gwvN',
         session_token:
-          'FwoGZXIvYXdzEJz//////////wEaDNd3AlBYCyHf/Yz1AyK1A6aNMGPM3UIFPJjuqW8LabEno+T7aMfjDmNdvFaZk7qZEP7G9/+sE20DPhR0ojYNpFFT9l9GzlZNEw0FfYfDSRNGpNZ6xIWZl5690bu3CGiuNJu7N4sAmxFMXEX4KVUV5tDVK/FJ3zBDfNxTxCvSBSCmG/wU4BMPlBnENRtRJ9n5C6DJa85eoPKvAeL0VXYRewJ919HX4Dx13I5+DGuHGURUQw/UKJFKHSeVB+h6PEf2gOOmg+PqquI13bh/Y2/ZhEpLAY7IioQJTuom1+FVpeZhPIWJUMUWrGrzvWVB4QIRt5k2fIQxcvWBVVscxFAmu/rTKpF/0yS1HUIOt1E3sTYjeZHwHiRP5ax77CUU4xkn4ig/X0Gy2ALi1TweRFt6AUMq7nEtkQPkDSiCElPmqXpyOZikdxEv2bMaL1ZHNSjMCEhDIzAmfP9c7CA4DD7/SvjBJ9ANYB6VZoQ2ybL7a8VLC7rC4p3yM0KsD6vpvvB6N9RdRSGDuFleaDF8dq9pyg8XAKuCJ9rTosrBIkNAi1Lqn2BvMWGHRFOf1YqPOSj2HuzciZVZj9Y5j2HhXZDLcwbJeEFKKLXkve8FMi3ClqC6JYBeqiqFrADRMERLdvnRkUZC9bIhhxLUKSk4fdcaGwcoHqxgQjAjbtc=',
-        expiration: '2019-09-29 12:59:23 UTC'
+          'FwoGZXIvYXdzEFMaDBThVUesbCUBX+0jviKxA6zKuINE0zG0vhMzw/vBOGTaaPOCjSxQDy/v6pvATcbytS5AVLkW2kIdh5jpiJb9N3lWyeB5+O2ca7Uzuy9UE5MEqsCa7fsg6W3aC70zA7G2HZTxLlEECgCtG0rmMZYaBcrMGMvhupyMPwjBiovV9WldVAk6nhRjdxnXK5sbBM3szkcIvCcaDVsx/aVo9rkB6mnwWnqiuFGV5E08GOpfqdRrE6MblYKOLskVU0kTVCCB7Upp9OKzJDZ507n0DBCAsd4VTPY8xB3NNu+kNp1M6N7udOLCw/X5IoZNjaT8oP/1ilaaOD/3mqwNZwe8XDpd0b5W/0IEDFlDWY/sAQB9hLQcQcJCdyQaTj0r64D1JhN5M/flK0Icgu6inBmgWFhRg/DXU7cwKJK8q7mE0afTW1DsIKKTio1/ycDUR0RAfZzWDGpzyU1BRFLPcn6Zex2yJT4kRQtwFAKTQFA/sT6pQcerYXcMQB319hhe1AySdZ/eYh3VmySE3AAumwThy8I9jXSa7O6t/Qwng4SZ5Nd9tgLhXtoWMwrkcatDg4TF0FHQuAw2UBO6u124dG0KehvwIwEorOjv8gUyLQfVGwhPg7bM4uj+wrgC8KU48fTlBj5XscexV7sG+0NgQrZZlGgXUYvJELlYPA==',
+        expiration: '2020-03-01 18:43:08 UTC'
       };
     };
   }
@@ -41,95 +34,26 @@ class Main extends Controls.MyComponent<any, IState> {
                     this.form = ref;
                   }
                 }}
-                onSubmit={() => {
-                  console.log('submitted');
-                }}
-                onUploadError={(e) => {
-                  console.log(e);
-                }}
-                onUploadComplete={(uploads: any[]) => {
-                  console.log('done', uploads);
-                  let antiVirusFiles: any[] = [];
-                  let antiVirusReturns: any[] = [];
-                  var flag = false;
-                  uploads.forEach(async (name: any) => {
-                    const value = this.form!.getInputValue(name);
-                    antiVirusFiles.push(value);
-                    antiVirusReturns.push({
-                      key: name,
-                      file: name,
-                      success: !flag
-                    });
-                    flag = !flag;
-                  });
-                  let antiVirusChecks = {
-                    bucketName: 'istoxkyc-local',
-                    files: antiVirusFiles
-                  };
-                  console.log('call antivirus', antiVirusChecks);
-                  setTimeout(() => {
-                    this.setState({ antiVirusChecks: antiVirusReturns });
-                  }, 2000);
-                }}
-                antiVirusChecks={this.state.antiVirusChecks}
-                onAntiVirusChecksComplete={() => {
-                  console.log('do sthg');
-                }}
-                uploadBackButtonText={'Back to something'}
+                onSubmit={this.onSubmit}
               >
-                {this.state.antiVirusChecks && <Controls.Message variant={'warning'} message={'Dasdsad'} />}
                 <Controls.FormControl
                   type='uploader'
-                  label={
-                    <p key='paragraph' className='normal-text'>
-                      Uploader
-                    </p>
-                  }
-                  name='uploader'
+                  label='Upload'
+                  name='file_upload'
                   required={true}
                   uploaderConfigs={{
-                    fieldName: 'label1',
                     bucketName: 'istoxkyc-local',
-                    path: 'ID83676276M',
+                    path: 'ID00000001C',
                     customAllowFileExtensions: ['.jpg', '.png', '.pdf'],
                     showFileName: true
-                    // fixedFileName: 'abc'
                   }}
                   value='ISTOXBUCKET|istoxkyc-local|ID46066150M/e0d925c5-47d8-469f-bdb9-be32662ea001.png'
                 />
-                {/* <Controls.FormControl
-                  type='uploader'
-                  label={'Uploader'}
-                  name='uploader_2'
-                  required={true}
-                  uploaderConfigs={{
-                    fieldName: 'label2',
-                    bucketName: 'istoxkyc-local',
-                    path: 'ID83676276M',
-                    customAllowFileExtensions: ['.jpg', '.png']
-                    // fixedFileName: 'abc'
-                  }}
-                />
-                <h6>dsadasd</h6>
-                <Controls.FormControl
-                  type='uploader'
-                  label={'Uploader2'}
-                  name='uploader_3'
-                  required={true}
-                  uploaderConfigs={{
-                    fieldName: 'label2',
-                    bucketName: 'istoxkyc-local',
-                    path: 'ID83676276M',
-                    customAllowFileExtensions: ['.jpg', '.png', '.pdf']
-                    // fixedFileName: 'abc'
-                  }}
-                /> */}
                 <Controls.Button type='submit'>Submit</Controls.Button>
                 <Controls.Button
                   type='button'
                   onClick={() => {
-                    console.log(this.form!.getFormJson());
-                    this.form!.onSaved();
+                    this.startUpload();
                   }}
                 >
                   Test
@@ -143,8 +67,38 @@ class Main extends Controls.MyComponent<any, IState> {
     );
   }
 
-  private function = () => {
-    console.log('this is a callback');
+  private onSubmit = () => {
+    this.uploader.cancel();
+    console.log(this.form!.getFormObject());
+  };
+
+  private startUpload = () => {
+    this.uploader = this.form!.uploader()
+      .onNothingToUpload(() => {
+        console.log('Nothing to upload..');
+      })
+      .onUploadInitiated((uploadingFiles: string[]) => {
+        console.log('On upload initiated, total files: ' + uploadingFiles.length);
+
+        // start upload after 5 seconds later
+        setTimeout(() => {
+          this.uploader.start();
+        }, 5000);
+      })
+      .onUploadStart(() => {
+        console.log('On upload start');
+      })
+      .onUploadProgress((percent) => {
+        console.log('Current upload percent ' + percent);
+      })
+      .onUploadComplete((uploadedFiles: { [key: string]: string }) => {
+        console.log('Upload completed. File url is ', uploadedFiles);
+      })
+      .onUploadError((e) => {
+        console.log('Upload error', e);
+      });
+
+    this.uploader.init();
   };
 }
 

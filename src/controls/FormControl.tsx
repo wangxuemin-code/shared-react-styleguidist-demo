@@ -105,7 +105,6 @@ interface IProps extends IContainer {
   separator?: any;
   verificationNumber?: string;
   uploaderConfigs?: {
-    fieldName?: any;
     label?: any;
     filePatterns?: FilePattern[];
     customAllowFileExtensions?: string[];
@@ -132,13 +131,6 @@ interface IProps extends IContainer {
   onKeyPress?: () => void;
   onSendCode?: (processing: boolean) => any;
   validateReturnError?: (value: string | number | undefined | null) => string | undefined;
-  getuploaderprogress?: (
-    name: string,
-    fileName: string,
-    uploaderProgress: number,
-    uploaderComplete: -1 | 0 | 1
-  ) => void;
-  getUploadedState?: () => boolean;
   onUnmount?: Function;
 }
 
@@ -525,7 +517,6 @@ export class FormControl extends React.Component<IProps, IState> {
         return (
           <Container>
             <FileUploader
-              uploaderFieldName={this.props.uploaderConfigs!.fieldName}
               uploaderLabel={this.props.uploaderConfigs!.label}
               uploaderViewer={this.props.uploaderConfigs!.viewer}
               uploaderFooter={this.props.uploaderConfigs!.footer}
@@ -533,7 +524,6 @@ export class FormControl extends React.Component<IProps, IState> {
               bucketName={this.props.uploaderConfigs!.bucketName}
               value={oldValue ? (this.props.oldValue ? this.state.oldDisplayValue : '') : this.state.displayValue}
               disabled={true}
-              getuploaderprogress={this.getuploaderprogress}
             />
           </Container>
         );
@@ -821,7 +811,6 @@ export class FormControl extends React.Component<IProps, IState> {
                 this.control = ref;
               }
             }}
-            uploaderFieldName={this.props.uploaderConfigs!.fieldName}
             uploaderLabel={this.props.uploaderConfigs!.label}
             uploaderViewer={this.props.uploaderConfigs!.viewer}
             uploaderFooter={this.props.uploaderConfigs!.footer}
@@ -835,7 +824,6 @@ export class FormControl extends React.Component<IProps, IState> {
             customAllowFileExtensions={this.props.uploaderConfigs!.customAllowFileExtensions}
             resetFormControl={this.reset}
             fixedFileName={this.props.uploaderConfigs!.fixedFileName}
-            getuploaderprogress={this.getuploaderprogress}
           >
             {this.props.children}
           </FileUploader>
@@ -1355,16 +1343,8 @@ export class FormControl extends React.Component<IProps, IState> {
     }
   };
 
-  private getuploaderprogress = (fileName: string, uploaderProgress: number, uploaderComplete: -1 | 0 | 1) => {
-    if (this.props.getuploaderprogress && this.props.name && fileName) {
-      this.props.getuploaderprogress(this.props.name, fileName, uploaderProgress, uploaderComplete);
-    }
-  };
-
-  public getUploadState() {
-    if (this.control && this.control.getUploadState) {
-      return this.control.getUploadState();
-    }
+  public getControl() {
+    return this.control;
   }
 
   public getParentCloneNames() {

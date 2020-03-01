@@ -1,66 +1,24 @@
+import ReactForm from 'antd/es/form';
 import * as React from 'react';
 import { DetailedReactHTMLElement } from 'react';
+import { Alert, Container, FormControl, IAlert, IContainer, Loading } from '.';
 import * as styles from '../css/main.scss';
-import ReactForm from 'antd/es/form';
-import {
-  Button,
-  Grid,
-  Divider,
-  ProgressBar,
-  Modal,
-  Loading,
-  FormControl,
-  Container,
-  IContainer,
-  Alert,
-  IAlert
-} from '.';
-import { UuidGenerator } from '../helpers';
 import _ = require('lodash');
+import FileUploader from './FileUploader';
 
 interface IProps extends IContainer, IAlert {
   loading?: boolean;
   horizontal?: boolean;
   comparing?: boolean;
-  antiVirusChecks?: any;
   onSubmit?: () => void;
-  onUploadError?: (e: any) => void;
-  onUploadComplete?: (uploads: any[]) => void;
-  onAntiVirusChecksComplete?: () => void;
-  uploadBackButtonText?: string;
-  uploadRedirectMessage?: string;
 }
 
-interface IState {
-  showUploaderModal: boolean;
-  uploadFormControlsProgress?: any[];
-  antiVirusChecks?: any;
-  uploadResult?: string;
-  uploadRedirectMessage?: any;
-  uploadComplete?: boolean;
-  uploadBackButtonText?: string;
-  uploadFormControls?: any;
-}
-
-export class Form extends React.Component<IProps, IState> {
+export class Form extends React.Component<IProps> {
   formControls: any[];
+  private uploading: boolean;
 
   constructor(props: IProps) {
     super(props);
-
-    this.state = {
-      showUploaderModal: false,
-      antiVirusChecks: [],
-      uploadComplete: false,
-      uploadBackButtonText: this.props.uploadBackButtonText,
-      uploadRedirectMessage: ''
-    };
-  }
-
-  public componentDidUpdate(prevProps: IProps) {
-    if (prevProps.antiVirusChecks !== this.props.antiVirusChecks) {
-      this.updateUploaderProgress(this.props.antiVirusChecks);
-    }
   }
 
   public render() {
@@ -83,110 +41,9 @@ export class Form extends React.Component<IProps, IState> {
         >
           {this.recursiveCloneChildren(this.props.children)}
         </ReactForm>
-        <Modal width={650} visible={this.state.showUploaderModal} disableClose>
-          {this.state.uploadResult && (
-            <>
-              <h3 className={styles.colorDark}>{this.state.uploadResult}</h3>
-              <Divider visibility={'hidden'} />
-            </>
-          )}
-          {this.getUploaderFormControls()}
-          <Divider visibility={'hidden'} />
-          {!this.state.uploadRedirectMessage &&
-            this.state.uploadFormControlsProgress &&
-            this.state.uploadBackButtonText && (
-              <Button
-                variant='disabled'
-                outline
-                onClick={() => {
-                  this.setState({
-                    showUploaderModal: false
-                  });
-                }}
-              >
-                {this.state.uploadFormControlsProgress && this.state.uploadBackButtonText}
-              </Button>
-            )}
-          {this.state.uploadRedirectMessage && (
-            <Container padding={{ bottomRem: 0.9 }} className='color-primary-grey-darker large' textAlign={'center'}>
-              {this.state.uploadRedirectMessage}
-            </Container>
-          )}
-        </Modal>
       </Container>
     );
   }
-
-  private getUploaderFormControls = () => {
-    let uploaderCount = 0;
-    let prevFieldName = '';
-    if (!this.state.uploadFormControls) return null;
-    return this.state.uploadFormControls.map((formControl: any) => {
-      if (formControl) {
-        if (formControl.props.type && formControl.props.type === 'uploader') {
-          uploaderCount++;
-          const uploadFormControlsProgress = this.state.uploadFormControlsProgress;
-          let showTitle = false;
-          if (
-            formControl.props.uploaderConfigs.fieldName &&
-            prevFieldName !== formControl.props.uploaderConfigs.fieldName
-          ) {
-            showTitle = true;
-          }
-          prevFieldName = formControl.props.uploaderConfigs.fieldName;
-          return (
-            <React.Fragment key={UuidGenerator.generate()}>
-              {uploadFormControlsProgress && uploadFormControlsProgress[formControl.props.name] && (
-                <>
-                  {showTitle && (
-                    <>
-                      {uploaderCount !== 1 && formControl.props.uploaderConfigs.fieldName && (
-                        <>
-                          <Divider visibility='visible' />
-                        </>
-                      )}
-                      <Container classNames={[styles.colorPrimaryGreyDarker, styles.uppercase]}>
-                        {formControl.props.uploaderConfigs.fieldName}
-                      </Container>
-                    </>
-                  )}
-                  <Grid>
-                    <Grid.Row fitted>
-                      <Grid.Col col={8}>
-                        <Container className='semi-bold large color-dark'>
-                          {uploadFormControlsProgress[formControl.props.name].fileName || ''}
-                        </Container>
-                        <ProgressBar
-                          padding={{ bottomRem: 0.5 }}
-                          className={styles.uploaderProgressBar}
-                          animated
-                          variant={uploadFormControlsProgress[formControl.props.name].variant}
-                          value={uploadFormControlsProgress[formControl.props.name].percentProgress || 0}
-                        />
-                      </Grid.Col>
-                      <Grid.Col col={4} verticalAlign='center'>
-                        <Container
-                          padding={{ leftRem: 2 }}
-                          margin={{ topRem: -2.4 }}
-                          className={`capitalize color-${
-                            uploadFormControlsProgress[formControl.props.name].variant !== 'info'
-                              ? uploadFormControlsProgress[formControl.props.name].variant
-                              : 'primary-grey-darker'
-                          }`}
-                        >
-                          {uploadFormControlsProgress[formControl.props.name].statusMessage}
-                        </Container>
-                      </Grid.Col>
-                    </Grid.Row>
-                  </Grid>
-                </>
-              )}
-            </React.Fragment>
-          );
-        }
-      }
-    });
-  };
 
   private recursiveCloneChildren(children: any) {
     return React.Children.map(children, (child) => {
@@ -200,7 +57,6 @@ export class Form extends React.Component<IProps, IState> {
       if (this.props.comparing) {
         childProps.static = this.props.comparing;
       }
-      childProps.getuploaderprogress = this.getuploaderprogress;
       childProps.injectControlFn = this.formControlInject;
       childProps.uninjectControlFn = this.formControlUninject;
       return React.cloneElement(child, childProps);
@@ -324,23 +180,7 @@ export class Form extends React.Component<IProps, IState> {
   private _onSubmit(e: React.FormEvent<Form>) {
     e.preventDefault();
     if (this.validate(true) && this.props.onSubmit) {
-      this.setState(
-        {
-          uploadFormControlsProgress: undefined,
-          uploadFormControls: undefined
-        },
-        () => {
-          this.handleFormControlsUpload()
-            .then(() => {
-              this.props.onSubmit!();
-            })
-            .catch((e) => {
-              if (this.props.onUploadError) {
-                this.props.onUploadError(e);
-              }
-            });
-        }
-      );
+      this.props.onSubmit!();
     }
   }
 
@@ -357,187 +197,239 @@ export class Form extends React.Component<IProps, IState> {
     return validated;
   }
 
-  public handleFormControlsUpload() {
-    return new Promise((resolve, reject) => {
-      const promises: any[] = [];
-      let showUploadModal = false;
-      let uploads: any[] = [];
-      let uploadFormControls: any[] = [];
-      this.formControls.forEach(async (formControl: any) => {
-        if (formControl.onUpload) {
-          const promise = formControl.onUpload();
-          const isUploaded = formControl.getUploadState();
-          if (!isUploaded && promise) {
-            showUploadModal = true;
-            uploads.push(formControl.getName());
-            promises.push(promise);
-            uploadFormControls.push(formControl);
-          }
+  // call .start to start upload
+  public uploader(): UploadHelper {
+    const upload = new UploadHelper()
+      ._onUploadInitiated(() => {
+        if (this.uploading) {
+          console.log('Still in previous uploading process, your upload request is ignored.');
+          return;
         }
+
+        this.uploading = true;
+
+        const uploadingNames: string[] = [];
+        this.formControls.forEach(async (formControl: any) => {
+          if (formControl.onUpload) {
+            const isUploaded = formControl.getControl().isUploaded();
+            if (!isUploaded) {
+              uploadingNames.push(formControl.getName());
+            }
+          }
+        });
+
+        if (uploadingNames.length > 0) {
+          upload._getOnUploadInitiatedHandler()(uploadingNames);
+        } else {
+          upload._getOnEmptyUploadHandler()();
+          this.uploading = false;
+        }
+      })
+      ._onUploadStart(() => {
+        const uploadPromise = this.handleFormControlsUpload(upload);
+        if (uploadPromise) {
+          uploadPromise
+            .then((uploadBucketUrls: { [key: string]: string }) => {
+              upload._getOnUploadCompleteHandler()(uploadBucketUrls);
+              this.uploading = false;
+            })
+            .catch((e) => {
+              upload._getOnUploadErrorHandler()(e);
+              this.uploading = false;
+            });
+        }
+      })
+      ._onCancel(() => {
+        this.uploading = false;
       });
-      this.setState({
-        uploadFormControls,
-        uploadResult: `Uploading ${uploads.length} file${uploads.length !== 1 ? 's...' : ''}`
+
+    return upload;
+  }
+
+  public handleFormControlsUpload(uploadHelper: UploadHelper) {
+    const promises: any[] = [];
+    const uploadFormControls: FormControl[] = [];
+    const fileUploaders: FileUploader[] = [];
+
+    this.formControls.forEach(async (formControl: any) => {
+      if (formControl.onUpload) {
+        const promise = formControl.onUpload();
+        const isUploaded = formControl.getControl().isUploaded();
+        if (!isUploaded && promise) {
+          promises.push(promise);
+          uploadFormControls.push(formControl);
+          fileUploaders.push(formControl.getControl());
+        }
+      }
+    });
+
+    if (promises.length > 0) {
+      uploadHelper._getOnUploadStartHandler()();
+
+      fileUploaders.forEach((fileUploader: FileUploader) => {
+        fileUploader.onUploadProgressChanged((percent: number) => {
+          uploadHelper._getOnUploadProgressHandler()(this.getOverallUploadProgress(fileUploaders));
+        });
       });
-      if (promises.length > 0) {
+
+      return new Promise<{ [key: string]: string }>((resolve, reject) => {
         Promise.all(promises)
           .then(() => {
-            if (showUploadModal && uploads.length) {
-              this.setState({
-                uploadResult: this.props.onUploadComplete
-                  ? `Uploading ${uploads.length} file${uploads.length !== 1 ? 's...' : ''}`
-                  : `${uploads.length} File${uploads.length !== 1 ? 's uploaded' : ' uploaded'}`
-              });
-            }
-            if (this.props.onUploadComplete) {
-              this.props.onUploadComplete(uploads);
-            } else {
-              this.setState({
-                uploadRedirectMessage: this.props.uploadRedirectMessage || 'Page redirecting. Please wait...'
-              });
-              setTimeout(() => {
-                this.setState({
-                  showUploaderModal: false
-                });
-              }, 2000);
-            }
-            resolve();
+            const result: any = {};
+            uploadFormControls.forEach((formControl) => {
+              result[formControl.getName()] = formControl.getValue();
+            });
+
+            resolve(result);
           })
           .catch((e: any) => {
             reject(e);
           });
-      } else {
-        if (this.props.onUploadComplete) {
-          this.props.onUploadComplete(uploads);
-        }
-        resolve();
-      }
-    });
-  }
-
-  private updateUploaderProgress = (antiVirusChecks: any) => {
-    if (antiVirusChecks.length) {
-      let uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
-      let newUploadFormControlsProgress: any[] = [];
-      let virusCount: number = 0;
-      let virusDetected: any[] = [];
-      antiVirusChecks.map((upload: any) => {
-        const key = upload.key;
-        let percentProgress = uploadFormControlsProgress[key].percentProgress;
-        let statusMessage = uploadFormControlsProgress[key].statusMessage;
-        let fileName = uploadFormControlsProgress[key].fileName;
-        let variant = uploadFormControlsProgress[key].variant;
-        percentProgress = 100;
-        if (upload.success) {
-          statusMessage = 'File uploaded';
-          variant = 'success';
-        } else {
-          statusMessage = 'Malicious file detected';
-          variant = 'danger';
-          virusCount++;
-          virusDetected.push(key);
-        }
-        const obj = {
-          percentProgress: percentProgress,
-          fileName: fileName,
-          variant: variant,
-          statusMessage: statusMessage
-        };
-        newUploadFormControlsProgress[key] = obj;
-      });
-      this.setState({
-        uploadFormControlsProgress: newUploadFormControlsProgress,
-        uploadResult:
-          virusCount > 0
-            ? `${virusCount} Malicious file${virusCount !== 1 ? 's' : ''} detected!`
-            : `${antiVirusChecks.length} file${antiVirusChecks.length !== 1 ? 's' : ''} uploaded!`
-      });
-      if (virusCount === 0) {
-        this.setState({ uploadRedirectMessage: 'Page redirecting. Please wait...' });
-        setTimeout(() => {
-          this.setState({ showUploaderModal: false });
-          if (this.props.onAntiVirusChecksComplete) {
-            this.props.onAntiVirusChecksComplete();
-          }
-        }, 2000);
-      } else {
-        this.setState({
-          uploadBackButtonText: this.props.uploadBackButtonText,
-          uploadRedirectMessage: ''
-        });
-      }
-      if (virusDetected.length) {
-        this.formControls.forEach(async (formControl: any) => {
-          if (formControl && formControl.props && formControl.props.name) {
-            if (virusDetected.includes(formControl.props.name)) {
-              setTimeout(() => {
-                formControl.reset();
-              }, 300);
-            }
-          }
-        });
-      }
-    }
-  };
-
-  public getuploaderprogress = (
-    name: string,
-    fileName: string,
-    uploaderProgress: number,
-    uploaderComplete: -1 | 0 | 1
-  ) => {
-    const uploadFormControlsProgress = this.state.uploadFormControlsProgress || [];
-    const key: any = name;
-    let variant = 'info';
-    let statusMessage = uploaderProgress + '% uploading';
-    let uploaderPercentProgress: number = uploaderProgress;
-    if (this.props.antiVirusChecks) {
-      uploaderPercentProgress = uploaderProgress - 1;
-    }
-    if (this.state.showUploaderModal === false && uploaderPercentProgress > 0) {
-      this.setState({
-        showUploaderModal: true,
-        uploadBackButtonText: undefined,
-        // uploadBackButtonText: 'Cancel upload',
-        uploadRedirectMessage: <>&nbsp;</>
-      });
-    }
-    if (uploaderComplete === -1 && uploaderProgress === 100) {
-      variant = 'danger';
-      statusMessage = 'Upload failed';
-      this.setState({
-        uploadRedirectMessage: '',
-        uploadBackButtonText: 'Cancel upload'
       });
     } else {
-      statusMessage = uploaderPercentProgress + '% uploading';
-      variant = 'info';
-      if (uploaderPercentProgress === 100) {
-        variant = 'success';
-        statusMessage = 'File uploaded';
-      }
+      return null;
     }
-    const obj = {
-      percentProgress: uploaderPercentProgress,
-      fileName: fileName,
-      variant: variant,
-      statusMessage: statusMessage
-    };
-    uploadFormControlsProgress[key] = obj;
-    if (!this.props.antiVirusChecks) {
-      let filesFailed = 0;
-      for (var i in uploadFormControlsProgress) {
-        const upload = uploadFormControlsProgress[i];
-        if (upload.statusMessage === 'Upload failed') {
-          filesFailed++;
-        }
-      }
-      if (filesFailed > 0) {
-        this.setState({
-          uploadResult: `${filesFailed} File${filesFailed !== 1 ? ' uploads failed' : 'upload failed'}`
-        });
-      }
+  }
+
+  private getOverallUploadProgress(fileUploaders: FileUploader[]) {
+    const totalFileSize = fileUploaders.reduce((prev, fileUploader) => {
+      return prev + fileUploader.getFileSize();
+    }, 0);
+
+    let resultPercent = 0.0;
+
+    const uploadCompleted = !fileUploaders.some((fileUploader) => {
+      return fileUploader.isUploaded() === false;
+    });
+
+    if (uploadCompleted) {
+      resultPercent = 100;
+    } else {
+      fileUploaders.forEach((fileUploader) => {
+        const maxPercent = parseFloat(fileUploader.getFileSize().toString()) / parseFloat(totalFileSize.toString());
+
+        resultPercent += parseFloat(fileUploader.getUploadProgress().toString()) * maxPercent;
+      });
     }
-    this.setState({ uploadFormControlsProgress });
-  };
+
+    return Math.floor(resultPercent);
+  }
+}
+
+class UploadHelper {
+  private onEmptyUploadHandler?: () => void;
+  private onUploadInitiatedHandler?: (uploadingNames: string[]) => void;
+  private onUploadStartHandler?: () => void;
+  private onUploadProgressHandler?: (percentProgress: number) => void;
+  private onUploadCompleteHandler?: (uploadBucketUrls: { [key: string]: string }) => void;
+  private onUploadErrorHandler?: (e: any) => void;
+
+  private onInitiatedHandler?: () => void;
+  private onStartHandler?: () => void;
+  private onCancelHandler?: () => void;
+
+  public onNothingToUpload(_onEmptyUploadHandler?: () => void) {
+    this.onEmptyUploadHandler = _onEmptyUploadHandler;
+
+    return this;
+  }
+
+  public onUploadInitiated(_onUploadInitiatedHandler?: (uploadingNames: string[]) => void) {
+    this.onUploadInitiatedHandler = _onUploadInitiatedHandler;
+
+    return this;
+  }
+
+  public onUploadStart(_onUploadStartHandler?: () => void) {
+    this.onUploadStartHandler = _onUploadStartHandler;
+
+    return this;
+  }
+
+  public onUploadError(_onUploadErrorHandler?: (e: any) => void) {
+    this.onUploadErrorHandler = _onUploadErrorHandler;
+
+    return this;
+  }
+
+  public onUploadComplete(_onUploadCompleteHandler?: (uploadBucketNameUrlMap: { [key: string]: string }) => void) {
+    this.onUploadCompleteHandler = _onUploadCompleteHandler;
+
+    return this;
+  }
+
+  public onUploadProgress(_onUploadProgressHandler?: (percent: number) => void) {
+    this.onUploadProgressHandler = _onUploadProgressHandler;
+
+    return this;
+  }
+
+  public init() {
+    this.onInitiatedHandler!();
+
+    return this;
+  }
+
+  public start() {
+    this.onStartHandler!();
+
+    return this;
+  }
+
+  public cancel() {
+    this.onEmptyUploadHandler = this.dummyHandler;
+    this.onUploadInitiatedHandler = this.dummyHandler;
+    this.onUploadStartHandler = this.dummyHandler;
+    this.onUploadCompleteHandler = this.dummyHandler;
+    this.onUploadErrorHandler = this.dummyHandler;
+    this.onUploadProgressHandler = this.dummyHandler;
+
+    this.onCancelHandler!();
+    return this;
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // BELOW ARE PROTECTED METHODS SHOULD ONLY BE ACCESSED WITHIN ISTOX-SHARED
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  public _onUploadInitiated(_onUploadInitiated?: () => void) {
+    this.onInitiatedHandler = _onUploadInitiated;
+    return this;
+  }
+
+  public _onUploadStart(_onUploadStart?: () => void) {
+    this.onStartHandler = _onUploadStart;
+    return this;
+  }
+
+  public _onCancel(_onCancel?: () => void) {
+    this.onCancelHandler = _onCancel;
+    return this;
+  }
+
+  public _getOnEmptyUploadHandler() {
+    return this.onEmptyUploadHandler || this.dummyHandler;
+  }
+
+  public _getOnUploadInitiatedHandler() {
+    return this.onUploadInitiatedHandler || this.dummyHandler;
+  }
+
+  public _getOnUploadStartHandler() {
+    return this.onUploadStartHandler || this.dummyHandler;
+  }
+
+  public _getOnUploadCompleteHandler() {
+    return this.onUploadCompleteHandler || this.dummyHandler;
+  }
+
+  public _getOnUploadErrorHandler() {
+    return this.onUploadErrorHandler || this.dummyHandler;
+  }
+
+  public _getOnUploadProgressHandler() {
+    return this.onUploadProgressHandler || this.dummyHandler;
+  }
+
+  private dummyHandler(obj?: any) {}
 }

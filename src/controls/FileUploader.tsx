@@ -13,7 +13,6 @@ export type FilePattern = 'audio' | 'video' | 'image';
 type FileType = 'image' | 'pdf' | 'others';
 
 interface IProps {
-  uploaderFieldName?: string;
   path?: string;
   uploaderLabel?: any;
   uploaderFooter?: any;
@@ -27,7 +26,6 @@ interface IProps {
   resetFormControl?: () => void;
   bucketName?: string;
   fixedFileName?: string;
-  getuploaderprogress?: (fileName: string, uploaderProgress: number, uploaderComplete: -1 | 0 | 1) => void;
 }
 
 interface IState {
@@ -35,20 +33,19 @@ interface IState {
   extension?: string;
   type?: FileType;
   fileData?: any;
+  fileSize: number;
   uploaded: boolean;
   showViewer: boolean;
   fileName?: string;
   dragOver?: boolean;
   loading?: boolean;
   url: string;
-  fieldName: any;
   uploadProgress: number;
   uploadStatus: -1 | 0 | 1 | 2; // 2 is attached
 }
 
 export default class FileUploader extends React.Component<IProps, IState> {
-  private progressInterval: any;
-  private overallProgress: number = 0;
+  private onUploadProgressChange: (percent: number) => void;
   private fileUploader: any;
   public static defaultProps: IProps = {
     value: '',
@@ -65,12 +62,13 @@ export default class FileUploader extends React.Component<IProps, IState> {
       uploaded: true,
       showViewer: false,
       url: '',
-      fieldName: this.props.uploaderFieldName,
+      fileSize: 0,
       uploadProgress: 0,
       uploadStatus: 0
     };
 
     this.handleFileUploaderClick = this.handleFileUploaderClick.bind(this);
+    this.onUploadProgressChange = () => {};
   }
 
   public componentDidMount() {
@@ -240,12 +238,6 @@ export default class FileUploader extends React.Component<IProps, IState> {
   private onValueChanged = () => {
     if (this.props.onChange) {
       this.props.onChange(this.getValue());
-    }
-  };
-
-  private getuploaderprogress = (uploaderProgress: number, uploaderComplete: -1 | 0 | 1) => {
-    if (this.props.getuploaderprogress && this.state.fileName) {
-      this.props.getuploaderprogress(this.state.fileName, uploaderProgress, uploaderComplete);
     }
   };
 
@@ -437,7 +429,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
           extension: this.getExtension(file.name),
           uploaded: false,
           fileName: file.name,
-          uploadStatus: 2
+          uploadStatus: 2,
+          fileSize: file.size
         },
         this.onValueChanged
       );
@@ -451,7 +444,8 @@ export default class FileUploader extends React.Component<IProps, IState> {
           extension: this.getExtension(file.name),
           uploaded: false,
           fileName: file.name,
-          uploadStatus: 2
+          uploadStatus: 2,
+          fileSize: file.size
         },
         this.onValueChanged
       );
@@ -527,14 +521,28 @@ export default class FileUploader extends React.Component<IProps, IState> {
     return !!pattern.test(str);
   }
 
-  public getUploadState = () => {
+  public isUploaded = () => {
     return this.state.uploaded;
   };
+
+  public getUploadProgress = () => {
+    return this.state.uploadProgress;
+  };
+
+  public getFileSize = () => {
+    return this.state.fileSize;
+  };
+
+  public onUploadProgressChanged(onChanged: (percent: number) => void) {
+    this.onUploadProgressChange = onChanged;
+  }
 
   public onUpload = async () => {
     if (!this.state.uploaded) {
       return new Promise(async (resolve, reject) => {
         try {
+          this.onProgressChanged(0);
+
           const credentials = await AwsHelper.getSTS();
 
           var options = {
@@ -565,58 +573,34 @@ export default class FileUploader extends React.Component<IProps, IState> {
             ContentEncoding: 'base64', // required
             ContentType: `${contentType}` // required. Notice the back ticks
           };
-
-          // The upload() is used instead of putObject() as we'd need the location url and assign that to our user profile/database
-          // see: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#upload-property
-
-          var upload = s3
-            .putObject(params)
+          s3.putObject(params)
             .on('httpUploadProgress', (progress: any) => {
               // if (this.state.uploadStatus === 0) {
               var percentComplete = (progress.loaded / progress.total) * 100 - 1;
               if (percentComplete > 0) {
-                this.processProgressInterval(Math.round(percentComplete), 0);
+                this.onProgressChanged(Math.round(percentComplete));
               }
               // }
             })
             .send((err: any, data: any) => {
               if (err) {
-                this.processProgressInterval(100, -1);
                 this.setState({ uploadStatus: -1 });
                 reject(err);
               } else {
                 const result = `ISTOXBUCKET|${bucket}|${key}`;
-                this.setState({ src: result, uploaded: true, uploadStatus: 1 }, () => {
-                  this.onValueChanged();
-                  if (this.overallProgress == 100) {
-                    this.overallProgress = 0;
-                  }
-                  if (this.overallProgress == 0) {
-                    this.getuploaderprogress(0, 0);
-                  } else {
-                    this.getuploaderprogress(this.overallProgress, 0);
-                  }
-                  clearInterval(this.progressInterval);
-                  this.progressInterval = setInterval(() => {
-                    if (this.overallProgress < 100) {
-                      this.overallProgress++;
-                      this.getuploaderprogress(this.overallProgress, 0);
-                    } else {
-                      this.getuploaderprogress(this.overallProgress, 1);
-                      clearInterval(this.progressInterval);
-                      resolve();
-                    }
-                  }, 1);
+
+                this.onProgressChanged(100, () => {
+                  this.setState({ src: result, uploaded: true, uploadStatus: 1 }, () => {
+                    this.onValueChanged();
+
+                    resolve();
+                  });
                 });
               }
             });
-          // Save the Location (url) to your database and Key if needs be.
-          // As good developers, we should return the url and let other function do the saving to database etc
-
           // make sure state is set before return
         } catch (e) {
           this.setState({ uploadStatus: -1 });
-          this.processProgressInterval(100, -1);
           reject(e);
         }
       });
@@ -625,21 +609,17 @@ export default class FileUploader extends React.Component<IProps, IState> {
     }
   };
 
-  private processProgressInterval = (percentComplete: number, uploaderComplete: -1 | 0 | 1) => {
-    if (percentComplete < 99 && percentComplete > this.overallProgress && uploaderComplete === 0) {
-      this.overallProgress = percentComplete;
-    }
-    clearInterval(this.progressInterval);
-    this.progressInterval = setInterval(() => {
-      if (this.overallProgress < percentComplete) {
-        this.overallProgress++;
-      } else {
-        clearInterval(this.progressInterval);
+  private onProgressChanged = (percentComplete: number, callback?: () => void) => {
+    this.setState(
+      {
+        uploadProgress: percentComplete
+      },
+      () => {
+        this.onUploadProgressChange(percentComplete);
+        if (callback) {
+          callback();
+        }
       }
-      this.getuploaderprogress(this.overallProgress, uploaderComplete);
-    }, 1);
-    if (this.overallProgress == 100 && uploaderComplete === 0) {
-      this.overallProgress = 0;
-    }
+    );
   };
 }
