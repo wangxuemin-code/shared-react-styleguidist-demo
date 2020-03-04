@@ -210,7 +210,7 @@ export class Form extends React.Component<IProps> {
 
         const uploadingNames: string[] = [];
         this.formControls.forEach(async (formControl: any) => {
-          if (formControl.onUpload) {
+          if (formControl.onUpload && formControl.getControl().onUpload) {
             const isUploaded = formControl.getControl().isUploaded();
             if (!isUploaded) {
               uploadingNames.push(formControl.getName());
@@ -252,7 +252,7 @@ export class Form extends React.Component<IProps> {
     const fileUploaders: FileUploader[] = [];
 
     this.formControls.forEach(async (formControl: any) => {
-      if (formControl.onUpload) {
+      if (formControl.onUpload && formControl.getControl().onUpload) {
         const promise = formControl.onUpload();
         const isUploaded = formControl.getControl().isUploaded();
         if (!isUploaded && promise) {
