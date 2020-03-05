@@ -48,3 +48,4 @@ export * from './Tabs';
 export * from './Transition';
 export * from './WrapperContainer';
 export * from './FormComponent';
+export * from './CurrencyFlag';
