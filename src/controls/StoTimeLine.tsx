@@ -44,7 +44,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
 
     if (this.props.stoDateTime.offeringCreatedTime) {
       phases.push({
-        title: 'STO created',
+        title: 'Offering created',
         key: 'offering_created',
         date: moment(this.props.stoDateTime.offeringCreatedTime),
         clickable: false,
@@ -120,7 +120,7 @@ export class StoTimeLine extends React.Component<IProps, IState> {
     }
     if (this.props.stoDateTime.issueDateTime) {
       phases.push({
-        title: 'STO End',
+        title: 'Offering End',
         key: 'confirmed',
         date: moment(this.props.stoDateTime.issueDateTime),
         clickable: true,
