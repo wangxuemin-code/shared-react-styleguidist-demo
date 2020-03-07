@@ -2,10 +2,16 @@ import * as React from 'react';
 import { countries, currencies, lookup } from 'country-data';
 import { IContainer, Container } from '.';
 import { AntCustomIcon } from '../index-prod';
+import { antTableCellFixRightFirst } from '../css/main.scss';
 
 interface IProps extends IContainer {
   country: string;
   type: 'currencies' | 'name' | 'alpha2';
+  showName: boolean;
+}
+
+interface IState extends IContainer {
+  country: any;
 }
 
 const malaysiaSvg = () => (
@@ -196,20 +202,35 @@ const euroSvg = () => (
   </svg>
 );
 
-export class CurrencyFlag extends React.Component<IProps, any> {
+export class CurrencyFlag extends React.Component<IProps, IState> {
   public static defaultProps: IProps = {
     country: '',
-    type: 'name'
+    type: 'name',
+    showName: false
   };
 
   constructor(props: IProps) {
     super(props);
+    this.state = {
+      country: {}
+    };
   }
+
+  public componentDidMount = () => {
+    this.getCountry(this.props.country, this.props.type);
+  };
 
   public render() {
     return (
-      <Container>
-        <AntCustomIcon component={this.getCountry(this.props.country, this.props.type)} />
+      <Container display={'flex'}>
+        <AntCustomIcon component={this.renderIcon(this.state.country)} style={{ marginRight: '10px' }} />
+        {this.props.showName && this.props.type === 'currencies' && (
+          <>
+            {this.state.country.code}
+            {' - '}
+            {this.state.country.name}
+          </>
+        )}
       </Container>
     );
   }
@@ -218,7 +239,7 @@ export class CurrencyFlag extends React.Component<IProps, any> {
     input = String(input);
     let country;
     if (type === 'currencies') {
-      country = currencies.all.filter((currency: any) => currency.code.toUpperCase() === input.toUpperCase())[0].name;
+      country = currencies.all.filter((currency: any) => currency.code.toUpperCase() === input.toUpperCase())[0];
     } else {
       input =
         type === 'name'
@@ -232,10 +253,13 @@ export class CurrencyFlag extends React.Component<IProps, any> {
               )
               .join(' ')
           : input.toUpperCase();
-      country = lookup.countries({ [type]: input })[0].name;
+      country = lookup.countries({ [type]: input })[0];
     }
+    this.setState({ country });
+  };
 
-    switch (country) {
+  private renderIcon = (country: any) => {
+    switch (country.name) {
       case 'Malaysia':
       case 'Malaysian ringgit':
         return malaysiaSvg;
