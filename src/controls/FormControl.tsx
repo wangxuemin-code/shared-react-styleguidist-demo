@@ -1307,7 +1307,9 @@ export class FormControl extends React.Component<IProps, IState> {
   private shouldShowOldValue = () => {
     if (this.props.static) {
       if (this.isNotEmpty(this.props.value) && this.isNotEmpty(this.props.oldValue)) {
-        if (this.props.type === 'date' || this.props.type === 'datetime') {
+        if (this.props.type === 'date') {
+          return !DateTime.getMoment(this.props.value!).isSame(DateTime.getMoment(this.props.oldValue!), 'day');
+        } else if (this.props.type === 'datetime') {
           return DateTime.getMoment(this.props.value!).unix() !== DateTime.getMoment(this.props.oldValue!).unix();
         } else {
           return String(this.props.value) !== String(this.props.oldValue);
