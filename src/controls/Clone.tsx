@@ -157,10 +157,12 @@ export class Clone extends React.Component<IProps, IState> {
 
         if (!childProps.excludeFromFormData) {
           childProps.value =
-            this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
+            this.state.value && this.state.value.length > index
+              ? _.get(this.state.value[index], originalName)
+              : undefined;
           childProps.oldValue =
             this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
-              ? this.getValueWithName(this.props.oldValue)[index][originalName]
+              ? _.get(this.getValueWithName(this.props.oldValue)[index], originalName)
               : undefined;
         }
 
@@ -175,10 +177,12 @@ export class Clone extends React.Component<IProps, IState> {
 
         childProps.index = index;
         childProps.value =
-          this.state.value && this.state.value.length > index ? this.state.value[index][originalName] : undefined;
+          this.state.value && this.state.value.length > index
+            ? _.get(this.state.value[index], originalName)
+            : undefined;
         childProps.oldValue =
           this.props.oldValue && this.getValueWithName(this.props.oldValue).length > index
-            ? this.getValueWithName(this.props.oldValue)[index][originalName]
+            ? _.get(this.getValueWithName(this.props.oldValue)[index], originalName)
             : undefined;
 
         childProps.ref = (ref: any) => {
