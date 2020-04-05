@@ -37,21 +37,21 @@ export class Clone extends React.Component<IProps, IState> {
     cloneLabel: false,
     index: 0,
     minItem: 1,
-    parentCloneNames: []
+    parentCloneNames: [],
   };
 
   public constructor(props: IProps) {
     super(props);
 
     this.state = {
-      value: this.maintainMinItems(this.getValueWithName(this.props.value))
+      value: this.maintainMinItems(this.getValueWithName(this.props.value)),
     };
   }
 
   public componentDidUpdate(prevProps: IProps) {
     if (prevProps.value !== this.props.value) {
       this.setState({
-        value: this.maintainMinItems(this.getValueWithName(this.props.value))
+        value: this.maintainMinItems(this.getValueWithName(this.props.value)),
       });
     }
   }
@@ -94,25 +94,33 @@ export class Clone extends React.Component<IProps, IState> {
 
     const results = [];
 
-    const topContainer = <Container fluid>{this.props.addControlPosition === 'top' && this.getAddControl()}</Container>;
+    const topContainer = (
+      <Container position='relative' style={{ zIndex: 1 }} fluid>
+        {this.props.addControlPosition === 'top' && this.getAddControl()}
+      </Container>
+    );
 
     results.push(topContainer);
 
     for (let i = 0; i < count; i++) {
       const result = (
         <>
-          <Container fluid>{this.props.deleteControlPosition === 'top' && this.getDeleteControl(i)}</Container>
+          <Container position='relative' style={{ zIndex: 1 }} fluid>
+            {this.props.deleteControlPosition === 'top' && this.getDeleteControl(i)}
+          </Container>
 
           {this.props.deleteControlPosition == 'right' && (
             <Container
               fluid={true}
               display='grid'
               style={{
-                gridTemplateColumns: 'auto max-content'
+                gridTemplateColumns: 'auto max-content',
               }}
             >
               {this.recursiveCloneChildren(this.props.children, i, 0, 0)}
-              <Container heightPercent={100}>{this.getDeleteControl(i)}</Container>
+              <Container position='relative' style={{ zIndex: 1 }} heightPercent={100}>
+                {this.getDeleteControl(i)}
+              </Container>
             </Container>
           )}
 
@@ -121,10 +129,12 @@ export class Clone extends React.Component<IProps, IState> {
               fluid={true}
               display='grid'
               style={{
-                gridTemplateColumns: 'max-content auto'
+                gridTemplateColumns: 'max-content auto',
               }}
             >
-              <Container heightPercent={100}>{this.getDeleteControl(i)}</Container>
+              <Container heightPercent={100} position='relative' style={{ zIndex: 1 }}>
+                {this.getDeleteControl(i)}
+              </Container>
               {this.recursiveCloneChildren(this.props.children, i, 0, 0)}
             </Container>
           )}
@@ -139,7 +149,9 @@ export class Clone extends React.Component<IProps, IState> {
     }
 
     const bottomContainer = (
-      <Container fluid>{this.props.addControlPosition === 'bottom' && this.getAddControl()}</Container>
+      <Container fluid position='relative' style={{ zIndex: 1 }}>
+        {this.props.addControlPosition === 'bottom' && this.getAddControl()}
+      </Container>
     );
 
     results.push(bottomContainer);
@@ -217,7 +229,11 @@ export class Clone extends React.Component<IProps, IState> {
 
       if (level === 0 && i == children.length - 1) {
         if (this.props.deleteControlPosition == 'bottom') {
-          childProps.children.push(<Container fluid={true}>{this.getDeleteControl(index)}</Container>);
+          childProps.children.push(
+            <Container fluid={true} position='relative' style={{ zIndex: 1 }}>
+              {this.getDeleteControl(index)}
+            </Container>
+          );
         }
       }
 
