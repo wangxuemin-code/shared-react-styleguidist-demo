@@ -28,7 +28,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
 
   protected setMyComponentOptions(options: IOptions) {
     this.setState({
-      myComponentOptions: options
+      myComponentOptions: options,
     });
   }
 
@@ -60,7 +60,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
       width,
       height,
       right: left + width,
-      bottom: top + height
+      bottom: top + height,
     };
   }
 
@@ -68,7 +68,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
     const dataHasProperty = data && Object.keys(data).length > 0;
 
     if ((this.props.loading || loading) && !dataHasProperty) {
-      if (this.state.myComponentOptions && this.state.myComponentOptions.showBackDropWhenLoading) {
+      if (this.state && this.state.myComponentOptions && this.state.myComponentOptions.showBackDropWhenLoading) {
         return (
           <Container
             position='relative'
@@ -84,7 +84,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
       return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
     }
 
-    if (this.state.myComponentOptions) {
+    if (this.state && this.state.myComponentOptions) {
       if (this.state.myComponentOptions.showBackDropWhenLoading) {
         return (
           <Container position='relative' style={{ width: '100%' }}>
