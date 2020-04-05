@@ -68,7 +68,18 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
     const dataHasProperty = data && Object.keys(data).length > 0;
 
     if ((this.props.loading || loading) && !dataHasProperty) {
-      return <Loading backDrop={false} loading={true} />;
+      if (this.state.myComponentOptions && this.state.myComponentOptions.showBackDropWhenLoading) {
+        return (
+          <Container
+            position='relative'
+            style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200, width: '100%' }}
+          >
+            <Loading backDrop={false} loading={true} />
+          </Container>
+        );
+      } else {
+        return <Loading backDrop={false} loading={true} />;
+      }
     } else if (this.props.error || error) {
       return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
     }
@@ -78,7 +89,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
         return (
           <Container
             position='relative'
-            style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200 }}
+            style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200, width: '100%' }}
           >
             <>
               {(this.props.loading || loading) && (
