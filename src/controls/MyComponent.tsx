@@ -87,10 +87,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
     if (this.state.myComponentOptions) {
       if (this.state.myComponentOptions.showBackDropWhenLoading) {
         return (
-          <Container
-            position='relative'
-            style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200, width: '100%' }}
-          >
+          <Container position='relative' style={{ width: '100%' }}>
             <>
               {(this.props.loading || loading) && (
                 <Loading
