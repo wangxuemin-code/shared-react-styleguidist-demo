@@ -1,19 +1,36 @@
 import * as React from 'react';
 import { ErrorHandle } from '../helpers';
 import { Loading, ErrorPage } from '.';
+import { Controls } from '../index-prod';
 
 interface IProps {
   loading?: boolean;
   error?: any;
 }
 
-export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> {
+interface IState {
+  myComponentOptions?: IOptions;
+}
+
+interface IOptions {
+  loadingContainerMinHeight?: number;
+  loadingContainerVariant?: 'white' | 'black';
+  showBackDropWhenLoading?: boolean;
+}
+
+export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S & IState> {
   private offsetBase: any;
 
   public componentWillUnmount() {
     if (this.offsetBase) {
       document.body.removeChild(this.offsetBase);
     }
+  }
+
+  protected setMyComponentOptions(options: IOptions) {
+    this.setState({
+      myComponentOptions: options
+    });
   }
 
   protected getAbsolutePositionOfDOMElement(el: HTMLElement) {
@@ -57,12 +74,29 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S> 
       return <ErrorPage type={'500'} message={ErrorHandle.formatError(error).message} />;
     }
 
+    if (this.state.myComponentOptions) {
+      if (this.state.myComponentOptions.showBackDropWhenLoading) {
+        return (
+          <Controls.Container
+            position='relative'
+            style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200 }}
+          >
+            <>
+              {(this.props.loading || loading) && (
+                <Loading
+                  backDrop={true}
+                  variant={this.state.myComponentOptions.loadingContainerVariant || 'white'}
+                  loading={true}
+                />
+              )}
+
+              {typeof component === 'function' ? component() : component}
+            </>
+          </Controls.Container>
+        );
+      }
+    }
+
     return typeof component === 'function' ? component() : component;
-    // <Controls.Container position='relative' className={'my-component'}>
-    //   {typeof component === 'function' ? component() : component}
-    //   {(this.props.loading || loading) && dataHasProperty && (
-    //     <Loading backDrop={true} variant={'white'} loading={true} />
-    //   )}
-    // </Controls.Container>
   }
 }
