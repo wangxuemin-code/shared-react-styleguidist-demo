@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { ErrorHandle } from '../helpers';
-import { Loading, ErrorPage } from '.';
-import { Controls } from '../index-prod';
+import { Loading, ErrorPage, Container } from '.';
 
 interface IProps {
   loading?: boolean;
@@ -77,7 +76,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
     if (this.state.myComponentOptions) {
       if (this.state.myComponentOptions.showBackDropWhenLoading) {
         return (
-          <Controls.Container
+          <Container
             position='relative'
             style={{ minHeight: this.state.myComponentOptions.loadingContainerMinHeight || 200 }}
           >
@@ -92,7 +91,7 @@ export class MyComponent<P = {}, S = {}> extends React.Component<P & IProps, S &
 
               {typeof component === 'function' ? component() : component}
             </>
-          </Controls.Container>
+          </Container>
         );
       }
     }
