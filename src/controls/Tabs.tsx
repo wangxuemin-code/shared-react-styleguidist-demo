@@ -25,6 +25,7 @@ interface IProps extends IContainer {
   extraControls?: any;
   animated?: boolean | { inkBar: boolean; tabPane: boolean };
   lazyLoad?: boolean;
+  unmountWhenTabInactive?: boolean;
 }
 
 interface IState {
@@ -36,7 +37,8 @@ export class Tabs extends React.Component<IProps, IState> {
     selectedIndex: 0,
     orientation: 'horizontal',
     tabsContentOrientation: 'inline',
-    lazyLoad: false
+    lazyLoad: false,
+    unmountWhenTabInactive: false
   };
 
   constructor(props: IProps) {
@@ -68,7 +70,7 @@ export class Tabs extends React.Component<IProps, IState> {
       this.props.variant || ''
     ];
 
-    classes = classes.filter(function(el) {
+    classes = classes.filter(function (el) {
       return el != '';
     });
 
@@ -90,6 +92,7 @@ export class Tabs extends React.Component<IProps, IState> {
           tabBarGutter={0}
           type={this.props.basic ? 'line' : 'card'}
           animated={this.props.animated}
+          destroyInactiveTabPane={this.props.unmountWhenTabInactive}
         >
           {this.props.children && <Container>{this.props.children}</Container>}
           {this.props.tabs.map((tab, i) => (
