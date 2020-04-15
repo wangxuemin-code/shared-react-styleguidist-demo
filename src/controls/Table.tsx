@@ -3,6 +3,7 @@ import * as styles from '../css/main.scss';
 var InfiniteScroll = require('react-infinite-scroller');
 import { UuidGenerator } from '../helpers';
 import { Loading, FormControl, Container, IContainer, Icon, Pagination } from '.';
+import { Link } from './Link';
 
 export interface TableHeaderModel {
   title: string;
@@ -51,6 +52,9 @@ interface IProps extends IContainer {
   threshold?: number;
   useWindow?: boolean;
   initialLoad?: boolean;
+  manualLoadMore?: boolean;
+  manualLoadMoreProcessing?: boolean;
+  manualLoadMoreHasMore?: boolean;
   pagination?: {
     defaultCurrent?: number;
     total: number;
@@ -88,7 +92,7 @@ export class Table extends React.Component<IProps, IState> {
       this.props.basic ? styles.basic : '',
       this.props.striped ? styles.striped : ''
     ];
-    classes = classes.filter(function(el) {
+    classes = classes.filter(function (el) {
       return el != '';
     });
     return (
@@ -153,6 +157,20 @@ export class Table extends React.Component<IProps, IState> {
                 this.props.rows.map((tableRowModel, i) => {
                   return this.getRowDesign(tableRowModel, i);
                 })}
+
+              {this.props.manualLoadMore && this.props.manualLoadMoreHasMore && (
+                <tr>
+                  <td colSpan={100}>
+                    <Container textAlign={'center'} fontSizeRem={0.85}>
+                      {this.props.manualLoadMoreProcessing ? (
+                        <span style={{ fontStyle: 'italic', color: styles.colorPrimary }}>Loading...</span>
+                      ) : (
+                        <Link onClick={this.props.onLoadMore}>Load more</Link>
+                      )}
+                    </Container>
+                  </td>
+                </tr>
+              )}
             </tbody>
           )}
         </table>
@@ -422,7 +440,7 @@ export class Table extends React.Component<IProps, IState> {
     }
 
     // remove duplicate
-    selectedIds = selectedIds.filter(function(item, pos) {
+    selectedIds = selectedIds.filter(function (item, pos) {
       return selectedIds.indexOf(item) == pos;
     });
 
