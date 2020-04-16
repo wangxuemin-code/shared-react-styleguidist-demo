@@ -72,7 +72,7 @@ export class Header extends React.Component<IHeader, IState> {
       <Container display={'flex'} {...this.props}>
         <WrapperContainer display={'flex'}>
           {this.props.logo && (
-            <Link className={styles.logoAnchor} href={'/'} underline={false}>
+            <Link className={styles.logoAnchor} href={'/'} underline={false} useNormalAnchor={true}>
               <Image variant={className && className.includes('alt') ? 'logo alt' : 'logo'} className={styles.icon} />
             </Link>
           )}
