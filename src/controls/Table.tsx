@@ -130,7 +130,10 @@ export class Table extends React.Component<IProps, IState> {
             </tr>
           </thead>
           {this.props.scrollableTBody ? (
-            <Container style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}>
+            <Container
+              style={{ overflowX: 'auto', height: `${this.props.height}px` || '300px', display: 'block' }}
+              className={'table-infinite-scroll-container'}
+            >
               <InfiniteScroll
                 element={'tbody'}
                 pageStart={0}
@@ -161,7 +164,7 @@ export class Table extends React.Component<IProps, IState> {
               {this.props.manualLoadMore && this.props.manualLoadMoreHasMore && (
                 <tr>
                   <td colSpan={100}>
-                    <Container textAlign={'center'} fontSizeRem={0.85}>
+                    <Container textAlign={'center'} fontSizeRem={0.85} className={'table-load-more-container'}>
                       {this.props.manualLoadMoreProcessing ? (
                         <span style={{ fontStyle: 'italic', color: styles.colorPrimary }}>Loading...</span>
                       ) : (
@@ -181,7 +184,11 @@ export class Table extends React.Component<IProps, IState> {
         )}
         {typeof this.props.footer !== 'string' && <Container>{this.props.footer}</Container>}
         {this.props.pagination && (
-          <Container padding={{ topBottomRem: 1 }} style={{ borderTop: '1px solid', borderColor: 'inherit' }}>
+          <Container
+            className={'table-pagination'}
+            padding={{ topBottomRem: 1 }}
+            style={{ borderTop: '1px solid', borderColor: 'inherit' }}
+          >
             <Pagination
               showSizeChanger={
                 this.props.pagination.showSizeChanger !== undefined ? this.props.pagination.showSizeChanger : true
