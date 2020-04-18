@@ -2166,6 +2166,7 @@ class Main extends Controls.MyComponent<
                       title={'STO HALT'}
                       content={'We will notify you when STO is up'}
                       subContent={'2010 August 2018'}
+                      allowClose={true}
                     />
                     <Controls.Divider />
                   </React.Fragment>

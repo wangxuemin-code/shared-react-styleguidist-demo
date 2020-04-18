@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as styles from '../css/main.scss';
 import { stylings } from '../css/theme';
 import { Container, IContainer, Icon } from '.';
+import { AntIcon, Theme } from '../index-prod';
 
 interface IMessage extends IContainer {
   labeled?: boolean;
@@ -25,15 +26,32 @@ interface IMessage extends IContainer {
   title?: any;
   content?: any;
   subContent?: any;
+  allowClose?: boolean;
+  onClosed?: () => void;
 }
 
-export class Message extends React.Component<IMessage, any> {
+interface IState {
+  hide: boolean;
+}
+
+export class Message extends React.Component<IMessage, IState> {
   public static defaultProps: IMessage = {
     icon: '',
     variant: 'primary',
     size: 'normal'
   };
+
+  constructor(props: IMessage) {
+    super(props);
+
+    this.state = {
+      hide: false
+    };
+  }
+
   public render() {
+    if (this.state.hide) return null;
+
     let classes: string[] = [
       styles.istoxMessage,
       this.props.variant || '',
@@ -44,7 +62,7 @@ export class Message extends React.Component<IMessage, any> {
       this.props.variant === 'error' ? styles.danger : ''
     ];
 
-    classes = classes.filter(function(el) {
+    classes = classes.filter(function (el) {
       return el != '';
     });
 
@@ -55,7 +73,7 @@ export class Message extends React.Component<IMessage, any> {
     }
 
     return (
-      <Container {...this.props} className={classes.join(' ')}>
+      <Container {...this.props} className={classes.join(' ')} position='relative'>
         {this.props.labeled && this.props.icon && (
           <Container style={style} className={styles.label}>
             <Icon size={'small'} icon={this.props.icon} />
@@ -89,7 +107,30 @@ export class Message extends React.Component<IMessage, any> {
             )}
           </Container>
         </Container>
+
+        {this.props.allowClose && (
+          <AntIcon.CloseOutlined
+            onClick={this.onCloseClicked}
+            style={{
+              position: 'absolute',
+              right: 7,
+              top: 7,
+              fontSize: 12,
+              color: Theme.stylings.colors.primaryGreyDarker
+            }}
+          />
+        )}
       </Container>
     );
   }
+
+  private onCloseClicked = () => {
+    this.setState({
+      hide: true
+    });
+
+    if (this.props.onClosed) {
+      this.props.onClosed();
+    }
+  };
 }
