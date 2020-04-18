@@ -178,12 +178,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       }
     } else if (value && this.tryParseJsonValue(value)) {
       const obj: any = this.tryParseJsonValue(value);
-      if (
-        obj.src
-          .split(',')[0]
-          .toLowerCase()
-          .indexOf('pdf') > 0
-      ) {
+      if (obj.src.split(',')[0].toLowerCase().indexOf('pdf') > 0) {
         this.setState({
           src: obj.src,
           type: 'pdf',
@@ -197,14 +192,69 @@ export default class FileUploader extends React.Component<IProps, IState> {
           fileName: value
         });
       }
+    } else if (!!value) {
+      this.setState({
+        src: value,
+        uploaded: false,
+        uploadStatus: 0,
+        uploadProgress: 0,
+        type: this.getBase64ExtensionType(value),
+        extension: this.getBase64Extension(value),
+        fileName: '',
+        fileSize: this.getBase64FileSize(value)
+      });
     } else if (value === undefined || value == '') {
       this.setState({
         src: '',
         type: this.getExtensionType(),
         fileName: '',
-        uploadStatus: 0
+        uploadStatus: 0,
+        uploadProgress: 0
       });
     }
+  }
+
+  private getBase64ExtensionType(base64: string) {
+    const arr = base64.split(';');
+    if (arr.length > 0) {
+      console.log(arr[0]);
+      if (arr[0].indexOf('pdf') >= 0) {
+        return 'pdf';
+      } else if (arr[0].indexOf('png') >= 0) {
+        return 'image';
+      } else if (arr[0].indexOf('jpg') >= 0) {
+        return 'image';
+      } else if (arr[0].indexOf('jpeg') >= 0) {
+        return 'image';
+      } else if (arr[0].indexOf('gif') >= 0) {
+        return 'image';
+      }
+    }
+
+    return 'others';
+  }
+
+  private getBase64Extension(base64: string) {
+    const arr = base64.split(';');
+    if (arr.length > 0) {
+      if (arr[0].indexOf('pdf') >= 0) {
+        return 'pdf';
+      } else if (arr[0].indexOf('png') >= 0) {
+        return 'png';
+      } else if (arr[0].indexOf('jpg') >= 0) {
+        return 'jpg';
+      } else if (arr[0].indexOf('jpeg') >= 0) {
+        return 'jpeg';
+      } else if (arr[0].indexOf('gif') >= 0) {
+        return 'gif';
+      }
+    }
+
+    return '';
+  }
+
+  private getBase64FileSize(base64: string) {
+    return base64.length * (3 / 4) - 2;
   }
 
   private onDragEnter = () => {
@@ -279,12 +329,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
   }
 
   private getExtension(fileName: string): string {
-    return fileName
-      .split(/\#|\?/)[0]
-      .split('.')
-      .pop()!
-      .trim()
-      .toLowerCase();
+    return fileName.split(/\#|\?/)[0].split('.').pop()!.trim().toLowerCase();
   }
 
   private getUploaderDesign() {
@@ -295,7 +340,7 @@ export default class FileUploader extends React.Component<IProps, IState> {
       this.props.disabled ? styles.disabled : '',
       this.state.dragOver ? styles.dragOver : ''
     ];
-    classes = classes.filter(function(el) {
+    classes = classes.filter(function (el) {
       return el != '';
     });
     return (
