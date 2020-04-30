@@ -20,6 +20,7 @@ interface IMessage extends IContainer {
     | 'success'
     | 'warning'
     | 'danger'
+    | 'dark-warning'
     | 'error';
   messageColor?: string;
   size?: 'small' | 'normal';
