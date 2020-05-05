@@ -5,10 +5,12 @@
   "main": "build/index.js",
   "typings": "build/index-prod.d.ts",
   "scripts": {
+    "start": "npx styleguidist server",
+    "build": "npx styleguidist build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "prepare": "install-peers",
     "build-theme": "./node_modules/.bin/tsc --target 'ES5' --declaration  ./src/css/theme/theme.ts",
-    "build": "npm run build-theme && ./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env=prod && npm run compile-scss && npm run copy-theme",
-    "start": "npm run build-theme && ./node_modules/.bin/webpack-dev-server --mode development --open --config ./webpack/webpack.config.js --env.env=dev",
     "prepublishOnly": "npm run build",
     "compile-scss": "./node_modules/.bin/webpack --mode production --config ./webpack/webpack.config.js --env.env='build-css'",
     "copy-theme": "cp ./src/css/theme/theme.js ./build/css/theme/"
@@ -25,6 +27,8 @@
     "babel-preset-es2015": "^6.24.1",
     "ignore-loader": "^0.1.2",
     "node-sass": "^4.12.0",
+    "react-docgen-typescript": "^1.16.4",
+    "react-styleguidist": "^11.0.5",
     "sass": "^1.15.1",
     "webpack-bundle-analyzer": "^3.6.0"
   },

@@ -16,7 +16,7 @@ const host = process.env.HOST || '0.0.0.0';
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 // Convert js strings to dimenssions
-const convertStringToSassDimension = function(result) {
+const convertStringToSassDimension = function (result) {
   // Only attempt to convert strings
   if (typeof result !== 'string') {
     return result;
@@ -35,16 +35,16 @@ const convertStringToSassDimension = function(result) {
 
 module.exports = {
   entry: {
-    'istox-shared': './src/index-dev.tsx'
+    'istox-shared': './src/index-dev.tsx',
   },
   // To enhance the debugging process. More info: https://webpack.js.org/configuration/devtool/
   devtool: 'inline-source-map',
   output: {
     // Add /* filename */ comments to generated require()s in the output.
-    pathinfo: true
+    pathinfo: true,
   },
   watchOptions: {
-    poll: true
+    poll: true,
   },
   devServer: {
     // All options here: https://webpack.js.org/configuration/dev-server/
@@ -61,19 +61,19 @@ module.exports = {
     stats: {
       colors: true, // color is life
       chunks: false, // this reduces the amount of stuff I see in my terminal; configure to your needs
-      'errors-only': true
-    }
+      'errors-only': true,
+    },
   },
   plugins: [
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'server',
-      generateStatsFile: true,
-      statsOptions: { source: false }
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'server',
+    //   generateStatsFile: true,
+    //   statsOptions: { source: false }
+    // }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
-      template: `${commonPaths.contentBasePath}/index.html`
+      template: `${commonPaths.contentBasePath}/index.html`,
     }),
 
     // ignore *.css.d.ts which cause problems integrated with HMR
@@ -91,8 +91,8 @@ module.exports = {
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
-      filename: 'istox.css'
-    })
+      filename: 'istox.css',
+    }),
   ],
   module: {
     // loaders -> rules in webpack 2
@@ -104,38 +104,38 @@ module.exports = {
         enforce: 'pre',
         test: /\.js$/,
         loader: 'source-map-loader',
-        exclude: '/node_modules/'
+        exclude: '/node_modules/',
       },
       {
         enforce: 'pre',
         test: /\.tsx?$/,
         use: 'source-map-loader',
-        exclude: '/node_modules/'
+        exclude: '/node_modules/',
       },
       {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
             loader: 'file-loader',
-            options: {}
-          }
-        ]
+            options: {},
+          },
+        ],
       },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader'
+        loader: 'file-loader',
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
       },
       {
         test: /\.ts(x?)$/,
@@ -145,16 +145,16 @@ module.exports = {
           {
             loader: 'awesome-typescript-loader',
             options: {
-              happyPackMode: true // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
-            }
-          }
-        ]
+              happyPackMode: true, // IMPORTANT! use happyPackMode mode to speed-up compilation and reduce errors reported to webpack
+            },
+          },
+        ],
       },
       {
         test: /(istox.css|ReactToastify.css)/,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'css-loader',
@@ -163,10 +163,10 @@ module.exports = {
                 true ||
                 {
                   /* CSSNano Options */
-                }
-            }
-          }
-        ]
+                },
+            },
+          },
+        ],
       },
       {
         test: /\.(css|scss)$/i,
@@ -174,7 +174,7 @@ module.exports = {
         include: commonPaths.srcPath,
         use: [
           {
-            loader: 'style-loader'
+            loader: 'style-loader',
           },
           {
             loader: 'typings-for-css-modules-loader',
@@ -185,8 +185,8 @@ module.exports = {
               camelCase: true,
               localIdentName: '[local]',
               minimize: false,
-              namedExport: true
-            }
+              namedExport: true,
+            },
           },
           {
             loader: 'postcss-loader',
@@ -198,16 +198,16 @@ module.exports = {
                 require('postcss-custom-properties')(),
                 // https://github.com/ai/browserslist
                 require('autoprefixer')({
-                  browsers: ['last 2 versions', 'ie >= 9']
-                })
-              ]
-            }
+                  browsers: ['last 2 versions', 'ie >= 9'],
+                }),
+              ],
+            },
           },
           {
             loader: 'sass-loader',
             options: {
               functions: {
-                'get($keys)': function(keys) {
+                'get($keys)': function (keys) {
                   keys = keys.getValue().split('.');
                   var result = require(commonPaths.srcPath + '/css/theme/theme.js').stylings;
                   var i;
@@ -217,7 +217,7 @@ module.exports = {
                     if (typeof result === 'string') {
                       result = convertStringToSassDimension(result);
                     } else if (typeof result === 'object') {
-                      Object.keys(result).forEach(function(key) {
+                      Object.keys(result).forEach(function (key) {
                         var value = result[key];
                         result[key] = convertStringToSassDimension(value);
                       });
@@ -225,12 +225,12 @@ module.exports = {
                   }
                   result = sassUtils.castToSass(result);
                   return result;
-                }
-              }
-            }
-          }
-        ]
-      }
-    ]
-  }
+                },
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
 };
